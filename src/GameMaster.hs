@@ -49,13 +49,11 @@ load filename =
 
 makeGameMaster :: Yaml.Object -> Result
 makeGameMaster yamlObject =
-  case getItemTemplates yamlObject of
-    Just itemTemplates ->
-      let battleSettings = getFirst "battleSettings" itemTemplates
-          stab = getFloatMaybe "sameTypeAttackBonusMultiplier" battleSettings
-          types = makeObjects "typeEffective" "attackType" makeType itemTemplates
-      in Just []
-    _ -> Nothing
+  getItemTemplates yamlObject >>= \ itemTemplates ->
+    let battleSettings = getFirst "battleSettings" itemTemplates
+        stab = getFloatMaybe "sameTypeAttackBonusMultiplier" battleSettings
+        types = makeObjects "typeEffective" "attackType" makeType itemTemplates
+    in Just []
 
 getAll :: Text -> [ItemTemplate] -> [ItemTemplate]
 getAll filterKey itemTemplates =
