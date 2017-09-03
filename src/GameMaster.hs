@@ -8,14 +8,14 @@ import           Data.Text (Text)
 import qualified Data.Yaml as Yaml
 import           Data.Yaml (ParseException)
 import Data.Yaml (FromJSON(..), (.:))  -- ???
-import qualified Data.Map.Strict as Map
-import           Data.Map.Strict (Map)
+import qualified Data.HashMap.Strict as HashMap
+import           Data.HashMap.Strict (HashMap)
 import qualified Data.Vector as Vector
 import           Data.Vector (Vector)
 
 data GameMaster = GameMaster {
-  pokemonBases  :: Map String PokemonBase,
-  moves         :: Map String Move,
+  pokemonBases  :: HashMap String PokemonBase,
+  moves         :: HashMap String Move,
   cpMultipliers :: Vector Float,
   stardustCost  :: Vector Int
 } deriving (Show)
@@ -41,6 +41,8 @@ load filename =
 
 createGameMaster :: Yaml.Object -> Result
 createGameMaster yamlObject =
+  
+
   case getItemTemplates yamlObject of
     Just itemTemplates ->
       let types = filter (has "typeEffective") itemTemplates
@@ -48,21 +50,12 @@ createGameMaster yamlObject =
     _ -> Nothing
 
 has :: Text -> Yaml.Object -> Bool
-has key yamlObject =
-  Map.member key yamlObject
-
-{-
-has :: Text -> Yaml.Object -> Bool
-has key yamlObject =
-  case Yaml.parseMaybe (.: key) yamlObject :: Maybe Yaml.Value of
-    Just _ -> True
-    _ -> False
--}
+has = HashMap.member
 
 getItemTemplates :: Yaml.Object -> Maybe [Yaml.Object]
 getItemTemplates yamlObject =
   Yaml.parseMaybe (.: "itemTemplates") yamlObject
 
 {-
-  GameMaster Map.empty Map.empty Vector.empty Vector.empty
+  GameMaster HashMap.empty HashMap.empty Vector.empty Vector.empty
 -}

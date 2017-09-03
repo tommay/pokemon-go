@@ -18,7 +18,8 @@ library
   exposed-modules:     MyPokemon, GameMaster
   other-modules:
   ghc-options:         -O2 -threaded -rtsopts -with-rtsopts=-N
-  build-depends:       base >= 4.7 && < 5, yaml, containers, vector, text
+  build-depends:       base >= 4.7 && < 5, yaml, containers, vector, text,
+                       unordered-containers
   default-language:    Haskell2010
 
 executable pokemon-exe
