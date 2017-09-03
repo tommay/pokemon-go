@@ -31,27 +31,54 @@ data PokemonBase = PokemonBase {
   parent       :: Maybe String
 } deriving (Show)
 
+data Type = Type {
+  effectiveness :: HashMap Text Float,
+  name          :: Text,
+  stab          :: Float
+} deriving (Show)
+
+
 data Move = Move deriving (Show)
 
 type Result = Maybe [Yaml.Object]
 
 load :: FilePath -> IO (Either ParseException Result)
 load filename =
-  fmap createGameMaster <$> Yaml.decodeFileEither filename
+  fmap makeGameMaster <$> Yaml.decodeFileEither filename
 
-createGameMaster :: Yaml.Object -> Result
-createGameMaster yamlObject =
-  
-
+makeGameMaster :: Yaml.Object -> Result
+makeGameMaster yamlObject =
   case getItemTemplates yamlObject of
     Just itemTemplates ->
-      let types = filter (has "typeEffective") itemTemplates
-      in Just types
+      let types = makeObjects "typeEffective" "attackType" makeType itemTemplates
+      in Just []
     _ -> Nothing
 
-has :: Text -> Yaml.Object -> Bool
-has = HashMap.member
+makeObjects ::
+  Text -> Text -> (Yaml.Object -> a) -> [Yaml.Object] -> HashMap Text a
+makeObjects filterKey nameKey makeObject itemTemplates =
+  foldr (\ yamlObject hash ->
+          case HashMap.lookup nameKey yamlObject of
+            Just (Yaml.String name) ->
+              let obj = makeObject yamlObject
+              in HashMap.insert name obj hash
+            _ -> hash)
+    HashMap.empty
+    $ filter (hasKey filterKey) itemTemplates
 
+makeType :: Yaml.Object -> Type
+makeType yamlObject =
+  Type HashMap.empty "" 0
+
+-- "hasKey" can be done the Yaml.Parser way but it's really convoluted
+-- compared to this simple key lookup.
+--
+hasKey :: Text -> Yaml.Object -> Bool
+hasKey = HashMap.member
+
+-- Here it's nice to use Yaml.Parser because it will error if we don't
+-- get a [Yaml.Object].
+--
 getItemTemplates :: Yaml.Object -> Maybe [Yaml.Object]
 getItemTemplates yamlObject =
   Yaml.parseMaybe (.: "itemTemplates") yamlObject
