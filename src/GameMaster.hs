@@ -48,17 +48,17 @@ load filename =
   fmap makeGameMaster <$> Yaml.decodeFileEither filename
 
 makeGameMaster :: Yaml.Object -> Result
-makeGameMaster yamlObject =
-  getItemTemplates yamlObject >>= \ itemTemplates ->
-    getTypes itemTemplates >>= \ types ->
-      Just []
+makeGameMaster yamlObject = do
+  itemTemplates <- getItemTemplates yamlObject
+  types <- getTypes itemTemplates
+  return []
 
 getTypes :: [ItemTemplate] -> Maybe (HashMap Text Type)
-getTypes itemTemplates =
-  getFirst "battleSettings" itemTemplates >>= \ battleSettings ->
-    getFloatMaybe "sameTypeAttackBonusMultiplier" battleSettings >>= \ stab ->
-      Just $
-        makeObjects "typeEffective" "attackType" (makeType stab) itemTemplates
+getTypes itemTemplates = do
+  battleSettings <- getFirst "battleSettings" itemTemplates
+  stab <- getFloatMaybe "sameTypeAttackBonusMultiplier" battleSettings
+  return $
+    makeObjects "typeEffective" "attackType" (makeType stab) itemTemplates
 
 getAll :: Text -> [ItemTemplate] -> [ItemTemplate]
 getAll filterKey itemTemplates =
