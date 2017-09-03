@@ -50,18 +50,25 @@ load filename =
 makeGameMaster :: Yaml.Object -> Result
 makeGameMaster yamlObject =
   getItemTemplates yamlObject >>= \ itemTemplates ->
-    let battleSettings = getFirst "battleSettings" itemTemplates
-        stab = getFloatMaybe "sameTypeAttackBonusMultiplier" battleSettings
-        types = makeObjects "typeEffective" "attackType" makeType itemTemplates
-    in Just []
+    getTypes itemTemplates >>= \ types ->
+      Just []
+
+getTypes :: [ItemTemplate] -> Maybe (HashMap Text Type)
+getTypes itemTemplates =
+  getFirst "battleSettings" itemTemplates >>= \ battleSettings ->
+    getFloatMaybe "sameTypeAttackBonusMultiplier" battleSettings >>= \ stab ->
+      Just $
+        makeObjects "typeEffective" "attackType" (makeType stab) itemTemplates
 
 getAll :: Text -> [ItemTemplate] -> [ItemTemplate]
 getAll filterKey itemTemplates =
- filter (hasKey filterKey) itemTemplates
+  filter (hasKey filterKey) itemTemplates
 
-getFirst :: Text -> [ItemTemplate] -> ItemTemplate
+getFirst :: Text -> [ItemTemplate] -> Maybe ItemTemplate
 getFirst filterKey itemTemplates =
-  getAll filterKey itemTemplates !! 0
+  case getAll filterKey itemTemplates of
+    [head] -> Just head
+    _ -> Nothing
 
 getFloatMaybe :: Text -> ItemTemplate -> Maybe Float
 getFloatMaybe key itemTemplate =
@@ -79,9 +86,9 @@ makeObjects filterKey nameKey makeObject itemTemplates =
     HashMap.empty
     $ getAll filterKey itemTemplates
 
-makeType :: ItemTemplate -> Type
-makeType yamlObject =
-  Type HashMap.empty "" 0
+makeType :: Float -> ItemTemplate -> Type
+makeType stab yamlObject =
+  Type HashMap.empty "" stab
 
 -- "hasKey" can be done the Yaml.Parser way but it's really convoluted
 -- compared to this simple key lookup.
