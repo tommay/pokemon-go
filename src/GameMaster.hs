@@ -37,8 +37,9 @@ data Type = Type {
   stab          :: Float
 } deriving (Show)
 
-
 data Move = Move deriving (Show)
+
+type ItemTemplate = Yaml.Object
 
 type Result = Maybe [Yaml.Object]
 
@@ -50,12 +51,21 @@ makeGameMaster :: Yaml.Object -> Result
 makeGameMaster yamlObject =
   case getItemTemplates yamlObject of
     Just itemTemplates ->
-      let types = makeObjects "typeEffective" "attackType" makeType itemTemplates
+      let battleSettings = getFirst "battleSettings" itemTemplates
+          types = makeObjects "typeEffective" "attackType" makeType itemTemplates
       in Just []
     _ -> Nothing
 
+getAll :: Text -> [ItemTemplate] -> [ItemTemplate]
+getAll filterKey itemTemplates =
+ filter (hasKey filterKey) itemTemplates
+
+getFirst :: Text -> [ItemTemplate] -> ItemTemplate
+getFirst filterKey itemTemplates =
+  getAll filterKey itemTemplates !! 0
+
 makeObjects ::
-  Text -> Text -> (Yaml.Object -> a) -> [Yaml.Object] -> HashMap Text a
+  Text -> Text -> (ItemTemplate -> a) -> [ItemTemplate] -> HashMap Text a
 makeObjects filterKey nameKey makeObject itemTemplates =
   foldr (\ yamlObject hash ->
           case HashMap.lookup nameKey yamlObject of
@@ -64,9 +74,9 @@ makeObjects filterKey nameKey makeObject itemTemplates =
               in HashMap.insert name obj hash
             _ -> hash)
     HashMap.empty
-    $ filter (hasKey filterKey) itemTemplates
+    $ getAll filterKey itemTemplates
 
-makeType :: Yaml.Object -> Type
+makeType :: ItemTemplate -> Type
 makeType yamlObject =
   Type HashMap.empty "" 0
 
@@ -77,9 +87,10 @@ hasKey :: Text -> Yaml.Object -> Bool
 hasKey = HashMap.member
 
 -- Here it's nice to use Yaml.Parser because it will error if we don't
--- get a [Yaml.Object].
+-- get a [ItemTemplate], i.e., it checks that the Yaml.Values are the
+-- correct type thanks to type inference.
 --
-getItemTemplates :: Yaml.Object -> Maybe [Yaml.Object]
+getItemTemplates :: Yaml.Object -> Maybe [ItemTemplate]
 getItemTemplates yamlObject =
   Yaml.parseMaybe (.: "itemTemplates") yamlObject
 
