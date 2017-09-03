@@ -52,6 +52,7 @@ makeGameMaster yamlObject =
   case getItemTemplates yamlObject of
     Just itemTemplates ->
       let battleSettings = getFirst "battleSettings" itemTemplates
+          stab = getFloatMaybe "sameTypeAttackBonusMultiplier" battleSettings
           types = makeObjects "typeEffective" "attackType" makeType itemTemplates
       in Just []
     _ -> Nothing
@@ -63,6 +64,10 @@ getAll filterKey itemTemplates =
 getFirst :: Text -> [ItemTemplate] -> ItemTemplate
 getFirst filterKey itemTemplates =
   getAll filterKey itemTemplates !! 0
+
+getFloatMaybe :: Text -> ItemTemplate -> Maybe Float
+getFloatMaybe key itemTemplate =
+  Yaml.parseMaybe (.: key) itemTemplate
 
 makeObjects ::
   Text -> Text -> (ItemTemplate -> a) -> [ItemTemplate] -> HashMap Text a
