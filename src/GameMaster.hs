@@ -64,11 +64,14 @@ makeGameMaster yamlObject = do
   cpMultipliers <- do
     playerLevel <- getFirst itemTemplates "playerLevel"
     getObjectValue playerLevel "cpMultiplier"
+  stardustCost <- do
+    pokemonUpgrades <- getFirst itemTemplates "pokemonUpgrades"
+    getObjectValue pokemonUpgrades "stardustCost"
   GameMaster
     <$> Just HashMap.empty
     <*> Just HashMap.empty
     <*> cpMultipliers
-    <*> Just Vector.empty
+    <*> stardustCost
 
 getTypes :: [ItemTemplate] -> Maybe (TextMap Type)
 getTypes itemTemplates = do
