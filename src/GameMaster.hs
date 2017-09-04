@@ -141,10 +141,10 @@ makePokemonBase types moves pokemonSettings = do
 makeObjects :: Text -> Text -> (ItemTemplate -> Maybe a) -> [ItemTemplate]
   -> Maybe (TextMap a)
 makeObjects filterKey nameKey makeObject itemTemplates =
-  Just $ foldr (\ yamlObject hash ->
-    case HashMap.lookup nameKey yamlObject of
-      Just (Yaml.String name) ->
-        case makeObject yamlObject of
+  return $ foldr (\ itemTemplate hash ->
+    case getObjectValue itemTemplate nameKey of
+      Just name ->
+        case makeObject itemTemplate of
           Just obj ->
             HashMap.insert name obj hash
           _ -> hash
