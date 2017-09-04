@@ -141,10 +141,12 @@ makePokemonBase types moves pokemonSettings = do
 makeObjects :: Text -> Text -> (ItemTemplate -> Maybe a) -> [ItemTemplate]
   -> Maybe (TextMap a)
 makeObjects filterKey nameKey makeObject itemTemplates =
-  foldr (\ itemTemplate maybeHash -> do
-      let name = getObjectValue itemTemplate nameKey
-      let obj = makeObject itemTemplate
-      HashMap.insert <$> name <*> obj <*> maybeHash)
+  foldr (\ itemTemplate maybeHash -> case maybeHash of
+      Just hash -> do
+        name <- getObjectValue itemTemplate nameKey
+        obj <- makeObject itemTemplate
+        return $ HashMap.insert name obj hash
+      hash -> hash)
     (Just HashMap.empty)
     $ getAll itemTemplates filterKey
 
