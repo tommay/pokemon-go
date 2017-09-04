@@ -137,17 +137,26 @@ makeMove types itemTemplate = do
 makePokemonBase :: TextMap Type -> TextMap Move -> ItemTemplate -> Maybe PokemonBase
 makePokemonBase types moves pokemonSettings = do
   let getValue key = getObjectValue pokemonSettings key
+
   ptypes <- do
     ptype <- getValue "type"
     let ptypes = case getValue "type2" of
           Nothing -> [ptype]
           Just ptype2 -> [ptype, ptype2]
     mapM (get types) ptypes
+
   statsObject <- getValue "stats"
   attack <- getObjectValue statsObject "attack"
   defense <- getObjectValue statsObject "defense"
   stamina <- getObjectValue statsObject "stamina"
-  return $ PokemonBase ptypes attack defense stamina [] [] [] Nothing
+
+  evolutions <- do
+    case getValue "evolutionBranch" of
+      Just evolutionBranch ->
+        mapM (\ branch -> getObjectValue branch "evolution") evolutionBranch
+      Nothing -> Just []
+
+  return $ PokemonBase ptypes attack defense stamina evolutions [] [] Nothing
 
 -- "hasKey" can be done the Yaml.Parser way but it's really convoluted
 -- compared to this simple key lookup.
