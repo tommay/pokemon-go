@@ -60,10 +60,10 @@ makeGameMaster yamlObject = do
   itemTemplates <- getItemTemplates yamlObject
   moves <- do
     types <- getTypes itemTemplates
-    return $ getMoves types itemTemplates
+    getMoves types itemTemplates
   cpMultipliers <- do
     playerLevel <- getFirst itemTemplates "playerLevel"
-    return $ getObjectValue playerLevel "cpMultiplier"
+    getObjectValue playerLevel "cpMultiplier"
   GameMaster
     <$> Just HashMap.empty
     <*> Just HashMap.empty
