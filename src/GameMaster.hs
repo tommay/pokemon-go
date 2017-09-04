@@ -82,7 +82,7 @@ getItemTemplates yamlObject =
 getTypes :: [ItemTemplate] -> Maybe (TextMap Type)
 getTypes itemTemplates = do
   battleSettings <- getFirst itemTemplates "battleSettings"
-  stab <- getFloatMaybe "sameTypeAttackBonusMultiplier" battleSettings
+  stab <- getObjectValue battleSettings "sameTypeAttackBonusMultiplier"
   makeObjects "typeEffective" "attackType" (makeType stab) itemTemplates
 
 makeType :: Float -> ItemTemplate -> Maybe Type
@@ -161,10 +161,6 @@ getFirst itemTemplates filterKey =
   case getAll itemTemplates filterKey of
     [head] -> Just head
     _ -> Nothing
-
-getFloatMaybe :: Text -> ItemTemplate -> Maybe Float
-getFloatMaybe key itemTemplate =
-  Yaml.parseMaybe (.: key) itemTemplate
 
 -- This seems roundabout, but the good thing is that the type "a" is
 -- inferred from the usage context so the result is error-checked.
