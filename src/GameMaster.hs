@@ -156,9 +156,17 @@ makePokemonBase types moves pokemonSettings = do
         mapM (\ branch -> getObjectValue branch "evolution") evolutionBranch
       Nothing -> Just []
 
+  let getMoves key = do
+        moveNames <- getValue key
+        mapM (get moves) moveNames
+
+  quickMoves <- getMoves "quickMoves"
+  chargeMoves <- getMoves "cinematicMoves"
+
   let parent = getValue "parentPokemonId"
 
-  return $ PokemonBase ptypes attack defense stamina evolutions [] [] parent
+  return $ PokemonBase ptypes attack defense stamina evolutions
+    quickMoves chargeMoves parent
 
 -- "hasKey" can be done the Yaml.Parser way but it's really convoluted
 -- compared to this simple key lookup.
