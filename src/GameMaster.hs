@@ -51,8 +51,11 @@ type TextMap = HashMap Text
 type Result = Maybe [Yaml.Object]
 
 load :: FilePath -> IO (Either ParseException Result)
-load filename =
-  fmap makeGameMaster <$> Yaml.decodeFileEither filename
+load filename = do
+  either <- Yaml.decodeFileEither filename
+  return $ do
+    yamlObject <- either
+    return $ makeGameMaster yamlObject
 
 makeGameMaster :: Yaml.Object -> Result
 makeGameMaster yamlObject = do
@@ -106,24 +109,23 @@ makeType stab itemTemplate =
 get :: TextMap a -> Text -> Maybe a
 get map key = HashMap.lookup key map
 
+-- This seems roundabout, but the good thing is that the type "a" is
+-- inferred from the usage context so the result is error-checked.
+--
+getObjectValue :: FromJSON a => Yaml.Object -> Text -> Maybe a
+getObjectValue yamlObject key =
+  Yaml.parseMaybe (.: key) yamlObject
+
 makeMove :: TextMap Type -> ItemTemplate -> Maybe Move
 makeMove types itemTemplate = do
-  typeName <- Yaml.parseMaybe (.: "type") itemTemplate
-  moveType <- get types typeName
-  return $ Move moveType 0 0 0
-
-{-
-  Move <$>
-    moveType <*>
-    HashMap.lookup itemTemlate "power"
--}
-
-{-
- <*>
-    y .: "power" <*>
-    y .: "duration" <*>
-    y .: "energy"
--}
+  let getTemplateValue text = getObjectValue itemTemplate text
+  Move
+    <$> do
+      typeName <- getTemplateValue "type"
+      get types typeName
+    <*> getTemplateValue "power"
+    <*> getTemplateValue "duration"
+    <*> getTemplateValue "energy"
 
 -- "hasKey" can be done the Yaml.Parser way but it's really convoluted
 -- compared to this simple key lookup.
