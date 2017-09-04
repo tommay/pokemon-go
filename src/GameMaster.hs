@@ -71,57 +71,27 @@ makeGameMaster yamlObject = do
     getObjectValue pokemonUpgrades "stardustCost"
   return $ GameMaster HashMap.empty moves cpMultipliers stardustCost
 
+-- Here it's nice to use Yaml.Parser because it will error if we don't
+-- get a [ItemTemplate], i.e., it checks that the Yaml.Values are the
+-- correct type thanks to type inference.
+--
+getItemTemplates :: Yaml.Object -> Maybe [ItemTemplate]
+getItemTemplates yamlObject =
+  Yaml.parseMaybe (.: "itemTemplates") yamlObject
+
 getTypes :: [ItemTemplate] -> Maybe (TextMap Type)
 getTypes itemTemplates = do
   battleSettings <- getFirst itemTemplates "battleSettings"
   stab <- getFloatMaybe "sameTypeAttackBonusMultiplier" battleSettings
   makeObjects "typeEffective" "attackType" (makeType stab) itemTemplates
 
-getMoves :: TextMap Type -> [ItemTemplate] -> Maybe (TextMap Move)
-getMoves types itemTemplates =
-  makeObjects "moveSettings" "movementId" (makeMove types) itemTemplates
-
-getAll :: [ItemTemplate] -> Text -> [ItemTemplate]
-getAll itemTemplates filterKey =
-  filter (hasKey filterKey) itemTemplates
-
-getFirst :: [ItemTemplate] -> Text -> Maybe ItemTemplate
-getFirst itemTemplates filterKey =
-  case getAll itemTemplates filterKey of
-    [head] -> Just head
-    _ -> Nothing
-
-getFloatMaybe :: Text -> ItemTemplate -> Maybe Float
-getFloatMaybe key itemTemplate =
-  Yaml.parseMaybe (.: key) itemTemplate
-
-makeObjects :: Text -> Text -> (ItemTemplate -> Maybe a) -> [ItemTemplate]
-  -> Maybe (TextMap a)
-makeObjects filterKey nameKey makeObject itemTemplates =
-  Just $ foldr (\ yamlObject hash ->
-    case HashMap.lookup nameKey yamlObject of
-      Just (Yaml.String name) ->
-        case makeObject yamlObject of
-          Just obj ->
-            HashMap.insert name obj hash
-          _ -> hash
-      _ -> hash)
-    HashMap.empty
-    $ getAll itemTemplates filterKey
-
 makeType :: Float -> ItemTemplate -> Maybe Type
 makeType stab itemTemplate =
   Just $ Type HashMap.empty "" stab
 
-get :: TextMap a -> Text -> Maybe a
-get map key = HashMap.lookup key map
-
--- This seems roundabout, but the good thing is that the type "a" is
--- inferred from the usage context so the result is error-checked.
---
-getObjectValue :: FromJSON a => Yaml.Object -> Text -> Maybe a
-getObjectValue yamlObject key =
-  Yaml.parseMaybe (.: key) yamlObject
+getMoves :: TextMap Type -> [ItemTemplate] -> Maybe (TextMap Move)
+getMoves types itemTemplates =
+  makeObjects "moveSettings" "movementId" (makeMove types) itemTemplates
 
 makeMove :: TextMap Type -> ItemTemplate -> Maybe Move
 makeMove types itemTemplate = do
@@ -168,16 +138,46 @@ makePokemonBase types moves pokemonSettings = do
   return $ PokemonBase ptypes attack defense stamina evolutions
     quickMoves chargeMoves parent
 
+makeObjects :: Text -> Text -> (ItemTemplate -> Maybe a) -> [ItemTemplate]
+  -> Maybe (TextMap a)
+makeObjects filterKey nameKey makeObject itemTemplates =
+  Just $ foldr (\ yamlObject hash ->
+    case HashMap.lookup nameKey yamlObject of
+      Just (Yaml.String name) ->
+        case makeObject yamlObject of
+          Just obj ->
+            HashMap.insert name obj hash
+          _ -> hash
+      _ -> hash)
+    HashMap.empty
+    $ getAll itemTemplates filterKey
+
+getAll :: [ItemTemplate] -> Text -> [ItemTemplate]
+getAll itemTemplates filterKey =
+  filter (hasKey filterKey) itemTemplates
+
+getFirst :: [ItemTemplate] -> Text -> Maybe ItemTemplate
+getFirst itemTemplates filterKey =
+  case getAll itemTemplates filterKey of
+    [head] -> Just head
+    _ -> Nothing
+
+getFloatMaybe :: Text -> ItemTemplate -> Maybe Float
+getFloatMaybe key itemTemplate =
+  Yaml.parseMaybe (.: key) itemTemplate
+
+-- This seems roundabout, but the good thing is that the type "a" is
+-- inferred from the usage context so the result is error-checked.
+--
+getObjectValue :: FromJSON a => Yaml.Object -> Text -> Maybe a
+getObjectValue yamlObject key =
+  Yaml.parseMaybe (.: key) yamlObject
+
 -- "hasKey" can be done the Yaml.Parser way but it's really convoluted
 -- compared to this simple key lookup.
 --
 hasKey :: Text -> Yaml.Object -> Bool
 hasKey = HashMap.member
 
--- Here it's nice to use Yaml.Parser because it will error if we don't
--- get a [ItemTemplate], i.e., it checks that the Yaml.Values are the
--- correct type thanks to type inference.
---
-getItemTemplates :: Yaml.Object -> Maybe [ItemTemplate]
-getItemTemplates yamlObject =
-  Yaml.parseMaybe (.: "itemTemplates") yamlObject
+get :: TextMap a -> Text -> Maybe a
+get map key = HashMap.lookup key map
