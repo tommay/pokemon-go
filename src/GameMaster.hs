@@ -32,14 +32,21 @@ data PokemonBase = PokemonBase {
 } deriving (Show)
 
 data Type = Type {
-  effectiveness :: HashMap Text Float,
+  effectiveness :: TextMap Float,
   name          :: Text,
   stab          :: Float
 } deriving (Show)
 
-data Move = Move deriving (Show)
+data Move = Move {
+  moveType :: Type,
+  power    :: Float,
+  duration :: Float,
+  energy   :: Float
+} deriving (Show)
 
 type ItemTemplate = Yaml.Object
+
+type TextMap = HashMap Text
 
 type Result = Maybe [Yaml.Object]
 
@@ -51,14 +58,18 @@ makeGameMaster :: Yaml.Object -> Result
 makeGameMaster yamlObject = do
   itemTemplates <- getItemTemplates yamlObject
   types <- getTypes itemTemplates
+  moves <- getMoves types itemTemplates
   return []
 
-getTypes :: [ItemTemplate] -> Maybe (HashMap Text Type)
+getTypes :: [ItemTemplate] -> Maybe (TextMap Type)
 getTypes itemTemplates = do
   battleSettings <- getFirst "battleSettings" itemTemplates
   stab <- getFloatMaybe "sameTypeAttackBonusMultiplier" battleSettings
-  return $
-    makeObjects "typeEffective" "attackType" (makeType stab) itemTemplates
+  makeObjects "typeEffective" "attackType" (makeType stab) itemTemplates
+
+getMoves :: TextMap Type -> [ItemTemplate] -> Maybe (TextMap Move)
+getMoves types itemTemplates =
+  makeObjects "moveSettings" "movementId" (makeMove types) itemTemplates
 
 getAll :: Text -> [ItemTemplate] -> [ItemTemplate]
 getAll filterKey itemTemplates =
@@ -74,21 +85,45 @@ getFloatMaybe :: Text -> ItemTemplate -> Maybe Float
 getFloatMaybe key itemTemplate =
   Yaml.parseMaybe (.: key) itemTemplate
 
-makeObjects ::
-  Text -> Text -> (ItemTemplate -> a) -> [ItemTemplate] -> HashMap Text a
+makeObjects :: Text -> Text -> (ItemTemplate -> Maybe a) -> [ItemTemplate]
+  -> Maybe (TextMap a)
 makeObjects filterKey nameKey makeObject itemTemplates =
-  foldr (\ yamlObject hash ->
-          case HashMap.lookup nameKey yamlObject of
-            Just (Yaml.String name) ->
-              let obj = makeObject yamlObject
-              in HashMap.insert name obj hash
-            _ -> hash)
+  Just $ foldr (\ yamlObject hash ->
+    case HashMap.lookup nameKey yamlObject of
+      Just (Yaml.String name) ->
+        case makeObject yamlObject of
+          Just obj ->
+            HashMap.insert name obj hash
+          _ -> hash
+      _ -> hash)
     HashMap.empty
     $ getAll filterKey itemTemplates
 
-makeType :: Float -> ItemTemplate -> Type
-makeType stab yamlObject =
-  Type HashMap.empty "" stab
+makeType :: Float -> ItemTemplate -> Maybe Type
+makeType stab itemTemplate =
+  Just $ Type HashMap.empty "" stab
+
+get :: TextMap a -> Text -> Maybe a
+get map key = HashMap.lookup key map
+
+makeMove :: TextMap Type -> ItemTemplate -> Maybe Move
+makeMove types itemTemplate = do
+  typeName <- Yaml.parseMaybe (.: "type") itemTemplate
+  moveType <- get types typeName
+  return $ Move moveType 0 0 0
+
+{-
+  Move <$>
+    moveType <*>
+    HashMap.lookup itemTemlate "power"
+-}
+
+{-
+ <*>
+    y .: "power" <*>
+    y .: "duration" <*>
+    y .: "energy"
+-}
 
 -- "hasKey" can be done the Yaml.Parser way but it's really convoluted
 -- compared to this simple key lookup.
