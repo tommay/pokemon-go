@@ -21,14 +21,14 @@ data GameMaster = GameMaster {
 } deriving (Show)
 
 data PokemonBase = PokemonBase {
-  types        :: [String],
+  types        :: [Type],
   attack       :: Int,
   defense      :: Int,
   stamina      :: Int,
-  evolutions   :: [String],
-  quickMoves   :: [String],
-  chargeMoves  :: [String],
-  parent       :: Maybe String
+  evolutions   :: [Text],
+  quickMoves   :: [Move],
+  chargeMoves  :: [Move],
+  parent       :: Maybe Text
 } deriving (Show)
 
 data Type = Type {
@@ -58,9 +58,9 @@ load filename = do
 makeGameMaster :: Yaml.Object -> Maybe GameMaster
 makeGameMaster yamlObject = do
   itemTemplates <- getItemTemplates yamlObject
-  moves <- do
-    types <- getTypes itemTemplates
-    getMoves types itemTemplates
+  types <- getTypes itemTemplates
+  moves <- getMoves types itemTemplates
+  let pokemonBases = makeObjects "pokemonSettings" "pokemonId" (makePokemonBase types moves) itemTemplates
   cpMultipliers <- do
     playerLevel <- getFirst itemTemplates "playerLevel"
     getObjectValue playerLevel "cpMultiplier"
@@ -131,6 +131,26 @@ makeMove types itemTemplate = do
     <*> getTemplateValue "power"
     <*> getTemplateValue "duration"
     <*> getTemplateValue "energy"
+
+makePokemonBase :: TextMap Type -> TextMap Move -> ItemTemplate -> Maybe PokemonBase
+makePokemonBase types moves itemTemplate = do
+  ptype <- getObjectValue itemTemplate "type"
+{-
+  let ptypes =
+    case getObjectValue itemTemplate "type2" of
+      Nothing -> Just [ptype]
+      Just ptype2 -> Just [ptype, ptype2]
+-}
+  let ptypes = map (get types) ["XXX"]
+  PokemonBase
+    <$> ptypes
+    <*> Just 0
+    <*> Just 0
+    <*> Just 0
+    <*> Just []
+    <*> Just []
+    <*> Just []
+    <*> Just Nothing
 
 -- "hasKey" can be done the Yaml.Parser way but it's really convoluted
 -- compared to this simple key lookup.
