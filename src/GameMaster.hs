@@ -60,7 +60,9 @@ makeGameMaster yamlObject = do
   itemTemplates <- getItemTemplates yamlObject
   types <- getTypes itemTemplates
   moves <- getMoves types itemTemplates
-  let pokemonBases = makeObjects "pokemonSettings" "pokemonId" (makePokemonBase types moves) itemTemplates
+  let pokemonBases =
+        makeObjects "pokemonSettings" "pokemonId"
+          (makePokemonBase types moves) itemTemplates
   cpMultipliers <- do
     playerLevel <- getFirst itemTemplates "playerLevel"
     getObjectValue playerLevel "cpMultiplier"
@@ -135,22 +137,38 @@ makeMove types itemTemplate = do
 makePokemonBase :: TextMap Type -> TextMap Move -> ItemTemplate -> Maybe PokemonBase
 makePokemonBase types moves itemTemplate = do
   ptype <- getObjectValue itemTemplate "type"
+  let ptypes = case getObjectValue itemTemplate "type2" of
+        Nothing -> [ptype]
+        Just ptype2 -> [ptype, ptype2]
+  atypes <- maybeMap (get types) ptypes
+  return $ PokemonBase atypes 0 0 0 [] [] [] Nothing
+
+maybeMap :: Applicative z => (a -> z b) -> [a] -> z [b]
+maybeMap func list =
+  foldr (\elem accum -> (:) <$> (func elem) <*> accum)
+    (pure [])
+    list
+
 {-
-  let ptypes =
-    case getObjectValue itemTemplate "type2" of
-      Nothing -> Just [ptype]
-      Just ptype2 -> Just [ptype, ptype2]
+maybeMap func list =
+  foldr (\elem accum ->
+          case func elem of
+            Just maybeB -> (maybeB :) <$> accum
+            Nothing -> Nothing)
+    (Just [])
+    list
 -}
-  let ptypes = map (get types) ["XXX"]
-  PokemonBase
-    <$> ptypes
-    <*> Just 0
-    <*> Just 0
-    <*> Just 0
-    <*> Just []
-    <*> Just []
-    <*> Just []
-    <*> Just Nothing
+
+
+
+{-
+maybeMap func [] =
+  Just []
+maybeMap func (head:tail) =
+  case func head of
+    Just thing -> (thing :) <$> maybeMap func tail
+    Nothing -> Nothing
+-}
 
 -- "hasKey" can be done the Yaml.Parser way but it's really convoluted
 -- compared to this simple key lookup.
