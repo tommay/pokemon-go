@@ -14,8 +14,8 @@ import qualified Data.Vector as Vector
 import           Data.Vector (Vector)
 
 data GameMaster = GameMaster {
-  pokemonBases  :: HashMap String PokemonBase,
-  moves         :: HashMap String Move,
+  pokemonBases  :: TextMap PokemonBase,
+  moves         :: TextMap Move,
   cpMultipliers :: Vector Float,
   stardustCost  :: Vector Int
 } deriving (Show)
@@ -60,7 +60,7 @@ makeGameMaster yamlObject = do
   itemTemplates <- getItemTemplates yamlObject
   moves <- do
     types <- getTypes itemTemplates
-    getMoves types itemTemplates
+    return $ getMoves types itemTemplates
   cpMultipliers <- do
     playerLevel <- getFirst itemTemplates "playerLevel"
     getObjectValue playerLevel "cpMultiplier"
@@ -69,7 +69,7 @@ makeGameMaster yamlObject = do
     getObjectValue pokemonUpgrades "stardustCost"
   GameMaster
     <$> Just HashMap.empty
-    <*> Just HashMap.empty
+    <*> moves
     <*> cpMultipliers
     <*> stardustCost
 
