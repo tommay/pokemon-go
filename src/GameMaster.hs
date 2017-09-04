@@ -48,25 +48,31 @@ type ItemTemplate = Yaml.Object
 
 type TextMap = HashMap Text
 
-type Result = Maybe [Yaml.Object]
-
-load :: FilePath -> IO (Either ParseException Result)
+load :: FilePath -> IO (Either ParseException (Maybe GameMaster))
 load filename = do
   either <- Yaml.decodeFileEither filename
   return $ do
     yamlObject <- either
     return $ makeGameMaster yamlObject
 
-makeGameMaster :: Yaml.Object -> Result
+makeGameMaster :: Yaml.Object -> Maybe GameMaster
 makeGameMaster yamlObject = do
   itemTemplates <- getItemTemplates yamlObject
-  types <- getTypes itemTemplates
-  moves <- getMoves types itemTemplates
-  return []
+  moves <- do
+    types <- getTypes itemTemplates
+    return $ getMoves types itemTemplates
+  cpMultipliers <- do
+    playerLevel <- getFirst itemTemplates "playerLevel"
+    return $ getObjectValue playerLevel "cpMultiplier"
+  GameMaster
+    <$> Just HashMap.empty
+    <*> Just HashMap.empty
+    <*> cpMultipliers
+    <*> Just Vector.empty
 
 getTypes :: [ItemTemplate] -> Maybe (TextMap Type)
 getTypes itemTemplates = do
-  battleSettings <- getFirst "battleSettings" itemTemplates
+  battleSettings <- getFirst itemTemplates "battleSettings"
   stab <- getFloatMaybe "sameTypeAttackBonusMultiplier" battleSettings
   makeObjects "typeEffective" "attackType" (makeType stab) itemTemplates
 
@@ -74,13 +80,13 @@ getMoves :: TextMap Type -> [ItemTemplate] -> Maybe (TextMap Move)
 getMoves types itemTemplates =
   makeObjects "moveSettings" "movementId" (makeMove types) itemTemplates
 
-getAll :: Text -> [ItemTemplate] -> [ItemTemplate]
-getAll filterKey itemTemplates =
+getAll :: [ItemTemplate] -> Text -> [ItemTemplate]
+getAll itemTemplates filterKey =
   filter (hasKey filterKey) itemTemplates
 
-getFirst :: Text -> [ItemTemplate] -> Maybe ItemTemplate
-getFirst filterKey itemTemplates =
-  case getAll filterKey itemTemplates of
+getFirst :: [ItemTemplate] -> Text -> Maybe ItemTemplate
+getFirst itemTemplates filterKey =
+  case getAll itemTemplates filterKey of
     [head] -> Just head
     _ -> Nothing
 
@@ -100,7 +106,7 @@ makeObjects filterKey nameKey makeObject itemTemplates =
           _ -> hash
       _ -> hash)
     HashMap.empty
-    $ getAll filterKey itemTemplates
+    $ getAll itemTemplates filterKey
 
 makeType :: Float -> ItemTemplate -> Maybe Type
 makeType stab itemTemplate =
@@ -140,7 +146,3 @@ hasKey = HashMap.member
 getItemTemplates :: Yaml.Object -> Maybe [ItemTemplate]
 getItemTemplates yamlObject =
   Yaml.parseMaybe (.: "itemTemplates") yamlObject
-
-{-
-  GameMaster HashMap.empty HashMap.empty Vector.empty Vector.empty
--}
