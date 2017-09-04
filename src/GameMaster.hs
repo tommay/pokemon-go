@@ -140,35 +140,8 @@ makePokemonBase types moves itemTemplate = do
   let ptypes = case getObjectValue itemTemplate "type2" of
         Nothing -> [ptype]
         Just ptype2 -> [ptype, ptype2]
-  atypes <- maybeMap (get types) ptypes
+  atypes <- mapM (get types) ptypes
   return $ PokemonBase atypes 0 0 0 [] [] [] Nothing
-
-maybeMap :: Applicative z => (a -> z b) -> [a] -> z [b]
-maybeMap func list =
-  foldr (\elem accum -> (:) <$> (func elem) <*> accum)
-    (pure [])
-    list
-
-{-
-maybeMap func list =
-  foldr (\elem accum ->
-          case func elem of
-            Just maybeB -> (maybeB :) <$> accum
-            Nothing -> Nothing)
-    (Just [])
-    list
--}
-
-
-
-{-
-maybeMap func [] =
-  Just []
-maybeMap func (head:tail) =
-  case func head of
-    Just thing -> (thing :) <$> maybeMap func tail
-    Nothing -> Nothing
--}
 
 -- "hasKey" can be done the Yaml.Parser way but it's really convoluted
 -- compared to this simple key lookup.
