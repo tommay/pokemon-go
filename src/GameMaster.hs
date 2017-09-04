@@ -143,7 +143,11 @@ makePokemonBase types moves pokemonSettings = do
           Nothing -> [ptype]
           Just ptype2 -> [ptype, ptype2]
     mapM (get types) ptypes
-  return $ PokemonBase ptypes 0 0 0 [] [] [] Nothing
+  statsObject <- getValue "stats"
+  attack <- getObjectValue statsObject "attack"
+  defense <- getObjectValue statsObject "defense"
+  stamina <- getObjectValue statsObject "stamina"
+  return $ PokemonBase ptypes attack defense stamina [] [] [] Nothing
 
 -- "hasKey" can be done the Yaml.Parser way but it's really convoluted
 -- compared to this simple key lookup.
