@@ -9,9 +9,7 @@ main = do
         [] -> "GAME_MASTER.yaml"
   result <- GameMaster.load filename
   case result of
-    Right (Just gameMaster) ->
+    Right gameMaster ->
       print gameMaster
-    Right Nothing ->
-      putStrLn "Got Nothing."
     Left exception ->
       print exception

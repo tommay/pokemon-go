@@ -48,14 +48,16 @@ type ItemTemplate = Yaml.Object
 
 type TextMap = HashMap Text
 
-load :: FilePath -> IO (Either ParseException (Maybe GameMaster))
+type MaybeFail = Either String
+
+load :: FilePath -> IO (MaybeFail GameMaster)
 load filename = do
   either <- Yaml.decodeFileEither filename
-  return $ do
-    yamlObject <- either
-    return $ makeGameMaster yamlObject
+  return $ case either of
+    Left yamlParseException -> Left $ show yamlParseException
+    Right yamlObject -> makeGameMaster yamlObject
 
-makeGameMaster :: Yaml.Object -> Maybe GameMaster
+makeGameMaster :: Yaml.Object -> MaybeFail GameMaster
 makeGameMaster yamlObject = do
   itemTemplates <- getItemTemplates yamlObject
   types <- getTypes itemTemplates
@@ -75,25 +77,26 @@ makeGameMaster yamlObject = do
 -- get a [ItemTemplate], i.e., it checks that the Yaml.Values are the
 -- correct type thanks to type inference.
 --
-getItemTemplates :: Yaml.Object -> Maybe [ItemTemplate]
+getItemTemplates :: Yaml.Object -> MaybeFail [ItemTemplate]
 getItemTemplates yamlObject =
-  Yaml.parseMaybe (.: "itemTemplates") yamlObject
+  Yaml.parseMonad (.: "itemTemplates") yamlObject
 
-getTypes :: [ItemTemplate] -> Maybe (TextMap Type)
+getTypes :: [ItemTemplate] -> MaybeFail (TextMap Type)
 getTypes itemTemplates = do
   battleSettings <- getFirst itemTemplates "battleSettings"
   stab <- getObjectValue battleSettings "sameTypeAttackBonusMultiplier"
   makeObjects "typeEffective" "attackType" (makeType stab) itemTemplates
 
-makeType :: Float -> ItemTemplate -> Maybe Type
+-- XXX this is not done yet.
+makeType :: Float -> ItemTemplate -> MaybeFail Type
 makeType stab itemTemplate =
-  Just $ Type HashMap.empty "" stab
+  Right $ Type HashMap.empty "" stab
 
-getMoves :: TextMap Type -> [ItemTemplate] -> Maybe (TextMap Move)
+getMoves :: TextMap Type -> [ItemTemplate] -> MaybeFail (TextMap Move)
 getMoves types itemTemplates =
   makeObjects "moveSettings" "movementId" (makeMove types) itemTemplates
 
-makeMove :: TextMap Type -> ItemTemplate -> Maybe Move
+makeMove :: TextMap Type -> ItemTemplate -> MaybeFail Move
 makeMove types itemTemplate = do
   let getTemplateValue text = getObjectValue itemTemplate text
   Move
@@ -104,15 +107,16 @@ makeMove types itemTemplate = do
     <*> getTemplateValue "duration"
     <*> getTemplateValue "energy"
 
-makePokemonBase :: TextMap Type -> TextMap Move -> ItemTemplate -> Maybe PokemonBase
+makePokemonBase :: TextMap Type -> TextMap Move -> ItemTemplate -> MaybeFail PokemonBase
 makePokemonBase types moves pokemonSettings = do
   let getValue key = getObjectValue pokemonSettings key
 
   ptypes <- do
     ptype <- getValue "type"
     let ptypes = case getValue "type2" of
-          Nothing -> [ptype]
-          Just ptype2 -> [ptype, ptype2]
+          Right ptype2 -> [ptype, ptype2]
+          -- XXX This can swallow parse errors?
+          Left _ -> [ptype]
     mapM (get types) ptypes
 
   statsObject <- getValue "stats"
@@ -122,9 +126,10 @@ makePokemonBase types moves pokemonSettings = do
 
   evolutions <- do
     case getValue "evolutionBranch" of
-      Just evolutionBranch ->
+      Right evolutionBranch ->
         mapM (\ branch -> getObjectValue branch "evolution") evolutionBranch
-      Nothing -> Just []
+      -- XXX This can swallow parse errors?
+      Left _ -> Right []
 
   let getMoves key = do
         moveNames <- getValue key
@@ -133,39 +138,42 @@ makePokemonBase types moves pokemonSettings = do
   quickMoves <- getMoves "quickMoves"
   chargeMoves <- getMoves "cinematicMoves"
 
-  let parent = getValue "parentPokemonId"
+  let parent = case getValue "parentPokemonId" of
+        Right parent -> Just parent
+        -- XXX This can swallow parse errors?
+        Left _ -> Nothing
 
   return $ PokemonBase ptypes attack defense stamina evolutions
     quickMoves chargeMoves parent
 
-makeObjects :: Text -> Text -> (ItemTemplate -> Maybe a) -> [ItemTemplate]
-  -> Maybe (TextMap a)
+makeObjects :: Text -> Text -> (ItemTemplate -> MaybeFail a) -> [ItemTemplate]
+  -> MaybeFail (TextMap a)
 makeObjects filterKey nameKey makeObject itemTemplates =
   foldr (\ itemTemplate maybeHash -> case maybeHash of
-      Just hash -> do
+      Right hash -> do
         name <- getObjectValue itemTemplate nameKey
         obj <- makeObject itemTemplate
         return $ HashMap.insert name obj hash
       hash -> hash)
-    (Just HashMap.empty)
+    (Right HashMap.empty)
     $ getAll itemTemplates filterKey
 
 getAll :: [ItemTemplate] -> Text -> [ItemTemplate]
 getAll itemTemplates filterKey =
   filter (hasKey filterKey) itemTemplates
 
-getFirst :: [ItemTemplate] -> Text -> Maybe ItemTemplate
+getFirst :: [ItemTemplate] -> Text -> MaybeFail ItemTemplate
 getFirst itemTemplates filterKey =
   case getAll itemTemplates filterKey of
-    [head] -> Just head
-    _ -> Nothing
+    [head] -> Right head
+    _ -> Left $ "Expected exactly one " ++ show filterKey
 
 -- This seems roundabout, but the good thing is that the type "a" is
 -- inferred from the usage context so the result is error-checked.
 --
-getObjectValue :: FromJSON a => Yaml.Object -> Text -> Maybe a
+getObjectValue :: FromJSON a => Yaml.Object -> Text -> MaybeFail a
 getObjectValue yamlObject key =
-  Yaml.parseMaybe (.: key) yamlObject
+  Yaml.parseMonad (.: key) yamlObject
 
 -- "hasKey" can be done the Yaml.Parser way but it's really convoluted
 -- compared to this simple key lookup.
@@ -173,5 +181,8 @@ getObjectValue yamlObject key =
 hasKey :: Text -> Yaml.Object -> Bool
 hasKey = HashMap.member
 
-get :: TextMap a -> Text -> Maybe a
-get map key = HashMap.lookup key map
+get :: TextMap a -> Text -> MaybeFail a
+get map key =
+  case HashMap.lookup key map of
+    Just value -> Right value
+    _ -> Left $ "Key not found: " ++ show key
