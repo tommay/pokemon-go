@@ -30,6 +30,14 @@ executable pokemon-exe
                      , pokemon
   default-language:    Haskell2010
 
+executable dump-exe
+  hs-source-dirs:      app
+  main-is:             Dump.hs
+  ghc-options:         -O2 -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base
+                     , pokemon
+  default-language:    Haskell2010
+
 test-suite pokemon-test
   type:                exitcode-stdio-1.0
   hs-source-dirs:      test
