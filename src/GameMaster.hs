@@ -84,7 +84,9 @@ getItemTemplates yamlObject =
 getTypes :: [ItemTemplate] -> MaybeFail (TextMap Type)
 getTypes itemTemplates = do
   battleSettings <- getFirst itemTemplates "battleSettings"
-  stab <- getObjectValue battleSettings "sameTypeAttackBonusMultiplier"
+  stab <- case getObjectValue battleSettings "sameTypeAttackBonusMultiplier" of
+    Right stab -> stab
+    Left error -> Left $ error ++ " in " ++ show battleSettings
   makeObjects "typeEffective" "attackType" (makeType stab) itemTemplates
 
 -- XXX this is not done yet.
@@ -160,7 +162,11 @@ makeObjects filterKey nameKey makeObject itemTemplates =
 
 getAll :: [ItemTemplate] -> Text -> [ItemTemplate]
 getAll itemTemplates filterKey =
-  filter (hasKey filterKey) itemTemplates
+  concat $ map (\ itemTemplate ->
+    case getObjectValue itemTemplate filterKey of
+      Right value -> [value]
+      _ -> [])
+    itemTemplates
 
 getFirst :: [ItemTemplate] -> Text -> MaybeFail ItemTemplate
 getFirst itemTemplates filterKey =
@@ -174,12 +180,6 @@ getFirst itemTemplates filterKey =
 getObjectValue :: FromJSON a => Yaml.Object -> Text -> MaybeFail a
 getObjectValue yamlObject key =
   Yaml.parseEither (.: key) yamlObject
-
--- "hasKey" can be done the Yaml.Parser way but it's really convoluted
--- compared to this simple key lookup.
---
-hasKey :: Text -> Yaml.Object -> Bool
-hasKey = HashMap.member
 
 get :: TextMap a -> Text -> MaybeFail a
 get map key =
