@@ -1,6 +1,5 @@
 import qualified System.Environment
 import qualified GameMaster
--- import           GameMaster (GameMaster)
 
 main = do
   args <- System.Environment.getArgs
@@ -12,4 +11,4 @@ main = do
     Right gameMaster ->
       print gameMaster
     Left exception ->
-      print exception
+      putStrLn $ "oops: " ++ exception

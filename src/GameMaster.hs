@@ -79,7 +79,7 @@ makeGameMaster yamlObject = do
 --
 getItemTemplates :: Yaml.Object -> MaybeFail [ItemTemplate]
 getItemTemplates yamlObject =
-  Yaml.parseMonad (.: "itemTemplates") yamlObject
+  Yaml.parseEither (.: "itemTemplates") yamlObject
 
 getTypes :: [ItemTemplate] -> MaybeFail (TextMap Type)
 getTypes itemTemplates = do
@@ -173,7 +173,7 @@ getFirst itemTemplates filterKey =
 --
 getObjectValue :: FromJSON a => Yaml.Object -> Text -> MaybeFail a
 getObjectValue yamlObject key =
-  Yaml.parseMonad (.: key) yamlObject
+  Yaml.parseEither (.: key) yamlObject
 
 -- "hasKey" can be done the Yaml.Parser way but it's really convoluted
 -- compared to this simple key lookup.
