@@ -11,4 +11,7 @@ main = do
   case result of
     Right (Just gameMaster) ->
       print gameMaster
-    _ -> putStrLn "Well that didn't work."
+    Right Nothing ->
+      putStrLn "Got Nothing."
+    Left exception ->
+      print exception
