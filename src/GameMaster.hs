@@ -1,12 +1,12 @@
--- So .: works with Strings.
+-- So .: works with literal Strings.
 {-# LANGUAGE OverloadedStrings #-}
 
 module GameMaster where
 
+import           Data.Text.Conversions (convertText)
+import           Data.Char (toUpper)
 import           Data.Hashable (Hashable)
 import           Data.Maybe (mapMaybe)
-import qualified Data.Text as Text
-import           Data.Text (Text)
 import qualified Data.Yaml as Yaml
 import           Data.Yaml (ParseException)
 import Data.Yaml (FromJSON(..), (.:), (.:?), (.!=))
@@ -15,7 +15,7 @@ import           Data.HashMap.Strict (HashMap)
 import qualified Data.Vector as Vector
 import           Data.Vector (Vector)
 
-import           TextMap (TextMap)
+import           StringMap (StringMap)
 import qualified Type
 import           Type (Type)
 import qualified Move
@@ -24,8 +24,8 @@ import qualified PokemonBase
 import           PokemonBase (PokemonBase)
 
 data GameMaster = GameMaster {
-  pokemonBases  :: TextMap PokemonBase,
-  moves         :: TextMap Move,
+  pokemonBases  :: StringMap PokemonBase,
+  moves         :: StringMap Move,
   cpMultipliers :: Vector Float,
   stardustCost  :: Vector Int
 } deriving (Show)
@@ -65,7 +65,7 @@ getItemTemplates :: Yaml.Object -> MaybeFail [ItemTemplate]
 getItemTemplates yamlObject =
   Yaml.parseEither (.: "itemTemplates") yamlObject
 
-getTypes :: [ItemTemplate] -> MaybeFail (TextMap Type)
+getTypes :: [ItemTemplate] -> MaybeFail (StringMap Type)
 getTypes itemTemplates = do
   battleSettings <- getFirst itemTemplates "battleSettings"
   stab <- getObjectValue battleSettings "sameTypeAttackBonusMultiplier"
@@ -84,9 +84,9 @@ toMap :: (Eq k, Hashable k) => [(k, v)] -> HashMap k v
 toMap pairs =
   foldr (\ (k, v) hash -> HashMap.insert k v hash) HashMap.empty pairs
 
-effectivenessOrder :: [Text]
+effectivenessOrder :: [String]
 effectivenessOrder =
-  map (\ ptype -> Text.append "POKEMON_TYPE_" $ Text.toUpper ptype)
+  map (\ ptype -> "POKEMON_TYPE_" ++ map toUpper ptype)
     ["normal",
      "fighting",
      "flying",
@@ -106,11 +106,11 @@ effectivenessOrder =
      "dark",
      "fairy"]
 
-getMoves :: TextMap Type -> [ItemTemplate] -> MaybeFail (TextMap Move)
+getMoves :: StringMap Type -> [ItemTemplate] -> MaybeFail (StringMap Move)
 getMoves types itemTemplates =
   makeObjects "moveSettings" "movementId" (makeMove types) itemTemplates
 
-makeMove :: TextMap Type -> ItemTemplate -> MaybeFail Move
+makeMove :: StringMap Type -> ItemTemplate -> MaybeFail Move
 makeMove types itemTemplate = do
   let getTemplateValue text = getObjectValue itemTemplate text
   Move.Move
@@ -121,7 +121,7 @@ makeMove types itemTemplate = do
     <*> ((/1000) <$> getTemplateValue "durationMs")
     <*> getObjectValueWithDefault itemTemplate "energyDelta" 0
 
-makePokemonBase :: TextMap Type -> TextMap Move -> ItemTemplate -> MaybeFail PokemonBase
+makePokemonBase :: StringMap Type -> StringMap Move -> ItemTemplate -> MaybeFail PokemonBase
 makePokemonBase types moves pokemonSettings = do
   let getValue key = getObjectValue pokemonSettings key
 
@@ -160,8 +160,8 @@ makePokemonBase types moves pokemonSettings = do
   return $ PokemonBase.PokemonBase ptypes attack defense stamina evolutions
     quickMoves chargeMoves parent
 
-makeObjects :: Text -> Text -> (ItemTemplate -> MaybeFail a) -> [ItemTemplate]
-  -> MaybeFail (TextMap a)
+makeObjects :: String -> String -> (ItemTemplate -> MaybeFail a) -> [ItemTemplate]
+  -> MaybeFail (StringMap a)
 makeObjects filterKey nameKey makeObject itemTemplates =
   foldr (\ itemTemplate maybeHash -> case maybeHash of
       Right hash -> do
@@ -172,7 +172,7 @@ makeObjects filterKey nameKey makeObject itemTemplates =
     (Right HashMap.empty)
     $ getAll itemTemplates filterKey
 
-getAll :: [ItemTemplate] -> Text -> [ItemTemplate]
+getAll :: [ItemTemplate] -> String -> [ItemTemplate]
 getAll itemTemplates filterKey =
   mapMaybe (\ itemTemplate ->
     case getObjectValue itemTemplate filterKey of
@@ -180,7 +180,7 @@ getAll itemTemplates filterKey =
       _ -> Nothing)
     itemTemplates
 
-getFirst :: [ItemTemplate] -> Text -> MaybeFail ItemTemplate
+getFirst :: [ItemTemplate] -> String -> MaybeFail ItemTemplate
 getFirst itemTemplates filterKey =
   case getAll itemTemplates filterKey of
     [head] -> Right head
@@ -189,15 +189,15 @@ getFirst itemTemplates filterKey =
 -- This seems roundabout, but the good thing is that the type "a" is
 -- inferred from the usage context so the result is error-checked.
 --
-getObjectValue :: FromJSON a => Yaml.Object -> Text -> MaybeFail a
+getObjectValue :: FromJSON a => Yaml.Object -> String -> MaybeFail a
 getObjectValue yamlObject key =
-  Yaml.parseEither (.: key) yamlObject
+  Yaml.parseEither (.: convertText key) yamlObject
 
-getObjectValueWithDefault :: FromJSON a => Yaml.Object -> Text -> a -> MaybeFail a
+getObjectValueWithDefault :: FromJSON a => Yaml.Object -> String -> a -> MaybeFail a
 getObjectValueWithDefault yamlObject key dflt =
-  Yaml.parseEither (\p -> p .:? key .!= dflt) yamlObject
+  Yaml.parseEither (\p -> p .:? convertText key .!= dflt) yamlObject
 
-get :: TextMap a -> Text -> MaybeFail a
+get :: StringMap a -> String -> MaybeFail a
 get map key =
   case HashMap.lookup key map of
     Just value -> Right value

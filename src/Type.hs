@@ -2,11 +2,10 @@ module Type (
   Type (Type),
 ) where
 
-import Data.Text (Text)
-import TextMap (TextMap)
+import StringMap (StringMap)
 
 data Type = Type {
-  effectiveness :: TextMap Float,
-  name          :: Text,
+  effectiveness :: StringMap Float,
+  name          :: String,
   stab          :: Float
 } deriving (Show)
