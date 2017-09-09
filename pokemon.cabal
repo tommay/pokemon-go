@@ -16,7 +16,7 @@ cabal-version:       >=1.10
 library
   hs-source-dirs:      src
   exposed-modules:     MyPokemon, GameMaster
-  other-modules:
+  other-modules:       Move, PokemonBase, Type, TextMap
   ghc-options:         -O2
   build-depends:       base >= 4.7 && < 5, yaml, vector, text,
                        unordered-containers, exceptions, hashable

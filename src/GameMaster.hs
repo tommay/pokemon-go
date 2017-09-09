@@ -9,11 +9,19 @@ import qualified Data.Text as Text
 import           Data.Text (Text)
 import qualified Data.Yaml as Yaml
 import           Data.Yaml (ParseException)
-import Data.Yaml (FromJSON(..), (.:), (.:?), (.!=))  -- ???
+import Data.Yaml (FromJSON(..), (.:), (.:?), (.!=))
 import qualified Data.HashMap.Strict as HashMap
 import           Data.HashMap.Strict (HashMap)
 import qualified Data.Vector as Vector
 import           Data.Vector (Vector)
+
+import           TextMap (TextMap)
+import qualified Type
+import           Type (Type)
+import qualified Move
+import           Move (Move)
+import qualified PokemonBase
+import           PokemonBase (PokemonBase)
 
 data GameMaster = GameMaster {
   pokemonBases  :: TextMap PokemonBase,
@@ -22,33 +30,7 @@ data GameMaster = GameMaster {
   stardustCost  :: Vector Int
 } deriving (Show)
 
-data PokemonBase = PokemonBase {
-  types        :: [Type],
-  attack       :: Int,
-  defense      :: Int,
-  stamina      :: Int,
-  evolutions   :: [Text],
-  quickMoves   :: [Move],
-  chargeMoves  :: [Move],
-  parent       :: Maybe Text
-} deriving (Show)
-
-data Type = Type {
-  effectiveness :: TextMap Float,
-  name          :: Text,
-  stab          :: Float
-} deriving (Show)
-
-data Move = Move {
-  moveType :: Type,
-  power    :: Float,
-  duration :: Float,
-  energy   :: Float
-} deriving (Show)
-
 type ItemTemplate = Yaml.Object
-
-type TextMap = HashMap Text
 
 type MaybeFail = Either String
 
@@ -94,7 +76,7 @@ makeType stab itemTemplate = do
   attackScalar <- getObjectValue itemTemplate "attackScalar"
   let effectiveness = toMap $ zip effectivenessOrder attackScalar
   name <- getObjectValue itemTemplate "attackType"
-  return $ Type effectiveness name stab
+  return $ Type.Type effectiveness name stab
 
 -- XXX there must be a library function to so this.
 --
@@ -131,7 +113,7 @@ getMoves types itemTemplates =
 makeMove :: TextMap Type -> ItemTemplate -> MaybeFail Move
 makeMove types itemTemplate = do
   let getTemplateValue text = getObjectValue itemTemplate text
-  Move
+  Move.Move
     <$> do
       typeName <- getTemplateValue "pokemonType"
       get types typeName
@@ -175,7 +157,7 @@ makePokemonBase types moves pokemonSettings = do
         -- XXX This can swallow parse errors?
         Left _ -> Nothing
 
-  return $ PokemonBase ptypes attack defense stamina evolutions
+  return $ PokemonBase.PokemonBase ptypes attack defense stamina evolutions
     quickMoves chargeMoves parent
 
 makeObjects :: Text -> Text -> (ItemTemplate -> MaybeFail a) -> [ItemTemplate]
