@@ -3,6 +3,8 @@
 
 module GameMaster where
 
+import           Data.Hashable (Hashable)
+import           Data.Maybe (mapMaybe)
 import qualified Data.Text as Text
 import           Data.Text (Text)
 import qualified Data.Yaml as Yaml
@@ -160,10 +162,10 @@ makeObjects filterKey nameKey makeObject itemTemplates =
 
 getAll :: [ItemTemplate] -> Text -> [ItemTemplate]
 getAll itemTemplates filterKey =
-  concat $ map (\ itemTemplate ->
+  mapMaybe (\ itemTemplate ->
     case getObjectValue itemTemplate filterKey of
-      Right value -> [value]
-      _ -> [])
+      Right value -> Just value
+      _ -> Nothing)
     itemTemplates
 
 getFirst :: [ItemTemplate] -> Text -> MaybeFail ItemTemplate
