@@ -6,21 +6,21 @@ module MyPokemon where
 import qualified Data.Yaml as Yaml
 import Data.Yaml (FromJSON(..), (.:))  -- ???
 
-data Pokemon = Pokemon {
+data MyPokemon = MyPokemon {
   name        :: String,
   species     :: String,
   cp          :: Int,
   stats       :: Maybe [Stat]
 } deriving (Show)
 
-instance Yaml.FromJSON Pokemon where
+instance Yaml.FromJSON MyPokemon where
   parseJSON (Yaml.Object y) =
-    Pokemon <$>
+    MyPokemon <$>
     y .: "name" <*>
     y .: "species" <*>
     y .: "cp" <*>
     y .: "stats"
-  parseJSON _ = fail "Expected Yaml.Object for Pokemon.parseJSON"
+  parseJSON _ = fail "Expected Yaml.Object for MyPokemon.parseJSON"
 
 data Stat = Stat {
   level       :: Float,
@@ -38,6 +38,6 @@ instance Yaml.FromJSON Stat where
     y .: "stamina"
   parseJSON _ = fail "Expected Yaml.Object for Stats.parseJSON"
 
-load :: FilePath -> IO (Either Yaml.ParseException [Pokemon])
+load :: FilePath -> IO (Either Yaml.ParseException [MyPokemon])
 load filename =
   Yaml.decodeFileEither filename
