@@ -84,9 +84,7 @@ getItemTemplates yamlObject =
 getTypes :: [ItemTemplate] -> MaybeFail (TextMap Type)
 getTypes itemTemplates = do
   battleSettings <- getFirst itemTemplates "battleSettings"
-  stab <- case getObjectValue battleSettings "sameTypeAttackBonusMultiplier" of
-    Right stab -> stab
-    Left error -> Left $ error ++ " in " ++ show battleSettings
+  stab <- getObjectValue battleSettings "sameTypeAttackBonusMultiplier"
   makeObjects "typeEffective" "attackType" (makeType stab) itemTemplates
 
 -- XXX this is not done yet.
