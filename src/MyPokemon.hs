@@ -11,7 +11,10 @@ import qualified Epic
 data MyPokemon = MyPokemon {
   name        :: String,
   species     :: String,
-  cp          :: Int,
+  quick       :: String,
+  charge      :: String,
+  cp          :: Integer,
+  hp          :: Integer,
   stats       :: Maybe [Stat]
 } deriving (Show)
 
@@ -20,7 +23,10 @@ instance Yaml.FromJSON MyPokemon where
     MyPokemon <$>
     y .: "name" <*>
     y .: "species" <*>
+    y .: "quick" <*>
+    y .: "charge" <*>
     y .: "cp" <*>
+    y .: "hp" <*>
     y .: "stats"
   parseJSON _ = fail "Expected Yaml.Object for MyPokemon.parseJSON"
 

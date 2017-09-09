@@ -40,6 +40,10 @@ load filename = do
     Left yamlParseException -> Epic.fail $ show yamlParseException
     Right yamlObject -> return $ makeGameMaster yamlObject
 
+getPokemonBase :: Epic.MonadCatch m => GameMaster -> String -> m PokemonBase
+getPokemonBase gameMaster speciesName =
+  GameMaster.lookup "species" (pokemonBases gameMaster) speciesName
+
 getMove :: Epic.MonadCatch m => GameMaster -> String -> m Move
 getMove gameMaster moveName  =
   GameMaster.lookup "move" (moves gameMaster) moveName
