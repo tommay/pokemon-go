@@ -9,7 +9,7 @@ import qualified Data.Text as Text
 import           Data.Text (Text)
 import qualified Data.Yaml as Yaml
 import           Data.Yaml (ParseException)
-import Data.Yaml (FromJSON(..), (.:))  -- ???
+import Data.Yaml (FromJSON(..), (.:), (.:?), (.!=))  -- ???
 import qualified Data.HashMap.Strict as HashMap
 import           Data.HashMap.Strict (HashMap)
 import qualified Data.Vector as Vector
@@ -133,11 +133,11 @@ makeMove types itemTemplate = do
   let getTemplateValue text = getObjectValue itemTemplate text
   Move
     <$> do
-      typeName <- getTemplateValue "type"
+      typeName <- getTemplateValue "pokemonType"
       get types typeName
-    <*> getTemplateValue "power"
-    <*> getTemplateValue "duration"
-    <*> getTemplateValue "energy"
+    <*> getObjectValueWithDefault itemTemplate "power" 0
+    <*> ((/1000) <$> getTemplateValue "durationMs")
+    <*> getObjectValueWithDefault itemTemplate "energyDelta" 0
 
 makePokemonBase :: TextMap Type -> TextMap Move -> ItemTemplate -> MaybeFail PokemonBase
 makePokemonBase types moves pokemonSettings = do
@@ -210,6 +210,10 @@ getFirst itemTemplates filterKey =
 getObjectValue :: FromJSON a => Yaml.Object -> Text -> MaybeFail a
 getObjectValue yamlObject key =
   Yaml.parseEither (.: key) yamlObject
+
+getObjectValueWithDefault :: FromJSON a => Yaml.Object -> Text -> a -> MaybeFail a
+getObjectValueWithDefault yamlObject key dflt =
+  Yaml.parseEither (\p -> p .:? key .!= dflt) yamlObject
 
 get :: TextMap a -> Text -> MaybeFail a
 get map key =
