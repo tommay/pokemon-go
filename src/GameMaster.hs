@@ -89,10 +89,40 @@ getTypes itemTemplates = do
   stab <- getObjectValue battleSettings "sameTypeAttackBonusMultiplier"
   makeObjects "typeEffective" "attackType" (makeType stab) itemTemplates
 
--- XXX this is not done yet.
 makeType :: Float -> ItemTemplate -> MaybeFail Type
-makeType stab itemTemplate =
-  Right $ Type HashMap.empty "" stab
+makeType stab itemTemplate = do
+  attackScalar <- getObjectValue itemTemplate "attackScalar"
+  let effectiveness = toMap $ zip effectivenessOrder attackScalar
+  name <- getObjectValue itemTemplate "attackType"
+  return $ Type effectiveness name stab
+
+-- XXX there must be a library function to so this.
+--
+toMap :: (Eq k, Hashable k) => [(k, v)] -> HashMap k v
+toMap pairs =
+  foldr (\ (k, v) hash -> HashMap.insert k v hash) HashMap.empty pairs
+
+effectivenessOrder :: [Text]
+effectivenessOrder =
+  map (\ ptype -> Text.append "POKEMON_TYPE_" $ Text.toUpper ptype)
+    ["normal",
+     "fighting",
+     "flying",
+     "poison",
+     "ground",
+     "rock",
+     "bug",
+     "ghost",
+     "steel",
+     "fire",
+     "water",
+     "grass",
+     "electric",
+     "psychic",
+     "ice",
+     "dragon",
+     "dark",
+     "fairy"]
 
 getMoves :: TextMap Type -> [ItemTemplate] -> MaybeFail (TextMap Move)
 getMoves types itemTemplates =
