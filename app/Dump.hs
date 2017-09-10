@@ -1,4 +1,5 @@
 import qualified System.Environment
+import qualified Epic
 import qualified GameMaster
 
 main = do
@@ -6,9 +7,9 @@ main = do
   let filename = case args of
         (filename:_) -> filename
         [] -> "GAME_MASTER.yaml"
-  result <- GameMaster.load filename
-  case result of
-    Right gameMaster ->
-      print gameMaster
-    Left exception ->
-      putStrLn $ "oops: " ++ exception
+  Epic.catch (
+    do
+      result <- GameMaster.load filename
+      gameMaster <- result
+      print gameMaster)
+    (\ex -> putStrLn $ "oops: " ++ (show ex))
