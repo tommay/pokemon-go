@@ -2,7 +2,7 @@ module Epic (
   Epic.catch,
   Epic.fail,
   E.SomeException,
-  E.MonadThrow,
+  E.MonadCatch,
 ) where
 
 import qualified Control.Monad.Catch as E

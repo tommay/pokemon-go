@@ -33,14 +33,14 @@ data GameMaster = GameMaster {
 
 type ItemTemplate = Yaml.Object
 
-load :: Epic.MonadThrow m => FilePath -> IO (m GameMaster)
+load :: Epic.MonadCatch m => FilePath -> IO (m GameMaster)
 load filename = do
   either <- Yaml.decodeFileEither filename
   case either of
     Left yamlParseException -> Epic.fail $ show yamlParseException
     Right yamlObject -> return $ makeGameMaster yamlObject
 
-makeGameMaster :: Epic.MonadThrow m => Yaml.Object -> m GameMaster
+makeGameMaster :: Epic.MonadCatch m => Yaml.Object -> m GameMaster
 makeGameMaster yamlObject = do
   itemTemplates <- getItemTemplates yamlObject
   types <- getTypes itemTemplates
@@ -60,17 +60,17 @@ makeGameMaster yamlObject = do
 -- get a [ItemTemplate], i.e., it checks that the Yaml.Values are the
 -- correct type thanks to type inference.
 --
-getItemTemplates :: Epic.MonadThrow m => Yaml.Object -> m [ItemTemplate]
+getItemTemplates :: Epic.MonadCatch m => Yaml.Object -> m [ItemTemplate]
 getItemTemplates yamlObject =
   toEpic $ Yaml.parseEither (.: "itemTemplates") yamlObject
 
-getTypes :: Epic.MonadThrow m => [ItemTemplate] -> m (StringMap Type)
+getTypes :: Epic.MonadCatch m => [ItemTemplate] -> m (StringMap Type)
 getTypes itemTemplates = do
   battleSettings <- getFirst itemTemplates "battleSettings"
   stab <- getObjectValue battleSettings "sameTypeAttackBonusMultiplier"
   makeObjects "typeEffective" "attackType" (makeType stab) itemTemplates
 
-makeType :: Epic.MonadThrow m => Float -> ItemTemplate -> m Type
+makeType :: Epic.MonadCatch m => Float -> ItemTemplate -> m Type
 makeType stab itemTemplate = do
   attackScalar <- getObjectValue itemTemplate "attackScalar"
   let effectiveness = toMap $ zip effectivenessOrder attackScalar
@@ -105,11 +105,11 @@ effectivenessOrder =
      "dark",
      "fairy"]
 
-getMoves :: Epic.MonadThrow m => StringMap Type -> [ItemTemplate] -> m (StringMap Move)
+getMoves :: Epic.MonadCatch m => StringMap Type -> [ItemTemplate] -> m (StringMap Move)
 getMoves types itemTemplates =
   makeObjects "moveSettings" "movementId" (makeMove types) itemTemplates
 
-makeMove :: Epic.MonadThrow m => StringMap Type -> ItemTemplate -> m Move
+makeMove :: Epic.MonadCatch m => StringMap Type -> ItemTemplate -> m Move
 makeMove types itemTemplate = do
   let getTemplateValue text = getObjectValue itemTemplate text
   Move.Move
@@ -120,7 +120,7 @@ makeMove types itemTemplate = do
     <*> ((/1000) <$> getTemplateValue "durationMs")
     <*> getObjectValueWithDefault itemTemplate "energyDelta" 0
 
-makePokemonBase :: Epic.MonadThrow m => StringMap Type -> StringMap Move -> ItemTemplate -> m PokemonBase
+makePokemonBase :: Epic.MonadCatch m => StringMap Type -> StringMap Move -> ItemTemplate -> m PokemonBase
 makePokemonBase types moves pokemonSettings =
   Epic.catch (do
     let getValue key = getObjectValue pokemonSettings key
@@ -159,9 +159,9 @@ makePokemonBase types moves pokemonSettings =
 
     return $ PokemonBase.PokemonBase ptypes attack defense stamina evolutions
       quickMoves chargeMoves parent)
-  (\ex -> Epic.fail $ "In " ++ (show pokemonSettings) ++ ": " ++ (show ex))
+  (\ex -> Epic.fail $ ex ++ " in " ++ (show pokemonSettings))
 
-makeObjects :: Epic.MonadThrow m => String -> String -> (ItemTemplate -> m a) -> [ItemTemplate]
+makeObjects :: Epic.MonadCatch m => String -> String -> (ItemTemplate -> m a) -> [ItemTemplate]
   -> m (StringMap a)
 makeObjects filterKey nameKey makeObject itemTemplates =
   foldr (\ itemTemplate maybeHash -> do
@@ -180,7 +180,7 @@ getAll itemTemplates filterKey =
       _ -> Nothing)
     itemTemplates
 
-getFirst :: Epic.MonadThrow m => [ItemTemplate] -> String -> m ItemTemplate
+getFirst :: Epic.MonadCatch m => [ItemTemplate] -> String -> m ItemTemplate
 getFirst itemTemplates filterKey =
   case getAll itemTemplates filterKey of
     [head] -> return head
@@ -189,21 +189,21 @@ getFirst itemTemplates filterKey =
 -- This seems roundabout, but the good thing is that the type "a" is
 -- inferred from the usage context so the result is error-checked.
 --
-getObjectValue :: Epic.MonadThrow m => FromJSON a => Yaml.Object -> String -> m a
+getObjectValue :: Epic.MonadCatch m => FromJSON a => Yaml.Object -> String -> m a
 getObjectValue yamlObject key =
   toEpic $ Yaml.parseEither (.: convertText key) yamlObject
 
-getObjectValueWithDefault :: Epic.MonadThrow m => FromJSON a => Yaml.Object -> String -> a -> m a
+getObjectValueWithDefault :: Epic.MonadCatch m => FromJSON a => Yaml.Object -> String -> a -> m a
 getObjectValueWithDefault yamlObject key dflt =
   toEpic $ Yaml.parseEither (\p -> p .:? convertText key .!= dflt) yamlObject
 
-get :: Epic.MonadThrow m => StringMap a -> String -> m a
+get :: Epic.MonadCatch m => StringMap a -> String -> m a
 get map key =
   case HashMap.lookup key map of
     Just value -> return value
     _ -> Epic.fail $ "Key not found: " ++ show key
 
-toEpic :: (Show a, Epic.MonadThrow m) => Either a b -> m b
+toEpic :: (Show a, Epic.MonadCatch m) => Either a b -> m b
 toEpic either =
   case either of
     Left err -> Epic.fail (show err)
