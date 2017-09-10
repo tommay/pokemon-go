@@ -134,7 +134,7 @@ makePokemonBase types moves pokemonSettings =
       mapM (get types) ptypes
   
     statsObject <- getValue "stats"
-    attack <- getObjectValue statsObject "attack"
+    attack <- getObjectValue statsObject "baseAttack"
     defense <- getObjectValue statsObject "baseDefense"
     stamina <- getObjectValue statsObject "baseStamina"
 
