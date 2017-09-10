@@ -121,43 +121,45 @@ makeMove types itemTemplate = do
     <*> getObjectValueWithDefault itemTemplate "energyDelta" 0
 
 makePokemonBase :: Epic.MonadThrow m => StringMap Type -> StringMap Move -> ItemTemplate -> m PokemonBase
-makePokemonBase types moves pokemonSettings = do
-  let getValue key = getObjectValue pokemonSettings key
+makePokemonBase types moves pokemonSettings =
+  Epic.catch (do
+    let getValue key = getObjectValue pokemonSettings key
 
-  ptypes <- do
-    ptype <- getValue "type"
-    let ptypes = case getValue "type2" of
-          Right ptype2 -> [ptype, ptype2]
-          -- XXX This can swallow parse errors?
-          Left _ -> [ptype]
-    mapM (get types) ptypes
+    ptypes <- do
+      ptype <- getValue "type"
+      let ptypes = case getValue "type2" of
+            Right ptype2 -> [ptype, ptype2]
+            -- XXX This can swallow parse errors?
+            Left _ -> [ptype]
+      mapM (get types) ptypes
   
-  statsObject <- getValue "stats"
-  attack <- getObjectValue statsObject "attack"
-  defense <- getObjectValue statsObject "baseDefense"
-  stamina <- getObjectValue statsObject "baseStamina"
+    statsObject <- getValue "stats"
+    attack <- getObjectValue statsObject "attack"
+    defense <- getObjectValue statsObject "baseDefense"
+    stamina <- getObjectValue statsObject "baseStamina"
 
-  evolutions <- do
-    case getValue "evolutionBranch" of
-      Right evolutionBranch ->
-        mapM (\ branch -> getObjectValue branch "evolution") evolutionBranch
-      -- XXX This can swallow parse errors?
-      Left _ -> return []
-
-  let getMoves key = do
-        moveNames <- getValue key
-        mapM (get moves) moveNames
-
-  quickMoves <- getMoves "quickMoves"
-  chargeMoves <- getMoves "cinematicMoves"
-
-  let parent = case getValue "parentPokemonId" of
-        Right parent -> Just parent
+    evolutions <- do
+      case getValue "evolutionBranch" of
+        Right evolutionBranch ->
+          mapM (\ branch -> getObjectValue branch "evolution") evolutionBranch
         -- XXX This can swallow parse errors?
-        Left _ -> Nothing
+        Left _ -> return []
 
-  return $ PokemonBase.PokemonBase ptypes attack defense stamina evolutions
-    quickMoves chargeMoves parent
+    let getMoves key = do
+          moveNames <- getValue key
+          mapM (get moves) moveNames
+
+    quickMoves <- getMoves "quickMoves"
+    chargeMoves <- getMoves "cinematicMoves"
+
+    let parent = case getValue "parentPokemonId" of
+          Right parent -> Just parent
+          -- XXX This can swallow parse errors?
+          Left _ -> Nothing
+
+    return $ PokemonBase.PokemonBase ptypes attack defense stamina evolutions
+      quickMoves chargeMoves parent)
+  (\ex -> Epic.fail $ "In " ++ (show pokemonSettings) ++ ": " ++ (show ex))
 
 makeObjects :: Epic.MonadThrow m => String -> String -> (ItemTemplate -> m a) -> [ItemTemplate]
   -> m (StringMap a)
