@@ -134,9 +134,9 @@ makePokemonBase types moves pokemonSettings = do
     mapM (get types) ptypes
 
   statsObject <- getValue "stats"
-  attack <- getObjectValue statsObject "attack"
-  defense <- getObjectValue statsObject "defense"
-  stamina <- getObjectValue statsObject "stamina"
+  attack <- getObjectValue statsObject "baseAttack"
+  defense <- getObjectValue statsObject "baseDefense"
+  stamina <- getObjectValue statsObject "baseStamina"
 
   evolutions <- do
     case getValue "evolutionBranch" of
