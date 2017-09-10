@@ -46,16 +46,16 @@ makeGameMaster yamlObject = do
   itemTemplates <- getItemTemplates yamlObject
   types <- getTypes itemTemplates
   moves <- getMoves types itemTemplates
-  let pokemonBases =
-        makeObjects "pokemonSettings" "pokemonId"
-          (makePokemonBase types moves) itemTemplates
+  pokemonBases <-
+    makeObjects "pokemonSettings" "pokemonId"
+      (makePokemonBase types moves) itemTemplates
   cpMultipliers <- do
     playerLevel <- getFirst itemTemplates "playerLevel"
     getObjectValue playerLevel "cpMultiplier"
   stardustCost <- do
     pokemonUpgrades <- getFirst itemTemplates "pokemonUpgrades"
     getObjectValue pokemonUpgrades "stardustCost"
-  return $ GameMaster HashMap.empty moves cpMultipliers stardustCost
+  return $ GameMaster pokemonBases moves cpMultipliers stardustCost
 
 -- Here it's nice to use Yaml.Parser because it will error if we don't
 -- get a [ItemTemplate], i.e., it checks that the Yaml.Values are the
