@@ -14,6 +14,7 @@ import qualified Data.HashMap.Strict as HashMap
 import           Data.HashMap.Strict (HashMap)
 import qualified Data.Vector as Vector
 import           Data.Vector (Vector)
+import qualified Text.Regex as Regex
 
 import qualified Epic
 import           StringMap (StringMap)
@@ -70,7 +71,8 @@ lookup what hash key =
 
 sanitize :: String -> String
 sanitize string =
-  map toUpper string
+  let nonWordChars = Regex.mkRegex "\\W"
+  in map toUpper $ Regex.subRegex nonWordChars string "_"
 
 makeGameMaster :: Epic.MonadCatch m => Yaml.Object -> m GameMaster
 makeGameMaster yamlObject = do
