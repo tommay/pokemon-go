@@ -7,15 +7,17 @@ import qualified Data.Yaml as Yaml
 import Data.Yaml (FromJSON(..), (.:))  -- ???
 
 import qualified Epic
+import qualified Stats
+import           Stats (Stats)
 
 data MyPokemon = MyPokemon {
   name        :: String,
   species     :: String,
-  quick       :: String,
-  charge      :: String,
+  quickName   :: String,
+  chargeName  :: String,
   cp          :: Integer,
   hp          :: Integer,
-  stats       :: Maybe [Stat]
+  stats       :: Maybe [Stats]
 } deriving (Show)
 
 instance Yaml.FromJSON MyPokemon where
@@ -30,25 +32,30 @@ instance Yaml.FromJSON MyPokemon where
     y .: "stats"
   parseJSON _ = fail "Expected Yaml.Object for MyPokemon.parseJSON"
 
-data Stat = Stat {
-  level       :: Float,
-  attack      :: Int,
-  defense     :: Int,
-  stamins     :: Int
-} deriving (Show)
-
-instance Yaml.FromJSON Stat where
-  parseJSON (Yaml.Object y) =
-    Stat <$>
-    y .: "level" <*>
-    y .: "attack" <*>
-    y .: "defense" <*>
-    y .: "stamina"
-  parseJSON _ = fail "Expected Yaml.Object for Stats.parseJSON"
-
 load :: Epic.MonadCatch m => FilePath -> IO (m [MyPokemon])
 load filename = do
   either <- Yaml.decodeFileEither filename
   case either of
     Right myPokemon -> return $ pure myPokemon
     Left yamlParseException -> Epic.fail $ show yamlParseException
+
+attack :: Epic.MonadCatch m => MyPokemon -> m Integer
+attack myPokemon = do
+  stats <- getStats myPokemon
+  return $ Stats.attack stats
+
+defense :: Epic.MonadCatch m => MyPokemon -> m Integer
+defense myPokemon = do
+  stats <- getStats myPokemon
+  return $ Stats.defense stats
+
+stamina :: Epic.MonadCatch m => MyPokemon -> m Integer
+stamina myPokemon = do
+  stats <- getStats myPokemon
+  return $ Stats.stamina stats
+
+getStats :: Epic.MonadCatch m => MyPokemon -> m Stats
+getStats myPokemon =
+  case MyPokemon.stats myPokemon of
+    Just (stats:_) -> return stats
+    Nothing -> Epic.fail $ "No stats for " ++ (MyPokemon.name myPokemon)

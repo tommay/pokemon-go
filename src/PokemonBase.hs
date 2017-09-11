@@ -1,5 +1,9 @@
 module PokemonBase (
   PokemonBase (PokemonBase),
+  types,
+  attack,
+  defense,
+  stamina,
 ) where
 
 import qualified Data.Text as Text
@@ -12,9 +16,9 @@ import           Move (Move)
 
 data PokemonBase = PokemonBase {
   types        :: [Type],
-  attack       :: Int,
-  defense      :: Int,
-  stamina      :: Int,
+  attack       :: Integer,
+  defense      :: Integer,
+  stamina      :: Integer,
   evolutions   :: [Text],
   quickMoves   :: [Move],
   chargeMoves  :: [Move],

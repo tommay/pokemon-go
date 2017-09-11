@@ -5,6 +5,7 @@ import qualified GameMaster
 import           GameMaster (GameMaster)
 import qualified MyPokemon
 import           MyPokemon (MyPokemon)
+import qualified PokemonBase
 import           PokemonBase (PokemonBase)
 import           Move (Move)
 import           Type (Type)
@@ -39,10 +40,20 @@ data Pokemon = Pokemon {
 
 makePokemon :: Epic.MonadCatch m => GameMaster -> MyPokemon -> m Pokemon
 makePokemon gameMaster myPokemon = do
-  base <- GameMaster.getPokemonBase gameMaster $ MyPokemon.species myPokemon
-  quick <- GameMaster.getMove gameMaster $ MyPokemon.quick myPokemon
-  charge <- GameMaster.getMove gameMaster $ MyPokemon.charge myPokemon
-  return $ Pokemon "my name" "my species" [] 0 0 0 quick charge base
+  let name = MyPokemon.name myPokemon
+      species = MyPokemon.species myPokemon
+  let fromGameMaster getFunc keyFunc = getFunc gameMaster $ keyFunc myPokemon
+  base <- fromGameMaster GameMaster.getPokemonBase MyPokemon.species
+  let types = PokemonBase.types base
+  quick <- fromGameMaster GameMaster.getQuick MyPokemon.quickName
+  charge <- fromGameMaster GameMaster.getCharge MyPokemon.chargeName
+  _attack <- MyPokemon.attack myPokemon
+  let attack = _attack + PokemonBase.attack base
+  _defense <- MyPokemon.defense myPokemon
+  let defense = _defense + PokemonBase.defense base
+  _stamina <- MyPokemon.stamina myPokemon
+  let stamina = _stamina + PokemonBase.stamina base
+  return $ Pokemon name species types attack defense stamina quick charge base
 
 {-
 map counter myPokemon
