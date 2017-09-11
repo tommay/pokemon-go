@@ -40,6 +40,34 @@ load filename = do
     Left yamlParseException -> Epic.fail $ show yamlParseException
     Right yamlObject -> return $ makeGameMaster yamlObject
 
+getMove :: Epic.MonadCatch m => GameMaster -> String -> m Move
+getMove gameMaster moveName  =
+  GameMaster.lookup "move" (moves gameMaster) moveName
+
+getQuick :: Epic.MonadCatch m => GameMaster -> String -> m Move
+getQuick gameMaster moveName = do
+  move <- getMove gameMaster moveName
+  case Move.isQuick move of
+    True -> return move
+    False -> Epic.fail $ moveName ++ " is not a quick move"
+
+getCharge :: Epic.MonadCatch m => GameMaster -> String -> m Move
+getCharge gameMaster moveName = do
+  move <- getMove gameMaster moveName
+  case Move.isCharge move of
+    True -> return move
+    False -> Epic.fail $ moveName ++ " is not a charge move"
+
+lookup :: Epic.MonadCatch m => String -> StringMap a -> String -> m a
+lookup what hash key =
+  case HashMap.lookup (sanitize key) hash of
+    Just val -> return val
+    Nothing -> Epic.fail $ "No such " ++ what ++ ": " ++ key
+
+sanitize :: String -> String
+sanitize string =
+  map toUpper string
+
 makeGameMaster :: Epic.MonadCatch m => Yaml.Object -> m GameMaster
 makeGameMaster yamlObject = do
   itemTemplates <- getItemTemplates yamlObject
