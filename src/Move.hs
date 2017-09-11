@@ -14,9 +14,10 @@ data Move = Move {
 } deriving (Show)
 
 isCharge :: Move -> Bool
-isCharge move =
-  Move.energy move < 0
+isCharge this =
+  Move.energy this < 0
 
 isQuick :: Move -> Bool
-isQuick move =
-  not $ Move.isCharge move
+isQuick this =
+  not $ Move.isCharge this
+

@@ -40,22 +40,22 @@ load filename = do
     Left yamlParseException -> Epic.fail $ show yamlParseException
 
 attack :: Epic.MonadCatch m => MyPokemon -> m Integer
-attack myPokemon = do
-  stats <- getStats myPokemon
+attack this = do
+  stats <- getStats this
   return $ Stats.attack stats
 
 defense :: Epic.MonadCatch m => MyPokemon -> m Integer
-defense myPokemon = do
-  stats <- getStats myPokemon
+defense this = do
+  stats <- getStats this
   return $ Stats.defense stats
 
 stamina :: Epic.MonadCatch m => MyPokemon -> m Integer
-stamina myPokemon = do
-  stats <- getStats myPokemon
+stamina this = do
+  stats <- getStats this
   return $ Stats.stamina stats
 
 getStats :: Epic.MonadCatch m => MyPokemon -> m Stats
-getStats myPokemon =
-  case MyPokemon.stats myPokemon of
+getStats this =
+  case MyPokemon.stats this of
     Just (stats:_) -> return stats
-    Nothing -> Epic.fail $ "No stats for " ++ (MyPokemon.name myPokemon)
+    Nothing -> Epic.fail $ "No stats for " ++ (MyPokemon.name this)

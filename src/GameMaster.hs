@@ -42,23 +42,23 @@ load filename = do
     Right yamlObject -> return $ makeGameMaster yamlObject
 
 getPokemonBase :: Epic.MonadCatch m => GameMaster -> String -> m PokemonBase
-getPokemonBase gameMaster speciesName =
-  GameMaster.lookup "species" (pokemonBases gameMaster) speciesName
+getPokemonBase this speciesName =
+  GameMaster.lookup "species" (pokemonBases this) speciesName
 
 getMove :: Epic.MonadCatch m => GameMaster -> String -> m Move
-getMove gameMaster moveName  =
-  GameMaster.lookup "move" (moves gameMaster) moveName
+getMove this moveName  =
+  GameMaster.lookup "move" (moves this) moveName
 
 getQuick :: Epic.MonadCatch m => GameMaster -> String -> m Move
-getQuick gameMaster moveName = do
-  move <- getMove gameMaster moveName
+getQuick this moveName = do
+  move <- getMove this moveName
   case Move.isQuick move of
     True -> return move
     False -> Epic.fail $ moveName ++ " is not a quick move"
 
 getCharge :: Epic.MonadCatch m => GameMaster -> String -> m Move
-getCharge gameMaster moveName = do
-  move <- getMove gameMaster moveName
+getCharge this moveName = do
+  move <- getMove this moveName
   case Move.isCharge move of
     True -> return move
     False -> Epic.fail $ moveName ++ " is not a charge move"
