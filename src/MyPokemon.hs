@@ -6,6 +6,8 @@ module MyPokemon where
 import qualified Data.Yaml as Yaml
 import Data.Yaml (FromJSON(..), (.:))  -- ???
 
+import qualified Epic
+
 data MyPokemon = MyPokemon {
   name        :: String,
   species     :: String,
@@ -38,6 +40,9 @@ instance Yaml.FromJSON Stat where
     y .: "stamina"
   parseJSON _ = fail "Expected Yaml.Object for Stats.parseJSON"
 
-load :: FilePath -> IO (Either Yaml.ParseException [MyPokemon])
-load filename =
-  Yaml.decodeFileEither filename
+load :: Epic.MonadCatch m => FilePath -> IO (m [MyPokemon])
+load filename = do
+  either <- Yaml.decodeFileEither filename
+  case either of
+    Right myPokemon -> return $ pure myPokemon
+    Left yamlParseException -> Epic.fail $ show yamlParseException
