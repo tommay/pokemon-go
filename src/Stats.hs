@@ -3,6 +3,7 @@
 
 module Stats (
   Stats,
+  level,
   attack,
   defense,
   stamina,

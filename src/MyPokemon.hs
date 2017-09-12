@@ -39,23 +39,20 @@ load filename = do
     Right myPokemon -> return $ pure myPokemon
     Left yamlParseException -> Epic.fail $ show yamlParseException
 
+level :: Epic.MonadCatch m => MyPokemon -> m Float
+level = getStat Stats.level
+
 attack :: Epic.MonadCatch m => MyPokemon -> m Integer
-attack this = do
-  stats <- getStats this
-  return $ Stats.attack stats
+attack = getStat Stats.attack
 
 defense :: Epic.MonadCatch m => MyPokemon -> m Integer
-defense this = do
-  stats <- getStats this
-  return $ Stats.defense stats
+defense = getStat Stats.defense
 
 stamina :: Epic.MonadCatch m => MyPokemon -> m Integer
-stamina this = do
-  stats <- getStats this
-  return $ Stats.stamina stats
+stamina = getStat Stats.stamina
 
-getStats :: Epic.MonadCatch m => MyPokemon -> m Stats
-getStats this =
+getStat :: (Num a, Epic.MonadCatch m) => (Stats -> a) -> MyPokemon -> m a
+getStat getter this = do
   case MyPokemon.stats this of
-    Just (stats:_) -> return stats
+    Just (stats:_) -> return $ getter stats
     Nothing -> Epic.fail $ "No stats for " ++ (MyPokemon.name this)
