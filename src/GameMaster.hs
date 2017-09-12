@@ -130,15 +130,9 @@ getTypes itemTemplates = do
 makeType :: Epic.MonadCatch m => Float -> ItemTemplate -> m Type
 makeType stab itemTemplate = do
   attackScalar <- getObjectValue itemTemplate "attackScalar"
-  let effectiveness = toMap $ zip effectivenessOrder attackScalar
+  let effectiveness = HashMap.fromList $ zip effectivenessOrder attackScalar
   name <- getObjectValue itemTemplate "attackType"
   return $ Type.Type name effectiveness stab
-
--- XXX there must be a library function to so this.
---
-toMap :: (Eq k, Hashable k) => [(k, v)] -> HashMap k v
-toMap pairs =
-  foldr (\ (k, v) hash -> HashMap.insert k v hash) HashMap.empty pairs
 
 effectivenessOrder :: [String]
 effectivenessOrder =
