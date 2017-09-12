@@ -1,6 +1,7 @@
 {-# LANGUAGE DuplicateRecordFields #-}
 
 import qualified System.Environment
+import Data.List as List
 
 import qualified Epic
 import qualified GameMaster
@@ -30,12 +31,14 @@ main = do
       pokemon <- mapM (makePokemon gameMaster) myPokemon
 
       let results = map (counter defenderBase) pokemon
+          sorted = reverse $ List.sortBy byDps results
 
-      return ())
+      mapM_ print sorted
+    )
     (\ex -> putStrLn $ "oops: " ++ (show ex))
 
 data Pokemon = Pokemon {
-  name        :: String,
+  pname       :: String,
   species     :: String,
   types       :: [Type],
   attack      :: Float,
@@ -93,24 +96,32 @@ makePokemon gameMaster myPokemon = do
   return $ Pokemon name species types attack defense stamina quick charge
 
 counter :: PokemonBase -> Pokemon -> Result
-counter defenderBase pokemon =
-  _
+counter defenderBase attacker =
+  let move = {-Pokemon.-}quick attacker
+      dps = damagePerSecond move attacker defenderBase
+      totals = []
+      name' = {-Pokemon.-}pname attacker
+  in Result name' dps totals
 
+damage :: Move -> Pokemon -> PokemonBase -> Integer
+damage move attacker defenderBase =
+  let stab = Move.stabFor move $ {-Pokemon.-}types attacker
+      effectiveness = Move.effectivenessAgainst move $
+        PokemonBase.types defenderBase
+      attack' = {-Pokemon.-}attack attacker
+      defense = fromIntegral $ PokemonBase.defense defenderBase + 15
+      power = Move.power move
+   in floor $ power * stab * effectiveness * attack' / defense / 2 + 1
 
-damage :: Move -> [Type] -> [Type] -> Float
-damage move attackerTypes defenderTypes =
-  let stab = Move.stabFor move attackerTypes
-      effectiveness = Move.effectivenessAgainst move defenderTypes
-  in (Move.power move) * stab * effectiveness
-
-calcDps :: Move -> [Type] -> [Type] -> Float
-calcDps move attackerTypes defenderTypes =
-  damage move attackerTypes defenderTypes / Move.duration move
+damagePerSecond :: Move -> Pokemon -> PokemonBase -> Float
+damagePerSecond move attacker defenderBase =
+  fromIntegral (damage move attacker defenderBase) / Move.duration move
 
 -- List.sortBy byDps results
 -- reverse $ List.sortBy byDps results
 -- (List.sortBy byDps) results
 -- (reverse . List.sortBy byDps) results
+-- reverse . List.sortBy byDps $ results
 
 byDps :: Result -> Result -> Ordering
 byDps first second =
