@@ -4,6 +4,8 @@ module PokemonBase (
   attack,
   defense,
   stamina,
+  quickMoves,
+  chargeMoves,
 ) where
 
 import qualified Data.Text as Text

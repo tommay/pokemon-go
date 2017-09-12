@@ -60,13 +60,22 @@ makePokemon gameMaster myPokemon = do
       species = MyPokemon.species myPokemon
 
   let fromGameMaster getFunc keyFunc = getFunc gameMaster $ keyFunc myPokemon
+
   base <- fromGameMaster GameMaster.getPokemonBase MyPokemon.species
-  quick <- fromGameMaster GameMaster.getQuick MyPokemon.quickName
-  charge <- fromGameMaster GameMaster.getCharge MyPokemon.chargeName
+
+  let getMove string getFunc keyFunc moveListFunc = do
+        move <- fromGameMaster getFunc keyFunc
+        case move `elem` moveListFunc base of
+          True -> return move
+          False -> Epic.fail $
+            species ++ "can't do " ++ string ++ " move " ++
+              MyPokemon.quickName myPokemon
+  quick <- getMove "quick"
+    GameMaster.getQuick MyPokemon.quickName PokemonBase.quickMoves
+  charge <- getMove "charge"
+    GameMaster.getCharge MyPokemon.chargeName PokemonBase.chargeMoves
 
   let types = PokemonBase.types base
-
---  cpMultiplier <- MyPokemon.level myPokemon
 
   cpMultiplier <- do
     level <- MyPokemon.level myPokemon

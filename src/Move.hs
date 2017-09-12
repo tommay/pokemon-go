@@ -19,7 +19,7 @@ data Move = Move {
   power    :: Float,
   duration :: Float,
   energy   :: Float
-} deriving (Show)
+} deriving (Eq, Show)
 
 isCharge :: Move -> Bool
 isCharge this =
