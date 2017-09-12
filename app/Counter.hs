@@ -9,6 +9,7 @@ import qualified MyPokemon
 import           MyPokemon (MyPokemon)
 import qualified PokemonBase
 import           PokemonBase (PokemonBase)
+import qualified Move
 import           Move (Move)
 import           Type (Type)
 
@@ -85,6 +86,17 @@ makePokemon gameMaster myPokemon = do
 counter :: PokemonBase -> Pokemon -> Result
 counter defenderBase pokemon =
   _
+
+
+damage :: Move -> [Type] -> [Type] -> Float
+damage move attackerTypes defenderTypes =
+  let stab = Move.stabFor move attackerTypes
+      effectiveness = Move.effectivenessAgainst move defenderTypes
+  in (Move.power move) * stab * effectiveness
+
+calcDps :: Move -> [Type] -> [Type] -> Float
+calcDps move attackerTypes defenderTypes =
+  damage move attackerTypes defenderTypes / Move.duration move
 
 -- List.sortBy byDps results
 -- reverse $ List.sortBy byDps results

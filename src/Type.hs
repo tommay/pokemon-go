@@ -1,11 +1,14 @@
 module Type (
   Type (Type),
+  name,
+  effectiveness,
+  stab
 ) where
 
 import StringMap (StringMap)
 
 data Type = Type {
-  effectiveness :: StringMap Float,
   name          :: String,
+  effectiveness :: StringMap Float,
   stab          :: Float
-} deriving (Show)
+} deriving (Eq, Show)

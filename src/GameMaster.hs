@@ -132,7 +132,7 @@ makeType stab itemTemplate = do
   attackScalar <- getObjectValue itemTemplate "attackScalar"
   let effectiveness = toMap $ zip effectivenessOrder attackScalar
   name <- getObjectValue itemTemplate "attackType"
-  return $ Type.Type effectiveness name stab
+  return $ Type.Type name effectiveness stab
 
 -- XXX there must be a library function to so this.
 --
