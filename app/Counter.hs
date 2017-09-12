@@ -2,6 +2,7 @@
 
 import qualified System.Environment
 import Data.List as List
+import Text.Printf as Printf
 
 import qualified Epic
 import qualified GameMaster
@@ -33,9 +34,14 @@ main = do
       let results = map (counter defenderBase) pokemon
           sorted = reverse $ List.sortBy byDps results
 
-      mapM_ print sorted
+      mapM_ showResult sorted
     )
     (\ex -> putStrLn $ "oops: " ++ (show ex))
+
+showResult :: Result -> IO ()
+showResult result =
+  let format = Printf.printf "%3.1f %s\n"
+  in format (dps result) (name result)
 
 data Pokemon = Pokemon {
   pname       :: String,
