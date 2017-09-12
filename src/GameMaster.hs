@@ -51,7 +51,7 @@ getMove this moveName  =
 
 getQuick :: Epic.MonadCatch m => GameMaster -> String -> m Move
 getQuick this moveName = do
-  move <- getMove this moveName
+  move <- getMove this (moveName ++ "_fast")
   case Move.isQuick move of
     True -> return move
     False -> Epic.fail $ moveName ++ " is not a quick move"
