@@ -13,7 +13,7 @@ import Data.Yaml (FromJSON(..), (.:), (.:?), (.!=))
 import qualified Data.HashMap.Strict as HashMap
 import           Data.HashMap.Strict (HashMap)
 import qualified Data.Vector as Vector
-import           Data.Vector (Vector)
+import           Data.Vector (Vector, (!))
 import qualified Text.Regex as Regex
 
 import qualified Epic
@@ -62,6 +62,29 @@ getCharge this moveName = do
   case Move.isCharge move of
     True -> return move
     False -> Epic.fail $ moveName ++ " is not a charge move"
+
+getCpMultiplier :: GameMaster -> Float -> Float
+getCpMultiplier this level =
+  let cpMultipliers' = GameMaster.cpMultipliers this
+      intLevel = floor level
+  in case fromIntegral intLevel == level of
+    True -> cpMultipliers' ! (intLevel - 1)
+    False ->
+      let cp0 = cpMultipliers' ! (intLevel - 1)
+          cp1 = cpMultipliers' ! intLevel
+      in sqrt $ (cp0*cp0 + cp1*cp1) / 2
+
+{-
+getCpMultiplier :: Epic.MonadCatch m => GameMaster -> Float -> m Float
+getCpMultiplier this level =
+  let cpMutipliers = GameMaster.cpMultiplers this
+      floorLevel = floor level
+  in case floorLevel == level of
+    True -> case cpMultiploers !? floorLevel of
+      Nothing -> Epic.fail $ "bad level: " ++ (show level)
+      Just cpMultiploer -> return cpMultiplier
+    False ->
+-}
 
 lookup :: Epic.MonadCatch m => String -> StringMap a -> String -> m a
 lookup what hash key =
