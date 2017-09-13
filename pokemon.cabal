@@ -30,6 +30,7 @@ executable counter-exe
   ghc-options:         -O2 -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
                      , pokemon
+                     , regex-compat
   default-language:    Haskell2010
 
 executable mine-exe

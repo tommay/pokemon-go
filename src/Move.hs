@@ -1,5 +1,6 @@
 module Move (
   Move (Move),
+  moveType,
   power,
   duration,
   energy,

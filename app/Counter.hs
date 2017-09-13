@@ -1,8 +1,10 @@
 {-# LANGUAGE DuplicateRecordFields #-}
 
+import           Data.Char (toLower)
+import qualified Data.List as List
+import qualified Text.Printf as Printf
+import qualified Text.Regex as Regex
 import qualified System.Environment
-import Data.List as List
-import Text.Printf as Printf
 
 import qualified Epic
 import qualified GameMaster
@@ -13,6 +15,7 @@ import qualified PokemonBase
 import           PokemonBase (PokemonBase)
 import qualified Move
 import           Move (Move)
+import qualified Type
 import           Type (Type)
 
 main = do
@@ -34,14 +37,20 @@ main = do
       let results = map (counter defenderBase) pokemon
           sorted = reverse $ List.sortBy byDps results
 
-      mapM_ showResult sorted
+      mapM_ putStrLn $ map showResult sorted
     )
     (\ex -> putStrLn $ "oops: " ++ (show ex))
 
-showResult :: Result -> IO ()
+showResult :: Result -> String
 showResult result =
-  let format = Printf.printf "%3.1f %s\n"
-  in format (dps result) (name result)
+  let format = Printf.printf "%3.1f %s"
+  in format (dps result) (name result) ++ "\t" ++ showTotals (totals result)
+
+showTotals :: [(String, Float)] -> String
+showTotals totals =
+  let format = Printf.printf "%s:%.0f"
+  in List.intercalate " " $
+    map (\ (string, total) -> format string total) totals
 
 data Pokemon = Pokemon {
   pname       :: String,
@@ -104,13 +113,13 @@ makePokemon gameMaster myPokemon = do
 counter :: PokemonBase -> Pokemon -> Result
 counter defenderBase attacker =
   let move = {-Pokemon.-}quick attacker
-      dps = damagePerSecond move attacker defenderBase
-      totals = []
+      dps = damagePerSecond attacker move defenderBase
+      totals = makeTotals defenderBase attacker
       name' = {-Pokemon.-}pname attacker
   in Result name' dps totals
 
-damage :: Move -> Pokemon -> PokemonBase -> Integer
-damage move attacker defenderBase =
+damage :: Pokemon -> Move -> PokemonBase -> Integer
+damage attacker move defenderBase =
   let stab = Move.stabFor move $ {-Pokemon.-}types attacker
       effectiveness = Move.effectivenessAgainst move $
         PokemonBase.types defenderBase
@@ -119,9 +128,33 @@ damage move attacker defenderBase =
       power = Move.power move
    in floor $ power * stab * effectiveness * attack' / defense / 2 + 1
 
-damagePerSecond :: Move -> Pokemon -> PokemonBase -> Float
-damagePerSecond move attacker defenderBase =
-  fromIntegral (damage move attacker defenderBase) / Move.duration move
+damagePerSecond :: Pokemon -> Move -> PokemonBase -> Float
+damagePerSecond attacker move defenderBase =
+  fromIntegral (damage attacker move defenderBase) / Move.duration move
+
+makeTotals :: PokemonBase -> Pokemon -> [(String, Float)]
+makeTotals defenderBase attacker =
+  let moveTypes = sortMoveTypes defenderBase $ getMoveTypes defenderBase
+  in map (\moveType -> (simplify $ Type.name moveType, 0)) moveTypes
+
+simplify :: String -> String
+simplify name =
+  let regex = Regex.mkRegex ".*_"
+  in map toLower $ Regex.subRegex regex name ""
+
+getMoveTypes :: PokemonBase -> [Type]
+getMoveTypes pokemonBase =
+  uniq $ map Move.moveType $ concat $
+    [PokemonBase.quickMoves, PokemonBase.chargeMoves] <*> [pokemonBase]
+
+-- Sort the move types so the ones with stab are at the front.
+--
+sortMoveTypes :: PokemonBase -> [Type] -> [Type]
+sortMoveTypes pokemonBase types =
+  let pokemonTypes = PokemonBase.types pokemonBase
+      hasStab ptype = ptype `elem` pokemonTypes
+      (stab, noStab) = List.partition hasStab types
+  in stab ++ noStab
 
 -- List.sortBy byDps results
 -- reverse $ List.sortBy byDps results
@@ -137,3 +170,14 @@ byTotals :: Result -> Result -> Ordering
 byTotals first second =
   let min result = minimum $ map snd $ totals result
   in min first `compare` min second
+
+-- This is a terrible implementation but I can't find a good one
+-- that works on types that are Eq but not Ord.
+--
+uniq :: Eq a => [a] -> [a]
+uniq =
+  foldr (\e accum ->
+    case e `elem` accum of
+      True -> accum
+      False -> e : accum)
+  []
