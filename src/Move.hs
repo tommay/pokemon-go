@@ -32,15 +32,8 @@ isQuick this =
 
 stabFor :: Move -> [Type] -> Float
 stabFor this attackerTypes =
-  case Move.moveType this `elem` attackerTypes of
-    True -> Type.stab $ Move.moveType this
-    False -> 1.0
+  Type.stabFor (Move.moveType this) attackerTypes
 
--- XXX lookupDefault
 effectivenessAgainst :: Move -> [Type] -> Float
 effectivenessAgainst this defenderTypes =
-  let effectiveness = Type.effectiveness $ Move.moveType this
-  in foldr (\ptype accum ->
-             accum * HashMap.lookupDefault 1 (Type.name ptype) effectiveness)
-       1
-       defenderTypes
+  Type.effectivenessAgainst (Move.moveType this) defenderTypes

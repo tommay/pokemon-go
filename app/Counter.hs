@@ -114,7 +114,7 @@ counter :: PokemonBase -> Pokemon -> Result
 counter defenderBase attacker =
   let move = {-Pokemon.-}quick attacker
       dps = damagePerSecond attacker move defenderBase
-      totals = makeTotals defenderBase attacker
+      totals = makeTotals dps defenderBase attacker
       name' = {-Pokemon.-}pname attacker
   in Result name' dps totals
 
@@ -132,10 +132,19 @@ damagePerSecond :: Pokemon -> Move -> PokemonBase -> Float
 damagePerSecond attacker move defenderBase =
   fromIntegral (damage attacker move defenderBase) / Move.duration move
 
-makeTotals :: PokemonBase -> Pokemon -> [(String, Float)]
-makeTotals defenderBase attacker =
+makeTotals :: Float -> PokemonBase -> Pokemon -> [(String, Float)]
+makeTotals dps defenderBase attacker =
   let moveTypes = sortMoveTypes defenderBase $ getMoveTypes defenderBase
-  in map (\moveType -> (simplify $ Type.name moveType, 0)) moveTypes
+      total moveType = dps * makeTotal defenderBase attacker moveType
+  in map (\moveType ->
+           (simplify $ Type.name moveType, total moveType)) moveTypes
+
+makeTotal :: PokemonBase -> Pokemon -> Type -> Float
+makeTotal defenderBase attacker moveType =
+  (fromIntegral $ {-Pokemon.-}hp attacker) *
+    ({-Pokemon.-}defense attacker) /
+    ((Type.stabFor moveType $ PokemonBase.types defenderBase) *
+     (Type.effectivenessAgainst moveType $ {-Pokemon.-}types attacker)) / 1000
 
 simplify :: String -> String
 simplify name =
