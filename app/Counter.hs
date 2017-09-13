@@ -44,13 +44,13 @@ main = do
 showResult :: Result -> String
 showResult result =
   let format = Printf.printf "%3.1f %s"
-  in format (dps result) (name result) ++ "\t" ++ showTotals (totals result)
+  in format (dps result) (name result) ++ "\t" ++ showExpecteds (expecteds result)
 
-showTotals :: [(String, Float)] -> String
-showTotals totals =
+showExpecteds :: [(String, Float)] -> String
+showExpecteds expecteds =
   let format = Printf.printf "%s:%.0f"
   in List.intercalate " " $
-    map (\ (string, total) -> format string total) totals
+    map (\ (string, expected) -> format string expected) expecteds
 
 data Pokemon = Pokemon {
   pname       :: String,
@@ -67,9 +67,9 @@ hp :: Pokemon -> Integer
 hp this = floor $ stamina this
 
 data Result = Result {
-  name     :: String,
-  dps      :: Float,
-  totals   :: [(String, Float)]
+  name      :: String,
+  dps       :: Float,
+  expecteds :: [(String, Float)]
 } deriving (Show)
 
 makePokemon :: Epic.MonadCatch m => GameMaster -> MyPokemon -> m Pokemon
@@ -114,9 +114,9 @@ counter :: PokemonBase -> Pokemon -> Result
 counter defenderBase attacker =
   let move = {-Pokemon.-}quick attacker
       dps = damagePerSecond attacker move defenderBase
-      totals = makeTotals dps defenderBase attacker
+      expecteds = makeExpecteds dps defenderBase attacker
       name' = {-Pokemon.-}pname attacker
-  in Result name' dps totals
+  in Result name' dps expecteds
 
 damage :: Pokemon -> Move -> PokemonBase -> Integer
 damage attacker move defenderBase =
@@ -132,15 +132,15 @@ damagePerSecond :: Pokemon -> Move -> PokemonBase -> Float
 damagePerSecond attacker move defenderBase =
   fromIntegral (damage attacker move defenderBase) / Move.duration move
 
-makeTotals :: Float -> PokemonBase -> Pokemon -> [(String, Float)]
-makeTotals dps defenderBase attacker =
+makeExpecteds :: Float -> PokemonBase -> Pokemon -> [(String, Float)]
+makeExpecteds dps defenderBase attacker =
   let moveTypes = sortMoveTypes defenderBase $ getMoveTypes defenderBase
-      total moveType = dps * makeTotal defenderBase attacker moveType
+      expected moveType = dps * makeExpected defenderBase attacker moveType
   in map (\moveType ->
-           (simplify $ Type.name moveType, total moveType)) moveTypes
+           (simplify $ Type.name moveType, expected moveType)) moveTypes
 
-makeTotal :: PokemonBase -> Pokemon -> Type -> Float
-makeTotal defenderBase attacker moveType =
+makeExpected :: PokemonBase -> Pokemon -> Type -> Float
+makeExpected defenderBase attacker moveType =
   (fromIntegral $ {-Pokemon.-}hp attacker) *
     ({-Pokemon.-}defense attacker) /
     ((Type.stabFor moveType $ PokemonBase.types defenderBase) *
@@ -175,9 +175,9 @@ byDps :: Result -> Result -> Ordering
 byDps first second =
   (dps first) `compare` (dps second) 
 
-byTotals :: Result -> Result -> Ordering
-byTotals first second =
-  let min result = minimum $ map snd $ totals result
+byExpecteds :: Result -> Result -> Ordering
+byExpecteds first second =
+  let min result = minimum $ map snd $ expecteds result
   in min first `compare` min second
 
 -- This is a terrible implementation but I can't find a good one
