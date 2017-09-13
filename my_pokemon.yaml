@@ -3,64 +3,64 @@
   species: gyarados
   quick: bite
   charge: hydro pump
-  cp: 2398
-  hp: 137
-  dust: 4000
+  cp: 2537
+  hp: 141
+  dust: 4500
   appraisal: wonder, attack, impressed
   stats:
-  - level: 26
+  - level: 27.5
     attack: 14
     defense: 13
-    stamina: 12
-- name: Snorlax 2Cb
-  species: snorlax
-  quick: lick
-  charge: heavy slam
-  cp: 2156
-  hp: 211
-  dust: 3500
-  appraisal: attention, attack, impressed
-  stats:
-  - level: 23
-    attack: 14
-    defense: 11
-    stamina: 10
-- name: Vaporeon2a-A
-  species: vaporeon
-  quick: water gun
-  charge: aqua tail
-  cp: 2155
-  hp: 181
-  dust: 4000
-  appraisal: attention, hp, trending
-  stats:
-  - level: 25
-    attack: 11
-    defense: 7
     stamina: 12
 - name: Rainera-a-
   species: vaporeon
   quick: water gun
   charge: aqua tail
-  cp: 2037
-  hp: 176
-  dust: 3500
+  cp: 2302
+  hp: 187
+  dust: 4000
   appraisal: wonder, hp, defense, incredible
   stats:
-  - level: 23
+  - level: 26
     attack: 11
     defense: 15
     stamina: 15
+- name: Vaporeon2a-A
+  species: vaporeon
+  quick: water gun
+  charge: aqua tail
+  cp: 2242
+  hp: 185
+  dust: 4000
+  appraisal: attention, hp, trending
+  stats:
+  - level: 26
+    attack: 11
+    defense: 7
+    stamina: 12
+- name: Snorlax 2Cb
+  species: snorlax
+  quick: lick
+  charge: heavy slam
+  cp: 2203
+  hp: 213
+  dust: 3500
+  appraisal: attention, attack, impressed
+  stats:
+  - level: 23.5
+    attack: 14
+    defense: 11
+    stamina: 10
 - name: Sakura 1bd
   species: espeon
   quick: zen headbutt
   charge: psychic
-  cp: 1863
-  hp: 90
-  dust: 3000
+  cp: 2202
+  hp: 98
+  dust: 4000
   appraisal: wonder, hp, attack, incredible
   stats:
-  - level: 22
+  - level: 26
     attack: 15
     defense: 10
     stamina: 15
@@ -81,15 +81,45 @@
   species: kingler
   quick: bubble
   charge: water pulse
-  cp: 1728
-  hp: 74
+  cp: 1763
+  hp: 75
   dust: 4000
   appraisal: not likely, defense, impressed
   stats:
-  - level: 25
+  - level: 25.5
     attack: 3
     defense: 13
     stamina: 2
+- name: Esmeon
+  species: espeon
+  quick: zen headbutt
+  charge: psychic
+  cp: 1758
+  hp: 82
+  dust: 3000
+  appraisal: above, attack, incredible
+  stats:
+  - level: 22
+    attack: 15
+    defense: 7
+    stamina: 1
+- name: Espeee
+  species: espeon
+  quick: confusion
+  charge: futuresight
+  cp: 1687
+  hp: 86
+  dust: 2500
+  appraisal: wonder, hp, incredible
+  stats:
+  - level: 20
+    attack: 12
+    defense: 13
+    stamina: 15
+  - level: 20
+    attack: 14
+    defense: 10
+    stamina: 15
 - name: Pyro 2bc
   species: flareon
   quick: ember
@@ -313,7 +343,7 @@
     attack: 15
     defense: 15
     stamina: 13
-- name: Poliwrath ca ?
+- name: Poliwrath ca
   species: poliwrath
   quick: bubble
   charge: ice punch
@@ -502,7 +532,7 @@
     attack: 10
     defense: 10
     stamina: 13
-- name: Magneton4cc a ?
+- name: Magneton4cc a
   species: magneton
   quick: spark
   charge: flash cannon
@@ -1284,4 +1314,38 @@
   - level: 20
     attack: 15
     defense: 10
+    stamina: 15
+- name: Poliwhirl
+  species: poliwhirl
+  quick: mud shot
+  charge: bubble beam
+  cp: 836
+  hp: 93
+  dust: 3500
+  appraisal: attention, hp, impressed
+  stats:
+  - level: 24
+    attack: 7
+    defense: 12
+    stamina: 13
+  - level: 24
+    attack: 8
+    defense: 10
+    stamina: 13
+  - level: 24
+    attack: 9
+    defense: 8
+    stamina: 13
+- name: Chansey
+  species: chansey
+  quick: zen headbutt
+  charge: psychic
+  cp: 835
+  hp: 307
+  dust: 2500
+  appraisal: wonder, hp, attack, incredible
+  stats:
+  - level: 20
+    attack: 15
+    defense: 13
     stamina: 15
