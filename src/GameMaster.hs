@@ -4,7 +4,7 @@
 module GameMaster where
 
 import           Data.Text.Conversions (convertText)
-import           Data.Char (toUpper)
+import           Data.Char (toLower, toUpper)
 import           Data.Hashable (Hashable)
 import           Data.Maybe (mapMaybe)
 import qualified Data.Yaml as Yaml
@@ -176,6 +176,10 @@ makePokemonBase types moves pokemonSettings =
   Epic.catch (do
     let getValue key = getObjectValue pokemonSettings key
 
+    species <- do
+      species <- getValue "pokemonId"
+      return $ map toLower species
+
     ptypes <- do
       ptype <- getValue "type"
       let ptypes = case getValue "type2" of
@@ -208,8 +212,8 @@ makePokemonBase types moves pokemonSettings =
           -- XXX This can swallow parse errors?
           Left _ -> Nothing
 
-    return $ PokemonBase.PokemonBase ptypes attack defense stamina evolutions
-      quickMoves chargeMoves parent)
+    return $ PokemonBase.PokemonBase species ptypes attack defense stamina
+       evolutions quickMoves chargeMoves parent)
   (\ex -> Epic.fail $ ex ++ " in " ++ (show pokemonSettings))
 
 makeObjects :: Epic.MonadCatch m => String -> String -> (ItemTemplate -> m a) -> [ItemTemplate]

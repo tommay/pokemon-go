@@ -1,5 +1,6 @@
 module PokemonBase (
   PokemonBase (PokemonBase),
+  species,
   types,
   attack,
   defense,
@@ -17,6 +18,7 @@ import qualified Move
 import           Move (Move)
 
 data PokemonBase = PokemonBase {
+  species      :: String,
   types        :: [Type],
   attack       :: Integer,
   defense      :: Integer,
