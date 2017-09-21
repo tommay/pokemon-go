@@ -6,6 +6,9 @@ import qualified Text.Printf as Printf
 import qualified Text.Regex as Regex
 import qualified System.Environment
 
+import Options.Applicative as O
+import Data.Semigroup ((<>))
+
 import qualified Epic
 import qualified GameMaster
 import           GameMaster (GameMaster)
@@ -18,9 +21,42 @@ import           Move (Move)
 import qualified Type
 import           Type (Type)
 
-main = do
+data Options = Options {
+  glass  :: Bool,
+  level  :: Int
+}
+
+opts :: ParserInfo Options
+opts = O.info (options <**> O.helper)
+  ( O.fullDesc
+  <> O.progDesc "Find good counters for a Pokemon."
+  <> O.header "header - Find good counters for a Pokemon.")
+
+options :: O.Parser Options
+options = Options <$> optGlass <*> optLevel
+
+optGlass :: O.Parser Bool
+optGlass = O.switch
+   (  O.long "glass"
+   <> O.short 'g'
+   <> O.help "Sort output by dps to find glass cannons")
+
+optLevel :: O.Parser Int
+optLevel = O.option auto
+   (  O.long "level"
+   <> O.short 'l'
+   <> O.value (0-1) -- XX this sux, can it be "undefined"?
+   <> O.metavar "LEVEL"
+   <> O.help "Force my_pokemon level to find who's implicitly best")
+
+main =
+  top =<< O.execParser opts
+
+top :: Options -> IO ()
+top options = do
   Epic.catch (
     do
+      z <- Epic.fail $ show $ level options
       ioGameMaster <- GameMaster.load "GAME_MASTER.yaml"
       gameMaster <- ioGameMaster
 

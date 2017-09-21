@@ -1,4 +1,3 @@
 #!/usr/bin/sh
 
-exec stack exec counter-exe "$@"
-
+exec stack exec counter-exe -- "$@"
