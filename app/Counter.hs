@@ -49,13 +49,10 @@ optLevel = O.option auto
    <> O.metavar "LEVEL"
    <> O.help "Force my_pokemon level to find who's implicitly best")
 
-main =
-  top =<< O.execParser opts
-
-top :: Options -> IO ()
-top options = do
+main = do
   Epic.catch (
     do
+      options <- O.execParser opts
       z <- Epic.fail $ show $ level options
       ioGameMaster <- GameMaster.load "GAME_MASTER.yaml"
       gameMaster <- ioGameMaster
