@@ -74,7 +74,8 @@ main = do
       pokemon <- mapM (makePokemon gameMaster maybeLevel) myPokemon
 
       let results = map (counter defender) pokemon
-          sorted = reverse $ List.sortBy byDps results
+          sorted = reverse $ flip List.sortBy results $
+            if glass options then byDps else byExpecteds
 
       mapM_ putStrLn $ map showResult sorted
     )
