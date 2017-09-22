@@ -166,6 +166,9 @@ counter defender attacker =
       name' = {-Pokemon.-}pname attacker
   in Result name' dps expecteds
 
+-- Note that both the "floor" and the "+ 1" make this somewhat
+-- nonlinear wrt pokemon level.
+
 damage :: Pokemon -> Move -> Pokemon -> Integer
 damage attacker move defender =
   let stab = Move.stabFor move $ {-Pokemon.-}types attacker
