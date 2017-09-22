@@ -24,12 +24,12 @@ import           Type (Type)
 data Options = Options {
   glass    :: Bool,
   level    :: Integer,
-  defender :: String
+  species  :: String
 }
 
 getOptions :: IO Options
 getOptions = do
-  let opts = Options <$> optGlass <*> optLevel <*> optDefender
+  let opts = Options <$> optGlass <*> optLevel <*> optSpecies
       optGlass = O.switch
         (  O.long "glass"
         <> O.short 'g'
@@ -40,7 +40,7 @@ getOptions = do
         <> O.value 0
         <> O.metavar "LEVEL"
         <> O.help "Force my_pokemon level to find who's implicitly best")
-      optDefender = O.argument O.str (O.metavar "SPECIES")
+      optSpecies = O.argument O.str (O.metavar "SPECIES")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc "Find good counters for a Pokemon."
@@ -52,16 +52,17 @@ main = do
   Epic.catch (
     do
       options <- getOptions
-      z <- Epic.fail $ show (level options) ++ " " ++ defender options
+
       ioGameMaster <- GameMaster.load "GAME_MASTER.yaml"
       gameMaster <- ioGameMaster
 
-      args <- System.Environment.getArgs
-      species <- case args of
-        [species] -> return species
-        _ -> Epic.fail "usage: counter species"
+      -- XXX Replacing "species" with "_" shows the compiler knows
+      -- species must be Options -> String.  Too bad this needs a type
+      -- annotation to disambiguate.
+
       defender <- do
-        defenderBase <- GameMaster.getPokemonBase gameMaster species
+        defenderBase <- GameMaster.getPokemonBase gameMaster $
+          (species :: Options -> String) options
         return $ makeDefenderFromBase gameMaster defenderBase
 
       ioMyPokemon <- MyPokemon.load "my_pokemon.yaml"
