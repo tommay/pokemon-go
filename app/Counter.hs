@@ -65,9 +65,13 @@ main = do
           (species :: Options -> String) options
         return $ makeDefenderFromBase gameMaster defenderBase
 
+      let maybeLevel = case level options of
+            0 -> Nothing
+            val -> Just val
+
       ioMyPokemon <- MyPokemon.load "my_pokemon.yaml"
       myPokemon <- ioMyPokemon
-      pokemon <- mapM (makePokemon gameMaster) myPokemon
+      pokemon <- mapM (makePokemon gameMaster maybeLevel) myPokemon
 
       let results = map (counter defender) pokemon
           sorted = reverse $ List.sortBy byDps results
@@ -114,8 +118,8 @@ data Result = Result {
   expecteds :: [(String, Float)]
 } deriving (Show)
 
-makePokemon :: Epic.MonadCatch m => GameMaster -> MyPokemon -> m Pokemon
-makePokemon gameMaster myPokemon = do
+makePokemon :: Epic.MonadCatch m => GameMaster -> Maybe Integer -> MyPokemon -> m Pokemon
+makePokemon gameMaster maybeLevel myPokemon = do
   let name = MyPokemon.name myPokemon
       species = MyPokemon.species myPokemon
 
@@ -138,7 +142,9 @@ makePokemon gameMaster myPokemon = do
   let types = PokemonBase.types base
 
   cpMultiplier <- do
-    level <- MyPokemon.level myPokemon
+    level <- case maybeLevel of
+      Nothing -> MyPokemon.level myPokemon
+      Just val -> return $ fromIntegral val
     return $ GameMaster.getCpMultiplier gameMaster level
 
   let getStat getBaseStat getMyStat = do
