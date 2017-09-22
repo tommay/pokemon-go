@@ -22,38 +22,37 @@ import qualified Type
 import           Type (Type)
 
 data Options = Options {
-  glass  :: Bool,
-  level  :: Int
+  glass    :: Bool,
+  level    :: Integer,
+  defender :: String
 }
 
-opts :: ParserInfo Options
-opts = O.info (options <**> O.helper)
-  ( O.fullDesc
-  <> O.progDesc "Find good counters for a Pokemon."
-  <> O.header "header - Find good counters for a Pokemon.")
-
-options :: O.Parser Options
-options = Options <$> optGlass <*> optLevel
-
-optGlass :: O.Parser Bool
-optGlass = O.switch
-   (  O.long "glass"
-   <> O.short 'g'
-   <> O.help "Sort output by dps to find glass cannons")
-
-optLevel :: O.Parser Int
-optLevel = O.option auto
-   (  O.long "level"
-   <> O.short 'l'
-   <> O.value (0-1) -- XX this sux, can it be "undefined"?
-   <> O.metavar "LEVEL"
-   <> O.help "Force my_pokemon level to find who's implicitly best")
+getOptions :: IO Options
+getOptions = do
+  let opts = Options <$> optGlass <*> optLevel <*> optDefender
+      optGlass = O.switch
+        (  O.long "glass"
+        <> O.short 'g'
+        <> O.help "Sort output by dps to find glass cannons")
+      optLevel = O.option auto
+        (  O.long "level"
+        <> O.short 'l'
+        <> O.value 0
+        <> O.metavar "LEVEL"
+        <> O.help "Force my_pokemon level to find who's implicitly best")
+      optDefender = O.argument O.str (O.metavar "SPECIES")
+      options = O.info (opts <**> O.helper)
+        (  O.fullDesc
+        <> O.progDesc "Find good counters for a Pokemon."
+        <> O.header "header - Find good counters for a Pokemon.")
+      prefs = O.prefs O.showHelpOnEmpty
+  O.customExecParser prefs options
 
 main = do
   Epic.catch (
     do
-      options <- O.execParser opts
-      z <- Epic.fail $ show $ level options
+      options <- getOptions
+      z <- Epic.fail $ show (level options) ++ " " ++ defender options
       ioGameMaster <- GameMaster.load "GAME_MASTER.yaml"
       gameMaster <- ioGameMaster
 
