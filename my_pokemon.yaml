@@ -3,12 +3,12 @@
   species: gyarados
   quick: bite
   charge: hydro pump
-  cp: 2629
-  hp: 144
-  dust: 4500
+  cp: 2675
+  hp: 145
+  dust: 5000
   appraisal: wonder, attack, impressed
   stats:
-  - level: 28.5
+  - level: 29
     attack: 14
     defense: 13
     stamina: 12
@@ -16,12 +16,12 @@
   species: vaporeon
   quick: water gun
   charge: aqua tail
-  cp: 2524
-  hp: 196
-  dust: 4500
+  cp: 2568
+  hp: 197
+  dust: 5000
   appraisal: wonder, hp, defense, incredible
   stats:
-  - level: 28.5
+  - level: 29
     attack: 11
     defense: 15
     stamina: 15
@@ -29,12 +29,12 @@
   species: vaporeon
   quick: water gun
   charge: aqua tail
-  cp: 2457
-  hp: 193
-  dust: 4500
+  cp: 2500
+  hp: 195
+  dust: 5000
   appraisal: attention, hp, trending
   stats:
-  - level: 28.5
+  - level: 29
     attack: 11
     defense: 7
     stamina: 12
@@ -42,12 +42,12 @@
   species: espeon
   quick: zen headbutt
   charge: psychic
-  cp: 2287
-  hp: 100
-  dust: 4500
+  cp: 2456
+  hp: 104
+  dust: 5000
   appraisal: wonder, hp, attack, incredible
   stats:
-  - level: 27
+  - level: 29
     attack: 15
     defense: 10
     stamina: 15
@@ -55,42 +55,55 @@
   species: dragonite
   quick: dragon tail
   charge: hurricane
-  cp: 2225
-  hp: 123
-  dust: 3000
+  cp: 2326
+  hp: 126
+  dust: 3500
   appraisal: wonder, hp, attack, incredible
   stats:
-  - level: 22
+  - level: 23
     attack: 15
     defense: 10
     stamina: 15
-- name: Snorlax 2Cb
+- name: Snori
   species: snorlax
   quick: lick
   charge: heavy slam
-  cp: 2203
-  hp: 213
+  cp: 2250
+  hp: 215
   dust: 3500
   appraisal: attention, attack, impressed
   stats:
-  - level: 23.5
+  - level: 24
     attack: 14
     defense: 11
     stamina: 10
-- name: Espeee
+- name: Donphan 2
+  species: donphan
+  quick: counter
+  charge: heavy slam
+  cp: 2220
+  hp: 124
+  dust: 4500
+  appraisal: above, defense, incredible
+  stats:
+  - level: 27
+    attack: 13
+    defense: 15
+    stamina: 0
+- name: Fspeee
   species: espeon
   quick: confusion
   charge: futuresight
-  cp: 2110
-  hp: 96
+  cp: 2152
+  hp: 97
   dust: 4000
   appraisal: wonder, hp, incredible
   stats:
-  - level: 25
+  - level: 25.5
     attack: 12
     defense: 13
     stamina: 15
-  - level: 25
+  - level: 25.5
     attack: 14
     defense: 10
     stamina: 15
@@ -98,12 +111,12 @@
   species: jolteon
   quick: thunder shock
   charge: thunderbolt
-  cp: 1989
-  hp: 95
-  dust: 4500
+  cp: 2060
+  hp: 97
+  dust: 5000
   appraisal: not likely, defense, trending
   stats:
-  - level: 28
+  - level: 29
     attack: 5
     defense: 8
     stamina: 5
@@ -179,6 +192,19 @@
     attack: 8
     defense: 13
     stamina: 9
+- name: Cloyster
+  species: cloyster
+  quick: ice shard
+  charge: avalanche
+  cp: 1770
+  hp: 76
+  dust: 4500
+  appraisal: not likely, defense, impressed
+  stats:
+  - level: 28
+    attack: 0
+    defense: 13
+    stamina: 8
 - name: Kingler 2aa
   species: kingler
   quick: bubble
@@ -205,6 +231,60 @@
     attack: 15
     defense: 7
     stamina: 1
+- name: Kingler4
+  species: kingler
+  quick: metal claw
+  charge: vice grip
+  cp: 1758
+  hp: 80
+  dust: 4000
+  appraisal: not likely, hp, trending
+  stats:
+  - level: 25
+    attack: 0
+    defense: 9
+    stamina: 11
+  - level: 25
+    attack: 1
+    defense: 7
+    stamina: 11
+  - level: 25
+    attack: 1
+    defense: 9
+    stamina: 10
+  - level: 25
+    attack: 2
+    defense: 7
+    stamina: 10
+  - level: 25
+    attack: 5
+    defense: 0
+    stamina: 11
+  - level: 25
+    attack: 6
+    defense: 0
+    stamina: 10
+  - level: 25.5
+    attack: 0
+    defense: 2
+    stamina: 10
+  - level: 25.5
+    attack: 1
+    defense: 2
+    stamina: 9
+- name: Tentacruel
+  species: tentacruel
+  quick: acid
+  charge: hydro pump
+  cp: 1710
+  hp: 116
+  dust: 4500
+  appraisal: above, attack, trending
+  stats:
+  - level: 27
+    attack: 9
+    defense: 8
+    stamina: 8
 - name: Nidoking 1ab
   species: nidoking
   quick: poison jab
@@ -295,19 +375,6 @@
     attack: 13
     defense: 11
     stamina: 12
-- name: "@Kingler 2dc"
-  species: kingler
-  quick: metal claw
-  charge: vice grip
-  cp: 1626
-  hp: 75
-  dust: 3000
-  appraisal: attention, defense, incredible
-  stats:
-  - level: 22
-    attack: 10
-    defense: 15
-    stamina: 10
 - name: Crobat 1ac
   species: crobat
   quick: bite
@@ -444,19 +511,19 @@
     attack: 0
     defense: 11
     stamina: 3
-- name: Cloyster 4bc
-  species: cloyster
-  quick: ice shard
-  charge: hydro pump
-  cp: 1478
-  hp: 73
-  dust: 3500
-  appraisal: not likely, hp, impressed
+- name: Skarmory 2
+  species: skarmory
+  quick: air slash
+  charge: flash cannon
+  cp: 1490
+  hp: 99
+  dust: 4500
+  appraisal: attention, defense, incredible
   stats:
-  - level: 23
-    attack: 0
-    defense: 6
-    stamina: 14
+  - level: 27
+    attack: 8
+    defense: 15
+    stamina: 13
 - name: Golduck 3ca
   species: golduck
   quick: confusion
@@ -564,6 +631,19 @@
     attack: 10
     defense: 11
     stamina: 11
+- name: Hypno 1
+  species: hypno
+  quick: zen headbutt
+  charge: focus blast
+  cp: 1377
+  hp: 119
+  dust: 4000
+  appraisal: above, attack, trending
+  stats:
+  - level: 25
+    attack: 12
+    defense: 4
+    stamina: 9
 - name: Poliwrath ca
   species: poliwrath
   quick: bubble
@@ -581,19 +661,6 @@
     attack: 11
     defense: 3
     stamina: 11
-- name: Hypno 1
-  species: hypno
-  quick: zen headbutt
-  charge: focus blast
-  cp: 1377
-  hp: 119
-  dust: 4000
-  appraisal: above, attack, trending
-  stats:
-  - level: 25
-    attack: 12
-    defense: 4
-    stamina: 9
 - name: Electabuzz2
   species: electabuzz
   quick: low kick
