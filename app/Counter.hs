@@ -14,6 +14,8 @@ import qualified GameMaster
 import           GameMaster (GameMaster)
 import qualified MyPokemon
 import           MyPokemon (MyPokemon)
+import qualified Pokemon
+import           Pokemon (Pokemon)
 import qualified PokemonBase
 import           PokemonBase (PokemonBase)
 import qualified Move
@@ -92,27 +94,6 @@ showExpecteds expecteds =
   in List.intercalate " " $
     map (\ (string, expected) -> format string expected) expecteds
 
-data Pokemon = Pokemon {
-  pname       :: String,
-  species     :: String,
-  types       :: [Type],
-  attack      :: Float,
-  defense     :: Float,
-  stamina     :: Float,
-  quick       :: Move,
-  charge      :: Move,
-  base        :: PokemonBase
-} deriving (Show)
-
-hp :: Pokemon -> Integer
-hp this = floor $ stamina this
-
-possibleMoves :: Pokemon -> [Move]
-possibleMoves pokemon =
-  let pokemonBase = {-Pokemon.-}base pokemon
-  in concat $
-    [PokemonBase.quickMoves, PokemonBase.chargeMoves] <*> [pokemonBase]
-
 data Result = Result {
   name      :: String,
   dps       :: Float,
@@ -157,14 +138,14 @@ makePokemon gameMaster maybeLevel myPokemon = do
   defense <- getStat PokemonBase.defense MyPokemon.defense
   stamina <- getStat PokemonBase.stamina MyPokemon.stamina
 
-  return $ Pokemon name species types attack defense stamina quick charge base
+  return $ Pokemon.new name species types attack defense stamina quick charge base
 
 counter :: Pokemon -> Pokemon -> Result
 counter defender attacker =
-  let move = {-Pokemon.-}quick attacker
+  let move = Pokemon.quick attacker
       dps = damagePerSecond attacker move defender
       expecteds = makeExpecteds dps defender attacker
-      name' = {-Pokemon.-}pname attacker
+      name' = Pokemon.pname attacker
   in Result name' dps expecteds
 
 -- Note that both the "floor" and the "+ 1" make this somewhat
@@ -172,11 +153,11 @@ counter defender attacker =
 
 damage :: Pokemon -> Move -> Pokemon -> Integer
 damage attacker move defender =
-  let stab = Move.stabFor move $ {-Pokemon.-}types attacker
+  let stab = Move.stabFor move $ Pokemon.types attacker
       effectiveness = Move.effectivenessAgainst move $
-        {-Pokemon.-}types defender
-      attack' = {-Pokemon.-}attack attacker
-      defense' = {-Pokemon.-}defense defender
+        Pokemon.types defender
+      attack' = Pokemon.attack attacker
+      defense' = Pokemon.defense defender
       power = Move.power move
    in floor $ power * stab * effectiveness * attack' / defense' / 2 + 1
 
@@ -193,10 +174,10 @@ makeExpecteds dps defender attacker =
 
 makeExpected :: Pokemon -> Pokemon -> Type -> Float
 makeExpected defender attacker moveType =
-  (fromIntegral $ {-Pokemon.-}hp attacker) *
-    ({-Pokemon.-}defense attacker) /
-    ((Type.stabFor moveType $ {-Pokemon.-}types defender) *
-     (Type.effectivenessAgainst moveType $ {-Pokemon.-}types attacker)) / 1000
+  (fromIntegral $ Pokemon.hp attacker) *
+    (Pokemon.defense attacker) /
+    ((Type.stabFor moveType $ Pokemon.types defender) *
+     (Type.effectivenessAgainst moveType $ Pokemon.types attacker)) / 1000
 
 simplify :: String -> String
 simplify name =
@@ -209,13 +190,13 @@ getSortedMoveTypes pokemon =
 
 getMoveTypes :: Pokemon -> [Type]
 getMoveTypes pokemon =
-  uniq $ map Move.moveType $ possibleMoves pokemon
+  uniq $ map Move.moveType $ Pokemon.possibleMoves pokemon
 
 -- Sort the move types so the ones with stab are at the front.
 --
 sortMoveTypes :: Pokemon -> [Type] -> [Type]
 sortMoveTypes pokemon ptypes =
-  let pokemonTypes = {-Pokemon.-}types pokemon
+  let pokemonTypes = Pokemon.types pokemon
       hasStab ptype = ptype `elem` pokemonTypes
       (stab, noStab) = List.partition hasStab ptypes
   in stab ++ noStab
@@ -251,7 +232,7 @@ makeDefenderFromBase gameMaster base =
   let level = 20
       cpMultiplier = GameMaster.getCpMultiplier gameMaster level
       maxStat baseStat = (fromIntegral baseStat + 15) * cpMultiplier
-  in Pokemon
+  in Pokemon.new
     (PokemonBase.species base)
     (PokemonBase.species base)
     (PokemonBase.types base)
