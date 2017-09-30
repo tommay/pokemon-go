@@ -50,12 +50,9 @@ calcDps attacker defender useCharge =
         energy = 0,
         extraQuickMoves = 0
       }
+      states = iterate step initialState
       timeLimit = 120
-      stepUntilTimeLimitReached state =
-        case BattleState.time state >= timeLimit of
-          True -> state
-          False -> stepUntilTimeLimitReached $ step state
-      finalState = stepUntilTimeLimitReached initialState
+      finalState = last $ takeWhile (\s -> BattleState.time s < timeLimit) states
   in fromIntegral (BattleState.damage finalState) / BattleState.time finalState
 
 spew a b = T.traceShow (a, b) b
