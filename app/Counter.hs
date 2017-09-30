@@ -92,12 +92,13 @@ main = do
 
 showResult :: Result -> String
 showResult result =
-  let format = Printf.printf "%3.1f %s"
-  in format (dps result) (name result) ++ "\t" ++ showExpecteds (expecteds result)
+  let format = Printf.printf "%4.1f %-12s"
+  in format (dps result) (name result) ++ "   " ++
+       showExpecteds (expecteds result)
 
 showExpecteds :: [(String, Float)] -> String
 showExpecteds expecteds =
-  let format = Printf.printf "%s:%.0f"
+  let format = Printf.printf "%s:%-3.0f"
   in List.intercalate " " $
     map (\ (string, expected) -> format string expected) expecteds
 
