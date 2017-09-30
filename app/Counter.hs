@@ -183,7 +183,7 @@ getSortedMoveTypes pokemon =
 
 getMoveTypes :: Pokemon -> [Type]
 getMoveTypes pokemon =
-  uniq $ map Move.moveType $ Pokemon.possibleMoves pokemon
+  List.nub $ map Move.moveType $ Pokemon.possibleMoves pokemon
 
 -- Sort the move types so the ones with stab are at the front.
 --
@@ -208,17 +208,6 @@ byExpecteds :: Result -> Result -> Ordering
 byExpecteds first second =
   let min result = minimum $ map snd $ expecteds result
   in min first `compare` min second
-
--- This is a terrible implementation but I can't find a good one
--- that works on types that are Eq but not Ord.
---
-uniq :: Eq a => [a] -> [a]
-uniq =
-  foldr (\e accum ->
-    case e `elem` accum of
-      True -> accum
-      False -> e : accum)
-  []
 
 makeDefenderFromBase :: GameMaster -> PokemonBase -> Pokemon
 makeDefenderFromBase gameMaster base =
