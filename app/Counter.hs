@@ -9,6 +9,7 @@ import qualified System.Environment
 import Options.Applicative as O
 import Data.Semigroup ((<>))
 
+import qualified BattleState
 import qualified Epic
 import qualified GameMaster
 import           GameMaster (GameMaster)
@@ -142,28 +143,10 @@ makePokemon gameMaster maybeLevel myPokemon = do
 
 counter :: Pokemon -> Pokemon -> Result
 counter defender attacker =
-  let move = Pokemon.quick attacker
-      dps = damagePerSecond attacker move defender
+  let dps = BattleState.calcDps attacker defender True
       expecteds = makeExpecteds dps defender attacker
       name' = Pokemon.pname attacker
   in Result name' dps expecteds
-
--- Note that both the "floor" and the "+ 1" make this somewhat
--- nonlinear wrt pokemon level.
-
-damage :: Pokemon -> Move -> Pokemon -> Integer
-damage attacker move defender =
-  let stab = Move.stabFor move $ Pokemon.types attacker
-      effectiveness = Move.effectivenessAgainst move $
-        Pokemon.types defender
-      attack' = Pokemon.attack attacker
-      defense' = Pokemon.defense defender
-      power = Move.power move
-   in floor $ power * stab * effectiveness * attack' / defense' / 2 + 1
-
-damagePerSecond :: Pokemon -> Move -> Pokemon -> Float
-damagePerSecond attacker move defender =
-  fromIntegral (damage attacker move defender) / Move.duration move
 
 makeExpecteds :: Float -> Pokemon -> Pokemon -> [(String, Float)]
 makeExpecteds dps defender attacker =
