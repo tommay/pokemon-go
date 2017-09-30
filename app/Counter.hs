@@ -98,12 +98,12 @@ showResult result =
 
 showExpecteds :: [(String, Float)] -> String
 showExpecteds expecteds =
-  let -- Need to annotate the args to format because passing the value
-      -- returned by "floor" isn't enough to infer it's an Integer.
-      format :: String -> Integer -> String
-      format = Printf.printf "%s:%-3d"
+  let format = Printf.printf "%s:%-3d %-6s"
+      stars n = replicate (floor $ n / 70) '*'
   in List.intercalate " " $
-    map (\ (string, expected) -> format string $ floor expected) expecteds
+    map (\ (string, expected) ->
+          format string ((floor expected) :: Integer) (stars expected))
+      expecteds
 
 data Result = Result {
   name      :: String,
