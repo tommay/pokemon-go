@@ -605,7 +605,7 @@
     attack: 13
     defense: 13
     stamina: 10
-- name: "@Granbull 1cb"
+- name: "@Granbull1cb"
   species: granbull
   quick: snarl
   charge: crunch
@@ -775,7 +775,7 @@
     attack: 9
     defense: 7
     stamina: 15
-- name: Hitmonlee 1ad
+- name: Hitmonlee1ad
   species: hitmonlee
   quick: low kick
   charge: close combat
@@ -892,7 +892,7 @@
     attack: 10
     defense: 10
     stamina: 13
-- name: Magneton4cc a
+- name: Magneton4cc
   species: magneton
   quick: spark
   charge: flash cannon
@@ -1127,7 +1127,7 @@
     attack: 13
     defense: 10
     stamina: 15
-- name: Jolteon 2cb b
+- name: Jolteon 2cb
   species: jolteon
   quick: volt switch
   charge: thunder
