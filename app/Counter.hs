@@ -26,17 +26,22 @@ import           Type (Type)
 
 data Options = Options {
   glass    :: Bool,
+  quick    :: Bool,
   level    :: Integer,
   species  :: String
 }
 
 getOptions :: IO Options
 getOptions = do
-  let opts = Options <$> optGlass <*> optLevel <*> optSpecies
+  let opts = Options <$> optGlass <*> optQuick <*> optLevel <*> optSpecies
       optGlass = O.switch
         (  O.long "glass"
         <> O.short 'g'
         <> O.help "Sort output by dps to find glass cannons")
+      optQuick = O.switch
+        (  O.long "quick"
+        <> O.short 'q'
+        <> O.help "Use quick moves only")
       optLevel = O.option auto
         (  O.long "level"
         <> O.short 'l'
@@ -76,7 +81,8 @@ main = do
       myPokemon <- ioMyPokemon
       pokemon <- mapM (makePokemon gameMaster maybeLevel) myPokemon
 
-      let results = map (counter defender) pokemon
+      let useCharge = not $ quick options
+          results = map (counter useCharge defender) pokemon
           sorted = reverse $ flip List.sortBy results $
             if glass options then byDps else byExpecteds
 
@@ -141,9 +147,9 @@ makePokemon gameMaster maybeLevel myPokemon = do
 
   return $ Pokemon.new name species types attack defense stamina quick charge base
 
-counter :: Pokemon -> Pokemon -> Result
-counter defender attacker =
-  let dps = BattleState.calcDps attacker defender True
+counter :: Bool -> Pokemon -> Pokemon -> Result
+counter useCharge defender attacker =
+  let dps = BattleState.calcDps attacker defender useCharge
       expecteds = makeExpecteds dps defender attacker
       name' = Pokemon.pname attacker
   in Result name' dps expecteds
