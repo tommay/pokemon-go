@@ -38,6 +38,6 @@ hp this = floor $ stamina this
 possibleMoves :: Pokemon -> [Move]
 possibleMoves this =
   let pokemonBase = Pokemon.base this
-  in concat $
-    [PokemonBase.quickMoves, PokemonBase.chargeMoves] <*> [pokemonBase]
+  in concat $ sequence [PokemonBase.quickMoves, PokemonBase.chargeMoves] pokemonBase
+
 
