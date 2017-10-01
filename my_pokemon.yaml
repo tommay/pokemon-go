@@ -55,12 +55,12 @@
   species: dragonite
   quick: dragon tail
   charge: hurricane
-  cp: 2326
-  hp: 126
+  cp: 2376
+  hp: 127
   dust: 3500
   appraisal: wonder, hp, attack, incredible
   stats:
-  - level: 23
+  - level: 23.5
     attack: 15
     defense: 10
     stamina: 15
@@ -68,15 +68,32 @@
   species: snorlax
   quick: lick
   charge: heavy slam
-  cp: 2250
-  hp: 215
+  cp: 2297
+  hp: 218
   dust: 3500
   appraisal: attention, attack, impressed
   stats:
-  - level: 24
+  - level: 24.5
     attack: 14
     defense: 11
     stamina: 10
+- name: Fspeee
+  species: espeon
+  quick: confusion
+  charge: futuresight
+  cp: 2278
+  hp: 100
+  dust: 4500
+  appraisal: wonder, hp, incredible
+  stats:
+  - level: 27
+    attack: 12
+    defense: 13
+    stamina: 15
+  - level: 27
+    attack: 14
+    defense: 10
+    stamina: 15
 - name: Donphan 2
   species: donphan
   quick: counter
@@ -90,24 +107,20 @@
     attack: 13
     defense: 15
     stamina: 0
-- name: Fspeee
-  species: espeon
-  quick: confusion
-  charge: futuresight
-  cp: 2152
-  hp: 97
+- name: Rhydon
+  species: rhydon
+  quick: mud-slap
+  charge: stone edge
+  cp: 2218
+  hp: 148
   dust: 4000
-  appraisal: wonder, hp, incredible
+  appraisal: above, hp, defense, trending
   stats:
-  - level: 25.5
-    attack: 12
-    defense: 13
-    stamina: 15
-  - level: 25.5
-    attack: 14
-    defense: 10
-    stamina: 15
-- name: Jolteon 1ad
+  - level: 25
+    attack: 4
+    defense: 12
+    stamina: 12
+- name: Jolty 1ad
   species: jolteon
   quick: thunder shock
   charge: thunderbolt
@@ -120,7 +133,20 @@
     attack: 5
     defense: 8
     stamina: 5
-- name: Kingler
+- name: Esmeon
+  species: espeon
+  quick: zen headbutt
+  charge: psychic
+  cp: 1918
+  hp: 85
+  dust: 3500
+  appraisal: above, attack, incredible
+  stats:
+  - level: 24
+    attack: 15
+    defense: 7
+    stamina: 1
+- name: Kingler 0
   species: kingler
   quick: metal claw
   charge: water pulse
@@ -137,18 +163,23 @@
     attack: 8
     defense: 9
     stamina: 4
-  - level: 27.5
+- name: Gengar
+  species: gengar
+  quick: hex
+  charge: shadow ball
+  cp: 1850
+  hp: 89
+  dust: 4500
+  appraisal: not likely, hp, trending
+  stats:
+  - level: 27
     attack: 3
-    defense: 10
-    stamina: 4
-  - level: 27.5
-    attack: 3
-    defense: 12
-    stamina: 3
-  - level: 27.5
-    attack: 4
-    defense: 10
-    stamina: 3
+    defense: 8
+    stamina: 9
+  - level: 27
+    attack: 8
+    defense: 2
+    stamina: 9
 - name: Kingler 1dc
   species: kingler
   quick: metal claw
@@ -218,19 +249,6 @@
     attack: 3
     defense: 13
     stamina: 2
-- name: Esmeon
-  species: espeon
-  quick: zen headbutt
-  charge: psychic
-  cp: 1758
-  hp: 82
-  dust: 3000
-  appraisal: above, attack, incredible
-  stats:
-  - level: 22
-    attack: 15
-    defense: 7
-    stamina: 1
 - name: Kingler4
   species: kingler
   quick: metal claw
@@ -315,6 +333,19 @@
     attack: 14
     defense: 3
     stamina: 15
+- name: Feraligatr
+  species: feraligatr
+  quick: bite
+  charge: crunch
+  cp: 1687
+  hp: 115
+  dust: 3000
+  appraisal: wonder, hp, defense, incredible
+  stats:
+  - level: 22
+    attack: 12
+    defense: 15
+    stamina: 15
 - name: Flareon 2bb
   species: flareon
   quick: ember
@@ -396,7 +427,7 @@
     attack: 6
     defense: 11
     stamina: 1
-- name: Tentacruelbb
+- name: "@Tentacruelbb"
   species: tentacruel
   quick: acid
   charge: blizzard
@@ -426,10 +457,6 @@
     attack: 8
     defense: 10
     stamina: 9
-  - level: 25.5
-    attack: 4
-    defense: 12
-    stamina: 7
 - name: Typhlosionac
   species: typhlosion
   quick: shadow claw
@@ -495,14 +522,6 @@
     attack: 7
     defense: 8
     stamina: 7
-  - level: 25.5
-    attack: 2
-    defense: 11
-    stamina: 6
-  - level: 25.5
-    attack: 2
-    defense: 12
-    stamina: 5
   - level: 26
     attack: 0
     defense: 10
@@ -549,6 +568,19 @@
     attack: 12
     defense: 1
     stamina: 13
+- name: Mantine
+  species: mantine
+  quick: bubble
+  charge: water pulse
+  cp: 1456
+  hp: 96
+  dust: 4000
+  appraisal: above, attack, incredible
+  stats:
+  - level: 26
+    attack: 15
+    defense: 3
+    stamina: 11
 - name: Piloswine3cb
   species: piloswine
   quick: powder snow
@@ -592,6 +624,19 @@
     attack: 13
     defense: 7
     stamina: 7
+- name: Lapras
+  species: lapras
+  quick: frost breath
+  charge: hydro pump
+  cp: 1414
+  hp: 161
+  dust: 2500
+  appraisal: attention, hp, attack, defense, trending
+  stats:
+  - level: 20
+    attack: 10
+    defense: 10
+    stamina: 10
 - name: Porygon2
   species: porygon2
   quick: hidden power
@@ -605,19 +650,53 @@
     attack: 13
     defense: 13
     stamina: 10
-- name: "@Granbull1cb"
-  species: granbull
-  quick: snarl
-  charge: crunch
-  cp: 1387
-  hp: 115
-  dust: 2500
-  appraisal: wonder, attack, defense, incredible
+- name: Noctowl 1
+  species: noctowl
+  quick: wing attack
+  charge: psychic
+  cp: 1394
+  hp: 145
+  dust: 4500
+  appraisal: not likely, hp, defense, trending
   stats:
-  - level: 20
-    attack: 15
-    defense: 15
-    stamina: 13
+  - level: 27
+    attack: 1
+    defense: 9
+    stamina: 9
+- name: Xatu 4fs
+  species: xatu
+  quick: feint attack
+  charge: futuresight
+  cp: 1388
+  hp: 92
+  dust: 4500
+  appraisal: not likely, defense, trending
+  stats:
+  - level: 27
+    attack: 8
+    defense: 10
+    stamina: 3
+  - level: 28
+    attack: 3
+    defense: 9
+    stamina: 1
+  - level: 28.5
+    attack: 1
+    defense: 8
+    stamina: 0
+- name: Noctowl 2
+  species: noctowl
+  quick: wing attack
+  charge: sky attack
+  cp: 1387
+  hp: 149
+  dust: 4500
+  appraisal: not likely, hp, incredible
+  stats:
+  - level: 27
+    attack: 1
+    defense: 2
+    stamina: 15
 - name: Tangela2cb
   species: tangela
   quick: vine whip
@@ -631,19 +710,23 @@
     attack: 10
     defense: 11
     stamina: 11
-- name: Hypno 1
-  species: hypno
-  quick: zen headbutt
-  charge: focus blast
-  cp: 1377
-  hp: 119
+- name: Xatu 3fs
+  species: xatu
+  quick: feint attack
+  charge: futuresight
+  cp: 1381
+  hp: 96
   dust: 4000
-  appraisal: above, attack, trending
+  appraisal: above, hp, trending
   stats:
-  - level: 25
-    attack: 12
-    defense: 4
-    stamina: 9
+  - level: 26
+    attack: 10
+    defense: 7
+    stamina: 12
+  - level: 26
+    attack: 10
+    defense: 8
+    stamina: 11
 - name: Poliwrath ca
   species: poliwrath
   quick: bubble
@@ -661,6 +744,19 @@
     attack: 11
     defense: 3
     stamina: 11
+- name: Hypno 1
+  species: hypno
+  quick: zen headbutt
+  charge: focus blast
+  cp: 1377
+  hp: 119
+  dust: 4000
+  appraisal: above, attack, trending
+  stats:
+  - level: 25
+    attack: 12
+    defense: 4
+    stamina: 9
 - name: Electabuzz2
   species: electabuzz
   quick: low kick
@@ -674,7 +770,7 @@
     attack: 6
     defense: 14
     stamina: 13
-- name: Xatu 1
+- name: "@Xatu 1"
   species: xatu
   quick: air slash
   charge: aerial ace
@@ -720,7 +816,7 @@
     attack: 2
     defense: 0
     stamina: 10
-- name: Noctowl4
+- name: "@Noctowl4"
   species: noctowl
   quick: extrasensory
   charge: sky attack
@@ -729,14 +825,6 @@
   dust: 4000
   appraisal: not likely, attack, trending
   stats:
-  - level: 25.5
-    attack: 9
-    defense: 8
-    stamina: 3
-  - level: 25.5
-    attack: 12
-    defense: 1
-    stamina: 3
   - level: 26
     attack: 8
     defense: 5
@@ -745,6 +833,19 @@
     attack: 8
     defense: 6
     stamina: 0
+- name: Scyther 1
+  species: scyther
+  quick: fury cutter
+  charge: x-scissor
+  cp: 1362
+  hp: 90
+  dust: 2500
+  appraisal: attention, attack, impressed
+  stats:
+  - level: 20
+    attack: 13
+    defense: 11
+    stamina: 11
 - name: Pidgeot
   species: pidgeot
   quick: air slash
@@ -758,7 +859,7 @@
     attack: 9
     defense: 0
     stamina: 13
-- name: Venomoth
+- name: Venomoth 1
   species: venomoth
   quick: infestation
   charge: psychic
@@ -775,6 +876,61 @@
     attack: 9
     defense: 7
     stamina: 15
+- name: Scyther 2
+  species: scyther
+  quick: air slash
+  charge: aerial ace
+  cp: 1359
+  hp: 90
+  dust: 2500
+  appraisal: attention, attack, impressed
+  stats:
+  - level: 20
+    attack: 13
+    defense: 9
+    stamina: 12
+  - level: 20
+    attack: 13
+    defense: 10
+    stamina: 11
+- name: "@Xatu"
+  species: xatu
+  quick: air slash
+  charge: aerial ace
+  cp: 1357
+  hp: 95
+  dust: 4000
+  appraisal: attention, hp, impressed
+  stats:
+  - level: 25
+    attack: 11
+    defense: 11
+    stamina: 13
+- name: "@Xatu"
+  species: xatu
+  quick: feint attack
+  charge: aerial ace
+  cp: 1346
+  hp: 96
+  dust: 4000
+  appraisal: attention, hp, incredible
+  stats:
+  - level: 25
+    attack: 8
+    defense: 11
+    stamina: 15
+  - level: 25
+    attack: 10
+    defense: 8
+    stamina: 15
+  - level: 25
+    attack: 12
+    defense: 5
+    stamina: 15
+  - level: 25
+    attack: 14
+    defense: 2
+    stamina: 15
 - name: Hitmonlee1ad
   species: hitmonlee
   quick: low kick
@@ -788,58 +944,137 @@
     attack: 14
     defense: 10
     stamina: 13
-- name: Granbull 2bf
-  species: granbull
-  quick: bite
-  charge: close combat
-  cp: 1341
-  hp: 114
-  dust: 2500
-  appraisal: attention, defense, impressed
-  stats:
-  - level: 20
-    attack: 10
-    defense: 13
-    stamina: 11
-- name: Tentacruel2
-  species: tentacruel
-  quick: acid
-  charge: hydro pump
-  cp: 1318
-  hp: 106
-  dust: 3000
-  appraisal: attention, defense, incredible
-  stats:
-  - level: 21
-    attack: 2
-    defense: 15
-    stamina: 14
-- name: Xatu
-  species: xatu
-  quick: air slash
+- name: Fearow 1
+  species: fearow
+  quick: steel wing
   charge: aerial ace
-  cp: 1299
+  cp: 1336
+  hp: 99
+  dust: 4500
+  appraisal: attention, hp, impressed
+  stats:
+  - level: 27
+    attack: 8
+    defense: 13
+    stamina: 14
+  - level: 27
+    attack: 10
+    defense: 10
+    stamina: 14
+  - level: 27
+    attack: 10
+    defense: 11
+    stamina: 13
+  - level: 27
+    attack: 12
+    defense: 7
+    stamina: 14
+  - level: 27
+    attack: 12
+    defense: 8
+    stamina: 13
+- name: "@Noctowl"
+  species: noctowl
+  quick: extrasensory
+  charge: sky attack
+  cp: 1306
+  hp: 132
+  dust: 3500
+  appraisal: not likely, attack, trending
+  stats:
+  - level: 24
+    attack: 12
+    defense: 7
+    stamina: 3
+  - level: 24
+    attack: 12
+    defense: 8
+    stamina: 2
+- name: Seadra
+  species: seadra
+  quick: water gun
+  charge: aurora beam
+  cp: 1303
+  hp: 75
+  dust: 4000
+  appraisal: not likely, defense, trending
+  stats:
+  - level: 26
+    attack: 5
+    defense: 11
+    stamina: 1
+  - level: 26
+    attack: 6
+    defense: 9
+    stamina: 1
+- name: "@Xatu FS"
+  species: xatu
+  quick: feint attack
+  charge: futuresight
+  cp: 1300
   hp: 95
   dust: 4000
-  appraisal: above, defense, incredible
+  appraisal: above, hp, impressed
   stats:
   - level: 25
-    attack: 0
-    defense: 15
+    attack: 2
+    defense: 12
     stamina: 13
-- name: Golduck 3ad
-  species: golduck
-  quick: water gun
-  charge: hydro pump
-  cp: 1297
-  hp: 107
-  dust: 3000
+  - level: 25
+    attack: 5
+    defense: 7
+    stamina: 13
+  - level: 25
+    attack: 7
+    defense: 4
+    stamina: 13
+  - level: 25
+    attack: 9
+    defense: 1
+    stamina: 13
+- name: Fearow 2
+  species: fearow
+  quick: steel wing
+  charge: aerial ace
+  cp: 1294
+  hp: 90
+  dust: 4500
+  appraisal: above, attack, impressed
+  stats:
+  - level: 27
+    attack: 13
+    defense: 10
+    stamina: 1
+  - level: 27
+    attack: 13
+    defense: 11
+    stamina: 0
+- name: "@Venomoth"
+  species: venomoth
+  quick: infestation
+  charge: silver wind
+  cp: 1289
+  hp: 100
+  dust: 4000
   appraisal: above, defense, trending
   stats:
-  - level: 22
-    attack: 0
-    defense: 12
-    stamina: 11
+  - level: 25
+    attack: 7
+    defense: 11
+    stamina: 10
+- name: Magmar 1
+  species: magmar
+  quick: ember
+  charge: fire punch
+  cp: 1270
+  hp: 86
+  dust: 2500
+  appraisal: wonder, hp, defense, incredible
+  stats:
+  - level: 20
+    attack: 12
+    defense: 15
+    stamina: 15
 - name: Seaking
   species: seaking
   quick: poison jab
@@ -857,16 +1092,42 @@
   species: skarmory
   quick: steel wing
   charge: flash cannon
-  dust: 3000
-  appraisal: wonder, hp, impressed
   cp: 1269
   hp: 91
+  dust: 3000
+  appraisal: wonder, hp, impressed
   stats:
   - level: 22.5
     attack: 12
     defense: 11
     stamina: 14
-- name: Clefable 4bb
+- name: Rapidash1
+  species: rapidash
+  quick: low kick
+  charge: fire blast
+  cp: 1267
+  hp: 86
+  dust: 2500
+  appraisal: wonder, hp, incredible
+  stats:
+  - level: 20
+    attack: 14
+    defense: 11
+    stamina: 15
+- name: "@Magmar"
+  species: magmar
+  quick: ember
+  charge: fire blast
+  cp: 1260
+  hp: 85
+  dust: 2500
+  appraisal: wonder, hp, attack, defense, impressed
+  stats:
+  - level: 20
+    attack: 13
+    defense: 13
+    stamina: 13
+- name: "@Clefable 4bb"
   species: clefable
   quick: zen headbutt
   charge: moonblast
@@ -879,6 +1140,19 @@
     attack: 12
     defense: 5
     stamina: 5
+- name: Wigglytuff
+  species: wigglytuff
+  quick: pound
+  charge: dazzling gleam
+  cp: 1251
+  hp: 193
+  dust: 4000
+  appraisal: above, attack, impressed
+  stats:
+  - level: 25
+    attack: 13
+    defense: 2
+    stamina: 10
 - name: Magmar 2aa
   species: magmar
   quick: ember
@@ -917,7 +1191,7 @@
     attack: 4
     defense: 2
     stamina: 13
-- name: Fearow
+- name: "@Fearow"
   species: fearow
   quick: steel wing
   charge: sky attack
@@ -938,19 +1212,6 @@
     attack: 11
     defense: 5
     stamina: 14
-- name: Nidoking 3bA
-  species: nidoking
-  quick: iron tail
-  charge: earthquake
-  cp: 1211
-  hp: 101
-  dust: 2500
-  appraisal: attention, defense, incredible
-  stats:
-  - level: 19
-    attack: 2
-    defense: 15
-    stamina: 13
 - name: Noctowl 2cc
   species: noctowl
   quick: wing attack
@@ -1535,23 +1796,6 @@
     attack: 14
     defense: 10
     stamina: 8
-- name: Haunter1
-  species: haunter
-  quick: shadow claw
-  charge: dark pulse
-  cp: 964
-  hp: 62
-  dust: 2500
-  appraisal: wonder, hp, incredible
-  stats:
-  - level: 20
-    attack: 12
-    defense: 14
-    stamina: 15
-  - level: 20
-    attack: 13
-    defense: 13
-    stamina: 15
 - name: Jolteon 2ad
   species: jolteon
   quick: thunder shock
@@ -1616,14 +1860,6 @@
     attack: 7
     defense: 12
     stamina: 9
-  - level: 21.5
-    attack: 5
-    defense: 11
-    stamina: 7
-  - level: 21.5
-    attack: 5
-    defense: 12
-    stamina: 6
 - name: Croconaw1 A
   species: croconaw
   quick: water gun
