@@ -51,19 +51,6 @@
     attack: 15
     defense: 10
     stamina: 15
-- name: Rhydon
-  species: rhydon
-  quick: mud-slap
-  charge: stone edge
-  cp: 2395
-  hp: 154
-  dust: 4500
-  appraisal: above, hp, defense, trending
-  stats:
-  - level: 27
-    attack: 4
-    defense: 12
-    stamina: 12
 - name: Draggie
   species: dragonite
   quick: dragon tail
@@ -75,23 +62,6 @@
   stats:
   - level: 23.5
     attack: 15
-    defense: 10
-    stamina: 15
-- name: Fspeee
-  species: espeon
-  quick: confusion
-  charge: futuresight
-  cp: 2363
-  hp: 102
-  dust: 4500
-  appraisal: wonder, hp, incredible
-  stats:
-  - level: 28
-    attack: 12
-    defense: 13
-    stamina: 15
-  - level: 28
-    attack: 14
     defense: 10
     stamina: 15
 - name: Snori
@@ -107,6 +77,23 @@
     attack: 14
     defense: 11
     stamina: 10
+- name: Fspeee
+  species: espeon
+  quick: confusion
+  charge: futuresight
+  cp: 2278
+  hp: 100
+  dust: 4500
+  appraisal: wonder, hp, incredible
+  stats:
+  - level: 27
+    attack: 12
+    defense: 13
+    stamina: 15
+  - level: 27
+    attack: 14
+    defense: 10
+    stamina: 15
 - name: Donphan 2
   species: donphan
   quick: counter
@@ -120,6 +107,19 @@
     attack: 13
     defense: 15
     stamina: 0
+- name: Rhydon
+  species: rhydon
+  quick: mud-slap
+  charge: stone edge
+  cp: 2218
+  hp: 148
+  dust: 4000
+  appraisal: above, hp, defense, trending
+  stats:
+  - level: 25
+    attack: 4
+    defense: 12
+    stamina: 12
 - name: Jolty 1ad
   species: jolteon
   quick: thunder shock
@@ -163,19 +163,6 @@
     attack: 8
     defense: 9
     stamina: 4
-- name: Donphan 1Ad
-  species: donphan
-  quick: counter
-  charge: earthquake
-  cp: 1868
-  hp: 120
-  dust: 3000
-  appraisal: wonder, attack, incredible
-  stats:
-  - level: 22
-    attack: 15
-    defense: 11
-    stamina: 12
 - name: Gengar
   species: gengar
   quick: hex
@@ -210,6 +197,19 @@
     attack: 10
     defense: 9
     stamina: 13
+- name: Donphan 1Ad
+  species: donphan
+  quick: counter
+  charge: earthquake
+  cp: 1783
+  hp: 117
+  dust: 3000
+  appraisal: wonder, attack, incredible
+  stats:
+  - level: 21
+    attack: 15
+    defense: 11
+    stamina: 12
 - name: Jolteon 2ba
   species: jolteon
   quick: volt switch
