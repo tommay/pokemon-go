@@ -1,7 +1,18 @@
 -- So .: works with Strings.
 {-# LANGUAGE OverloadedStrings #-}
 
-module MyPokemon where
+module MyPokemon (
+  MyPokemon,
+  load,
+  name,
+  species,
+  quickName,
+  chargeName,
+  attack,
+  defense,
+  stamina,
+  level,
+) where
 
 import qualified Data.Yaml as Yaml
 import Data.Yaml (FromJSON(..), (.:))  -- ???

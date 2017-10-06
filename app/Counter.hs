@@ -1,5 +1,7 @@
 {-# LANGUAGE DuplicateRecordFields #-}
 
+module Main where
+
 import           Data.Char (toLower)
 import qualified Data.List as List
 import qualified Text.Printf as Printf

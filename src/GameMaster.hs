@@ -1,7 +1,14 @@
 -- So .: works with literal Strings.
 {-# LANGUAGE OverloadedStrings #-}
 
-module GameMaster where
+module GameMaster (
+  GameMaster,
+  load,
+  getPokemonBase,
+  getQuick,
+  getCharge,
+  getCpMultiplier,
+) where
 
 import           Data.Text.Conversions (convertText)
 import           Data.Char (toLower, toUpper)
