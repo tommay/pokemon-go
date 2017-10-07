@@ -125,7 +125,7 @@ makePokemon gameMaster maybeLevel myPokemon = do
         case move `elem` moveListFunc base of
           True -> return move
           False -> Epic.fail $
-            species ++ "can't do " ++ string ++ " move " ++
+            species ++ " can't do " ++ string ++ " move " ++
               MyPokemon.quickName myPokemon
   quick <- getMove "quick"
     GameMaster.getQuick MyPokemon.quickName PokemonBase.quickMoves
