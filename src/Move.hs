@@ -14,8 +14,10 @@ import qualified Type
 import           Type (Type)
 
 import qualified Data.HashMap.Strict as HashMap
+import qualified Data.List
 
 data Move = Move {
+  movementId :: String,
   moveType :: Type,
   power    :: Float,
   duration :: Float,
@@ -24,11 +26,11 @@ data Move = Move {
 
 isCharge :: Move -> Bool
 isCharge this =
-  Move.energy this < 0
+  not $ Move.isQuick this
 
 isQuick :: Move -> Bool
 isQuick this =
-  not $ Move.isCharge this
+  Data.List.isSuffixOf "_FAST" $ movementId this
 
 stabFor :: Move -> [Type] -> Float
 stabFor this attackerTypes =

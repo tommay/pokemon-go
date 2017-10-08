@@ -171,7 +171,8 @@ makeMove :: Epic.MonadCatch m => StringMap Type -> ItemTemplate -> m Move
 makeMove types itemTemplate = do
   let getTemplateValue text = getObjectValue itemTemplate text
   Move.Move
-    <$> do
+    <$> getTemplateValue "movementId"
+    <*> do
       typeName <- getTemplateValue "pokemonType"
       get types typeName
     <*> getObjectValueWithDefault itemTemplate "power" 0
