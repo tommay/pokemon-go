@@ -28,12 +28,15 @@ data Options = Options {
   glass    :: Bool,
   quick    :: Bool,
   level    :: Integer,
+  filename :: String,
   species  :: String
 }
 
+defaultFilename = "my_pokemon.yaml"
+
 getOptions :: IO Options
 getOptions = do
-  let opts = Options <$> optGlass <*> optQuick <*> optLevel <*> optSpecies
+  let opts = Options <$> optGlass <*> optQuick <*> optLevel <*> optFilename <*> optSpecies
       optGlass = O.switch
         (  O.long "glass"
         <> O.short 'g'
@@ -48,6 +51,12 @@ getOptions = do
         <> O.value 0
         <> O.metavar "LEVEL"
         <> O.help "Force my_pokemon level to find who's implicitly best")
+      optFilename = O.option auto
+        (  O.long "file"
+        <> O.short 'f'
+        <> O.value defaultFilename
+        <> O.metavar "FILE"
+        <> O.help ("File to read my_pokemon from, default " ++ defaultFilename))
       optSpecies = O.argument O.str (O.metavar "SPECIES")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
@@ -77,7 +86,7 @@ main = do
             0 -> Nothing
             val -> Just val
 
-      ioMyPokemon <- MyPokemon.load "my_pokemon.yaml"
+      ioMyPokemon <- MyPokemon.load $ filename options
       myPokemon <- ioMyPokemon
       pokemon <- mapM (makePokemon gameMaster maybeLevel) myPokemon
 
