@@ -51,7 +51,7 @@ getOptions = do
         <> O.value 0
         <> O.metavar "LEVEL"
         <> O.help "Force my_pokemon level to find who's implicitly best")
-      optFilename = O.option auto
+      optFilename = O.strOption
         (  O.long "file"
         <> O.short 'f'
         <> O.value defaultFilename
