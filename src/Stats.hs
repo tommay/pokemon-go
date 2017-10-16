@@ -11,9 +11,10 @@ module Stats (
 ) where
 
 import           GHC.Generics
+import           Data.Semigroup ((<>))
 import qualified Data.Aeson.Types as Aeson
 import qualified Data.Yaml as Yaml
-import           Data.Yaml (FromJSON(..), (.:))
+import           Data.Yaml (FromJSON(..), (.:), (.=))
 
 data Stats = Stats {
   level       :: Float,
@@ -32,4 +33,8 @@ instance Yaml.FromJSON Stats where
   parseJSON _ = fail "Expected Yaml.Object for Stats.parseJSON"
 
 instance Yaml.ToJSON Stats where
-  toEncoding = Aeson.genericToEncoding Aeson.defaultOptions
+  toEncoding this = Aeson.pairs $
+    "level" .= level this <>
+    "attack" .= attack this <>
+    "defense" .= defense this <>
+    "stamina" .= defense this
