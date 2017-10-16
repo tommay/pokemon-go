@@ -1,7 +1,11 @@
 module Main where
 
-import Options.Applicative as O
-import Data.Semigroup ((<>))
+import           Control.Applicative
+import qualified Options.Applicative as O
+import qualified Data.ByteString as B
+import           Data.Semigroup ((<>))
+import qualified Data.Yaml as Y
+import           System.IO as I
 
 import qualified Appraisal
 import qualified Calc
@@ -44,9 +48,9 @@ main = Epic.catch (
     myPokemon <- ioMyPokemon
 
     myNewPokemon <- mapM (updateStats gameMaster) myPokemon
-    print myNewPokemon
+    B.putStr $ Y.encode myNewPokemon
   )
-  (\ex -> putStrLn ex)
+  (\ex -> I.hPutStrLn stderr $ ex)
 
 updateStats :: (Epic.MonadCatch m) => GameMaster -> MyPokemon -> m MyPokemon
 updateStats gameMaster myPokemon = Epic.catch (
@@ -54,7 +58,7 @@ updateStats gameMaster myPokemon = Epic.catch (
     stats <- computeStats gameMaster myPokemon
     return $ myPokemon { stats = Just stats } )
   (\ex -> Epic.fail $
-    "Problem with " ++ (MyPokemon.name myPokemon) ++ ": " ++ ex)
+    "Problem with " ++ MyPokemon.name myPokemon ++ ": " ++ ex)
 
 computeStats :: (Epic.MonadCatch m) => GameMaster -> MyPokemon -> m [Stats]
 computeStats gameMaster myPokemon = do

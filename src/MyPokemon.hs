@@ -1,5 +1,6 @@
 -- So .: works with Strings.
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE DeriveGeneric #-}
 
 module MyPokemon (
   MyPokemon (MyPokemon, stats),
@@ -19,8 +20,11 @@ module MyPokemon (
   level,
 ) where
 
+import           GHC.Generics
+import qualified Data.Aeson.Types as Aeson
 import qualified Data.Yaml as Yaml
-import Data.Yaml (FromJSON(..), (.:), (.:?))
+import           Data.Yaml
+import           Data.Yaml (FromJSON(..), (.:), (.:?))
 
 import qualified Epic
 import qualified Stats
@@ -36,7 +40,7 @@ data MyPokemon = MyPokemon {
   stardust    :: Integer,
   appraisal   :: String,
   stats       :: Maybe [Stats]
-} deriving (Show)
+} deriving (Show, Generic)
 
 instance Yaml.FromJSON MyPokemon where
   parseJSON (Yaml.Object y) =
@@ -51,6 +55,9 @@ instance Yaml.FromJSON MyPokemon where
     y .: "appraisal" <*>
     y .:? "stats"
   parseJSON _ = fail "Expected Yaml.Object for MyPokemon.parseJSON"
+
+instance Yaml.ToJSON MyPokemon where
+  toEncoding = Aeson.genericToEncoding Aeson.defaultOptions
 
 load :: Epic.MonadCatch m => FilePath -> IO (m [MyPokemon])
 load filename = do

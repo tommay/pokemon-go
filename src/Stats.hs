@@ -1,5 +1,6 @@
 -- So .: works with literal Strings.
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE DeriveGeneric #-}
 
 module Stats (
   Stats (Stats),
@@ -9,15 +10,17 @@ module Stats (
   stamina,
 ) where
 
+import           GHC.Generics
+import qualified Data.Aeson.Types as Aeson
 import qualified Data.Yaml as Yaml
-import Data.Yaml (FromJSON(..), (.:))  -- ???
+import           Data.Yaml (FromJSON(..), (.:))
 
 data Stats = Stats {
   level       :: Float,
   attack      :: Integer,
   defense     :: Integer,
   stamina     :: Integer
-} deriving (Show)
+} deriving (Show, Generic)
 
 instance Yaml.FromJSON Stats where
   parseJSON (Yaml.Object y) =
@@ -27,3 +30,6 @@ instance Yaml.FromJSON Stats where
     y .: "defense" <*>
     y .: "stamina"
   parseJSON _ = fail "Expected Yaml.Object for Stats.parseJSON"
+
+instance Yaml.ToJSON Stats where
+  toEncoding = Aeson.genericToEncoding Aeson.defaultOptions
