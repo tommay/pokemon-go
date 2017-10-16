@@ -50,15 +50,16 @@ main = Epic.catch (
     myNewPokemon <- mapM (updateStats gameMaster) myPokemon
     B.putStr $ Y.encode myNewPokemon
   )
-  (\ex -> I.hPutStrLn stderr $ ex)
+  $ \ex -> I.hPutStrLn stderr $ ex
 
 updateStats :: (Epic.MonadCatch m) => GameMaster -> MyPokemon -> m MyPokemon
 updateStats gameMaster myPokemon = Epic.catch (
   do
     stats <- computeStats gameMaster myPokemon
-    return $ myPokemon { stats = Just stats } )
-  (\ex -> Epic.fail $
-    "Problem with " ++ MyPokemon.name myPokemon ++ ": " ++ ex)
+    return $ myPokemon { stats = Just stats }
+  )
+  $ \ex -> Epic.fail $
+      "Problem with " ++ MyPokemon.name myPokemon ++ ": " ++ ex
 
 computeStats :: (Epic.MonadCatch m) => GameMaster -> MyPokemon -> m [Stats]
 computeStats gameMaster myPokemon = do
