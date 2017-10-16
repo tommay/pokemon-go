@@ -8,6 +8,7 @@ module GameMaster (
   getQuick,
   getCharge,
   getCpMultiplier,
+  getLevelsForStardust
 ) where
 
 import           Data.Text.Conversions (convertText)
@@ -36,7 +37,7 @@ data GameMaster = GameMaster {
   pokemonBases  :: StringMap PokemonBase,
   moves         :: StringMap Move,
   cpMultipliers :: Vector Float,
-  stardustCost  :: Vector Int
+  stardustCost  :: [Integer]
 } deriving (Show)
 
 type ItemTemplate = Yaml.Object
@@ -92,6 +93,17 @@ getCpMultiplier this level =
       Just cpMultiploer -> return cpMultiplier
     False ->
 -}
+
+getLevelsForStardust :: (Epic.MonadCatch m) => GameMaster -> Integer -> m [Float]
+getLevelsForStardust this starDust = do
+  let levels =  concat $ map (\ (n, dust) ->
+        if dust == starDust
+          then [n, n + 0.5]
+          else [])
+        $ zip [1..] $ stardustCost this
+  case levels of
+    [] -> Epic.fail $ "Bad dust amount: " ++ show starDust
+    _ -> return levels
 
 lookup :: Epic.MonadCatch m => String -> StringMap a -> String -> m a
 lookup what hash key =

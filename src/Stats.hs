@@ -2,13 +2,12 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 module Stats (
-  Stats,
+  Stats (Stats),
   level,
   attack,
   defense,
   stamina,
-)
-where
+) where
 
 import qualified Data.Yaml as Yaml
 import Data.Yaml (FromJSON(..), (.:))  -- ???

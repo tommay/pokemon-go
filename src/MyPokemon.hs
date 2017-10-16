@@ -2,12 +2,17 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 module MyPokemon (
-  MyPokemon,
+  MyPokemon (MyPokemon, stats),
   load,
   name,
   species,
+  cp,
+  hp,
+  stardust,
   quickName,
   chargeName,
+  appraisal,
+  stats,
   attack,
   defense,
   stamina,
@@ -15,7 +20,7 @@ module MyPokemon (
 ) where
 
 import qualified Data.Yaml as Yaml
-import Data.Yaml (FromJSON(..), (.:))  -- ???
+import Data.Yaml (FromJSON(..), (.:), (.:?))
 
 import qualified Epic
 import qualified Stats
@@ -28,6 +33,8 @@ data MyPokemon = MyPokemon {
   chargeName  :: String,
   cp          :: Integer,
   hp          :: Integer,
+  stardust    :: Integer,
+  appraisal   :: String,
   stats       :: Maybe [Stats]
 } deriving (Show)
 
@@ -40,7 +47,9 @@ instance Yaml.FromJSON MyPokemon where
     y .: "charge" <*>
     y .: "cp" <*>
     y .: "hp" <*>
-    y .: "stats"
+    y .: "dust" <*>
+    y .: "appraisal" <*>
+    y .:? "stats"
   parseJSON _ = fail "Expected Yaml.Object for MyPokemon.parseJSON"
 
 load :: Epic.MonadCatch m => FilePath -> IO (m [MyPokemon])

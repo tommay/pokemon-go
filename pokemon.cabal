@@ -16,13 +16,14 @@ cabal-version:       >=1.10
 library
   hs-source-dirs:      src
   exposed-modules:     MyPokemon, GameMaster, PokemonBase, Epic, Move, Type, Pokemon,
-                       BattleState
-  other-modules:       Stats, StringMap
+                       BattleState, Appraisal, Stats, Calc
+  other-modules:       StringMap
   ghc-options:         -O2
   build-depends:       base >= 4.7 && < 5, yaml, vector, text,
                        unordered-containers, exceptions, hashable
                      , text-conversions
                      , regex-compat
+                     , range
   default-language:    Haskell2010
 
 executable counter-exe
@@ -32,6 +33,15 @@ executable counter-exe
   build-depends:       base
                      , pokemon
                      , regex-compat
+                     , optparse-applicative
+  default-language:    Haskell2010
+
+executable iv-exe
+  hs-source-dirs:      app
+  main-is:             IV.hs
+  ghc-options:         -O2 -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base
+                     , pokemon
                      , optparse-applicative
   default-language:    Haskell2010
 
