@@ -2,8 +2,7 @@ module Main where
 
 import           Control.Applicative
 import qualified Options.Applicative as O
-import qualified Data.Aeson.Encode.Pretty as PP
-import qualified Data.ByteString.Lazy as B
+import qualified Data.ByteString as B
 import           Data.Semigroup ((<>))
 import qualified Data.Yaml as Y
 import           System.IO as I
@@ -49,7 +48,7 @@ main = Epic.catch (
     myPokemon <- ioMyPokemon
 
     myNewPokemon <- mapM (updateStats gameMaster) myPokemon
-    B.putStr $ PP.encodePretty myNewPokemon
+    B.putStr $ Y.encode myNewPokemon
   )
   $ \ex -> I.hPutStrLn stderr $ ex
 

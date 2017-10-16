@@ -46,7 +46,6 @@ executable iv-exe
                      , optparse-applicative
                      , yaml
                      , bytestring
-                     , aeson-pretty
   default-language:    Haskell2010
 
 executable mine-exe
