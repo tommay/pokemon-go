@@ -1,6 +1,5 @@
 -- So .: works with literal Strings.
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE DeriveGeneric #-}
 
 module Stats (
   Stats (Stats),
@@ -10,18 +9,21 @@ module Stats (
   stamina,
 ) where
 
-import           GHC.Generics
+import qualified Data.Scientific as Scientific
 import           Data.Semigroup ((<>))
-import qualified Data.Aeson.Types as Aeson
 import qualified Data.Yaml as Yaml
-import           Data.Yaml (FromJSON(..), (.:), (.=))
+import           Data.Yaml (FromJSON(..), (.:))
+import qualified Data.Yaml.Builder as Builder
+import           Data.Yaml.Builder ((.=))
+
+import qualified Debug.Trace as Trace
 
 data Stats = Stats {
   level       :: Float,
   attack      :: Int,
   defense     :: Int,
   stamina     :: Int
-} deriving (Show, Generic)
+} deriving (Show)
 
 instance Yaml.FromJSON Stats where
   parseJSON (Yaml.Object y) =
@@ -32,9 +34,14 @@ instance Yaml.FromJSON Stats where
     y .: "stamina"
   parseJSON _ = fail "Expected Yaml.Object for Stats.parseJSON"
 
-instance Yaml.ToJSON Stats where
-  toEncoding this = Aeson.pairs $
-    "level" .= level this <>
-    "attack" .= attack this <>
-    "defense" .= defense this <>
-    "stamina" .= defense this
+instance Builder.ToYaml Stats where
+  toYaml this =
+    Builder.mapping [
+      "level" .= level this,
+      "attack" .= attack this,
+      "defense" .= defense this,
+      "stamina" .= stamina this
+    ]
+
+instance Builder.ToYaml Float where
+  toYaml = Builder.scientific . Scientific.fromFloatDigits

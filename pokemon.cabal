@@ -25,6 +25,7 @@ library
                      , regex-compat
                      , range
                      , aeson
+                     , scientific
   default-language:    Haskell2010
 
 executable counter-exe

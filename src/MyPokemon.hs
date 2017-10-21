@@ -1,6 +1,5 @@
 -- So .: works with Strings.
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE DeriveGeneric #-}
 
 module MyPokemon (
   MyPokemon (MyPokemon, stats),
@@ -20,11 +19,11 @@ module MyPokemon (
   level,
 ) where
 
-import           GHC.Generics
-import qualified Data.Aeson.Types as Aeson
+import qualified Data.Text as Text
 import qualified Data.Yaml as Yaml
-import           Data.Yaml
 import           Data.Yaml (FromJSON(..), (.:), (.:?))
+import qualified Data.Yaml.Builder as Builder
+import           Data.Yaml.Builder ((.=))
 
 import qualified Epic
 import qualified Stats
@@ -33,31 +32,46 @@ import           Stats (Stats)
 data MyPokemon = MyPokemon {
   name        :: String,
   species     :: String,
-  quickName   :: String,
-  chargeName  :: String,
   cp          :: Int,
   hp          :: Int,
   stardust    :: Int,
+  quickName   :: String,
+  chargeName  :: String,
   appraisal   :: String,
   stats       :: Maybe [Stats]
-} deriving (Show, Generic)
+} deriving (Show)
 
 instance Yaml.FromJSON MyPokemon where
   parseJSON (Yaml.Object y) =
     MyPokemon <$>
     y .: "name" <*>
     y .: "species" <*>
-    y .: "quick" <*>
-    y .: "charge" <*>
     y .: "cp" <*>
     y .: "hp" <*>
     y .: "dust" <*>
+    y .: "quick" <*>
+    y .: "charge" <*>
     y .: "appraisal" <*>
     y .:? "stats"
   parseJSON _ = fail "Expected Yaml.Object for MyPokemon.parseJSON"
 
-instance Yaml.ToJSON MyPokemon where
-  toEncoding = Aeson.genericToEncoding Aeson.defaultOptions
+instance Builder.ToYaml MyPokemon where
+  toYaml this =
+    Builder.mapping [
+      "name" .= Text.pack (name this),
+      "species" .= Text.pack (species this),
+      "cp" .= cp this,
+      "hp" .= hp this,
+      "dust" .= stardust this,
+      "quick" .= Text.pack (quickName this),
+      "charge" .= Text.pack (chargeName this),
+      "appraisal" .= Text.pack (appraisal this),
+      "stats" .= stats this
+    ]
+
+instance (Builder.ToYaml a) => Builder.ToYaml (Maybe a) where
+  toYaml Nothing = Builder.null
+  toYaml (Just a) = Builder.toYaml a
 
 load :: Epic.MonadCatch m => FilePath -> IO (m [MyPokemon])
 load filename = do

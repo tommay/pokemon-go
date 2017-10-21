@@ -5,6 +5,7 @@ import qualified Options.Applicative as O
 import qualified Data.ByteString as B
 import           Data.Semigroup ((<>))
 import qualified Data.Yaml as Y
+import qualified Data.Yaml.Builder as Builder
 import           System.IO as I
 
 import qualified Appraisal
@@ -48,7 +49,7 @@ main = Epic.catch (
     myPokemon <- ioMyPokemon
 
     myNewPokemon <- mapM (updateStats gameMaster) myPokemon
-    B.putStr $ Y.encode myNewPokemon
+    B.putStr $ Builder.toByteString myNewPokemon
   )
   $ \ex -> I.hPutStrLn stderr $ ex
 
