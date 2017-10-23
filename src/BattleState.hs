@@ -10,9 +10,9 @@ import qualified Debug.Trace as T
 
 data BattleState = BattleState {
   time   :: Float,
-  damage :: Integer,
+  damage :: Int,
   energy :: Float,
-  extraQuickMoves :: Integer
+  extraQuickMoves :: Int
 } deriving (Show)
 
 -- Note that both the "floor" and the "+ 1" make damage somewhat

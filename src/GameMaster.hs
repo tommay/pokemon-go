@@ -37,7 +37,7 @@ data GameMaster = GameMaster {
   pokemonBases  :: StringMap PokemonBase,
   moves         :: StringMap Move,
   cpMultipliers :: Vector Float,
-  stardustCost  :: [Integer]
+  stardustCost  :: [Int]
 } deriving (Show)
 
 type ItemTemplate = Yaml.Object
@@ -94,7 +94,7 @@ getCpMultiplier this level =
     False ->
 -}
 
-getLevelsForStardust :: (Epic.MonadCatch m) => GameMaster -> Integer -> m [Float]
+getLevelsForStardust :: (Epic.MonadCatch m) => GameMaster -> Int -> m [Float]
 getLevelsForStardust this starDust = do
   let levels =  concat $ map (\ (n, dust) ->
         if dust == starDust

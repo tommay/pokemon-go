@@ -18,9 +18,9 @@ import           Data.Yaml (FromJSON(..), (.:), (.=))
 
 data Stats = Stats {
   level       :: Float,
-  attack      :: Integer,
-  defense     :: Integer,
-  stamina     :: Integer
+  attack      :: Int,
+  defense     :: Int,
+  stamina     :: Int
 } deriving (Show, Generic)
 
 instance Yaml.FromJSON Stats where

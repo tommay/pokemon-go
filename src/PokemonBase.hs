@@ -20,9 +20,9 @@ import           Move (Move)
 data PokemonBase = PokemonBase {
   species      :: String,
   types        :: [Type],
-  attack       :: Integer,
-  defense      :: Integer,
-  stamina      :: Integer,
+  attack       :: Int,
+  defense      :: Int,
+  stamina      :: Int,
   evolutions   :: [Text],
   quickMoves   :: [Move],
   chargeMoves  :: [Move],

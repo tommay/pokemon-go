@@ -27,7 +27,7 @@ import           Type (Type)
 data Options = Options {
   glass    :: Bool,
   quick    :: Bool,
-  level    :: Integer,
+  level    :: Int,
   filename :: String,
   species  :: String
 }
@@ -111,7 +111,7 @@ showExpecteds expecteds =
       stars n = replicate (floor $ n / 70) '*'
   in List.intercalate " " $
     map (\ (string, expected) ->
-          format string ((floor expected) :: Integer) (stars expected))
+          format string ((floor expected) :: Int) (stars expected))
       expecteds
 
 data Result = Result {
@@ -120,7 +120,7 @@ data Result = Result {
   expecteds :: [(String, Float)]
 } deriving (Show)
 
-makePokemon :: Epic.MonadCatch m => GameMaster -> Maybe Integer -> MyPokemon -> m Pokemon
+makePokemon :: Epic.MonadCatch m => GameMaster -> Maybe Int -> MyPokemon -> m Pokemon
 makePokemon gameMaster maybeLevel myPokemon = do
   let name = MyPokemon.name myPokemon
       species = MyPokemon.species myPokemon

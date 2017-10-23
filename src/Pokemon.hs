@@ -32,7 +32,7 @@ data Pokemon = Pokemon {
 
 new = Pokemon
 
-hp :: Pokemon -> Integer
+hp :: Pokemon -> Int
 hp this = floor $ stamina this
 
 possibleMoves :: Pokemon -> [Move]

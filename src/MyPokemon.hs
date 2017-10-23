@@ -35,9 +35,9 @@ data MyPokemon = MyPokemon {
   species     :: String,
   quickName   :: String,
   chargeName  :: String,
-  cp          :: Integer,
-  hp          :: Integer,
-  stardust    :: Integer,
+  cp          :: Int,
+  hp          :: Int,
+  stardust    :: Int,
   appraisal   :: String,
   stats       :: Maybe [Stats]
 } deriving (Show, Generic)
@@ -69,13 +69,13 @@ load filename = do
 level :: Epic.MonadCatch m => MyPokemon -> m Float
 level = getStat Stats.level
 
-attack :: Epic.MonadCatch m => MyPokemon -> m Integer
+attack :: Epic.MonadCatch m => MyPokemon -> m Int
 attack = getStat Stats.attack
 
-defense :: Epic.MonadCatch m => MyPokemon -> m Integer
+defense :: Epic.MonadCatch m => MyPokemon -> m Int
 defense = getStat Stats.defense
 
-stamina :: Epic.MonadCatch m => MyPokemon -> m Integer
+stamina :: Epic.MonadCatch m => MyPokemon -> m Int
 stamina = getStat Stats.stamina
 
 getStat :: (Num a, Epic.MonadCatch m) => (Stats -> a) -> MyPokemon -> m a

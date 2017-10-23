@@ -11,9 +11,9 @@ import           Data.Range.Range (Range (SpanRange))
 import qualified Text.Regex as Regex
 
 data Appraisal = Appraisal {
-  summary     :: Range Integer,
+  summary     :: Range Int,
   best        :: [String],
-  bestRange   :: Range Integer
+  bestRange   :: Range Int
 } deriving (Show)
 
 new :: (Epic.MonadCatch m) => String -> m Appraisal
@@ -24,7 +24,7 @@ new string = do
   bestRange' <- getBestRange words
   return $ Appraisal summary' best' bestRange'
 
-possibleIvs :: Appraisal -> [(Integer, Integer, Integer)]
+possibleIvs :: Appraisal -> [(Int, Int, Int)]
 possibleIvs this =
   [(attack, defense, stamina) |
     let ivs = [0 .. 15],
@@ -54,13 +54,13 @@ getBestRange words
   | includes words ["incredible", "blown"] = return $ SpanRange 15 15
   | otherwise = Epic.fail $ "Bad best IV description in appraisal"
 
-ok :: Appraisal -> Integer -> Integer -> Integer -> Bool
+ok :: Appraisal -> Int -> Int -> Int -> Bool
 ok this attack defense stamina =
   (attack + defense + stamina) `inRange` summary this &&
   checkBestRange this attack defense stamina &&
   checkBest this attack defense stamina
 
-checkBestRange :: Appraisal -> Integer -> Integer -> Integer -> Bool
+checkBestRange :: Appraisal -> Int -> Int -> Int -> Bool
 checkBestRange this attack defense stamina =
   let bestValue = case head $ best this of
         "attack" -> attack
@@ -68,7 +68,7 @@ checkBestRange this attack defense stamina =
         "hp" -> stamina
   in bestValue `inRange` bestRange this
 
-checkBest :: Appraisal -> Integer -> Integer -> Integer -> Bool
+checkBest :: Appraisal -> Int -> Int -> Int -> Bool
 checkBest this attack defense stamina =
   case best this of
     ["attack"] ->
