@@ -29,7 +29,7 @@ data Options = Options {
   quick    :: Bool,
   level    :: Maybe Int,
   attackerSource :: AttackerSource,
-  species  :: String
+  defender :: String
 }
 
 data AttackerSource = FromFile FilePath | AllAttackers
@@ -39,7 +39,7 @@ defaultFilename = "my_pokemon.yaml"
 getOptions :: IO Options
 getOptions = do
   let opts = Options <$> optGlass <*> optQuick <*> optLevel <*>
-        optAttackerSource <*> optSpecies
+        optAttackerSource <*> optDefender
       optGlass = O.switch
         (  O.long "glass"
         <> O.short 'g'
@@ -65,7 +65,7 @@ getOptions = do
         (  O.long "all"
         <> O.short 'a'
         <> O.help "Consider all pokemon, not just the ones in FILE")
-      optSpecies = O.argument O.str (O.metavar "SPECIES")
+      optDefender = O.argument O.str (O.metavar "DEFENDER")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc "Find good counters for a Pokemon."
@@ -81,13 +81,13 @@ main = do
       ioGameMaster <- GameMaster.load "GAME_MASTER.yaml"
       gameMaster <- ioGameMaster
 
-      -- XXX Replacing "species" with "_" shows the compiler knows
-      -- species must be Options -> String.  Too bad this needs a type
+      -- XXX Replacing "defender" with "_" shows the compiler knows
+      -- defender must be Options -> String.  Too bad this needs a type
       -- annotation to disambiguate.
 
       defender <- do
         defenderBase <- GameMaster.getPokemonBase gameMaster $
-          (species :: Options -> String) options
+          defender options
         return $ makeDefenderFromBase gameMaster defenderBase
 
       pokemon <- case attackerSource options of
