@@ -32,7 +32,10 @@ data Options = Options {
   defender :: String
 }
 
-data AttackerSource = FromFile FilePath | AllAttackers
+data AttackerSource =
+    FromFile FilePath
+  | AllAttackers
+  | MovesetFor String
 
 defaultFilename = "my_pokemon.yaml"
 
@@ -53,7 +56,7 @@ getOptions = do
         <> O.short 'l'
         <> O.metavar "LEVEL"
         <> O.help "Force my_pokemon level to find who's implicitly best")
-      optAttackerSource = optFilename <|> optAll
+      optAttackerSource = optFilename <|> optAll <|> optMovesetFor
       optFilename = FromFile <$> O.strOption
         (  O.long "file"
         <> O.short 'f'
@@ -65,6 +68,11 @@ getOptions = do
         (  O.long "all"
         <> O.short 'a'
         <> O.help "Consider all pokemon, not just the ones in FILE")
+      optMovesetFor = MovesetFor <$> O.strOption
+        (  O.long "moveset"
+        <> O.short 'm'
+        <> O.metavar "ATTACKER"
+        <> O.help "Rate the movesets for ATTACKER against SPECIES")
       optDefender = O.argument O.str (O.metavar "DEFENDER")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
@@ -97,6 +105,11 @@ main = do
           mapM (makePokemon gameMaster (level options)) myPokemon
         AllAttackers ->
           return $ allAttackers gameMaster
+        MovesetFor attacker ->
+          case filter (\p -> map toLower (Pokemon.species p) == attacker) $
+              allAttackers gameMaster of
+            [] -> Epic.fail $ "No such species: " ++ attacker
+            attackers -> return $ attackers
 
       let useCharge = not $ quick options
           results = map (counter useCharge defender) pokemon
