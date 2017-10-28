@@ -45,9 +45,6 @@ effectivenessAgainst this defenderTypes =
 
 name :: Move -> String
 name this =
-  let nm = Regex.subRegex (Regex.mkRegex "_FAST$") (movementId this) ""
-  in map (\ (char, prev) ->
-       if Char.isAlpha char && not (Char.isAlpha prev)
-         then Char.toUpper char
-         else Char.toLower char)
-       $ zip nm (' ' : nm)
+  let noFast = Regex.subRegex (Regex.mkRegex "_FAST$") (movementId this) ""
+      alphaOnly = Regex.subRegex (Regex.mkRegex "[^a-zA-Z]") noFast " "
+  in map Char.toLower alphaOnly

@@ -253,7 +253,7 @@ makeAllAttackersFromBase gameMaster base =
       cpMultiplier = GameMaster.getCpMultiplier gameMaster level
       makeStat baseStat = (fromIntegral baseStat + 11) * cpMultiplier
       makeAttacker quickMove chargeMove =
-        let name = PokemonBase.species base ++ " " ++ Move.name quickMove ++ " " ++ Move.name chargeMove
+        let name = PokemonBase.species base ++ " " ++ Move.name quickMove ++ "/" ++ Move.name chargeMove
         in Pokemon.new
              name
              (PokemonBase.species base)
