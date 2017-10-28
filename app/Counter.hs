@@ -27,7 +27,7 @@ import           Type (Type)
 data Options = Options {
   glass    :: Bool,
   quick    :: Bool,
-  level    :: Int,
+  level    :: Maybe Int,
   filename :: String,
   species  :: String
 }
@@ -36,7 +36,8 @@ defaultFilename = "my_pokemon.yaml"
 
 getOptions :: IO Options
 getOptions = do
-  let opts = Options <$> optGlass <*> optQuick <*> optLevel <*> optFilename <*> optSpecies
+  let opts = Options <$> optGlass <*> optQuick <*> optLevel <*>
+        optFilename <*> optSpecies
       optGlass = O.switch
         (  O.long "glass"
         <> O.short 'g'
@@ -45,10 +46,9 @@ getOptions = do
         (  O.long "quick"
         <> O.short 'q'
         <> O.help "Use quick moves only")
-      optLevel = O.option auto
+      optLevel = O.optional $ O.option auto
         (  O.long "level"
         <> O.short 'l'
-        <> O.value 0
         <> O.metavar "LEVEL"
         <> O.help "Force my_pokemon level to find who's implicitly best")
       optFilename = O.strOption
@@ -82,13 +82,9 @@ main = do
           (species :: Options -> String) options
         return $ makeDefenderFromBase gameMaster defenderBase
 
-      let maybeLevel = case level options of
-            0 -> Nothing
-            val -> Just val
-
       ioMyPokemon <- MyPokemon.load $ filename options
       myPokemon <- ioMyPokemon
-      pokemon <- mapM (makePokemon gameMaster maybeLevel) myPokemon
+      pokemon <- mapM (makePokemon gameMaster (level options)) myPokemon
 
       let useCharge = not $ quick options
           results = map (counter useCharge defender) pokemon
