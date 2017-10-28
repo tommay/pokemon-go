@@ -13,14 +13,14 @@ import qualified BattleState
 import qualified Epic
 import qualified GameMaster
 import           GameMaster (GameMaster)
+import qualified Move
+import           Move (Move)
 import qualified MyPokemon
 import           MyPokemon (MyPokemon)
 import qualified Pokemon
 import           Pokemon (Pokemon)
 import qualified PokemonBase
 import           PokemonBase (PokemonBase)
-import qualified Move
-import           Move (Move)
 import qualified Type
 import           Type (Type)
 
@@ -253,16 +253,17 @@ makeAllAttackersFromBase gameMaster base =
       cpMultiplier = GameMaster.getCpMultiplier gameMaster level
       makeStat baseStat = (fromIntegral baseStat + 11) * cpMultiplier
       makeAttacker quickMove chargeMove =
-        Pokemon.new
-          (PokemonBase.species base)
-          (PokemonBase.species base)
-          (PokemonBase.types base)
-          (makeStat $ PokemonBase.attack base)
-          (makeStat $ PokemonBase.defense base)
-          (makeStat $ PokemonBase.stamina base)
-          quickMove
-          chargeMove
-          base
+        let name = PokemonBase.species base ++ " " ++ Move.name quickMove ++ " " ++ Move.name chargeMove
+        in Pokemon.new
+             name
+             (PokemonBase.species base)
+             (PokemonBase.types base)
+             (makeStat $ PokemonBase.attack base)
+             (makeStat $ PokemonBase.defense base)
+             (makeStat $ PokemonBase.stamina base)
+             quickMove
+             chargeMove
+             base
   in [makeAttacker quickMove chargeMove |
       quickMove <- PokemonBase.quickMoves base,
       chargeMove <- PokemonBase.chargeMoves base]
