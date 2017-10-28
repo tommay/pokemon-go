@@ -70,7 +70,7 @@ instance Builder.ToYaml MyPokemon where
     ]
 
 instance (Builder.ToYaml a) => Builder.ToYaml (Maybe a) where
-  toYaml Nothing = Builder.null
+  toYaml Nothing = undefined
   toYaml (Just a) = Builder.toYaml a
 
 load :: Epic.MonadCatch m => FilePath -> IO (m [MyPokemon])
