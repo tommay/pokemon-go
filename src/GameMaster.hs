@@ -8,7 +8,8 @@ module GameMaster (
   getQuick,
   getCharge,
   getCpMultiplier,
-  getLevelsForStardust
+  getLevelsForStardust,
+  allPokemonBases
 ) where
 
 import           Data.Text.Conversions (convertText)
@@ -48,6 +49,10 @@ load filename = do
   case either of
     Left yamlParseException -> Epic.fail $ show yamlParseException
     Right yamlObject -> return $ makeGameMaster yamlObject
+
+allPokemonBases :: GameMaster -> [PokemonBase]
+allPokemonBases this =
+  HashMap.elems $ pokemonBases this
 
 getPokemonBase :: Epic.MonadCatch m => GameMaster -> String -> m PokemonBase
 getPokemonBase this speciesName =

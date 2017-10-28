@@ -28,16 +28,18 @@ data Options = Options {
   glass    :: Bool,
   quick    :: Bool,
   level    :: Maybe Int,
-  filename :: String,
+  attackerSource :: AttackerSource,
   species  :: String
 }
+
+data AttackerSource = FromFile FilePath | AllAttackers
 
 defaultFilename = "my_pokemon.yaml"
 
 getOptions :: IO Options
 getOptions = do
   let opts = Options <$> optGlass <*> optQuick <*> optLevel <*>
-        optFilename <*> optSpecies
+        optAttackerSource <*> optSpecies
       optGlass = O.switch
         (  O.long "glass"
         <> O.short 'g'
@@ -51,12 +53,18 @@ getOptions = do
         <> O.short 'l'
         <> O.metavar "LEVEL"
         <> O.help "Force my_pokemon level to find who's implicitly best")
-      optFilename = O.strOption
+      optAttackerSource = optFilename <|> optAll
+      optFilename = FromFile <$> O.strOption
         (  O.long "file"
         <> O.short 'f'
         <> O.value defaultFilename
         <> O.metavar "FILE"
-        <> O.help ("File to read my_pokemon from, default " ++ defaultFilename))
+        <> O.help ("File to read my_pokemon from, default " ++
+             defaultFilename))
+      optAll = O.flag' AllAttackers
+        (  O.long "all"
+        <> O.short 'a'
+        <> O.help "Consider all pokemon, not just the ones in FILE")
       optSpecies = O.argument O.str (O.metavar "SPECIES")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
@@ -82,9 +90,13 @@ main = do
           (species :: Options -> String) options
         return $ makeDefenderFromBase gameMaster defenderBase
 
-      ioMyPokemon <- MyPokemon.load $ filename options
-      myPokemon <- ioMyPokemon
-      pokemon <- mapM (makePokemon gameMaster (level options)) myPokemon
+      pokemon <- case attackerSource options of
+        FromFile filename -> do
+          ioMyPokemon <- MyPokemon.load filename
+          myPokemon <- ioMyPokemon
+          mapM (makePokemon gameMaster (level options)) myPokemon
+        AllAttackers ->
+          return $ allAttackers gameMaster
 
       let useCharge = not $ quick options
           results = map (counter useCharge defender) pokemon
@@ -229,3 +241,28 @@ makeDefenderFromBase gameMaster base =
     (List.head $ PokemonBase.quickMoves base)
     (List.head $ PokemonBase.chargeMoves base)
     base
+
+allAttackers :: GameMaster -> [Pokemon]
+allAttackers gameMaster =
+  concat $ map (makeAllAttackersFromBase gameMaster) $
+    GameMaster.allPokemonBases gameMaster
+
+makeAllAttackersFromBase :: GameMaster -> PokemonBase -> [Pokemon]
+makeAllAttackersFromBase gameMaster base =
+  let level = 20
+      cpMultiplier = GameMaster.getCpMultiplier gameMaster level
+      makeStat baseStat = (fromIntegral baseStat + 11) * cpMultiplier
+      makeAttacker quickMove chargeMove =
+        Pokemon.new
+          (PokemonBase.species base)
+          (PokemonBase.species base)
+          (PokemonBase.types base)
+          (makeStat $ PokemonBase.attack base)
+          (makeStat $ PokemonBase.defense base)
+          (makeStat $ PokemonBase.stamina base)
+          quickMove
+          chargeMove
+          base
+  in [makeAttacker quickMove chargeMove |
+      quickMove <- PokemonBase.quickMoves base,
+      chargeMove <- PokemonBase.chargeMoves base]

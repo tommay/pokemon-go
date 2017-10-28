@@ -39,5 +39,3 @@ possibleMoves :: Pokemon -> [Move]
 possibleMoves this =
   let pokemonBase = Pokemon.base this
   in concat $ sequence [PokemonBase.quickMoves, PokemonBase.chargeMoves] pokemonBase
-
-
