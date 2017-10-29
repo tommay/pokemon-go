@@ -208,7 +208,7 @@ makeExpecteds dps defender attacker =
   let moveTypes = sortMoveTypes defender $ getMoveTypes defender
       expected moveType = dps * makeExpected defender attacker moveType
   in map (\moveType ->
-           (simplify $ Type.name moveType, expected moveType)) moveTypes
+           (simplify $ Type.typeId moveType, expected moveType)) moveTypes
 
 makeExpected :: Pokemon -> Pokemon -> Type -> Float
 makeExpected defender attacker moveType =

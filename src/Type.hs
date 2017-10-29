@@ -1,7 +1,7 @@
 module Type (
   Type,
   new,
-  name,
+  typeId,
   stabFor,
   effectivenessAgainst,
 ) where
@@ -11,7 +11,7 @@ import StringMap (StringMap)
 import qualified Data.HashMap.Strict as HashMap
 
 data Type = Type {
-  name          :: String,
+  typeId        :: String,
   effectiveness :: StringMap Float,
   stab          :: Float
 } deriving (Eq, Show)
@@ -26,4 +26,7 @@ stabFor this attackerTypes =
 
 effectivenessAgainst :: Type -> [Type] -> Float
 effectivenessAgainst this defenderTypes =
-  product $ map (\ptype -> HashMap.lookupDefault 1 (Type.name ptype) (effectiveness this)) defenderTypes
+  product $ map
+    (\ptype -> HashMap.lookupDefault 1 (Type.typeId ptype)
+      (effectiveness this))
+    defenderTypes
