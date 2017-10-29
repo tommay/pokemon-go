@@ -171,8 +171,11 @@ makePokemon gameMaster maybeLevel myPokemon = do
           False -> Epic.fail $
             species ++ " can't do " ++ string ++ " move " ++
               MyPokemon.quickName myPokemon
-  quick <- getMove "quick"
-    GameMaster.getQuick MyPokemon.quickName PokemonBase.quickMoves
+  quick <- do
+    quick <- getMove "quick" GameMaster.getQuick MyPokemon.quickName
+      PokemonBase.quickMoves
+    maybeSetHiddenPowerType gameMaster quick
+      (MyPokemon.hiddenPowerType myPokemon)
   charge <- getMove "charge"
     GameMaster.getCharge MyPokemon.chargeName PokemonBase.chargeMoves
 
@@ -299,3 +302,16 @@ makeSomeAttackers gameMaster attackers = do
     base <- GameMaster.getPokemonBase gameMaster species
     return $ makeAllAttackersFromBase gameMaster level base)
     attackers
+
+maybeSetHiddenPowerType :: (Epic.MonadCatch m) =>
+    GameMaster -> Move -> Maybe String -> m Move
+maybeSetHiddenPowerType gameMaster move maybeTypeName = do
+  if Move.name move == "hidden power"
+    then case maybeTypeName of
+      Just typeName -> do
+        moveType <- GameMaster.getType gameMaster typeName
+        return $ Move.setType move moveType
+      Nothing -> Epic.fail $ "No type given for hidden power"
+    else case maybeTypeName of
+      Nothing -> return $ move
+      _ -> Epic.fail $ (Move.name move) ++ " does not take a type"

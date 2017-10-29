@@ -9,7 +9,8 @@ module Move (
   isQuick,
   stabFor,
   effectivenessAgainst,
-  name
+  name,
+  setType
 ) where
 
 import qualified Type
@@ -51,3 +52,10 @@ name this =
   let noFast = Regex.subRegex (Regex.mkRegex "_FAST$") (movementId this) ""
       alphaOnly = Regex.subRegex (Regex.mkRegex "[^a-zA-Z]") noFast " "
   in map Char.toLower alphaOnly
+
+-- This is for "hidden power", which has a type specific to an
+-- individual Pokemon.
+--
+setType :: Move -> Type -> Move
+setType this moveType =
+  this { moveType = moveType }

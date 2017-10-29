@@ -10,6 +10,7 @@ module GameMaster (
   getCpMultiplier,
   getLevelsForStardust,
   allPokemonBases,
+  getType,
   isSpecies
 ) where
 
@@ -36,13 +37,16 @@ import           Data.Vector (Vector, (!))
 import qualified Text.Regex as Regex
 
 data GameMaster = GameMaster {
-  pokemonBases  :: StringMap PokemonBase,
+  types         :: StringMap Type,
   moves         :: StringMap Move,
+  pokemonBases  :: StringMap PokemonBase,
   cpMultipliers :: Vector Float,
   stardustCost  :: [Int]
 } deriving (Show)
 
 type ItemTemplate = Yaml.Object
+
+new = GameMaster
 
 load :: Epic.MonadCatch m => FilePath -> IO (m GameMaster)
 load filename = do
@@ -88,21 +92,9 @@ getCpMultiplier this level =
           cp1 = cpMultipliers' ! intLevel
       in sqrt $ (cp0*cp0 + cp1*cp1) / 2
 
-{-
-getCpMultiplier :: Epic.MonadCatch m => GameMaster -> Float -> m Float
-getCpMultiplier this level =
-  let cpMutipliers = GameMaster.cpMultiplers this
-      floorLevel = floor level
-  in case floorLevel == level of
-    True -> case cpMultiploers !? floorLevel of
-      Nothing -> Epic.fail $ "bad level: " ++ (show level)
-      Just cpMultiploer -> return cpMultiplier
-    False ->
--}
-
 getLevelsForStardust :: (Epic.MonadCatch m) => GameMaster -> Int -> m [Float]
 getLevelsForStardust this starDust = do
-  let levels =  concat $ map (\ (n, dust) ->
+  let levels = concat $ map (\ (n, dust) ->
         if dust == starDust
           then [n, n + 0.5]
           else [])
@@ -136,7 +128,7 @@ makeGameMaster yamlObject = do
   stardustCost <- do
     pokemonUpgrades <- getFirst itemTemplates "pokemonUpgrades"
     getObjectValue pokemonUpgrades "stardustCost"
-  return $ GameMaster pokemonBases moves cpMultipliers stardustCost
+  return $ GameMaster.new types moves pokemonBases cpMultipliers stardustCost
 
 -- Here it's nice to use Yaml.Parser because it will error if we don't
 -- get a [ItemTemplate], i.e., it checks that the Yaml.Values are the
@@ -240,7 +232,7 @@ makePokemonBase types moves pokemonSettings =
 
     return $ PokemonBase.new species ptypes attack defense stamina
        evolutions quickMoves chargeMoves parent)
-  (\ex -> Epic.fail $ ex ++ " in " ++ (show pokemonSettings))
+  (\ex -> Epic.fail $ ex ++ " in " ++ show pokemonSettings)
 
 makeObjects :: Epic.MonadCatch m => String -> String -> (ItemTemplate -> m a) -> [ItemTemplate]
   -> m (StringMap a)
@@ -284,10 +276,14 @@ get map key =
     Just value -> return value
     _ -> Epic.fail $ "Key not found: " ++ show key
 
+getType :: Epic.MonadCatch m => GameMaster -> String -> m Type
+getType this typeName =
+  get (GameMaster.types this) ("POKEMON_TYPE_" ++ (map toUpper typeName))
+
 toEpic :: (Show a, Epic.MonadCatch m) => Either a b -> m b
 toEpic either =
   case either of
-    Left err -> Epic.fail (show err)
+    Left err -> Epic.fail $ show err
     Right val -> return val
 
 isSpecies :: GameMaster -> String -> Bool
