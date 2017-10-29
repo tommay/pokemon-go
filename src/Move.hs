@@ -10,6 +10,7 @@ module Move (
   stabFor,
   effectivenessAgainst,
   name,
+  isHiddenPower,
   setType
 ) where
 
@@ -51,7 +52,14 @@ name :: Move -> String
 name this =
   let noFast = Regex.subRegex (Regex.mkRegex "_FAST$") (movementId this) ""
       alphaOnly = Regex.subRegex (Regex.mkRegex "[^a-zA-Z]") noFast " "
-  in map Char.toLower alphaOnly
+      lower = map Char.toLower alphaOnly
+  in if Move.isHiddenPower this
+       then lower ++ " (" ++ (Type.name $ Move.moveType this) ++ ")"
+       else lower
+
+isHiddenPower :: Move -> Bool
+isHiddenPower this =
+  Move.movementId this == "HIDDEN_POWER_FAST"
 
 -- This is for "hidden power", which has a type specific to an
 -- individual Pokemon.

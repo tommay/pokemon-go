@@ -306,7 +306,7 @@ makeSomeAttackers gameMaster attackers = do
 maybeSetHiddenPowerType :: (Epic.MonadCatch m) =>
     GameMaster -> Move -> Maybe String -> m Move
 maybeSetHiddenPowerType gameMaster move maybeTypeName = do
-  if Move.name move == "hidden power"
+  if Move.isHiddenPower move
     then case maybeTypeName of
       Just typeName -> do
         moveType <- GameMaster.getType gameMaster typeName
