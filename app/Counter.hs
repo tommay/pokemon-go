@@ -33,12 +33,26 @@ data Options = Options {
   defender :: String
 }
 
+data Attacker = Attacker String Float
+
 data AttackerSource =
     FromFile FilePath
   | AllAttackers
-  | MovesetFor [String]
+  | MovesetFor [Attacker]
 
 defaultFilename = "my_pokemon.yaml"
+defaultAttackerLevel = 20
+
+parseAttacker :: O.ReadM Attacker
+parseAttacker = O.eitherReader $ \s ->
+  let splitRegex = Regex.mkRegex "^([a-z]+)(:([0-9]+(\\.5)?))?$"
+  in case Regex.matchRegex splitRegex s of
+       Just [species, _, "", _] ->
+         Right $ Attacker species defaultAttackerLevel
+       Just [species, _, levelString, _] ->
+         Right $ Attacker species (read levelString)
+       _ ->
+         Left $ "`" ++ s ++ "' should look like ATTACKER[:LEVEL]"
 
 getOptions :: IO Options
 getOptions = do
@@ -69,10 +83,10 @@ getOptions = do
         (  O.long "all"
         <> O.short 'a'
         <> O.help "Consider all pokemon, not just the ones in FILE")
-      optMovesetFor = MovesetFor <$> (O.some . O.strOption)
+      optMovesetFor = MovesetFor <$> (O.some . O.option parseAttacker)
         (  O.long "moveset"
         <> O.short 'm'
-        <> O.metavar "ATTACKER"
+        <> O.metavar "ATTACKER[:LEVEL]"
         <> O.help "Rate the movesets for ATTACKER against DEFENDER")
       optDefender = O.argument O.str (O.metavar "DEFENDER")
       options = O.info (opts <**> O.helper)
@@ -107,11 +121,10 @@ main = do
         AllAttackers ->
           return $ allAttackers gameMaster
         MovesetFor attackers ->
-          case filter (not . GameMaster.isSpecies gameMaster) attackers of
-            [] ->
-              return $ filter (\p -> toLower (Pokemon.species p) `elem` attackers) $
-                allAttackers gameMaster
-            noSuchSpecies -> Epic.fail $ "No such species: " ++ (List.intercalate ", " noSuchSpecies)
+          let attackerSpecies = map (\ (Attacker species _) -> species) attackers
+          in case filter (not . GameMaster.isSpecies gameMaster) attackerSpecies of
+               [] -> makeSomeAttackers gameMaster attackers
+               noSuchSpecies -> Epic.fail $ "No such species: " ++ (List.intercalate ", " noSuchSpecies)
 
       let useCharge = not $ quick options
           results = map (counter useCharge defender) pokemon
@@ -262,17 +275,19 @@ makeDefenderFromBase gameMaster base =
 
 allAttackers :: GameMaster -> [Pokemon]
 allAttackers gameMaster =
-  concat $ map (makeAllAttackersFromBase gameMaster) $
+  concat $ map (makeAllAttackersFromBase gameMaster defaultAttackerLevel) $
     GameMaster.allPokemonBases gameMaster
 
-makeAllAttackersFromBase :: GameMaster -> PokemonBase -> [Pokemon]
-makeAllAttackersFromBase gameMaster base =
-  let level = 20
-      cpMultiplier = GameMaster.getCpMultiplier gameMaster level
+makeAllAttackersFromBase :: GameMaster -> Float -> PokemonBase ->[Pokemon]
+makeAllAttackersFromBase gameMaster level base =
+  let cpMultiplier = GameMaster.getCpMultiplier gameMaster level
       makeStat baseStat = (fromIntegral baseStat + 11) * cpMultiplier
       makeAttacker quickMove chargeMove =
-        let format = Printf.printf "%-10s %-13s/ %-15s"
-            name = format (PokemonBase.species base) (Move.name quickMove) (Move.name chargeMove)
+        let speciesAndLevel :: String
+            speciesAndLevel = Printf.printf "%s:%f" (PokemonBase.species base) level
+            speciesAndLevel' = Regex.subRegex (Regex.mkRegex "\\.0") speciesAndLevel ""
+            format = Printf.printf "%-15s %-13s/ %-15s"
+            name = format speciesAndLevel' (Move.name quickMove) (Move.name chargeMove)
         in Pokemon.new
              name
              (PokemonBase.species base)
@@ -286,3 +301,10 @@ makeAllAttackersFromBase gameMaster base =
   in [makeAttacker quickMove chargeMove |
       quickMove <- PokemonBase.quickMoves base,
       chargeMove <- PokemonBase.chargeMoves base]
+
+makeSomeAttackers :: (Epic.MonadCatch m) => GameMaster -> [Attacker] -> m [Pokemon]
+makeSomeAttackers gameMaster attackers = do
+  concat <$> mapM (\ (Attacker species level) -> do
+    base <- GameMaster.getPokemonBase gameMaster species
+    return $ makeAllAttackersFromBase gameMaster level base)
+    attackers
