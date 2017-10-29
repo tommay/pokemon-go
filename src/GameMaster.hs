@@ -13,27 +13,27 @@ module GameMaster (
   isSpecies
 ) where
 
+import qualified Epic
+import qualified Move
+import           Move (Move)
+import qualified PokemonBase
+import           PokemonBase (PokemonBase)
+import           StringMap (StringMap)
+import qualified Type
+import           Type (Type)
+
+import qualified Data.Yaml as Yaml
+import           Data.Yaml ((.:), (.:?), (.!=))
+
 import           Data.Text.Conversions (convertText)
 import           Data.Char (toLower, toUpper)
 import           Data.Hashable (Hashable)
 import           Data.Maybe (mapMaybe)
-import qualified Data.Yaml as Yaml
-import           Data.Yaml (ParseException)
-import Data.Yaml (FromJSON(..), (.:), (.:?), (.!=))
 import qualified Data.HashMap.Strict as HashMap
 import           Data.HashMap.Strict (HashMap)
 import qualified Data.Vector as Vector
 import           Data.Vector (Vector, (!))
 import qualified Text.Regex as Regex
-
-import qualified Epic
-import           StringMap (StringMap)
-import qualified Type
-import           Type (Type)
-import qualified Move
-import           Move (Move)
-import qualified PokemonBase
-import           PokemonBase (PokemonBase)
 
 data GameMaster = GameMaster {
   pokemonBases  :: StringMap PokemonBase,
@@ -270,11 +270,11 @@ getFirst itemTemplates filterKey =
 -- This seems roundabout, but the good thing is that the type "a" is
 -- inferred from the usage context so the result is error-checked.
 --
-getObjectValue :: Epic.MonadCatch m => FromJSON a => Yaml.Object -> String -> m a
+getObjectValue :: (Epic.MonadCatch m, Yaml.FromJSON a) => Yaml.Object -> String -> m a
 getObjectValue yamlObject key =
   toEpic $ Yaml.parseEither (.: convertText key) yamlObject
 
-getObjectValueWithDefault :: Epic.MonadCatch m => FromJSON a => Yaml.Object -> String -> a -> m a
+getObjectValueWithDefault :: (Epic.MonadCatch m, Yaml.FromJSON a) => Yaml.Object -> String -> a -> m a
 getObjectValueWithDefault yamlObject key dflt =
   toEpic $ Yaml.parseEither (\p -> p .:? convertText key .!= dflt) yamlObject
 

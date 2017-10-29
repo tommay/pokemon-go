@@ -9,14 +9,13 @@ module Stats (
   stamina,
 ) where
 
-import qualified Data.Scientific as Scientific
-import           Data.Semigroup ((<>))
 import qualified Data.Yaml as Yaml
-import           Data.Yaml (FromJSON(..), (.:))
+import           Data.Yaml ((.:))
 import qualified Data.Yaml.Builder as Builder
 import           Data.Yaml.Builder ((.=))
 
-import qualified Debug.Trace as Trace
+import qualified Data.Scientific as Scientific
+import           Data.Semigroup ((<>))
 
 data Stats = Stats {
   level       :: Float,

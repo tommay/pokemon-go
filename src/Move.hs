@@ -16,7 +16,7 @@ import           Type (Type)
 
 import qualified Data.Char as Char
 import qualified Data.HashMap.Strict as HashMap
-import qualified Data.List
+import qualified Data.List as List
 import qualified Text.Regex as Regex
 
 data Move = Move {
@@ -33,7 +33,7 @@ isCharge this =
 
 isQuick :: Move -> Bool
 isQuick this =
-  Data.List.isSuffixOf "_FAST" $ movementId this
+  List.isSuffixOf "_FAST" $ movementId this
 
 stabFor :: Move -> [Type] -> Float
 stabFor this attackerTypes =

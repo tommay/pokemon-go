@@ -6,8 +6,6 @@ import qualified Move
 import qualified Pokemon
 import           Pokemon (Pokemon)
 
-import qualified Debug.Trace as T
-
 data BattleState = BattleState {
   time   :: Float,
   damage :: Int,
@@ -54,5 +52,3 @@ calcDps attacker defender useCharge =
       timeLimit = 120
       finalState = last $ takeWhile (\s -> BattleState.time s < timeLimit) states
   in fromIntegral (BattleState.damage finalState) / BattleState.time finalState
-
-spew a b = T.traceShow (a, b) b

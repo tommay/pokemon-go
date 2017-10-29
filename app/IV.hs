@@ -1,22 +1,24 @@
 module Main where
 
-import           Control.Applicative
-import qualified Options.Applicative as O
-import qualified Data.ByteString as B
-import           Data.Semigroup ((<>))
-import qualified Data.Yaml as Y
-import qualified Data.Yaml.Builder as Builder
-import           System.IO as I
-
 import qualified Appraisal
 import qualified Calc
 import qualified Epic
 import qualified GameMaster
 import           GameMaster (GameMaster)
 import qualified MyPokemon
-import           MyPokemon (MyPokemon, stats)
+import           MyPokemon (MyPokemon)
 import qualified Stats
 import           Stats (Stats (Stats))
+
+import qualified Options.Applicative as O
+import           Options.Applicative ((<**>))
+import           Data.Semigroup ((<>))
+
+import qualified Data.ByteString as B
+import           Data.Semigroup ((<>))
+import qualified Data.Yaml as Y
+import qualified Data.Yaml.Builder as Builder
+import           System.IO as I
 
 data Options = Options {
   new       :: Bool,
@@ -57,7 +59,7 @@ updateStats :: (Epic.MonadCatch m) => GameMaster -> MyPokemon -> m MyPokemon
 updateStats gameMaster myPokemon = Epic.catch (
   do
     stats <- computeStats gameMaster myPokemon
-    return $ myPokemon { stats = Just stats }
+    return $ myPokemon { MyPokemon.stats = Just stats }
   )
   $ \ex -> Epic.fail $
       "Problem with " ++ MyPokemon.name myPokemon ++ ": " ++ ex

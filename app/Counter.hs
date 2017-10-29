@@ -1,13 +1,8 @@
 module Main where
 
-import           Data.Char (toLower)
-import qualified Data.List as List
-import qualified Text.Printf as Printf
-import qualified Text.Regex as Regex
-import qualified System.Environment
-
-import Options.Applicative as O
-import Data.Semigroup ((<>))
+import qualified Options.Applicative as O
+import           Options.Applicative ((<|>), (<**>))
+import           Data.Semigroup ((<>))
 
 import qualified BattleState
 import qualified Epic
@@ -23,6 +18,12 @@ import qualified PokemonBase
 import           PokemonBase (PokemonBase)
 import qualified Type
 import           Type (Type)
+
+import qualified Data.Char as Char
+import qualified Data.List as List
+import qualified Text.Printf as Printf
+import qualified Text.Regex as Regex
+import qualified System.Environment
 
 data Options = Options {
   glass    :: Bool,
@@ -51,7 +52,7 @@ getOptions = do
         (  O.long "quick"
         <> O.short 'q'
         <> O.help "Use quick moves only")
-      optLevel = O.optional $ O.option auto
+      optLevel = O.optional $ O.option O.auto
         (  O.long "level"
         <> O.short 'l'
         <> O.metavar "LEVEL"
@@ -108,7 +109,7 @@ main = do
         MovesetFor attackers ->
           case filter (not . GameMaster.isSpecies gameMaster) attackers of
             [] ->
-              return $ filter (\p -> map toLower (Pokemon.species p) `elem` attackers) $
+              return $ filter (\p -> toLower (Pokemon.species p) `elem` attackers) $
                 allAttackers gameMaster
             noSuchSpecies -> Epic.fail $ "No such species: " ++ (List.intercalate ", " noSuchSpecies)
 
@@ -206,7 +207,10 @@ makeExpected defender attacker moveType =
 simplify :: String -> String
 simplify name =
   let regex = Regex.mkRegex ".*_"
-  in map toLower $ Regex.subRegex regex name ""
+  in toLower $ Regex.subRegex regex name ""
+
+toLower :: String -> String
+toLower = map Char.toLower
 
 getSortedMoveTypes :: Pokemon -> [Type]
 getSortedMoveTypes pokemon =

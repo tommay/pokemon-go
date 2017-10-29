@@ -2,7 +2,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 module MyPokemon (
-  MyPokemon (MyPokemon, stats),
+  MyPokemon (MyPokemon),
   load,
   name,
   species,
@@ -19,15 +19,16 @@ module MyPokemon (
   level,
 ) where
 
-import qualified Data.Text as Text
-import qualified Data.Yaml as Yaml
-import           Data.Yaml (FromJSON(..), (.:), (.:?))
-import qualified Data.Yaml.Builder as Builder
-import           Data.Yaml.Builder ((.=))
-
 import qualified Epic
 import qualified Stats
 import           Stats (Stats)
+
+import qualified Data.Yaml as Yaml
+import           Data.Yaml ((.:), (.:?))
+import qualified Data.Yaml.Builder as Builder
+import           Data.Yaml.Builder ((.=))
+
+import qualified Data.Text as Text
 
 data MyPokemon = MyPokemon {
   name        :: String,

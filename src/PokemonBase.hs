@@ -9,13 +9,10 @@ module PokemonBase (
   chargeMoves,
 ) where
 
-import qualified Data.Text as Text
-import           Data.Text (Text)
-
-import qualified Type
 import           Type (Type)
-import qualified Move
 import           Move (Move)
+
+import           Data.Text (Text)
 
 data PokemonBase = PokemonBase {
   species      :: String,
@@ -28,4 +25,3 @@ data PokemonBase = PokemonBase {
   chargeMoves  :: [Move],
   parent       :: Maybe Text
 } deriving (Show)
-

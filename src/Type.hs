@@ -5,9 +5,9 @@ module Type (
   effectivenessAgainst,
 ) where
 
-import qualified Data.HashMap.Strict as HashMap
-
 import StringMap (StringMap)
+
+import qualified Data.HashMap.Strict as HashMap
 
 data Type = Type {
   name          :: String,
@@ -21,7 +21,6 @@ stabFor this attackerTypes =
     True -> stab this
     False -> 1.0
 
--- XXX lookupDefault
 effectivenessAgainst :: Type -> [Type] -> Float
 effectivenessAgainst this defenderTypes =
   foldr (\ptype accum ->
