@@ -9,7 +9,8 @@ module GameMaster (
   getCharge,
   getCpMultiplier,
   getLevelsForStardust,
-  allPokemonBases
+  allPokemonBases,
+  isSpecies
 ) where
 
 import           Data.Text.Conversions (convertText)
@@ -288,3 +289,7 @@ toEpic either =
   case either of
     Left err -> Epic.fail (show err)
     Right val -> return val
+
+isSpecies :: GameMaster -> String -> Bool
+isSpecies this speciesName =
+  HashMap.member (sanitize speciesName) (GameMaster.pokemonBases this)
