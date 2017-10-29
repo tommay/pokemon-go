@@ -23,8 +23,4 @@ stabFor this attackerTypes =
 
 effectivenessAgainst :: Type -> [Type] -> Float
 effectivenessAgainst this defenderTypes =
-  foldr (\ptype accum ->
-          accum *
-            HashMap.lookupDefault 1 (Type.name ptype) (effectiveness this))
-    1
-    defenderTypes
+  product $ map (\ptype -> HashMap.lookupDefault 1 (Type.name ptype) (effectiveness this)) defenderTypes
