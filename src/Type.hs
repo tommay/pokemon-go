@@ -4,11 +4,14 @@ module Type (
   typeId,
   stabFor,
   effectivenessAgainst,
+  name,
 ) where
 
 import StringMap (StringMap)
 
+import qualified Data.Char as Char
 import qualified Data.HashMap.Strict as HashMap
+import qualified Text.Regex as Regex
 
 data Type = Type {
   typeId        :: String,
@@ -30,3 +33,9 @@ effectivenessAgainst this defenderTypes =
     (\ptype -> HashMap.lookupDefault 1 (Type.typeId ptype)
       (effectiveness this))
     defenderTypes
+
+name :: Type -> String
+name this =
+  -- Get rid of the POKEMON_TYPE_.
+  let regex = Regex.mkRegex ".*_"
+  in map Char.toLower $ Regex.subRegex regex (Type.typeId this) ""

@@ -19,7 +19,6 @@ import           PokemonBase (PokemonBase)
 import qualified Type
 import           Type (Type)
 
-import qualified Data.Char as Char
 import qualified Data.List as List
 import qualified Text.Printf as Printf
 import qualified Text.Regex as Regex
@@ -207,8 +206,8 @@ makeExpecteds :: Float -> Pokemon -> Pokemon -> [(String, Float)]
 makeExpecteds dps defender attacker =
   let moveTypes = sortMoveTypes defender $ getMoveTypes defender
       expected moveType = dps * makeExpected defender attacker moveType
-  in map (\moveType ->
-           (simplify $ Type.typeId moveType, expected moveType)) moveTypes
+  in map (\moveType -> (Type.name moveType, expected moveType))
+        moveTypes
 
 makeExpected :: Pokemon -> Pokemon -> Type -> Float
 makeExpected defender attacker moveType =
@@ -216,14 +215,6 @@ makeExpected defender attacker moveType =
     (Pokemon.defense attacker) /
     ((Type.stabFor moveType $ Pokemon.types defender) *
      (Type.effectivenessAgainst moveType $ Pokemon.types attacker)) / 1000
-
-simplify :: String -> String
-simplify name =
-  let regex = Regex.mkRegex ".*_"
-  in toLower $ Regex.subRegex regex name ""
-
-toLower :: String -> String
-toLower = map Char.toLower
 
 getSortedMoveTypes :: Pokemon -> [Type]
 getSortedMoveTypes pokemon =
