@@ -62,9 +62,9 @@ getOptions = do
         (  O.long "file"
         <> O.short 'f'
         <> O.value defaultFilename
+        <> O.showDefault
         <> O.metavar "FILE"
-        <> O.help ("File to read my_pokemon from, default " ++
-             defaultFilename))
+        <> O.help "File to read my_pokemon from")
       optAll = O.flag' AllAttackers
         (  O.long "all"
         <> O.short 'a'
@@ -73,7 +73,7 @@ getOptions = do
         (  O.long "moveset"
         <> O.short 'm'
         <> O.metavar "ATTACKER"
-        <> O.help "Rate the movesets for ATTACKER against SPECIES")
+        <> O.help "Rate the movesets for ATTACKER against DEFENDER")
       optDefender = O.argument O.str (O.metavar "DEFENDER")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
