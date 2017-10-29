@@ -1,5 +1,6 @@
 module Move (
-  Move (Move),
+  Move,
+  new,
   moveType,
   power,
   duration,
@@ -26,6 +27,8 @@ data Move = Move {
   duration :: Float,
   energy   :: Float
 } deriving (Eq, Show)
+
+new = Move
 
 isCharge :: Move -> Bool
 isCharge this =

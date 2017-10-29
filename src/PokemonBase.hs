@@ -1,5 +1,6 @@
 module PokemonBase (
-  PokemonBase (PokemonBase),
+  PokemonBase,
+  new,
   species,
   types,
   attack,
@@ -25,3 +26,5 @@ data PokemonBase = PokemonBase {
   chargeMoves  :: [Move],
   parent       :: Maybe Text
 } deriving (Show)
+
+new = PokemonBase

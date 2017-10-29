@@ -1,5 +1,6 @@
 module Type (
-  Type (Type),
+  Type,
+  new,
   name,
   stabFor,
   effectivenessAgainst,
@@ -14,6 +15,8 @@ data Type = Type {
   effectiveness :: StringMap Float,
   stab          :: Float
 } deriving (Eq, Show)
+
+new = Type
 
 stabFor :: Type -> [Type] -> Float
 stabFor this attackerTypes =

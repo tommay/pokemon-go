@@ -157,7 +157,7 @@ makeType stab itemTemplate = do
   attackScalar <- getObjectValue itemTemplate "attackScalar"
   let effectiveness = HashMap.fromList $ zip effectivenessOrder attackScalar
   name <- getObjectValue itemTemplate "attackType"
-  return $ Type.Type name effectiveness stab
+  return $ Type.new name effectiveness stab
 
 effectivenessOrder :: [String]
 effectivenessOrder =
@@ -188,7 +188,7 @@ getMoves types itemTemplates =
 makeMove :: Epic.MonadCatch m => StringMap Type -> ItemTemplate -> m Move
 makeMove types itemTemplate = do
   let getTemplateValue text = getObjectValue itemTemplate text
-  Move.Move
+  Move.new
     <$> getTemplateValue "movementId"
     <*> do
       typeName <- getTemplateValue "pokemonType"
@@ -238,7 +238,7 @@ makePokemonBase types moves pokemonSettings =
           -- XXX This can swallow parse errors?
           Left _ -> Nothing
 
-    return $ PokemonBase.PokemonBase species ptypes attack defense stamina
+    return $ PokemonBase.new species ptypes attack defense stamina
        evolutions quickMoves chargeMoves parent)
   (\ex -> Epic.fail $ ex ++ " in " ++ (show pokemonSettings))
 
