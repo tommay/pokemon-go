@@ -73,15 +73,15 @@ label .== a =
 instance Builder.ToYaml MyPokemon where
   toYaml this =
     Builder.mapping $ concat [
-      "name" .== Text.pack (name this),
-      "species" .== Text.pack (species this),
+      "name" .== (Text.pack $ name this),
+      "species" .== (Text.pack $ species this),
       "cp" .== cp this,
       "hp" .== hp this,
       "dust" .== stardust this,
-      "quick" .== Text.pack (quickName this),
+      "quick" .== (Text.pack $ quickName this),
       "hiddenPowerType" .=? (Text.pack <$> hiddenPowerType this),
-      "charge" .== Text.pack (chargeName this),
-      "appraisal" .== Text.pack (appraisal this),
+      "charge" .== (Text.pack $ chargeName this),
+      "appraisal" .== (Text.pack $ appraisal this),
       "stats" .=? stats this
     ]
 
