@@ -30,6 +30,7 @@ import qualified Data.Yaml.Builder as Builder
 import           Data.Yaml.Builder ((.=))
 
 import qualified Data.Text as Text
+import           Data.Text (Text)
 
 data MyPokemon = MyPokemon {
   name        :: String,
@@ -59,18 +60,29 @@ instance Yaml.FromJSON MyPokemon where
     y .:? "stats"
   parseJSON _ = fail "Expected Yaml.Object for MyPokemon.parseJSON"
 
+(.=?) :: (Builder.ToYaml a) => Text -> Maybe a -> [(Text, Builder.YamlBuilder)]
+label .=? Nothing =
+  []
+label .=? Just a =
+  [label .= a]
+
+(.==) :: (Builder.ToYaml a) => Text -> a -> [(Text, Builder.YamlBuilder)]
+label .== a =
+  [label .= a]
+
 instance Builder.ToYaml MyPokemon where
   toYaml this =
-    Builder.mapping [
-      "name" .= Text.pack (name this),
-      "species" .= Text.pack (species this),
-      "cp" .= cp this,
-      "hp" .= hp this,
-      "dust" .= stardust this,
-      "quick" .= Text.pack (quickName this),
-      "charge" .= Text.pack (chargeName this),
-      "appraisal" .= Text.pack (appraisal this),
-      "stats" .= stats this
+    Builder.mapping $ concat [
+      "name" .== Text.pack (name this),
+      "species" .== Text.pack (species this),
+      "cp" .== cp this,
+      "hp" .== hp this,
+      "dust" .== stardust this,
+      "quick" .== Text.pack (quickName this),
+      "hiddenPowerType" .=? (Text.pack <$> hiddenPowerType this),
+      "charge" .== Text.pack (chargeName this),
+      "appraisal" .== Text.pack (appraisal this),
+      "stats" .=? stats this
     ]
 
 instance (Builder.ToYaml a) => Builder.ToYaml (Maybe a) where
