@@ -3,10 +3,12 @@
 
 module Stats (
   Stats (Stats),
+  new,
   level,
   attack,
   defense,
   stamina,
+  getAll,
 ) where
 
 import qualified Data.Yaml as Yaml
@@ -44,3 +46,9 @@ instance Builder.ToYaml Stats where
 
 instance Builder.ToYaml Float where
   toYaml = Builder.scientific . Scientific.fromFloatDigits
+
+new = Stats
+
+getAll :: Stats -> (Float, Int, Int, Int)
+getAll this =
+  (level this, attack this, defense this, stamina this)

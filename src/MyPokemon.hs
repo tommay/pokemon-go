@@ -18,6 +18,7 @@ module MyPokemon (
   defense,
   stamina,
   level,
+  setStats
 ) where
 
 import qualified Epic
@@ -113,3 +114,7 @@ getStat getter this = do
   case MyPokemon.stats this of
     Just (stats:_) -> return $ getter stats
     Nothing -> Epic.fail $ "No stats for " ++ (MyPokemon.name this)
+
+setStats :: MyPokemon -> [Stats] -> MyPokemon
+setStats this stats =
+  this { stats = Just stats }

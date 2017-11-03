@@ -8,7 +8,7 @@ import           GameMaster (GameMaster)
 import qualified MyPokemon
 import           MyPokemon (MyPokemon)
 import qualified Stats
-import           Stats (Stats (Stats))
+import           Stats (Stats)
 
 import qualified Options.Applicative as O
 import           Options.Applicative ((<**>))
@@ -59,7 +59,7 @@ updateStats :: (Epic.MonadCatch m) => GameMaster -> MyPokemon -> m MyPokemon
 updateStats gameMaster myPokemon = Epic.catch (
   do
     stats <- computeStats gameMaster myPokemon
-    return $ myPokemon { MyPokemon.stats = Just stats }
+    return $ MyPokemon.setStats myPokemon stats
   )
   $ \ex -> Epic.fail $
       "Problem with " ++ MyPokemon.name myPokemon ++ ": " ++ ex
@@ -73,11 +73,12 @@ computeStats gameMaster myPokemon = do
     appraisal <- Appraisal.new $ MyPokemon.appraisal myPokemon
     return $ Appraisal.possibleIvs appraisal
   possibleStats <- do
-    let allStats = [Stats level attack defense stamina |
+    let allStats = [Stats.new level attack defense stamina |
           level <- possibleLevels,
           (attack, defense, stamina) <- possibleIvs]
-        statsMatchMyPokemon (Stats level attack defense stamina) =
-          let cpMultiplier = GameMaster.getCpMultiplier gameMaster level
+        statsMatchMyPokemon stats =
+          let (level, attack, defense, stamina) = Stats.getAll stats
+              cpMultiplier = GameMaster.getCpMultiplier gameMaster level
           in MyPokemon.hp myPokemon ==
                Calc.hp pokemonBase cpMultiplier stamina &&
              MyPokemon.cp myPokemon ==
