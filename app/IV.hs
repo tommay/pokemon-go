@@ -50,22 +50,23 @@ main = Epic.catch (
     ioMyPokemon <- MyPokemon.load $ filename options
     myPokemon <- ioMyPokemon
 
-    myNewPokemon <- mapM (updateStats gameMaster) myPokemon
+    let new' = new options
+    myNewPokemon <- mapM (updateStats gameMaster new') myPokemon
     B.putStr $ Builder.toByteString myNewPokemon
   )
   $ \ex -> I.hPutStrLn stderr $ ex
 
-updateStats :: (Epic.MonadCatch m) => GameMaster -> MyPokemon -> m MyPokemon
-updateStats gameMaster myPokemon = Epic.catch (
+updateStats :: (Epic.MonadCatch m) => GameMaster -> Bool -> MyPokemon -> m MyPokemon
+updateStats gameMaster new myPokemon = Epic.catch (
   do
-    stats <- computeStats gameMaster myPokemon
+    stats <- computeStats gameMaster new myPokemon
     return $ MyPokemon.setStats myPokemon stats
   )
   $ \ex -> Epic.fail $
       "Problem with " ++ MyPokemon.name myPokemon ++ ": " ++ ex
 
-computeStats :: (Epic.MonadCatch m) => GameMaster -> MyPokemon -> m [Stats]
-computeStats gameMaster myPokemon = do
+computeStats :: (Epic.MonadCatch m) => GameMaster -> Bool -> MyPokemon -> m [Stats]
+computeStats gameMaster new myPokemon = do
   pokemonBase <- GameMaster.getPokemonBase gameMaster $ MyPokemon.species myPokemon
   possibleLevels <- GameMaster.getLevelsForStardust gameMaster
     $ MyPokemon.stardust myPokemon
@@ -87,7 +88,13 @@ computeStats gameMaster myPokemon = do
       [] -> Epic.fail "No possible ivs"
       matchingStats -> return $ do
         case MyPokemon.stats myPokemon of
-          Nothing -> matchingStats
+          Nothing ->
+            if new
+              then filter (\s ->
+                     let level = Stats.level s
+                     in fromIntegral (floor level) == level)
+                   matchingStats
+              else matchingStats
           Just currentStats ->
             filter (\current ->
               any (\matching ->
