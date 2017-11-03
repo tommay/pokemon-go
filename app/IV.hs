@@ -44,11 +44,13 @@ main = Epic.catch (
   do
     options <- getOptions
 
-    ioGameMaster <- GameMaster.load "GAME_MASTER.yaml"
-    gameMaster <- ioGameMaster
+    gameMaster <- do
+      ioGameMaster <- GameMaster.load "GAME_MASTER.yaml"
+      ioGameMaster
 
-    ioMyPokemon <- MyPokemon.load $ filename options
-    myPokemon <- ioMyPokemon
+    myPokemon <- do
+      ioMyPokemon <- MyPokemon.load $ filename options
+      ioMyPokemon
 
     let new' = new options
     myNewPokemon <- mapM (updateStats gameMaster new') myPokemon

@@ -100,8 +100,9 @@ main = do
     do
       options <- getOptions
 
-      ioGameMaster <- GameMaster.load "GAME_MASTER.yaml"
-      gameMaster <- ioGameMaster
+      gameMaster <- do
+        ioGameMaster <- GameMaster.load "GAME_MASTER.yaml"
+        ioGameMaster
 
       -- XXX Replacing "defender" with "_" shows the compiler knows
       -- defender must be Options -> String.  Too bad this needs a type
@@ -114,8 +115,9 @@ main = do
 
       pokemon <- case attackerSource options of
         FromFile filename -> do
-          ioMyPokemon <- MyPokemon.load filename
-          myPokemon <- ioMyPokemon
+          myPokemon <- do
+            ioMyPokemon <- MyPokemon.load filename
+            ioMyPokemon
           mapM (makePokemon gameMaster (level options)) myPokemon
         AllAttackers ->
           return $ allAttackers gameMaster
