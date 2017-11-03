@@ -49,6 +49,14 @@ executable iv-exe
                      , bytestring
   default-language:    Haskell2010
 
+executable stardust-exe
+  hs-source-dirs:      app
+  main-is:             Stardust.hs
+  ghc-options:         -O2 -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base
+                     , optparse-applicative
+  default-language:    Haskell2010
+
 executable mine-exe
   hs-source-dirs:      app
   main-is:             Mine.hs
