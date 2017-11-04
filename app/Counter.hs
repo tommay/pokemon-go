@@ -20,6 +20,7 @@ import qualified Type
 import           Type (Type)
 
 import qualified Data.List as List
+import qualified Data.Maybe as Maybe
 import qualified System.IO as I
 import qualified Text.Printf as Printf
 import qualified Text.Regex as Regex
@@ -139,7 +140,7 @@ main = do
 
 attackerLevel :: Options -> Float
 attackerLevel options =
-  maybe defaultAttackerLevel id (level options)
+  Maybe.fromMaybe defaultAttackerLevel (level options)
 
 showResult :: Result -> String
 showResult result =
@@ -306,7 +307,7 @@ makeAllAttackersFromBase gameMaster level base =
 makeSomeAttackers :: (Epic.MonadCatch m) => GameMaster -> [Attacker] -> Float -> m [Pokemon]
 makeSomeAttackers gameMaster attackers defaultLevel = do
   concat <$> mapM (\ (Attacker species level) -> do
-    let level' = maybe defaultLevel id level
+    let level' = Maybe.fromMaybe defaultLevel level
     base <- GameMaster.getPokemonBase gameMaster species
     return $ makeAllAttackersFromBase gameMaster level' base)
     attackers
