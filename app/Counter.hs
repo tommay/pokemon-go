@@ -69,7 +69,8 @@ getOptions = do
         (  O.long "level"
         <> O.short 'l'
         <> O.metavar "LEVEL"
-        <> O.help "Force my_pokemon level to find who's implicitly best")
+        <> O.help ("Force my_pokemon level to find who's implicitly best, " ++
+             "or set the level for -a or the default level for -m"))
       optAttackerSource = optFilename <|> optAll <|> optMovesetFor
       optFilename = FromFile <$> O.strOption
         (  O.long "file"
