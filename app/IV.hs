@@ -18,7 +18,7 @@ import qualified Data.ByteString as B
 import           Data.Semigroup ((<>))
 import qualified Data.Yaml as Y
 import qualified Data.Yaml.Builder as Builder
-import           System.IO as I
+import qualified System.IO as I
 
 data Options = Options {
   new       :: Bool,
@@ -56,7 +56,7 @@ main = Epic.catch (
     myNewPokemon <- mapM (updateStats gameMaster new') myPokemon
     B.putStr $ Builder.toByteString myNewPokemon
   )
-  $ \ex -> I.hPutStrLn stderr $ ex
+  $ \ex -> I.hPutStrLn I.stderr $ ex
 
 updateStats :: (Epic.MonadCatch m) => GameMaster -> Bool -> MyPokemon -> m MyPokemon
 updateStats gameMaster new myPokemon = Epic.catch (
