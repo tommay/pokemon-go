@@ -27,7 +27,7 @@ import qualified Text.Regex as Regex
 data Options = Options {
   glass    :: Bool,
   quick    :: Bool,
-  level    :: Maybe Int,
+  level    :: Maybe Float,
   attackerSource :: AttackerSource,
   defender :: String
 }
@@ -120,7 +120,7 @@ main = do
             ioMyPokemon
           mapM (makePokemon gameMaster (level options)) myPokemon
         AllAttackers ->
-          return $ allAttackers gameMaster
+          return $ allAttackers gameMaster (maybe defaultAttackerLevel id $ level options)
         MovesetFor attackers ->
           let attackerSpecies = map (\ (Attacker species _) -> species) attackers
           in case filter (not . GameMaster.isSpecies gameMaster) attackerSpecies of
@@ -157,7 +157,7 @@ data Result = Result {
   expecteds :: [(String, Float)]
 } deriving (Show)
 
-makePokemon :: Epic.MonadCatch m => GameMaster -> Maybe Int -> MyPokemon -> m Pokemon
+makePokemon :: Epic.MonadCatch m => GameMaster -> Maybe Float -> MyPokemon -> m Pokemon
 makePokemon gameMaster maybeLevel myPokemon = do
   let name = MyPokemon.name myPokemon
       species = MyPokemon.species myPokemon
@@ -186,7 +186,7 @@ makePokemon gameMaster maybeLevel myPokemon = do
   cpMultiplier <- do
     level <- case maybeLevel of
       Nothing -> MyPokemon.level myPokemon
-      Just val -> return $ fromIntegral val
+      Just val -> return $ val
     return $ GameMaster.getCpMultiplier gameMaster level
 
   let getStat getBaseStat getMyStat = do
@@ -269,9 +269,9 @@ makeDefenderFromBase gameMaster base =
     (List.head $ PokemonBase.chargeMoves base)
     base
 
-allAttackers :: GameMaster -> [Pokemon]
-allAttackers gameMaster =
-  concat $ map (makeAllAttackersFromBase gameMaster defaultAttackerLevel) $
+allAttackers :: GameMaster -> Float -> [Pokemon]
+allAttackers gameMaster level =
+  concat $ map (makeAllAttackersFromBase gameMaster level) $
     GameMaster.allPokemonBases gameMaster
 
 makeAllAttackersFromBase :: GameMaster -> Float -> PokemonBase ->[Pokemon]
