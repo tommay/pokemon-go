@@ -12,6 +12,7 @@ import           Stats (Stats)
 
 import qualified Options.Applicative as O
 import           Options.Applicative ((<**>))
+import qualified Data.Maybe as Maybe
 import           Data.Semigroup ((<>))
 
 import qualified Data.ByteString as B
@@ -79,6 +80,12 @@ computeStats gameMaster new myPokemon = do
     let allStats = [Stats.new level attack defense stamina |
           level <- possibleLevels,
           (attack, defense, stamina) <- possibleIvs]
+        isWholeLevel s =
+          let level = Stats.level s
+          in fromIntegral (floor level) == level
+        allStats' = if new && (Maybe.isNothing $ MyPokemon.stats myPokemon)
+          then filter isWholeLevel allStats
+          else allStats
         statsMatchMyPokemon stats =
           let (level, attack, defense, stamina) = Stats.getAll stats
               cpMultiplier = GameMaster.getCpMultiplier gameMaster level
@@ -86,17 +93,12 @@ computeStats gameMaster new myPokemon = do
                Calc.hp pokemonBase cpMultiplier stamina &&
              MyPokemon.cp myPokemon ==
                Calc.cp pokemonBase cpMultiplier attack defense stamina
-    case filter statsMatchMyPokemon allStats of
+        statsThatMatchMyPokemon = filter statsMatchMyPokemon allStats'
+    case statsThatMatchMyPokemon of
       [] -> Epic.fail "No possible ivs"
       matchingStats -> return $ do
         case MyPokemon.stats myPokemon of
-          Nothing ->
-            if new
-              then filter (\s ->
-                     let level = Stats.level s
-                     in fromIntegral (floor level) == level)
-                   matchingStats
-              else matchingStats
+          Nothing -> matchingStats
           Just currentStats ->
             filter (\current ->
               any (\matching ->
