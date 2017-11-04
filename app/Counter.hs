@@ -32,7 +32,7 @@ data Options = Options {
   defender :: String
 }
 
-data Attacker = Attacker String Float
+data Attacker = Attacker String (Maybe Float)
 
 data AttackerSource =
     FromFile FilePath
@@ -47,9 +47,9 @@ parseAttacker = O.eitherReader $ \s ->
   let splitRegex = Regex.mkRegex "^([a-z]+)(:([0-9]+(\\.5)?))?$"
   in case Regex.matchRegex splitRegex s of
        Just [species, _, "", _] ->
-         Right $ Attacker species defaultAttackerLevel
+         Right $ Attacker species Nothing
        Just [species, _, levelString, _] ->
-         Right $ Attacker species (read levelString)
+         Right $ Attacker species (Just $ read levelString)
        _ ->
          Left $ "`" ++ s ++ "' should look like ATTACKER[:LEVEL]"
 
@@ -120,11 +120,11 @@ main = do
             ioMyPokemon
           mapM (makePokemon gameMaster (level options)) myPokemon
         AllAttackers ->
-          return $ allAttackers gameMaster (maybe defaultAttackerLevel id $ level options)
+          return $ allAttackers gameMaster (attackerLevel options)
         MovesetFor attackers ->
           let attackerSpecies = map (\ (Attacker species _) -> species) attackers
           in case filter (not . GameMaster.isSpecies gameMaster) attackerSpecies of
-               [] -> makeSomeAttackers gameMaster attackers
+               [] -> makeSomeAttackers gameMaster attackers (attackerLevel options)
                noSuchSpecies -> Epic.fail $ "No such species: " ++ (List.intercalate ", " noSuchSpecies)
 
       let useCharge = not $ quick options
@@ -135,6 +135,10 @@ main = do
       mapM_ putStrLn $ map showResult sorted
     )
     $ \ex -> I.hPutStrLn I.stderr ex
+
+attackerLevel :: Options -> Float
+attackerLevel options =
+  maybe defaultAttackerLevel id (level options)
 
 showResult :: Result -> String
 showResult result =
@@ -298,11 +302,12 @@ makeAllAttackersFromBase gameMaster level base =
       quickMove <- PokemonBase.quickMoves base,
       chargeMove <- PokemonBase.chargeMoves base]
 
-makeSomeAttackers :: (Epic.MonadCatch m) => GameMaster -> [Attacker] -> m [Pokemon]
-makeSomeAttackers gameMaster attackers = do
+makeSomeAttackers :: (Epic.MonadCatch m) => GameMaster -> [Attacker] -> Float -> m [Pokemon]
+makeSomeAttackers gameMaster attackers defaultLevel = do
   concat <$> mapM (\ (Attacker species level) -> do
+    let level' = maybe defaultLevel id level
     base <- GameMaster.getPokemonBase gameMaster species
-    return $ makeAllAttackersFromBase gameMaster level base)
+    return $ makeAllAttackersFromBase gameMaster level' base)
     attackers
 
 maybeSetHiddenPowerType :: (Epic.MonadCatch m) =>
