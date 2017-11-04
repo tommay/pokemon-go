@@ -20,9 +20,9 @@ import qualified Type
 import           Type (Type)
 
 import qualified Data.List as List
+import qualified System.IO as I
 import qualified Text.Printf as Printf
 import qualified Text.Regex as Regex
-import qualified System.Environment
 
 data Options = Options {
   glass    :: Bool,
@@ -134,7 +134,7 @@ main = do
 
       mapM_ putStrLn $ map showResult sorted
     )
-    (\ex -> putStrLn $ "oops: " ++ (show ex))
+    $ \ex -> I.hPutStrLn I.stderr ex
 
 showResult :: Result -> String
 showResult result =
