@@ -25,6 +25,7 @@ import qualified Epic
 import qualified Stats
 import           Stats (Stats)
 
+import qualified Data.Aeson.Types
 import qualified Data.Yaml as Yaml
 import           Data.Yaml ((.:), (.:?))
 import qualified Data.Yaml.Builder as Builder
@@ -47,18 +48,21 @@ data MyPokemon = MyPokemon {
 } deriving (Show)
 
 instance Yaml.FromJSON MyPokemon where
-  parseJSON (Yaml.Object y) =
-    MyPokemon <$>
-    y .: "name" <*>
-    y .: "species" <*>
-    y .: "cp" <*>
-    y .: "hp" <*>
-    y .: "dust" <*>
-    y .: "quick" <*>
-    y .:? "hiddenPowerType" <*>
-    y .: "charge" <*>
-    y .: "appraisal" <*>
-    y .:? "stats"
+  parseJSON (Yaml.Object y) = do
+    name <- y .: "name"
+    Data.Aeson.Types.modifyFailure
+      (("Error parsing " ++ name ++ ": ") ++)
+      $ MyPokemon <$>
+          pure name <*>
+          y .: "species" <*>
+          y .: "cp" <*>
+          y .: "hp" <*>
+          y .: "dust" <*>
+          y .: "quick" <*>
+          y .:? "hiddenPowerType" <*>
+          y .: "charge" <*>
+          y .: "appraisal" <*>
+          y .:? "stats"
   parseJSON _ = fail "Expected Yaml.Object for MyPokemon.parseJSON"
 
 (.=?) :: (Builder.ToYaml a) => Text -> Maybe a -> [(Text, Builder.YamlBuilder)]
@@ -95,7 +99,8 @@ load filename = do
   either <- Yaml.decodeFileEither filename
   case either of
     Right myPokemon -> return $ pure myPokemon
-    Left yamlParseException -> Epic.fail $ show yamlParseException
+    Left yamlParseException ->
+      Epic.fail $ Yaml.prettyPrintParseException yamlParseException
 
 level :: Epic.MonadCatch m => MyPokemon -> m Float
 level = getStat Stats.level
