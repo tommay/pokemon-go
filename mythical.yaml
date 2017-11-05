@@ -1,0 +1,386 @@
+bulbasaur: 
+ivysaur: 
+venusaur: 
+charmander: 
+charmeleon: 
+charizard: 
+squirtle: 
+wartortle: 
+blastoise: 
+caterpie: 
+metapod: 
+butterfree: 
+weedle: 
+kakuna: 
+beedrill: 
+pidgey: 
+pidgeotto: 
+pidgeot: 
+rattata: 
+raticate: 
+spearow: 
+fearow: 
+ekans: 
+arbok: 
+pikachu: 
+raichu: 
+sandshrew: 
+sandslash: 
+nidoran_female: 
+nidorina: 
+nidoqueen: 
+nidoran_male: 
+nidorino: 
+nidoking: 
+clefairy: 
+clefable: 
+vulpix: 
+ninetales: 
+jigglypuff: 
+wigglytuff: 
+zubat: 
+golbat: 
+oddish: 
+gloom: 
+vileplume: 
+paras: 
+parasect: 
+venonat: 
+venomoth: 
+diglett: 
+dugtrio: 
+meowth: 
+persian: 
+psyduck: 
+golduck: 
+mankey: 
+primeape: 
+growlithe: 
+arcanine: 
+poliwag: 
+poliwhirl: 
+poliwrath: 
+abra: 
+kadabra: 
+alakazam: 
+machop: 
+machoke: 
+machamp: 
+bellsprout: 
+weepinbell: 
+victreebel: 
+tentacool: 
+tentacruel: 
+geodude: 
+graveler: 
+golem: 
+ponyta: 
+rapidash: 
+slowpoke: 
+slowbro: 
+magnemite: 
+magneton: 
+farfetchd: 
+doduo: 
+dodrio: 
+seel: 
+dewgong: 
+grimer: 
+muk: 
+shellder: 
+cloyster: 
+gastly: 
+haunter: 
+gengar: 
+onix: 
+drowzee: 
+hypno: 
+krabby: 
+kingler: 
+voltorb: 
+electrode: 
+exeggcute: 
+exeggutor: 
+cubone: 
+marowak: 
+hitmonlee: 
+hitmonchan: 
+lickitung: 
+koffing: 
+weezing: 
+rhyhorn: 
+rhydon: 
+chansey: 
+tangela: 
+kangaskhan: 
+horsea: 
+seadra: 
+goldeen: 
+seaking: 
+staryu: 
+starmie: 
+mr_mime: 
+scyther: 
+jynx: 
+electabuzz: 
+magmar: 
+pinsir: 
+tauros: 
+magikarp: 
+gyarados: 
+lapras: 
+ditto: 
+eevee: 
+vaporeon: 
+jolteon: 
+flareon: 
+porygon: 
+omanyte: 
+omastar: 
+kabuto: 
+kabutops: 
+aerodactyl: 
+snorlax: 
+articuno: legendary
+zapdos: legendary
+moltres: legendary
+dratini: 
+dragonair: 
+dragonite: 
+mewtwo: legendary
+mew: legendary
+chikorita: 
+bayleef: 
+meganium: 
+cyndaquil: 
+quilava: 
+typhlosion: 
+totodile: 
+croconaw: 
+feraligatr: 
+sentret: 
+furret: 
+hoothoot: 
+noctowl: 
+ledyba: 
+ledian: 
+spinarak: 
+ariados: 
+crobat: 
+chinchou: 
+lanturn: 
+pichu: 
+cleffa: 
+igglybuff: 
+togepi: 
+togetic: 
+natu: 
+xatu: 
+mareep: 
+flaaffy: 
+ampharos: 
+bellossom: 
+marill: 
+azumarill: 
+sudowoodo: 
+politoed: 
+hoppip: 
+skiploom: 
+jumpluff: 
+aipom: 
+sunkern: 
+sunflora: 
+yanma: 
+wooper: 
+quagsire: 
+espeon: 
+umbreon: 
+murkrow: 
+slowking: 
+misdreavus: 
+unown: 
+wobbuffet: 
+girafarig: 
+pineco: 
+forretress: 
+dunsparce: 
+gligar: 
+steelix: 
+snubbull: 
+granbull: 
+qwilfish: 
+scizor: 
+shuckle: 
+heracross: 
+sneasel: 
+teddiursa: 
+ursaring: 
+slugma: 
+magcargo: 
+swinub: 
+piloswine: 
+corsola: 
+remoraid: 
+octillery: 
+delibird: 
+mantine: 
+skarmory: 
+houndour: 
+houndoom: 
+kingdra: 
+phanpy: 
+donphan: 
+porygon2: 
+stantler: 
+smeargle: 
+tyrogue: 
+hitmontop: 
+smoochum: 
+elekid: 
+magby: 
+miltank: 
+blissey: 
+raikou: legendary
+entei: legendary
+suicune: legendary
+larvitar: 
+pupitar: 
+tyranitar: 
+lugia: legendary
+ho_oh: legendary
+celebi: legendary
+treecko: mythical
+grovyle: mythical
+sceptile: mythical
+torchic: mythical
+combusken: mythical
+blaziken: mythical
+mudkip: mythical
+marshtomp: mythical
+swampert: mythical
+poochyena: mythical
+mightyena: mythical
+zigzagoon: mythical
+linoone: mythical
+wurmple: mythical
+silcoon: mythical
+beautifly: mythical
+cascoon: mythical
+dustox: mythical
+lotad: mythical
+lombre: mythical
+ludicolo: mythical
+seedot: mythical
+nuzleaf: mythical
+shiftry: mythical
+taillow: mythical
+swellow: mythical
+wingull: mythical
+pelipper: mythical
+ralts: mythical
+kirlia: mythical
+gardevoir: mythical
+surskit: mythical
+masquerain: mythical
+shroomish: mythical
+breloom: mythical
+slakoth: mythical
+vigoroth: mythical
+slaking: mythical
+nincada: mythical
+ninjask: mythical
+shedinja: mythical
+whismur: mythical
+loudred: mythical
+exploud: mythical
+makuhita: mythical
+hariyama: mythical
+azurill: mythical
+nosepass: mythical
+skitty: mythical
+delcatty: mythical
+sableye: 
+mawile: mythical
+aron: mythical
+lairon: mythical
+aggron: mythical
+meditite: mythical
+medicham: mythical
+electrike: mythical
+manectric: mythical
+plusle: mythical
+minun: mythical
+volbeat: mythical
+illumise: mythical
+roselia: mythical
+gulpin: mythical
+swalot: mythical
+carvanha: mythical
+sharpedo: mythical
+wailmer: mythical
+wailord: mythical
+numel: mythical
+camerupt: mythical
+torkoal: mythical
+spoink: mythical
+grumpig: mythical
+spinda: mythical
+trapinch: mythical
+vibrava: mythical
+flygon: mythical
+cacnea: mythical
+cacturne: mythical
+swablu: mythical
+altaria: mythical
+zangoose: mythical
+seviper: mythical
+lunatone: mythical
+solrock: mythical
+barboach: mythical
+whiscash: mythical
+corphish: mythical
+crawdaunt: mythical
+baltoy: mythical
+claydol: mythical
+lileep: mythical
+cradily: mythical
+anorith: mythical
+armaldo: mythical
+feebas: mythical
+milotic: mythical
+castform: mythical
+kecleon: mythical
+shuppet: 
+banette: 
+duskull: 
+dusclops: 
+tropius: mythical
+chimecho: mythical
+absol: mythical
+wynaut: mythical
+snorunt: mythical
+glalie: mythical
+spheal: mythical
+sealeo: mythical
+walrein: mythical
+clamperl: mythical
+huntail: mythical
+gorebyss: mythical
+relicanth: mythical
+luvdisc: mythical
+bagon: mythical
+shelgon: mythical
+salamence: mythical
+beldum: mythical
+metang: mythical
+metagross: mythical
+regirock: mythical
+regice: mythical
+registeel: mythical
+latias: mythical
+latios: mythical
+kyogre: mythical
+groudon: mythical
+rayquaza: mythical
+jirachi: mythical
+deoxys: mythical

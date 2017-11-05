@@ -14,6 +14,7 @@ import qualified Move
 import           Move (Move)
 import qualified MyPokemon
 import           MyPokemon (MyPokemon)
+import qualified Mythical
 import qualified Pokemon
 import           Pokemon (Pokemon)
 import qualified PokemonBase
@@ -132,8 +133,13 @@ main = do
             ioMyPokemon <- MyPokemon.load filename
             ioMyPokemon
           mapM (makePokemon gameMaster (level options)) myPokemon
-        AllAttackers ->
-          return $ allAttackers gameMaster (attackerLevel options)
+        AllAttackers -> do
+          mythicalMap <- do
+            ioMythicalMap <- Mythical.load "mythical.yaml"
+            ioMythicalMap
+          return $
+            filter (not . Mythical.isMythical mythicalMap . Pokemon.species)
+            $ allAttackers gameMaster (attackerLevel options)
         MovesetFor attackers ->
           let attackerSpecies = map (\ (Attacker species _) -> species) attackers
           in case filter (not . GameMaster.isSpecies gameMaster) attackerSpecies of
