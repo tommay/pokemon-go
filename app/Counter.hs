@@ -1,3 +1,5 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module Main where
 
 import qualified Options.Applicative as O
@@ -23,7 +25,6 @@ import           Control.Applicative (optional, some)
 import qualified Data.Attoparsec.Text as AP
 import qualified Data.List as List
 import qualified Data.Maybe as Maybe
-import qualified Data.Scientific as Scientific
 import qualified Data.Text as Text
 import qualified System.IO as I
 import qualified Text.Printf as Printf
@@ -53,7 +54,10 @@ parseAttacker = O.eitherReader $ \s ->
         attacker <- some $ AP.notChar ':'
         level <- optional $ do
           AP.char ':'
-          Scientific.toRealFloat <$> AP.scientific
+          (level, _) <- AP.match $ do
+            AP.decimal
+            optional $ AP.string ".5"
+          return $ read $ Text.unpack level
         AP.endOfInput
         return $ Attacker attacker level
   in case AP.parseOnly attoParseAttacker (Text.pack s) of

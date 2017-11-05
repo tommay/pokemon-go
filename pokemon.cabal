@@ -38,7 +38,6 @@ executable counter-exe
                      , optparse-applicative
                      , attoparsec
                      , text
-                     , scientific
   default-language:    Haskell2010
 
 executable iv-exe
