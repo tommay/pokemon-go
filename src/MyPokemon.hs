@@ -48,7 +48,7 @@ data MyPokemon = MyPokemon {
 } deriving (Show)
 
 instance Yaml.FromJSON MyPokemon where
-  parseJSON (Yaml.Object y) = do
+  parseJSON = Yaml.withObject "Pokemon" $ \y -> do
     name <- y .: "name"
     Data.Aeson.Types.modifyFailure
       (("Error parsing " ++ name ++ ": ") ++)
@@ -63,7 +63,6 @@ instance Yaml.FromJSON MyPokemon where
           y .: "charge" <*>
           y .: "appraisal" <*>
           y .:? "stats"
-  parseJSON _ = fail "Expected Yaml.Object for MyPokemon.parseJSON"
 
 (.=?) :: (Builder.ToYaml a) => Text -> Maybe a -> [(Text, Builder.YamlBuilder)]
 label .=? Nothing =

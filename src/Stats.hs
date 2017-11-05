@@ -27,13 +27,12 @@ data Stats = Stats {
 } deriving (Show)
 
 instance Yaml.FromJSON Stats where
-  parseJSON (Yaml.Object y) =
+  parseJSON = Yaml.withObject "Stats" $ \y ->
     Stats <$>
     y .: "level" <*>
     y .: "attack" <*>
     y .: "defense" <*>
     y .: "stamina"
-  parseJSON _ = fail "Expected Yaml.Object for Stats.parseJSON"
 
 instance Builder.ToYaml Stats where
   toYaml this =
