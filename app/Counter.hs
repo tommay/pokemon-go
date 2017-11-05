@@ -19,8 +19,12 @@ import           PokemonBase (PokemonBase)
 import qualified Type
 import           Type (Type)
 
+import           Control.Applicative (optional, some)
+import qualified Data.Attoparsec.Text as AP
 import qualified Data.List as List
 import qualified Data.Maybe as Maybe
+import qualified Data.Scientific as Scientific
+import qualified Data.Text as Text
 import qualified System.IO as I
 import qualified Text.Printf as Printf
 import qualified Text.Regex as Regex
@@ -45,14 +49,17 @@ defaultAttackerLevel = 20
 
 parseAttacker :: O.ReadM Attacker
 parseAttacker = O.eitherReader $ \s ->
-  let splitRegex = Regex.mkRegex "^([a-z]+)(:([0-9]+(\\.5)?))?$"
-  in case Regex.matchRegex splitRegex s of
-       Just [species, _, "", _] ->
-         Right $ Attacker species Nothing
-       Just [species, _, levelString, _] ->
-         Right $ Attacker species (Just $ read levelString)
-       _ ->
-         Left $ "`" ++ s ++ "' should look like ATTACKER[:LEVEL]"
+  let attoParseAttacker = do
+        attacker <- some $ AP.notChar ':'
+        level <- optional $ do
+          AP.char ':'
+          Scientific.toRealFloat <$> AP.scientific
+        AP.endOfInput
+        return $ Attacker attacker level
+  in case AP.parseOnly attoParseAttacker (Text.pack s) of
+    Left _ ->
+      Left $ "`" ++ s ++ "' should look like ATTACKER[:LEVEL]"
+    Right attacker -> Right attacker
 
 getOptions :: IO Options
 getOptions = do
