@@ -219,15 +219,14 @@ makePokemon gameMaster maybeLevel myPokemon = do
   charge <- getMove "charge"
     GameMaster.getCharge MyPokemon.chargeName PokemonBase.chargeMoves
 
+  level <- case maybeLevel of
+    Nothing -> MyPokemon.level myPokemon
+    Just val -> return $ val
+
   let types = PokemonBase.types base
 
-  cpMultiplier <- do
-    level <- case maybeLevel of
-      Nothing -> MyPokemon.level myPokemon
-      Just val -> return $ val
-    return $ GameMaster.getCpMultiplier gameMaster level
-
-  let getStat getBaseStat getMyStat = do
+  let cpMultiplier = GameMaster.getCpMultiplier gameMaster level
+      getStat getBaseStat getMyStat = do
         let baseStat = getBaseStat base
         myStat <- getMyStat myPokemon
         return $ fromIntegral (baseStat + myStat) * cpMultiplier
@@ -236,7 +235,7 @@ makePokemon gameMaster maybeLevel myPokemon = do
   defense <- getStat PokemonBase.defense MyPokemon.defense
   stamina <- getStat PokemonBase.stamina MyPokemon.stamina
 
-  return $ Pokemon.new name species types attack defense stamina quick charge base
+  return $ Pokemon.new name species level types attack defense stamina quick charge base
 
 counter :: Bool -> Pokemon -> Pokemon -> Result
 counter useCharge defender attacker =
@@ -299,6 +298,7 @@ makeDefenderFromBase gameMaster base =
   in Pokemon.new
     (PokemonBase.species base)
     (PokemonBase.species base)
+    level
     (PokemonBase.types base)
     (maxStat $ PokemonBase.attack base)
     (maxStat $ PokemonBase.defense base)
@@ -325,6 +325,7 @@ makeAllAttackersFromBase gameMaster level base =
         in Pokemon.new
              name
              (PokemonBase.species base)
+             level
              (PokemonBase.types base)
              (makeStat $ PokemonBase.attack base)
              (makeStat $ PokemonBase.defense base)

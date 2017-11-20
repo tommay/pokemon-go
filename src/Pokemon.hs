@@ -3,6 +3,7 @@ module Pokemon (
   new,
   pname,
   species,
+  level,
   types,
   attack,
   defense,
@@ -21,6 +22,7 @@ import           Type (Type)
 data Pokemon = Pokemon {
   pname       :: String,
   species     :: String,
+  level       :: Float,
   types       :: [Type],
   attack      :: Float,
   defense     :: Float,
