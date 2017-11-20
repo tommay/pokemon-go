@@ -166,8 +166,12 @@ main = do
           filtered = if dpsFilter options
             then filter (\r -> Pokemon.pname (Main.pokemon r) `elem` dpsCutoffNames) sorted
             else sorted
+          nameFunc = case attackerSource options of
+            FromFile _ -> nameName
+            AllAttackers -> nameSpeciesAndLevelAndMoveset
+            MovesetFor _ -> nameSpeciesAndLevelAndMoveset
 
-      mapM_ putStrLn $ map showResult filtered
+      mapM_ (putStrLn . showResult nameFunc) filtered
     )
     $ \ex -> I.hPutStrLn I.stderr ex
 
@@ -175,15 +179,11 @@ attackerLevel :: Options -> Float
 attackerLevel options =
   Maybe.fromMaybe defaultAttackerLevel (level options)
 
-showResult :: Result -> String
-showResult result =
+showResult :: (Pokemon -> String) -> Result -> String
+showResult nameFunc result =
   let format = Printf.printf "%4.1f %-12s"
-  in format (dps result) (nameForAttacker $ pokemon result) ++ "   " ++
+  in format (dps result) (nameFunc $ pokemon result) ++ "   " ++
        showExpecteds (expecteds result)
-
-nameForAttacker :: Pokemon -> String
-nameForAttacker pokemon =
-  Pokemon.pname pokemon
 
 showExpecteds :: [(String, Float)] -> String
 showExpecteds expecteds =
@@ -193,6 +193,21 @@ showExpecteds expecteds =
     map (\ (string, expected) ->
           format string ((floor expected) :: Int) (stars expected))
       expecteds
+
+nameName :: Pokemon -> String
+nameName pokemon =
+  Pokemon.pname pokemon
+
+nameSpeciesAndLevelAndMoveset :: Pokemon -> String
+nameSpeciesAndLevelAndMoveset pokemon =
+  let speciesAndLevel = Printf.printf "%s:%f"
+        (Pokemon.species pokemon)
+        (Pokemon.level pokemon)
+      speciesAndLevel' = Regex.subRegex (Regex.mkRegex "\\.0$") speciesAndLevel ""
+      format = Printf.printf "%-15s %-13s/ %-15s"
+  in format speciesAndLevel'
+       (Move.name $ Pokemon.quick pokemon)
+       (Move.name $ Pokemon.charge pokemon)
 
 data Result = Result {
   pokemon   :: Pokemon,
@@ -315,17 +330,6 @@ allAttackers :: GameMaster -> Float -> [Pokemon]
 allAttackers gameMaster level =
   concat $ map (makeAllAttackersFromBase gameMaster level) $
     GameMaster.allPokemonBases gameMaster
-
-speciesAndLevelAndMoveset :: Pokemon -> String
-speciesAndLevelAndMoveset pokemon =
-  let speciesAndLevel = Printf.printf "%s:%f"
-        (Pokemon.species pokemon)
-        (Pokemon.level pokemon)
-      speciesAndLevel' = Regex.subRegex (Regex.mkRegex "\\.0$") speciesAndLevel ""
-      format = Printf.printf "%-15s %-13s/ %-15s"
-  in format speciesAndLevel'
-       (Move.name $ Pokemon.quick pokemon)
-       (Move.name $ Pokemon.charge pokemon)
 
 makeAllAttackersFromBase :: GameMaster -> Float -> PokemonBase ->[Pokemon]
 makeAllAttackersFromBase gameMaster level base =
