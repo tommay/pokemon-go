@@ -156,12 +156,12 @@ main = do
       let useCharge = not $ quick options
           results = map (counter useCharge defender) pokemon
           sortedByDps = List.reverse $ List.sortBy byDps results
-          sorted = if glass options
-            then sortedByDps
-            else List.reverse $ List.sortBy byExpecteds results
           dpsCutoff = dps $ sortedByDps !! (length sortedByDps `div` 6) 
           dpsCutoffNames = Set.fromList $ map name $
             filter (\a -> dps a >= dpsCutoff) results
+          sorted = if glass options
+            then sortedByDps
+            else List.reverse $ List.sortBy byExpecteds results
           filtered = if dpsFilter options
             then filter (\a -> name a `elem` dpsCutoffNames) sorted
             else sorted
