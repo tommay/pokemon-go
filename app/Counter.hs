@@ -157,13 +157,14 @@ main = do
           results = map (counter useCharge defender) pokemon
           sortedByDps = List.reverse $ List.sortBy byDps results
           dpsCutoff = dps $ sortedByDps !! (length sortedByDps `div` 6) 
-          dpsCutoffNames = Set.fromList $ map name $
-            filter (\a -> dps a >= dpsCutoff) results
+          dpsCutoffNames = Set.fromList $
+            map (\r -> Pokemon.pname (Main.pokemon r)) $
+            filter (\r -> dps r >= dpsCutoff) results
           sorted = if glass options
             then sortedByDps
             else List.reverse $ List.sortBy byExpecteds results
           filtered = if dpsFilter options
-            then filter (\a -> name a `elem` dpsCutoffNames) sorted
+            then filter (\r -> Pokemon.pname (Main.pokemon r) `elem` dpsCutoffNames) sorted
             else sorted
 
       mapM_ putStrLn $ map showResult filtered
@@ -177,8 +178,12 @@ attackerLevel options =
 showResult :: Result -> String
 showResult result =
   let format = Printf.printf "%4.1f %-12s"
-  in format (dps result) (name result) ++ "   " ++
+  in format (dps result) (nameForAttacker $ pokemon result) ++ "   " ++
        showExpecteds (expecteds result)
+
+nameForAttacker :: Pokemon -> String
+nameForAttacker pokemon =
+  Pokemon.pname pokemon
 
 showExpecteds :: [(String, Float)] -> String
 showExpecteds expecteds =
@@ -190,7 +195,7 @@ showExpecteds expecteds =
       expecteds
 
 data Result = Result {
-  name      :: String,
+  pokemon   :: Pokemon,
   dps       :: Float,
   expecteds :: [(String, Float)]
 } deriving (Show)
@@ -241,8 +246,7 @@ counter :: Bool -> Pokemon -> Pokemon -> Result
 counter useCharge defender attacker =
   let dps = BattleState.calcDps attacker defender useCharge
       expecteds = makeExpecteds dps defender attacker
-      name' = Pokemon.pname attacker
-  in Result name' dps expecteds
+  in Result attacker dps expecteds
 
 makeExpecteds :: Float -> Pokemon -> Pokemon -> [(String, Float)]
 makeExpecteds dps defender attacker =
