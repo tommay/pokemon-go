@@ -33,6 +33,7 @@ import qualified Text.Regex as Regex
 
 data Options = Options {
   glass    :: Bool,
+  dpsFilter :: Bool,
   quick    :: Bool,
   level    :: Maybe Float,
   attackerSource :: AttackerSource,
@@ -68,12 +69,17 @@ parseAttacker = O.eitherReader $ \s ->
 
 getOptions :: IO Options
 getOptions = do
-  let opts = Options <$> optGlass <*> optQuick <*> optLevel <*>
-        optAttackerSource <*> optDefender
+  let opts = Options <$> optGlass <*> optDpsFilter <*>
+        optQuick <*>
+        optLevel <*> optAttackerSource <*> optDefender
       optGlass = O.switch
         (  O.long "glass"
         <> O.short 'g'
         <> O.help "Sort output by dps to find glass cannons")
+      optDpsFilter = O.switch
+        (  O.long "dps"
+        <> O.short 'd'
+        <> O.help "Filter pokemon to the top 15% by DPS")
       optQuick = O.switch
         (  O.long "quick"
         <> O.short 'q'
@@ -147,11 +153,17 @@ main = do
                noSuchSpecies -> Epic.fail $ "No such species: " ++ (List.intercalate ", " noSuchSpecies)
 
       let useCharge = not $ quick options
-          results = map (counter useCharge defender) pokemon
-          sorted = reverse $ flip List.sortBy results $
-            if glass options then byDps else byExpecteds
+          results = [counter useCharge defender attacker | attacker <- pokemon]
+          sortedByDps = List.reverse $ List.sortBy byDps results
+          sorted = if glass options
+            then sortedByDps
+            else List.reverse $ List.sortBy byExpecteds results
+          dpsCutoff = dps $ sortedByDps !! (length sortedByDps `div` 6) 
+          filtered = if dpsFilter options
+            then filter (\a -> dps a >= dpsCutoff) sorted
+            else sorted
 
-      mapM_ putStrLn $ map showResult sorted
+      mapM_ putStrLn $ map showResult filtered
     )
     $ \ex -> I.hPutStrLn I.stderr ex
 
