@@ -35,6 +35,7 @@ import qualified Text.Regex as Regex
 data Options = Options {
   glass    :: Bool,
   dpsFilter :: Bool,
+  top      :: Maybe Int,
   quick    :: Bool,
   level    :: Maybe Float,
   attackerSource :: AttackerSource,
@@ -71,7 +72,7 @@ parseAttacker = O.eitherReader $ \s ->
 getOptions :: IO Options
 getOptions = do
   let opts = Options <$> optGlass <*> optDpsFilter <*>
-        optQuick <*>
+        optTop <*> optQuick <*>
         optLevel <*> optAttackerSource <*> optDefender
       optGlass = O.switch
         (  O.long "glass"
@@ -81,6 +82,11 @@ getOptions = do
         (  O.long "dps"
         <> O.short 'd'
         <> O.help "Filter pokemon to the top 15% by DPS")
+      optTop = O.optional $ O.option O.auto
+        (  O.long "top"
+        <> O.short 't'
+        <> O.metavar "N"
+        <> O.help "Show the top N attacker species")
       optQuick = O.switch
         (  O.long "quick"
         <> O.short 'q'
@@ -171,7 +177,13 @@ main = do
             AllAttackers -> nameSpeciesAndLevelAndMoveset
             MovesetFor _ -> nameSpeciesAndLevelAndMoveset
 
-      mapM_ (putStrLn . showResult nameFunc) filtered
+      case top options of
+        Just n ->
+          let topSpecies = take n $ List.nub $
+                map (\r -> Pokemon.species $ Main.pokemon r) filtered
+          in mapM_ putStrLn topSpecies
+        Nothing ->
+          mapM_ (putStrLn . showResult nameFunc) filtered
     )
     $ \ex -> I.hPutStrLn I.stderr ex
 
