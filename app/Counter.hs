@@ -34,7 +34,7 @@ import qualified Text.Regex as Regex
 
 data Options = Options {
   glass    :: Bool,
-  dpsFilter :: Bool,
+  dpsFilter :: Maybe Int,
   top      :: Maybe Int,
   quick    :: Bool,
   level    :: Maybe Float,
@@ -78,10 +78,11 @@ getOptions = do
         (  O.long "glass"
         <> O.short 'g'
         <> O.help "Sort output by dps to find glass cannons")
-      optDpsFilter = O.switch
+      optDpsFilter = O.optional $ O.option O.auto
         (  O.long "dps"
         <> O.short 'd'
-        <> O.help "Filter pokemon to the top 15% by DPS")
+        <> O.metavar "N"
+        <> O.help "Filter pokemon to the top 1/N by DPS")
       optTop = O.optional $ O.option O.auto
         (  O.long "top"
         <> O.short 't'
@@ -162,16 +163,17 @@ main = do
       let useCharge = not $ quick options
           results = map (counter useCharge defender) pokemon
           sortedByDps = List.reverse $ List.sortBy byDps results
-          dpsCutoff = dps $ sortedByDps !! (length sortedByDps `div` 6) 
-          dpsCutoffNames = Set.fromList $
-            map (\r -> Pokemon.pname (Main.pokemon r)) $
-            filter (\r -> dps r >= dpsCutoff) results
           sorted = if glass options
             then sortedByDps
             else List.reverse $ List.sortBy byExpecteds results
-          filtered = if dpsFilter options
-            then filter (\r -> Pokemon.pname (Main.pokemon r) `elem` dpsCutoffNames) sorted
-            else sorted
+          filtered = case dpsFilter options of
+            Just n ->
+              let dpsCutoff = dps $ sortedByDps !! (length sortedByDps `div` n) 
+                  dpsCutoffNames = Set.fromList $
+                    map (\r -> Pokemon.pname (Main.pokemon r)) $
+                    filter (\r -> dps r >= dpsCutoff) results
+              in filter (\r -> Pokemon.pname (Main.pokemon r) `elem` dpsCutoffNames) sorted
+            Nothing -> sorted
           nameFunc = case attackerSource options of
             FromFile _ -> nameName
             AllAttackers -> nameSpeciesAndLevelAndMoveset
