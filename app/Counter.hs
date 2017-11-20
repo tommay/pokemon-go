@@ -26,6 +26,7 @@ import           Control.Applicative (optional, some)
 import qualified Data.Attoparsec.Text as AP
 import qualified Data.List as List
 import qualified Data.Maybe as Maybe
+import qualified Data.Set as Set
 import qualified Data.Text as Text
 import qualified System.IO as I
 import qualified Text.Printf as Printf
@@ -153,14 +154,16 @@ main = do
                noSuchSpecies -> Epic.fail $ "No such species: " ++ (List.intercalate ", " noSuchSpecies)
 
       let useCharge = not $ quick options
-          results = [counter useCharge defender attacker | attacker <- pokemon]
+          results = map (counter useCharge defender) pokemon
           sortedByDps = List.reverse $ List.sortBy byDps results
           sorted = if glass options
             then sortedByDps
             else List.reverse $ List.sortBy byExpecteds results
           dpsCutoff = dps $ sortedByDps !! (length sortedByDps `div` 6) 
+          dpsCutoffNames = Set.fromList $ map name $
+            filter (\a -> dps a >= dpsCutoff) results
           filtered = if dpsFilter options
-            then filter (\a -> dps a >= dpsCutoff) sorted
+            then filter (\a -> name a `elem` dpsCutoffNames) sorted
             else sorted
 
       mapM_ putStrLn $ map showResult filtered
