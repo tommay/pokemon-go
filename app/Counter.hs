@@ -316,27 +316,33 @@ allAttackers gameMaster level =
   concat $ map (makeAllAttackersFromBase gameMaster level) $
     GameMaster.allPokemonBases gameMaster
 
+speciesAndLevelAndMoveset :: Pokemon -> String
+speciesAndLevelAndMoveset pokemon =
+  let speciesAndLevel = Printf.printf "%s:%f"
+        (Pokemon.species pokemon)
+        (Pokemon.level pokemon)
+      speciesAndLevel' = Regex.subRegex (Regex.mkRegex "\\.0$") speciesAndLevel ""
+      format = Printf.printf "%-15s %-13s/ %-15s"
+  in format speciesAndLevel'
+       (Move.name $ Pokemon.quick pokemon)
+       (Move.name $ Pokemon.charge pokemon)
+
 makeAllAttackersFromBase :: GameMaster -> Float -> PokemonBase ->[Pokemon]
 makeAllAttackersFromBase gameMaster level base =
   let cpMultiplier = GameMaster.getCpMultiplier gameMaster level
       makeStat baseStat = (fromIntegral baseStat + 11) * cpMultiplier
       makeAttacker quickMove chargeMove =
-        let speciesAndLevel :: String
-            speciesAndLevel = Printf.printf "%s:%f" (PokemonBase.species base) level
-            speciesAndLevel' = Regex.subRegex (Regex.mkRegex "\\.0") speciesAndLevel ""
-            format = Printf.printf "%-15s %-13s/ %-15s"
-            name = format speciesAndLevel' (Move.name quickMove) (Move.name chargeMove)
-        in Pokemon.new
-             name
-             (PokemonBase.species base)
-             level
-             (PokemonBase.types base)
-             (makeStat $ PokemonBase.attack base)
-             (makeStat $ PokemonBase.defense base)
-             (makeStat $ PokemonBase.stamina base)
-             quickMove
-             chargeMove
-             base
+        Pokemon.new
+          (PokemonBase.species base)
+          (PokemonBase.species base)
+          level
+          (PokemonBase.types base)
+          (makeStat $ PokemonBase.attack base)
+          (makeStat $ PokemonBase.defense base)
+          (makeStat $ PokemonBase.stamina base)
+          quickMove
+          chargeMove
+          base
   in [makeAttacker quickMove chargeMove |
       quickMove <- PokemonBase.quickMoves base,
       chargeMove <- PokemonBase.chargeMoves base]
