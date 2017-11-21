@@ -157,9 +157,9 @@ main = do
           mythicalMap <- do
             ioMythicalMap <- Mythical.load "mythical.yaml"
             ioMythicalMap
-          let notMythical = not . Mythical.isMythical mythicalMap . Pokemon.species
+          let all = allAttackers gameMaster (attackerLevel options)
+              notMythical = not . Mythical.isMythical mythicalMap . Pokemon.species
               notLegendary = not . Mythical.isLegendary mythicalMap . Pokemon.species
-              all = allAttackers gameMaster (attackerLevel options)
               nonMythical = filter notMythical all
               result = if legendary options
                 then nonMythical
