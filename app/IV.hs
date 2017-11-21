@@ -100,12 +100,12 @@ computeStats gameMaster new myPokemon = do
         case MyPokemon.stats myPokemon of
           Nothing -> matchingStats
           Just currentStats ->
-            filter (\current ->
-              any (\matching ->
+            filter (\matching ->
+              any (\current ->
                 let ivs = sequence [Stats.attack, Stats.defense, Stats.stamina]
-                in ivs current == ivs matching)
-              matchingStats)
-            currentStats
+                in ivs matching == ivs current)
+              currentStats)
+            matchingStats
   case possibleStats of
     [] -> Epic.fail "No possible remaining ivs"
     _ -> return possibleStats
