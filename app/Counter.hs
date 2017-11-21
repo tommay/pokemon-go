@@ -38,6 +38,7 @@ data Options = Options {
   top      :: Maybe Int,
   quick    :: Bool,
   level    :: Maybe Float,
+  legendary :: Bool,
   attackerSource :: AttackerSource,
   defender :: String
 }
@@ -73,7 +74,8 @@ getOptions :: IO Options
 getOptions = do
   let opts = Options <$> optGlass <*> optDpsFilter <*>
         optTop <*> optQuick <*>
-        optLevel <*> optAttackerSource <*> optDefender
+        optLevel <*> optLegendary <*> optAttackerSource <*>
+        optDefender
       optGlass = O.switch
         (  O.long "glass"
         <> O.short 'g'
@@ -88,6 +90,10 @@ getOptions = do
         <> O.short 't'
         <> O.metavar "N"
         <> O.help "Show the top N attacker species")
+      optLegendary = O.flag True False
+        (  O.long "legendary"
+        <> O.short 'L'
+        <> O.help "Exclude legendaries when using -a")
       optQuick = O.switch
         (  O.long "quick"
         <> O.short 'q'
@@ -151,9 +157,14 @@ main = do
           mythicalMap <- do
             ioMythicalMap <- Mythical.load "mythical.yaml"
             ioMythicalMap
-          return $
-            filter (not . Mythical.isMythical mythicalMap . Pokemon.species)
-            $ allAttackers gameMaster (attackerLevel options)
+          let notMythical = not . Mythical.isMythical mythicalMap . Pokemon.species
+              notLegendary = not . Mythical.isLegendary mythicalMap . Pokemon.species
+              all = allAttackers gameMaster (attackerLevel options)
+              nonMythical = filter notMythical all
+              result = if legendary options
+                then nonMythical
+                else filter notLegendary nonMythical
+          return result  
         MovesetFor attackers ->
           let attackerSpecies = map (\ (Attacker species _) -> species) attackers
           in case filter (not . GameMaster.isSpecies gameMaster) attackerSpecies of
