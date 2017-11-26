@@ -80,7 +80,7 @@ getOptions = do
         (  O.long "glass"
         <> O.short 'g'
         <> O.help "Sort output by dps to find glass cannons")
-      optDpsFilter = O.optional $ O.option O.auto
+      optDpsFilter = O.option O.auto
         (  O.long "dps"
         <> O.short 'd'
         <> O.metavar "N"
