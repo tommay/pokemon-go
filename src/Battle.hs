@@ -61,30 +61,34 @@ attackerFainted this =
 
 tick :: Battle -> Battle
 tick this =
-  let doTick attacker defender =
-        (Attacker.tick attacker, Defender.tick defender)
-      blah1 (attacker, defender) =
+  let doTick next (attacker, defender) =
+        next (Attacker.tick attacker, Defender.tick defender)
+      blah1 next (attacker, defender) =
         if Defender.damageWindow defender == 0
-          then (
+          then next (
             Attacker.takeDamage
               (Defender.pokemon defender)
               (Defender.move defender)
               attacker,
             Defender.useEnergy defender)
-          else (attacker, defender)
-      blah2 (attacker, defender) =
+          else next (attacker, defender)
+      blah2 next (attacker, defender) =
         if Attacker.damageWindow attacker == 0
-          then (
+          then next (
             Attacker.useEnergy attacker,
             Defender.takeDamage
               (Attacker.pokemon attacker)
               (Attacker.move attacker)
               defender)
-        else (attacker, defender)
+        else next (attacker, defender)
       (attacker, defender) =
-        blah2 $ blah1 $ doTick (Battle.attacker this) (Battle.defender this)
+        cat ((Battle.attacker this), (Battle.defender this))
+          $ doTick $ blah1 $ blah2 $ id
   in this {
     attacker = attacker,
     defender = defender,
     timer = Battle.timer this - 10
     }
+
+cat a next=
+  next a
