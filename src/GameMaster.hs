@@ -187,6 +187,7 @@ makeMove types itemTemplate = do
       get types typeName
     <*> getObjectValueWithDefault itemTemplate "power" 0
     <*> ((/1000) <$> getTemplateValue "durationMs")
+    <*> getTemplateValue "damageWindowStartMs"
     <*> getObjectValueWithDefault itemTemplate "energyDelta" 0
 
 makePokemonBase :: Epic.MonadCatch m => StringMap Type -> StringMap Move -> ItemTemplate -> m PokemonBase

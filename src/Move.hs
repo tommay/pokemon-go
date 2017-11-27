@@ -4,6 +4,7 @@ module Move (
   moveType,
   power,
   duration,
+  damageWindow,
   energy,
   isCharge,
   isQuick,
@@ -27,6 +28,7 @@ data Move = Move {
   moveType :: Type,
   power    :: Float,
   duration :: Float,
+  damageWindow :: Int,
   energy   :: Float
 } deriving (Eq, Show)
 
