@@ -30,7 +30,7 @@ data Move = Move {
   power    :: Float,
   duration :: Float,
   damageWindow :: Int,
-  energy   :: Float
+  energy   :: Int
 } deriving (Eq, Show)
 
 new = Move
