@@ -1,5 +1,9 @@
 module Defender (
   Defender,
+  pokemon,
+  hp,
+  move,
+  damageWindow,
   Defender.init,
   tick,
   takeDamage,

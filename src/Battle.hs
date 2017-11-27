@@ -1,6 +1,6 @@
 module Battle (
   Battle,
-  init,
+  Battle.init,
   runBattle,
   dps,
   damageInflicted
@@ -10,6 +10,8 @@ import qualified Attacker
 import           Attacker (Attacker)
 import qualified Defender
 import           Defender (Defender)
+
+import qualified Data.List as List
 
 data Battle = Battle {
   attacker :: Attacker,
@@ -34,13 +36,13 @@ init attacker defender =
 ----
 runBattle :: Battle -> Battle
 runBattle this =
-  case find Battle.attackerFainted $ iiterate Battle.tick this of
+  case List.find Battle.attackerFainted $ iterate Battle.tick this of
     Just result -> result
     Nothing -> error "Shouldn't happen."
 
 dps :: Battle -> Float
 dps this =
-  fronIntegral (Battle.damageInflicted this) / (Battle.secondsElapsed this)
+  fromIntegral (Battle.damageInflicted this) / Battle.secondsElapsed this
 
 damageInflicted :: Battle -> Int
 damageInflicted this =
@@ -58,27 +60,31 @@ attackerFainted this =
   Attacker.fainted $ Battle.attacker this
 
 tick :: Battle -> Battle
-tick battle =
-  let attacker2 = Attacker.tick $ Battle.attacker this
-      defender2 = Defender.tick $ Battle.defender this
-      (attacker3, defender3) = if Defender.damageWindow defender2 == 0
-        then (
-          Attacker.takeDamage
-            (Defender.pokemon defender2)
-            (Defender.move defender2)
-            attacker2,
-          Defender.useEnergy defender2)
-        else (attacker2, defender2)
-      (attacker4, defender4) = if Attacker.damageWindow attacker3 == 0
-        then (
-          Attacker.useEnergy attacker3,
-          Defender.takeDamage
-            (Attacker.pokemon attacker3)
-            (Attacker.move attacker3)
-            defender3)
-        else (attacker3, defender3)
-  in battle {
-    attacker = attacker4,
-    defender = defender4,
-    timer = Battle.timer battle - 10
+tick this =
+  let doTick attacker defender =
+        (Attacker.tick attacker, Defender.tick defender)
+      blah1 (attacker, defender) =
+        if Defender.damageWindow defender == 0
+          then (
+            Attacker.takeDamage
+              (Defender.pokemon defender)
+              (Defender.move defender)
+              attacker,
+            Defender.useEnergy defender)
+          else (attacker, defender)
+      blah2 (attacker, defender) =
+        if Attacker.damageWindow attacker == 0
+          then (
+            Attacker.useEnergy attacker,
+            Defender.takeDamage
+              (Attacker.pokemon attacker)
+              (Attacker.move attacker)
+              defender)
+        else (attacker, defender)
+      (attacker, defender) =
+        blah2 $ blah1 $ doTick (Battle.attacker this) (Battle.defender this)
+  in this {
+    attacker = attacker,
+    defender = defender,
+    timer = Battle.timer this - 10
     }

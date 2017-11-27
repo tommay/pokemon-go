@@ -1,5 +1,8 @@
 module Attacker (
   Attacker,
+  pokemon,
+  move,
+  damageWindow,
   Attacker.init,
   tick,
   takeDamage,
