@@ -4,6 +4,7 @@ module Move (
   moveType,
   power,
   duration,
+  durationMs,
   damageWindow,
   energy,
   isCharge,
@@ -49,6 +50,10 @@ stabFor this attackerTypes =
 effectivenessAgainst :: Move -> [Type] -> Float
 effectivenessAgainst this defenderTypes =
   Type.effectivenessAgainst (Move.moveType this) defenderTypes
+
+durationMs :: Move -> Int
+durationMs this =
+  round $ Move.duration this * 1000
 
 name :: Move -> String
 name this =
