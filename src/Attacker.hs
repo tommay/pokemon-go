@@ -2,6 +2,9 @@ module Attacker (
   Attacker,
   Attacker.init,
   tick,
+  takeDamage,
+  useEnergy,
+  fainted,
 ) where
 
 import qualified Pokemon
@@ -12,10 +15,10 @@ import           Move (Move)
 data Attacker = Attacker {
   pokemon :: Pokemon,
   hp :: Int,
-  energy :: Float,
-  cooldown :: Int,        -- time until the next move
+  energy :: Int,
+  cooldown :: Int,        -- time until the next move.
   moves :: [Move],        -- next move(s) to do.
-  move :: Move,
+  move :: Move,           -- move in progess.
   damageWindow :: Int
 }
 
@@ -89,8 +92,14 @@ takeDamage pokemon move this =
   in this {
        hp = Attacker.hp this - damageDone,
        energy = minimum [100,
-         Attacker.energy this + (fromIntegral damageDone) / 2]
+         Attacker.energy this + (damageDone + 1) `div` 2]
        }
+
+useEnergy :: Attacker -> Attacker
+useEnergy this =
+  this {
+    energy = Attacker.energy this + Move.energy (Attacker.move this)
+    }
 
 damage :: Move -> Pokemon -> Pokemon -> Int
 damage move attacker defender =

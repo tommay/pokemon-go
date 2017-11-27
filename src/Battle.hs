@@ -6,6 +6,11 @@ module Battle (
   damageInflicted
 ) where
 
+import qualified Attacker
+import           Attacker (Attacker)
+import qualified Defender
+import           Defender (Defender)
+
 data Battle = Battle {
   attacker :: Attacker,
   defender :: Defender,
@@ -21,7 +26,7 @@ init attacker defender =
     attacker = attacker,
     defender = defender,
     timer = battleDuration,
-    initialDefenderHp - Defender.hp defender
+    initialDefenderHp = Defender.hp defender
     }
 
 -- Given an initial Battle state, run a battle and return the final state
@@ -31,7 +36,7 @@ runBattle :: Battle -> Battle
 runBattle this =
   case find Battle.attackerFainted $ iiterate Battle.tick this of
     Just result -> result
-    Nothing -> error "Shouldn't happen.'
+    Nothing -> error "Shouldn't happen."
 
 dps :: Battle -> Float
 dps this =
@@ -54,28 +59,26 @@ attackerFainted this =
 
 tick :: Battle -> Battle
 tick battle =
-  let attacker' = Attacker.tick Battle.attacker
-      defender' = Defender.tick Battle.defender
-      attacker'' = if Defender.damageWindow defender' == 0
-        then Attacker.takeDamage
-          (Defender.pokemon defender) (Defender.move defender) attacker'
-        else attacker'
-      defender'' = if Attacker.damageWindow attacker' == 0
-        then Defender.takeDamage
-          (Attacker.pokemon attacker) (Attacker.move attacker) defender'
-        else defender'
+  let attacker2 = Attacker.tick $ Battle.attacker this
+      defender2 = Defender.tick $ Battle.defender this
+      (attacker3, defender3) = if Defender.damageWindow defender2 == 0
+        then (
+          Attacker.takeDamage
+            (Defender.pokemon defender2)
+            (Defender.move defender2)
+            attacker2,
+          Defender.useEnergy defender2)
+        else (attacker2, defender2)
+      (attacker4, defender4) = if Attacker.damageWindow attacker3 == 0
+        then (
+          Attacker.useEnergy attacker3,
+          Defender.takeDamage
+            (Attacker.pokemon attacker3)
+            (Attacker.move attacker3)
+            defender3)
+        else (attacker3, defender3)
   in battle {
-    attacker = attacker'',
-    defender = defender'',
+    attacker = attacker4,
+    defender = defender4,
     timer = Battle.timer battle - 10
     }
-
-damage :: Move -> Pokemon -> Pokemon -> Int
-
-        let power = Move.power move
-            stab = Move.stabFor move $ Pokemon.types attacker
-            effectiveness = Move.effectivenessAgainst move $ Pokemon.types defender
-            attack' = Pokemon.attack attacker
-            defense' = Pokemon.defense defender
-
-

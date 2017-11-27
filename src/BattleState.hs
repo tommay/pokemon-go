@@ -9,7 +9,7 @@ import           Pokemon (Pokemon)
 data BattleState = BattleState {
   time   :: Float,
   damage :: Int,
-  energy :: Float,
+  energy :: Int,
   extraQuickMoves :: Int
 } deriving (Show)
 
