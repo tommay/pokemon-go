@@ -15,6 +15,8 @@ import           Pokemon (Pokemon)
 import qualified Move
 import           Move (Move)
 
+import qualified Debug as D
+
 random = 0 -- XXX
 
 data Defender = Defender {

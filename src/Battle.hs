@@ -15,6 +15,8 @@ import           Pokemon (Pokemon)
 
 import qualified Data.List as List
 
+import qualified Debug as D
+
 data Battle = Battle {
   attacker :: Attacker,
   defender :: Defender,
