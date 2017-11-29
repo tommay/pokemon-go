@@ -31,7 +31,10 @@ data Move = Move {
   duration :: Float,
   damageWindow :: Int,
   energy   :: Int
-} deriving (Eq, Show)
+} deriving (Eq)
+
+instance Show Move where
+  show = movementId
 
 new = Move
 

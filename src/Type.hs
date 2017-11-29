@@ -17,7 +17,10 @@ data Type = Type {
   typeId        :: String,
   effectiveness :: StringMap Float,
   stab          :: Float
-} deriving (Eq, Show)
+} deriving (Eq)
+
+instance Show Type where
+  show = typeId
 
 new = Type
 

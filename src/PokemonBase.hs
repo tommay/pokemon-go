@@ -25,6 +25,9 @@ data PokemonBase = PokemonBase {
   quickMoves   :: [Move],
   chargeMoves  :: [Move],
   parent       :: Maybe Text
-} deriving (Show)
+}
+
+instance Show PokemonBase where
+  show = species
 
 new = PokemonBase
