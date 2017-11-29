@@ -10,6 +10,8 @@ import qualified Attacker
 import           Attacker (Attacker)
 import qualified Defender
 import           Defender (Defender)
+import qualified Pokemon
+import           Pokemon (Pokemon)
 
 import qualified Data.List as List
 
@@ -22,13 +24,13 @@ data Battle = Battle {
 
 battleDuration = 100 * 1000
 
-init :: Attacker -> Defender -> Battle
+init :: Pokemon -> Pokemon -> Battle
 init attacker defender =
   Battle {
-    attacker = attacker,
-    defender = defender,
+    attacker = Attacker.init attacker,
+    defender = Defender.init defender,
     timer = battleDuration,
-    initialDefenderHp = Defender.hp defender
+    initialDefenderHp = Pokemon.hp defender
     }
 
 -- Given an initial Battle state, run a battle and return the final state
