@@ -20,7 +20,7 @@ data Battle = Battle {
   defender :: Defender,
   timer :: Int,
   initialDefenderHp :: Int
-  }
+} deriving (Show)
 
 battleDuration = 100 * 1000
 

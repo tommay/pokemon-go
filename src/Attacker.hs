@@ -23,7 +23,7 @@ data Attacker = Attacker {
   moves :: [Move],        -- next move(s) to do.
   move :: Move,           -- move in progess.
   damageWindow :: Int
-}
+} deriving (Show)
 
 init :: Pokemon -> Attacker
 init pokemon =

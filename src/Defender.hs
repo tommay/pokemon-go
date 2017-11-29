@@ -25,7 +25,7 @@ data Defender = Defender {
   moves :: [(Move, Int)], -- next move(s) to do.
   move :: Move,           -- move in progess.
   damageWindow :: Int
-}
+} deriving (Show)
 
 init :: Pokemon -> Defender
 init pokemon =
