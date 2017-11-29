@@ -38,9 +38,7 @@ init attacker defender =
 ----
 runBattle :: Battle -> Battle
 runBattle this =
-  case List.find Battle.attackerFainted $ iterate Battle.tick this of
-    Just result -> result
-    Nothing -> error "Shouldn't happen."
+  until Battle.attackerFainted Battle.tick this
 
 dps :: Battle -> Float
 dps this =
