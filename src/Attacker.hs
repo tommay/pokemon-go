@@ -33,7 +33,7 @@ init pokemon =
        hp = Pokemon.hp pokemon,
        energy = 0,
        cooldown = 700,
-       moves = [quick],
+       moves = [],
        move = quick,  -- Not used.
        damageWindow = -1
        }
