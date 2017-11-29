@@ -93,7 +93,7 @@ makeAMove this =
   in this {
        energy = energy',
        cooldown = cooldown',
-       moves = moves',
+       moves = moves'',
        move = move',
        damageWindow = damageWindow'
        }
