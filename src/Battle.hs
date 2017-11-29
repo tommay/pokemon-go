@@ -63,34 +63,38 @@ attackerFainted this =
 
 tick :: Battle -> Battle
 tick this =
-  let doTick next (attacker, defender) =
-        next (Attacker.tick attacker, Defender.tick defender)
-      blah1 next (attacker, defender) =
+  let doTick (attacker, defender) =
+        (Attacker.tick attacker, Defender.tick defender)
+      blah1 (attacker, defender) =
         if Defender.damageWindow defender == 0
-          then next (
+          then (
             Attacker.takeDamage
               (Defender.pokemon defender)
               (Defender.move defender)
               attacker,
             Defender.useEnergy defender)
-          else next (attacker, defender)
-      blah2 next (attacker, defender) =
+          else (attacker, defender)
+      blah2 (attacker, defender) =
         if Attacker.damageWindow attacker == 0
-          then next (
+          then (
             Attacker.useEnergy attacker,
             Defender.takeDamage
               (Attacker.pokemon attacker)
               (Attacker.move attacker)
               defender)
-        else next (attacker, defender)
+        else (attacker, defender)
       (attacker, defender) =
-        cat ((Battle.attacker this), (Battle.defender this))
-          $ doTick $ blah1 $ blah2 $ id
+        ((Battle.attacker this), (Battle.defender this))
+          |> doTick |> blah1 |> blah2
   in this {
     attacker = attacker,
     defender = defender,
     timer = Battle.timer this - 10
     }
 
-cat a next=
-  next a
+-- The |> operator lets us send a piecce of data through a function
+-- pipeline.
+--
+infixl 5 |>
+(|>) :: a -> (a -> b) -> b
+val |> func = func val
