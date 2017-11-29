@@ -63,9 +63,7 @@ attackerFainted this =
 
 tick :: Battle -> Battle
 tick this =
-  let doTick (attacker, defender) =
-        (Attacker.tick attacker, Defender.tick defender)
-      blah1 (attacker, defender) =
+  let blah1 (attacker, defender) =
         if Defender.damageWindow defender == 0
           then (
             Attacker.takeDamage
@@ -83,9 +81,11 @@ tick this =
               (Attacker.move attacker)
               defender)
         else (attacker, defender)
+      doTick (attacker, defender) =
+        (Attacker.tick attacker, Defender.tick defender)
       (attacker, defender) =
         ((Battle.attacker this), (Battle.defender this))
-          |> doTick |> blah1 |> blah2
+          |> blah1 |> blah2 |> doTick
   in this {
     attacker = attacker,
     defender = defender,
