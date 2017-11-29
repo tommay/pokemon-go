@@ -109,9 +109,12 @@ takeDamage pokemon move this =
 
 useEnergy :: Defender -> Defender
 useEnergy this =
-  this {
-    energy = Defender.energy this + Move.energy (Defender.move this)
-    }
+  let move = Defender.move this
+  in if Move.isCharge move
+       then this {
+         energy = Defender.energy this + Move.energy move
+         }
+       else this
 
 damage :: Move -> Pokemon -> Pokemon -> Int
 damage move attacker defender =
