@@ -13,6 +13,7 @@ import           Defender (Defender)
 import qualified Pokemon
 import           Pokemon (Pokemon)
 
+import qualified Control.Monad.Loops as Loops
 import qualified Control.Monad.Writer as Writer
 import           Control.Monad.Writer (Writer)
 import qualified Data.List as List
@@ -48,11 +49,8 @@ init rnd attacker defender =
 -- when Battle.finished is true.
 ----
 runBattle :: Battle -> Writer [Action] Battle
-runBattle this = do
-  battle <- tick this
-  if Battle.attackerFainted battle
-    then return battle
-    else runBattle battle
+runBattle =
+  Loops.iterateUntilM Battle.attackerFainted Battle.tick
 
 -- XXX This is not quite right because there is some delay before the
 -- attacker's first move, so the dps only starts after the delay.

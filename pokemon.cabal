@@ -29,6 +29,7 @@ library
                      , scientific
                      , random
                      , mtl
+                     , monad-loops
   default-language:    Haskell2010
 
 executable counter-exe
