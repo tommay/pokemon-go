@@ -14,6 +14,7 @@ import qualified Pokemon
 import           Pokemon (Pokemon)
 
 import qualified Data.List as List
+import qualified System.Random as Random
 
 import qualified Debug as D
 
@@ -26,11 +27,11 @@ data Battle = Battle {
 
 battleDuration = 100 * 1000
 
-init :: Pokemon -> Pokemon -> Battle
-init attacker defender =
+init :: Random.StdGen -> Pokemon -> Pokemon -> Battle
+init rnd attacker defender =
   Battle {
     attacker = Attacker.init attacker,
-    defender = Defender.init defender,
+    defender = Defender.init rnd defender,
     timer = battleDuration,
     initialDefenderHp = Pokemon.hp defender * 2
     }

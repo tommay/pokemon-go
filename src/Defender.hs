@@ -16,9 +16,9 @@ import           Pokemon (Pokemon)
 import qualified Move
 import           Move (Move)
 
-import qualified Debug as D
+import qualified System.Random as Random
 
-random = 0 -- XXX
+import qualified Debug as D
 
 data Defender = Defender {
   pokemon :: Pokemon,
@@ -27,11 +27,12 @@ data Defender = Defender {
   cooldown :: Int,        -- time until the next move.
   moves :: [(Move, Int)], -- next move(s) to do.
   move :: Move,           -- move in progess.
-  damageWindow :: Int
+  damageWindow :: Int,
+  rnd :: Random.StdGen
 } deriving (Show)
 
-init :: Pokemon -> Defender
-init pokemon =
+init :: Random.StdGen -> Pokemon -> Defender
+init rnd pokemon =
   let quick = Pokemon.quick pokemon
   in Defender {
        pokemon = pokemon,
@@ -45,7 +46,8 @@ init pokemon =
        moves = [(quick, 1000),
                 (quick, Move.durationMs quick + 2000)],
        move = quick,  -- Not used.
-       damageWindow = -1
+       damageWindow = -1,
+       rnd = rnd
        }
 
 quick :: Defender -> Move
@@ -82,11 +84,12 @@ makeMove' this =
       -- Figure out our next move.
       quick = Defender.quick this
       charge = Defender.charge this
+      (random, rnd') = Random.random $ Defender.rnd this
       moves'' = case moves' of
         [] ->
           -- Both quick moves and charge moves get an additional 1.5-2.5
           -- seconds added to their duration.  Just use the average, 2.
-          if energy' >= negate (Move.energy charge) && random < 0.5
+          if energy' >= negate (Move.energy charge) && (random :: Float) < 0.5
             then [(charge, Move.durationMs charge + 2000)]
             else [(quick, Move.durationMs quick + 2000)]
         val -> val
@@ -98,7 +101,8 @@ makeMove' this =
        cooldown = cooldown',
        moves = moves'',
        move = move',
-       damageWindow = damageWindow'
+       damageWindow = damageWindow',
+       rnd = rnd'
        }
 
 takeDamage :: Pokemon -> Move -> Defender -> Defender
