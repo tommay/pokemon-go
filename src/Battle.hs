@@ -13,6 +13,8 @@ import           Defender (Defender)
 import qualified Pokemon
 import           Pokemon (Pokemon)
 
+import qualified Control.Monad.Writer as Writer
+import           Control.Monad.Writer (Writer)
 import qualified Data.List as List
 import qualified System.Random as Random
 
@@ -23,6 +25,12 @@ data Battle = Battle {
   defender :: Defender,
   timer :: Int,
   initialDefenderHp :: Int
+} deriving (Show)
+
+data Action = Action {
+  clock :: Int,
+  what :: String,
+  after :: Battle
 } deriving (Show)
 
 battleDuration = 100 * 1000
@@ -39,9 +47,12 @@ init rnd attacker defender =
 -- Given an initial Battle state, run a battle and return the final state
 -- when Battle.finished is true.
 ----
-runBattle :: Battle -> Battle
-runBattle this =
-  until Battle.attackerFainted Battle.tick this
+runBattle :: Battle -> Writer [Action] Battle
+runBattle this = do
+  battle <- tick this
+  if Battle.attackerFainted battle
+    then return battle
+    else runBattle battle
 
 -- XXX This is not quite right because there is some delay before the
 -- attacker's first move, so the dps only starts after the delay.
@@ -65,8 +76,8 @@ attackerFainted :: Battle -> Bool
 attackerFainted this =
   Attacker.fainted $ Battle.attacker this
 
-tick :: Battle -> Battle
-tick this =
+tick :: Battle -> Writer [Action] Battle
+tick this = do
   let blah1 (attacker, defender) =
         if Defender.damageWindow defender == 0
           then (
@@ -92,11 +103,13 @@ tick this =
       (attacker, defender) =
         ((Battle.attacker this), (Battle.defender this))
           |> doTick |> blah1 |> blah2 |> makeMove
-  in this {
-    attacker = attacker,
-    defender = defender,
-    timer = Battle.timer this - 10
-    }
+      result = this {
+        attacker = attacker,
+        defender = defender,
+        timer = Battle.timer this - 10
+        }
+  Writer.tell [Action (timer this) "Clock tick" result]
+  return result
 
 -- The |> operator lets us send a piecce of data through a function
 -- pipeline.
