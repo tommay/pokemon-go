@@ -76,15 +76,19 @@ attackerFainted this =
 
 tick :: Battle -> Writer [Action] Battle
 tick this = do
-  let blah1 (attacker, defender) =
-        return $ if Defender.damageWindow defender == 0
-          then (
-            Attacker.takeDamage
-              (Defender.pokemon defender)
-              (Defender.move defender)
-              attacker,
-            Defender.useEnergy defender)
-          else (attacker, defender)
+  let blah1 :: (Attacker, Defender) -> Writer [Action] (Attacker, Defender)
+      blah1 (attacker, defender) =
+        if Defender.damageWindow defender == 0
+          then do
+            let result = (
+                  Attacker.takeDamage
+                    (Defender.pokemon defender)
+                    (Defender.move defender)
+                    attacker,
+                  Defender.useEnergy defender)
+            Writer.tell $ [Action (timer this) "Attacker takes damage" this]
+            return result
+          else return (attacker, defender)
       blah2 (attacker, defender) =
         return $ if Attacker.damageWindow attacker == 0
           then (
