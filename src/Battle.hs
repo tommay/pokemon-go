@@ -42,6 +42,9 @@ runBattle :: Battle -> Battle
 runBattle this =
   until Battle.attackerFainted Battle.tick this
 
+-- XXX This is not quite right because there is some delay before the
+-- attacker's first move, so the dps only starts after the delay.
+--
 dps :: Battle -> Float
 dps this =
   fromIntegral (Battle.damageInflicted this) / Battle.secondsElapsed this
