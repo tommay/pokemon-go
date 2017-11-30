@@ -79,7 +79,7 @@ attackerFainted this =
 tick :: Battle -> Writer [Action] Battle
 tick this = do
   let blah1 (attacker, defender) =
-        if Defender.damageWindow defender == 0
+        return $ if Defender.damageWindow defender == 0
           then (
             Attacker.takeDamage
               (Defender.pokemon defender)
@@ -88,7 +88,7 @@ tick this = do
             Defender.useEnergy defender)
           else (attacker, defender)
       blah2 (attacker, defender) =
-        if Attacker.damageWindow attacker == 0
+        return $ if Attacker.damageWindow attacker == 0
           then (
             Attacker.useEnergy attacker,
             Defender.takeDamage
@@ -97,19 +97,22 @@ tick this = do
               defender)
         else (attacker, defender)
       doTick (attacker, defender) =
-        (Attacker.tick attacker, Defender.tick defender)
-      makeMove (attacker, defender) =
-        (Attacker.makeMove attacker, Defender.makeMove defender)
-      (attacker, defender) =
-        ((Battle.attacker this), (Battle.defender this))
-          |> doTick |> blah1 |> blah2 |> makeMove
+        return $ (Attacker.tick attacker, Defender.tick defender)
+      makeMove (attacker, defender) = 
+        return $ (Attacker.makeMove attacker, Defender.makeMove defender)
+      pair = (Battle.attacker this, Battle.defender this)
+  pair <- doTick pair
+  pair <- blah1 pair
+  pair <- blah2 pair
+  pair <- makeMove pair
+  let (attacker, defender) = pair
       result = this {
         attacker = attacker,
         defender = defender,
         timer = Battle.timer this - 10
         }
   Writer.tell [Action (timer this) "Clock tick" result]
-  return result
+  return $ result
 
 -- The |> operator lets us send a piecce of data through a function
 -- pipeline.
