@@ -76,11 +76,14 @@ makeMove' this =
             then [quick, charge]
             else [quick]
         val -> val
-      -- Now thet we've decided the move we can add its energy.
-      energy' = minimum [100, Attacker.energy this + Move.energy move']
+      -- If it's a quick move, its energy is available immediately.
+      -- Charge move energy is subtracted at damageWindowStart.
+      energy' = if Move.isQuick move'
+        then minimum [100, Attacker.energy this + Move.energy move']
+        else Attacker.energy this
       cooldown' = Move.durationMs move'
       -- Set countdown until damage is done to the opponent and its
-      -- energy increases.
+      -- energy increases and our energy decreases.
       damageWindow' = Move.damageWindow move'
   in this {
        energy = energy',
