@@ -83,9 +83,11 @@ tick this =
         else (attacker, defender)
       doTick (attacker, defender) =
         (Attacker.tick attacker, Defender.tick defender)
+      makeMove (attacker, defender) =
+        (Attacker.makeMove attacker, Defender.makeMove defender)
       (attacker, defender) =
         ((Battle.attacker this), (Battle.defender this))
-          |> blah1 |> blah2 |> doTick
+          |> doTick |> blah1 |> blah2 |> makeMove
   in this {
     attacker = attacker,
     defender = defender,
@@ -95,6 +97,6 @@ tick this =
 -- The |> operator lets us send a piecce of data through a function
 -- pipeline.
 --
-infixl 5 |>
+infixl 0 |>
 (|>) :: a -> (a -> b) -> b
 val |> func = func val

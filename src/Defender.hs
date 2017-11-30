@@ -8,6 +8,7 @@ module Defender (
   tick,
   takeDamage,
   useEnergy,
+  makeMove,
 ) where
 
 import qualified Pokemon
@@ -57,19 +58,19 @@ charge this =
 
 tick :: Defender -> Defender
 tick this =
-  if Defender.cooldown this /= 0
-    then passTheTime this
-    else makeAMove this
-
-passTheTime :: Defender -> Defender
-passTheTime this =
   this {
     cooldown = Defender.cooldown this - 10,
     damageWindow = Defender.damageWindow this - 10
     }
 
-makeAMove :: Defender -> Defender
-makeAMove this =
+makeMove :: Defender -> Defender
+makeMove this =
+  if Defender.cooldown this == 0
+    then makeMove' this
+    else this
+
+makeMove' :: Defender -> Defender
+makeMove' this =
   let -- Get the next move and any move(s) after that.
       (move', cooldown'):moves' = Defender.moves this
       -- If it's a quick move, its energy is available immediately

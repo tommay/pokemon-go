@@ -7,6 +7,7 @@ module Attacker (
   tick,
   takeDamage,
   useEnergy,
+  makeMove,
   fainted,
 ) where
 
@@ -52,19 +53,19 @@ charge this =
 
 tick :: Attacker -> Attacker
 tick this =
-  if Attacker.cooldown this /= 0
-    then passTheTime this
-    else makeAMove this
-
-passTheTime :: Attacker -> Attacker
-passTheTime this =
   this {
     cooldown = Attacker.cooldown this - 10,
     damageWindow = Attacker.damageWindow this - 10
     }
 
-makeAMove :: Attacker -> Attacker
-makeAMove this =
+makeMove :: Attacker -> Attacker
+makeMove this =
+  if Attacker.cooldown this == 0
+    then makeMove' this
+    else this
+
+makeMove' :: Attacker -> Attacker
+makeMove' this =
   let quick = Attacker.quick this
       charge = Attacker.charge this
       move':moves' = case Attacker.moves this of
