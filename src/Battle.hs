@@ -32,7 +32,7 @@ init attacker defender =
     attacker = Attacker.init attacker,
     defender = Defender.init defender,
     timer = battleDuration,
-    initialDefenderHp = Pokemon.hp defender
+    initialDefenderHp = Pokemon.hp defender * 2
     }
 
 -- Given an initial Battle state, run a battle and return the final state

@@ -35,7 +35,7 @@ init pokemon =
   let quick = Pokemon.quick pokemon
   in Defender {
        pokemon = pokemon,
-       hp = Pokemon.hp pokemon,
+       hp = Pokemon.hp pokemon * 2,
        energy = 0,
        cooldown = 1600,
        -- The first two moves are always quick and the interval is fixed.
