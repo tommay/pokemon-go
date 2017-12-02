@@ -98,8 +98,8 @@ tick this = do
           else return (attacker, defender)
       doTick (attacker, defender) =
         return $ (Attacker.tick attacker, Defender.tick defender)
-      makeMove (attacker, defender) = 
-        return $ (Attacker.makeMove attacker, Defender.makeMove defender)
+      makeMove (attacker, defender) =
+        sequencePair (Attacker.makeMove attacker, Defender.makeMove defender)
       pair = (Battle.attacker this, Battle.defender this)
   pair <- doTick pair
   pair <- blah1 pair

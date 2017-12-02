@@ -63,14 +63,14 @@ tick this =
     damageWindow = Attacker.damageWindow this - 10
     }
 
-makeMove :: Attacker -> Attacker
+makeMove :: Attacker -> Writer [Action] Attacker
 makeMove this =
   if Attacker.cooldown this == 0
     then makeMove' this
-    else this
+    else return this
 
-makeMove' :: Attacker -> Attacker
-makeMove' this =
+makeMove' :: Attacker -> Writer [Action] Attacker
+makeMove' this = do
   let quick = Attacker.quick this
       charge = Attacker.charge this
       move':moves' = case Attacker.moves this of
@@ -90,13 +90,14 @@ makeMove' this =
       -- Set countdown until damage is done to the opponent and its
       -- energy increases and our energy decreases.
       damageWindow' = Move.damageWindow move'
-  in this {
-       energy = energy',
-       cooldown = cooldown',
-       moves = moves',
-       move = move',
-       damageWindow = damageWindow'
-       }
+  Writer.tell [Action ("Attacker uses " ++ (Move.name move'))]
+  return $ this {
+    energy = energy',
+    cooldown = cooldown',
+    moves = moves',
+    move = move',
+    damageWindow = damageWindow'
+    }
 
 takeDamage :: Pokemon -> Move -> Attacker -> Writer [Action] Attacker
 takeDamage pokemon move this = do

@@ -69,14 +69,14 @@ tick this =
     damageWindow = Defender.damageWindow this - 10
     }
 
-makeMove :: Defender -> Defender
+makeMove :: Defender -> Writer [Action] Defender
 makeMove this =
   if Defender.cooldown this == 0
     then makeMove' this
-    else this
+    else return this
 
-makeMove' :: Defender -> Defender
-makeMove' this =
+makeMove' :: Defender -> Writer [Action] Defender
+makeMove' this = do
   let -- Get the next move and any move(s) after that.
       (move', cooldown'):moves' = Defender.moves this
       -- If it's a quick move, its energy is available immediately
@@ -100,14 +100,15 @@ makeMove' this =
       -- Set countdown until damage is done to the opponent and it gets
       -- its energy boost and our charge move energy is subtracted.
       damageWindow' = Move.damageWindow move'
-  in this {
-       energy = energy',
-       cooldown = cooldown',
-       moves = moves'',
-       move = move',
-       damageWindow = damageWindow',
-       rnd = rnd'
-       }
+  Writer.tell [Action ("Defender uses " ++ (Move.name move'))]
+  return $ this {
+    energy = energy',
+    cooldown = cooldown',
+    moves = moves'',
+    move = move',
+    damageWindow = damageWindow',
+    rnd = rnd'
+    }
 
 takeDamage :: Pokemon -> Move -> Defender -> Writer [Action] Defender
 takeDamage pokemon move this = do
