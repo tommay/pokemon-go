@@ -121,14 +121,20 @@ takeDamage pokemon move this = do
     (Defender.energy result))]
   return result
 
-useEnergy :: Defender -> Defender
-useEnergy this =
+useEnergy :: Defender -> Writer [Action] Defender
+useEnergy this = do
   let move = Defender.move this
-  in if Move.isCharge move
-       then this {
-         energy = Defender.energy this + Move.energy move
-         }
-       else this
+      energyUsed = negate $ Move.energy move
+      result = this {
+        energy = Defender.energy this - energyUsed
+        }
+      format = Printf.printf "Defender uses %d energy: hp = %d, energy = %d"
+  if Move.isCharge move
+    then do
+      Writer.tell [Action (format energyUsed (Defender.hp result)
+         (Defender.energy result))]
+      return result
+    else return this
 
 damage :: Move -> Pokemon -> Pokemon -> Int
 damage move attacker defender =

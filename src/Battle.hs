@@ -85,7 +85,7 @@ tick this = do
               (Defender.pokemon defender)
               (Defender.move defender)
               attacker,
-            return $ Defender.useEnergy defender)
+            Defender.useEnergy defender)
           else return (attacker, defender)
       blah2 (attacker, defender) =
         if Attacker.damageWindow attacker == 0
