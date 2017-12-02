@@ -96,9 +96,13 @@ makeMove' this = do
         else Writer.tell mempty
       -- Both quick moves and charge moves get an additional 1.5-2.5
       -- seconds added to their duration.  Just use the average, 2.
-      return $ if energy' >= negate (Move.energy charge) && (random :: Float) < 0.5
-        then [(charge, Move.durationMs charge + 2000)]
-        else [(quick, Move.durationMs quick + 2000)]
+      if energy' >= negate (Move.energy charge) && (random :: Float) < 0.5
+        then do
+          Writer.tell [Action ("Defender chooses " ++  Move.name charge)]
+          return [(charge, Move.durationMs charge + 2000)]
+        else do
+          Writer.tell [Action ("Defender chooses " ++ Move.name quick)]
+          return [(quick, Move.durationMs quick + 2000)]
     val -> return val
   Writer.tell [Action ("Defender uses " ++ (Move.name move'))]
   -- Set countdown until damage is done to the opponent and it gets
