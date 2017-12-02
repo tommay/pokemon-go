@@ -47,7 +47,7 @@ init rnd attacker defender =
 
 -- Given an initial Battle state, run a battle and return the final state
 -- when Battle.finished is true.
-----
+--
 runBattle :: Battle -> Writer [Action] Battle
 runBattle =
   Loops.iterateUntilM Battle.attackerFainted Battle.tick
@@ -71,8 +71,8 @@ secondsElapsed this =
 -- and a total inflicted damage which allows for tankiness.
 --
 attackerFainted :: Battle -> Bool
-attackerFainted this =
-  Attacker.fainted $ Battle.attacker this
+attackerFainted =
+  Attacker.fainted . Battle.attacker
 
 tick :: Battle -> Writer [Action] Battle
 tick this = do
@@ -114,11 +114,4 @@ tick this = do
         timer = Battle.timer this - 10
         }
   Writer.tell [Action (timer this) "Clock tick" result]
-  return $ result
-
--- The |> operator lets us send a piecce of data through a function
--- pipeline.
---
-infixl 0 |>
-(|>) :: a -> (a -> b) -> b
-val |> func = func val
+  return result
