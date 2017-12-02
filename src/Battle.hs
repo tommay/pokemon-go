@@ -88,14 +88,14 @@ tick this = do
             return $ Defender.useEnergy defender)
           else return (attacker, defender)
       blah2 (attacker, defender) =
-        return $ if Attacker.damageWindow attacker == 0
-          then (
-            Attacker.useEnergy attacker,
+        if Attacker.damageWindow attacker == 0
+          then sequencePair
+            (return $ Attacker.useEnergy attacker,
             Defender.takeDamage
               (Attacker.pokemon attacker)
               (Attacker.move attacker)
               defender)
-        else (attacker, defender)
+          else return (attacker, defender)
       doTick (attacker, defender) =
         return $ (Attacker.tick attacker, Defender.tick defender)
       makeMove (attacker, defender) = 

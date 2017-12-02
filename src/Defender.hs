@@ -11,12 +11,16 @@ module Defender (
   makeMove,
 ) where
 
+import           Action (Action (Action))
 import qualified Pokemon
 import           Pokemon (Pokemon)
 import qualified Move
 import           Move (Move)
 
+import qualified Control.Monad.Writer as Writer
+import           Control.Monad.Writer (Writer)
 import qualified System.Random as Random
+import qualified Text.Printf as Printf
 
 import qualified Debug as D
 
@@ -105,14 +109,17 @@ makeMove' this =
        rnd = rnd'
        }
 
-takeDamage :: Pokemon -> Move -> Defender -> Defender
-takeDamage pokemon move this =
+takeDamage :: Pokemon -> Move -> Defender -> Writer [Action] Defender
+takeDamage pokemon move this = do
   let damageDone = damage move pokemon (Defender.pokemon this)
-  in this {
-       hp = Defender.hp this - damageDone,
-       energy = minimum [100,
-         Defender.energy this + (damageDone + 1) `div` 2]
-       }
+      format = Printf.printf "Defender takes %d damage: hp = %d, energy = %d"
+      result = this {
+        hp = Defender.hp this - damageDone,
+        energy = minimum [100, Defender.energy this + (damageDone + 1) `div` 2]
+        }
+  Writer.tell [Action (format damageDone (Defender.hp result)
+    (Defender.energy result))]
+  return result
 
 useEnergy :: Defender -> Defender
 useEnergy this =
