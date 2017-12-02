@@ -75,8 +75,8 @@ main =
               Battle.runBattle $ Battle.init rnd attacker defender |
             attacker <- attackers, defender <- defenders]
 
-      putStrLn "I had a little froggy."
-      putStrLn $ show $ head battles
+      let (battle, actions) = head battles
+      mapM_ (putStrLn . show) actions
     )
     $ \ex -> I.hPutStrLn I.stderr ex
 
