@@ -73,15 +73,17 @@ makeMove' :: Attacker -> Writer [Action] Attacker
 makeMove' this = do
   let quick = Attacker.quick this
       charge = Attacker.charge this
-      move':moves' = case Attacker.moves this of
-        [] ->
-          if Attacker.energy this >= negate (Move.energy charge)
-            -- Do an extra quick move to simulate delayed player reaction
-            -- to the flashing charge bars.
-            then [quick, charge]
-            else [quick]
-        val -> val
-      -- If it's a quick move, its energy is available immediately.
+  move':moves' <- case Attacker.moves this of
+    [] ->
+      if Attacker.energy this >= negate (Move.energy charge)
+        -- Do an extra quick move to simulate delayed player reaction
+        -- to the flashing charge bars.
+        then do
+          Writer.tell [Action ("Attacker can use " ++ Move.name charge)]
+          return [quick, charge]
+        else return [quick]
+    val -> return val
+  let -- If it's a quick move, its energy is available immediately.
       -- Charge move energy is subtracted at damageWindowStart.
       energy' = if Move.isQuick move'
         then minimum [100, Attacker.energy this + Move.energy move']
