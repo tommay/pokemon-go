@@ -6,6 +6,7 @@ module Battle (
   damageInflicted
 ) where
 
+import           Action (Action (Action))
 import qualified Attacker
 import           Attacker (Attacker)
 import qualified Defender
@@ -26,12 +27,6 @@ data Battle = Battle {
   defender :: Defender,
   timer :: Int,
   initialDefenderHp :: Int
-} deriving (Show)
-
-data Action = Action {
-  clock :: Int,
-  what :: String,
-  after :: Battle
 } deriving (Show)
 
 battleDuration = 100 * 1000
@@ -76,18 +71,18 @@ attackerFainted =
 
 tick :: Battle -> Writer [Action] Battle
 tick this = do
+  Writer.tell [Action (timer this) "Clock tick"]
   let blah1 :: (Attacker, Defender) -> Writer [Action] (Attacker, Defender)
       blah1 (attacker, defender) =
         if Defender.damageWindow defender == 0
           then do
-            let result = (
-                  Attacker.takeDamage
-                    (Defender.pokemon defender)
-                    (Defender.move defender)
-                    attacker,
-                  Defender.useEnergy defender)
-            Writer.tell $ [Action (timer this) "Attacker takes damage" this]
-            return result
+            Writer.tell [Action (timer this) "Attacker takes damage"]
+            return (
+              Attacker.takeDamage
+                (Defender.pokemon defender)
+                (Defender.move defender)
+                attacker,
+              Defender.useEnergy defender)
           else return (attacker, defender)
       blah2 (attacker, defender) =
         return $ if Attacker.damageWindow attacker == 0
@@ -108,10 +103,8 @@ tick this = do
   pair <- blah2 pair
   pair <- makeMove pair
   let (attacker, defender) = pair
-      result = this {
-        attacker = attacker,
-        defender = defender,
-        timer = Battle.timer this - 10
-        }
-  Writer.tell [Action (timer this) "Clock tick" result]
-  return result
+  return $ this {
+    attacker = attacker,
+    defender = defender,
+    timer = Battle.timer this - 10
+    }
