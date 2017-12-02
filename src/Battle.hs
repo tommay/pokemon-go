@@ -89,8 +89,8 @@ tick this = do
           else return (attacker, defender)
       blah2 (attacker, defender) =
         if Attacker.damageWindow attacker == 0
-          then sequencePair
-            (return $ Attacker.useEnergy attacker,
+          then sequencePair (
+            Attacker.useEnergy attacker,
             Defender.takeDamage
               (Attacker.pokemon attacker)
               (Attacker.move attacker)
