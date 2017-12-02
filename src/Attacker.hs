@@ -11,10 +11,15 @@ module Attacker (
   fainted,
 ) where
 
+import           Action (Action (Action))
 import qualified Pokemon
 import           Pokemon (Pokemon)
 import qualified Move
 import           Move (Move)
+
+import qualified Control.Monad.Writer as Writer
+import           Control.Monad.Writer (Writer)
+import qualified Text.Printf as Printf
 
 data Attacker = Attacker {
   pokemon :: Pokemon,
@@ -93,14 +98,17 @@ makeMove' this =
        damageWindow = damageWindow'
        }
 
-takeDamage :: Pokemon -> Move -> Attacker -> Attacker
-takeDamage pokemon move this =
+takeDamage :: Pokemon -> Move -> Attacker -> Writer [Action] Attacker
+takeDamage pokemon move this = do
   let damageDone = damage move pokemon (Attacker.pokemon this)
-  in this {
-       hp = Attacker.hp this - damageDone,
-       energy = minimum [100,
-         Attacker.energy this + (damageDone + 1) `div` 2]
-       }
+      format = Printf.printf "Attacker takes %d damage: hp = %d, energy = %d"
+      result = this {
+        hp = Attacker.hp this - damageDone,
+        energy = minimum [100, Attacker.energy this + (damageDone + 1) `div` 2]
+        }
+  Writer.tell [Action (format damageDone (Attacker.hp result)
+    (Attacker.energy result))]
+  return result
 
 useEnergy :: Attacker -> Attacker
 useEnergy this =

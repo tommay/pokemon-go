@@ -71,18 +71,21 @@ attackerFainted =
 
 tick :: Battle -> Writer [Action] Battle
 tick this = do
-  Writer.tell [Action (timer this) "Clock tick"]
+  let sequencePair :: (Writer [Action] Attacker, Writer [Action] Defender) ->
+                        Writer [Action] (Attacker, Defender)
+      sequencePair (attackerWriter, defenderWriter) = do
+        attacker <- attackerWriter
+        defender <- defenderWriter
+        return (attacker, defender)
   let blah1 :: (Attacker, Defender) -> Writer [Action] (Attacker, Defender)
       blah1 (attacker, defender) =
         if Defender.damageWindow defender == 0
-          then do
-            Writer.tell [Action (timer this) "Attacker takes damage"]
-            return (
-              Attacker.takeDamage
-                (Defender.pokemon defender)
-                (Defender.move defender)
-                attacker,
-              Defender.useEnergy defender)
+          then sequencePair
+            (Attacker.takeDamage
+              (Defender.pokemon defender)
+              (Defender.move defender)
+              attacker,
+            return $ Defender.useEnergy defender)
           else return (attacker, defender)
       blah2 (attacker, defender) =
         return $ if Attacker.damageWindow attacker == 0
