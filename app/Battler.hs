@@ -6,6 +6,7 @@ import qualified Options.Applicative as O
 import           Options.Applicative ((<|>), (<**>))
 import           Data.Semigroup ((<>))
 
+import qualified Action
 import qualified Attacker
 import           Attacker (Attacker)
 import qualified Battle
@@ -76,7 +77,7 @@ main =
             attacker <- attackers, defender <- defenders]
 
       let (battle, actions) = head battles
-      mapM_ (putStrLn . show) actions
+      mapM_ (putStrLn . Action.what) actions
     )
     $ \ex -> I.hPutStrLn I.stderr ex
 
