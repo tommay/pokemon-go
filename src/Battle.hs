@@ -74,7 +74,7 @@ attackerFainted =
 addOuch :: Writer [Action] a -> Writer [Action] a
 addOuch m =
   Writer.pass $ do
-    (a, log) <- Writer.listen m
+    a <- m
     return (a, map (\w ->
       Action (Action.what w ++ ", ouch!")))
 
