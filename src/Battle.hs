@@ -6,6 +6,7 @@ module Battle (
   damageInflicted
 ) where
 
+import qualified Action
 import           Action (Action (Action))
 import qualified Attacker
 import           Attacker (Attacker)
@@ -76,10 +77,13 @@ tick this = do
       blah1 (attacker, defender) =
         if Defender.damageWindow defender == 0
           then Tuple.sequenceT (
-            Attacker.takeDamage
-              (Defender.pokemon defender)
-              (Defender.move defender)
-              attacker,
+            Writer.pass $ do
+              (attacker', log) <- Writer.listen $ Attacker.takeDamage
+                (Defender.pokemon defender)
+                (Defender.move defender)
+                attacker
+              return (attacker', map (\a ->
+                Action (Action.what a ++ ", ouch!"))),
             Defender.useEnergy defender)
           else return (attacker, defender)
       blah2 (attacker, defender) =
