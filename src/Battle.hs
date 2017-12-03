@@ -2,6 +2,8 @@ module Battle (
   Battle,
   Battle.init,
   runBattle,
+  attacker,
+  defender,
   dps,
   damageInflicted
 ) where

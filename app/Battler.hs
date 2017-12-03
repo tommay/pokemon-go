@@ -41,7 +41,6 @@ import qualified Text.Printf as Printf
 --import qualified Text.Regex as Regex
 
 data Options = Options {
-  attacker :: String,
   defender :: String
 }
 
@@ -49,8 +48,7 @@ defaultLevel = 20
 
 getOptions :: IO Options
 getOptions = do
-  let opts = Options <$> optAttacker <*> optDefender
-      optAttacker = O.argument O.str (O.metavar "ATTACKER")
+  let opts = Options <$> optDefender
       optDefender = O.argument O.str (O.metavar "DEFENDER")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
@@ -67,19 +65,52 @@ main =
         ioGameMaster <- GameMaster.load "GAME_MASTER.yaml"
         ioGameMaster
 
-      attackers <- makeWithAllMovesetsFromSpecies gameMaster (attacker options)
       defenders <- makeWithAllMovesetsFromSpecies gameMaster (defender options)
+
+      let level = 20
+          attackers = take 50 $
+            concat $ map (makeWithAllMovesetsFromBase gameMaster level)
+              (GameMaster.allPokemonBases gameMaster)
 
       let rnd = Random.mkStdGen 23
 
       let battles = [Writer.runWriter $
               Battle.runBattle $ Battle.init rnd attacker defender |
-            attacker <- attackers, defender <- defenders]
+            defender <- defenders, attacker <- attackers]
+          battles' = map fst battles
+          sorted = reverse $
+            List.sortBy (compareWith Battle.damageInflicted) battles'
 
-      let (battle, actions) = head battles
-      mapM_ (putStrLn . Action.what) actions
+      mapM_ (putStrLn . showBattle) sorted
     )
     $ \ex -> I.hPutStrLn I.stderr ex
+
+{-
+gyarados quick/charge defends against
+  order by damage inflicted
+  pidgey quick/charge dps damage inflicted
+  pidgey quick/charge dps damage inflicted
+  caterpie quick/charge dps damage inflicted
+  caterpie quick/charge dps damage inflicted
+-}
+
+showBattle :: Battle -> String
+showBattle this =
+  let defender = showPokemon $ Defender.pokemon $ Battle.defender this
+      attacker = showPokemon $ Attacker.pokemon $ Battle.attacker this
+      dps = Battle.dps this
+      damageInflicted = Battle.damageInflicted this
+  in Printf.printf "%-35s %-35s: %.1f %d" defender attacker dps damageInflicted
+
+showPokemon :: Pokemon -> String
+showPokemon pokemon =
+  Printf.printf "%s %s / %s" (Pokemon.species pokemon)
+    (Move.name $ Pokemon.quick pokemon)
+    (Move.name $ Pokemon.charge pokemon)
+
+compareWith :: Ord b => (a -> b) -> a -> a -> Ordering
+compareWith f first second =
+  f first `compare` f second
 
 makeWithAllMovesetsFromSpecies :: Epic.MonadCatch m =>
     GameMaster -> String -> m [Pokemon]
