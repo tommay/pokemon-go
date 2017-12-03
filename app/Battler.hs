@@ -18,6 +18,7 @@ import qualified GameMaster
 import           GameMaster (GameMaster)
 import qualified Move
 import           Move (Move)
+import qualified Mythical
 import qualified MyPokemon
 import           MyPokemon (MyPokemon)
 import qualified Mythical
@@ -67,10 +68,15 @@ main =
 
       defenders <- makeWithAllMovesetsFromSpecies gameMaster (defender options)
 
-      let level = 20
-          attackers = take 50 $
-            concat $ map (makeWithAllMovesetsFromBase gameMaster level)
-              (GameMaster.allPokemonBases gameMaster)
+      attackers <- do
+        mythicalMap <- do
+          ioMythicalMap <- Mythical.load "mythical.yaml"
+          ioMythicalMap
+        let notMythical = not . Mythical.isMythical mythicalMap . PokemonBase.species
+            level = 20
+        return $ take 50 $
+          concat $ map (makeWithAllMovesetsFromBase gameMaster level)
+            $ filter notMythical (GameMaster.allPokemonBases gameMaster)
 
       let rnd = Random.mkStdGen 23
 
