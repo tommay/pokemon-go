@@ -18,6 +18,7 @@ import qualified Control.Monad.Loops as Loops
 import qualified Control.Monad.Writer as Writer
 import           Control.Monad.Writer (Writer)
 import qualified Data.List as List
+import qualified Data.Tuple.Sequence as Tuple
 import qualified System.Random as Random
 
 import qualified Debug as D
@@ -71,17 +72,11 @@ attackerFainted =
 
 tick :: Battle -> Writer [Action] Battle
 tick this = do
-  let sequencePair :: (Writer [Action] Attacker, Writer [Action] Defender) ->
-                        Writer [Action] (Attacker, Defender)
-      sequencePair (attackerWriter, defenderWriter) = do
-        attacker <- attackerWriter
-        defender <- defenderWriter
-        return (attacker, defender)
   let blah1 :: (Attacker, Defender) -> Writer [Action] (Attacker, Defender)
       blah1 (attacker, defender) =
         if Defender.damageWindow defender == 0
-          then sequencePair
-            (Attacker.takeDamage
+          then Tuple.sequenceT (
+            Attacker.takeDamage
               (Defender.pokemon defender)
               (Defender.move defender)
               attacker,
@@ -89,7 +84,7 @@ tick this = do
           else return (attacker, defender)
       blah2 (attacker, defender) =
         if Attacker.damageWindow attacker == 0
-          then sequencePair (
+          then Tuple.sequenceT (
             Attacker.useEnergy attacker,
             Defender.takeDamage
               (Attacker.pokemon attacker)
@@ -99,7 +94,7 @@ tick this = do
       doTick (attacker, defender) =
         return $ (Attacker.tick attacker, Defender.tick defender)
       makeMove (attacker, defender) =
-        sequencePair (Attacker.makeMove attacker, Defender.makeMove defender)
+        Tuple.sequenceT (Attacker.makeMove attacker, Defender.makeMove defender)
       pair = (Battle.attacker this, Battle.defender this)
   pair <- doTick pair
   pair <- blah1 pair

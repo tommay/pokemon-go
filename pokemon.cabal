@@ -30,6 +30,7 @@ library
                      , random
                      , mtl
                      , monad-loops
+                     , tuple
   default-language:    Haskell2010
 
 executable counter-exe
