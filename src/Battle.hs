@@ -71,19 +71,23 @@ attackerFainted :: Battle -> Bool
 attackerFainted =
   Attacker.fainted . Battle.attacker
 
+addOuch :: Writer [Action] a -> Writer [Action] a
+addOuch m =
+  Writer.pass $ do
+    (a, log) <- Writer.listen m
+    return (a, map (\w ->
+      Action (Action.what w ++ ", ouch!")))
+
 tick :: Battle -> Writer [Action] Battle
 tick this = do
   let blah1 :: (Attacker, Defender) -> Writer [Action] (Attacker, Defender)
       blah1 (attacker, defender) =
         if Defender.damageWindow defender == 0
           then Tuple.sequenceT (
-            Writer.pass $ do
-              (attacker', log) <- Writer.listen $ Attacker.takeDamage
-                (Defender.pokemon defender)
-                (Defender.move defender)
-                attacker
-              return (attacker', map (\a ->
-                Action (Action.what a ++ ", ouch!"))),
+            addOuch $ Attacker.takeDamage
+              (Defender.pokemon defender)
+              (Defender.move defender)
+              attacker,
             Defender.useEnergy defender)
           else return (attacker, defender)
       blah2 (attacker, defender) =
