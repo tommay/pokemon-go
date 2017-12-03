@@ -71,12 +71,15 @@ attackerFainted :: Battle -> Bool
 attackerFainted =
   Attacker.fainted . Battle.attacker
 
-addOuch :: Writer [Action] a -> Writer [Action] a
-addOuch m =
-  Writer.pass $ do
-    a <- m
-    return (a, map (\w ->
-      Action (Action.what w ++ ", ouch!")))
+decorate :: (w -> u) -> Writer [w] a -> Writer [u] a
+decorate f m =
+  let (a, ws) = Writer.runWriter m
+      us = map f ws
+  in Writer.writer (a, us)
+
+addOuch :: Writer [String] a -> Writer [Action] a
+addOuch =
+  decorate (Action . (++ ", ouch!"))
 
 tick :: Battle -> Writer [Action] Battle
 tick this = do
