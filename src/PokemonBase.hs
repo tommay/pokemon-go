@@ -8,6 +8,7 @@ module PokemonBase (
   stamina,
   quickMoves,
   chargeMoves,
+  hasEvolutions,
 ) where
 
 import           Type (Type)
@@ -31,3 +32,6 @@ instance Show PokemonBase where
   show = species
 
 new = PokemonBase
+
+hasEvolutions :: PokemonBase -> Bool
+hasEvolutions this = (not . null) $ PokemonBase.evolutions this
