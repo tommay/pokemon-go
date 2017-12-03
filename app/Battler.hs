@@ -74,7 +74,7 @@ main =
           ioMythicalMap
         let notMythical = not . Mythical.isMythical mythicalMap . PokemonBase.species
             level = 20
-        return $ take 256 $
+        return $
           concat $ map (makeWithAllMovesetsFromBase gameMaster level)
             $ filter notMythical
             $ filter (not . PokemonBase.hasEvolutions)
