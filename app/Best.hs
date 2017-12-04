@@ -51,13 +51,17 @@ import           PokemonBase (PokemonBase)
 import qualified Type
 import           Type (Type)
 
+import qualified Data.Yaml.Builder as Builder
+import           Data.Yaml.Builder ((.=))
+
 import           Control.Applicative (optional, some)
 import qualified Control.Monad.Writer as Writer
 --import qualified Data.Attoparsec.Text as AP
 import qualified Data.List as List
 import qualified Data.Maybe as Maybe
 --import qualified Data.Set as Set
---import qualified Data.Text as Text
+import qualified Data.Text as Text
+import           Data.Text (Text)
 import qualified System.IO as I
 import qualified Text.Printf as Printf
 --import qualified Text.Regex as Regex
@@ -216,6 +220,22 @@ getAttackerResult defenders attacker =
        dps = Battle.dps minByDamage,
        maxDamage = maxDamage
        }
+
+(.==) :: (Builder.ToYaml a) => Text -> a -> [(Text, Builder.YamlBuilder)]
+label .== a =
+  [label .= a]
+
+instance Builder.ToYaml AttackerResult where
+  toYaml this =
+    Builder.mapping $ concat [
+      "defender" .== (Text.pack $ defender this),
+      "attacker" .== (Text.pack $ Pokemon.species $ pokemon this),
+      "quick" .== (Text.pack $ Move.name $ Pokemon.quick $ pokemon this),
+      "charge" .== (Text.pack $ Move.name $ Pokemon.charge $ pokemon this),
+      "dps" .== (dps this),
+      "minDamage" .== (minDamage this),
+      "maxDamage" .== (maxDamage this)
+    ]
 
 {-
 -- Results of a particular attacker species against all defender movesets.
