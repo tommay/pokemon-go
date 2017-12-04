@@ -84,6 +84,16 @@ executable battler-exe
                      , mtl
   default-language:    Haskell2010
 
+executable best-exe
+  hs-source-dirs:      app
+  main-is:             Best.hs
+  ghc-options:         -O2 -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base
+                     , pokemon
+                     , optparse-applicative
+                     , mtl
+  default-language:    Haskell2010
+
 executable mine-exe
   hs-source-dirs:      app
   main-is:             Mine.hs
