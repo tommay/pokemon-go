@@ -101,12 +101,24 @@ main =
       let attackerResults =
             [getAttackerResult defenders attacker | attacker <- attackers]
 
+      let highDps = keepHighDpsSpecies attackerResults
+
       let byDamage = reverse $
-            List.sortBy (compareWith minDamage) attackerResults
+            List.sortBy (compareWith minDamage) highDps
 
       mapM_ (putStrLn . showAttackerResult) byDamage
     )
     $ \ex -> I.hPutStrLn I.stderr ex
+
+keepHighDpsSpecies :: [AttackerResult] -> [AttackerResult]
+keepHighDpsSpecies attackerResults =
+  let sortedByDps = reverse $ List.sortBy (compareWith dps) attackerResults
+      cutoffDps = dps $ sortedByDps !! (length sortedByDps `div` 6)
+      highDps = filter (\ result -> dps result >= cutoffDps) attackerResults
+      resultSpecies = Pokemon.species . pokemon
+      keepSpecies = List.nub $ List.sort $ map resultSpecies highDps
+  in filter (\ result -> resultSpecies result `elem` keepSpecies)
+       attackerResults
 
 {-
 gyarados quick/charge defends against
