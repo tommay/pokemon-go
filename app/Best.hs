@@ -57,6 +57,7 @@ import           Data.Yaml.Builder ((.=))
 import           Control.Applicative (optional, some)
 import qualified Control.Monad.Writer as Writer
 --import qualified Data.Attoparsec.Text as AP
+import qualified Data.ByteString as B
 import qualified Data.List as List
 import qualified Data.Maybe as Maybe
 --import qualified Data.Set as Set
@@ -115,46 +116,9 @@ main =
       let attackerResults =
             [getAttackerResult defenders attacker | attacker <- attackers]
 
-      let highDps = keepHighDpsSpecies attackerResults
-
-      let byDamage = reverse $
-            List.sortBy (compareWith minDamage) highDps
-
-      mapM_ (putStrLn . showAttackerResult) byDamage
+      B.putStr $ Builder.toByteString attackerResults
     )
     $ \ex -> I.hPutStrLn I.stderr ex
-
-keepHighDpsSpecies :: [AttackerResult] -> [AttackerResult]
-keepHighDpsSpecies attackerResults =
-  let sortedByDps = reverse $ List.sortBy (compareWith dps) attackerResults
-      highDps = take (length sortedByDps `div` 6) sortedByDps
-      resultSpecies = Pokemon.species . pokemon
-      keepSpecies = List.nub $ List.sort $ map resultSpecies highDps
-  in filter (\ result -> resultSpecies result `elem` keepSpecies)
-       attackerResults
-
-{-
-gyarados quick/charge defends against
-  order by damage inflicted
-  pidgey quick/charge dps damage inflicted
-  pidgey quick/charge dps damage inflicted
-  caterpie quick/charge dps damage inflicted
-  caterpie quick/charge dps damage inflicted
--}
-
-showAttackerResult :: AttackerResult -> String
-showAttackerResult result =
-  let attacker = showPokemon $ pokemon $ result
-      minDamage' = minDamage result
-      dps' = dps result
-      maxDamage' = maxDamage result
-  in Printf.printf "%-35s %.1f %d - %d" attacker dps' minDamage' maxDamage'
-
-showPokemon :: Pokemon -> String
-showPokemon pokemon =
-  Printf.printf "%s %s / %s" (Pokemon.species pokemon)
-    (Move.name $ Pokemon.quick pokemon)
-    (Move.name $ Pokemon.charge pokemon)
 
 compareWith :: Ord b => (a -> b) -> a -> a -> Ordering
 compareWith f first second =
@@ -236,31 +200,3 @@ instance Builder.ToYaml AttackerResult where
       "minDamage" .== (minDamage this),
       "maxDamage" .== (maxDamage this)
     ]
-
-{-
--- Results of a particular attacker species against all defender movesets.
--- Really we want to know the moveset with the highest minDamage because
--- it's the lower bound
-
-data AttackerBaseResult = AttackerBaseResult {
-  pokemonBase :: PokemonBase,
-  attackerResults :: [AttackerResult],
-  minByDamage :: AttackerResult,
-  minDamage :: Int
-}
-
-getAttackerBaseResult :: GameMaster -> [Pokemon] -> PokemonBase -> AttackerBaseResult
-getAttackerBaseResult gameMaster defenders attackerBase =
-  let attackers =
-        makeWithAllMovesetsFromBase gameMaster defaultLevel attackerBase
-      attackerResults = [
-        getAttackerResult defenders attacker | attacker <- attackers]
-      minByDamage = List.minimumBy (compareWith minDamage) attackerResults
-      minDamage = AttackerResult.minDamage minByDamage
-  in AttackerBaseResult {
-    pokemonBase = attackerBase,
-    attackerResults = attackerResults,
-    minByDamage = minByDamage,
-    minDamage = minDamage
-    }
--}
