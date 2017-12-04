@@ -66,9 +66,13 @@ main =
 
       let attackerResults =
             [getAttackerResult defenders attacker |
-               defender <- take 6 $ defenders, attacker <- take 3 $ attackers]
+               defender <- defenders, attacker <- attackers]
 
-      B.putStr $ Builder.toByteString attackerResults
+      -- Using mapM_ to output the individual array elements instead
+      -- of writing the entire array allows the results to stream,
+      -- but requires some post processing to add the yaml array syntax.
+      mapM_ (B.putStr . Builder.toByteString) attackerResults
+      -- B.putStr $ Builder.toByteString attackerResults
     )
     $ \ex -> I.hPutStrLn I.stderr ex
 
