@@ -373,8 +373,8 @@ makeAllAttackersFromBase gameMaster level base =
           chargeMove
           base
   in [makeAttacker quickMove chargeMove |
-      quickMove <- PokemonBase.quickMoves base,
-      chargeMove <- PokemonBase.chargeMoves base]
+      (quickMove, chargeMove) <-
+        PokemonBase.moveSets base]
 
 makeSomeAttackers :: (Epic.MonadCatch m) => GameMaster -> [Attacker] -> Float -> m [Pokemon]
 makeSomeAttackers gameMaster attackers defaultLevel = do

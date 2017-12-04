@@ -144,5 +144,5 @@ makeWithAllMovesetsFromBase gameMaster level base =
           chargeMove
           base
   in [makeAttacker quickMove chargeMove |
-      quickMove <- PokemonBase.quickMoves base,
-      chargeMove <- PokemonBase.chargeMoves base]
+      (quickMove, chargeMove) <-
+        PokemonBase.moveSets base]

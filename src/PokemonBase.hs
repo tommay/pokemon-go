@@ -8,6 +8,7 @@ module PokemonBase (
   stamina,
   quickMoves,
   chargeMoves,
+  moveSets,
   hasEvolutions,
 ) where
 
@@ -32,6 +33,12 @@ instance Show PokemonBase where
   show = species
 
 new = PokemonBase
+
+moveSets :: PokemonBase -> [(Move, Move)]
+moveSets this =
+  [(quick, charge) |
+    quick <- PokemonBase.quickMoves this,
+    charge <- PokemonBase.chargeMoves this]
 
 hasEvolutions :: PokemonBase -> Bool
 hasEvolutions this = (not . null) $ PokemonBase.evolutions this
