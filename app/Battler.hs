@@ -120,8 +120,9 @@ gyarados quick/charge defends against
 showAttackerResult :: AttackerResult -> String
 showAttackerResult result =
   let attacker = showPokemon $ pokemon $ result
-      damage = minDamage result
-  in Printf.printf "%-35s %d" attacker damage
+      minDamage' = minDamage result
+      maxDamage' = maxDamage result
+  in Printf.printf "%-35s %d - %d" attacker minDamage' maxDamage'
 
 showBattle :: Battle -> String
 showBattle this =
@@ -175,7 +176,8 @@ data AttackerResult = AttackerResult {
   pokemon :: Pokemon,
   battles :: [Battle],
   minByDamage :: Battle,
-  minDamage :: Int
+  minDamage :: Int,
+  maxDamage :: Int
 }
 
 getAttackerResult :: [Pokemon] -> Pokemon -> AttackerResult
@@ -186,11 +188,15 @@ getAttackerResult defenders attacker =
       minByDamage =
         List.minimumBy (compareWith Battle.damageInflicted) battles
       minDamage = Battle.damageInflicted minByDamage
+      maxByDamage =
+        List.maximumBy (compareWith Battle.damageInflicted) battles
+      maxDamage = Battle.damageInflicted maxByDamage
   in AttackerResult {
        pokemon = attacker,
        battles = battles,
        minByDamage = minByDamage,
-       minDamage = minDamage
+       minDamage = minDamage,
+       maxDamage = maxDamage
        }
 
 {-
