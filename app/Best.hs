@@ -12,8 +12,15 @@
 -- How "good" is a given attacker apecies with a given movset?
 
 {-# LANGUAGE OverloadedStrings #-}
--- {-# LANGUAGE DuplicateRecordFields #-}
--- {-# LANGUAGE DisambiguateRecordFields #-}
+-- I think OverloadedRecordFieldsis what I really want but it's not
+-- fully implemented and therefore doesn't exist.  In the meantime,
+-- DuplicateRecordFields allows record fields to have the same name
+-- and automatically enabled DisambiguateRecordFields, but the
+-- disambiguation is not automatic and requires manually annotating
+-- uses which is not much better than just giving them distinct names.
+--{-# LANGUAGE OverloadedRecordFields #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE DisambiguateRecordFields #-}
 
 module Main where
 
@@ -58,7 +65,7 @@ import qualified Text.Printf as Printf
 defaultLevel = 20
 
 data Options = Options {
-  defender :: String
+  xdefender :: String
 }
 
 getOptions :: IO Options
@@ -80,7 +87,7 @@ main =
         ioGameMaster <- GameMaster.load "GAME_MASTER.yaml"
         ioGameMaster
 
-      defenders <- makeWithAllMovesetsFromSpecies gameMaster (defender options)
+      defenders <- makeWithAllMovesetsFromSpecies gameMaster (xdefender options)
 
       attackers <- do
         mythicalMap <- do
@@ -180,6 +187,7 @@ makeWithAllMovesetsFromBase gameMaster level base =
 -- matter what the defender's moveset is.
 
 data AttackerResult = AttackerResult {
+  defender :: String,
   pokemon :: Pokemon,
   battles :: [Battle],
   minByDamage :: Battle,
@@ -200,6 +208,7 @@ getAttackerResult defenders attacker =
         List.maximumBy (compareWith Battle.damageInflicted) battles
       maxDamage = Battle.damageInflicted maxByDamage
   in AttackerResult {
+       defender = Pokemon.species $ head defenders,
        pokemon = attacker,
        battles = battles,
        minByDamage = minByDamage,
