@@ -1,4 +1,19 @@
+-- What do I want to know?  The defender always has an unknown moveset
+-- so the answers will always come from AttackerResult which takes
+-- the worst case over all defender movesets.
+--
+-- What are the most effective species/moveset attackers?
+--   Sort [AttackerResult] by minDamage and take the top N.
+-- What are the top attackers regardless of moveset?
+
+-- For a given attacker, what is it most effective against?
+-- For a given attacker/movsset, what is it most effective against?
+-- How "good" is a given attacker apecies?
+-- How "good" is a given attacker apecies with a given movset?
+
 {-# LANGUAGE OverloadedStrings #-}
+-- {-# LANGUAGE DuplicateRecordFields #-}
+-- {-# LANGUAGE DisambiguateRecordFields #-}
 
 module Main where
 
@@ -37,15 +52,14 @@ import qualified Data.Maybe as Maybe
 --import qualified Data.Set as Set
 --import qualified Data.Text as Text
 import qualified System.IO as I
-import qualified System.Random as Random
 import qualified Text.Printf as Printf
 --import qualified Text.Regex as Regex
+
+defaultLevel = 20
 
 data Options = Options {
   defender :: String
 }
-
-defaultLevel = 20
 
 getOptions :: IO Options
 getOptions = do
@@ -72,24 +86,25 @@ main =
         mythicalMap <- do
           ioMythicalMap <- Mythical.load "mythical.yaml"
           ioMythicalMap
-        let notMythical = not . Mythical.isMythical mythicalMap . PokemonBase.species
-            level = 20
-        return $
-          concat $ map (makeWithAllMovesetsFromBase gameMaster level)
-            $ filter notMythical
-            $ filter (not . PokemonBase.hasEvolutions)
-                (GameMaster.allPokemonBases gameMaster)
+        let notMythical =
+              not . Mythical.isMythical mythicalMap . PokemonBase.species
+            allBases = GameMaster.allPokemonBases gameMaster
+            attackerBases =
+                filter notMythical
+              $ filter (not . PokemonBase.hasEvolutions)
+              allBases
+            attackers = concat $ map
+              (makeWithAllMovesetsFromBase gameMaster defaultLevel)
+              attackerBases
+        return attackers
 
-      let rnd = Random.mkStdGen 23
+      let attackerResults =
+            [getAttackerResult defenders attacker | attacker <- attackers]
 
-      let battles = [Writer.runWriter $
-              Battle.runBattle $ Battle.init rnd attacker defender |
-            defender <- defenders, attacker <- attackers]
-          battles' = map fst battles
-          sorted = reverse $
-            List.sortBy (compareWith Battle.damageInflicted) battles'
+      let byDamage = reverse $
+            List.sortBy (compareWith minDamage) attackerResults
 
-      mapM_ (putStrLn . showBattle) sorted
+      mapM_ (putStrLn . showAttackerResult) byDamage
     )
     $ \ex -> I.hPutStrLn I.stderr ex
 
@@ -101,6 +116,12 @@ gyarados quick/charge defends against
   caterpie quick/charge dps damage inflicted
   caterpie quick/charge dps damage inflicted
 -}
+
+showAttackerResult :: AttackerResult -> String
+showAttackerResult result =
+  let attacker = showPokemon $ pokemon $ result
+      damage = minDamage result
+  in Printf.printf "%-35s %d" attacker damage
 
 showBattle :: Battle -> String
 showBattle this =
@@ -124,8 +145,7 @@ makeWithAllMovesetsFromSpecies :: Epic.MonadCatch m =>
     GameMaster -> String -> m [Pokemon]
 makeWithAllMovesetsFromSpecies gameMaster species = do
   base <- GameMaster.getPokemonBase gameMaster species
-  let level = 20
-  return $ makeWithAllMovesetsFromBase gameMaster level base
+  return $ makeWithAllMovesetsFromBase gameMaster defaultLevel base
 
 makeWithAllMovesetsFromBase :: GameMaster -> Float -> PokemonBase -> [Pokemon]
 makeWithAllMovesetsFromBase gameMaster level base =
@@ -146,3 +166,57 @@ makeWithAllMovesetsFromBase gameMaster level base =
   in [makeAttacker quickMove chargeMove |
       (quickMove, chargeMove) <-
         PokemonBase.moveSets base]
+
+-- Results of a particular attacker/moveset against all defender
+-- movesets.  The pokemon is expected to score at least minDamage no
+-- matter what the defender's moveset is.
+
+data AttackerResult = AttackerResult {
+  pokemon :: Pokemon,
+  battles :: [Battle],
+  minByDamage :: Battle,
+  minDamage :: Int
+}
+
+getAttackerResult :: [Pokemon] -> Pokemon -> AttackerResult
+getAttackerResult defenders attacker =
+  let battleWriters = [Battle.runBattle $ Battle.init attacker defender |
+        defender <- defenders]
+      battles = map (fst . Writer.runWriter) battleWriters
+      minByDamage =
+        List.minimumBy (compareWith Battle.damageInflicted) battles
+      minDamage = Battle.damageInflicted minByDamage
+  in AttackerResult {
+       pokemon = attacker,
+       battles = battles,
+       minByDamage = minByDamage,
+       minDamage = minDamage
+       }
+
+{-
+-- Results of a particular attacker species against all defender movesets.
+-- Really we want to know the moveset with the highest minDamage because
+-- it's the lower bound
+
+data AttackerBaseResult = AttackerBaseResult {
+  pokemonBase :: PokemonBase,
+  attackerResults :: [AttackerResult],
+  minByDamage :: AttackerResult,
+  minDamage :: Int
+}
+
+getAttackerBaseResult :: GameMaster -> [Pokemon] -> PokemonBase -> AttackerBaseResult
+getAttackerBaseResult gameMaster defenders attackerBase =
+  let attackers =
+        makeWithAllMovesetsFromBase gameMaster defaultLevel attackerBase
+      attackerResults = [
+        getAttackerResult defenders attacker | attacker <- attackers]
+      minByDamage = List.minimumBy (compareWith minDamage) attackerResults
+      minDamage = AttackerResult.minDamage minByDamage
+  in AttackerBaseResult {
+    pokemonBase = attackerBase,
+    attackerResults = attackerResults,
+    minByDamage = minByDamage,
+    minDamage = minDamage
+    }
+-}

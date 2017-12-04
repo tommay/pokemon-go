@@ -35,14 +35,15 @@ data Battle = Battle {
 
 battleDuration = 100 * 1000
 
-init :: Random.StdGen -> Pokemon -> Pokemon -> Battle
-init rnd attacker defender =
-  Battle {
-    attacker = Attacker.init attacker,
-    defender = Defender.init rnd defender,
-    timer = battleDuration,
-    initialDefenderHp = Pokemon.hp defender * 2
-    }
+init :: Pokemon -> Pokemon -> Battle
+init attacker defender =
+  let rnd = Random.mkStdGen 23
+  in Battle {
+       attacker = Attacker.init attacker,
+       defender = Defender.init rnd defender,
+       timer = battleDuration,
+       initialDefenderHp = Pokemon.hp defender * 2
+       }
 
 -- Given an initial Battle state, run a battle and return the final state
 -- when Battle.finished is true.
