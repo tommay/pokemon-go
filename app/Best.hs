@@ -68,6 +68,8 @@ main =
             [getAttackerResult defenders attacker |
                defender <- defenders, attacker <- attackers]
 
+      I.hSetBuffering I.stdout I.NoBuffering
+
       -- Using mapM_ to output the individual array elements instead
       -- of writing the entire array allows the results to stream,
       -- but requires some post processing to add the yaml array syntax.
