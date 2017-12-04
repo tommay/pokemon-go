@@ -121,16 +121,9 @@ showAttackerResult :: AttackerResult -> String
 showAttackerResult result =
   let attacker = showPokemon $ pokemon $ result
       minDamage' = minDamage result
+      dps' = dps result
       maxDamage' = maxDamage result
-  in Printf.printf "%-35s %d - %d" attacker minDamage' maxDamage'
-
-showBattle :: Battle -> String
-showBattle this =
-  let defender = showPokemon $ Defender.pokemon $ Battle.defender this
-      attacker = showPokemon $ Attacker.pokemon $ Battle.attacker this
-      dps = Battle.dps this
-      damageInflicted = Battle.damageInflicted this
-  in Printf.printf "%-35s %-35s: %.1f %d" defender attacker dps damageInflicted
+  in Printf.printf "%-35s %.1f %d - %d" attacker dps' minDamage' maxDamage'
 
 showPokemon :: Pokemon -> String
 showPokemon pokemon =
@@ -177,6 +170,7 @@ data AttackerResult = AttackerResult {
   battles :: [Battle],
   minByDamage :: Battle,
   minDamage :: Int,
+  dps       :: Float,
   maxDamage :: Int
 }
 
@@ -196,6 +190,7 @@ getAttackerResult defenders attacker =
        battles = battles,
        minByDamage = minByDamage,
        minDamage = minDamage,
+       dps = Battle.dps minByDamage,
        maxDamage = maxDamage
        }
 
