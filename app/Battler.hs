@@ -88,9 +88,12 @@ main =
           ioMythicalMap
         let notMythical =
               not . Mythical.isMythical mythicalMap . PokemonBase.species
+            notLegendary =
+              not . Mythical.isLegendary mythicalMap . PokemonBase.species
             allBases = GameMaster.allPokemonBases gameMaster
             attackerBases =
                 filter notMythical
+              $ filter notLegendary
               $ filter (not . PokemonBase.hasEvolutions)
               allBases
             attackers = concat $ map
