@@ -45,15 +45,6 @@ main =
 
       let allBases = GameMaster.allPokemonBases gameMaster
 
-      let defenders =
-            let defenderBases =
-                    filter notMythical
-                  $ filter (not . PokemonBase.hasEvolutions)
-                  allBases
-            in concat $ map
-                 (makeWithAllMovesetsFromBase gameMaster defaultLevel)
-                 defenderBases
-
       let attackers =
             let attackerBases =
                     filter notMythical
@@ -64,9 +55,16 @@ main =
                  (makeWithAllMovesetsFromBase gameMaster defaultLevel)
                  attackerBases
 
-      let attackerResults =
-            [getAttackerResult defenders attacker |
-               defender <- defenders, attacker <- attackers]
+      let defenderBases =
+              filter notMythical
+            $ filter (not . PokemonBase.hasEvolutions)
+            allBases
+
+      let defenderSets =
+            map (makeWithAllMovesetsFromBase gameMaster defaultLevel) defenderBases
+
+      let attackerResults = [getAttackerResult defenders attacker |
+            defenders <- defenderSets, attacker <- attackers]
 
       I.hSetBuffering I.stdout I.NoBuffering
 
