@@ -84,9 +84,9 @@ executable battler-exe
                      , mtl
   default-language:    Haskell2010
 
-executable best-exe
+executable attackerresults-exe
   hs-source-dirs:      app
-  main-is:             Best.hs
+  main-is:             AttackerResults.hs
   ghc-options:         -O2 -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
                      , pokemon
