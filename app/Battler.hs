@@ -113,8 +113,7 @@ main =
 keepHighDpsSpecies :: [AttackerResult] -> [AttackerResult]
 keepHighDpsSpecies attackerResults =
   let sortedByDps = reverse $ List.sortBy (compareWith dps) attackerResults
-      cutoffDps = dps $ sortedByDps !! (length sortedByDps `div` 6)
-      highDps = filter (\ result -> dps result >= cutoffDps) attackerResults
+      highDps = take (length sortedByDps `div` 6) sortedByDps
       resultSpecies = Pokemon.species . pokemon
       keepSpecies = List.nub $ List.sort $ map resultSpecies highDps
   in filter (\ result -> resultSpecies result `elem` keepSpecies)
