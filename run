@@ -1,0 +1,4 @@
+#!/usr/bin/sh
+
+name="${0##*/}"
+exec stack exec ${name}-exe -- "$@"

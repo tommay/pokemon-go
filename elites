@@ -1,3 +1,1 @@
-#!/usr/bin/sh
-
-exec stack exec elites-exe -- "$@"
+run
