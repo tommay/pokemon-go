@@ -260,9 +260,9 @@ marshtomp: mythical
 swampert: mythical
 poochyena: mythical
 mightyena: mythical
-zigzagoon: mythical
-linoone: mythical
-wurmple: mythical
+zigzagoon:
+linoone:
+wurmple:
 silcoon: mythical
 beautifly: mythical
 cascoon: mythical
@@ -270,8 +270,8 @@ dustox: mythical
 lotad: mythical
 lombre: mythical
 ludicolo: mythical
-seedot: mythical
-nuzleaf: mythical
+seedot:
+nuzleaf:
 shiftry: mythical
 taillow: mythical
 swellow: mythical
@@ -282,7 +282,7 @@ kirlia: mythical
 gardevoir: mythical
 surskit: mythical
 masquerain: mythical
-shroomish: mythical
+shroomish:
 breloom: mythical
 slakoth: mythical
 vigoroth: mythical
@@ -293,14 +293,14 @@ shedinja: mythical
 whismur: mythical
 loudred: mythical
 exploud: mythical
-makuhita: mythical
+makuhita:
 hariyama: mythical
 azurill: mythical
 nosepass: mythical
-skitty: mythical
-delcatty: mythical
+skitty:
+delcatty:
 sableye: 
-mawile: mythical
+mawile: 
 aron: mythical
 lairon: mythical
 aggron: mythical
@@ -313,7 +313,7 @@ minun: mythical
 volbeat: mythical
 illumise: mythical
 roselia: mythical
-gulpin: mythical
+gulpin:
 swalot: mythical
 carvanha: mythical
 sharpedo: mythical
