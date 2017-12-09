@@ -17,7 +17,7 @@ library
   hs-source-dirs:      src
   exposed-modules:     MyPokemon, GameMaster, PokemonBase, Epic, Move, Type, Pokemon,
                        BattleState, Appraisal, Stats, Calc, Mythical,
-                       Battle, Attacker, Defender, Debug, Action
+                       Battle, Attacker, Defender, Debug, Action, Matchup
   other-modules:       StringMap
   ghc-options:         -O2
   build-depends:       base >= 4.7 && < 5, yaml, vector, text,
@@ -84,9 +84,9 @@ executable battler-exe
                      , mtl
   default-language:    Haskell2010
 
-executable attackerresults-exe
+executable matchups-exe
   hs-source-dirs:      app
-  main-is:             AttackerResults.hs
+  main-is:             Matchups.hs
   ghc-options:         -O2 -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
                      , pokemon
@@ -103,7 +103,6 @@ executable elites-exe
   ghc-options:         -O2 -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
                      , pokemon
-                     , yaml
                      , unordered-containers
                      , hashable
   default-language:    Haskell2010
