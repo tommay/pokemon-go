@@ -51,7 +51,8 @@ main = Epic.catch (
   )
   $ \ex -> I.hPutStrLn I.stderr $ ex
 
-levels = [1..30]   -- maxEncounterPlayerLevel: 30, max catch level.
+levels = [1..40]  -- Catches can npw exceed maxEncounterPlayerLevel (30)
+                  -- depending on the weather.
 
 printAllLevels :: GameMaster -> PokemonBase -> IO ()
 printAllLevels gameMaster pokemonBase = do
