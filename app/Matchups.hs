@@ -14,6 +14,7 @@ import qualified Pokemon
 import           Pokemon (Pokemon)
 import qualified PokemonBase
 import           PokemonBase (PokemonBase)
+import qualified Util
 
 import qualified Data.Yaml.Builder as Builder
 import           Data.Yaml.Builder ((.=))
@@ -76,11 +77,6 @@ main =
     )
     $ \ex -> I.hPutStrLn I.stderr ex
 
-compareWith :: Ord b => (a -> b) -> a -> a -> Ordering
-compareWith f first second =
-  f first `compare` f second
-
-makeWithAllMovesetsFromBase :: GameMaster -> Float -> PokemonBase -> [Pokemon]
 makeWithAllMovesetsFromBase gameMaster level base =
   let cpMultiplier = GameMaster.getCpMultiplier gameMaster level
       makeStat baseStat = (fromIntegral baseStat + 11) * cpMultiplier
@@ -120,10 +116,10 @@ getAttackerResult defenders attacker =
         defender <- defenders]
       battles = map (fst . Writer.runWriter) battleWriters
       minByDamage =
-        List.minimumBy (compareWith Battle.damageInflicted) battles
+        List.minimumBy (Util.compareWith Battle.damageInflicted) battles
       minDamage = Battle.damageInflicted minByDamage
       maxByDamage =
-        List.maximumBy (compareWith Battle.damageInflicted) battles
+        List.maximumBy (Util.compareWith Battle.damageInflicted) battles
       maxDamage = Battle.damageInflicted maxByDamage
   in AttackerResult {
        defender = Pokemon.species $ head defenders,

@@ -3,6 +3,7 @@ module Main where
 import qualified Epic
 import qualified Matchup
 import           Matchup (Matchup)
+import qualified Util
 
 import qualified Data.HashMap.Strict as HashMap
 import           Data.HashMap.Strict (HashMap)
@@ -52,13 +53,9 @@ groupBy fn lst =
     HashMap.empty
     lst
 
-compareWith :: Ord b => (a -> b) -> a -> a -> Ordering
-compareWith f first second =
-  f first `compare` f second
-
 keepHighDpsMatchups :: [Matchup] -> [Matchup]
 keepHighDpsMatchups matchups =
-  let sortedByDps = reverse $ List.sortBy (compareWith Matchup.dps) matchups
+  let sortedByDps = reverse $ Util.sortWith Matchup.dps matchups
       dpsCutoff = Matchup.dps $ sortedByDps !! (length sortedByDps `div` 10)
   in filter ((>= dpsCutoff) . Matchup.dps) matchups
 

@@ -43,6 +43,7 @@ import qualified PokemonBase
 import           PokemonBase (PokemonBase)
 import qualified Type
 import           Type (Type)
+import qualified Util
 
 import           Control.Applicative (optional, some)
 import qualified Control.Monad.Writer as Writer
@@ -106,8 +107,7 @@ main =
 
       let highDps = keepHighDpsSpecies attackerResults
 
-      let byDamage = reverse $
-            List.sortBy (compareWith minDamage) highDps
+      let byDamage = reverse $ Util.sortWith minDamage highDps
 
       mapM_ (putStrLn . showAttackerResult) byDamage
     )
@@ -115,7 +115,7 @@ main =
 
 keepHighDpsSpecies :: [AttackerResult] -> [AttackerResult]
 keepHighDpsSpecies attackerResults =
-  let sortedByDps = reverse $ List.sortBy (compareWith dps) attackerResults
+  let sortedByDps = reverse $ Util.sortWith dps attackerResults
       highDps = take (length sortedByDps `div` 6) sortedByDps
       resultSpecies = Pokemon.species . pokemon
       keepSpecies = List.nub $ List.sort $ map resultSpecies highDps
@@ -144,10 +144,6 @@ showPokemon pokemon =
   Printf.printf "%s %s / %s" (Pokemon.species pokemon)
     (Move.name $ Pokemon.quick pokemon)
     (Move.name $ Pokemon.charge pokemon)
-
-compareWith :: Ord b => (a -> b) -> a -> a -> Ordering
-compareWith f first second =
-  f first `compare` f second
 
 makeWithAllMovesetsFromSpecies :: Epic.MonadCatch m =>
     GameMaster -> String -> m [Pokemon]
@@ -194,10 +190,10 @@ getAttackerResult defenders attacker =
         defender <- defenders]
       battles = map (fst . Writer.runWriter) battleWriters
       minByDamage =
-        List.minimumBy (compareWith Battle.damageInflicted) battles
+        List.minimumBy (Util.compareWith Battle.damageInflicted) battles
       minDamage = Battle.damageInflicted minByDamage
       maxByDamage =
-        List.maximumBy (compareWith Battle.damageInflicted) battles
+        List.maximumBy (Util.compareWith Battle.damageInflicted) battles
       maxDamage = Battle.damageInflicted maxByDamage
   in AttackerResult {
        pokemon = attacker,
@@ -226,7 +222,7 @@ getAttackerBaseResult gameMaster defenders attackerBase =
         makeWithAllMovesetsFromBase gameMaster defaultLevel attackerBase
       attackerResults = [
         getAttackerResult defenders attacker | attacker <- attackers]
-      minByDamage = List.minimumBy (compareWith minDamage) attackerResults
+      minByDamage = List.minimumBy (Util.compareWith minDamage) attackerResults
       minDamage = AttackerResult.minDamage minByDamage
   in AttackerBaseResult {
     pokemonBase = attackerBase,
