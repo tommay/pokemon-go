@@ -6,7 +6,7 @@ import qualified Options.Applicative as O
 import           Options.Applicative ((<|>), (<**>))
 import           Data.Semigroup ((<>))
 
-import qualified BattleState
+import qualified Battle
 import qualified Epic
 import qualified GameMaster
 import           GameMaster (GameMaster)
@@ -21,6 +21,7 @@ import qualified PokemonBase
 import           PokemonBase (PokemonBase)
 import qualified Type
 import           Type (Type)
+import qualified Util
 
 import           Control.Applicative (optional, some)
 import qualified Data.Attoparsec.Text as AP
@@ -36,7 +37,6 @@ data Options = Options {
   glass    :: Bool,
   dpsFilter :: Maybe Int,
   top      :: Maybe Int,
-  quick    :: Bool,
   level    :: Maybe Float,
   legendary :: Bool,
   attackerSource :: AttackerSource,
@@ -50,8 +50,15 @@ data AttackerSource =
   | AllAttackers
   | MovesetFor [Attacker]
 
+data Result = Result {
+  pokemon   :: Pokemon,
+  minDps       :: Float,
+  minDamage :: Int
+} deriving (Show)
+
 defaultFilename = "my_pokemon.yaml"
 defaultAttackerLevel = 20
+defenderLevel = 20
 
 parseAttacker :: O.ReadM Attacker
 parseAttacker = O.eitherReader $ \s ->
@@ -73,7 +80,7 @@ parseAttacker = O.eitherReader $ \s ->
 getOptions :: IO Options
 getOptions =
   let opts = Options <$> optGlass <*> optDpsFilter <*>
-        optTop <*> optQuick <*>
+        optTop <*>
         optLevel <*> optLegendary <*> optAttackerSource <*>
         optDefender
       optGlass = O.switch
@@ -94,10 +101,6 @@ getOptions =
         (  O.long "legendary"
         <> O.short 'L'
         <> O.help "Exclude legendaries when using -a")
-      optQuick = O.switch
-        (  O.long "quick"
-        <> O.short 'q'
-        <> O.help "Use quick moves only")
       optLevel = O.optional $ O.option O.auto
         (  O.long "level"
         <> O.short 'l'
@@ -138,16 +141,13 @@ main =
         ioGameMaster <- GameMaster.load "GAME_MASTER.yaml"
         ioGameMaster
 
-      -- XXX Replacing "defender" with "_" shows the compiler knows
-      -- defender must be Options -> String.  Too bad this needs a type
-      -- annotation to disambiguate.
-
-      defender <- do
+      defenderVariants <- do
         defenderBase <- GameMaster.getPokemonBase gameMaster $
           defender options
-        return $ makeDefenderFromBase gameMaster defenderBase
+        return $ makeWithAllMovesetsFromBase gameMaster defenderLevel
+          defenderBase
 
-      pokemon <- case attackerSource options of
+      attackers <- case attackerSource options of
         FromFile filename -> do
           myPokemon <- do
             ioMyPokemon <- MyPokemon.load filename
@@ -171,18 +171,17 @@ main =
                [] -> makeSomeAttackers gameMaster attackers (attackerLevel options)
                noSuchSpecies -> Epic.fail $ "No such species: " ++ (List.intercalate ", " noSuchSpecies)
 
-      let useCharge = not $ quick options
-          results = map (counter useCharge defender) pokemon
-          sortedByDps = List.reverse $ List.sortBy byDps results
+      let results = map (counter defenderVariants) attackers
+          sortedByDps = List.reverse $ Util.sortWith minDps results
           sorted = if glass options
             then sortedByDps
-            else List.reverse $ List.sortBy byExpecteds results
+            else List.reverse $ Util.sortWith minDamage results
           filtered = case dpsFilter options of
             Just n ->
-              let dpsCutoff = dps $ sortedByDps !! (length sortedByDps `div` n) 
+              let dpsCutoff = minDps $ sortedByDps !! (length sortedByDps `div` n) 
                   dpsCutoffNames = Set.fromList $
                     map (\r -> Pokemon.pname (Main.pokemon r)) $
-                    filter (\r -> dps r >= dpsCutoff) results
+                    filter (\r -> minDps r >= dpsCutoff) results
               in filter (\r -> Pokemon.pname (Main.pokemon r) `elem` dpsCutoffNames) sorted
             Nothing -> sorted
           nameFunc = case attackerSource options of
@@ -206,18 +205,8 @@ attackerLevel options =
 
 showResult :: (Pokemon -> String) -> Result -> String
 showResult nameFunc result =
-  let format = Printf.printf "%4.1f %-12s"
-  in format (dps result) (nameFunc $ pokemon result) ++ "   " ++
-       showExpecteds (expecteds result)
-
-showExpecteds :: [(String, Float)] -> String
-showExpecteds expecteds =
-  let format = Printf.printf "%s:%-3d %-6s"
-      stars n = replicate (floor $ n / 70) '*'
-  in List.intercalate " " $
-    map (\ (string, expected) ->
-          format string ((floor expected) :: Int) (stars expected))
-      expecteds
+  Printf.printf "%4.1f %5d  %s"
+    (minDps result) (minDamage result) (nameFunc $ pokemon result)
 
 nameName :: Pokemon -> String
 nameName pokemon =
@@ -234,11 +223,24 @@ nameSpeciesAndLevelAndMoveset pokemon =
        (Move.name $ Pokemon.quick pokemon)
        (Move.name $ Pokemon.charge pokemon)
 
-data Result = Result {
-  pokemon   :: Pokemon,
-  dps       :: Float,
-  expecteds :: [(String, Float)]
-} deriving (Show)
+makeWithAllMovesetsFromBase gameMaster level base =
+  let cpMultiplier = GameMaster.getCpMultiplier gameMaster level
+      makeStat baseStat = (fromIntegral baseStat + 11) * cpMultiplier
+      makePokemon quickMove chargeMove =
+        Pokemon.new
+          (PokemonBase.species base)
+          (PokemonBase.species base)
+          level
+          (PokemonBase.types base)
+          (makeStat $ PokemonBase.attack base)
+          (makeStat $ PokemonBase.defense base)
+          (makeStat $ PokemonBase.stamina base)
+          quickMove
+          chargeMove
+          base
+  in [makePokemon quickMove chargeMove |
+      (quickMove, chargeMove) <-
+        PokemonBase.moveSets base]
 
 makePokemon :: Epic.MonadCatch m => GameMaster -> Maybe Float -> MyPokemon -> m Pokemon
 makePokemon gameMaster maybeLevel myPokemon = do
@@ -282,74 +284,14 @@ makePokemon gameMaster maybeLevel myPokemon = do
 
   return $ Pokemon.new name species level types attack defense stamina quick charge base
 
-counter :: Bool -> Pokemon -> Pokemon -> Result
-counter useCharge defender attacker =
-  let dps = BattleState.calcDps attacker defender useCharge
-      expecteds = makeExpecteds dps defender attacker
-  in Result attacker dps expecteds
-
-makeExpecteds :: Float -> Pokemon -> Pokemon -> [(String, Float)]
-makeExpecteds dps defender attacker =
-  let moveTypes = sortMoveTypes defender $ getMoveTypes defender
-      expected moveType = dps * makeExpected defender attacker moveType
-  in map (\moveType -> (Type.name moveType, expected moveType))
-        moveTypes
-
-makeExpected :: Pokemon -> Pokemon -> Type -> Float
-makeExpected defender attacker moveType =
-  (fromIntegral $ Pokemon.hp attacker) *
-    (Pokemon.defense attacker) /
-    ((Type.stabFor moveType $ Pokemon.types defender) *
-     (Type.effectivenessAgainst moveType $ Pokemon.types attacker)) / 1000
-
-getSortedMoveTypes :: Pokemon -> [Type]
-getSortedMoveTypes pokemon =
-  sortMoveTypes pokemon $ getMoveTypes pokemon
-
-getMoveTypes :: Pokemon -> [Type]
-getMoveTypes pokemon =
-  List.nub $ map Move.moveType $ Pokemon.possibleMoves pokemon
-
--- Sort the move types so the ones with stab are at the front.
---
-sortMoveTypes :: Pokemon -> [Type] -> [Type]
-sortMoveTypes pokemon ptypes =
-  let pokemonTypes = Pokemon.types pokemon
-      hasStab ptype = ptype `elem` pokemonTypes
-      (stab, noStab) = List.partition hasStab ptypes
-  in stab ++ noStab
-
--- List.sortBy byDps results
--- reverse $ List.sortBy byDps results
--- (List.sortBy byDps) results
--- (reverse . List.sortBy byDps) results
--- reverse . List.sortBy byDps $ results
-
-byDps :: Result -> Result -> Ordering
-byDps first second =
-  (dps first) `compare` (dps second) 
-
-byExpecteds :: Result -> Result -> Ordering
-byExpecteds first second =
-  let min result = minimum $ map snd $ expecteds result
-  in min first `compare` min second
-
-makeDefenderFromBase :: GameMaster -> PokemonBase -> Pokemon
-makeDefenderFromBase gameMaster base =
-  let level = 20
-      cpMultiplier = GameMaster.getCpMultiplier gameMaster level
-      maxStat baseStat = (fromIntegral baseStat + 15) * cpMultiplier
-  in Pokemon.new
-    (PokemonBase.species base)
-    (PokemonBase.species base)
-    level
-    (PokemonBase.types base)
-    (maxStat $ PokemonBase.attack base)
-    (maxStat $ PokemonBase.defense base)
-    (maxStat $ PokemonBase.stamina base)
-    (List.head $ PokemonBase.quickMoves base)
-    (List.head $ PokemonBase.chargeMoves base)
-    base
+counter :: [Pokemon] -> Pokemon -> Result
+counter defenderVariants attacker =
+  let battles = [Battle.runBattleOnly $ Battle.init attacker defender |
+        defender <- defenderVariants]
+      getMinValue fn = fn . List.minimumBy (Util.compareWith fn)
+      minDamage = getMinValue Battle.damageInflicted battles
+      minDps = getMinValue Battle.dps battles
+  in Result attacker minDps minDamage
 
 allAttackers :: GameMaster -> Float -> [Pokemon]
 allAttackers gameMaster level =

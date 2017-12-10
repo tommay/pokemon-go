@@ -16,7 +16,7 @@ cabal-version:       >=1.10
 library
   hs-source-dirs:      src
   exposed-modules:     MyPokemon, GameMaster, PokemonBase, Epic, Move, Type, Pokemon,
-                       BattleState, Appraisal, Stats, Calc, Mythical,
+                       Appraisal, Stats, Calc, Mythical,
                        Battle, Attacker, Defender, Debug, Action, Matchup,
                        Util
   other-modules:       StringMap

@@ -2,6 +2,7 @@ module Battle (
   Battle,
   Battle.init,
   runBattle,
+  runBattleOnly,
   attacker,
   defender,
   dps,
@@ -51,6 +52,10 @@ init attacker defender =
 runBattle :: Battle -> Writer [Action] Battle
 runBattle =
   Loops.iterateUntilM Battle.attackerFainted Battle.tick
+
+runBattleOnly :: Battle -> Battle
+runBattleOnly =
+  fst . Writer.runWriter . runBattle
 
 -- XXX This is not quite right because there is some delay before the
 -- attacker's first move, so the dps only starts after the delay.
