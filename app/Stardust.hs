@@ -11,7 +11,7 @@ data Options = Options {
 }
 
 getOptions :: IO Options
-getOptions = do
+getOptions =
   let opts = Options <$> optLevel
       optLevel = O.option O.auto
         (  O.long "level"
@@ -25,7 +25,7 @@ getOptions = do
         <> O.progDesc "Show stardust costs to get to various levels."
         <> O.header "header - Show stardust costs to get to various levels.")
       prefs = O.prefs O.showHelpOnEmpty
-  O.customExecParser prefs options
+  in O.customExecParser prefs options
 
 main = do
   options <- getOptions

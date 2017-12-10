@@ -71,7 +71,7 @@ parseAttacker = O.eitherReader $ \s ->
     Right attacker -> Right attacker
 
 getOptions :: IO Options
-getOptions = do
+getOptions =
   let opts = Options <$> optGlass <*> optDpsFilter <*>
         optTop <*> optQuick <*>
         optLevel <*> optLegendary <*> optAttackerSource <*>
@@ -127,9 +127,9 @@ getOptions = do
         <> O.progDesc "Find good counters for a Pokemon."
         <> O.header "header - Find good counters for a Pokemon.")
       prefs = O.prefs O.showHelpOnEmpty
-  O.customExecParser prefs options
+  in O.customExecParser prefs options
 
-main = do
+main =
   Epic.catch (
     do
       options <- getOptions

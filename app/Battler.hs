@@ -63,14 +63,14 @@ data Options = Options {
 }
 
 getOptions :: IO Options
-getOptions = do
+getOptions =
   let opts = Options <$> optDefender
       optDefender = O.argument O.str (O.metavar "DEFENDER")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc "Battle some pokemon.")
       prefs = O.prefs O.showHelpOnEmpty
-  O.customExecParser prefs options
+  in O.customExecParser prefs options
 
 main =
   Epic.catch (

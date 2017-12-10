@@ -27,7 +27,7 @@ data Options = Options {
 }
 
 getOptions :: IO Options
-getOptions = do
+getOptions =
   let opts = Options <$> optNew <*> optFilename
       optNew = O.switch
         (  O.long "new"
@@ -39,7 +39,7 @@ getOptions = do
         <> O.progDesc "Calauate IVs for pokemon."
         <> O.header "header = Calauate IVs for pokemon.")
       prefs = O.prefs O.showHelpOnEmpty
-  O.customExecParser prefs options
+  in O.customExecParser prefs options
 
 main = Epic.catch (
   do

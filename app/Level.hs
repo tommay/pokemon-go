@@ -19,7 +19,7 @@ data Options = Options {
 }
 
 getOptions :: IO Options
-getOptions = do
+getOptions =
   let opts = Options <$> optCp <*> optSpecies
       optCp = O.optional $ O.option O.auto
         (  O.long "cp"
@@ -32,7 +32,7 @@ getOptions = do
         <> O.progDesc "Map levels to CP range for a species."
         <> O.header "Map levels to CP range for a species.")
       prefs = O.prefs O.showHelpOnEmpty
-  O.customExecParser prefs options
+  in O.customExecParser prefs options
 
 main = Epic.catch (
   do
