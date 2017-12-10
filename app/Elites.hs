@@ -7,7 +7,6 @@ import qualified Util
 
 import qualified Data.HashMap.Strict as HashMap
 import           Data.HashMap.Strict (HashMap)
-import           Data.Hashable (Hashable)
 import qualified Data.List as List
 import qualified System.IO as IO
 import qualified Text.Printf as Printf
@@ -20,14 +19,14 @@ main =
         ioMatchups
 
       let byDefender :: HashMap String [Matchup]
-          byDefender = groupBy Matchup.defender matchups
+          byDefender = Util.groupBy Matchup.defender matchups
 
       let eliteMatchups :: [Matchup]
           eliteMatchups = concat $ HashMap.elems $ HashMap.map
             (keepTopMatchups . keepHighDpsMatchups)
             byDefender
 
-      let eliteAttackers = groupBy attackerInfo eliteMatchups
+      let eliteAttackers = Util.groupBy attackerInfo eliteMatchups
 
       mapM_ (putStrLn . showElite) $ HashMap.toList eliteAttackers
     )
@@ -41,17 +40,6 @@ showElite ((attacker, quick, charge), matchups) =
 attackerInfo :: Matchup -> (String, String, String)
 attackerInfo matchup =
   (Matchup.attacker matchup, Matchup.quick matchup, Matchup.charge matchup)
-
--- There are a number of ways to implement something like this on
--- https://stackoverflow.com/questions/15412027/haskell-equivalent-to-scalas-groupby
--- Seems like there should be in a library somewhere.  It sure took a lot
--- of extraneous bookkeeping to get this little function building.
-
-groupBy :: (Hashable b, Eq b) => (a -> b) -> [a] -> HashMap b [a]
-groupBy fn lst =
-  foldr (\ v m -> HashMap.insertWith (++) (fn v) [v] m)
-    HashMap.empty
-    lst
 
 keepHighDpsMatchups :: [Matchup] -> [Matchup]
 keepHighDpsMatchups matchups =
