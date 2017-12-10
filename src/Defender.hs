@@ -9,6 +9,7 @@ module Defender (
   takeDamage,
   useEnergy,
   makeMove,
+  nextTick,
 ) where
 
 import           Action (Action (Action))
@@ -62,12 +63,16 @@ charge :: Defender -> Move
 charge this =
   Pokemon.charge $ Defender.pokemon this
 
-tick :: Defender -> Defender
-tick this =
+tick :: Int -> Defender -> Defender
+tick n this =
   this {
-    cooldown = Defender.cooldown this - 10,
-    damageWindow = Defender.damageWindow this - 10
+    cooldown = Defender.cooldown this - n,
+    damageWindow = Defender.damageWindow this - n
     }
+
+nextTick :: Defender -> Int
+nextTick this =
+  minimum $ filter (> 0) [Defender.cooldown this, Defender.damageWindow this]
 
 makeMove :: Defender -> Writer [Action] Defender
 makeMove this =

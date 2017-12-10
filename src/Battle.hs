@@ -110,12 +110,16 @@ tick this = do
               (Attacker.move attacker)
               defender)
           else return (attacker, defender)
-      doTick (attacker, defender) =
-        return $ (Attacker.tick attacker, Defender.tick defender)
+      doTick ticks (attacker, defender) =
+        return $ (Attacker.tick ticks attacker, Defender.tick ticks defender)
       makeMove (attacker, defender) =
         Tuple.sequenceT (Attacker.makeMove attacker, Defender.makeMove defender)
-      pair = (Battle.attacker this, Battle.defender this)
-  pair <- doTick pair
+      attacker = Battle.attacker this
+      defender =  Battle.defender this
+      pair = (attacker, defender)
+  let ticks = minimum $
+        [Attacker.nextTick attacker, Defender.nextTick defender]
+  pair <- doTick ticks pair
   pair <- blah1 pair
   pair <- blah2 pair
   pair <- makeMove pair
@@ -123,5 +127,5 @@ tick this = do
   return $ this {
     attacker = attacker,
     defender = defender,
-    timer = Battle.timer this - 10
+    timer = Battle.timer this - ticks
     }

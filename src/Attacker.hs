@@ -9,6 +9,7 @@ module Attacker (
   useEnergy,
   makeMove,
   fainted,
+  nextTick,
 ) where
 
 import           Action (Action (Action))
@@ -20,6 +21,8 @@ import           Move (Move)
 import qualified Control.Monad.Writer as Writer
 import           Control.Monad.Writer (Writer)
 import qualified Text.Printf as Printf
+
+import Debug as D
 
 data Attacker = Attacker {
   pokemon :: Pokemon,
@@ -56,12 +59,16 @@ charge :: Attacker -> Move
 charge this =
   Pokemon.charge $ Attacker.pokemon this
 
-tick :: Attacker -> Attacker
-tick this =
+tick :: Int -> Attacker -> Attacker
+tick n this =
   this {
-    cooldown = Attacker.cooldown this - 10,
-    damageWindow = Attacker.damageWindow this - 10
+    cooldown = Attacker.cooldown this - n,
+    damageWindow = Attacker.damageWindow this - n
     }
+
+nextTick :: Attacker -> Int
+nextTick this =
+  minimum $ filter (> 0) [Attacker.cooldown this, Attacker.damageWindow this]
 
 makeMove :: Attacker -> Writer [Action] Attacker
 makeMove this =
