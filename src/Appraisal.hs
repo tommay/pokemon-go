@@ -31,6 +31,7 @@ possibleIvs this =
     attack <- ivs, defense <- ivs, stamina <- ivs,
     ok this attack defense stamina]
 
+getSummary :: (Epic.MonadCatch m) => [String] -> m (Range Int)
 getSummary words
   | includes words ["not likely", "may not"] = return $ SpanRange 0 22
   | includes words ["above", "decent"] = return $ SpanRange 23 29
@@ -47,6 +48,7 @@ getBest words = do
     True -> return $ best
     False -> Epic.fail "Bad best IV in appraisal"
 
+getBestRange :: (Epic.MonadCatch m) => [String] -> m (Range Int)
 getBestRange words
   | includes words ["not out", "point"] = return $ SpanRange 0 7
   | includes words ["trending", "indicate"] = return $ SpanRange 8 12
