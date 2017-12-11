@@ -22,6 +22,7 @@ import           Data.Yaml.Builder ((.=))
 import qualified Control.Monad.Writer as Writer
 import qualified Data.ByteString as B
 import qualified Data.List as List
+import qualified Data.Scientific as Scientific
 import qualified Data.Text as Text
 import           Data.Text (Text)
 import qualified System.IO as I
@@ -134,6 +135,9 @@ getAttackerResult defenders attacker =
 label .== a =
   [label .= a]
 
+instance Builder.ToYaml Float where
+  toYaml = Builder.scientific . Scientific.fromFloatDigits
+
 instance Builder.ToYaml AttackerResult where
   toYaml this =
     Builder.mapping $ concat [
@@ -141,7 +145,7 @@ instance Builder.ToYaml AttackerResult where
       "attacker" .== (Text.pack $ Pokemon.species $ pokemon this),
       "quick" .== (Text.pack $ Move.name $ Pokemon.quick $ pokemon this),
       "charge" .== (Text.pack $ Move.name $ Pokemon.charge $ pokemon this),
-      "dps" .== (Text.pack $ show $ dps this),
+      "dps" .== (dps this),
       "minDamage" .== (minDamage this),
       "maxDamage" .== (maxDamage this)
     ]

@@ -96,6 +96,7 @@ executable matchups-exe
                      , yaml
                      , text
                      , bytestring
+                     , scientific
   default-language:    Haskell2010
 
 executable elites-exe
