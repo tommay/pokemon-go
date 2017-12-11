@@ -34,7 +34,7 @@ import qualified Text.Printf as Printf
 import qualified Text.Regex as Regex
 
 data Options = Options {
-  sortOutputBy :: Maybe SortOutputBy,
+  sortOutputBy :: SortOutputBy,
   dpsFilter :: Maybe Int,
   top      :: Maybe Int,
   level    :: Maybe Float,
@@ -45,7 +45,7 @@ data Options = Options {
 
 data Attacker = Attacker String (Maybe Float)
 
-data SortOutputBy = ByDps | ByProduct
+data SortOutputBy = ByDamage | ByDps | ByProduct
 
 data AttackerSource =
     FromFile FilePath
@@ -85,7 +85,7 @@ getOptions =
         optTop <*>
         optLevel <*> optLegendary <*> optAttackerSource <*>
         optDefender
-      optSortOutputBy = O.optional $ optGlass <|> optProduct
+      optSortOutputBy = optGlass <|> optProduct <|> pure ByDamage
       optGlass = O.flag' ByDps
         (  O.long "glass"
         <> O.short 'g'
@@ -181,9 +181,9 @@ main =
       let results = map (counter defenderVariants) attackers
           sortedByDps = List.reverse $ Util.sortWith minDps results
           sorted = case sortOutputBy options of
-            Nothing -> List.reverse $ Util.sortWith minDamage results
-            Just ByDps -> sortedByDps
-            Just ByProduct -> List.reverse $
+            ByDamage -> List.reverse $ Util.sortWith minDamage results
+            ByDps -> sortedByDps
+            ByProduct -> List.reverse $
               List.sortBy (Util.compareWith $ \result ->
                   minDps result * fromIntegral (minDamage result))
                 results
