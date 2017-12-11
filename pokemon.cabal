@@ -73,6 +73,7 @@ executable level-exe
   build-depends:       base
                      , pokemon
                      , optparse-applicative
+                     , range
   default-language:    Haskell2010
 
 executable battler-exe
