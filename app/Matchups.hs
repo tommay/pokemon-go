@@ -70,9 +70,8 @@ main =
       I.hSetBuffering I.stdout I.NoBuffering
 
       -- Using mapM_ to output the individual array elements instead
-      -- of writing the entire array allows the results to stream,
-      -- but requires some post processing to add the yaml array syntax.
-      mapM_ (B.putStr . Builder.toByteString) attackerResults
+      -- of writing the entire array allows the results to stream.
+      mapM_ (B.putStr . Builder.toByteString . (:[])) attackerResults
       -- B.putStr $ Builder.toByteString attackerResults
     )
     $ \ex -> I.hPutStrLn I.stderr ex
