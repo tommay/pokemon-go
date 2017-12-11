@@ -185,7 +185,7 @@ main =
             ByDps -> sortedByDps
             ByProduct -> List.reverse $
               List.sortBy (Util.compareWith $ \result ->
-                  minDps result * fromIntegral (minDamage result))
+                  minDps result * fromIntegral (minDamage result + 100))
                 results
           filtered = case dpsFilter options of
             Just n ->
