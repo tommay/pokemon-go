@@ -34,7 +34,7 @@ import qualified Text.Printf as Printf
 import qualified Text.Regex as Regex
 
 data Options = Options {
-  glass    :: Bool,
+  sortOutputBy :: Maybe SortOutputBy,
   dpsFilter :: Maybe Int,
   top      :: Maybe Int,
   level    :: Maybe Float,
@@ -44,6 +44,8 @@ data Options = Options {
 }
 
 data Attacker = Attacker String (Maybe Float)
+
+data SortOutputBy = ByDps | ByProduct
 
 data AttackerSource =
     FromFile FilePath
@@ -79,14 +81,19 @@ parseAttacker = O.eitherReader $ \s ->
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optGlass <*> optDpsFilter <*>
+  let opts = Options <$> optSortOutputBy <*> optDpsFilter <*>
         optTop <*>
         optLevel <*> optLegendary <*> optAttackerSource <*>
         optDefender
-      optGlass = O.switch
+      optSortOutputBy = O.optional $ optGlass <|> optProduct
+      optGlass = O.flag' ByDps
         (  O.long "glass"
         <> O.short 'g'
         <> O.help "Sort output by dps to find glass cannons")
+      optProduct = O.flag' ByProduct
+        (  O.long "product"
+        <> O.short 'p'
+        <> O.help "Sort output by product of dps and damage")
       optDpsFilter = O.optional $ O.option O.auto
         (  O.long "dps"
         <> O.short 'd'
@@ -173,9 +180,13 @@ main =
 
       let results = map (counter defenderVariants) attackers
           sortedByDps = List.reverse $ Util.sortWith minDps results
-          sorted = if glass options
-            then sortedByDps
-            else List.reverse $ Util.sortWith minDamage results
+          sorted = case sortOutputBy options of
+            Nothing -> List.reverse $ Util.sortWith minDamage results
+            Just ByDps -> sortedByDps
+            Just ByProduct -> List.reverse $
+              List.sortBy (Util.compareWith $ \result ->
+                  minDps result * fromIntegral (minDamage result))
+                results
           filtered = case dpsFilter options of
             Just n ->
               let dpsCutoff = minDps $ sortedByDps !! (length sortedByDps `div` n) 
