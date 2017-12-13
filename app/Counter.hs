@@ -45,7 +45,8 @@ data Options = Options {
 
 data Attacker = Attacker String (Maybe Float)
 
-data SortOutputBy = ByDamage | ByDps | ByProduct | ByDamagePerHp
+data SortOutputBy =
+  ByDamage | ByDps | ByProduct | ByDamagePerHp | Weighted Float
 
 data AttackerSource =
     FromFile FilePath
@@ -86,7 +87,7 @@ getOptions =
         optLevel <*> optLegendary <*> optAttackerSource <*>
         optDefender
       optSortOutputBy = optGlass <|> optProduct <|> optDamagePerHp
-        <|> pure ByDamage
+        <|> optWeighted <|> pure ByDamage
       optGlass = O.flag' ByDps
         (  O.long "glass"
         <> O.short 'g'
@@ -98,6 +99,12 @@ getOptions =
       optDamagePerHp = O.flag' ByDamagePerHp
         (  O.short 'h'
         <> O.help "Sort output by damage per hp")
+      optWeighted = Weighted <$> O.option O.auto
+        (  O.long "weighted"
+        <> O.short 'w'
+        <> O.metavar "WEIGHT"
+        <> O.help ("Sort by weighted mix of dps and damage, where weight " ++
+             "varies from 0.0 for pure dps to 1.0 for pure damage"))
       optDpsFilter = O.optional $ O.option O.auto
         (  O.long "dps"
         <> O.short 'd'
@@ -195,6 +202,14 @@ main =
                 results
             ByDamagePerHp -> List.reverse $
               Util.sortWith damagePerHp results
+            Weighted weight ->
+              -- XXX Should this also subtract out dpsMin and damageMin?
+              let damageMax = fromIntegral $ maximum $ map minDamage results
+                  dpsMax = maximum $ map minDps results
+                  weightedAverage result =
+                    (fromIntegral $ minDamage result) / damageMax * weight +
+                    (minDps result) / dpsMax * (1 - weight)
+              in List.reverse $ Util.sortWith weightedAverage results
 
           filtered = case dpsFilter options of
             Just n ->
