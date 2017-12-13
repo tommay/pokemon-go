@@ -45,7 +45,7 @@ data Options = Options {
 
 data Attacker = Attacker String (Maybe Float)
 
-data SortOutputBy = ByDamage | ByDps | ByProduct
+data SortOutputBy = ByDamage | ByDps | ByProduct | ByDamagePerHp
 
 data AttackerSource =
     FromFile FilePath
@@ -85,7 +85,8 @@ getOptions =
         optTop <*>
         optLevel <*> optLegendary <*> optAttackerSource <*>
         optDefender
-      optSortOutputBy = optGlass <|> optProduct <|> pure ByDamage
+      optSortOutputBy = optGlass <|> optProduct <|> optDamagePerHp
+        <|> pure ByDamage
       optGlass = O.flag' ByDps
         (  O.long "glass"
         <> O.short 'g'
@@ -94,6 +95,9 @@ getOptions =
         (  O.long "product"
         <> O.short 'p'
         <> O.help "Sort output by product of dps and damage")
+      optDamagePerHp = O.flag' ByDamagePerHp
+        (  O.short 'h'
+        <> O.help "Sort output by damage per hp")
       optDpsFilter = O.optional $ O.option O.auto
         (  O.long "dps"
         <> O.short 'd'
@@ -180,6 +184,8 @@ main =
 
       let results = map (counter defenderVariants) attackers
           sortedByDps = List.reverse $ Util.sortWith minDps results
+          damagePerHp result = (fromIntegral $ minDamage result) /
+            (fromIntegral $ Pokemon.hp $ pokemon result)
           sorted = case sortOutputBy options of
             ByDamage -> List.reverse $ Util.sortWith minDamage results
             ByDps -> sortedByDps
@@ -187,6 +193,9 @@ main =
               List.sortBy (Util.compareWith $ \result ->
                   minDps result * fromIntegral (minDamage result + 100))
                 results
+            ByDamagePerHp -> List.reverse $
+              Util.sortWith damagePerHp results
+
           filtered = case dpsFilter options of
             Just n ->
               let dpsCutoff = minDps $ sortedByDps !! (length sortedByDps `div` n) 
