@@ -51,7 +51,7 @@ data SortOutputBy =
   deriving (Show)
 
 data AttackerSource =
-    FromFile FilePath
+    FromFiles [FilePath]
   | AllAttackers
   | MovesetFor [Attacker]
   deriving (Show)
@@ -128,8 +128,8 @@ getOptions =
         <> O.metavar "LEVEL"
         <> O.help ("Force my_pokemon level to find who's implicitly best, " ++
              "or set the level for -a or the default level for -m"))
-      optAttackerSource = optFilename <|> optAll <|> optMovesetFor
-      optFilename = FromFile <$> O.strOption
+      optAttackerSource = optFilenames <|> optAll <|> optMovesetFor
+      optFilenames = FromFiles <$> (O.some . O.strOption)
         (  O.long "file"
         <> O.short 'f'
         <> O.value defaultFilename
@@ -169,11 +169,13 @@ main =
           defenderBase
 
       attackers <- case attackerSource options of
-        FromFile filename -> do
-          myPokemon <- do
-            ioMyPokemon <- MyPokemon.load filename
-            ioMyPokemon
-          mapM (makePokemon gameMaster (level options)) myPokemon
+        FromFiles filenames -> do
+          let loadPokemon filename = do
+                myPokemon <- do
+                  ioMyPokemon <- MyPokemon.load filename
+                  ioMyPokemon
+                mapM (makePokemon gameMaster (level options)) myPokemon
+          fmap concat $ sequence $ map loadPokemon filenames
         AllAttackers -> do
           mythicalMap <- do
             ioMythicalMap <- Mythical.load "mythical.yaml"
@@ -223,7 +225,7 @@ main =
               in filter (\r -> Pokemon.pname (Main.pokemon r) `elem` dpsCutoffNames) sorted
             Nothing -> sorted
           nameFunc = case attackerSource options of
-            FromFile _ -> nameName
+            FromFiles _ -> nameName
             AllAttackers -> nameSpeciesAndLevelAndMoveset
             MovesetFor _ -> nameSpeciesAndLevelAndMoveset
 
