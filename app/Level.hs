@@ -9,6 +9,7 @@ import qualified Epic
 import qualified GameMaster
 import           GameMaster (GameMaster)
 import           PokemonBase (PokemonBase)
+import qualified Stats
 
 import qualified System.IO as I
 import qualified Text.Printf as Printf
@@ -82,10 +83,9 @@ printLevelsForCp gameMaster pokemonBase ivPred cp =
 cpMinMax :: GameMaster -> PokemonBase -> (Int -> Bool) -> Int -> (Int, Int)
 cpMinMax gameMaster pokemonBase ivPred level =
   let ivs = possibleIvs ivPred
-      cpMultiplier = GameMaster.getCpMultiplier gameMaster (fromIntegral level)
-      cp (attack, defense, stamina) =
-        Calc.cp pokemonBase cpMultiplier attack defense stamina
-      cps = map cp ivs
+      stats = map (\ (attack, defense, stamina) ->
+        Stats.new (fromIntegral level) attack defense stamina) ivs
+      cps = map (Calc.cp gameMaster pokemonBase) stats
       min = minimum cps
       max = maximum cps
   in (min, max)

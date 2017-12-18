@@ -87,12 +87,10 @@ computeStats gameMaster new myPokemon = do
           then filter isWholeLevel allStats
           else allStats
         statsMatchMyPokemon stats =
-          let (level, attack, defense, stamina) = Stats.getAll stats
-              cpMultiplier = GameMaster.getCpMultiplier gameMaster level
-          in MyPokemon.hp myPokemon ==
-               Calc.hp pokemonBase cpMultiplier stamina &&
-             MyPokemon.cp myPokemon ==
-               Calc.cp pokemonBase cpMultiplier attack defense stamina
+          MyPokemon.hp myPokemon ==
+            Calc.hp gameMaster pokemonBase stats &&
+          MyPokemon.cp myPokemon ==
+            Calc.cp gameMaster pokemonBase stats
         statsThatMatchMyPokemon = filter statsMatchMyPokemon allStats'
     case statsThatMatchMyPokemon of
       [] -> Epic.fail "No possible ivs"
