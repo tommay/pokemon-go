@@ -93,13 +93,13 @@ getCpMultiplier this level =
       in sqrt $ (cp0*cp0 + cp1*cp1) / 2
 
 getLevelsForStardust :: (Epic.MonadCatch m) => GameMaster -> Int -> m [Float]
-getLevelsForStardust this starDust = do
+getLevelsForStardust this starDust =
   let levels = concat $ map (\ (n, dust) ->
         if dust == starDust
           then [n, n + 0.5]
           else [])
         $ zip [1..] $ stardustCost this
-  case levels of
+  in case levels of
     [] -> Epic.fail $ "Bad dust amount: " ++ show starDust
     _ -> return levels
 
@@ -178,9 +178,9 @@ getMoves types itemTemplates =
   makeObjects "moveSettings" "movementId" (makeMove types) itemTemplates
 
 makeMove :: Epic.MonadCatch m => StringMap Type -> ItemTemplate -> m Move
-makeMove types itemTemplate = do
+makeMove types itemTemplate =
   let getTemplateValue text = getObjectValue itemTemplate text
-  Move.new
+  in Move.new
     <$> getTemplateValue "movementId"
     <*> do
       typeName <- getTemplateValue "pokemonType"

@@ -40,11 +40,11 @@ getSummary words
   | otherwise = Epic.fail $ "Bad summary in appraisal"
 
 getBest :: (Epic.MonadCatch m) => [String] -> m [String]
-getBest words = do
+getBest words =
   let best = List.sort $
         filter (\w -> w `elem` ["attack", "defense", "hp"]) words
       len = length best
-  case len `inRange` (SpanRange 1 3) && len == (length $ List.nub best) of
+  in case len `inRange` (SpanRange 1 3) && len == (length $ List.nub best) of
     True -> return $ best
     False -> Epic.fail "Bad best IV in appraisal"
 

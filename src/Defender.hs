@@ -135,14 +135,14 @@ takeDamage pokemon move this = do
   return result
 
 useEnergy :: Defender -> Writer [Action] Defender
-useEnergy this = do
+useEnergy this =
   let move = Defender.move this
       energyUsed = negate $ Move.energy move
       result = this {
         energy = Defender.energy this - energyUsed
         }
       format = Printf.printf "Defender uses %d energy: hp = %d, energy = %d"
-  if Move.isCharge move
+  in if Move.isCharge move
     then do
       Writer.tell [Action (format energyUsed (Defender.hp result)
          (Defender.energy result))]

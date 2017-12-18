@@ -63,14 +63,14 @@ levels = [1..40]  -- Catches can npw exceed maxEncounterPlayerLevel (30)
                   -- depending on the weather.
 
 printAllLevels :: GameMaster -> PokemonBase -> (Int -> Bool) -> IO ()
-printAllLevels gameMaster pokemonBase ivPred = do
+printAllLevels gameMaster pokemonBase ivPred =
   mapM_ (\level -> do
           let (min, max) = cpMinMax gameMaster pokemonBase ivPred level
           putStrLn $ Printf.printf "%2d: %4d %4d" level min max)
     levels
 
 printLevelsForCp :: GameMaster -> PokemonBase -> (Int -> Bool) -> Int -> IO ()
-printLevelsForCp gameMaster pokemonBase ivPred cp = do
+printLevelsForCp gameMaster pokemonBase ivPred cp =
   let levels' = filter (\level ->
           let (min, max) = cpMinMax gameMaster pokemonBase ivPred level
           in min <= cp && cp <= max)

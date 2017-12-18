@@ -359,7 +359,7 @@ makeAllAttackersFromBase gameMaster level base =
         PokemonBase.moveSets base]
 
 makeSomeAttackers :: (Epic.MonadCatch m) => GameMaster -> [Attacker] -> Float -> m [Pokemon]
-makeSomeAttackers gameMaster attackers defaultLevel = do
+makeSomeAttackers gameMaster attackers defaultLevel =
   concat <$> mapM (\ (Attacker species level) -> do
     let level' = Maybe.fromMaybe defaultLevel level
     base <- GameMaster.getPokemonBase gameMaster species
@@ -368,7 +368,7 @@ makeSomeAttackers gameMaster attackers defaultLevel = do
 
 maybeSetHiddenPowerType :: (Epic.MonadCatch m) =>
     GameMaster -> Move -> Maybe String -> m Move
-maybeSetHiddenPowerType gameMaster move maybeTypeName = do
+maybeSetHiddenPowerType gameMaster move maybeTypeName =
   if Move.isHiddenPower move
     then case maybeTypeName of
       Just typeName -> do
