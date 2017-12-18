@@ -41,17 +41,20 @@ data Options = Options {
   legendary :: Bool,
   attackerSource :: AttackerSource,
   defender :: String
-}
+} deriving (Show)
 
 data Attacker = Attacker String (Maybe Float)
+  deriving (Show)
 
 data SortOutputBy =
   ByDamage | ByDps | ByProduct | ByDamagePerHp | Weighted Float
+  deriving (Show)
 
 data AttackerSource =
     FromFile FilePath
   | AllAttackers
   | MovesetFor [Attacker]
+  deriving (Show)
 
 data Result = Result {
   pokemon   :: Pokemon,
