@@ -128,14 +128,14 @@ getOptions =
         <> O.metavar "LEVEL"
         <> O.help ("Force my_pokemon level to find who's implicitly best, " ++
              "or set the level for -a or the default level for -m"))
-      optAttackerSource = optFilenames <|> optAll <|> optMovesetFor
+      optAttackerSource = optFilenames <|> optMovesetFor <|> optAll
+        <|> (pure $ FromFiles [defaultFilename])
       optFilenames = FromFiles <$> (O.some . O.strOption)
         (  O.long "file"
         <> O.short 'f'
-        <> O.value defaultFilename
-        <> O.showDefault
         <> O.metavar "FILE"
-        <> O.help "File to read my_pokemon from")
+        <> O.help ("File to read my_pokemon from (defauult: " ++
+             defaultFilename ++ ")"))
       optAll = O.flag' AllAttackers
         (  O.long "all"
         <> O.short 'a'
