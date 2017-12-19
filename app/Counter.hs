@@ -24,6 +24,7 @@ import           Type (Type)
 import qualified Util
 
 import           Control.Applicative (optional, some)
+import           Control.Monad (join)
 import qualified Data.Attoparsec.Text as AP
 import qualified Data.List as List
 import qualified Data.Maybe as Maybe
@@ -158,9 +159,7 @@ main =
     do
       options <- getOptions
 
-      gameMaster <- do
-        ioGameMaster <- GameMaster.load "GAME_MASTER.yaml"
-        ioGameMaster
+      gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
 
       defenderVariants <- do
         defenderBase <- GameMaster.getPokemonBase gameMaster $
@@ -171,15 +170,11 @@ main =
       attackers <- case attackerSource options of
         FromFiles filenames -> do
           let loadPokemon filename = do
-                myPokemon <- do
-                  ioMyPokemon <- MyPokemon.load filename
-                  ioMyPokemon
+                myPokemon <- join $ MyPokemon.load filename
                 mapM (makePokemon gameMaster (level options)) myPokemon
           fmap concat $ sequence $ map loadPokemon filenames
         AllAttackers -> do
-          mythicalMap <- do
-            ioMythicalMap <- Mythical.load "mythical.yaml"
-            ioMythicalMap
+          mythicalMap <- join $ Mythical.load "mythical.yaml"
           let all = allAttackers gameMaster (attackerLevel options)
               notMythical = not . Mythical.isMythical mythicalMap . Pokemon.species
               notLegendary = not . Mythical.isLegendary mythicalMap . Pokemon.species

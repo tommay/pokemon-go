@@ -46,6 +46,7 @@ import           Type (Type)
 import qualified Util
 
 import           Control.Applicative (optional, some)
+import           Control.Monad (join)
 import qualified Control.Monad.Writer as Writer
 --import qualified Data.Attoparsec.Text as AP
 import qualified Data.List as List
@@ -77,16 +78,12 @@ main =
     do
       options <- getOptions
 
-      gameMaster <- do
-        ioGameMaster <- GameMaster.load "GAME_MASTER.yaml"
-        ioGameMaster
+      gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
 
       defenders <- makeWithAllMovesetsFromSpecies gameMaster (defender options)
 
       attackers <- do
-        mythicalMap <- do
-          ioMythicalMap <- Mythical.load "mythical.yaml"
-          ioMythicalMap
+        mythicalMap <- join $ Mythical.load "mythical.yaml"
         let notMythical =
               not . Mythical.isMythical mythicalMap . PokemonBase.species
             notLegendary =

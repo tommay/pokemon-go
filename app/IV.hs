@@ -12,6 +12,7 @@ import           Stats (Stats)
 
 import qualified Options.Applicative as O
 import           Options.Applicative ((<**>))
+import           Control.Monad (join)
 import qualified Data.Maybe as Maybe
 import           Data.Semigroup ((<>))
 
@@ -36,8 +37,7 @@ getOptions =
       optFilename = O.argument O.str (O.metavar "FILENAME")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
-        <> O.progDesc "Calauate IVs for pokemon."
-        <> O.header "header = Calauate IVs for pokemon.")
+        <> O.progDesc "Calculate IVs for pokemon.")
       prefs = O.prefs O.showHelpOnEmpty
   in O.customExecParser prefs options
 
@@ -45,19 +45,15 @@ main = Epic.catch (
   do
     options <- getOptions
 
-    gameMaster <- do
-      ioGameMaster <- GameMaster.load "GAME_MASTER.yaml"
-      ioGameMaster
+    gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
 
-    myPokemon <- do
-      ioMyPokemon <- MyPokemon.load $ filename options
-      ioMyPokemon
+    myPokemon <- join $ MyPokemon.load $ filename options
 
     let new' = new options
     myNewPokemon <- mapM (updateStats gameMaster new') myPokemon
     B.putStr $ Builder.toByteString myNewPokemon
   )
-  $ \ex -> I.hPutStrLn I.stderr $ ex
+  $ \ex -> I.hPutStrLn I.stderr ex
 
 updateStats :: (Epic.MonadCatch m) => GameMaster -> Bool -> MyPokemon -> m MyPokemon
 updateStats gameMaster new myPokemon = Epic.catch (

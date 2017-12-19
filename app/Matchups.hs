@@ -19,6 +19,7 @@ import qualified Util
 import qualified Data.Yaml.Builder as Builder
 import           Data.Yaml.Builder ((.=))
 
+import           Control.Monad (join)
 import qualified Control.Monad.Writer as Writer
 import qualified Data.ByteString as B
 import qualified Data.List as List
@@ -32,13 +33,9 @@ defaultLevel = 20
 main =
   Epic.catch (
     do
-      gameMaster <- do
-        ioGameMaster <- GameMaster.load "GAME_MASTER.yaml"
-        ioGameMaster
+      gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
 
-      mythicalMap <- do
-        ioMythicalMap <- Mythical.load "mythical.yaml"
-        ioMythicalMap
+      mythicalMap <- join $ Mythical.load "mythical.yaml"
 
       let notMythical =
             not . Mythical.isMythical mythicalMap . PokemonBase.species

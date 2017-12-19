@@ -13,6 +13,7 @@ import qualified Matchup
 import           Matchup (Matchup)
 import qualified Util
 
+import           Control.Monad (join)
 import qualified Data.HashMap.Strict as HashMap
 import qualified Data.Maybe as Maybe
 import qualified System.IO as IO
@@ -41,13 +42,9 @@ main =
     do
       options <- getOptions
 
-      gameMaster <- do
-        ioGameMaster <- GameMaster.load "GAME_MASTER.yaml"
-        ioGameMaster
+      gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
 
-      matchups <- do
-        ioMatchups <- Matchup.load "matchups.out"
-        ioMatchups
+      matchups <- join $ Matchup.load "matchups.out"
 
       let worse = getWorseMatchups gameMaster matchups
             (species options) (old options) (new options)

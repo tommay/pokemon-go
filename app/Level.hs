@@ -11,6 +11,7 @@ import           GameMaster (GameMaster)
 import           PokemonBase (PokemonBase)
 import qualified Stats
 
+import           Control.Monad (join)
 import qualified System.IO as I
 import qualified Text.Printf as Printf
 
@@ -45,9 +46,7 @@ main = Epic.catch (
   do
     options <- getOptions
 
-    gameMaster <- do
-      ioGameMaster <- GameMaster.load "GAME_MASTER.yaml"
-      ioGameMaster
+    gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
 
     pokemonBase <- GameMaster.getPokemonBase gameMaster $
       species options

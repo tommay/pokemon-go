@@ -5,6 +5,7 @@ import qualified Matchup
 import           Matchup (Matchup)
 import qualified Util
 
+import           Control.Monad (join)
 import qualified Data.HashMap.Strict as HashMap
 import           Data.HashMap.Strict (HashMap)
 import qualified Data.List as List
@@ -14,9 +15,7 @@ import qualified Text.Printf as Printf
 main =
   Epic.catch (
     do
-      matchups <- do
-        ioMatchups <- Matchup.load "matchups.out"
-        ioMatchups
+      matchups <- join $ Matchup.load "matchups.out"
 
       let byDefender :: HashMap String [Matchup]
           byDefender = Util.groupBy Matchup.defender matchups
