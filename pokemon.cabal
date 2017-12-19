@@ -58,6 +58,17 @@ executable iv-exe
                      , bytestring
   default-language:    Haskell2010
 
+executable univ-exe
+  hs-source-dirs:      app
+  main-is:             UnIV.hs
+  ghc-options:         -O2 -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base
+                     , pokemon
+                     , optparse-applicative
+                     , yaml
+                     , bytestring
+  default-language:    Haskell2010
+
 executable stardust-exe
   hs-source-dirs:      app
   main-is:             Stardust.hs
