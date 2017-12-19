@@ -72,7 +72,7 @@ main =
       mapM_ (B.putStr . Builder.toByteString . (:[])) attackerResults
       -- B.putStr $ Builder.toByteString attackerResults
     )
-    $ \ex -> I.hPutStrLn I.stderr ex
+    $ I.hPutStrLn I.stderr
 
 makeWithAllMovesetsFromBase gameMaster level base =
   let cpMultiplier = GameMaster.getCpMultiplier gameMaster level

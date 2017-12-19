@@ -29,7 +29,7 @@ main =
 
       mapM_ (putStrLn . showElite) $ HashMap.toList eliteAttackers
     )
-    $ \ex -> IO.hPutStrLn IO.stderr ex
+    $ IO.hPutStrLn IO.stderr
 
 showElite :: ((String, String, String), [Matchup]) -> String
 showElite ((attacker, quick, charge), matchups) =

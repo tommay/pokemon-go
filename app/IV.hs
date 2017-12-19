@@ -53,7 +53,7 @@ main = Epic.catch (
     myNewPokemon <- mapM (updateStats gameMaster new') myPokemon
     B.putStr $ Builder.toByteString myNewPokemon
   )
-  $ \ex -> I.hPutStrLn I.stderr ex
+  $ I.hPutStrLn I.stderr
 
 updateStats :: (Epic.MonadCatch m) => GameMaster -> Bool -> MyPokemon -> m MyPokemon
 updateStats gameMaster new myPokemon = Epic.catch (

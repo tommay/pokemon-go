@@ -11,5 +11,6 @@ main = do
     do
       result <- GameMaster.load filename
       gameMaster <- result
-      print gameMaster)
-    (\ex -> putStrLn $ "oops: " ++ ex)
+      print gameMaster
+    )
+    $ putStrLn . ("oops: " ++)

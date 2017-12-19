@@ -232,7 +232,7 @@ main =
         Nothing ->
           mapM_ (putStrLn . showResult nameFunc) filtered
     )
-    $ \ex -> I.hPutStrLn I.stderr ex
+    $ I.hPutStrLn I.stderr
 
 attackerLevel :: Options -> Float
 attackerLevel options =

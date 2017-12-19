@@ -57,7 +57,7 @@ main = Epic.catch (
       Nothing -> printAllLevels gameMaster pokemonBase ivPred
       Just cp -> printLevelsForCp gameMaster pokemonBase ivPred cp
   )
-  $ \ex -> I.hPutStrLn I.stderr $ ex
+  $ I.hPutStrLn I.stderr
 
 levels = [1..40]  -- Catches can npw exceed maxEncounterPlayerLevel (30)
                   -- depending on the weather.

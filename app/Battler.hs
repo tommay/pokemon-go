@@ -108,7 +108,7 @@ main =
 
       mapM_ (putStrLn . showAttackerResult) byDamage
     )
-    $ \ex -> I.hPutStrLn I.stderr ex
+    $ I.hPutStrLn I.stderr
 
 keepHighDpsSpecies :: [AttackerResult] -> [AttackerResult]
 keepHighDpsSpecies attackerResults =

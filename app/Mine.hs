@@ -10,5 +10,6 @@ main =
   Epic.catch (
     do
       myPokemon <- join $ MyPokemon.load "my_pokemon.yaml"
-      mapM_ print myPokemon)
-    (\ex -> putStrLn $ "oops: " ++ ex)
+      mapM_ print myPokemon
+  )
+  $ putStrLn . ("oops: " ++)

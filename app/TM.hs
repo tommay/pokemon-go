@@ -51,7 +51,7 @@ main =
 
       mapM_ (putStrLn . showWorse) worse
     )
-    $ \ex -> IO.hPutStrLn IO.stderr ex
+    $ IO.hPutStrLn IO.stderr
 
 showWorse :: (String, String, Int, Int) -> String
 showWorse (defender, charge, oldDamage, newDamage) =
