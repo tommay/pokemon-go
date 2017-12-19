@@ -9,6 +9,7 @@ module GameMaster (
   getCharge,
   getCpMultiplier,
   getLevelsForStardust,
+  getStardustForLevel,
   allPokemonBases,
   getType,
   isSpecies
@@ -102,6 +103,10 @@ getLevelsForStardust this starDust =
   in case levels of
     [] -> Epic.fail $ "Bad dust amount: " ++ show starDust
     _ -> return levels
+
+getStardustForLevel :: GameMaster -> Float -> Int
+getStardustForLevel this level =
+  (stardustCost this) !! ((floor level) - 1)
 
 lookup :: Epic.MonadCatch m => String -> StringMap a -> String -> m a
 lookup what hash key =
