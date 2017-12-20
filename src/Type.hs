@@ -10,6 +10,8 @@ module Type (
 import StringMap (StringMap)
 
 import qualified Data.Char as Char
+import qualified Data.Hashable as Hashable
+import           Data.Hashable (Hashable)
 import qualified Data.HashMap.Strict as HashMap
 import qualified Text.Regex as Regex
 
@@ -24,6 +26,9 @@ instance Eq Type where
 
 instance Show Type where
   show = typeId
+
+instance Hashable Type where
+  hashWithSalt salt = Hashable.hashWithSalt salt . typeId
 
 new = Type
 
