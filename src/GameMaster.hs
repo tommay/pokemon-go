@@ -12,6 +12,7 @@ module GameMaster (
   getStardustForLevel,
   allPokemonBases,
   getType,
+  getWeatherBonusMap,
   isSpecies
 ) where
 
@@ -23,6 +24,8 @@ import           PokemonBase (PokemonBase)
 import           StringMap (StringMap)
 import qualified Type
 import           Type (Type)
+import qualified Weather
+import           Weather (Weather (..))
 
 import qualified Data.Yaml as Yaml
 import           Data.Yaml ((.:), (.:?), (.!=))
@@ -42,7 +45,8 @@ data GameMaster = GameMaster {
   moves         :: StringMap Move,
   pokemonBases  :: StringMap PokemonBase,
   cpMultipliers :: Vector Float,
-  stardustCost  :: [Int]
+  stardustCost  :: [Int],
+  weatherBonusMap :: HashMap Weather (HashMap Type Float)
 } deriving (Show)
 
 type ItemTemplate = Yaml.Object
@@ -133,7 +137,25 @@ makeGameMaster yamlObject = do
   stardustCost <- do
     pokemonUpgrades <- getFirst itemTemplates "pokemonUpgrades"
     getObjectValue pokemonUpgrades "stardustCost"
+  weatherBonusMap <- do
+    weatherBonusSettings <- getFirst itemTemplates "weatherBonusSettings"
+    attackBonusMultiplier <-
+      getObjectValue weatherBonusSettings "attackBonusMultiplier"
+    weatherAffinityMap <-
+      makeObjects "weatherAffinities" "weatherCondition"
+        (makeWeatherAffinity types) itemTemplates
+    return $
+      foldr (\ (wstring, ptypes) map ->
+        let weather = toWeather wstring
+            m = foldr
+              (\ ptype map -> HashMap.insert ptype attackBonusMultiplier map)
+              HashMap.empty
+              ptypes
+        in HashMap.insert weather m map)
+      HashMap.empty
+      $ HashMap.toList weatherAffinityMap
   return $ GameMaster.new types moves pokemonBases cpMultipliers stardustCost
+    weatherBonusMap
 
 -- Here it's nice to use Yaml.Parser because it will error if we don't
 -- get a [ItemTemplate], i.e., it checks that the Yaml.Values are the
@@ -240,6 +262,11 @@ makePokemonBase types moves pokemonSettings =
        evolutions quickMoves chargeMoves parent)
   (\ex -> Epic.fail $ ex ++ " in " ++ show pokemonSettings)
 
+makeWeatherAffinity :: Epic.MonadCatch m => StringMap Type -> ItemTemplate -> m [Type]
+makeWeatherAffinity types weatherAffinity = do
+  ptypes <- getObjectValue weatherAffinity "pokemonType"
+  mapM (get types) ptypes
+
 makeObjects :: Epic.MonadCatch m => String -> String -> (ItemTemplate -> m a) -> [ItemTemplate]
   -> m (StringMap a)
 makeObjects filterKey nameKey makeObject itemTemplates =
@@ -285,6 +312,23 @@ get map key =
 getType :: Epic.MonadCatch m => GameMaster -> String -> m Type
 getType this typeName =
   get (GameMaster.types this) ("POKEMON_TYPE_" ++ (map toUpper typeName))
+
+getWeatherBonusMap :: GameMaster -> Weather -> HashMap Type Float
+getWeatherBonusMap this weather =
+  case HashMap.lookup weather (weatherBonusMap this) of
+    Just map -> map
+    Nothing -> error $ "No weatherBonusMap for " ++ show weather
+
+toWeather :: String -> Weather
+toWeather string = case string of
+  "CLEAR" -> Clear
+  "FOG" -> Fog
+  "OVERCAST" -> Overcast
+  "PARTLY_CLOUDY" -> PartlyCloudy
+  "RAINY" -> Rainy
+  "SNOW" -> Snow
+  "WINDY" -> Windy
+  _ -> error $ "Unknown weather: " ++ string
 
 toEpic :: (Show a, Epic.MonadCatch m) => Either a b -> m b
 toEpic either =
