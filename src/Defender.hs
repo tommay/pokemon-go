@@ -122,17 +122,12 @@ makeMove' this = do
     rnd = rnd'
     }
 
-takeDamage :: Pokemon -> Move -> Defender -> Writer [Action] Defender
-takeDamage pokemon move this = do
-  let damageDone = damage move pokemon (Defender.pokemon this)
-      format = Printf.printf "Defender takes %d damage from %s: hp = %d, energy = %d"
-      result = this {
-        hp = Defender.hp this - damageDone,
-        energy = minimum [100, Defender.energy this + (damageDone + 1) `div` 2]
-        }
-  Writer.tell [Action (format damageDone (Move.name move) (Defender.hp result)
-    (Defender.energy result))]
-  return result
+takeDamage :: Defender -> Int -> Defender
+takeDamage this damage =
+  this {
+    hp = Defender.hp this - damage,
+    energy = minimum [100, Defender.energy this + (damage + 1) `div` 2]
+    }
 
 useEnergy :: Defender -> Writer [Action] Defender
 useEnergy this =
@@ -148,12 +143,3 @@ useEnergy this =
          (Defender.energy result))]
       return result
     else return this
-
-damage :: Move -> Pokemon -> Pokemon -> Int
-damage move attacker defender =
-  let power = Move.power move
-      stab = Move.stabFor move $ Pokemon.types attacker
-      effectiveness = Move.effectivenessAgainst move $ Pokemon.types defender
-      attack = Pokemon.attack attacker
-      defense = Pokemon.defense defender
-  in floor $ power * stab * effectiveness * attack / defense / 2 + 1

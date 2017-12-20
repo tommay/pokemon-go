@@ -15,6 +15,8 @@ import qualified Attacker
 import           Attacker (Attacker)
 import qualified Defender
 import           Defender (Defender)
+import qualified Move
+import           Move (Move)
 import qualified Pokemon
 import           Pokemon (Pokemon)
 
@@ -93,22 +95,25 @@ tick :: Battle -> Writer [Action] Battle
 tick this = do
   let blah1 :: (Attacker, Defender) -> Writer [Action] (Attacker, Defender)
       blah1 (attacker, defender) =
-        if Defender.damageWindow defender == 0
-          then Tuple.sequenceT (
-            addOuch $ Attacker.takeDamage
+        let damage = getDamage
               (Defender.pokemon defender)
               (Defender.move defender)
-              attacker,
+              (Attacker.pokemon attacker)
+        in if Defender.damageWindow defender == 0
+          then Tuple.sequenceT (
+            addOuch $ return $ Attacker.takeDamage attacker damage,
             Defender.useEnergy defender)
           else return (attacker, defender)
+      blah2 :: (Attacker, Defender) -> Writer [Action] (Attacker, Defender)
       blah2 (attacker, defender) =
-        if Attacker.damageWindow attacker == 0
-          then Tuple.sequenceT (
-            Attacker.useEnergy attacker,
-            Defender.takeDamage
+        let damage = getDamage
               (Attacker.pokemon attacker)
               (Attacker.move attacker)
-              defender)
+              (Defender.pokemon defender)
+        in if Attacker.damageWindow attacker == 0
+          then Tuple.sequenceT (
+            Attacker.useEnergy attacker,
+            (return $ Defender.takeDamage defender damage) :: Writer [Action] Defender)
           else return (attacker, defender)
       doTick ticks (attacker, defender) =
         return $ (Attacker.tick ticks attacker, Defender.tick ticks defender)
@@ -129,3 +134,12 @@ tick this = do
     defender = defender,
     timer = Battle.timer this - ticks
     }
+
+getDamage :: Pokemon -> Move -> Pokemon -> Int
+getDamage attacker move defender =
+  let power = Move.power move
+      stab = Move.stabFor move $ Pokemon.types attacker
+      effectiveness = Move.effectivenessAgainst move $ Pokemon.types defender
+      attack = Pokemon.attack attacker
+      defense = Pokemon.defense defender
+  in floor $ power * stab * effectiveness * attack / defense / 2 + 1
