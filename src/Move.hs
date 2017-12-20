@@ -31,7 +31,10 @@ data Move = Move {
   duration :: Float,
   damageWindow :: Int,
   energy   :: Int
-} deriving (Eq)
+}
+
+instance Eq Move where
+  left == right = (movementId left) == (movementId right)
 
 instance Show Move where
   show = movementId

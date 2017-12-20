@@ -17,7 +17,10 @@ data Type = Type {
   typeId        :: String,
   effectiveness :: StringMap Float,
   stab          :: Float
-} deriving (Eq)
+}
+
+instance Eq Type where
+  left == right = (typeId left) == (typeId right)
 
 instance Show Type where
   show = typeId
