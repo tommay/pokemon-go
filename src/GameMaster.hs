@@ -12,7 +12,7 @@ module GameMaster (
   getStardustForLevel,
   allPokemonBases,
   getType,
-  getWeatherBonusMap,
+  getWeatherBonus,
   isSpecies
 ) where
 
@@ -313,10 +313,10 @@ getType :: Epic.MonadCatch m => GameMaster -> String -> m Type
 getType this typeName =
   get (GameMaster.types this) ("POKEMON_TYPE_" ++ (map toUpper typeName))
 
-getWeatherBonusMap :: GameMaster -> Weather -> HashMap Type Float
-getWeatherBonusMap this weather =
+getWeatherBonus :: GameMaster -> Weather -> Type -> Float
+getWeatherBonus this weather =
   case HashMap.lookup weather (weatherBonusMap this) of
-    Just map -> map
+    Just map -> (\ptype -> HashMap.lookupDefault 1 ptype map)
     Nothing -> error $ "No weatherBonusMap for " ++ show weather
 
 toWeather :: String -> Weather

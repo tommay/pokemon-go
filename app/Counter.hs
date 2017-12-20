@@ -22,6 +22,7 @@ import           PokemonBase (PokemonBase)
 import qualified Type
 import           Type (Type)
 import qualified Util
+import           Weather (Weather (..))
 
 import           Control.Applicative (optional, some)
 import           Control.Monad (join)
@@ -35,6 +36,7 @@ import qualified Text.Printf as Printf
 import qualified Text.Regex as Regex
 
 data Options = Options {
+  maybeWeather :: Maybe Weather,
   sortOutputBy :: SortOutputBy,
   dpsFilter :: Maybe Int,
   top      :: Maybe Int,
@@ -86,10 +88,18 @@ parseAttacker = O.eitherReader $ \s ->
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optSortOutputBy <*> optDpsFilter <*>
+  let opts = Options <$> optWeather <*> optSortOutputBy <*> optDpsFilter <*>
         optTop <*>
         optLevel <*> optLegendary <*> optAttackerSource <*>
         optDefender
+      optWeather = O.optional $
+            O.flag' Clear (O.long "clear" <> O.help "weather is sunny/clear")
+        <|> O.flag' Fog (O.long "fog")
+        <|> O.flag' Overcast (O.long "overcast")
+        <|> O.flag' PartlyCloudy (O.long "partlycloudy")
+        <|> O.flag' Rainy (O.long "rainy")
+        <|> O.flag' Snow (O.long "snow")
+        <|> O.flag' Windy (O.long "windy")
       optSortOutputBy = optGlass <|> optProduct <|> optDamagePerHp
         <|> optWeighted <|> pure ByDamage
       optGlass = O.flag' ByDps
@@ -189,7 +199,10 @@ main =
                [] -> makeSomeAttackers gameMaster attackers (attackerLevel options)
                noSuchSpecies -> Epic.fail $ "No such species: " ++ (List.intercalate ", " noSuchSpecies)
 
-      let results = map (counter defenderVariants) attackers
+      let weatherBonus = case maybeWeather options of
+            Just weather -> GameMaster.getWeatherBonus gameMaster weather
+            Nothing -> const 1
+          results = map (counter weatherBonus defenderVariants) attackers
           sortedByDps = List.reverse $ Util.sortWith minDps results
           damagePerHp result = (fromIntegral $ minDamage result) /
             (fromIntegral $ Pokemon.hp $ pokemon result)
@@ -319,9 +332,10 @@ makePokemon gameMaster maybeLevel myPokemon = do
 
   return $ Pokemon.new name species level types attack defense stamina quick charge base
 
-counter :: [Pokemon] -> Pokemon -> Result
-counter defenderVariants attacker =
-  let battles = [Battle.runBattleOnly $ Battle.init attacker defender |
+counter :: (Type -> Float) -> [Pokemon] -> Pokemon -> Result
+counter weatherBonus defenderVariants attacker =
+  let battles = [Battle.runBattleOnly $
+        Battle.init weatherBonus attacker defender |
         defender <- defenderVariants]
       getMinValue fn = fn . List.minimumBy (Util.compareWith fn)
       minDamage = getMinValue Battle.damageInflicted battles

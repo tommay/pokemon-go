@@ -19,6 +19,8 @@ import qualified Move
 import           Move (Move)
 import qualified Pokemon
 import           Pokemon (Pokemon)
+import qualified Type
+import           Type (Type)
 
 import qualified Control.Monad.Loops as Loops
 import qualified Control.Monad.Writer as Writer
@@ -32,18 +34,20 @@ import qualified Debug as D
 data Battle = Battle {
   attacker :: Attacker,
   defender :: Defender,
+  weatherBonus :: Type -> Float,
   timer :: Int,
   initialDefenderHp :: Int
-} deriving (Show)
+}
 
 battleDuration = 100 * 1000
 
-init :: Pokemon -> Pokemon -> Battle
-init attacker defender =
+init :: (Type -> Float) -> Pokemon -> Pokemon -> Battle
+init weatherBonus attacker defender =
   let rnd = Random.mkStdGen 23
   in Battle {
        attacker = Attacker.init attacker,
        defender = Defender.init rnd defender,
+       weatherBonus = weatherBonus,
        timer = battleDuration,
        initialDefenderHp = Pokemon.hp defender * 2
        }
@@ -96,6 +100,7 @@ tick this = do
   let blah1 :: (Attacker, Defender) -> Writer [Action] (Attacker, Defender)
       blah1 (attacker, defender) =
         let damage = getDamage
+              (weatherBonus this)
               (Defender.pokemon defender)
               (Defender.move defender)
               (Attacker.pokemon attacker)
@@ -107,6 +112,7 @@ tick this = do
       blah2 :: (Attacker, Defender) -> Writer [Action] (Attacker, Defender)
       blah2 (attacker, defender) =
         let damage = getDamage
+              (weatherBonus this)
               (Attacker.pokemon attacker)
               (Attacker.move attacker)
               (Defender.pokemon defender)
@@ -135,11 +141,12 @@ tick this = do
     timer = Battle.timer this - ticks
     }
 
-getDamage :: Pokemon -> Move -> Pokemon -> Int
-getDamage attacker move defender =
+getDamage :: (Type -> Float) -> Pokemon -> Move -> Pokemon -> Int
+getDamage weatherBonus attacker move defender =
   let power = Move.power move
       stab = Move.stabFor move $ Pokemon.types attacker
+      weather = weatherBonus $ Move.moveType move
       effectiveness = Move.effectivenessAgainst move $ Pokemon.types defender
       attack = Pokemon.attack attacker
       defense = Pokemon.defense defender
-  in floor $ power * stab * effectiveness * attack / defense / 2 + 1
+  in floor $ power * stab * weather *effectiveness * attack / defense / 2 + 1
