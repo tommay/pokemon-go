@@ -28,6 +28,7 @@ import           Control.Monad.Writer (Writer)
 import qualified Data.List as List
 import qualified Data.Tuple.Sequence as Tuple
 import qualified System.Random as Random
+import qualified Text.Printf as Printf
 
 import qualified Debug as D
 
@@ -95,6 +96,10 @@ addOuch :: Writer [String] a -> Writer [Action] a
 addOuch =
   decorate (Action . (++ ", ouch!"))
 
+tell :: a -> Writer [a] ()
+tell a =
+  Writer.tell [a]
+
 tick :: Battle -> Writer [Action] Battle
 tick this = do
   let blah1 :: (Attacker, Defender) -> Writer [Action] (Attacker, Defender)
@@ -106,7 +111,10 @@ tick this = do
               (Attacker.pokemon attacker)
         in if Defender.damageWindow defender == 0
           then Tuple.sequenceT (
-            addOuch $ return $ Attacker.takeDamage attacker damage,
+            addOuch $ do
+              tell $ Printf.printf "Attacker takes %d from %s"
+                damage (Move.name $ Defender.move defender)
+              return $ Attacker.takeDamage attacker damage,
             Defender.useEnergy defender)
           else return (attacker, defender)
       blah2 :: (Attacker, Defender) -> Writer [Action] (Attacker, Defender)
@@ -119,7 +127,10 @@ tick this = do
         in if Attacker.damageWindow attacker == 0
           then Tuple.sequenceT (
             Attacker.useEnergy attacker,
-            (return $ Defender.takeDamage defender damage) :: Writer [Action] Defender)
+            addOuch $ do
+              tell $ Printf.printf "Defender takes %d from %s"
+                damage (Move.name $ Attacker.move attacker)
+              return $ Defender.takeDamage defender damage)
           else return (attacker, defender)
       doTick ticks (attacker, defender) =
         return $ (Attacker.tick ticks attacker, Defender.tick ticks defender)
