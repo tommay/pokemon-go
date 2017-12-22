@@ -1,10 +1,11 @@
 module Defender (
   Defender,
+  Defender.init,
   pokemon,
   hp,
+  energy,
   move,
   damageWindow,
-  Defender.init,
   tick,
   takeDamage,
   useEnergy,
@@ -12,7 +13,6 @@ module Defender (
   nextTick,
 ) where
 
-import           Action (Action (Action))
 import qualified Pokemon
 import           Pokemon (Pokemon)
 import qualified Move
@@ -74,17 +74,18 @@ nextTick :: Defender -> Int
 nextTick this =
   minimum $ filter (> 0) [Defender.cooldown this, Defender.damageWindow this]
 
-makeMove :: Defender -> Writer [Action] Defender
+makeMove :: Defender -> Writer [String] Defender
 makeMove this =
   if Defender.cooldown this == 0
     then makeMove' this
     else return this
 
-makeMove' :: Defender -> Writer [Action] Defender
+makeMove' :: Defender -> Writer [String] Defender
 makeMove' this = do
   let -- Get the next move and any move(s) after that.
       (move', cooldown'):moves' = Defender.moves this
-      -- If it's a quick move, its energy is available immediately
+  Writer.tell ["Defender uses " ++ Move.name move']
+  let -- If it's a quick move, its energy is available immediately
       -- for the decision about the next move.  Charge move energy
       -- is subtracted at damageWindowStart.
       energy' = if Move.isQuick move'
@@ -97,19 +98,18 @@ makeMove' this = do
   moves'' <- case moves' of
     [] -> do
       if energy' >= negate (Move.energy charge)
-        then Writer.tell [Action ("Defender can use " ++ Move.name charge)]
+        then Writer.tell ["Defender can use " ++ Move.name charge]
         else Writer.tell mempty
       -- Both quick moves and charge moves get an additional 1.5-2.5
       -- seconds added to their duration.  Just use the average, 2.
       if energy' >= negate (Move.energy charge) && (random :: Float) < 0.5
         then do
-          Writer.tell [Action ("Defender chooses " ++  Move.name charge)]
+          Writer.tell ["Defender chooses " ++  Move.name charge ++ " for next time"]
           return [(charge, Move.durationMs charge + 2000)]
         else do
-          Writer.tell [Action ("Defender chooses " ++ Move.name quick)]
+          Writer.tell ["Defender chooses " ++ Move.name quick ++ " for next time"]
           return [(quick, Move.durationMs quick + 2000)]
     val -> return val
-  Writer.tell [Action ("Defender uses " ++ (Move.name move'))]
   -- Set countdown until damage is done to the opponent and it gets
   -- its energy boost and our charge move energy is subtracted.
   let damageWindow' = Move.damageWindow move'
@@ -122,24 +122,15 @@ makeMove' this = do
     rnd = rnd'
     }
 
-takeDamage :: Defender -> Int -> Defender
-takeDamage this damage =
-  this {
+takeDamage :: Int -> Defender -> Writer [String] Defender
+takeDamage damage this =
+  return $ this {
     hp = Defender.hp this - damage,
     energy = minimum [100, Defender.energy this + (damage + 1) `div` 2]
     }
 
-useEnergy :: Defender -> Writer [Action] Defender
-useEnergy this =
-  let move = Defender.move this
-      energyUsed = negate $ Move.energy move
-      result = this {
-        energy = Defender.energy this - energyUsed
-        }
-      format = Printf.printf "Defender uses %d energy: hp = %d, energy = %d"
-  in if Move.isCharge move
-    then do
-      Writer.tell [Action (format energyUsed (Defender.hp result)
-         (Defender.energy result))]
-      return result
-    else return this
+useEnergy :: Int -> Defender -> Writer [String] Defender
+useEnergy energy this =
+  return $ this {
+    energy = Defender.energy this - energy
+    }

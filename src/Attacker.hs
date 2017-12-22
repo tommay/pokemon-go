@@ -1,9 +1,11 @@
 module Attacker (
   Attacker,
+  Attacker.init,
   pokemon,
+  hp,
+  energy,
   move,
   damageWindow,
-  Attacker.init,
   tick,
   takeDamage,
   useEnergy,
@@ -12,7 +14,6 @@ module Attacker (
   nextTick,
 ) where
 
-import           Action (Action (Action))
 import qualified Pokemon
 import           Pokemon (Pokemon)
 import qualified Move
@@ -70,13 +71,13 @@ nextTick :: Attacker -> Int
 nextTick this =
   minimum $ filter (> 0) [Attacker.cooldown this, Attacker.damageWindow this]
 
-makeMove :: Attacker -> Writer [Action] Attacker
+makeMove :: Attacker -> Writer [String] Attacker
 makeMove this =
   if Attacker.cooldown this == 0
     then makeMove' this
     else return this
 
-makeMove' :: Attacker -> Writer [Action] Attacker
+makeMove' :: Attacker -> Writer [String] Attacker
 makeMove' this = do
   let quick = Attacker.quick this
       charge = Attacker.charge this
@@ -86,7 +87,7 @@ makeMove' this = do
         -- Do an extra quick move to simulate delayed player reaction
         -- to the flashing charge bars.
         then do
-          Writer.tell [Action ("Attacker can use " ++ Move.name charge)]
+          Writer.tell ["Attacker can use " ++ Move.name charge]
           return [quick, charge]
         else return [quick]
     val -> return val
@@ -99,33 +100,25 @@ makeMove' this = do
       -- Set countdown until damage is done to the opponent and its
       -- energy increases and our energy decreases.
       damageWindow' = Move.damageWindow move'
-  Writer.tell [Action ("Attacker uses " ++ (Move.name move'))]
-  return $ this {
-    energy = energy',
-    cooldown = cooldown',
-    moves = moves',
-    move = move',
-    damageWindow = damageWindow'
-    }
+      result = this {
+        energy = energy',
+        cooldown = cooldown',
+        moves = moves',
+        move = move',
+        damageWindow = damageWindow'
+        }
+  Writer.tell ["Attacker uses " ++ (Move.name $ Attacker.move result)]
+  return result
 
-takeDamage :: Attacker -> Int -> Attacker
-takeDamage this damage =
-  this {
+takeDamage :: Int -> Attacker -> Writer [String] Attacker
+takeDamage damage this =
+  return $ this {
     hp = Attacker.hp this - damage,
     energy = minimum [100, Attacker.energy this + (damage + 1) `div` 2]
     }
 
-useEnergy :: Attacker -> Writer [Action] Attacker
-useEnergy this =
-  let move = Attacker.move this
-      energyUsed = negate $ Move.energy move
-      result = this {
-        energy = Attacker.energy this - energyUsed
-        }
-      format = Printf.printf "Attacker uses %d energy: hp = %d, energy = %d"
-  in if Move.isCharge move
-    then do
-      Writer.tell [Action (format energyUsed (Attacker.hp result)
-         (Attacker.energy result))]
-      return result
-    else return this
+useEnergy :: Int -> Attacker -> Writer [String] Attacker
+useEnergy energy this =
+  return $ this {
+    energy = Attacker.energy this - energy
+    }

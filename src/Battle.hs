@@ -6,7 +6,7 @@ module Battle (
   attacker,
   defender,
   dps,
-  damageInflicted
+  damageInflicted,
 ) where
 
 import qualified Action
@@ -26,7 +26,6 @@ import qualified Control.Monad.Loops as Loops
 import qualified Control.Monad.Writer as Writer
 import           Control.Monad.Writer (Writer)
 import qualified Data.List as List
-import qualified Data.Tuple.Sequence as Tuple
 import qualified System.Random as Random
 import qualified Text.Printf as Printf
 
@@ -86,71 +85,81 @@ attackerFainted :: Battle -> Bool
 attackerFainted =
   Attacker.fainted . Battle.attacker
 
-decorate :: (w -> u) -> Writer [w] a -> Writer [u] a
-decorate f m =
-  let (a, ws) = Writer.runWriter m
-      us = map f ws
-  in Writer.writer (a, us)
-
-addOuch :: Writer [String] a -> Writer [Action] a
-addOuch =
-  decorate (Action . (++ ", ouch!"))
-
-tell :: a -> Writer [a] ()
-tell a =
-  Writer.tell [a]
-
 tick :: Battle -> Writer [Action] Battle
 tick this = do
-  let blah1 :: (Attacker, Defender) -> Writer [Action] (Attacker, Defender)
-      blah1 (attacker, defender) =
-        let damage = getDamage
-              (weatherBonus this)
-              (Defender.pokemon defender)
-              (Defender.move defender)
-              (Attacker.pokemon attacker)
-        in if Defender.damageWindow defender == 0
-          then Tuple.sequenceT (
-            addOuch $ do
-              tell $ Printf.printf "Attacker takes %d from %s"
-                damage (Move.name $ Defender.move defender)
-              return $ Attacker.takeDamage attacker damage,
-            Defender.useEnergy defender)
-          else return (attacker, defender)
-      blah2 :: (Attacker, Defender) -> Writer [Action] (Attacker, Defender)
-      blah2 (attacker, defender) =
-        let damage = getDamage
-              (weatherBonus this)
-              (Attacker.pokemon attacker)
-              (Attacker.move attacker)
-              (Defender.pokemon defender)
-        in if Attacker.damageWindow attacker == 0
-          then Tuple.sequenceT (
-            Attacker.useEnergy attacker,
-            addOuch $ do
-              tell $ Printf.printf "Defender takes %d from %s"
-                damage (Move.name $ Attacker.move attacker)
-              return $ Defender.takeDamage defender damage)
-          else return (attacker, defender)
-      doTick ticks (attacker, defender) =
-        return $ (Attacker.tick ticks attacker, Defender.tick ticks defender)
-      makeMove (attacker, defender) =
-        Tuple.sequenceT (Attacker.makeMove attacker, Defender.makeMove defender)
-      attacker = Battle.attacker this
-      defender =  Battle.defender this
-      pair = (attacker, defender)
-  let ticks = minimum $
+  let attacker = Battle.attacker this
+      defender = Battle.defender this
+      ticks = minimum $
         [Attacker.nextTick attacker, Defender.nextTick defender]
-  pair <- doTick ticks pair
-  pair <- blah1 pair
-  pair <- blah2 pair
-  pair <- makeMove pair
-  let (attacker, defender) = pair
-  return $ this {
-    attacker = attacker,
-    defender = defender,
-    timer = Battle.timer this - ticks
-    }
+      battle =
+        this {
+          attacker = Attacker.tick ticks attacker,
+          defender = Defender.tick ticks defender,
+          timer = Battle.timer this - ticks
+        }
+  battle <- checkAttackerHits battle
+  battle <- checkDefenderHits battle
+  battle <- makeActions $ Battle.updateAttacker battle $ Attacker.makeMove
+  battle <- makeActions $ Battle.updateDefender battle $ Defender.makeMove
+  return battle
+
+checkAttackerHits :: Battle -> Writer [Action] Battle
+checkAttackerHits this =
+  let attacker = Battle.attacker this
+      defender = Battle.defender this
+      move = Attacker.move attacker
+      damage = getDamage (weatherBonus this)
+        (Attacker.pokemon attacker) move (Defender.pokemon defender)
+      maybeEnergy = getEnergy move
+      battle = this
+  in if Attacker.damageWindow attacker == 0 then do
+       battle <- makeActions $
+         case maybeEnergy of
+           Just energy -> do
+             Writer.tell [Printf.printf "Attacker uses %d for %s"
+               energy (Move.name move)]
+             Battle.updateAttacker battle $ Attacker.useEnergy energy
+           Nothing -> return battle
+       battle <- makeActions $ do
+         Writer.tell [Printf.printf "Defender takes %d from %s"
+           damage (Move.name move)]
+         Battle.updateDefender battle $ Defender.takeDamage damage
+       return battle
+     else return battle
+
+checkDefenderHits :: Battle -> Writer [Action] Battle
+checkDefenderHits this =
+  let defender = Battle.defender this
+      attacker = Battle.attacker this
+      move = Defender.move defender
+      damage = getDamage (weatherBonus this)
+        (Defender.pokemon defender) move (Attacker.pokemon attacker)
+      maybeEnergy = getEnergy move
+      battle = this
+  in if Defender.damageWindow defender == 0 then do
+       battle <- makeActions $
+         case maybeEnergy of
+           Just energy -> do
+             Writer.tell [Printf.printf "Defender uses %d for %s"
+               energy (Move.name move)]
+             Battle.updateDefender battle $ Defender.useEnergy energy
+           Nothing -> return battle
+       battle <- makeActions $ do
+         Writer.tell [Printf.printf "Attacker takes %d from %s"
+           damage (Move.name move)]
+         Battle.updateAttacker battle $ Attacker.takeDamage damage
+       return battle
+     else return battle
+
+updateAttacker :: Battle -> (Attacker -> Writer [String] Attacker) -> Writer [String] Battle
+updateAttacker this fn = do
+  attacker <- fn $ Battle.attacker this
+  return $ this { attacker = attacker }
+
+updateDefender :: Battle -> (Defender -> Writer [String] Defender) -> Writer [String] Battle
+updateDefender this fn = do
+  defender <- fn $ Battle.defender this
+  return $ this { defender = defender }
 
 getDamage :: (Type -> Float) -> Pokemon -> Move -> Pokemon -> Int
 getDamage weatherBonus attacker move defender =
@@ -161,3 +170,27 @@ getDamage weatherBonus attacker move defender =
       attack = Pokemon.attack attacker
       defense = Pokemon.defense defender
   in floor $ power * stab * weather *effectiveness * attack / defense / 2 + 1
+
+getEnergy :: Move -> Maybe Int
+getEnergy move =
+  if Move.isCharge move
+    then Just $ negate $ Move.energy move
+    else Nothing
+
+makeActions :: Writer [String] Battle -> Writer [Action] Battle
+makeActions battleWriter =
+  let makeAction battle string = Action {
+        Action.when = Battle.timer battle,
+        Action.attackerHp = Attacker.hp $ Battle.attacker battle,
+        Action.attackerEnergy = Attacker.energy $ Battle.attacker battle,
+        Action.defenderHp = Defender.hp $ Battle.defender battle,
+        Action.defenderEnergy = Defender.energy $ Battle.defender battle,
+        Action.what = string
+        }
+  in decorateLog makeAction battleWriter
+
+decorateLog :: (a -> w -> u) -> Writer [w] a -> Writer [u] a
+decorateLog f m =
+  let (a, ws) = Writer.runWriter m
+      us = map (f a) ws
+  in Writer.writer (a, us)

@@ -283,7 +283,7 @@ gardevoir: mythical
 surskit: mythical
 masquerain: mythical
 shroomish:
-breloom: mythical
+breloom:
 slakoth: mythical
 vigoroth: mythical
 slaking: mythical
@@ -358,8 +358,8 @@ tropius: mythical
 chimecho: mythical
 absol: mythical
 wynaut: mythical
-snorunt: mythical
-glalie: mythical
+snorunt:
+glalie:
 spheal: mythical
 sealeo: mythical
 walrein: mythical

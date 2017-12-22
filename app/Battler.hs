@@ -102,7 +102,15 @@ showBattle (battle, actions) =
     do
       tell $ showPokemon $ Attacker.pokemon $ Battle.attacker battle
       tell $ showPokemon $ Defender.pokemon $ Battle.defender battle
-      mapM_ (tell . Action.what) actions)
+      mapM_ (tell . showAction) actions)
+
+showAction :: Action -> String
+showAction action =
+  Printf.printf "%5d: %3d %3d - %3d %3d: %s"
+    (Action.when action)
+    (Action.attackerHp action) (Action.attackerEnergy action)
+    (Action.defenderHp action) (Action.defenderEnergy action)
+    (Action.what action)
 
 showPokemon :: Pokemon -> String
 showPokemon pokemon =
