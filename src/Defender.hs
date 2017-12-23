@@ -87,28 +87,35 @@ makeMove' this = do
   Writer.tell ["Defender uses " ++ Move.name move']
   let -- If it's a quick move, its energy is available immediately
       -- for the decision about the next move.  Charge move energy
-      -- is subtracted at damageWindowStart.
+      -- is subtracted at damageWindowStart; this affects energy
+      -- damage until it is subtracted.
       energy' = if Move.isQuick move'
         then minimum [100, Defender.energy this + Move.energy move']
         else Defender.energy this
+      -- But we have to account for the charge energy that will be
+      -- used when deciding what move to make.
+      decisionEnergy = if Move.isQuick move'
+        then energy'
+        else energy' + Move.energy move'  -- Charge Move.energy is nagative.
       -- Figure out our next move.
       quick = Defender.quick this
       charge = Defender.charge this
       (random, rnd') = Random.random $ Defender.rnd this
   moves'' <- case moves' of
     [] -> do
-      if energy' >= negate (Move.energy charge)
-        then Writer.tell ["Defender can use " ++ Move.name charge]
-        else Writer.tell mempty
       -- Both quick moves and charge moves get an additional 1.5-2.5
       -- seconds added to their duration.  Just use the average, 2.
-      if energy' >= negate (Move.energy charge) && (random :: Float) < 0.5
-        then do
-          Writer.tell ["Defender chooses " ++  Move.name charge ++ " for next time"]
-          return [(charge, Move.durationMs charge + 2000)]
-        else do
-          Writer.tell ["Defender chooses " ++ Move.name quick ++ " for next time"]
-          return [(quick, Move.durationMs quick + 2000)]
+      if decisionEnergy >= negate (Move.energy charge) then do
+          Writer.tell ["Defender can use " ++ Move.name charge]
+          if (random :: Float) < 0.5 then do
+            Writer.tell ["Defender chooses " ++ Move.name charge ++ " for move"]
+            return [(charge, Move.durationMs charge + 2000)]
+          else do
+            Writer.tell ["Defender chooses " ++ Move.name quick ++ " for next move"]
+            return [(quick, Move.durationMs quick + 2000)]
+      else do
+        Writer.tell ["Defender must use " ++ Move.name quick ++ " for next move"]
+        return [(quick, Move.durationMs quick + 2000)]
     val -> return val
   -- Set countdown until damage is done to the opponent and it gets
   -- its energy boost and our charge move energy is subtracted.
