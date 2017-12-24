@@ -7,6 +7,7 @@ module Battle (
   defender,
   dps,
   damageInflicted,
+  secondsElapsed,
 ) where
 
 import qualified Action
@@ -55,7 +56,7 @@ init weatherBonus attacker defender =
 -- Given an initial Battle state, run a battle and return the final state
 -- when Battle.finished is true.
 --
-runBattle :: Battle -> Writer [Action] Battle
+runBattle :: Battle -> Writer [Action Battle] Battle
 runBattle =
   Loops.iterateUntilM Battle.attackerFainted Battle.tick
 
@@ -85,7 +86,7 @@ attackerFainted :: Battle -> Bool
 attackerFainted =
   Attacker.fainted . Battle.attacker
 
-tick :: Battle -> Writer [Action] Battle
+tick :: Battle -> Writer [Action Battle] Battle
 tick this = do
   let attacker = Battle.attacker this
       defender = Battle.defender this
@@ -103,7 +104,7 @@ tick this = do
   battle <- makeActions $ Battle.updateDefender battle $ Defender.makeMove
   return battle
 
-checkAttackerHits :: Battle -> Writer [Action] Battle
+checkAttackerHits :: Battle -> Writer [Action Battle] Battle
 checkAttackerHits this =
   let attacker = Battle.attacker this
       defender = Battle.defender this
@@ -127,7 +128,7 @@ checkAttackerHits this =
        return battle
      else return battle
 
-checkDefenderHits :: Battle -> Writer [Action] Battle
+checkDefenderHits :: Battle -> Writer [Action Battle] Battle
 checkDefenderHits this =
   let defender = Battle.defender this
       attacker = Battle.attacker this
@@ -177,14 +178,10 @@ getEnergy move =
     then Just $ negate $ Move.energy move
     else Nothing
 
-makeActions :: Writer [String] Battle -> Writer [Action] Battle
+makeActions :: Writer [String] Battle -> Writer [Action Battle] Battle
 makeActions battleWriter =
   let makeAction battle string = Action {
-        Action.when = Battle.timer battle,
-        Action.attackerHp = Attacker.hp $ Battle.attacker battle,
-        Action.attackerEnergy = Attacker.energy $ Battle.attacker battle,
-        Action.defenderHp = Defender.hp $ Battle.defender battle,
-        Action.defenderEnergy = Defender.energy $ Battle.defender battle,
+        Action.state = battle,
         Action.what = string
         }
   in decorateLog makeAction battleWriter

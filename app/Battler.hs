@@ -95,7 +95,7 @@ tell :: a -> Writer [a] ()
 tell a =
   Writer.tell [a]
 
-showBattle :: (Battle, [Action]) -> String
+showBattle :: (Battle, [Action Battle]) -> String
 showBattle (battle, actions) = 
   List.intercalate "\n" $
   Writer.execWriter (
@@ -104,13 +104,17 @@ showBattle (battle, actions) =
       tell $ showPokemon $ Defender.pokemon $ Battle.defender battle
       mapM_ (tell . showAction) actions)
 
-showAction :: Action -> String
+showAction :: Action Battle -> String
 showAction action =
-  Printf.printf "%5d: %3d %3d - %3d %3d: %s"
-    (Action.when action)
-    (Action.attackerHp action) (Action.attackerEnergy action)
-    (Action.defenderHp action) (Action.defenderEnergy action)
-    (Action.what action)
+  let battle = Action.state action
+      when = Battle.secondsElapsed battle
+      attacker = Battle.attacker battle
+      defender = Battle.defender battle
+  in Printf.printf "%.3f: %3d %3d - %3d %3d: %s"
+       when
+       (Attacker.hp attacker) (Attacker.energy attacker)
+       (Defender.hp defender) (Defender.energy defender)
+       (Action.what action)
 
 showPokemon :: Pokemon -> String
 showPokemon pokemon =
