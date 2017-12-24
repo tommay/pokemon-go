@@ -17,7 +17,7 @@ library
   hs-source-dirs:      src
   exposed-modules:     MyPokemon, GameMaster, PokemonBase, Epic, Move, Type, Pokemon,
                        Appraisal, Stats, Calc, Mythical,
-                       Battle, Attacker, Defender, Debug, Action, Matchup,
+                       Battle, Attacker, Defender, Debug, Log, Matchup,
                        Util, Weather
   other-modules:       StringMap
   ghc-options:         -O2

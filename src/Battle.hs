@@ -10,12 +10,12 @@ module Battle (
   secondsElapsed,
 ) where
 
-import qualified Action
-import           Action (Action (Action))
 import qualified Attacker
 import           Attacker (Attacker)
 import qualified Defender
 import           Defender (Defender)
+import qualified Log
+import           Log (Log (Log))
 import qualified Move
 import           Move (Move)
 import qualified Pokemon
@@ -56,7 +56,7 @@ init weatherBonus attacker defender =
 -- Given an initial Battle state, run a battle and return the final state
 -- when Battle.finished is true.
 --
-runBattle :: Battle -> Writer [Action Battle] Battle
+runBattle :: Battle -> Writer [Log Battle] Battle
 runBattle =
   Loops.iterateUntilM Battle.attackerFainted Battle.tick
 
@@ -86,7 +86,7 @@ attackerFainted :: Battle -> Bool
 attackerFainted =
   Attacker.fainted . Battle.attacker
 
-tick :: Battle -> Writer [Action Battle] Battle
+tick :: Battle -> Writer [Log Battle] Battle
 tick this = do
   let attacker = Battle.attacker this
       defender = Battle.defender this
@@ -100,11 +100,11 @@ tick this = do
         }
   battle <- checkAttackerHits battle
   battle <- checkDefenderHits battle
-  battle <- makeActions $ Battle.updateAttacker battle $ Attacker.makeMove
-  battle <- makeActions $ Battle.updateDefender battle $ Defender.makeMove
+  battle <- makeLogs $ Battle.updateAttacker battle $ Attacker.makeMove
+  battle <- makeLogs $ Battle.updateDefender battle $ Defender.makeMove
   return battle
 
-checkAttackerHits :: Battle -> Writer [Action Battle] Battle
+checkAttackerHits :: Battle -> Writer [Log Battle] Battle
 checkAttackerHits this =
   let attacker = Battle.attacker this
       defender = Battle.defender this
@@ -114,21 +114,21 @@ checkAttackerHits this =
       maybeEnergy = getEnergy move
       battle = this
   in if Attacker.damageWindow attacker == 0 then do
-       battle <- makeActions $
+       battle <- makeLogs $
          case maybeEnergy of
            Just energy -> do
              Writer.tell [Printf.printf "Attacker uses %d for %s"
                energy (Move.name move)]
              Battle.updateAttacker battle $ Attacker.useEnergy energy
            Nothing -> return battle
-       battle <- makeActions $ do
+       battle <- makeLogs $ do
          Writer.tell [Printf.printf "Defender takes %d from %s"
            damage (Move.name move)]
          Battle.updateDefender battle $ Defender.takeDamage damage
        return battle
      else return battle
 
-checkDefenderHits :: Battle -> Writer [Action Battle] Battle
+checkDefenderHits :: Battle -> Writer [Log Battle] Battle
 checkDefenderHits this =
   let defender = Battle.defender this
       attacker = Battle.attacker this
@@ -138,14 +138,14 @@ checkDefenderHits this =
       maybeEnergy = getEnergy move
       battle = this
   in if Defender.damageWindow defender == 0 then do
-       battle <- makeActions $
+       battle <- makeLogs $
          case maybeEnergy of
            Just energy -> do
              Writer.tell [Printf.printf "Defender uses %d for %s"
                energy (Move.name move)]
              Battle.updateDefender battle $ Defender.useEnergy energy
            Nothing -> return battle
-       battle <- makeActions $ do
+       battle <- makeLogs $ do
          Writer.tell [Printf.printf "Attacker takes %d from %s"
            damage (Move.name move)]
          Battle.updateAttacker battle $ Attacker.takeDamage damage
@@ -178,13 +178,13 @@ getEnergy move =
     then Just $ negate $ Move.energy move
     else Nothing
 
-makeActions :: Writer [String] Battle -> Writer [Action Battle] Battle
-makeActions battleWriter =
-  let makeAction battle string = Action {
-        Action.state = battle,
-        Action.what = string
+makeLogs :: Writer [String] Battle -> Writer [Log Battle] Battle
+makeLogs battleWriter =
+  let makeLog battle string = Log {
+        Log.state = battle,
+        Log.what = string
         }
-  in decorateLog makeAction battleWriter
+  in decorateLog makeLog battleWriter
 
 decorateLog :: (a -> w -> u) -> Writer [w] a -> Writer [u] a
 decorateLog f m =

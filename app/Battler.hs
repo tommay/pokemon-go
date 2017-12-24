@@ -8,8 +8,8 @@ import qualified Options.Applicative as O
 import           Options.Applicative ((<|>), (<**>))
 import           Data.Semigroup ((<>))
 
-import qualified Action
-import           Action (Action)
+import qualified Log
+import           Log (Log)
 import qualified Attacker
 import           Attacker (Attacker)
 import qualified Battle
@@ -95,18 +95,18 @@ tell :: a -> Writer [a] ()
 tell a =
   Writer.tell [a]
 
-showBattle :: (Battle, [Action Battle]) -> String
-showBattle (battle, actions) = 
+showBattle :: (Battle, [Log Battle]) -> String
+showBattle (battle, logs) = 
   List.intercalate "\n" $
   Writer.execWriter (
     do
       tell $ showPokemon $ Attacker.pokemon $ Battle.attacker battle
       tell $ showPokemon $ Defender.pokemon $ Battle.defender battle
-      mapM_ (tell . showAction) actions)
+      mapM_ (tell . showLog) logs)
 
-showAction :: Action Battle -> String
-showAction action =
-  let battle = Action.state action
+showLog :: Log Battle -> String
+showLog log =
+  let battle = Log.state log
       when = Battle.secondsElapsed battle
       attacker = Battle.attacker battle
       defender = Battle.defender battle
@@ -114,7 +114,7 @@ showAction action =
        when
        (Attacker.hp attacker) (Attacker.energy attacker)
        (Defender.hp defender) (Defender.energy defender)
-       (Action.what action)
+       (Log.what log)
 
 showPokemon :: Pokemon -> String
 showPokemon pokemon =
