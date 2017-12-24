@@ -309,7 +309,7 @@ medicham:
 electrike:
 manectric:
 plusle:
-minun:
+minun: mythical # regional
 volbeat: mythical
 illumise: mythical
 roselia:
@@ -333,7 +333,7 @@ cacturne: mythical
 swablu: mythical
 altaria: mythical
 zangoose: 
-seviper:
+seviper: mythical # regional
 lunatone: mythical
 solrock: mythical
 barboach:
@@ -366,7 +366,7 @@ walrein:
 clamperl: mythical
 huntail: mythical
 gorebyss: mythical
-relicanth:
+relicanth: mythical # regional
 luvdisc:
 bagon: mythical
 shelgon: mythical
