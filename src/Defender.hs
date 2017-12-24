@@ -13,13 +13,13 @@ module Defender (
   nextTick,
 ) where
 
+import qualified Logger
+import           Logger (Logger)
 import qualified Pokemon
 import           Pokemon (Pokemon)
 import qualified Move
 import           Move (Move)
 
-import qualified Control.Monad.Writer as Writer
-import           Control.Monad.Writer (Writer)
 import qualified System.Random as Random
 import qualified Text.Printf as Printf
 
@@ -74,17 +74,17 @@ nextTick :: Defender -> Int
 nextTick this =
   minimum $ filter (> 0) [Defender.cooldown this, Defender.damageWindow this]
 
-makeMove :: Defender -> Writer [String] Defender
+makeMove :: Defender -> Logger String Defender
 makeMove this =
   if Defender.cooldown this == 0
     then makeMove' this
     else return this
 
-makeMove' :: Defender -> Writer [String] Defender
+makeMove' :: Defender -> Logger String Defender
 makeMove' this = do
   let -- Get the next move and any move(s) after that.
       (move', cooldown'):moves' = Defender.moves this
-  Writer.tell ["Defender uses " ++ Move.name move']
+  Logger.log $ "Defender uses " ++ Move.name move'
   let -- If it's a quick move, its energy is available immediately
       -- for the decision about the next move.  Charge move energy
       -- is subtracted at damageWindowStart; this affects energy
@@ -96,7 +96,7 @@ makeMove' this = do
       -- used when deciding what move to make.
       decisionEnergy = if Move.isQuick move'
         then energy'
-        else energy' + Move.energy move'  -- Charge Move.energy is nagative.
+        else energy' + Move.energy move'  -- Charge Move.energy is negative.
       -- Figure out our next move.
       quick = Defender.quick this
       charge = Defender.charge this
@@ -106,15 +106,15 @@ makeMove' this = do
       -- Both quick moves and charge moves get an additional 1.5-2.5
       -- seconds added to their duration.  Just use the average, 2.
       if decisionEnergy >= negate (Move.energy charge) then do
-          Writer.tell ["Defender can use " ++ Move.name charge]
+          Logger.log $ "Defender can use " ++ Move.name charge
           if (random :: Float) < 0.5 then do
-            Writer.tell ["Defender chooses " ++ Move.name charge ++ " for move"]
+            Logger.log $ "Defender chooses " ++ Move.name charge ++ " for next move"
             return [(charge, Move.durationMs charge + 2000)]
           else do
-            Writer.tell ["Defender chooses " ++ Move.name quick ++ " for next move"]
+            Logger.log $ "Defender chooses " ++ Move.name quick ++ " for next move"
             return [(quick, Move.durationMs quick + 2000)]
       else do
-        Writer.tell ["Defender must use " ++ Move.name quick ++ " for next move"]
+        Logger.log $ "Defender must use " ++ Move.name quick ++ " for next move"
         return [(quick, Move.durationMs quick + 2000)]
     val -> return val
   -- Set countdown until damage is done to the opponent and it gets
@@ -129,14 +129,14 @@ makeMove' this = do
     rnd = rnd'
     }
 
-takeDamage :: Int -> Defender -> Writer [String] Defender
+takeDamage :: Int -> Defender -> Logger String Defender
 takeDamage damage this =
   return $ this {
     hp = Defender.hp this - damage,
     energy = minimum [100, Defender.energy this + (damage + 1) `div` 2]
     }
 
-useEnergy :: Int -> Defender -> Writer [String] Defender
+useEnergy :: Int -> Defender -> Logger String Defender
 useEnergy energy this =
   return $ this {
     energy = Defender.energy this - energy

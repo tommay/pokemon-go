@@ -7,6 +7,7 @@ import           Battle (Battle)
 import qualified Epic
 import qualified GameMaster
 import           GameMaster (GameMaster)
+import qualified Logger
 import qualified Move
 import           Move (Move)
 import qualified Mythical
@@ -20,7 +21,6 @@ import qualified Data.Yaml.Builder as Builder
 import           Data.Yaml.Builder ((.=))
 
 import           Control.Monad (join)
-import qualified Control.Monad.Writer as Writer
 import qualified Data.ByteString as B
 import qualified Data.List as List
 import qualified Data.Scientific as Scientific
@@ -109,10 +109,10 @@ data AttackerResult = AttackerResult {
 
 getAttackerResult :: [Pokemon] -> Pokemon -> AttackerResult
 getAttackerResult defenders attacker =
-  let battleWriters = [
+  let battleLoggers = [
         Battle.runBattle $ Battle.init (const 1) attacker defender |
         defender <- defenders]
-      battles = map (fst . Writer.runWriter) battleWriters
+      battles = map (fst . Logger.runLogger) battleLoggers
       minByDamage =
         List.minimumBy (Util.compareWith Battle.damageInflicted) battles
       minDamage = Battle.damageInflicted minByDamage

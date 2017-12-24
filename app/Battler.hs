@@ -8,8 +8,6 @@ import qualified Options.Applicative as O
 import           Options.Applicative ((<|>), (<**>))
 import           Data.Semigroup ((<>))
 
-import qualified Log
-import           Log (Log)
 import qualified Attacker
 import           Attacker (Attacker)
 import qualified Battle
@@ -19,6 +17,10 @@ import           Defender (Defender)
 import qualified Epic
 import qualified GameMaster
 import           GameMaster (GameMaster)
+import qualified Log
+import           Log (Log)
+import qualified Logger
+import           Logger (Logger)
 import qualified Move
 import           Move (Move)
 import qualified Mythical
@@ -32,8 +34,6 @@ import           PokemonBase (PokemonBase)
 import           Weather (Weather (..))
 
 import           Control.Monad (join)
-import qualified Control.Monad.Writer as Writer
-import           Control.Monad.Writer (Writer)
 import qualified Data.List as List
 import qualified System.IO as I
 import qualified Text.Printf as Printf
@@ -82,23 +82,22 @@ main =
       defenderVariants <-
         makeWithAllMovesetsFromSpecies gameMaster (defender options)
 
-      let battleWriters =
+      let battleLoggers =
             [Battle.runBattle $ Battle.init weatherBonus attacker defender |
               attacker <- attackerVariants, defender <- defenderVariants]
-          battleResults = map Writer.runWriter battleWriters
+          battleResults = map Logger.runLogger battleLoggers
 
       putStrLn $ List.intercalate "\n" $ map showBattle battleResults
     )
     $ I.hPutStrLn I.stderr
 
-tell :: a -> Writer [a] ()
-tell a =
-  Writer.tell [a]
+tell :: a -> Logger a ()
+tell = Logger.log
 
 showBattle :: (Battle, [Log Battle]) -> String
 showBattle (battle, logs) = 
   List.intercalate "\n" $
-  Writer.execWriter (
+  Logger.execLogger (
     do
       tell $ showPokemon $ Attacker.pokemon $ Battle.attacker battle
       tell $ showPokemon $ Defender.pokemon $ Battle.defender battle

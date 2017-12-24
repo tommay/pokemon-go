@@ -16,6 +16,8 @@ import qualified Defender
 import           Defender (Defender)
 import qualified Log
 import           Log (Log (Log))
+import qualified Logger
+import           Logger (Logger)
 import qualified Move
 import           Move (Move)
 import qualified Pokemon
@@ -24,8 +26,6 @@ import qualified Type
 import           Type (Type)
 
 import qualified Control.Monad.Loops as Loops
-import qualified Control.Monad.Writer as Writer
-import           Control.Monad.Writer (Writer)
 import qualified Data.List as List
 import qualified System.Random as Random
 import qualified Text.Printf as Printf
@@ -56,13 +56,13 @@ init weatherBonus attacker defender =
 -- Given an initial Battle state, run a battle and return the final state
 -- when Battle.finished is true.
 --
-runBattle :: Battle -> Writer [Log Battle] Battle
+runBattle :: Battle -> Logger (Log Battle) Battle
 runBattle =
   Loops.iterateUntilM Battle.attackerFainted Battle.tick
 
 runBattleOnly :: Battle -> Battle
 runBattleOnly =
-  fst . Writer.runWriter . runBattle
+  fst . Logger.runLogger . runBattle
 
 -- XXX This is not quite right because there is some delay before the
 -- attacker's first move, so the dps only starts after the delay.
@@ -86,7 +86,7 @@ attackerFainted :: Battle -> Bool
 attackerFainted =
   Attacker.fainted . Battle.attacker
 
-tick :: Battle -> Writer [Log Battle] Battle
+tick :: Battle -> Logger (Log Battle) Battle
 tick this = do
   let attacker = Battle.attacker this
       defender = Battle.defender this
@@ -104,7 +104,7 @@ tick this = do
   battle <- makeLogs $ Battle.updateDefender battle $ Defender.makeMove
   return battle
 
-checkAttackerHits :: Battle -> Writer [Log Battle] Battle
+checkAttackerHits :: Battle -> Logger (Log Battle) Battle
 checkAttackerHits this =
   let attacker = Battle.attacker this
       defender = Battle.defender this
@@ -117,18 +117,18 @@ checkAttackerHits this =
        battle <- makeLogs $
          case maybeEnergy of
            Just energy -> do
-             Writer.tell [Printf.printf "Attacker uses %d for %s"
-               energy (Move.name move)]
+             Logger.log $ Printf.printf "Attacker uses %d for %s"
+               energy (Move.name move)
              Battle.updateAttacker battle $ Attacker.useEnergy energy
            Nothing -> return battle
        battle <- makeLogs $ do
-         Writer.tell [Printf.printf "Defender takes %d from %s"
-           damage (Move.name move)]
+         Logger.log $ Printf.printf "Defender takes %d from %s"
+           damage (Move.name move)
          Battle.updateDefender battle $ Defender.takeDamage damage
        return battle
      else return battle
 
-checkDefenderHits :: Battle -> Writer [Log Battle] Battle
+checkDefenderHits :: Battle -> Logger (Log Battle) Battle
 checkDefenderHits this =
   let defender = Battle.defender this
       attacker = Battle.attacker this
@@ -141,23 +141,23 @@ checkDefenderHits this =
        battle <- makeLogs $
          case maybeEnergy of
            Just energy -> do
-             Writer.tell [Printf.printf "Defender uses %d for %s"
-               energy (Move.name move)]
+             Logger.log $ Printf.printf "Defender uses %d for %s"
+               energy (Move.name move)
              Battle.updateDefender battle $ Defender.useEnergy energy
            Nothing -> return battle
        battle <- makeLogs $ do
-         Writer.tell [Printf.printf "Attacker takes %d from %s"
-           damage (Move.name move)]
+         Logger.log $ Printf.printf "Attacker takes %d from %s"
+           damage (Move.name move)
          Battle.updateAttacker battle $ Attacker.takeDamage damage
        return battle
      else return battle
 
-updateAttacker :: Battle -> (Attacker -> Writer [String] Attacker) -> Writer [String] Battle
+updateAttacker :: Battle -> (Attacker -> Logger String Attacker) -> Logger String Battle
 updateAttacker this fn = do
   attacker <- fn $ Battle.attacker this
   return $ this { attacker = attacker }
 
-updateDefender :: Battle -> (Defender -> Writer [String] Defender) -> Writer [String] Battle
+updateDefender :: Battle -> (Defender -> Logger String Defender) -> Logger String Battle
 updateDefender this fn = do
   defender <- fn $ Battle.defender this
   return $ this { defender = defender }
@@ -178,16 +178,16 @@ getEnergy move =
     then Just $ negate $ Move.energy move
     else Nothing
 
-makeLogs :: Writer [String] Battle -> Writer [Log Battle] Battle
-makeLogs battleWriter =
+makeLogs ::Logger String Battle -> Logger (Log Battle) Battle
+makeLogs battleLogger =
   let makeLog battle string = Log {
         Log.state = battle,
         Log.what = string
         }
-  in decorateLog makeLog battleWriter
+  in decorateLog makeLog battleLogger
 
-decorateLog :: (a -> w -> u) -> Writer [w] a -> Writer [u] a
+decorateLog :: (a -> w -> u) -> Logger w a -> Logger u a
 decorateLog f m =
-  let (a, ws) = Writer.runWriter m
+  let (a, ws) = Logger.runLogger m
       us = map (f a) ws
-  in Writer.writer (a, us)
+  in Logger.logger (a, us)

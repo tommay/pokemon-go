@@ -14,13 +14,13 @@ module Attacker (
   nextTick,
 ) where
 
+import qualified Logger
+import           Logger (Logger)
 import qualified Pokemon
 import           Pokemon (Pokemon)
 import qualified Move
 import           Move (Move)
 
-import qualified Control.Monad.Writer as Writer
-import           Control.Monad.Writer (Writer)
 import qualified Text.Printf as Printf
 
 import Debug as D
@@ -71,13 +71,13 @@ nextTick :: Attacker -> Int
 nextTick this =
   minimum $ filter (> 0) [Attacker.cooldown this, Attacker.damageWindow this]
 
-makeMove :: Attacker -> Writer [String] Attacker
+makeMove :: Attacker -> Logger String Attacker
 makeMove this =
   if Attacker.cooldown this == 0
     then makeMove' this
     else return this
 
-makeMove' :: Attacker -> Writer [String] Attacker
+makeMove' :: Attacker -> Logger String Attacker
 makeMove' this = do
   let quick = Attacker.quick this
       charge = Attacker.charge this
@@ -87,7 +87,7 @@ makeMove' this = do
         -- Do an extra quick move to simulate delayed player reaction
         -- to the flashing charge bars.
         then do
-          Writer.tell ["Attacker can use " ++ Move.name charge]
+          Logger.log $ "Attacker can use " ++ Move.name charge
           return [quick, charge]
         else return [quick]
     val -> return val
@@ -107,17 +107,17 @@ makeMove' this = do
         move = move',
         damageWindow = damageWindow'
         }
-  Writer.tell ["Attacker uses " ++ (Move.name $ Attacker.move result)]
+  Logger.log $ "Attacker uses " ++ (Move.name $ Attacker.move result)
   return result
 
-takeDamage :: Int -> Attacker -> Writer [String] Attacker
+takeDamage :: Int -> Attacker -> Logger String Attacker
 takeDamage damage this =
   return $ this {
     hp = Attacker.hp this - damage,
     energy = minimum [100, Attacker.energy this + (damage + 1) `div` 2]
     }
 
-useEnergy :: Int -> Attacker -> Writer [String] Attacker
+useEnergy :: Int -> Attacker -> Logger String Attacker
 useEnergy energy this =
   return $ this {
     energy = Attacker.energy this - energy
