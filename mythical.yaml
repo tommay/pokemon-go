@@ -249,30 +249,30 @@ tyranitar:
 lugia: legendary
 ho_oh: legendary
 celebi: legendary
-treecko: mythical
-grovyle: mythical
-sceptile: mythical
-torchic: mythical
-combusken: mythical
-blaziken: mythical
-mudkip: mythical
-marshtomp: mythical
-swampert: mythical
+treecko:
+grovyle:
+sceptile:
+torchic:
+combusken:
+blaziken:
+mudkip:
+marshtomp:
+swampert:
 poochyena:
 mightyena:
 zigzagoon:
 linoone:
 wurmple:
-silcoon: mythical
-beautifly: mythical
-cascoon: mythical
+silcoon:
+beautifly:
+cascoon:
 dustox: mythical
 lotad:
 lombre:
 ludicolo:
 seedot:
 nuzleaf:
-shiftry: mythical
+shiftry:
 taillow: mythical
 swellow: mythical
 wingull: mythical
@@ -295,7 +295,7 @@ loudred: mythical
 exploud: mythical
 makuhita:
 hariyama:
-azurill: mythical
+azurill:
 nosepass: mythical
 skitty:
 delcatty:
@@ -304,12 +304,12 @@ mawile:
 aron: mythical
 lairon: mythical
 aggron: mythical
-meditite: mythical
-medicham: mythical
+meditite:
+medicham:
 electrike:
-manectric: mythical
-plusle: mythical
-minun: mythical
+manectric:
+plusle:
+minun:
 volbeat: mythical
 illumise: mythical
 roselia:
@@ -333,7 +333,7 @@ cacturne: mythical
 swablu: mythical
 altaria: mythical
 zangoose: 
-seviper: mythical
+seviper:
 lunatone: mythical
 solrock: mythical
 barboach:
@@ -356,8 +356,8 @@ duskull:
 dusclops: 
 tropius: mythical
 chimecho: mythical
-absol: mythical
-wynaut: mythical
+absol:
+wynaut:
 snorunt:
 glalie:
 spheal:
