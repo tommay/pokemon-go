@@ -267,9 +267,9 @@ silcoon: mythical
 beautifly: mythical
 cascoon: mythical
 dustox: mythical
-lotad: mythical
-lombre: mythical
-ludicolo: mythical
+lotad:
+lombre:
+ludicolo:
 seedot:
 nuzleaf:
 shiftry: mythical
@@ -315,8 +315,8 @@ illumise: mythical
 roselia:
 gulpin:
 swalot:
-carvanha: mythical
-sharpedo: mythical
+carvanha:
+sharpedo:
 wailmer:
 wailord:
 numel: mythical
@@ -336,18 +336,18 @@ zangoose:
 seviper: mythical
 lunatone: mythical
 solrock: mythical
-barboach: mythical
-whiscash: mythical
-corphish: mythical
-crawdaunt: mythical
+barboach:
+whiscash:
+corphish:
+crawdaunt:
 baltoy: mythical
 claydol: mythical
 lileep: mythical
 cradily: mythical
 anorith: mythical
 armaldo: mythical
-feebas: mythical
-milotic: mythical
+feebas:
+milotic:
 castform: mythical
 kecleon: mythical
 shuppet: 
@@ -366,8 +366,8 @@ walrein:
 clamperl: mythical
 huntail: mythical
 gorebyss: mythical
-relicanth: mythical
-luvdisc: mythical
+relicanth:
+luvdisc:
 bagon: mythical
 shelgon: mythical
 salamence: mythical
