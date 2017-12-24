@@ -277,16 +277,16 @@ taillow: mythical
 swellow: mythical
 wingull: mythical
 pelipper: mythical
-ralts: mythical
-kirlia: mythical
-gardevoir: mythical
+ralts:
+kirlia:
+gardevoir:
 surskit: mythical
 masquerain: mythical
 shroomish:
 breloom:
-slakoth: mythical
-vigoroth: mythical
-slaking: mythical
+slakoth:
+vigoroth:
+slaking:
 nincada: mythical
 ninjask: mythical
 shedinja: mythical
@@ -294,7 +294,7 @@ whismur: mythical
 loudred: mythical
 exploud: mythical
 makuhita:
-hariyama: mythical
+hariyama:
 azurill: mythical
 nosepass: mythical
 skitty:
@@ -312,18 +312,18 @@ plusle: mythical
 minun: mythical
 volbeat: mythical
 illumise: mythical
-roselia: mythical
+roselia:
 gulpin:
-swalot: mythical
+swalot:
 carvanha: mythical
 sharpedo: mythical
-wailmer: mythical
-wailord: mythical
+wailmer:
+wailord:
 numel: mythical
 camerupt: mythical
 torkoal: mythical
 spoink:
-grumpig: mythical
+grumpig:
 spinda: mythical
 trapinch: mythical
 vibrava: mythical
@@ -360,9 +360,9 @@ absol: mythical
 wynaut: mythical
 snorunt:
 glalie:
-spheal: mythical
-sealeo: mythical
-walrein: mythical
+spheal:
+sealeo:
+walrein:
 clamperl: mythical
 huntail: mythical
 gorebyss: mythical
