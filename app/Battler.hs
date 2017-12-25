@@ -33,18 +33,42 @@ import qualified PokemonBase
 import           PokemonBase (PokemonBase)
 import           Weather (Weather (..))
 
+import           Control.Applicative (optional, some)
 import           Control.Monad (join)
+import qualified Data.Attoparsec.Text as AP
 import qualified Data.List as List
+import qualified Data.Maybe as Maybe
+import qualified Data.Text as Text
 import qualified System.IO as I
 import qualified Text.Printf as Printf
 
 defaultLevel = 20
 
+data Battler = Battler String Float
+  deriving (Show)
+
 data Options = Options {
   maybeWeather :: Maybe Weather,
-  attacker :: String,
-  defender :: String
+  attacker :: Battler,
+  defender :: Battler
 }
+
+parseBattler :: O.ReadM Battler
+parseBattler = O.eitherReader $ \s ->
+  let attoParseBattler = do
+        battler <- some $ AP.notChar ':'
+        level <- optional $ do
+          AP.char ':'
+          (level, _) <- AP.match $ do
+            AP.decimal
+            optional $ AP.string ".5"
+          return $ read $ Text.unpack level
+        AP.endOfInput
+        return $ Battler battler (Maybe.fromMaybe defaultLevel level)
+  in case AP.parseOnly attoParseBattler (Text.pack s) of
+    Left _ ->
+      Left $ "`" ++ s ++ "' should look like SPECIES[:LEVEL]"
+    Right battler -> Right battler
 
 getOptions :: IO Options
 getOptions =
@@ -57,8 +81,8 @@ getOptions =
         <|> O.flag' Rainy (O.long "rainy")
         <|> O.flag' Snow (O.long "snow")
         <|> O.flag' Windy (O.long "windy")
-      optAttacker = O.argument O.str (O.metavar "Attacker")
-      optDefender = O.argument O.str (O.metavar "DEFENDER")
+      optAttacker = O.argument parseBattler (O.metavar "ATTACKER[:LEVEL]")
+      optDefender = O.argument parseBattler (O.metavar "DEFENDER[:LEVEL]")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc "Battle some pokemon.")
@@ -77,10 +101,12 @@ main =
             Nothing -> const 1
 
       attackerVariants <-
-        makeWithAllMovesetsFromSpecies gameMaster (attacker options)
+        let Battler species level = attacker options
+        in makeWithAllMovesetsFromSpecies gameMaster species level
 
       defenderVariants <-
-        makeWithAllMovesetsFromSpecies gameMaster (defender options)
+        let Battler species level = defender options
+        in makeWithAllMovesetsFromSpecies gameMaster species level
 
       let battleLoggers =
             [Battle.runBattle $ Battle.init weatherBonus attacker defender |
@@ -123,10 +149,10 @@ showPokemon pokemon =
     (Move.name $ Pokemon.charge pokemon)
 
 makeWithAllMovesetsFromSpecies :: Epic.MonadCatch m =>
-    GameMaster -> String -> m [Pokemon]
-makeWithAllMovesetsFromSpecies gameMaster species = do
+    GameMaster -> String -> Float -> m [Pokemon]
+makeWithAllMovesetsFromSpecies gameMaster species level = do
   base <- GameMaster.getPokemonBase gameMaster species
-  return $ makeWithAllMovesetsFromBase gameMaster defaultLevel base
+  return $ makeWithAllMovesetsFromBase gameMaster level base
 
 makeWithAllMovesetsFromBase :: GameMaster -> Float -> PokemonBase -> [Pokemon]
 makeWithAllMovesetsFromBase gameMaster level base =
