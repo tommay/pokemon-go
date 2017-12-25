@@ -53,8 +53,8 @@ data Options = Options {
   defender :: Battler
 }
 
-parseBattler :: O.ReadM Battler
-parseBattler = O.eitherReader $ \s ->
+parseBattler :: Float -> O.ReadM Battler
+parseBattler defaultLevel = O.eitherReader $ \s ->
   let attoParseBattler = do
         battler <- some $ Atto.notChar ':'
         level <- optional $ do
@@ -81,8 +81,10 @@ getOptions =
         <|> O.flag' Rainy (O.long "rainy")
         <|> O.flag' Snow (O.long "snow")
         <|> O.flag' Windy (O.long "windy")
-      optAttacker = O.argument parseBattler (O.metavar "ATTACKER[:LEVEL]")
-      optDefender = O.argument parseBattler (O.metavar "DEFENDER[:LEVEL]")
+      optAttacker = O.argument
+        (parseBattler defaultLevel) (O.metavar "ATTACKER[:LEVEL]")
+      optDefender = O.argument
+        (parseBattler defaultLevel) (O.metavar "DEFENDER[:LEVEL]")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc "Battle some pokemon.")
