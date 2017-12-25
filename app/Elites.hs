@@ -1,5 +1,9 @@
 module Main where
 
+import qualified Options.Applicative as O
+import           Options.Applicative ((<|>), (<**>))
+import           Data.Semigroup ((<>))
+
 import qualified Epic
 import qualified Matchup
 import           Matchup (Matchup)
@@ -12,9 +16,29 @@ import qualified Data.List as List
 import qualified System.IO as IO
 import qualified Text.Printf as Printf
 
+data Options = Options {
+  elitesOnly :: Bool
+}
+
+getOptions :: IO Options
+getOptions =
+  let opts = Options <$> optElitesOnly
+      optElitesOnly = O.switch
+        (  O.long "elites"
+        <> O.short 'e'
+        <> O.help "Filter non-elites from all output")
+      options = O.info (opts <**> O.helper)
+        (  O.fullDesc
+        <> O.progDesc ("Use matchups.out to find elite pokemong and their" ++
+             "victims"))
+      prefs = O.prefs O.showHelpOnEmpty
+  in O.customExecParser prefs options
+
 main =
   Epic.catch (
     do
+      options <- getOptions
+
       matchups <- join $ Matchup.load "matchups.out"
 
       -- byDefender maps a defender to a list of its matchups.
@@ -22,28 +46,46 @@ main =
       let byDefender :: HashMap String [Matchup]
           byDefender = Util.groupBy Matchup.defender matchups
 
-      -- Find the matchups with the most damage and decent dps.
+          -- Find the matchups with the most damage and decent dps.
 
           eliteMatchups :: [Matchup]
           eliteMatchups = concat
             $ map (keepTopDamageMatchups . keepHighDpsMatchups)
             $ HashMap.elems byDefender  -- [[Matchup]]
 
-          eliteAttackers = HashMap.toList $
-            Util.groupBy attackerInfo eliteMatchups
+          -- HashMap (attacker, _, _) [Matchup]
+          eliteAttackers = Util.groupBy attackerInfo eliteMatchups
 
-          sorted = Util.sortWith (\((attacker, _, _), _) -> attacker)
-            eliteAttackers
+          -- HashMap (attacker, _, _) [String]
+          eliteVictims = HashMap.map (map Matchup.defender) eliteAttackers
+
+          -- An attacker is considered elite only if it has elite victims.
+          filterElites blah =
+            let getAttacker (attacker, _, _) = attacker
+                attackers = map getAttacker $ HashMap.keys blah
+                filtered = HashMap.map (filter (`elem` attackers)) blah
+                filtered' = HashMap.filter (not . null) filtered
+            in if blah == filtered'
+                 then blah
+                 else filterElites filtered'
+
+          filteredEliteAttackers = if elitesOnly options
+            then filterElites eliteVictims
+            else eliteVictims
+
+          getAttacker ((attacker, _, _), _) = attacker
+
+          sorted = Util.sortWith getAttacker $
+            HashMap.toList filteredEliteAttackers
 
       mapM_ (putStrLn . showElite) $ sorted
     )
     $ IO.hPutStrLn IO.stderr
 
-showElite :: ((String, String, String), [Matchup]) -> String
-showElite ((attacker, quick, charge), matchups) =
-  let defenders = List.intercalate ", " $
-        List.sort $ map Matchup.defender matchups
-  in Printf.printf "%s %s / %s => %s" attacker quick charge defenders
+showElite :: ((String, String, String), [String]) -> String
+showElite ((attacker, quick, charge), victims) =
+  let sortedVictims = List.intercalate ", " $ List.sort victims
+  in Printf.printf "%s %s / %s => %s" attacker quick charge sortedVictims
 
 attackerInfo :: Matchup -> (String, String, String)
 attackerInfo matchup =
