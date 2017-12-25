@@ -26,7 +26,7 @@ import           Weather (Weather (..))
 
 import           Control.Applicative (optional, some)
 import           Control.Monad (join)
-import qualified Data.Attoparsec.Text as AP
+import qualified Data.Attoparsec.Text as Atto
 import qualified Data.List as List
 import qualified Data.Maybe as Maybe
 import qualified Data.Set as Set
@@ -72,16 +72,16 @@ defenderLevel = 20
 parseAttacker :: O.ReadM Attacker
 parseAttacker = O.eitherReader $ \s ->
   let attoParseAttacker = do
-        attacker <- some $ AP.notChar ':'
+        attacker <- some $ Atto.notChar ':'
         level <- optional $ do
-          AP.char ':'
-          (level, _) <- AP.match $ do
-            AP.decimal
-            optional $ AP.string ".5"
+          Atto.char ':'
+          (level, _) <- Atto.match $ do
+            Atto.decimal
+            optional $ Atto.string ".5"
           return $ read $ Text.unpack level
-        AP.endOfInput
+        Atto.endOfInput
         return $ Attacker attacker level
-  in case AP.parseOnly attoParseAttacker (Text.pack s) of
+  in case Atto.parseOnly attoParseAttacker (Text.pack s) of
     Left _ ->
       Left $ "`" ++ s ++ "' should look like ATTACKER[:LEVEL]"
     Right attacker -> Right attacker
