@@ -66,8 +66,8 @@ data Result = Result {
 } deriving (Show)
 
 defaultFilename = "my_pokemon.yaml"
-defaultAttackerLevel = 20
-defaultDefenderLevel = 20
+defaultAttackerLevel = 30
+defaultDefenderLevel = 30
 
 parseBattler :: Float -> O.ReadM Battler
 parseBattler defaultLevel = O.eitherReader $ \s ->
