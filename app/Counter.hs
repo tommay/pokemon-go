@@ -24,6 +24,7 @@ import           PokemonBase (PokemonBase)
 import qualified Type
 import           Type (Type)
 import qualified Util
+import qualified Weather
 import           Weather (Weather (..))
 
 import           Control.Monad (join)
@@ -71,14 +72,7 @@ getOptions =
         optTop <*>
         optLevel <*> optLegendary <*> optAttackerSource <*>
         optDefender
-      optWeather = O.optional $
-            O.flag' Clear (O.long "clear" <> O.help "weather is sunny/clear")
-        <|> O.flag' Fog (O.long "fog")
-        <|> O.flag' Overcast (O.long "overcast")
-        <|> O.flag' PartlyCloudy (O.long "partlycloudy")
-        <|> O.flag' Rainy (O.long "rainy")
-        <|> O.flag' Snow (O.long "snow")
-        <|> O.flag' Windy (O.long "windy")
+      optWeather = O.optional Weather.optWeather
       optSortOutputBy = optGlass <|> optProduct <|> optDamagePerHp
         <|> optWeighted <|> pure ByDamage
       optGlass = O.flag' ByDps

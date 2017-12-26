@@ -33,6 +33,7 @@ import qualified Pokemon
 import           Pokemon (Pokemon)
 import qualified PokemonBase
 import           PokemonBase (PokemonBase)
+import qualified Weather
 import           Weather (Weather (..))
 
 import           Control.Applicative (optional, some)
@@ -54,14 +55,7 @@ data Options = Options {
 getOptions :: IO Options
 getOptions =
   let opts = Options <$> optWeather <*> optAttacker <*> optDefender
-      optWeather = O.optional $
-            O.flag' Clear (O.long "clear" <> O.help "weather is sunny/clear")
-        <|> O.flag' Fog (O.long "fog")
-        <|> O.flag' Overcast (O.long "overcast")
-        <|> O.flag' PartlyCloudy (O.long "partlycloudy")
-        <|> O.flag' Rainy (O.long "rainy")
-        <|> O.flag' Snow (O.long "snow")
-        <|> O.flag' Windy (O.long "windy")
+      optWeather = O.optional Weather.optWeather
       optAttacker = O.argument
         (BattlerUtil.parseBattler defaultLevel) (O.metavar "ATTACKER[:LEVEL]")
       optDefender = O.argument
