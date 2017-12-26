@@ -43,10 +43,10 @@ data Options = Options {
   level    :: Maybe Float,
   legendary :: Bool,
   attackerSource :: AttackerSource,
-  defender :: String
+  defender :: Battler
 } deriving (Show)
 
-data Attacker = Attacker String (Maybe Float)
+data Battler = Battler String Float
   deriving (Show)
 
 data SortOutputBy =
@@ -56,7 +56,7 @@ data SortOutputBy =
 data AttackerSource =
     FromFiles [FilePath]
   | AllAttackers
-  | MovesetFor [Attacker]
+  | MovesetFor [Battler]
   deriving (Show)
 
 data Result = Result {
@@ -67,12 +67,12 @@ data Result = Result {
 
 defaultFilename = "my_pokemon.yaml"
 defaultAttackerLevel = 20
-defenderLevel = 20
+defaultDefenderLevel = 20
 
-parseAttacker :: O.ReadM Attacker
-parseAttacker = O.eitherReader $ \s ->
-  let attoParseAttacker = do
-        attacker <- some $ Atto.notChar ':'
+parseBattler :: Float -> O.ReadM Battler
+parseBattler defaultLevel = O.eitherReader $ \s ->
+  let attoParseBattler = do
+        battler <- some $ Atto.notChar ':'
         level <- optional $ do
           Atto.char ':'
           (level, _) <- Atto.match $ do
@@ -80,8 +80,8 @@ parseAttacker = O.eitherReader $ \s ->
             optional $ Atto.string ".5"
           return $ read $ Text.unpack level
         Atto.endOfInput
-        return $ Attacker attacker level
-  in case Atto.parseOnly attoParseAttacker (Text.pack s) of
+        return $ Battler battler (Maybe.fromMaybe defaultLevel level)
+  in case Atto.parseOnly attoParseBattler (Text.pack s) of
     Left _ ->
       Left $ "`" ++ s ++ "' should look like ATTACKER[:LEVEL]"
     Right attacker -> Right attacker
@@ -151,12 +151,14 @@ getOptions =
         (  O.long "all"
         <> O.short 'a'
         <> O.help "Consider all pokemon, not just the ones in FILE")
-      optMovesetFor = MovesetFor <$> (O.some . O.option parseAttacker)
+      optMovesetFor = MovesetFor <$>
+          (O.some . O.option (parseBattler defaultAttackerLevel))
         (  O.long "moveset"
         <> O.short 'm'
         <> O.metavar "ATTACKER[:LEVEL]"
         <> O.help "Rate the movesets for ATTACKER against DEFENDER")
-      optDefender = O.argument O.str (O.metavar "DEFENDER")
+      optDefender = O.argument
+        (parseBattler defaultDefenderLevel) (O.metavar "DEFENDER[:LEVEL]")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc "Find good counters for a Pokemon."
@@ -172,10 +174,9 @@ main =
       gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
 
       defenderVariants <- do
-        defenderBase <- GameMaster.getPokemonBase gameMaster $
-          defender options
-        return $ makeWithAllMovesetsFromBase gameMaster defenderLevel
-          defenderBase
+        let Battler species level = defender options
+        defenderBase <- GameMaster.getPokemonBase gameMaster species
+        return $ makeWithAllMovesetsFromBase gameMaster level defenderBase
 
       attackers <- case attackerSource options of
         FromFiles filenames -> do
@@ -194,9 +195,9 @@ main =
                 else filter notLegendary nonMythical
           return result  
         MovesetFor attackers ->
-          let attackerSpecies = map (\ (Attacker species _) -> species) attackers
+          let attackerSpecies = map (\ (Battler species _) -> species) attackers
           in case filter (not . GameMaster.isSpecies gameMaster) attackerSpecies of
-               [] -> makeSomeAttackers gameMaster attackers (attackerLevel options)
+               [] -> makeSomeAttackers gameMaster attackers
                noSuchSpecies -> Epic.fail $ "No such species: " ++ (List.intercalate ", " noSuchSpecies)
 
       let weatherBonus = case maybeWeather options of
@@ -367,13 +368,11 @@ makeAllAttackersFromBase gameMaster level base =
       (quickMove, chargeMove) <-
         PokemonBase.moveSets base]
 
-makeSomeAttackers :: (Epic.MonadCatch m) => GameMaster -> [Attacker] -> Float -> m [Pokemon]
-makeSomeAttackers gameMaster attackers defaultLevel =
-  concat <$> mapM (\ (Attacker species level) -> do
-    let level' = Maybe.fromMaybe defaultLevel level
+makeSomeAttackers :: (Epic.MonadCatch m) => GameMaster -> [Battler] -> m [Pokemon]
+makeSomeAttackers gameMaster attackers =
+  concat <$> mapM (\ (Battler species level) -> do
     base <- GameMaster.getPokemonBase gameMaster species
-    return $ makeAllAttackersFromBase gameMaster level' base)
-    attackers
+    return $ makeAllAttackersFromBase gameMaster level base) attackers
 
 maybeSetHiddenPowerType :: (Epic.MonadCatch m) =>
     GameMaster -> Move -> Maybe String -> m Move
