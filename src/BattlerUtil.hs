@@ -1,7 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 module BattlerUtil (
-  Battler,
+  Battler (Battler),
   Level (Level),
   parseBattler,
   makeBattlerVariants,

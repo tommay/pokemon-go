@@ -7,6 +7,8 @@ import           Options.Applicative ((<|>), (<**>))
 import           Data.Semigroup ((<>))
 
 import qualified Battle
+import qualified BattlerUtil
+import           BattlerUtil (Battler (Battler), Level (Level))
 import qualified Epic
 import qualified GameMaster
 import           GameMaster (GameMaster)
@@ -24,13 +26,10 @@ import           Type (Type)
 import qualified Util
 import           Weather (Weather (..))
 
-import           Control.Applicative (optional, some)
 import           Control.Monad (join)
-import qualified Data.Attoparsec.Text as Atto
 import qualified Data.List as List
 import qualified Data.Maybe as Maybe
 import qualified Data.Set as Set
-import qualified Data.Text as Text
 import qualified System.IO as I
 import qualified Text.Printf as Printf
 import qualified Text.Regex as Regex
@@ -45,9 +44,6 @@ data Options = Options {
   attackerSource :: AttackerSource,
   defender :: Battler
 } deriving (Show)
-
-data Battler = Battler String Float
-  deriving (Show)
 
 data SortOutputBy =
   ByDamage | ByDps | ByProduct | ByDamagePerHp | Weighted Float
@@ -66,25 +62,8 @@ data Result = Result {
 } deriving (Show)
 
 defaultFilename = "my_pokemon.yaml"
-defaultAttackerLevel = 30
-defaultDefenderLevel = 30
-
-parseBattler :: Float -> O.ReadM Battler
-parseBattler defaultLevel = O.eitherReader $ \s ->
-  let attoParseBattler = do
-        battler <- some $ Atto.notChar ':'
-        level <- optional $ do
-          Atto.char ':'
-          (level, _) <- Atto.match $ do
-            Atto.decimal
-            optional $ Atto.string ".5"
-          return $ read $ Text.unpack level
-        Atto.endOfInput
-        return $ Battler battler (Maybe.fromMaybe defaultLevel level)
-  in case Atto.parseOnly attoParseBattler (Text.pack s) of
-    Left _ ->
-      Left $ "`" ++ s ++ "' should look like ATTACKER[:LEVEL]"
-    Right attacker -> Right attacker
+defaultAttackerLevel = Level 30
+defaultDefenderLevel = Level 30
 
 getOptions :: IO Options
 getOptions =
@@ -152,13 +131,14 @@ getOptions =
         <> O.short 'a'
         <> O.help "Consider all pokemon, not just the ones in FILE")
       optMovesetFor = MovesetFor <$>
-          (O.some . O.option (parseBattler defaultAttackerLevel))
+          (O.some . O.option (BattlerUtil.parseBattler defaultAttackerLevel))
         (  O.long "moveset"
         <> O.short 'm'
         <> O.metavar "ATTACKER[:LEVEL]"
         <> O.help "Rate the movesets for ATTACKER against DEFENDER")
       optDefender = O.argument
-        (parseBattler defaultDefenderLevel) (O.metavar "DEFENDER[:LEVEL]")
+        (BattlerUtil.parseBattler defaultDefenderLevel)
+          (O.metavar "DEFENDER[:LEVEL]")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc "Find good counters for a Pokemon."
@@ -174,7 +154,7 @@ main =
       gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
 
       defenderVariants <- do
-        let Battler species level = defender options
+        let Battler species (Level level) = defender options
         defenderBase <- GameMaster.getPokemonBase gameMaster species
         return $ makeWithAllMovesetsFromBase gameMaster level defenderBase
 
@@ -250,7 +230,8 @@ main =
 
 attackerLevel :: Options -> Float
 attackerLevel options =
-  Maybe.fromMaybe defaultAttackerLevel (level options)
+  let Level defaultLevel = defaultAttackerLevel
+  in Maybe.fromMaybe defaultLevel (level options)
 
 showResult :: (Pokemon -> String) -> Result -> String
 showResult nameFunc result =
@@ -370,7 +351,7 @@ makeAllAttackersFromBase gameMaster level base =
 
 makeSomeAttackers :: (Epic.MonadCatch m) => GameMaster -> [Battler] -> m [Pokemon]
 makeSomeAttackers gameMaster attackers =
-  concat <$> mapM (\ (Battler species level) -> do
+  concat <$> mapM (\ (Battler species (Level level)) -> do
     base <- GameMaster.getPokemonBase gameMaster species
     return $ makeAllAttackersFromBase gameMaster level base) attackers
 

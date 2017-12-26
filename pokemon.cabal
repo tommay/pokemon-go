@@ -45,8 +45,6 @@ executable counter-exe
                      , pokemon
                      , regex-compat
                      , optparse-applicative
-                     , attoparsec
-                     , text
                      , containers
   default-language:    Haskell2010
 
