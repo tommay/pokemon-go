@@ -258,8 +258,12 @@ makePokemonBase types moves pokemonSettings =
           -- XXX This can swallow parse errors?
           Left _ -> Nothing
 
+    baseCaptureRate <- do
+      encounter <- getValue "encounter"
+      getObjectValue encounter "baseCaptureRate"
+
     return $ PokemonBase.new species ptypes attack defense stamina
-       evolutions quickMoves chargeMoves parent)
+       evolutions quickMoves chargeMoves parent baseCaptureRate)
   (\ex -> Epic.fail $ ex ++ " in " ++ show pokemonSettings)
 
 makeWeatherAffinity :: Epic.MonadCatch m => StringMap Type -> ItemTemplate -> m [Type]
