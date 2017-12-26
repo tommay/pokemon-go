@@ -95,10 +95,11 @@ main =
 
       I.hSetBuffering I.stdout I.NoBuffering
 
-      -- Using mapM_ to output the individual array elements instead
-      -- of writing the entire array allows the results to stream.
+      -- Using mapM_ to output the individual array elements (as
+      -- arrays of one element) instead of writing the entire array
+      -- allows the results to stream.
+
       mapM_ (B.putStr . Builder.toByteString . (:[])) attackerResults
-      -- B.putStr $ Builder.toByteString attackerResults
     )
     $ I.hPutStrLn I.stderr
 
