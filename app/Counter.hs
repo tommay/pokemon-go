@@ -62,7 +62,7 @@ data Result = Result {
 } deriving (Show)
 
 defaultFilename = "my_pokemon.yaml"
-defaultAttackerLevel = Level 30
+defaultAttackerLevel = 30
 defaultDefenderLevel = Level 30
 
 getOptions :: IO Options
@@ -131,7 +131,8 @@ getOptions =
         <> O.short 'a'
         <> O.help "Consider all pokemon, not just the ones in FILE")
       optMovesetFor = MovesetFor <$>
-          (O.some . O.option (BattlerUtil.parseBattler defaultAttackerLevel))
+          (O.some . O.option
+            (BattlerUtil.parseBattler (Level defaultAttackerLevel)))
         (  O.long "moveset"
         <> O.short 'm'
         <> O.metavar "ATTACKER[:LEVEL]"
@@ -228,8 +229,7 @@ main =
 
 attackerLevel :: Options -> Float
 attackerLevel options =
-  let Level defaultLevel = defaultAttackerLevel
-  in Maybe.fromMaybe defaultLevel (level options)
+  Maybe.fromMaybe defaultAttackerLevel (level options)
 
 showResult :: (Pokemon -> String) -> Result -> String
 showResult nameFunc result =
