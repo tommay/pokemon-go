@@ -73,25 +73,27 @@ getOptions =
         optLevel <*> optLegendary <*> optAttackerSource <*>
         optDefender
       optWeather = O.optional Weather.optWeather
-      optSortOutputBy = optGlass <|> optProduct <|> optDamagePerHp
-        <|> optWeighted <|> pure ByDamage
-      optGlass = O.flag' ByDps
-        (  O.long "glass"
-        <> O.short 'g'
-        <> O.help "Sort output by dps to find glass cannons")
-      optProduct = O.flag' ByProduct
-        (  O.long "product"
-        <> O.short 'p'
-        <> O.help "Sort output by product of dps and damage")
-      optDamagePerHp = O.flag' ByDamagePerHp
-        (  O.short 'h'
-        <> O.help "Sort output by damage per hp")
-      optWeighted = Weighted <$> O.option O.auto
-        (  O.long "weighted"
-        <> O.short 'w'
-        <> O.metavar "WEIGHT"
-        <> O.help ("Sort by weighted mix of dps and damage, where weight " ++
-             "varies from 0.0 for pure dps to 1.0 for pure damage"))
+      optSortOutputBy =
+        let optGlass = O.flag' ByDps
+              (  O.long "glass"
+              <> O.short 'g'
+              <> O.help "Sort output by dps to find glass cannons")
+            optProduct = O.flag' ByProduct
+              (  O.long "product"
+              <> O.short 'p'
+              <> O.help "Sort output by product of dps and damage")
+            optDamagePerHp = O.flag' ByDamagePerHp
+              (  O.short 'h'
+              <> O.help "Sort output by damage per hp")
+            optWeighted = Weighted <$> O.option O.auto
+              (  O.long "weighted"
+              <> O.short 'w'
+              <> O.metavar "WEIGHT"
+              <> O.help ("Sort by weighted mix of dps and damage, " ++
+                   "where weight varies from 0.0 for pure dps to " ++
+                   "1.0 for pure damage"))
+        in optGlass <|> optProduct <|> optDamagePerHp
+             <|> optWeighted <|> pure ByDamage
       optDpsFilter = O.optional $ O.option O.auto
         (  O.long "dps"
         <> O.short 'd'
@@ -112,25 +114,26 @@ getOptions =
         <> O.metavar "LEVEL"
         <> O.help ("Force my_pokemon level to find who's implicitly best, " ++
              "or set the level for -a or the default level for -m"))
-      optAttackerSource = optFilenames <|> optMovesetFor <|> optAll
-        <|> (pure $ FromFiles [defaultFilename])
-      optFilenames = FromFiles <$> (O.some . O.strOption)
-        (  O.long "file"
-        <> O.short 'f'
-        <> O.metavar "FILE"
-        <> O.help ("File to read my_pokemon from (defauult: " ++
-             defaultFilename ++ ")"))
-      optAll = O.flag' AllAttackers
-        (  O.long "all"
-        <> O.short 'a'
-        <> O.help "Consider all pokemon, not just the ones in FILE")
-      optMovesetFor = MovesetFor <$>
-          (O.some . O.option
-            (BattlerUtil.parseBattler (Level defaultAttackerLevel)))
-        (  O.long "moveset"
-        <> O.short 'm'
-        <> O.metavar "ATTACKER[:LEVEL]"
-        <> O.help "Rate the movesets for ATTACKER against DEFENDER")
+      optAttackerSource =
+        let optFilenames = FromFiles <$> (O.some . O.strOption)
+              (  O.long "file"
+              <> O.short 'f'
+              <> O.metavar "FILE"
+              <> O.help ("File to read my_pokemon from (defauult: " ++
+                   defaultFilename ++ ")"))
+            optAll = O.flag' AllAttackers
+              (  O.long "all"
+              <> O.short 'a'
+              <> O.help "Consider all pokemon, not just the ones in FILE")
+            optMovesetFor = MovesetFor <$>
+                (O.some . O.option
+                  (BattlerUtil.parseBattler (Level defaultAttackerLevel)))
+              (  O.long "moveset"
+              <> O.short 'm'
+              <> O.metavar "ATTACKER[:LEVEL]"
+              <> O.help "Rate the movesets for ATTACKER against DEFENDER")
+        in optFilenames <|> optMovesetFor <|> optAll
+             <|> (pure $ FromFiles [defaultFilename])
       optDefender = O.argument
         (BattlerUtil.parseBattler defaultDefenderLevel)
           (O.metavar "DEFENDER[:LEVEL]")
