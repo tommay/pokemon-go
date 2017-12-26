@@ -68,11 +68,11 @@ main =
           notLegendary =
             not . Mythical.isLegendary mythicalMap . PokemonBase.species
 
-      let level = Main.level options
+          level = Main.level options
 
-      let allBases = GameMaster.allPokemonBases gameMaster
+          allBases = GameMaster.allPokemonBases gameMaster
 
-      let attackers =
+          attackers =
             let attackerBases =
                     filter notMythical
                   $ filter notLegendary
@@ -82,15 +82,15 @@ main =
                  (makeWithAllMovesetsFromBase gameMaster level)
                  attackerBases
 
-      let defenderBases =
+          defenderBases =
               filter notMythical
             $ filter (not . PokemonBase.hasEvolutions)
             allBases
 
-      let defenderSets =
+          defenderSets =
             map (makeWithAllMovesetsFromBase gameMaster level) defenderBases
 
-      let attackerResults = [getAttackerResult defenders attacker |
+          attackerResults = [getAttackerResult defenders attacker |
             defenders <- defenderSets, attacker <- attackers]
 
       I.hSetBuffering I.stdout I.NoBuffering
