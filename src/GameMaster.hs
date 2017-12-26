@@ -40,6 +40,8 @@ import qualified Data.Vector as Vector
 import           Data.Vector (Vector, (!))
 import qualified Text.Regex as Regex
 
+import qualified Debug as D
+
 data GameMaster = GameMaster {
   types         :: StringMap Type,
   moves         :: StringMap Move,
@@ -260,7 +262,7 @@ makePokemonBase types moves pokemonSettings =
 
     baseCaptureRate <- do
       encounter <- getValue "encounter"
-      getObjectValue encounter "baseCaptureRate"
+      getObjectValueWithDefault encounter "baseCaptureRate" 0
 
     return $ PokemonBase.new species ptypes attack defense stamina
        evolutions quickMoves chargeMoves parent baseCaptureRate)
