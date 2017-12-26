@@ -2,6 +2,10 @@
 
 module Main where
 
+import qualified Options.Applicative as O
+import           Options.Applicative ((<|>), (<**>))
+import           Data.Semigroup ((<>))
+
 import qualified Battle
 import           Battle (Battle)
 import qualified Epic
@@ -30,9 +34,31 @@ import qualified System.IO as I
 
 defaultLevel = 20
 
+data Options = Options {
+  level :: Float
+}
+
+getOptions :: IO Options
+getOptions =
+  let opts = Options <$> optLevel
+      optLevel = O.option O.auto
+        (  O.long "level"
+        <> O.short 'l'
+        <> O.metavar "LEVEL"
+        <> O.value 20
+        <> O.showDefault
+        <> O.help ("Set the level of the battling pokemon"))
+      options = O.info (opts <**> O.helper)
+        (  O.fullDesc
+        <> O.progDesc "Simulate matchups between all pokemon")
+      prefs = O.prefs O.showHelpOnEmpty
+  in O.customExecParser prefs options
+
 main =
   Epic.catch (
     do
+      options <- getOptions
+
       gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
 
       mythicalMap <- join $ Mythical.load "mythical.yaml"
@@ -41,6 +67,8 @@ main =
             not . Mythical.isMythical mythicalMap . PokemonBase.species
           notLegendary =
             not . Mythical.isLegendary mythicalMap . PokemonBase.species
+
+      let level = Main.level options
 
       let allBases = GameMaster.allPokemonBases gameMaster
 
@@ -51,7 +79,7 @@ main =
                   $ filter (not . PokemonBase.hasEvolutions)
                   allBases
             in concat $ map
-                 (makeWithAllMovesetsFromBase gameMaster defaultLevel)
+                 (makeWithAllMovesetsFromBase gameMaster level)
                  attackerBases
 
       let defenderBases =
@@ -60,7 +88,7 @@ main =
             allBases
 
       let defenderSets =
-            map (makeWithAllMovesetsFromBase gameMaster defaultLevel) defenderBases
+            map (makeWithAllMovesetsFromBase gameMaster level) defenderBases
 
       let attackerResults = [getAttackerResult defenders attacker |
             defenders <- defenderSets, attacker <- attackers]
