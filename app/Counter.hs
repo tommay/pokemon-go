@@ -153,10 +153,8 @@ main =
 
       gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
 
-      defenderVariants <- do
-        let Battler species (Level level) = defender options
-        defenderBase <- GameMaster.getPokemonBase gameMaster species
-        return $ makeWithAllMovesetsFromBase gameMaster level defenderBase
+      defenderVariants <-
+        BattlerUtil.makeBattlerVariants gameMaster (defender options)
 
       attackers <- case attackerSource options of
         FromFiles filenames -> do
@@ -252,25 +250,6 @@ nameSpeciesAndLevelAndMoveset pokemon =
   in format speciesAndLevel'
        (Move.name $ Pokemon.quick pokemon)
        (Move.name $ Pokemon.charge pokemon)
-
-makeWithAllMovesetsFromBase gameMaster level base =
-  let cpMultiplier = GameMaster.getCpMultiplier gameMaster level
-      makeStat baseStat = (fromIntegral baseStat + 11) * cpMultiplier
-      makePokemon quickMove chargeMove =
-        Pokemon.new
-          (PokemonBase.species base)
-          (PokemonBase.species base)
-          level
-          (PokemonBase.types base)
-          (makeStat $ PokemonBase.attack base)
-          (makeStat $ PokemonBase.defense base)
-          (makeStat $ PokemonBase.stamina base)
-          quickMove
-          chargeMove
-          base
-  in [makePokemon quickMove chargeMove |
-      (quickMove, chargeMove) <-
-        PokemonBase.moveSets base]
 
 makePokemon :: Epic.MonadCatch m => GameMaster -> Maybe Float -> MyPokemon -> m Pokemon
 makePokemon gameMaster maybeLevel myPokemon = do
