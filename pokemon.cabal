@@ -18,7 +18,7 @@ library
   exposed-modules:     MyPokemon, GameMaster, PokemonBase, Epic, Move, Type, Pokemon,
                        Appraisal, Stats, Calc, Mythical,
                        Battle, Attacker, Defender, Debug, Log, Matchup,
-                       Util, Weather, Logger
+                       Util, Weather, Logger, BattlerUtil
   other-modules:       StringMap
   ghc-options:         -O2
   build-depends:       base >= 4.7 && < 5, yaml, vector, text,
@@ -32,6 +32,9 @@ library
                      , mtl
                      , monad-loops
                      , tuple
+                     , text
+                     , attoparsec
+                     , optparse-applicative
   default-language:    Haskell2010
 
 executable counter-exe

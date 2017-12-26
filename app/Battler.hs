@@ -12,6 +12,8 @@ import qualified Attacker
 import           Attacker (Attacker)
 import qualified Battle
 import           Battle (Battle)
+import qualified BattlerUtil
+import           BattlerUtil (Battler, Level (Level))
 import qualified Defender
 import           Defender (Defender)
 import qualified Epic
@@ -35,7 +37,6 @@ import           Weather (Weather (..))
 
 import           Control.Applicative (optional, some)
 import           Control.Monad (join)
-import qualified Data.Attoparsec.Text as Atto
 import qualified Data.List as List
 import qualified Data.Maybe as Maybe
 import qualified Data.Text as Text
@@ -44,40 +45,11 @@ import qualified Text.Printf as Printf
 
 defaultLevel = Level 20
 
-data Battler = Battler String Level
-  deriving (Show)
-
-data Level = Level Float | RaidBoss Int
-  deriving (Show)
-
 data Options = Options {
   maybeWeather :: Maybe Weather,
   attacker :: Battler,
   defender :: Battler
 }
-
-parseBattler :: Level -> O.ReadM Battler
-parseBattler defaultLevel = O.eitherReader $ \s ->
-  let attoParseBattler = do
-        battler <- some $ Atto.notChar ':'
-        level <- optional $ do
-          Atto.char ':'
-          attoParseLevel <|> attoParseRaidBoss
-        Atto.endOfInput
-        return $ Battler battler (Maybe.fromMaybe defaultLevel level)
-      attoParseLevel = do
-        (level, _) <- Atto.match $ do
-          Atto.decimal
-          optional $ Atto.string ".5"
-        return $ Level $ read $ Text.unpack level
-      attoParseRaidBoss = do
-        Atto.char 'r'
-        (raidLevel, _) <- Atto.match Atto.decimal
-        return $ RaidBoss $ read $ Text.unpack raidLevel
-  in case Atto.parseOnly attoParseBattler (Text.pack s) of
-    Left _ ->
-      Left $ "`" ++ s ++ "' should look like SPECIES[:LEVEL] or SPECIES:[rRAID-:LEVEL]"
-    Right battler -> Right battler
 
 getOptions :: IO Options
 getOptions =
@@ -91,9 +63,9 @@ getOptions =
         <|> O.flag' Snow (O.long "snow")
         <|> O.flag' Windy (O.long "windy")
       optAttacker = O.argument
-        (parseBattler defaultLevel) (O.metavar "ATTACKER[:LEVEL]")
+        (BattlerUtil.parseBattler defaultLevel) (O.metavar "ATTACKER[:LEVEL]")
       optDefender = O.argument
-        (parseBattler defaultLevel) (O.metavar "DEFENDER[:LEVEL]")
+        (BattlerUtil.parseBattler defaultLevel) (O.metavar "DEFENDER[:LEVEL]")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc "Battle some pokemon.")
@@ -111,8 +83,10 @@ main =
             Just weather -> GameMaster.getWeatherBonus gameMaster weather
             Nothing -> const 1
 
-      attackerVariants <- makeBattlerVariants gameMaster (attacker options)
-      defenderVariants <- makeBattlerVariants gameMaster (defender options)
+      attackerVariants <-
+        BattlerUtil.makeBattlerVariants gameMaster (attacker options)
+      defenderVariants <-
+        BattlerUtil.makeBattlerVariants gameMaster (defender options)
 
       let battleLoggers =
             [Battle.runBattle $ Battle.init weatherBonus attacker defender |
@@ -153,71 +127,3 @@ showPokemon pokemon =
     (Pokemon.species pokemon)
     (Move.name $ Pokemon.quick pokemon)
     (Move.name $ Pokemon.charge pokemon)
-
-makeBattlerVariants :: Epic.MonadCatch m => GameMaster -> Battler -> m [Pokemon]
-makeBattlerVariants gameMaster battler =
-  let Battler species level = battler
-  in case level of
-    Level level ->
-      makeWithAllMovesetsFromSpecies gameMaster species level
-    RaidBoss raidLevel ->
-      makeRaidBossWithAllMovesetsFromSpecies gameMaster species raidLevel
-
-makeWithAllMovesetsFromSpecies :: Epic.MonadCatch m =>
-    GameMaster -> String -> Float -> m [Pokemon]
-makeWithAllMovesetsFromSpecies gameMaster species level = do
-  base <- GameMaster.getPokemonBase gameMaster species
-  return $ makeWithAllMovesetsFromBase gameMaster level base
-
-makeWithAllMovesetsFromBase :: GameMaster -> Float -> PokemonBase -> [Pokemon]
-makeWithAllMovesetsFromBase gameMaster level base =
-  let cpMultiplier = GameMaster.getCpMultiplier gameMaster level
-      makeStat baseStat = (fromIntegral baseStat + 11) * cpMultiplier
-      makeAttacker quickMove chargeMove =
-        Pokemon.new
-          (PokemonBase.species base)
-          (PokemonBase.species base)
-          level
-          (PokemonBase.types base)
-          (makeStat $ PokemonBase.attack base)
-          (makeStat $ PokemonBase.defense base)
-          (makeStat $ PokemonBase.stamina base)
-          quickMove
-          chargeMove
-          base
-  in [makeAttacker quickMove chargeMove |
-      (quickMove, chargeMove) <-
-        PokemonBase.moveSets base]
-
-makeRaidBossWithAllMovesetsFromSpecies :: Epic.MonadCatch m =>
-    GameMaster -> String -> Int -> m [Pokemon]
-makeRaidBossWithAllMovesetsFromSpecies gameMaster species raidLevel = do
-  base <- GameMaster.getPokemonBase gameMaster species
-  return $ makeRaidBossWithAllMovesetsFromBase gameMaster raidLevel base
-
--- https://pokemongo.gamepress.gg/how-raid-boss-cp-calculated
-
-makeRaidBossWithAllMovesetsFromBase gameMaster raidLevel base =
-  let stamina = case raidLevel of
-        1 -> 600
-        2 -> 1800
-        3 -> 3000
-        4 -> 7500
-        5 -> 12500
-        _ -> error "Raid level must be 1, 2, 3, 4, or 5"
-      makeStat baseStat = fromIntegral baseStat + 15
-      makePokemon quickMove chargeMove =
-        Pokemon.new
-          (PokemonBase.species base)
-          (PokemonBase.species base)
-          0   -- level, not used
-          (PokemonBase.types base)
-          (makeStat $ PokemonBase.attack base)
-          (makeStat $ PokemonBase.defense base)
-          stamina
-          quickMove
-          chargeMove
-          base
-  in [makePokemon quickMove chargeMove |
-      (quickMove, chargeMove) <-
-        PokemonBase.moveSets base]
