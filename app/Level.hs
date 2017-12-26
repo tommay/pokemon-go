@@ -24,11 +24,13 @@ data Options = Options {
 getOptions :: IO Options
 getOptions =
   let opts = Options <$> optIvPred <*> optCp <*> optSpecies
-      optIvPred = optTwo <|> pure (const True)
-      optTwo = O.flag' (>= 30)
-        (  O.long "two"
-        <> O.short '2'
-        <> O.help "Show levels for IVs that are at least \"strong\"")
+      optIvPred =
+        let optTwoOrBetter = O.flag' (>= 30)
+              (  O.long "two"
+              <> O.short '2'
+              <> O.help "Show levels for IVs that are at least \"strong\"")
+            optAnyIvs = pure (const True)
+        in optTwoOrBetter <|> optAnyIvs
       optCp = O.optional $ O.option O.auto
         (  O.long "cp"
         <> O.short 'c'
