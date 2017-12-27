@@ -29,7 +29,6 @@ import           Weather (Weather (..))
 
 import           Control.Monad (join)
 import qualified Data.List as List
-import qualified Data.Maybe as Maybe
 import qualified Data.Set as Set
 import qualified System.IO as I
 import qualified Text.Printf as Printf
@@ -40,11 +39,14 @@ data Options = Options {
   sortOutputBy :: SortOutputBy,
   dpsFilter :: Maybe Int,
   top      :: Maybe Int,
-  level    :: Maybe Float,
+  maybeForceLevel :: Maybe ForceLevel,
   legendary :: Bool,
   attackerSource :: AttackerSource,
   defender :: Battler
 } deriving (Show)
+
+data ForceLevel = SetLevel Float | MinLevel Float
+  deriving (Show)
 
 data SortOutputBy =
   ByDamage | ByDps | ByProduct | ByDamagePerHp | Weighted Float
@@ -70,7 +72,7 @@ getOptions :: IO Options
 getOptions =
   let opts = Options <$> optWeather <*> optSortOutputBy <*> optDpsFilter <*>
         optTop <*>
-        optLevel <*> optLegendary <*> optAttackerSource <*>
+        optForceLevel <*> optLegendary <*> optAttackerSource <*>
         optDefender
       optWeather = O.optional Weather.optWeather
       optSortOutputBy =
@@ -108,12 +110,20 @@ getOptions =
         (  O.long "legendary"
         <> O.short 'L'
         <> O.help "Exclude legendaries when using -a")
-      optLevel = O.optional $ O.option O.auto
-        (  O.long "level"
-        <> O.short 'l'
-        <> O.metavar "LEVEL"
-        <> O.help ("Force my_pokemon level to find who's implicitly best, " ++
-             "or set the level for -a or the default level for -m"))
+      optForceLevel =
+        let optSetLevel = SetLevel <$> O.option O.auto
+              (  O.long "level"
+              <> O.short 'l'
+              <> O.metavar "LEVEL"
+              <> O.help ("Force my_pokemon level to find who's implicitly best, " ++
+                   "or set the level for -a or the default level for -m"))
+            optMinLevel = MinLevel <$> O.option O.auto
+              (  O.long "minlevel"
+              <> O.short 'n'
+              <> O.metavar "LEVEL"
+              <> O.help ("Force level of pokemon read from FILE to be at " ++
+                   " LEVEL"))
+        in O.optional $ optSetLevel <|> optMinLevel
       optAttackerSource =
         let optFilenames = FromFiles <$> (O.some . O.strOption)
               (  O.long "file"
@@ -158,7 +168,8 @@ main =
         FromFiles filenames -> do
           let loadPokemon filename = do
                 myPokemon <- join $ MyPokemon.load filename
-                mapM (makePokemon gameMaster (level options)) myPokemon
+                mapM (makePokemon gameMaster (maybeForceLevel options))
+                  myPokemon
           fmap concat $ sequence $ map loadPokemon filenames
         AllAttackers -> do
           mythicalMap <- join $ Mythical.load "mythical.yaml"
@@ -226,7 +237,10 @@ main =
 
 attackerLevel :: Options -> Float
 attackerLevel options =
-  Maybe.fromMaybe defaultAttackerLevel (level options)
+  case maybeForceLevel options of
+    Nothing -> defaultAttackerLevel
+    Just (SetLevel level) -> level
+    Just (MinLevel level) -> level
 
 showResult :: (Pokemon -> String) -> Result -> String
 showResult nameFunc result =
@@ -248,8 +262,8 @@ nameSpeciesAndLevelAndMoveset pokemon =
        (Move.name $ Pokemon.quick pokemon)
        (Move.name $ Pokemon.charge pokemon)
 
-makePokemon :: Epic.MonadCatch m => GameMaster -> Maybe Float -> MyPokemon -> m Pokemon
-makePokemon gameMaster maybeLevel myPokemon = do
+makePokemon :: Epic.MonadCatch m => GameMaster -> Maybe ForceLevel -> MyPokemon -> m Pokemon
+makePokemon gameMaster maybeForceLevel myPokemon = do
   let name = MyPokemon.name myPokemon
       species = MyPokemon.species myPokemon
 
@@ -272,9 +286,12 @@ makePokemon gameMaster maybeLevel myPokemon = do
   charge <- getMove "charge"
     GameMaster.getCharge MyPokemon.chargeName PokemonBase.chargeMoves
 
-  level <- case maybeLevel of
+  level <- case maybeForceLevel of
     Nothing -> MyPokemon.level myPokemon
-    Just val -> return $ val
+    Just (SetLevel val) -> return $ val
+    Just (MinLevel val) -> do
+      fileLevel <- MyPokemon.level myPokemon
+      return $ maximum [val, fileLevel]
 
   let types = PokemonBase.types base
 
