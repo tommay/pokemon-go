@@ -53,13 +53,16 @@ init weatherBonus attacker defender =
        initialDefenderHp = Pokemon.hp defender * 2
        }
 
--- Given an initial Battle state, run a battle and return the final state
--- when Battle.finished is true.
+-- Given an initial Battle state, run the Battle and return the final
+-- state when Battle.attackerFainted is true, in a Logger monad with
+-- the battle Log.
 --
 runBattle :: Battle -> Logger (Log Battle) Battle
 runBattle =
   Loops.iterateUntilM Battle.attackerFainted Battle.tick
 
+-- Like runBattle but returns only he final Battle state.
+--
 runBattleOnly :: Battle -> Battle
 runBattleOnly =
   fst . Logger.runLogger . runBattle
