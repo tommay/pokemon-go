@@ -24,10 +24,10 @@ data PokemonBase = PokemonBase {
   attack       :: Int,
   defense      :: Int,
   stamina      :: Int,
-  evolutions   :: [Text],
+  evolutions   :: [String],
   quickMoves   :: [Move],
   chargeMoves  :: [Move],
-  parent       :: Maybe Text,
+  parent       :: Maybe String,
   baseCaptureeRate :: Float
 }
 
