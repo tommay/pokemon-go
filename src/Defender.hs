@@ -6,6 +6,7 @@ module Defender (
   energy,
   quickEnergy,
   damageEnergy,
+  wastedEnergy,
   move,
   damageWindow,
   tick,
@@ -33,6 +34,7 @@ data Defender = Defender {
   energy :: Int,
   quickEnergy :: Int,
   damageEnergy :: Int,
+  wastedEnergy :: Int,
   cooldown :: Int,        -- time until the next move.
   moves :: [(Move, Int)], -- next move(s) to do.
   move :: Move,           -- move in progess.
@@ -49,6 +51,7 @@ init rnd pokemon =
        energy = 0,
        quickEnergy = 0,
        damageEnergy = 0,
+       wastedEnergy = 0,
        cooldown = 1600,
        -- The first two moves are always quick and the interval is fixed.
        -- https://thesilphroad.com/tips-and-news/defender-attacks-twice-immediately
@@ -93,19 +96,21 @@ makeMove' this = do
   Logger.log $ "Defender uses " ++ Move.name move'
   let -- If it's a quick move, its energy is available immediately
       -- for the decision about the next move.  Charge move energy
-      -- is subtracted at damageWindowStart; this affects energy
-      -- damage until it is subtracted.
-      energy' = if Move.isQuick move'
-        then minimum [100, Defender.energy this + Move.energy move']
-        else Defender.energy this
-      quickEnergy' =
-        Defender.quickEnergy this + (energy' - Defender.energy this)
-      -- But we have to account for the charge energy that will be
-      -- used when deciding what move to make.
-      decisionEnergy = if Move.isQuick move'
-        then energy'
-        else energy' + Move.energy move'  -- Charge Move.energy is negative.
-      -- Figure out our next move.
+      -- is subtracted at damageWindowStart; this affects damage energy
+      -- gain until it is subtracted  But we have to account for the
+      -- charge energy that will be used to decide what move to make.
+      (okEnergy, wastedEnergy, newEnergy, decisionEnergy) =
+        if Move.isQuick move' then
+          let (okEnergy, wastedEnergy) =
+                calcAllowedEnergy (Move.energy move') this
+          in (okEnergy, wastedEnergy,
+               Defender.energy this + okEnergy,
+               Defender.energy this + okEnergy)
+        else
+          (0, 0,
+            Defender.energy this,
+            -- Charge Move.energy is negative.
+            Defender.energy this + Move.energy move')
       quick = Defender.quick this
       charge = Defender.charge this
       (random, rnd') = Random.random $ Defender.rnd this
@@ -129,8 +134,9 @@ makeMove' this = do
   -- its energy boost and our charge move energy is subtracted.
   let damageWindow' = Move.damageWindow move'
   return $ this {
-    energy = energy',
-    quickEnergy = quickEnergy',
+    energy = newEnergy,
+    quickEnergy = Defender.quickEnergy this + okEnergy,
+    wastedEnergy = Defender.wastedEnergy this + wastedEnergy,
     cooldown = cooldown',
     moves = moves'',
     move = move',
@@ -140,13 +146,21 @@ makeMove' this = do
 
 takeDamage :: Int -> Defender -> Logger String Defender
 takeDamage damage this =
-  let energy' = minimum [100, Defender.energy this + (damage + 1) `div` 2]
+  let (okEnergy, wastedEnergy) = calcAllowedEnergy ((damage + 1) `div` 2) this
   in return $ this {
        hp = Defender.hp this - damage,
-       energy = energy',
-       damageEnergy =
-         Defender.damageEnergy this + (energy' - Defender.energy this)
+       energy = Defender.energy this + okEnergy,
+       damageEnergy = Defender.damageEnergy this + okEnergy,
+       wastedEnergy = Defender.wastedEnergy this + wastedEnergy
        }
+
+calcAllowedEnergy :: Int -> Defender -> (Int, Int)
+calcAllowedEnergy energy this =
+  let newEnergy = Defender.energy this + energy
+      wastedEnergy = newEnergy - 100
+  in if wastedEnergy <= 0
+       then (energy, 0)
+       else (energy - wastedEnergy, wastedEnergy)
 
 useEnergy :: Int -> Defender -> Logger String Defender
 useEnergy energy this =
