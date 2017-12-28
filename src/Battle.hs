@@ -181,7 +181,7 @@ getEnergy move =
     then Just $ negate $ Move.energy move
     else Nothing
 
-makeLogs ::Logger String Battle -> Logger (Log Battle) Battle
+makeLogs :: Logger String Battle -> Logger (Log Battle) Battle
 makeLogs battleLogger =
   let makeLog battle string = Log {
         Log.state = battle,

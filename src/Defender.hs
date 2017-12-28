@@ -4,6 +4,8 @@ module Defender (
   pokemon,
   hp,
   energy,
+  quickEnergy,
+  damageEnergy,
   move,
   damageWindow,
   tick,

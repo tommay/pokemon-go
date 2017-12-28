@@ -4,6 +4,8 @@ module Attacker (
   pokemon,
   hp,
   energy,
+  quickEnergy,
+  damageEnergy,
   move,
   damageWindow,
   tick,
