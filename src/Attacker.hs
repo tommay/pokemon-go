@@ -6,6 +6,7 @@ module Attacker (
   energy,
   quickEnergy,
   damageEnergy,
+  wastedEnergy,
   move,
   damageWindow,
   tick,
@@ -33,6 +34,7 @@ data Attacker = Attacker {
   energy :: Int,
   quickEnergy :: Int,
   damageEnergy :: Int,
+  wastedEnergy :: Int,
   cooldown :: Int,        -- time until the next move.
   moves :: [Move],        -- next move(s) to do.
   move :: Move,           -- move in progess.
@@ -48,6 +50,7 @@ init pokemon =
        energy = 0,
        quickEnergy = 0,
        damageEnergy = 0,
+       wastedEnergy = 0,
        cooldown = 700,
        moves = [],
        move = quick,  -- Not used.
@@ -99,18 +102,17 @@ makeMove' this = do
     val -> return val
   let -- If it's a quick move, its energy is available immediately.
       -- Charge move energy is subtracted at damageWindowStart.
-      energy' = if Move.isQuick move'
-        then minimum [100, Attacker.energy this + Move.energy move']
-        else Attacker.energy this
-      quickEnergy' =
-        Attacker.quickEnergy this + (energy' - Attacker.energy this)
+      (okEnergy, wastedEnergy) = if Move.isQuick move'
+        then calcAllowedEnergy (Move.energy move') this
+        else (0, 0)
       cooldown' = Move.durationMs move'
       -- Set countdown until damage is done to the opponent and its
       -- energy increases and our energy decreases.
       damageWindow' = Move.damageWindow move'
       result = this {
-        energy = energy',
-        quickEnergy = quickEnergy',
+        energy = Attacker.energy this + okEnergy,
+        quickEnergy = Attacker.quickEnergy this + okEnergy,
+        wastedEnergy = Attacker.wastedEnergy this + wastedEnergy,
         cooldown = cooldown',
         moves = moves',
         move = move',
@@ -121,13 +123,21 @@ makeMove' this = do
 
 takeDamage :: Int -> Attacker -> Logger String Attacker
 takeDamage damage this =
-  let energy' = minimum [100, Attacker.energy this + (damage + 1) `div` 2]
+  let (okEnergy, wastedEnergy) = calcAllowedEnergy ((damage + 1) `div` 2) this
   in return $ this {
        hp = Attacker.hp this - damage,
-       energy = energy',
-       damageEnergy =
-         Attacker.damageEnergy this + (energy' - Attacker.energy this)
+       energy = Attacker.energy this + okEnergy,
+       damageEnergy = Attacker.damageEnergy this + okEnergy,
+       wastedEnergy = Attacker.wastedEnergy this + wastedEnergy
        }
+
+calcAllowedEnergy :: Int -> Attacker -> (Int, Int)
+calcAllowedEnergy energy this =
+  let newEnergy = Attacker.energy this + energy
+      wastedEnergy = newEnergy - 100
+  in if wastedEnergy <= 0
+       then (energy, 0)
+       else (energy - wastedEnergy, wastedEnergy)
 
 useEnergy :: Int -> Attacker -> Logger String Attacker
 useEnergy energy this =
