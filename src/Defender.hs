@@ -29,6 +29,7 @@ data Defender = Defender {
   pokemon :: Pokemon,
   hp :: Int,
   energy :: Int,
+  quickEnergy :: Int,
   cooldown :: Int,        -- time until the next move.
   moves :: [(Move, Int)], -- next move(s) to do.
   move :: Move,           -- move in progess.
@@ -43,6 +44,7 @@ init rnd pokemon =
        pokemon = pokemon,
        hp = Pokemon.hp pokemon * 2,
        energy = 0,
+       quickEnergy = 0,
        cooldown = 1600,
        -- The first two moves are always quick and the interval is fixed.
        -- https://thesilphroad.com/tips-and-news/defender-attacks-twice-immediately
@@ -92,6 +94,8 @@ makeMove' this = do
       energy' = if Move.isQuick move'
         then minimum [100, Defender.energy this + Move.energy move']
         else Defender.energy this
+      quickEnergy' =
+        Defender.quickEnergy this + (energy' - Defender.energy this)
       -- But we have to account for the charge energy that will be
       -- used when deciding what move to make.
       decisionEnergy = if Move.isQuick move'
@@ -122,6 +126,7 @@ makeMove' this = do
   let damageWindow' = Move.damageWindow move'
   return $ this {
     energy = energy',
+    quickEnergy = quickEnergy',
     cooldown = cooldown',
     moves = moves'',
     move = move',

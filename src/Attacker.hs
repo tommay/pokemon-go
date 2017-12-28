@@ -29,6 +29,7 @@ data Attacker = Attacker {
   pokemon :: Pokemon,
   hp :: Int,
   energy :: Int,
+  quickEnergy :: Int,
   cooldown :: Int,        -- time until the next move.
   moves :: [Move],        -- next move(s) to do.
   move :: Move,           -- move in progess.
@@ -42,6 +43,7 @@ init pokemon =
        pokemon = pokemon,
        hp = Pokemon.hp pokemon,
        energy = 0,
+       quickEnergy = 0,
        cooldown = 700,
        moves = [],
        move = quick,  -- Not used.
@@ -96,12 +98,15 @@ makeMove' this = do
       energy' = if Move.isQuick move'
         then minimum [100, Attacker.energy this + Move.energy move']
         else Attacker.energy this
+      quickEnergy' =
+        Attacker.quickEnergy this + (energy' - Attacker.energy this)
       cooldown' = Move.durationMs move'
       -- Set countdown until damage is done to the opponent and its
       -- energy increases and our energy decreases.
       damageWindow' = Move.damageWindow move'
       result = this {
         energy = energy',
+        quickEnergy = quickEnergy',
         cooldown = cooldown',
         moves = moves',
         move = move',
