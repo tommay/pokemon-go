@@ -30,6 +30,7 @@ data Attacker = Attacker {
   hp :: Int,
   energy :: Int,
   quickEnergy :: Int,
+  damageEnergy :: Int,
   cooldown :: Int,        -- time until the next move.
   moves :: [Move],        -- next move(s) to do.
   move :: Move,           -- move in progess.
@@ -44,6 +45,7 @@ init pokemon =
        hp = Pokemon.hp pokemon,
        energy = 0,
        quickEnergy = 0,
+       damageEnergy = 0,
        cooldown = 700,
        moves = [],
        move = quick,  -- Not used.
@@ -117,10 +119,13 @@ makeMove' this = do
 
 takeDamage :: Int -> Attacker -> Logger String Attacker
 takeDamage damage this =
-  return $ this {
-    hp = Attacker.hp this - damage,
-    energy = minimum [100, Attacker.energy this + (damage + 1) `div` 2]
-    }
+  let energy' = minimum [100, Attacker.energy this + (damage + 1) `div` 2]
+  in return $ this {
+       hp = Attacker.hp this - damage,
+       energy = energy',
+       damageEnergy =
+         Attacker.damageEnergy this + (energy' - Attacker.energy this)
+       }
 
 useEnergy :: Int -> Attacker -> Logger String Attacker
 useEnergy energy this =

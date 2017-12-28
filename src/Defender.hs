@@ -30,6 +30,7 @@ data Defender = Defender {
   hp :: Int,
   energy :: Int,
   quickEnergy :: Int,
+  damageEnergy :: Int,
   cooldown :: Int,        -- time until the next move.
   moves :: [(Move, Int)], -- next move(s) to do.
   move :: Move,           -- move in progess.
@@ -45,6 +46,7 @@ init rnd pokemon =
        hp = Pokemon.hp pokemon * 2,
        energy = 0,
        quickEnergy = 0,
+       damageEnergy = 0,
        cooldown = 1600,
        -- The first two moves are always quick and the interval is fixed.
        -- https://thesilphroad.com/tips-and-news/defender-attacks-twice-immediately
@@ -136,10 +138,13 @@ makeMove' this = do
 
 takeDamage :: Int -> Defender -> Logger String Defender
 takeDamage damage this =
-  return $ this {
-    hp = Defender.hp this - damage,
-    energy = minimum [100, Defender.energy this + (damage + 1) `div` 2]
-    }
+  let energy' = minimum [100, Defender.energy this + (damage + 1) `div` 2]
+  in return $ this {
+       hp = Defender.hp this - damage,
+       energy = energy',
+       damageEnergy =
+         Defender.damageEnergy this + (energy' - Defender.energy this)
+       }
 
 useEnergy :: Int -> Defender -> Logger String Defender
 useEnergy energy this =
