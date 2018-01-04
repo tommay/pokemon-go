@@ -28,8 +28,8 @@ optWeather :: O.Parser Weather
 optWeather =
       O.flag' Clear (O.long "clear" <> O.help "weather is sunny/clear")
   <|> O.flag' Fog (O.long "fog")
-  <|> O.flag' Overcast (O.long "overcast")
-  <|> O.flag' PartlyCloudy (O.long "partlycloudy")
+  <|> O.flag' Overcast (O.long "cloudy")
+  <|> O.flag' PartlyCloudy (O.long "partly")
   <|> O.flag' Rainy (O.long "rainy")
   <|> O.flag' Snow (O.long "snow")
   <|> O.flag' Windy (O.long "windy")
