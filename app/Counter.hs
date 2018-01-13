@@ -8,7 +8,7 @@ import           Data.Semigroup ((<>))
 
 import qualified Battle
 import qualified BattlerUtil
-import           BattlerUtil (Battler (Battler), Level (Level))
+import           BattlerUtil (Battler, Level (Level))
 import qualified Epic
 import qualified GameMaster
 import           GameMaster (GameMaster)
@@ -182,7 +182,7 @@ main =
                 else filter notLegendary nonMythical
           return result  
         MovesetFor attackers ->
-          let attackerSpecies = map (\ (Battler species _) -> species) attackers
+          let attackerSpecies = map BattlerUtil.species attackers
           in case filter (not . GameMaster.isSpecies gameMaster) attackerSpecies of
                [] -> makeSomeAttackers gameMaster attackers
                noSuchSpecies -> Epic.fail $ "No such species: " ++ (List.intercalate ", " noSuchSpecies)
@@ -344,7 +344,9 @@ makeAllAttackersFromBase gameMaster level base =
 
 makeSomeAttackers :: (Epic.MonadCatch m) => GameMaster -> [Battler] -> m [Pokemon]
 makeSomeAttackers gameMaster attackers =
-  concat <$> mapM (\ (Battler species (Level level)) -> do
+  concat <$> mapM (\ battler -> do
+    let species = BattlerUtil.species battler
+        Level level = BattlerUtil.level battler
     base <- GameMaster.getPokemonBase gameMaster species
     return $ makeAllAttackersFromBase gameMaster level base) attackers
 

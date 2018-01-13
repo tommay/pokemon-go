@@ -1,8 +1,10 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 module BattlerUtil (
-  Battler (Battler),
+  Battler,
   Level (Level),
+  species,
+  level,
   parseBattler,
   makeBattlerVariants,
 ) where
@@ -24,8 +26,10 @@ import qualified Data.Attoparsec.Text as Atto
 import qualified Data.Maybe as Maybe
 import qualified Data.Text as Text
 
-data Battler = Battler String Level
-  deriving (Show)
+data Battler = Battler {
+  species :: String,
+  level :: Level
+} deriving (Show)
 
 data Level = Level Float | RaidBoss Int
   deriving (Show)
@@ -38,7 +42,10 @@ parseBattler defaultLevel = O.eitherReader $ \s ->
           Atto.char ':'
           attoParseLevel <|> attoParseRaidBoss
         Atto.endOfInput
-        return $ Battler battler (Maybe.fromMaybe defaultLevel level)
+        return $ Battler {
+          species = battler,
+          level = Maybe.fromMaybe defaultLevel level
+          }
       attoParseLevel = do
         (level, _) <- Atto.match $ do
           Atto.decimal
@@ -55,7 +62,8 @@ parseBattler defaultLevel = O.eitherReader $ \s ->
 
 makeBattlerVariants :: Epic.MonadCatch m => GameMaster -> Battler -> m [Pokemon]
 makeBattlerVariants gameMaster battler =
-  let Battler species level = battler
+  let species = BattlerUtil.species battler
+      level = BattlerUtil.level battler
   in case level of
     Level level ->
       makeWithAllMovesetsFromSpecies gameMaster species level
