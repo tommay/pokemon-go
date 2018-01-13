@@ -28,7 +28,9 @@ import qualified Data.Text as Text
 
 data Battler = Battler {
   species :: String,
-  level :: Level
+  level :: Level,
+  maybeQuickName :: Maybe String,
+  maybeChargeName :: Maybe String
 } deriving (Show)
 
 data Level = Level Float | RaidBoss Int
@@ -37,14 +39,22 @@ data Level = Level Float | RaidBoss Int
 parseBattler :: Level -> O.ReadM Battler
 parseBattler defaultLevel = O.eitherReader $ \s ->
   let attoParseBattler = do
-        battler <- some $ Atto.notChar ':'
+        battler <- some $ Atto.satisfy $ Atto.notInClass ":/"
         level <- optional $ do
           Atto.char ':'
           attoParseLevel <|> attoParseRaidBoss
+        maybeQuickName <- optional $ do
+          Atto.char ':'
+          some $ Atto.notChar '/'
+        maybeChargeName <- optional $ do
+          Atto.char '/'
+          some $ Atto.anyChar
         Atto.endOfInput
         return $ Battler {
           species = battler,
-          level = Maybe.fromMaybe defaultLevel level
+          level = Maybe.fromMaybe defaultLevel level,
+          maybeQuickName = maybeQuickName,
+          maybeChargeName = maybeChargeName
           }
       attoParseLevel = do
         (level, _) <- Atto.match $ do
