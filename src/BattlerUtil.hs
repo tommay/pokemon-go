@@ -26,6 +26,7 @@ import           PokemonBase (PokemonBase)
 import           Control.Applicative (optional, some)
 import qualified Data.Attoparsec.Text as Atto
 import qualified Data.Char as Char
+import qualified Data.List as List
 import qualified Data.Maybe as Maybe
 import qualified Data.Text as Text
 import qualified Text.Printf as Printf
@@ -93,15 +94,15 @@ makeBattlerVariants gameMaster battler = do
       case filter (\ (quick, _) -> nameMatches maybeQuickName quick)
           moveSets of
         [] -> Epic.fail $
-          Printf.printf "%s has no quick moves matching %s"
-            species (Maybe.fromJust maybeQuickName)
+          noMatchingMoves "quick" species (Maybe.fromJust maybeQuickName)
+            (PokemonBase.quickMoves base)
         val -> return val
     moveSets <- do
       case filter (\ (_, charge) -> nameMatches maybeChargeName charge)
           moveSets of
         [] -> Epic.fail $
-          Printf.printf "%s has no charge moves matching %s"
-            species (Maybe.fromJust maybeChargeName)
+          noMatchingMoves "charge" species (Maybe.fromJust maybeChargeName)
+            (PokemonBase.chargeMoves base)
         val -> return val
     return moveSets
   return $ case BattlerUtil.level battler of
@@ -109,6 +110,13 @@ makeBattlerVariants gameMaster battler = do
       makeForMoveSets gameMaster level base moveSets
     RaidBoss raidLevel ->
       makeRaidBossForMovesets gameMaster raidLevel base moveSets
+
+noMatchingMoves :: String -> String -> String -> [Move] -> String
+noMatchingMoves moveType species moveName moves =
+  Printf.printf ("%s has no %s moves matching %s\n" ++
+    "Available %s moves:\n%s")
+    species moveType moveName moveType
+    (List.intercalate "\n" $ map (("  " ++) . Move.name) moves)
 
 makeForMoveSets :: GameMaster -> Float -> PokemonBase -> [(Move, Move)] -> [Pokemon]
 makeForMoveSets gameMaster level base moveSets =
