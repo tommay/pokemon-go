@@ -119,8 +119,8 @@ makeWithAllMovesetsFromBase gameMaster level base =
           chargeMove
           base
   in [makeAttacker quickMove chargeMove |
-      (quickMove, chargeMove) <-
-        PokemonBase.moveSets base]
+       quickMove <- PokemonBase.quickMoves base,
+       chargeMove <- PokemonBase.chargeMoves base]
 
 -- Results of a particular attacker/moveset against all defender
 -- movesets.  The pokemon is expected to score at least minDamage no

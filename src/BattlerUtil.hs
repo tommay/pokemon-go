@@ -81,45 +81,45 @@ makeBattlerVariants gameMaster battler = do
   base <- GameMaster.getPokemonBase gameMaster species
   let maybeQuickName = BattlerUtil.maybeQuickName battler
       maybeChargeName = BattlerUtil.maybeChargeName battler
-      -- Check that first letter of each word in name matches the
-      -- abbreviation, e.g., abbrevMatches "dazzling gleam" "dg" is
-      -- True.
-      abbrevMatches name abbrev =
-        abbrev == (map (Char.toLower . head) $ words name)
-      nameMatches maybeAbbrev move =
-        and $ abbrevMatches (Move.name move) <$> maybeAbbrev
-  moveSets <- do
-    let moveSets = PokemonBase.moveSets base
-    moveSets <- do
-      case filter (\ (quick, _) -> nameMatches maybeQuickName quick)
-          moveSets of
-        [] -> Epic.fail $
-          noMatchingMoves "quick" species (Maybe.fromJust maybeQuickName)
-            (PokemonBase.quickMoves base)
-        val -> return val
-    moveSets <- do
-      case filter (\ (_, charge) -> nameMatches maybeChargeName charge)
-          moveSets of
-        [] -> Epic.fail $
-          noMatchingMoves "charge" species (Maybe.fromJust maybeChargeName)
-            (PokemonBase.chargeMoves base)
-        val -> return val
-    return moveSets
+      nameMatches abbrev move = matchesAnchored (Move.name move) abbrev
+      quickMoves = PokemonBase.quickMoves base
+      chargeMoves = PokemonBase.chargeMoves base
+  quickMoves <- do
+    case maybeQuickName of
+      Nothing -> return quickMoves
+      Just quickName ->
+        case filter (nameMatches quickName) quickMoves of
+          [val] -> return [val]
+          val -> Epic.fail $
+            matchingMovesFail val "quick" species
+              (Maybe.fromJust maybeQuickName)
+              (PokemonBase.quickMoves base)
+  chargeMoves <- do
+    case maybeChargeName of
+      Nothing -> return chargeMoves
+      Just chargeName ->
+        case filter (nameMatches chargeName) chargeMoves of
+          [val] -> return [val]
+          val -> Epic.fail $
+            matchingMovesFail val "charge" species
+              (Maybe.fromJust maybeChargeName)
+              (PokemonBase.chargeMoves base)
   return $ case BattlerUtil.level battler of
     Level level ->
-      makeForMoveSets gameMaster level base moveSets
+      makeForMoves gameMaster level base quickMoves chargeMoves
     RaidBoss raidLevel ->
-      makeRaidBossForMovesets gameMaster raidLevel base moveSets
+      makeRaidBossForMoves gameMaster raidLevel base quickMoves chargeMoves
 
-noMatchingMoves :: String -> String -> String -> [Move] -> String
-noMatchingMoves moveType species moveName moves =
-  Printf.printf ("%s has no %s moves matching %s\n" ++
-    "Available %s moves:\n%s")
-    species moveType moveName moveType
-    (List.intercalate "\n" $ map (("  " ++) . Move.name) moves)
+matchingMovesFail :: [a] -> String -> String -> String -> [Move] -> String
+matchingMovesFail list moveType species moveName moves =
+  let howMany = if null list then "no" else "multiple" :: String
+  in Printf.printf ("%s has %s %s moves matching %s\n" ++
+       "Available %s moves:\n%s")
+       species howMany moveType moveName moveType
+       (List.intercalate "\n" $ map (("  " ++) . Move.name) moves)
 
-makeForMoveSets :: GameMaster -> Float -> PokemonBase -> [(Move, Move)] -> [Pokemon]
-makeForMoveSets gameMaster level base moveSets =
+makeForMoves :: GameMaster -> Float -> PokemonBase -> [Move] -> [Move] -> [Pokemon]
+makeForMoves gameMaster level base quickMoves chargeMoves =
   let cpMultiplier = GameMaster.getCpMultiplier gameMaster level
       makeStat baseStat = (fromIntegral baseStat + 11) * cpMultiplier
       makeAttacker quickMove chargeMove =
@@ -135,12 +135,12 @@ makeForMoveSets gameMaster level base moveSets =
           chargeMove
           base
   in [makeAttacker quickMove chargeMove |
-      (quickMove, chargeMove) <- moveSets]
+       quickMove <- quickMoves, chargeMove <- chargeMoves]
 
 -- https://pokemongo.gamepress.gg/how-raid-boss-cp-calculated
 
-makeRaidBossForMovesets :: GameMaster -> Int -> PokemonBase -> [(Move, Move)] -> [Pokemon]
-makeRaidBossForMovesets gameMaster raidLevel base moveSets =
+makeRaidBossForMoves :: GameMaster -> Int -> PokemonBase -> [Move] -> [Move] -> [Pokemon]
+makeRaidBossForMoves gameMaster raidLevel base quickMoves chargeMoves =
   let stamina = case raidLevel of
         1 -> 600
         2 -> 1800
@@ -162,4 +162,18 @@ makeRaidBossForMovesets gameMaster raidLevel base moveSets =
           chargeMove
           base
   in [makePokemon quickMove chargeMove |
-      (quickMove, chargeMove) <- moveSets]
+       quickMove <- quickMoves, chargeMove <- chargeMoves]
+
+matchesAnchored :: String -> String -> Bool
+matchesAnchored _ [] = True
+matchesAnchored [] _ = False
+matchesAnchored (s1:ss) (p1:pp) =
+  s1 == p1 && matches ss pp
+
+matches :: String -> String -> Bool
+matches _ [] = True
+matches [] _ = False
+matches (s1:ss) p@(p1:pp) =
+  if s1 == p1
+    then matches ss pp
+    else matches ss p
