@@ -23,7 +23,7 @@ import           Pokemon (Pokemon)
 import qualified PokemonBase
 import           PokemonBase (PokemonBase)
 
-import           Control.Applicative (optional, some)
+import           Control.Applicative (optional, some, many)
 import qualified Data.Attoparsec.Text as Atto
 import qualified Data.Char as Char
 import qualified Data.List as List
@@ -50,10 +50,10 @@ parseBattler defaultLevel = O.eitherReader $ \s ->
           attoParseLevel <|> attoParseRaidBoss
         maybeQuickName <- optional $ do
           Atto.char ':'
-          some $ Atto.notChar '/'
+          many $ Atto.notChar '/'
         maybeChargeName <- optional $ do
           Atto.char '/'
-          some $ Atto.anyChar
+          many $ Atto.anyChar
         Atto.endOfInput
         return $ Battler {
           species = battler,
@@ -113,7 +113,7 @@ makeBattlerVariants gameMaster battler = do
 matchingMovesFail :: [a] -> String -> String -> String -> [Move] -> String
 matchingMovesFail list moveType species moveName moves =
   let howMany = if null list then "no" else "multiple" :: String
-  in Printf.printf ("%s has %s %s moves matching %s\n" ++
+  in Printf.printf ("%s has %s %s moves matching `%s'\n" ++
        "Available %s moves:\n%s")
        species howMany moveType moveName moveType
        (List.intercalate "\n" $ map (("  " ++) . Move.name) moves)
