@@ -127,7 +127,7 @@ checkAttackerHits this =
        battle <- makeLogs $ do
          Logger.log $ Printf.printf "Defender takes %d from %s"
            damage (Move.name move)
-         Battle.updateDefender battle $ Defender.takeDamage damage
+         Battle.updateDefender battle $ Defender.takeDamage damage (Move.isQuick move)
        return battle
      else return battle
 
@@ -151,7 +151,7 @@ checkDefenderHits this =
        battle <- makeLogs $ do
          Logger.log $ Printf.printf "Attacker takes %d from %s"
            damage (Move.name move)
-         Battle.updateAttacker battle $ Attacker.takeDamage damage
+         Battle.updateAttacker battle $ Attacker.takeDamage damage (Move.isQuick move)
        return battle
      else return battle
 

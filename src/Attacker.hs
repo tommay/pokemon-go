@@ -31,6 +31,8 @@ import Debug as D
 data Attacker = Attacker {
   pokemon :: Pokemon,
   hp :: Int,
+  quickDamage :: Int,
+  chargeDamage :: Int,
   energy :: Int,
   quickEnergy :: Int,
   damageEnergy :: Int,
@@ -47,6 +49,8 @@ init pokemon =
   in Attacker {
        pokemon = pokemon,
        hp = Pokemon.hp pokemon,
+       quickDamage = 0,
+       chargeDamage = 0,
        energy = 0,
        quickEnergy = 0,
        damageEnergy = 0,
@@ -121,11 +125,13 @@ makeMove' this = do
   Logger.log $ "Attacker uses " ++ (Move.name $ Attacker.move result)
   return result
 
-takeDamage :: Int -> Attacker -> Logger String Attacker
-takeDamage damage this =
+takeDamage :: Int -> Bool -> Attacker -> Logger String Attacker
+takeDamage damage isQuick this =
   let (okEnergy, wastedEnergy) = calcAllowedEnergy ((damage + 1) `div` 2) this
   in return $ this {
        hp = Attacker.hp this - damage,
+       quickDamage = Attacker.quickDamage this + if isQuick then damage else 0,
+       chargeDamage = Attacker.chargeDamage this + if isQuick then 0 else damage,
        energy = Attacker.energy this + okEnergy,
        damageEnergy = Attacker.damageEnergy this + okEnergy,
        wastedEnergy = Attacker.wastedEnergy this + wastedEnergy

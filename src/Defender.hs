@@ -31,6 +31,8 @@ import qualified Debug as D
 data Defender = Defender {
   pokemon :: Pokemon,
   hp :: Int,
+  quickDamage :: Int,
+  chargeDamage :: Int,
   energy :: Int,
   quickEnergy :: Int,
   damageEnergy :: Int,
@@ -48,6 +50,8 @@ init rnd pokemon =
   in Defender {
        pokemon = pokemon,
        hp = Pokemon.hp pokemon * 2,
+       quickDamage = 0,
+       chargeDamage = 0,
        energy = 0,
        quickEnergy = 0,
        damageEnergy = 0,
@@ -144,11 +148,13 @@ makeMove' this = do
     rnd = rnd'
     }
 
-takeDamage :: Int -> Defender -> Logger String Defender
-takeDamage damage this =
+takeDamage :: Int -> Bool -> Defender -> Logger String Defender
+takeDamage damage isQuick this =
   let (okEnergy, wastedEnergy) = calcAllowedEnergy ((damage + 1) `div` 2) this
   in return $ this {
        hp = Defender.hp this - damage,
+       quickDamage = Defender.quickDamage this + if isQuick then damage else 0,
+       chargeDamage = Defender.chargeDamage this + if isQuick then 0 else damage,
        energy = Defender.energy this + okEnergy,
        damageEnergy = Defender.damageEnergy this + okEnergy,
        wastedEnergy = Defender.wastedEnergy this + wastedEnergy
