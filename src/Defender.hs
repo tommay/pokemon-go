@@ -126,7 +126,7 @@ makeMove' this = do
       -- seconds added to their duration.  Just use the average, 2.
       if decisionEnergy >= negate (Move.energy charge) then do
           Logger.log $ "Defender can use " ++ Move.name charge
-          if (random :: Float) < 0.5 then do
+          if random then do
             Logger.log $ "Defender chooses " ++ Move.name charge ++ " for next move"
             return [(charge, Move.durationMs charge + 2000)]
           else do
