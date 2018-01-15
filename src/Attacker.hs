@@ -3,6 +3,8 @@ module Attacker (
   Attacker.init,
   pokemon,
   hp,
+  quickDamage,
+  chargeDamage,
   energy,
   quickEnergy,
   damageEnergy,

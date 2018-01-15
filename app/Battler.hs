@@ -109,13 +109,21 @@ showLog log =
       when = Battle.secondsElapsed battle
       attacker = Battle.attacker battle
       defender = Battle.defender battle
-  in Printf.printf "%.3f: %3d %3d (%d/%d/%d) - %3d %3d (%d/%d/%d): %s"
+  in Printf.printf "%.3f: %3d (%d/%d) %3d (%d/%d/%d) - %3d (%d/%d) %3d (%d/%d/%d): %s"
        when
-       (Attacker.hp attacker) (Attacker.energy attacker)
-       (Attacker.quickEnergy attacker) (Attacker.damageEnergy attacker)
+       (Attacker.hp attacker)
+       (Attacker.quickDamage attacker)
+       (Attacker.chargeDamage attacker)
+       (Attacker.energy attacker)
+       (Attacker.quickEnergy attacker)
+       (Attacker.damageEnergy attacker)
        (Attacker.wastedEnergy attacker)
-       (Defender.hp defender) (Defender.energy defender)
-       (Defender.quickEnergy defender) (Defender.damageEnergy defender)
+       (Defender.hp defender)
+       (Defender.quickDamage defender)
+       (Defender.chargeDamage defender)
+       (Defender.energy defender)
+       (Defender.quickEnergy defender)
+       (Defender.damageEnergy defender)
        (Defender.wastedEnergy defender)
        (Log.what log)
 

@@ -3,6 +3,8 @@ module Defender (
   Defender.init,
   pokemon,
   hp,
+  quickDamage,
+  chargeDamage,
   energy,
   quickEnergy,
   damageEnergy,
