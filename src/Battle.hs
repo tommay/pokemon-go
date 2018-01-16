@@ -27,7 +27,6 @@ import           Type (Type)
 
 import qualified Control.Monad.Loops as Loops
 import qualified Data.List as List
-import qualified System.Random as Random
 import qualified Text.Printf as Printf
 
 import qualified Debug as D
@@ -44,14 +43,13 @@ battleDuration = 100 * 1000
 
 init :: (Type -> Float) -> Pokemon -> Pokemon -> Battle
 init weatherBonus attacker defender =
-  let rnd = Random.mkStdGen 23
-  in Battle {
-       attacker = Attacker.init attacker,
-       defender = Defender.init rnd defender,
-       weatherBonus = weatherBonus,
-       timer = battleDuration,
-       initialDefenderHp = Pokemon.hp defender * 2
-       }
+  Battle {
+    attacker = Attacker.init attacker,
+    defender = Defender.init defender,
+    weatherBonus = weatherBonus,
+    timer = battleDuration,
+    initialDefenderHp = Pokemon.hp defender * 2
+    }
 
 -- Given an initial Battle state, run the Battle and return the final
 -- state when Battle.attackerFainted is true, in a Logger monad with

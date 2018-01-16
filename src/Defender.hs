@@ -24,8 +24,9 @@ import qualified Pokemon
 import           Pokemon (Pokemon)
 import qualified Move
 import           Move (Move)
+import qualified NotRandom
+import           NotRandom (NotRandom)
 
-import qualified System.Random as Random
 import qualified Text.Printf as Printf
 
 import qualified Debug as D
@@ -43,11 +44,11 @@ data Defender = Defender {
   moves :: [(Move, Int)], -- next move(s) to do.
   move :: Move,           -- move in progess.
   damageWindow :: Int,
-  rnd :: Random.StdGen
+  rnd :: NotRandom
 } deriving (Show)
 
-init :: Random.StdGen -> Pokemon -> Defender
-init rnd pokemon =
+init :: Pokemon -> Defender
+init pokemon =
   let quick = Pokemon.quick pokemon
   in Defender {
        pokemon = pokemon,
@@ -67,7 +68,7 @@ init rnd pokemon =
                 (quick, Move.durationMs quick + 2000)],
        move = quick,  -- Not used.
        damageWindow = -1,
-       rnd = rnd
+       rnd = NotRandom.new
        }
 
 quick :: Defender -> Move
@@ -119,23 +120,25 @@ makeMove' this = do
             Defender.energy this + Move.energy move')
       quick = Defender.quick this
       charge = Defender.charge this
-      (random, rnd') = Random.random $ Defender.rnd this
-  moves'' <- case moves' of
+  -- Be careful to advance the random number generator only if we actually
+  -- need to use it, since we're relying on the True, False, ... sequence.
+  (moves'', rnd') <- case moves' of
     [] -> do
       -- Both quick moves and charge moves get an additional 1.5-2.5
       -- seconds added to their duration.  Just use the average, 2.
       if decisionEnergy >= negate (Move.energy charge) then do
           Logger.log $ "Defender can use " ++ Move.name charge
+          let (random, rnd') = NotRandom.randomBool $ Defender.rnd this
           if random then do
             Logger.log $ "Defender chooses " ++ Move.name charge ++ " for next move"
-            return [(charge, Move.durationMs charge + 2000)]
+            return ([(charge, Move.durationMs charge + 2000)], rnd')
           else do
             Logger.log $ "Defender chooses " ++ Move.name quick ++ " for next move"
-            return [(quick, Move.durationMs quick + 2000)]
+            return ([(quick, Move.durationMs quick + 2000)], rnd')
       else do
         Logger.log $ "Defender must use " ++ Move.name quick ++ " for next move"
-        return [(quick, Move.durationMs quick + 2000)]
-    val -> return val
+        return ([(quick, Move.durationMs quick + 2000)], Defender.rnd this)
+    val -> return (val, Defender.rnd this)
   -- Set countdown until damage is done to the opponent and it gets
   -- its energy boost and our charge move energy is subtracted.
   let damageWindow' = Move.damageWindow move'
