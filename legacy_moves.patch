@@ -1,0 +1,38 @@
+#!/bin/sh
+
+patch <<EOF
+--- 1	2018-01-20 20:59:07.883988333 -0800
++++ GAME_MASTER.yaml	2018-01-11 11:19:40.097669600 -0800
+@@ -16511,6 +16502,7 @@
+     quickMoves:
+     - PECK_FAST
+     - WATERFALL_FAST
++    - POISON_JAB_FAST
+     cinematicMoves:
+     - ICE_BEAM
+     - WATER_PULSE
+@@ -17265,6 +17257,7 @@
+     quickMoves:
+     - BITE_FAST
+     - WATERFALL_FAST
++    - DRAGON_TAIL_FAST
+     cinematicMoves:
+     - HYDRO_PUMP
+     - CRUNCH
+@@ -24907,6 +24901,7 @@
+     quickMoves:
+     - EXTRASENSORY_FAST
+     - SNARL_FAST
++    - HIDDEN_POWER_FAST
+     cinematicMoves:
+     - HYDRO_PUMP
+     - BUBBLE_BEAM
+@@ -33715,6 +33710,7 @@
+       baseDefense: 251
+     quickMoves:
+     - WATERFALL_FAST
++    - DRAGON_TAIL_FAST
+     cinematicMoves:
+     - HYDRO_PUMP
+     - BLIZZARD
+EOF
