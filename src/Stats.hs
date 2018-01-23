@@ -17,7 +17,6 @@ import qualified Data.Yaml.Builder as Builder
 import           Data.Yaml.Builder ((.=))
 
 import qualified Data.Scientific as Scientific
-import           Data.Semigroup ((<>))
 
 data Stats = Stats {
   level       :: Float,

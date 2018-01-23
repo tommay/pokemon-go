@@ -17,7 +17,6 @@ import qualified Data.Maybe as Maybe
 import           Data.Semigroup ((<>))
 
 import qualified Data.ByteString as B
-import           Data.Semigroup ((<>))
 import qualified Data.Yaml as Y
 import qualified Data.Yaml.Builder as Builder
 import qualified System.IO as I

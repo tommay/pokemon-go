@@ -11,7 +11,6 @@ module BattlerUtil (
 
 import qualified Options.Applicative as O
 import           Options.Applicative ((<|>), (<**>))
-import           Data.Semigroup ((<>))
 
 import qualified Epic
 import qualified GameMaster
