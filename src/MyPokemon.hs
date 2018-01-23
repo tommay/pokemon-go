@@ -17,12 +17,15 @@ module MyPokemon (
   defense,
   stamina,
   level,
-  setIVs
+  setIVs,
+  setStats
 ) where
 
 import qualified Epic
 import qualified IVs
 import           IVs (IVs)
+import qualified Stats
+import           Stats (Stats)
 
 import qualified Data.Aeson.Types
 import qualified Data.Yaml as Yaml
@@ -42,7 +45,8 @@ data MyPokemon = MyPokemon {
   quickName   :: String,
   chargeName  :: String,
   appraisal   :: String,
-  ivs         :: Maybe [IVs]
+  ivs         :: Maybe [IVs],
+  stats       :: Maybe [Stats]
 } deriving (Show)
 
 instance Yaml.FromJSON MyPokemon where
@@ -59,7 +63,8 @@ instance Yaml.FromJSON MyPokemon where
           y .: "quick" <*>
           y .: "charge" <*>
           y .: "appraisal" <*>
-          y .:? "ivs"
+          y .:? "ivs" <*>
+          y .:? "stats"
 
 (.=?) :: (Builder.ToYaml a) => Text -> Maybe a -> [(Text, Builder.YamlBuilder)]
 label .=? Nothing =
@@ -82,7 +87,8 @@ instance Builder.ToYaml MyPokemon where
       "quick" .== (Text.pack $ quickName this),
       "charge" .== (Text.pack $ chargeName this),
       "appraisal" .== (Text.pack $ appraisal this),
-      "ivs" .=? ivs this
+      "ivs" .=? ivs this,
+      "stats" .=? stats this
     ]
 
 instance (Builder.ToYaml a) => Builder.ToYaml (Maybe a) where
@@ -118,3 +124,7 @@ getIv getter this = do
 setIVs :: MyPokemon -> [IVs] -> MyPokemon
 setIVs this ivs =
   this { ivs = Just ivs }
+
+setStats :: MyPokemon -> [Stats] -> MyPokemon
+setStats this stats =
+  this { stats = Just stats }

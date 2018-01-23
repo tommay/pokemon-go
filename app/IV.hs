@@ -9,6 +9,7 @@ import qualified GameMaster
 import           GameMaster (GameMaster)
 import qualified MyPokemon
 import           MyPokemon (MyPokemon)
+import qualified PokeUtil
 
 import qualified Options.Applicative as O
 import           Options.Applicative ((<**>))
@@ -23,16 +24,21 @@ import qualified System.IO as I
 
 data Options = Options {
   new       :: Bool,
+  stats     :: Bool,
   filename  :: String
 }
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optNew <*> optFilename
+  let opts = Options <$> optNew <*> optStats <*> optFilename
       optNew = O.switch
         (  O.long "new"
         <> O.short 'n'
         <> O.help "Assume pokemon without ivs are newly caught or hatched")
+      optStats = O.switch
+        (  O.long "stats"
+        <> O.short 's'
+        <> O.help "Include the complate base+iv * level stats")
       optFilename = O.argument O.str (O.metavar "FILENAME")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
@@ -49,7 +55,12 @@ main = Epic.catch (
     myPokemon <- join $ MyPokemon.load $ filename options
 
     let new' = new options
-    myNewPokemon <- mapM (updateIVs gameMaster new') myPokemon
+    myNewPokemon <- do
+      myNewPokemon <- mapM (updateIVs gameMaster new') myPokemon
+      if stats options
+        then mapM (PokeUtil.addStats gameMaster) myPokemon
+        else return myPokemon
+
     B.putStr $ Builder.toByteString myNewPokemon
   )
   $ I.hPutStrLn I.stderr
