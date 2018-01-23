@@ -3,12 +3,12 @@ module Main where
 import qualified Appraisal
 import qualified Calc
 import qualified Epic
+import qualified IVs
+import           IVs (IVs)
 import qualified GameMaster
 import           GameMaster (GameMaster)
 import qualified MyPokemon
 import           MyPokemon (MyPokemon)
-import qualified Stats
-import           Stats (Stats)
 
 import qualified Options.Applicative as O
 import           Options.Applicative ((<**>))
@@ -32,7 +32,7 @@ getOptions =
       optNew = O.switch
         (  O.long "new"
         <> O.short 'n'
-        <> O.help "Assume pokemon without stats are newly caught or hatched")
+        <> O.help "Assume pokemon without ivs are newly caught or hatched")
       optFilename = O.argument O.str (O.metavar "FILENAME")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
@@ -49,56 +49,56 @@ main = Epic.catch (
     myPokemon <- join $ MyPokemon.load $ filename options
 
     let new' = new options
-    myNewPokemon <- mapM (updateStats gameMaster new') myPokemon
+    myNewPokemon <- mapM (updateIVs gameMaster new') myPokemon
     B.putStr $ Builder.toByteString myNewPokemon
   )
   $ I.hPutStrLn I.stderr
 
-updateStats :: (Epic.MonadCatch m) => GameMaster -> Bool -> MyPokemon -> m MyPokemon
-updateStats gameMaster new myPokemon = Epic.catch (
+updateIVs :: (Epic.MonadCatch m) => GameMaster -> Bool -> MyPokemon -> m MyPokemon
+updateIVs gameMaster new myPokemon = Epic.catch (
   do
-    stats <- computeStats gameMaster new myPokemon
-    return $ MyPokemon.setStats myPokemon stats
+    ivs <- computeIVs gameMaster new myPokemon
+    return $ MyPokemon.setIVs myPokemon ivs
   )
   $ \ex -> Epic.fail $
       "Problem with " ++ MyPokemon.name myPokemon ++ ": " ++ ex
 
-computeStats :: (Epic.MonadCatch m) => GameMaster -> Bool -> MyPokemon -> m [Stats]
-computeStats gameMaster new myPokemon = do
+computeIVs :: (Epic.MonadCatch m) => GameMaster -> Bool -> MyPokemon -> m [IVs]
+computeIVs gameMaster new myPokemon = do
   pokemonBase <- GameMaster.getPokemonBase gameMaster $ MyPokemon.species myPokemon
   possibleLevels <- GameMaster.getLevelsForStardust gameMaster
     $ MyPokemon.stardust myPokemon
   possibleIvs <- do
     appraisal <- Appraisal.new $ MyPokemon.appraisal myPokemon
     return $ Appraisal.possibleIvs appraisal
-  possibleStats <- do
-    let allStats = [Stats.new level attack defense stamina |
+  possibleIVs <- do
+    let allIVs = [IVs.new level attack defense stamina |
           level <- possibleLevels,
           (attack, defense, stamina) <- possibleIvs]
         isWholeLevel s =
-          let level = Stats.level s
+          let level = IVs.level s
           in fromIntegral (floor level) == level
-        allStats' = if new && (Maybe.isNothing $ MyPokemon.stats myPokemon)
-          then filter isWholeLevel allStats
-          else allStats
-        statsMatchMyPokemon stats =
+        allIVs' = if new && (Maybe.isNothing $ MyPokemon.ivs myPokemon)
+          then filter isWholeLevel allIVs
+          else allIVs
+        ivsMatchMyPokemon ivs =
           MyPokemon.hp myPokemon ==
-            Calc.hp gameMaster pokemonBase stats &&
+            Calc.hp gameMaster pokemonBase ivs &&
           MyPokemon.cp myPokemon ==
-            Calc.cp gameMaster pokemonBase stats
-        statsThatMatchMyPokemon = filter statsMatchMyPokemon allStats'
-    case statsThatMatchMyPokemon of
+            Calc.cp gameMaster pokemonBase ivs
+        ivsThatMatchMyPokemon = filter ivsMatchMyPokemon allIVs'
+    case ivsThatMatchMyPokemon of
       [] -> Epic.fail "No possible ivs"
-      matchingStats -> return $ do
-        case MyPokemon.stats myPokemon of
-          Nothing -> matchingStats
-          Just currentStats ->
+      matchingIVs -> return $ do
+        case MyPokemon.ivs myPokemon of
+          Nothing -> matchingIVs
+          Just currentIVs ->
             filter (\matching ->
               any (\current ->
-                let ivs = sequence [Stats.attack, Stats.defense, Stats.stamina]
+                let ivs = sequence [IVs.attack, IVs.defense, IVs.stamina]
                 in ivs matching == ivs current)
-              currentStats)
-            matchingStats
-  case possibleStats of
+              currentIVs)
+            matchingIVs
+  case possibleIVs of
     [] -> Epic.fail "No possible remaining ivs"
-    _ -> return possibleStats
+    _ -> return possibleIVs

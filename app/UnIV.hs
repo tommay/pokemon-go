@@ -2,13 +2,13 @@ module Main where
 
 import qualified Calc
 import qualified Epic
+import qualified IVs
+import           IVs (IVs)
 import qualified GameMaster
 import           GameMaster (GameMaster)
 import qualified MyPokemon
 import           MyPokemon (MyPokemon)
 import qualified PokemonBase (PokemonBase)
-import qualified Stats
-import           Stats (Stats)
 
 import qualified Options.Applicative as O
 import           Options.Applicative ((<**>))
@@ -41,24 +41,24 @@ main = Epic.catch (
 
     myPokemon <- join $ MyPokemon.load $ filename options
 
-    myNewPokemon <- mapM (updateFromStats gameMaster) myPokemon
+    myNewPokemon <- mapM (updateFromIVs gameMaster) myPokemon
     B.putStr $ Builder.toByteString myNewPokemon
   )
   $ I.hPutStrLn I.stderr
 
-updateFromStats :: (Epic.MonadCatch m) => GameMaster -> MyPokemon -> m MyPokemon
-updateFromStats gameMaster myPokemon = do
+updateFromIVs :: (Epic.MonadCatch m) => GameMaster -> MyPokemon -> m MyPokemon
+updateFromIVs gameMaster myPokemon = do
   pokemonBase <-
     GameMaster.getPokemonBase gameMaster $ MyPokemon.species myPokemon
-  let failNoStats = Epic.fail $ MyPokemon.name myPokemon ++ ": no stats"
-  case MyPokemon.stats myPokemon of
-    Nothing -> failNoStats
-    Just [] -> failNoStats
-    Just (stats:_) ->
-      let cp = Calc.cp gameMaster pokemonBase stats
-          hp = Calc.hp gameMaster pokemonBase stats
+  let failNoIVs = Epic.fail $ MyPokemon.name myPokemon ++ ": no ivs"
+  case MyPokemon.ivs myPokemon of
+    Nothing -> failNoIVs
+    Just [] -> failNoIVs
+    Just (ivs:_) ->
+      let cp = Calc.cp gameMaster pokemonBase ivs
+          hp = Calc.hp gameMaster pokemonBase ivs
           stardust =
-            GameMaster.getStardustForLevel gameMaster $ Stats.level stats
+            GameMaster.getStardustForLevel gameMaster $ IVs.level ivs
       in return $ myPokemon {
         MyPokemon.cp = cp,
         MyPokemon.hp = hp,

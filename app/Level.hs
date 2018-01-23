@@ -6,10 +6,10 @@ import           Data.Semigroup ((<>))
 
 import qualified Calc
 import qualified Epic
+import qualified IVs
 import qualified GameMaster
 import           GameMaster (GameMaster)
 import           PokemonBase (PokemonBase)
-import qualified Stats
 
 import           Control.Monad (join)
 import qualified System.IO as I
@@ -84,9 +84,9 @@ printLevelsForCp gameMaster pokemonBase ivPred cp =
 cpMinMax :: GameMaster -> PokemonBase -> (Int -> Bool) -> Int -> (Int, Int)
 cpMinMax gameMaster pokemonBase ivPred level =
   let ivs = possibleIvs ivPred
-      stats = map (\ (attack, defense, stamina) ->
-        Stats.new (fromIntegral level) attack defense stamina) ivs
-      cps = map (Calc.cp gameMaster pokemonBase) stats
+      ivs' = map (\ (attack, defense, stamina) ->
+        IVs.new (fromIntegral level) attack defense stamina) ivs
+      cps = map (Calc.cp gameMaster pokemonBase) ivs'
       min = minimum cps
       max = maximum cps
   in (min, max)

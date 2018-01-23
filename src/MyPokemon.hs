@@ -13,17 +13,17 @@ module MyPokemon (
   hiddenPowerType,
   chargeName,
   appraisal,
-  stats,
+  ivs,
   attack,
   defense,
   stamina,
   level,
-  setStats
+  setIVs
 ) where
 
 import qualified Epic
-import qualified Stats
-import           Stats (Stats)
+import qualified IVs
+import           IVs (IVs)
 
 import qualified Data.Aeson.Types
 import qualified Data.Yaml as Yaml
@@ -44,7 +44,7 @@ data MyPokemon = MyPokemon {
   hiddenPowerType :: Maybe String,
   chargeName  :: String,
   appraisal   :: String,
-  stats       :: Maybe [Stats]
+  ivs         :: Maybe [IVs]
 } deriving (Show)
 
 instance Yaml.FromJSON MyPokemon where
@@ -62,7 +62,7 @@ instance Yaml.FromJSON MyPokemon where
           y .:? "hiddenPowerType" <*>
           y .: "charge" <*>
           y .: "appraisal" <*>
-          y .:? "stats"
+          y .:? "ivs"
 
 (.=?) :: (Builder.ToYaml a) => Text -> Maybe a -> [(Text, Builder.YamlBuilder)]
 label .=? Nothing =
@@ -86,7 +86,7 @@ instance Builder.ToYaml MyPokemon where
       "hiddenPowerType" .=? (Text.pack <$> hiddenPowerType this),
       "charge" .== (Text.pack $ chargeName this),
       "appraisal" .== (Text.pack $ appraisal this),
-      "stats" .=? stats this
+      "ivs" .=? ivs this
     ]
 
 instance (Builder.ToYaml a) => Builder.ToYaml (Maybe a) where
@@ -102,23 +102,23 @@ load filename = do
       Epic.fail $ Yaml.prettyPrintParseException yamlParseException
 
 level :: Epic.MonadCatch m => MyPokemon -> m Float
-level = getStat Stats.level
+level = getIv IVs.level
 
 attack :: Epic.MonadCatch m => MyPokemon -> m Int
-attack = getStat Stats.attack
+attack = getIv IVs.attack
 
 defense :: Epic.MonadCatch m => MyPokemon -> m Int
-defense = getStat Stats.defense
+defense = getIv IVs.defense
 
 stamina :: Epic.MonadCatch m => MyPokemon -> m Int
-stamina = getStat Stats.stamina
+stamina = getIv IVs.stamina
 
-getStat :: (Num a, Epic.MonadCatch m) => (Stats -> a) -> MyPokemon -> m a
-getStat getter this = do
-  case MyPokemon.stats this of
-    Just (stats:_) -> return $ getter stats
-    Nothing -> Epic.fail $ "No stats for " ++ (MyPokemon.name this)
+getIv :: (Num a, Epic.MonadCatch m) => (IVs -> a) -> MyPokemon -> m a
+getIv getter this = do
+  case MyPokemon.ivs this of
+    Just (ivs:_) -> return $ getter ivs
+    Nothing -> Epic.fail $ "No ivs for " ++ (MyPokemon.name this)
 
-setStats :: MyPokemon -> [Stats] -> MyPokemon
-setStats this stats =
-  this { stats = Just stats }
+setIVs :: MyPokemon -> [IVs] -> MyPokemon
+setIVs this ivs =
+  this { ivs = Just ivs }

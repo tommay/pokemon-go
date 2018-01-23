@@ -1,14 +1,15 @@
 -- So .: works with literal Strings.
 {-# LANGUAGE OverloadedStrings #-}
 
-module Stats (
-  Stats (Stats),
+module IVs (
+  IVs (IVs),
   new,
   level,
   attack,
   defense,
   stamina,
   getAll,
+  setLevel,
 ) where
 
 import qualified Yaml
@@ -18,24 +19,22 @@ import           Data.Yaml ((.:))
 import qualified Data.Yaml.Builder as Builder
 import           Data.Yaml.Builder ((.=))
 
-import qualified Data.Scientific as Scientific
-
-data Stats = Stats {
+data IVs = IVs {
   level       :: Float,
   attack      :: Int,
   defense     :: Int,
   stamina     :: Int
 } deriving (Show)
 
-instance Yaml.FromJSON Stats where
-  parseJSON = Yaml.withObject "Stats" $ \y ->
-    Stats <$>
+instance Yaml.FromJSON IVs where
+  parseJSON = Yaml.withObject "IVs" $ \y ->
+    IVs <$>
     y .: "level" <*>
     y .: "attack" <*>
     y .: "defense" <*>
     y .: "stamina"
 
-instance Builder.ToYaml Stats where
+instance Builder.ToYaml IVs where
   toYaml this =
     Builder.mapping [
       "level" .= level this,
@@ -44,8 +43,12 @@ instance Builder.ToYaml Stats where
       "stamina" .= stamina this
     ]
 
-new = Stats
+new = IVs
 
-getAll :: Stats -> (Float, Int, Int, Int)
+getAll :: IVs -> (Float, Int, Int, Int)
 getAll this =
   (level this, attack this, defense this, stamina this)
+
+setLevel :: IVs -> Float -> IVs
+setLevel this level =
+  this { level = level }
