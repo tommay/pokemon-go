@@ -15,6 +15,8 @@ import           Options.Applicative ((<|>), (<**>))
 import qualified Epic
 import qualified GameMaster
 import           GameMaster (GameMaster)
+import qualified IVs
+import           IVs (IVs)
 import qualified Move
 import           Move (Move)
 import qualified Pokemon
@@ -37,16 +39,16 @@ data Battler = Battler {
   maybeChargeName :: Maybe String
 } deriving (Show)
 
-data Level = Level Float | RaidBoss Int
+data Level = Level IVs | RaidBoss Int
   deriving (Show)
 
-parseBattler :: Level -> O.ReadM Battler
-parseBattler defaultLevel = O.eitherReader $ \s ->
+parseBattler :: IVs -> O.ReadM Battler
+parseBattler defaultIVs = O.eitherReader $ \s ->
   let attoParseBattler = do
         battler <- some $ Atto.satisfy $ Atto.notInClass ":/"
         level <- optional $ do
           Atto.char ':'
-          attoParseLevel <|> attoParseRaidBoss
+          attoParseIVs <|> attoParseRaidBoss
         maybeQuickName <- optional $ do
           Atto.char ':'
           many $ Atto.notChar '/'
@@ -56,15 +58,29 @@ parseBattler defaultLevel = O.eitherReader $ \s ->
         Atto.endOfInput
         return $ Battler {
           species = battler,
-          level = Maybe.fromMaybe defaultLevel level,
+          level = Maybe.fromMaybe (Level defaultIVs) level,
           maybeQuickName = maybeQuickName,
           maybeChargeName = maybeChargeName
           }
+      attoParseIVs = attoParseLevelAndIVs <|> attoParseLevel
+      attoParseLevelAndIVs = do
+        (level, _) <- Atto.match $ do
+          Atto.decimal
+          optional $ Atto.string ".5"
+        let level' = read $ Text.unpack level
+        Atto.char '/'
+        attack <- Atto.decimal
+        Atto.char '/'
+        defense <- Atto.decimal
+        Atto.char '/'
+        stamina <- Atto.decimal
+        return $ Level $ IVs.new level' attack defense stamina
       attoParseLevel = do
         (level, _) <- Atto.match $ do
           Atto.decimal
           optional $ Atto.string ".5"
-        return $ Level $ read $ Text.unpack level
+        let level' = read $ Text.unpack level
+        return $ Level $ IVs.setLevel defaultIVs level'
       attoParseRaidBoss = do
         Atto.char 'r'
         (raidLevel, _) <- Atto.match Atto.decimal
@@ -104,8 +120,8 @@ makeBattlerVariants gameMaster battler = do
               (Maybe.fromJust maybeChargeName)
               (PokemonBase.chargeMoves base)
   return $ case BattlerUtil.level battler of
-    Level level ->
-      makeForMoves gameMaster level base quickMoves chargeMoves
+    Level ivs ->
+      makeForMoves gameMaster ivs base quickMoves chargeMoves
     RaidBoss raidLevel ->
       makeRaidBossForMoves gameMaster raidLevel base quickMoves chargeMoves
 
@@ -117,19 +133,21 @@ matchingMovesFail list moveType species moveName moves =
        species howMany moveType moveName moveType
        (List.intercalate "\n" $ map (("  " ++) . Move.name) moves)
 
-makeForMoves :: GameMaster -> Float -> PokemonBase -> [Move] -> [Move] -> [Pokemon]
-makeForMoves gameMaster level base quickMoves chargeMoves =
-  let cpMultiplier = GameMaster.getCpMultiplier gameMaster level
-      makeStat baseStat = (fromIntegral baseStat + 11) * cpMultiplier
+makeForMoves :: GameMaster -> IVs -> PokemonBase -> [Move] -> [Move] -> [Pokemon]
+makeForMoves gameMaster ivs base quickMoves chargeMoves =
+  let level = IVs.level ivs
+      cpMultiplier = GameMaster.getCpMultiplier gameMaster level
+      makeStat baseFunc ivFunc =
+        (fromIntegral $ baseFunc base + ivFunc ivs) * cpMultiplier
       makeAttacker quickMove chargeMove =
         Pokemon.new
           (PokemonBase.species base)
           (PokemonBase.species base)
           level
           (PokemonBase.types base)
-          (makeStat $ PokemonBase.attack base)
-          (makeStat $ PokemonBase.defense base)
-          (makeStat $ PokemonBase.stamina base)
+          (makeStat PokemonBase.attack IVs.attack)
+          (makeStat PokemonBase.defense IVs.defense)
+          (makeStat PokemonBase.stamina IVs.stamina)
           quickMove
           chargeMove
           base

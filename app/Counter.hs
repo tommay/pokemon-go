@@ -10,6 +10,7 @@ import qualified Battle
 import qualified BattlerUtil
 import           BattlerUtil (Battler, Level (Level))
 import qualified Epic
+import qualified IVs
 import qualified GameMaster
 import           GameMaster (GameMaster)
 import qualified Move
@@ -65,8 +66,8 @@ data Result = Result {
 } deriving (Show)
 
 defaultFilename = "my_pokemon.yaml"
-defaultAttackerLevel = 30
-defaultDefenderLevel = Level 30
+defaultIVs = IVs.new 30 11 11 11
+defaultAttackerLevel = IVs.level defaultIVs
 
 getOptions :: IO Options
 getOptions =
@@ -137,7 +138,7 @@ getOptions =
               <> O.help "Consider all pokemon, not just the ones in FILE")
             optMovesetFor = MovesetFor <$>
                 (O.some . O.option
-                  (BattlerUtil.parseBattler (Level defaultAttackerLevel)))
+                  (BattlerUtil.parseBattler defaultIVs))
               (  O.long "moveset"
               <> O.short 'm'
               <> O.metavar "ATTACKER[:LEVEL]"
@@ -145,7 +146,7 @@ getOptions =
         in optFilenames <|> optMovesetFor <|> optAll
              <|> (pure $ FromFiles [defaultFilename])
       optDefender = O.argument
-        (BattlerUtil.parseBattler defaultDefenderLevel)
+        (BattlerUtil.parseBattler defaultIVs)
           (O.metavar "DEFENDER[:LEVEL]")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
@@ -346,7 +347,8 @@ makeSomeAttackers :: (Epic.MonadCatch m) => GameMaster -> [Battler] -> m [Pokemo
 makeSomeAttackers gameMaster attackers =
   concat <$> mapM (\ battler -> do
     let species = BattlerUtil.species battler
-        Level level = BattlerUtil.level battler
+        level = case BattlerUtil.level battler of
+          Level ivs -> IVs.level ivs
     base <- GameMaster.getPokemonBase gameMaster species
     return $ makeAllAttackersFromBase gameMaster level base) attackers
 

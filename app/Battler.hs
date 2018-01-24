@@ -13,10 +13,11 @@ import           Attacker (Attacker)
 import qualified Battle
 import           Battle (Battle)
 import qualified BattlerUtil
-import           BattlerUtil (Battler, Level (Level))
+import           BattlerUtil (Battler)
 import qualified Defender
 import           Defender (Defender)
 import qualified Epic
+import qualified IVs
 import qualified GameMaster
 import           GameMaster (GameMaster)
 import qualified Log
@@ -44,7 +45,7 @@ import qualified Data.Text as Text
 import qualified System.IO as I
 import qualified Text.Printf as Printf
 
-defaultLevel = Level 20
+defaultIVs = IVs.new 20 11 11 11
 
 data Options = Options {
   maybeWeather :: Maybe Weather,
@@ -57,9 +58,9 @@ getOptions =
   let opts = Options <$> optWeather <*> optAttacker <*> optDefender
       optWeather = O.optional Weather.optWeather
       optAttacker = O.argument
-        (BattlerUtil.parseBattler defaultLevel) (O.metavar "ATTACKER[:LEVEL]")
+        (BattlerUtil.parseBattler defaultIVs) (O.metavar "ATTACKER[:LEVEL]")
       optDefender = O.argument
-        (BattlerUtil.parseBattler defaultLevel) (O.metavar "DEFENDER[:LEVEL]")
+        (BattlerUtil.parseBattler defaultIVs) (O.metavar "DEFENDER[:LEVEL]")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc "Battle some pokemon.")
