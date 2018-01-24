@@ -290,20 +290,20 @@ slaking:
 nincada: mythical
 ninjask: mythical
 shedinja: mythical
-whismur: mythical
-loudred: mythical
-exploud: mythical
+whismur:
+loudred:
+exploud:
 makuhita:
 hariyama:
 azurill:
-nosepass: mythical
+nosepass:
 skitty:
 delcatty:
 sableye: 
 mawile: 
-aron: mythical
-lairon: mythical
-aggron: mythical
+aron:
+lairon:
+aggron:
 meditite:
 medicham:
 electrike:
@@ -319,33 +319,33 @@ carvanha:
 sharpedo:
 wailmer:
 wailord:
-numel: mythical
-camerupt: mythical
-torkoal: mythical
+numel:
+camerupt:
+torkoal: mythical # regional
 spoink:
 grumpig:
 spinda: mythical
-trapinch: mythical
-vibrava: mythical
-flygon: mythical
-cacnea: mythical
-cacturne: mythical
+trapinch:
+vibrava:
+flygon:
+cacnea:
+cacturne:
 swablu: mythical
 altaria: mythical
 zangoose: 
 seviper: mythical # regional
-lunatone: mythical
-solrock: mythical
+lunatone: mythical # regional
+solrock: mythical # regional
 barboach:
 whiscash:
 corphish:
 crawdaunt:
-baltoy: mythical
-claydol: mythical
-lileep: mythical
-cradily: mythical
-anorith: mythical
-armaldo: mythical
+baltoy:
+claydol:
+lileep:
+cradily:
+anorith:
+armaldo:
 feebas:
 milotic:
 castform: mythical
