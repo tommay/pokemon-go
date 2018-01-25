@@ -165,15 +165,15 @@ makeRaidBossForMoves gameMaster raidLevel base quickMoves chargeMoves =
         4 -> 7500
         5 -> 12500
         _ -> error "Raid level must be 1, 2, 3, 4, or 5"
-      makeStat baseStat = fromIntegral baseStat + 15
+      makeStat baseFunc = fromIntegral $ baseFunc base + 15
       makePokemon quickMove chargeMove =
         Pokemon.new
           (PokemonBase.species base)
           (PokemonBase.species base)
           0   -- level, not used
           (PokemonBase.types base)
-          (makeStat $ PokemonBase.attack base)
-          (makeStat $ PokemonBase.defense base)
+          (makeStat PokemonBase.attack)
+          (makeStat PokemonBase.defense)
           stamina
           quickMove
           chargeMove
