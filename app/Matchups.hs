@@ -14,6 +14,8 @@ import           GameMaster (GameMaster)
 import qualified Logger
 import qualified Move
 import           Move (Move)
+import qualified MakePokemon
+import qualified MyPokemon
 import qualified Mythical
 import qualified Pokemon
 import           Pokemon (Pokemon)
@@ -35,12 +37,13 @@ import qualified System.IO as I
 defaultLevel = 20
 
 data Options = Options {
-  level :: Float
+  level :: Float,
+  attackersFile :: Maybe FilePath
 }
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optLevel
+  let opts = Options <$> optLevel <*> optAttackers
       optLevel = O.option O.auto
         (  O.long "level"
         <> O.short 'l'
@@ -48,6 +51,11 @@ getOptions =
         <> O.value 20
         <> O.showDefault
         <> O.help ("Set the level of the battling pokemon"))
+      optAttackers = O.optional $ O.strOption
+        (  O.long "attackers"
+        <> O.short 'a'
+        <> O.metavar "ATTACKERS-FILE"
+        <> O.help "File with attacking pokemon, default all")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc "Simulate matchups between all pokemon")
@@ -72,17 +80,21 @@ main =
 
           allBases = GameMaster.allPokemonBases gameMaster
 
-          attackers =
-            let attackerBases =
-                    filter notMythical
-                  $ filter notLegendary
-                  $ filter (not . PokemonBase.hasEvolutions)
-                  allBases
-            in concat $ map
-                 (makeWithAllMovesetsFromBase gameMaster level)
-                 attackerBases
+      attackers <- case attackersFile options of
+        Just filename -> do
+          myPokemon <- join $ MyPokemon.load filename
+          mapM (MakePokemon.makePokemon gameMaster MyPokemon.level) myPokemon
+        Nothing -> do
+          let attackerBases =
+                  filter notMythical
+                $ filter notLegendary
+                $ filter (not . PokemonBase.hasEvolutions)
+                allBases
+          return $ concat $ map
+            (makeWithAllMovesetsFromBase gameMaster level)
+            attackerBases
 
-          defenderBases =
+      let defenderBases =
               filter notMythical
             $ filter (not . PokemonBase.hasEvolutions)
             allBases
@@ -161,9 +173,6 @@ getAttackerResult defenders attacker =
 (.==) :: (Builder.ToYaml a) => Text -> a -> [(Text, Builder.YamlBuilder)]
 label .== a =
   [label .= a]
-
-instance Builder.ToYaml Float where
-  toYaml = Builder.scientific . Scientific.fromFloatDigits
 
 instance Builder.ToYaml AttackerResult where
   toYaml this =
