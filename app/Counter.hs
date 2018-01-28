@@ -28,6 +28,8 @@ import qualified Util
 import qualified Weather
 import           Weather (Weather (..))
 
+import qualified Debug
+
 import           Control.Monad (join)
 import qualified Data.List as List
 import qualified Data.Set as Set
@@ -279,11 +281,15 @@ makePokemon gameMaster maybeForceLevel myPokemon = do
           False -> Epic.fail $
             species ++ " can't do " ++ string ++ " move " ++
               MyPokemon.quickName myPokemon
+
   quick <- do
-    quick <- getMove "quick" GameMaster.getQuick MyPokemon.quickName
+    let split = Regex.mkRegex "([^,]*)(, *(.*))?"
+        Just [quickName, _, extra] =
+          Regex.matchRegex split $ MyPokemon.quickName myPokemon
+    quick <- getMove quickName GameMaster.getQuick (const quickName)
       PokemonBase.quickMoves
-    maybeSetHiddenPowerType gameMaster quick
-      (MyPokemon.hiddenPowerType myPokemon)
+    maybeSetHiddenPowerType gameMaster quick extra
+
   charge <- getMove "charge"
     GameMaster.getCharge MyPokemon.chargeName PokemonBase.chargeMoves
 
@@ -353,14 +359,14 @@ makeSomeAttackers gameMaster attackers =
     return $ makeAllAttackersFromBase gameMaster level base) attackers
 
 maybeSetHiddenPowerType :: (Epic.MonadCatch m) =>
-    GameMaster -> Move -> Maybe String -> m Move
-maybeSetHiddenPowerType gameMaster move maybeTypeName =
+    GameMaster -> Move -> String -> m Move
+maybeSetHiddenPowerType gameMaster move typeName =
   if Move.isHiddenPower move
-    then case maybeTypeName of
-      Just typeName -> do
+    then case typeName of
+      "" -> Epic.fail $ "No type given for hidden power"
+      _ -> do
         moveType <- GameMaster.getType gameMaster typeName
         return $ Move.setType move moveType
-      Nothing -> Epic.fail $ "No type given for hidden power"
-    else case maybeTypeName of
-      Nothing -> return $ move
+    else case typeName of
+      "" -> return $ move
       _ -> Epic.fail $ (Move.name move) ++ " does not take a type"

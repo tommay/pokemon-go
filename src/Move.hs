@@ -65,10 +65,11 @@ name :: Move -> String
 name this =
   let noFast = Regex.subRegex (Regex.mkRegex "_FAST$") (movementId this) ""
       alphaOnly = Regex.subRegex (Regex.mkRegex "[^a-zA-Z]") noFast " "
+      withType = if Move.isHiddenPower this
+        then alphaOnly ++ ", " ++ (Type.name $ Move.moveType this)
+        else alphaOnly
       lower = map Char.toLower alphaOnly
-  in if Move.isHiddenPower this
-       then lower ++ " (" ++ (Type.name $ Move.moveType this) ++ ")"
-       else lower
+  in lower
 
 isHiddenPower :: Move -> Bool
 isHiddenPower this =

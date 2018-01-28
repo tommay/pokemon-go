@@ -10,7 +10,6 @@ module MyPokemon (
   hp,
   stardust,
   quickName,
-  hiddenPowerType,
   chargeName,
   appraisal,
   ivs,
@@ -41,7 +40,6 @@ data MyPokemon = MyPokemon {
   hp          :: Int,
   stardust    :: Int,
   quickName   :: String,
-  hiddenPowerType :: Maybe String,
   chargeName  :: String,
   appraisal   :: String,
   ivs         :: Maybe [IVs]
@@ -59,7 +57,6 @@ instance Yaml.FromJSON MyPokemon where
           y .: "hp" <*>
           y .: "dust" <*>
           y .: "quick" <*>
-          y .:? "hiddenPowerType" <*>
           y .: "charge" <*>
           y .: "appraisal" <*>
           y .:? "ivs"
@@ -83,7 +80,6 @@ instance Builder.ToYaml MyPokemon where
       "hp" .== hp this,
       "dust" .== stardust this,
       "quick" .== (Text.pack $ quickName this),
-      "hiddenPowerType" .=? (Text.pack <$> hiddenPowerType this),
       "charge" .== (Text.pack $ chargeName this),
       "appraisal" .== (Text.pack $ appraisal this),
       "ivs" .=? ivs this
