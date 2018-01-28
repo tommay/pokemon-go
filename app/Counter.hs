@@ -15,6 +15,7 @@ import qualified GameMaster
 import           GameMaster (GameMaster)
 import qualified Move
 import           Move (Move)
+import qualified MakePokemon
 import qualified MyPokemon
 import           MyPokemon (MyPokemon)
 import qualified Mythical
@@ -171,7 +172,9 @@ main =
         FromFiles filenames -> do
           let loadPokemon filename = do
                 myPokemon <- join $ MyPokemon.load filename
-                mapM (makePokemon gameMaster (maybeForceLevel options))
+                mapM (MakePokemon.makePokemon
+                  gameMaster
+                  (getLevel $ maybeForceLevel options))
                   myPokemon
           fmap concat $ sequence $ map loadPokemon filenames
         AllAttackers -> do
@@ -238,6 +241,15 @@ main =
     )
     $ I.hPutStrLn I.stderr
 
+getLevel :: (Epic.MonadCatch m) => Maybe ForceLevel -> MyPokemon -> m Float
+getLevel maybeForceLevel myPokemon =
+  case maybeForceLevel of
+    Nothing -> MyPokemon.level myPokemon
+    Just (SetLevel val) -> return $ val
+    Just (MinLevel val) -> do
+      fileLevel <- MyPokemon.level myPokemon
+      return $ maximum [val, fileLevel]
+
 attackerLevel :: Options -> Float
 attackerLevel options =
   case maybeForceLevel options of
@@ -264,55 +276,6 @@ nameSpeciesAndLevelAndMoveset pokemon =
   in format speciesAndLevel'
        (Move.name $ Pokemon.quick pokemon)
        (Move.name $ Pokemon.charge pokemon)
-
-makePokemon :: Epic.MonadCatch m => GameMaster -> Maybe ForceLevel -> MyPokemon -> m Pokemon
-makePokemon gameMaster maybeForceLevel myPokemon = do
-  let name = MyPokemon.name myPokemon
-      species = MyPokemon.species myPokemon
-
-  let fromGameMaster getFunc keyFunc = getFunc gameMaster $ keyFunc myPokemon
-
-  base <- fromGameMaster GameMaster.getPokemonBase MyPokemon.species
-
-  let getMove string getFunc keyFunc moveListFunc = do
-        move <- fromGameMaster getFunc keyFunc
-        case move `elem` moveListFunc base of
-          True -> return move
-          False -> Epic.fail $
-            species ++ " can't do " ++ string ++ " move " ++
-              MyPokemon.quickName myPokemon
-
-  quick <- do
-    let split = Regex.mkRegex "([^,]*)(, *(.*))?"
-        Just [quickName, _, extra] =
-          Regex.matchRegex split $ MyPokemon.quickName myPokemon
-    quick <- getMove quickName GameMaster.getQuick (const quickName)
-      PokemonBase.quickMoves
-    maybeSetHiddenPowerType gameMaster quick extra
-
-  charge <- getMove "charge"
-    GameMaster.getCharge MyPokemon.chargeName PokemonBase.chargeMoves
-
-  level <- case maybeForceLevel of
-    Nothing -> MyPokemon.level myPokemon
-    Just (SetLevel val) -> return $ val
-    Just (MinLevel val) -> do
-      fileLevel <- MyPokemon.level myPokemon
-      return $ maximum [val, fileLevel]
-
-  let types = PokemonBase.types base
-
-  let cpMultiplier = GameMaster.getCpMultiplier gameMaster level
-      getStat getBaseStat getMyStat = do
-        let baseStat = getBaseStat base
-        myStat <- getMyStat myPokemon
-        return $ fromIntegral (baseStat + myStat) * cpMultiplier
-
-  attack <- getStat PokemonBase.attack MyPokemon.attack
-  defense <- getStat PokemonBase.defense MyPokemon.defense
-  stamina <- getStat PokemonBase.stamina MyPokemon.stamina
-
-  return $ Pokemon.new name species level types attack defense stamina quick charge base
 
 counter :: (Type -> Float) -> [Pokemon] -> Pokemon -> Result
 counter weatherBonus defenderVariants attacker =
@@ -357,16 +320,3 @@ makeSomeAttackers gameMaster attackers =
           Level ivs -> IVs.level ivs
     base <- GameMaster.getPokemonBase gameMaster species
     return $ makeAllAttackersFromBase gameMaster level base) attackers
-
-maybeSetHiddenPowerType :: (Epic.MonadCatch m) =>
-    GameMaster -> Move -> String -> m Move
-maybeSetHiddenPowerType gameMaster move typeName =
-  if Move.isHiddenPower move
-    then case typeName of
-      "" -> Epic.fail $ "No type given for hidden power"
-      _ -> do
-        moveType <- GameMaster.getType gameMaster typeName
-        return $ Move.setType move moveType
-    else case typeName of
-      "" -> return $ move
-      _ -> Epic.fail $ (Move.name move) ++ " does not take a type"
