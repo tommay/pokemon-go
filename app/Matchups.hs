@@ -179,7 +179,7 @@ instance Builder.ToYaml AttackerResult where
   toYaml this =
     Builder.mapping $ concat [
       "defender" .== (Text.pack $ defender this),
-      "attacker" .== (Text.pack $ Pokemon.species $ pokemon this),
+      "attacker" .== (Text.pack $ Pokemon.pname $ pokemon this),
       "quick" .== (Text.pack $ Move.name $ Pokemon.quick $ pokemon this),
       "charge" .== (Text.pack $ Move.name $ Pokemon.charge $ pokemon this),
       "dps" .== (dps this),
