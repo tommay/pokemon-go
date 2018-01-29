@@ -17,19 +17,27 @@ import qualified System.IO as IO
 import qualified Text.Printf as Printf
 
 data Options = Options {
-  elitesOnly :: Bool
+  elitesOnly :: Bool,
+  filename   :: String
 }
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optElitesOnly
+  let opts = Options <$> optElitesOnly <*> optFilename
       optElitesOnly = O.switch
         (  O.long "elites"
         <> O.short 'e'
         <> O.help "Filter non-elites from all output")
+      optFilename = O.strOption
+        (  O.long "file"
+        <> O.short 'f'
+        <> O.metavar "FILE"
+        <> O.value "matchups.out"
+        <> O.showDefault
+        <> O.help "File to read matchup data from")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
-        <> O.progDesc ("Use matchups.out to find elite pokemong and their" ++
+        <> O.progDesc ("Use matchups.out to find elite pokemon and their" ++
              "victims"))
       prefs = O.prefs O.showHelpOnEmpty
   in O.customExecParser prefs options
@@ -39,7 +47,7 @@ main =
     do
       options <- getOptions
 
-      matchups <- join $ Matchup.load "matchups.out"
+      matchups <- join $ Matchup.load $ filename options
 
       -- byDefender maps a defender to a list of its matchups.
 
