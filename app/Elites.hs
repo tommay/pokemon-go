@@ -13,21 +13,28 @@ import           Control.Monad (join)
 import qualified Data.HashMap.Strict as HashMap
 import           Data.HashMap.Strict (HashMap)
 import qualified Data.List as List
+import qualified Data.Maybe as Maybe
 import qualified System.IO as IO
 import qualified Text.Printf as Printf
+import qualified Text.Regex as Regex
 
 data Options = Options {
   elitesOnly :: Bool,
+  filterNames :: Bool,
   filename   :: String
 }
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optElitesOnly <*> optFilename
+  let opts = Options <$> optElitesOnly <*> optHypothetical <*> optFilename
       optElitesOnly = O.switch
         (  O.long "elites"
         <> O.short 'e'
         <> O.help "Filter non-elites from all output")
+      optHypothetical = O.switch
+        (  O.long "hypothetical"
+        <> O.short 'h'
+        <> O.help "Filter out hypothetical pokemon (with [.+] in their name)")
       optFilename = O.strOption
         (  O.long "file"
         <> O.short 'f'
@@ -47,7 +54,15 @@ main =
     do
       options <- getOptions
 
-      matchups <- join $ Matchup.load $ filename options
+      matchups <- do
+        matchups <- join $ Matchup.load $ filename options
+        return $ case filterNames options of
+          False -> matchups
+          True -> filter
+            (Maybe.isNothing .
+             Regex.matchRegex (Regex.mkRegex "\\[.+\\]") .
+             Matchup.attacker)
+            matchups
 
       -- byDefender maps a defender to a list of its matchups.
 
