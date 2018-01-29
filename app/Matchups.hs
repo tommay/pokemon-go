@@ -115,10 +115,11 @@ main =
     )
     $ I.hPutStrLn I.stderr
 
+makeWithAllMovesetsFromBase :: GameMaster -> Float -> PokemonBase -> [Pokemon]
 makeWithAllMovesetsFromBase gameMaster level base =
   let cpMultiplier = GameMaster.getCpMultiplier gameMaster level
       makeStat baseFunc = (fromIntegral $ baseFunc base + 11) * cpMultiplier
-      makeAttacker quickMove chargeMove =
+      makeBattler quickMove chargeMove =
         Pokemon.new
           (PokemonBase.species base)
           (PokemonBase.species base)
@@ -130,7 +131,7 @@ makeWithAllMovesetsFromBase gameMaster level base =
           quickMove
           chargeMove
           base
-  in [makeAttacker quickMove chargeMove |
+  in [makeBattler quickMove chargeMove |
        quickMove <- PokemonBase.quickMoves base,
        chargeMove <- PokemonBase.chargeMoves base]
 
