@@ -11,6 +11,8 @@ module Stats (
   getAll,
 ) where
 
+import qualified Yaml
+
 import qualified Data.Yaml as Yaml
 import           Data.Yaml ((.:))
 import qualified Data.Yaml.Builder as Builder
@@ -41,9 +43,6 @@ instance Builder.ToYaml Stats where
       "defense" .= defense this,
       "stamina" .= stamina this
     ]
-
-instance Builder.ToYaml Float where
-  toYaml = Builder.scientific . Scientific.fromFloatDigits
 
 new = Stats
 
