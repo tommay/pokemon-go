@@ -83,7 +83,7 @@ main =
       attackers <- case attackersFile options of
         Just filename -> do
           myPokemon <- join $ MyPokemon.load filename
-          mapM (MakePokemon.makePokemon gameMaster MyPokemon.level) myPokemon
+          mapM (MakePokemon.makePokemon gameMaster id) myPokemon
         Nothing -> do
           let attackerBases =
                   filter notMythical

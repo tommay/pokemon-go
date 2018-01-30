@@ -15,7 +15,7 @@ import qualified PokemonBase
 
 import qualified Text.Regex as Regex
 
-makePokemon :: Epic.MonadCatch m => GameMaster -> (MyPokemon -> m Float) -> MyPokemon -> m Pokemon
+makePokemon :: Epic.MonadCatch m => GameMaster -> (Float -> Float) -> MyPokemon -> m Pokemon
 makePokemon gameMaster getLevel myPokemon = do
   let name = MyPokemon.name myPokemon
       species = MyPokemon.species myPokemon
@@ -43,7 +43,7 @@ makePokemon gameMaster getLevel myPokemon = do
   charge <- getMove "charge"
     GameMaster.getCharge MyPokemon.chargeName PokemonBase.chargeMoves
 
-  level <- getLevel myPokemon
+  level <- getLevel <$> MyPokemon.level myPokemon
 
   let types = PokemonBase.types base
 

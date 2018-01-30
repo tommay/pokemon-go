@@ -11,7 +11,6 @@ import qualified BattlerUtil
 import           BattlerUtil (Battler, Level (Level))
 import qualified Epic
 import qualified ForceLevel
-import           ForceLevel (ForceLevel)
 import qualified IVs
 import qualified GameMaster
 import           GameMaster (GameMaster)
@@ -45,11 +44,11 @@ data Options = Options {
   sortOutputBy :: SortOutputBy,
   dpsFilter :: Maybe Int,
   top      :: Maybe Int,
-  maybeForceLevel :: Maybe ForceLevel,
+  getLevel :: Float -> Float,
   legendary :: Bool,
   attackerSource :: AttackerSource,
   defender :: Battler
-} deriving (Show)
+}
 
 data SortOutputBy =
   ByDamage | ByDps | ByProduct | ByDamagePerHp | Weighted Float
@@ -75,7 +74,7 @@ getOptions :: IO Options
 getOptions =
   let opts = Options <$> optWeather <*> optSortOutputBy <*> optDpsFilter <*>
         optTop <*>
-        optForceLevel <*> optLegendary <*> optAttackerSource <*>
+        optGetLevel <*> optLegendary <*> optAttackerSource <*>
         optDefender
       optWeather = O.optional Weather.optWeather
       optSortOutputBy =
@@ -109,7 +108,7 @@ getOptions =
         <> O.short 't'
         <> O.metavar "N"
         <> O.help "Show the top N attacker species")
-      optForceLevel = O.optional ForceLevel.optForceLevel 
+      optGetLevel = ForceLevel.optForceLevel 
       optLegendary = O.flag True False
         (  O.long "legendary"
         <> O.short 'L'
@@ -160,12 +159,13 @@ main =
                 myPokemon <- join $ MyPokemon.load filename
                 mapM (MakePokemon.makePokemon
                   gameMaster
-                  (getLevel $ maybeForceLevel options))
+                  (getLevel options))
                   myPokemon
           fmap concat $ sequence $ map loadPokemon filenames
         AllAttackers -> do
           mythicalMap <- join $ Mythical.load "mythical.yaml"
-          let all = allAttackers gameMaster (attackerLevel options)
+          let attackerLevel = getLevel options $ defaultAttackerLevel
+              all = allAttackers gameMaster attackerLevel
               notMythical = not . Mythical.isMythical mythicalMap . Pokemon.species
               notLegendary = not . Mythical.isLegendary mythicalMap . Pokemon.species
               nonMythical = filter notMythical all
@@ -226,19 +226,6 @@ main =
           mapM_ (putStrLn . showResult nameFunc) filtered
     )
     $ I.hPutStrLn I.stderr
-
-getLevel :: (Epic.MonadCatch m) => Maybe ForceLevel -> MyPokemon -> m Float
-getLevel maybeForceLevel myPokemon = do
-  level <- MyPokemon.level myPokemon
-  return $ case maybeForceLevel of
-    Nothing -> level
-    Just forceLevel -> ForceLevel.getLevel forceLevel level
-
-attackerLevel :: Options -> Float
-attackerLevel options =
-  case maybeForceLevel options of
-    Nothing -> defaultAttackerLevel
-    Just forceLevel -> ForceLevel.getLevel forceLevel 0
 
 showResult :: (Pokemon -> String) -> Result -> String
 showResult nameFunc result =
