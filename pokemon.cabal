@@ -19,7 +19,7 @@ library
                        Appraisal, IVs, Calc, Mythical,
                        Battle, Attacker, Defender, Debug, Log, Matchup,
                        Util, Weather, Logger, BattlerUtil, NotRandom, Yaml,
-                       MakePokemon, Stats, PokeUtil
+                       MakePokemon, Stats, PokeUtil, ForceLevel
   other-modules:       StringMap
   ghc-options:         -O2
   build-depends:       base >= 4.7 && < 5, yaml, vector, text,

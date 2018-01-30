@@ -10,6 +10,8 @@ import qualified Battle
 import qualified BattlerUtil
 import           BattlerUtil (Battler, Level (Level))
 import qualified Epic
+import qualified ForceLevel
+import           ForceLevel (ForceLevel)
 import qualified IVs
 import qualified GameMaster
 import           GameMaster (GameMaster)
@@ -48,9 +50,6 @@ data Options = Options {
   attackerSource :: AttackerSource,
   defender :: Battler
 } deriving (Show)
-
-data ForceLevel = SetLevel Float | MinLevel Float
-  deriving (Show)
 
 data SortOutputBy =
   ByDamage | ByDps | ByProduct | ByDamagePerHp | Weighted Float
@@ -110,24 +109,11 @@ getOptions =
         <> O.short 't'
         <> O.metavar "N"
         <> O.help "Show the top N attacker species")
+      optForceLevel = O.optional ForceLevel.optForceLevel 
       optLegendary = O.flag True False
         (  O.long "legendary"
         <> O.short 'L'
         <> O.help "Exclude legendaries when using -a")
-      optForceLevel =
-        let optSetLevel = SetLevel <$> O.option O.auto
-              (  O.long "level"
-              <> O.short 'l'
-              <> O.metavar "LEVEL"
-              <> O.help ("Force my_pokemon level to find who's implicitly best, " ++
-                   "or set the level for -a or the default level for -m"))
-            optMinLevel = MinLevel <$> O.option O.auto
-              (  O.long "minlevel"
-              <> O.short 'n'
-              <> O.metavar "LEVEL"
-              <> O.help ("Force level of pokemon read from FILE to be at " ++
-                   " LEVEL"))
-        in O.optional $ optSetLevel <|> optMinLevel
       optAttackerSource =
         let optFilenames = FromFiles <$> (O.some . O.strOption)
               (  O.long "file"
@@ -242,20 +228,17 @@ main =
     $ I.hPutStrLn I.stderr
 
 getLevel :: (Epic.MonadCatch m) => Maybe ForceLevel -> MyPokemon -> m Float
-getLevel maybeForceLevel myPokemon =
-  case maybeForceLevel of
-    Nothing -> MyPokemon.level myPokemon
-    Just (SetLevel val) -> return $ val
-    Just (MinLevel val) -> do
-      fileLevel <- MyPokemon.level myPokemon
-      return $ maximum [val, fileLevel]
+getLevel maybeForceLevel myPokemon = do
+  level <- MyPokemon.level myPokemon
+  return $ case maybeForceLevel of
+    Nothing -> level
+    Just forceLevel -> ForceLevel.getLevel forceLevel level
 
 attackerLevel :: Options -> Float
 attackerLevel options =
   case maybeForceLevel options of
     Nothing -> defaultAttackerLevel
-    Just (SetLevel level) -> level
-    Just (MinLevel level) -> level
+    Just forceLevel -> ForceLevel.getLevel forceLevel 0
 
 showResult :: (Pokemon -> String) -> Result -> String
 showResult nameFunc result =
