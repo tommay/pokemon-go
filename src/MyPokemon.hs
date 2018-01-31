@@ -121,9 +121,9 @@ getIv getter this = do
     Just (ivs:_) -> return $ getter ivs
     Nothing -> Epic.fail $ "No ivs for " ++ (MyPokemon.name this)
 
-setIVs :: MyPokemon -> [IVs] -> MyPokemon
+setIVs :: MyPokemon -> Maybe [IVs] -> MyPokemon
 setIVs this ivs =
-  this { ivs = Just ivs }
+  this { ivs = ivs }
 
 setStats :: MyPokemon -> [Stats] -> MyPokemon
 setStats this stats =

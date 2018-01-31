@@ -3,10 +3,11 @@ module Main where
 import qualified Appraisal
 import qualified Calc
 import qualified Epic
-import qualified IVs
-import           IVs (IVs)
+import qualified ForceLevel
 import qualified GameMaster
 import           GameMaster (GameMaster)
+import qualified IVs
+import           IVs (IVs)
 import qualified MyPokemon
 import           MyPokemon (MyPokemon)
 import qualified PokeUtil
@@ -25,20 +26,22 @@ import qualified System.IO as I
 data Options = Options {
   new       :: Bool,
   stats     :: Bool,
+  getLevel  :: Float -> Float,
   filename  :: String
 }
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optNew <*> optStats <*> optFilename
+  let opts = Options <$> optNew <*> optStats <*> optGetLevel <*> optFilename
       optNew = O.switch
         (  O.long "new"
-        <> O.short 'n'
+        <> O.short '0'
         <> O.help "Assume pokemon without ivs are newly caught or hatched")
       optStats = O.switch
         (  O.long "stats"
         <> O.short 's'
         <> O.help "Include the complate base+iv * level stats")
+      optGetLevel = ForceLevel.optForceLevel 
       optFilename = O.argument O.str (O.metavar "FILENAME")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
@@ -55,11 +58,13 @@ main = Epic.catch (
     myPokemon <- join $ MyPokemon.load $ filename options
 
     let new' = new options
+        setLevel' = getLevel options
     myNewPokemon <- do
       myNewPokemon <- mapM (updateIVs gameMaster new') myPokemon
+      myNewPokemon <- return $ map (updateLevel setLevel') myNewPokemon
       if stats options
-        then mapM (PokeUtil.addStats gameMaster) myPokemon
-        else return myPokemon
+        then mapM (PokeUtil.addStats gameMaster) myNewPokemon
+        else return myNewPokemon
 
     B.putStr $ Builder.toByteString myNewPokemon
   )
@@ -68,8 +73,8 @@ main = Epic.catch (
 updateIVs :: (Epic.MonadCatch m) => GameMaster -> Bool -> MyPokemon -> m MyPokemon
 updateIVs gameMaster new myPokemon = Epic.catch (
   do
-    ivs <- computeIVs gameMaster new myPokemon
-    return $ MyPokemon.setIVs myPokemon ivs
+    newIVs <- computeIVs gameMaster new myPokemon
+    return $ MyPokemon.setIVs myPokemon $ Just newIVs
   )
   $ \ex -> Epic.fail $
       "Problem with " ++ MyPokemon.name myPokemon ++ ": " ++ ex
@@ -113,3 +118,9 @@ computeIVs gameMaster new myPokemon = do
   case possibleIVs of
     [] -> Epic.fail "No possible remaining ivs"
     _ -> return possibleIVs
+
+updateLevel :: (Float -> Float) -> MyPokemon -> MyPokemon
+updateLevel calcLevel myPokemon =
+  MyPokemon.setIVs myPokemon $
+    map (\ivs -> IVs.setLevel ivs $ calcLevel $ IVs.level ivs) <$>
+    MyPokemon.ivs myPokemon
