@@ -13,7 +13,8 @@ module GameMaster (
   allPokemonBases,
   getType,
   getWeatherBonus,
-  isSpecies
+  isSpecies,
+  allLevels
 ) where
 
 import qualified Epic
@@ -99,20 +100,24 @@ getCpMultiplier this level =
           cp1 = cpMultipliers' ! intLevel
       in sqrt $ (cp0*cp0 + cp1*cp1) / 2
 
+dustAndLevel :: GameMaster -> [(Int, Float)]
+dustAndLevel this =
+  concat $ map (\ (dust, level) -> [(dust, level), (dust, level + 0.5)])
+    $ zip (stardustCost this) [1..]
+
+allLevels :: GameMaster -> [Float]
+allLevels =
+  map snd . dustAndLevel
+
 getLevelsForStardust :: (Epic.MonadCatch m) => GameMaster -> Int -> m [Float]
 getLevelsForStardust this starDust =
-  let levels = concat $ map (\ (n, dust) ->
-        if dust == starDust
-          then [n, n + 0.5]
-          else [])
-        $ zip [1..] $ stardustCost this
-  in case levels of
+  case map snd $ filter (\(dust, _) -> dust == starDust) $ dustAndLevel this of
     [] -> Epic.fail $ "Bad dust amount: " ++ show starDust
-    _ -> return levels
+    levels -> return levels
 
 getStardustForLevel :: GameMaster -> Float -> Int
 getStardustForLevel this level =
-  (stardustCost this) !! ((floor level) - 1)
+  fst $ head $ filter (\(_, lvl) -> lvl == level) $ dustAndLevel this
 
 lookup :: Epic.MonadCatch m => String -> StringMap a -> String -> m a
 lookup what hash key =
