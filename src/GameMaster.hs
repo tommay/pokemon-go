@@ -102,7 +102,7 @@ getCpMultiplier this level =
 
 dustAndLevel :: GameMaster -> [(Int, Float)]
 dustAndLevel this =
-  concat $ map (\ (dust, level) -> [(dust, level), (dust, level + 0.5)])
+  init $ concat $ map (\ (dust, level) -> [(dust, level), (dust, level + 0.5)])
     $ zip (stardustCost this) [1..]
 
 allLevels :: GameMaster -> [Float]
