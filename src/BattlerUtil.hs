@@ -7,6 +7,7 @@ module BattlerUtil (
   level,
   parseBattler,
   makeBattlerVariants,
+  setLevel,
 ) where
 
 import qualified Options.Applicative as O
@@ -180,6 +181,13 @@ makeRaidBossForMoves gameMaster raidLevel base quickMoves chargeMoves =
           base
   in [makePokemon quickMove chargeMove |
        quickMove <- quickMoves, chargeMove <- chargeMoves]
+
+setLevel :: Float -> Battler -> Battler
+setLevel level battler =
+  case BattlerUtil.level battler of
+    Level ivs ->
+      battler { level = Level $ IVs.setLevel ivs level }
+    _ -> error $ "Can't set level of " ++ show battler
 
 matchesAnchored :: String -> String -> Bool
 matchesAnchored _ [] = True

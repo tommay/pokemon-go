@@ -8,6 +8,7 @@ module Battle (
   dps,
   damageInflicted,
   secondsElapsed,
+  getDamage
 ) where
 
 import qualified Attacker
@@ -171,7 +172,7 @@ getDamage weatherBonus attacker move defender =
       effectiveness = Move.effectivenessAgainst move $ Pokemon.types defender
       attack = Pokemon.attack attacker
       defense = Pokemon.defense defender
-  in floor $ power * stab * weather *effectiveness * attack / defense / 2 + 1
+  in floor $ power * stab * weather * effectiveness * attack / defense / 2 + 1
 
 getEnergy :: Move -> Maybe Int
 getEnergy move =

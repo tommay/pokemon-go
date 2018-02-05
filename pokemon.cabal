@@ -37,6 +37,17 @@ library
                      , optparse-applicative
   default-language:    Haskell2010
 
+executable breakpoint-exe
+  hs-source-dirs:      app
+  main-is:             Breakpoint.hs
+  ghc-options:         -O2 -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base
+                     , pokemon
+                     , regex-compat
+                     , optparse-applicative
+                     , containers
+  default-language:    Haskell2010
+
 executable counter-exe
   hs-source-dirs:      app
   main-is:             Counter.hs
