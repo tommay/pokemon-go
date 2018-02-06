@@ -208,9 +208,9 @@ main =
             Just n ->
               let dpsCutoff = minDps $ sortedByDps !! (length sortedByDps `div` n) 
                   dpsCutoffNames = Set.fromList $
-                    map (\r -> Pokemon.pname (Main.pokemon r)) $
-                    filter (\r -> minDps r >= dpsCutoff) results
-              in filter (\r -> Pokemon.pname (Main.pokemon r) `elem` dpsCutoffNames) sorted
+                    map (Pokemon.pname . Main.pokemon) $
+                    filter ((>= dpsCutoff) . minDps) results
+              in filter ((`elem` dpsCutoffNames) . Pokemon.pname . Main.pokemon) sorted
             Nothing -> sorted
           nameFunc = case attackerSource options of
             FromFiles _ -> nameName
@@ -220,7 +220,7 @@ main =
       case top options of
         Just n ->
           let topSpecies = take n $ List.nub $
-                map (\r -> Pokemon.species $ Main.pokemon r) filtered
+                map (Pokemon.species . Main.pokemon) filtered
           in mapM_ putStrLn topSpecies
         Nothing ->
           mapM_ (putStrLn . showResult nameFunc) filtered
