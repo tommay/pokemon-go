@@ -3,6 +3,7 @@
 module BattlerUtil (
   Battler,
   Level (Level),
+  new,
   species,
   level,
   parseBattler,
@@ -42,6 +43,8 @@ data Battler = Battler {
 
 data Level = Level IVs | RaidBoss Int
   deriving (Show)
+
+new = Battler
 
 parseBattler :: IVs -> O.ReadM Battler
 parseBattler defaultIVs = O.eitherReader $ \s ->

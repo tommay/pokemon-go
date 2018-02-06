@@ -8,11 +8,13 @@ import           Data.Semigroup ((<>))
 
 import qualified Battle
 import qualified BattlerUtil
-import           BattlerUtil (Battler)
+import           BattlerUtil (Battler, Level (Level))
 import qualified Epic
 import qualified IVs
 import qualified GameMaster
 import           GameMaster (GameMaster)
+import qualified MyPokemon
+import           MyPokemon (MyPokemon)
 import qualified Pokemon
 import qualified Weather
 import           Weather (Weather (..))
@@ -27,14 +29,21 @@ defaultIVs = IVs.new 20 11 11 11
 
 data Options = Options {
   maybeWeather :: Maybe Weather,
+  maybeFilename :: Maybe String,
   attacker :: Battler,
   defender :: Battler
 }
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optWeather <*> optAttacker <*> optDefender
+  let opts = Options <$> optWeather
+        <*> optFilename <*> optAttacker <*> optDefender
       optWeather = O.optional Weather.optWeather
+      optFilename = O.optional $ O.strOption
+        (  O.long "file"
+        <> O.short 'f'
+        <> O.metavar "FILE"
+        <> O.help "File to read my_pokemon from to get the attacker")
       optAttacker = O.argument
         (BattlerUtil.parseBattler defaultIVs) (O.metavar "ATTACKER[:LEVEL]")
       optDefender = O.argument
@@ -56,7 +65,15 @@ main =
             Just weather -> GameMaster.getWeatherBonus gameMaster weather
             Nothing -> const 1
 
-      let attacker = Main.attacker options
+      attacker <- case maybeFilename options of
+        Just filename -> do
+          myPokemon <- join $ MyPokemon.load filename
+          let name = BattlerUtil.species $ Main.attacker options
+          case filter ((== name) . MyPokemon.name) myPokemon of
+            [myPokemon] -> makeBattler myPokemon
+            [] -> Epic.fail $ "Can't find pokemon named " ++ name
+            _ -> Epic.fail $ "Multiple pokemon named " ++ name
+        Nothing -> return $ Main.attacker options
 
       defenderVariants <-
         BattlerUtil.makeBattlerVariants gameMaster (defender options)
@@ -76,7 +93,27 @@ main =
       let breakpoints =
             List.nubBy (\ (_, d1) (_, d2) -> d1 == d2) levelAndDamage
 
-      forM_ (take 20 breakpoints) $ \ (level, damage) ->
+      forM_ breakpoints $ \ (level, damage) ->
         putStrLn $ Printf.printf "%4.1f %d" level damage
     )
     $ I.hPutStrLn I.stderr
+
+makeBattler :: Epic.MonadCatch m => MyPokemon -> m Battler
+makeBattler myPokemon = do
+  let name = MyPokemon.name myPokemon
+  ivs <- fromJustOrFail (MyPokemon.ivs myPokemon)
+    $ "No ivs for " ++ name
+  ivs <- case ivs of
+    (ivs:_) -> return ivs
+    [] -> Epic.fail $ "No ivs for " ++ name
+  return $ BattlerUtil.new
+    (MyPokemon.species myPokemon)
+    (Level ivs)
+    (Just $ MyPokemon.quickName myPokemon)
+    (Just $ MyPokemon.chargeName myPokemon)
+
+fromJustOrFail :: Epic.MonadCatch m => Maybe a -> String -> m a
+fromJustOrFail maybe string =
+  case maybe of
+    Nothing -> Epic.fail string
+    Just a -> return a
