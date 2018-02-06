@@ -16,12 +16,12 @@ import           GameMaster (GameMaster)
 import qualified MyPokemon
 import           MyPokemon (MyPokemon)
 import qualified Pokemon
+import qualified Util
 import qualified Weather
 import           Weather (Weather (..))
 
 import           Control.Applicative (optional, some)
 import           Control.Monad (join, forM, forM_)
-import qualified Data.Char as Char
 import qualified Data.List as List
 import qualified System.IO as I
 import qualified Text.Printf as Printf
@@ -69,9 +69,8 @@ main =
       attacker <- case maybeFilename options of
         Just filename -> do
           myPokemon <- join $ MyPokemon.load filename
-          let name = map Char.toLower $ BattlerUtil.species
-                $ Main.attacker options
-          case filter ((== name) . (map Char.toLower) . MyPokemon.name)
+          let name = BattlerUtil.species $ Main.attacker options
+          case filter ((Util.matchesAbbrevInsensitive name) . MyPokemon.name)
               myPokemon of
             [myPokemon] -> makeBattler myPokemon
             [] -> Epic.fail $ "Can't find pokemon named " ++ name
