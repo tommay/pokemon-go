@@ -32,7 +32,7 @@ import           Weather (Weather (..))
 
 import qualified Debug
 
-import           Control.Monad (join)
+import           Control.Monad (join, forM)
 import qualified Data.List as List
 import qualified Data.Set as Set
 import qualified System.IO as I
@@ -283,10 +283,11 @@ makeAllAttackersFromBase gameMaster level base =
        chargeMove <- PokemonBase.chargeMoves base]
 
 makeSomeAttackers :: (Epic.MonadCatch m) => GameMaster -> [Battler] -> m [Pokemon]
-makeSomeAttackers gameMaster attackers =
-  concat <$> mapM (\ battler -> do
+makeSomeAttackers gameMaster attackers = do
+  attackerLists <- forM attackers $ \ battler -> do
     let species = BattlerUtil.species battler
         level = case BattlerUtil.level battler of
           Level ivs -> IVs.level ivs
     base <- GameMaster.getPokemonBase gameMaster species
-    return $ makeAllAttackersFromBase gameMaster level base) attackers
+    return $ makeAllAttackersFromBase gameMaster level base
+  return $ concat attackerLists
