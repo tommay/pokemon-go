@@ -47,6 +47,7 @@ data Options = Options {
   getLevel :: Float -> Float,
   legendary :: Bool,
   attackerSource :: AttackerSource,
+  showBreakpoints :: Bool,
   defender :: Battler
 }
 
@@ -75,7 +76,7 @@ getOptions =
   let opts = Options <$> optWeather <*> optSortOutputBy <*> optDpsFilter <*>
         optTop <*>
         optGetLevel <*> optLegendary <*> optAttackerSource <*>
-        optDefender
+        optShowBreakpoints <*> optDefender
       optWeather = O.optional Weather.optWeather
       optSortOutputBy =
         let optGlass = O.flag' ByDps
@@ -133,6 +134,10 @@ getOptions =
               <> O.help "Rate the movesets for ATTACKER against DEFENDER")
         in optFilenames <|> optMovesetFor <|> optAll
              <|> (pure $ FromFiles [defaultFilename])
+      optShowBreakpoints = O.switch
+        (  O.long "breakpoints"
+        <> O.short 'b'
+        <> O.help "Show attacker breakpoints")
       optDefender = O.argument
         (BattlerUtil.parseBattler defaultIVs)
           (O.metavar "DEFENDER[:LEVEL]")
@@ -222,8 +227,14 @@ main =
           let topSpecies = take n $ List.nub $
                 map (Pokemon.species . Main.pokemon) filtered
           in mapM_ putStrLn topSpecies
-        Nothing ->
-          forM_ filtered $ putStrLn . showResult nameFunc
+        Nothing -> forM_ filtered $ \ result -> do
+          putStrLn $ showResult nameFunc result
+          if showBreakpoints options
+            then do
+              let breakpoints = getBreakpoints gameMaster
+              forM_ breakpoints $ \ (level, damage) ->
+                putStrLn $ Printf.printf "  %4.1f %d" level damage
+            else return ()
     )
     $ I.hPutStrLn I.stderr
 
@@ -291,3 +302,7 @@ makeSomeAttackers gameMaster attackers = do
     base <- GameMaster.getPokemonBase gameMaster species
     return $ makeAllAttackersFromBase gameMaster level base
   return $ concat attackerLists
+
+getBreakpoints :: GameMaster -> [(Float, Int)]
+getBreakpoints gameMaster =
+  [(10, 15), (15, 16), (30, 17)]
