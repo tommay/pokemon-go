@@ -25,6 +25,7 @@ import qualified Pokemon
 import           Pokemon (Pokemon)
 import qualified PokemonBase
 import           PokemonBase (PokemonBase)
+import qualified Util
 
 import           Control.Applicative (optional, some, many)
 import qualified Data.Attoparsec.Text as Atto
@@ -100,7 +101,7 @@ makeBattlerVariants gameMaster battler = do
   base <- GameMaster.getPokemonBase gameMaster species
   let maybeQuickName = BattlerUtil.maybeQuickName battler
       maybeChargeName = BattlerUtil.maybeChargeName battler
-      nameMatches abbrev move = matchesAnchored (Move.name move) abbrev
+      nameMatches abbrev = Util.matchesAbbrevInsensitive abbrev . Move.name
       quickMoves = PokemonBase.quickMoves base
       chargeMoves = PokemonBase.chargeMoves base
   quickMoves <- do
@@ -206,17 +207,3 @@ setLevel level battler =
     Level ivs ->
       battler { level = Level $ IVs.setLevel ivs level }
     _ -> error $ "Can't set level of " ++ show battler
-
-matchesAnchored :: String -> String -> Bool
-matchesAnchored _ [] = True
-matchesAnchored [] _ = False
-matchesAnchored (s1:ss) (p1:pp) =
-  s1 == p1 && matches ss pp
-
-matches :: String -> String -> Bool
-matches _ [] = True
-matches [] _ = False
-matches (s1:ss) p@(p1:pp) =
-  if s1 == p1
-    then matches ss pp
-    else matches ss p

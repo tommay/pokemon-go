@@ -2,8 +2,10 @@ module Util (
   compareWith,
   sortWith,
   Util.groupBy,
+  matchesAbbrevInsensitive,
 ) where
 
+import Data.Char as Char
 import Data.List as List
 import           Data.Hashable (Hashable)
 import qualified Data.HashMap.Strict as HashMap
@@ -27,3 +29,21 @@ groupBy fn lst =
   foldr (\ v m -> HashMap.insertWith (++) (fn v) [v] m)
     HashMap.empty
     lst
+
+matchesAbbrevInsensitive :: String -> String -> Bool
+matchesAbbrevInsensitive abbrev string =
+  matchesAbbrev (map Char.toLower abbrev) (map Char.toLower string)
+
+matchesAbbrev :: String -> String -> Bool
+matchesAbbrev [] _ = True
+matchesAbbrev _ [] = False
+matchesAbbrev (a0:aa) (s0:ss) =
+  a0 == s0 && matchesAbbrev' aa ss
+
+matchesAbbrev' :: String -> String -> Bool
+matchesAbbrev' [] _ = True
+matchesAbbrev' _ [] = False
+matchesAbbrev' a@(a0:aa) (s0:ss) =
+  if a0 == s0
+    then matchesAbbrev' aa ss
+    else matchesAbbrev' a ss
