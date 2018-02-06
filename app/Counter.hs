@@ -32,7 +32,7 @@ import           Weather (Weather (..))
 
 import qualified Debug
 
-import           Control.Monad (join, forM)
+import           Control.Monad (join, forM, forM_)
 import qualified Data.List as List
 import qualified Data.Set as Set
 import qualified System.IO as I
@@ -223,7 +223,7 @@ main =
                 map (Pokemon.species . Main.pokemon) filtered
           in mapM_ putStrLn topSpecies
         Nothing ->
-          mapM_ (putStrLn . showResult nameFunc) filtered
+          forM_ filtered $ putStrLn . showResult nameFunc
     )
     $ I.hPutStrLn I.stderr
 
