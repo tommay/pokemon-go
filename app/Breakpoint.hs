@@ -72,7 +72,7 @@ main =
           let name = BattlerUtil.species $ Main.attacker options
           case filter ((Util.matchesAbbrevInsensitive name) . MyPokemon.name)
               myPokemon of
-            [myPokemon] -> makeBattler myPokemon
+            [myPokemon] -> BattlerUtil.fromMyPokemon myPokemon
             [] -> Epic.fail $ "Can't find pokemon named " ++ name
             _ -> Epic.fail $ "Multiple pokemon named " ++ name
         Nothing -> return $ Main.attacker options
@@ -99,23 +99,3 @@ main =
         putStrLn $ Printf.printf "%4.1f %d" level damage
     )
     $ I.hPutStrLn I.stderr
-
-makeBattler :: Epic.MonadCatch m => MyPokemon -> m Battler
-makeBattler myPokemon = do
-  let name = MyPokemon.name myPokemon
-  ivs <- fromJustOrFail (MyPokemon.ivs myPokemon)
-    $ "No ivs for " ++ name
-  ivs <- case ivs of
-    (ivs:_) -> return ivs
-    [] -> Epic.fail $ "No ivs for " ++ name
-  return $ BattlerUtil.new
-    (MyPokemon.species myPokemon)
-    (Level ivs)
-    (Just $ MyPokemon.quickName myPokemon)
-    (Just $ MyPokemon.chargeName myPokemon)
-
-fromJustOrFail :: Epic.MonadCatch m => Maybe a -> String -> m a
-fromJustOrFail maybe string =
-  case maybe of
-    Nothing -> Epic.fail string
-    Just a -> return a

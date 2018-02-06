@@ -9,6 +9,7 @@ module BattlerUtil (
   parseBattler,
   makeBattlerVariants,
   setLevel,
+  fromMyPokemon,
 ) where
 
 import qualified Options.Applicative as O
@@ -21,6 +22,8 @@ import qualified IVs
 import           IVs (IVs)
 import qualified Move
 import           Move (Move)
+import qualified MyPokemon
+import           MyPokemon (MyPokemon)
 import qualified Pokemon
 import           Pokemon (Pokemon)
 import qualified PokemonBase
@@ -207,3 +210,23 @@ setLevel level battler =
     Level ivs ->
       battler { level = Level $ IVs.setLevel ivs level }
     _ -> error $ "Can't set level of " ++ show battler
+
+fromMyPokemon :: Epic.MonadCatch m => MyPokemon -> m Battler
+fromMyPokemon myPokemon = do
+  let name = MyPokemon.name myPokemon
+  ivs <- fromJustOrFail (MyPokemon.ivs myPokemon)
+    $ "No ivs for " ++ name
+  ivs <- case ivs of
+    (ivs:_) -> return ivs
+    [] -> Epic.fail $ "No ivs for " ++ name
+  return $ BattlerUtil.new
+    (MyPokemon.species myPokemon)
+    (Level ivs)
+    (Just $ MyPokemon.quickName myPokemon)
+    (Just $ MyPokemon.chargeName myPokemon)
+
+fromJustOrFail :: Epic.MonadCatch m => Maybe a -> String -> m a
+fromJustOrFail maybe string =
+  case maybe of
+    Nothing -> Epic.fail string
+    Just a -> return a
