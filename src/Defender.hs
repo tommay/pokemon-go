@@ -126,6 +126,7 @@ makeMove' this = do
     [] -> do
       -- Both quick moves and charge moves get an additional 1.5-2.5
       -- seconds added to their duration.  Just use the average, 2.
+      -- https://www.reddit.com/r/TheSilphRoad/comments/52b453/testing_gym_combat_misconceptions_2/
       if decisionEnergy >= negate (Move.energy charge) then do
           Logger.log $ "Defender can use " ++ Move.name charge
           let (random, rnd') = NotRandom.randomBool $ Defender.rnd this
