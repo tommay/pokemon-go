@@ -156,17 +156,29 @@ makeForMoves gameMaster ivs base quickMoves chargeMoves =
        quickMove <- quickMoves, chargeMove <- chargeMoves]
 
 -- https://pokemongo.gamepress.gg/how-raid-boss-cp-calculated
+-- This is more to the point.  The CP calculations don't actually
+-- match the real stats:
+-- https://www.reddit.com/r/pokebattler/comments/6jvzqm/motivation_for_flat_600150030007500_hp/
+-- XXX The stamina/hp works for the (fictitious) CP formula but may be
+-- slightly too high, at least for r3.
 
 makeRaidBossForMoves :: GameMaster -> Int -> PokemonBase -> [Move] -> [Move] -> [Pokemon]
 makeRaidBossForMoves gameMaster raidLevel base quickMoves chargeMoves =
-  let stamina = case raidLevel of
-        1 -> 600
-        2 -> 1800
-        3 -> 3000
-        4 -> 7500
-        5 -> 12500
+  let -- These cpm were apparently sniffed off the wire and are the same
+      -- ones used by https://pokemongo.gamepress.gg/breakpoint-calculator#/.
+      -- With these values ./breakpoint gyarados:30/13/14/10:wf machamp:r3
+      -- matches that site, but using getCpmForLevel gives the jump to
+      -- 14 at level 28 whereas the site and thte hardcoded numbers put
+      -- it at level 27.5.
+      getCpmForLevel = GameMaster.getCpMultiplier gameMaster
+      (cpm, hp) = case raidLevel of
+        1 -> (0.61, 600)
+        2 -> (0.67, 1800)
+        3 -> (0.73, 3000)
+        4 -> (0.79, 7500)
+        5 -> (0.79, 12500)
         _ -> error "Raid level must be 1, 2, 3, 4, or 5"
-      makeStat baseFunc = fromIntegral $ baseFunc base + 15
+      makeStat baseFunc = (fromIntegral $ baseFunc base + 15) * cpm
       makePokemon quickMove chargeMove =
         Pokemon.new
           (PokemonBase.species base)
@@ -178,7 +190,7 @@ makeRaidBossForMoves gameMaster raidLevel base quickMoves chargeMoves =
           -- Defender's hp is doubled, but that doesn't seem to be
           -- the case for raid bosses, so here we halve the stamins to
           -- compensate for the doubling.
-          (stamina / 2)
+          (hp / 2)
           quickMove
           chargeMove
           base
