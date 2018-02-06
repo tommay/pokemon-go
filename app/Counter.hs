@@ -62,7 +62,7 @@ data AttackerSource =
 
 data Result = Result {
   pokemon   :: Pokemon,
-  minDps       :: Float,
+  minDps    :: Float,
   minDamage :: Int
 } deriving (Show)
 
