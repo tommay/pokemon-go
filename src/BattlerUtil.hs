@@ -175,7 +175,10 @@ makeRaidBossForMoves gameMaster raidLevel base quickMoves chargeMoves =
           (PokemonBase.types base)
           (makeStat PokemonBase.attack)
           (makeStat PokemonBase.defense)
-          stamina
+          -- Defender's hp is doubled, but that doesn't seem to be
+          -- the case for raid bosses, so here we halve the stamins to
+          -- compensate for the doubling.
+          (stamina / 2)
           quickMove
           chargeMove
           base
