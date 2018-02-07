@@ -102,31 +102,20 @@ makeBattlerVariants :: Epic.MonadCatch m => GameMaster -> Battler -> m [Pokemon]
 makeBattlerVariants gameMaster battler = do
   let species = BattlerUtil.species battler
   base <- GameMaster.getPokemonBase gameMaster species
-  let maybeQuickName = BattlerUtil.maybeQuickName battler
-      maybeChargeName = BattlerUtil.maybeChargeName battler
-      nameMatches abbrev = Util.matchesAbbrevInsensitive abbrev . Move.name
-      quickMoves = PokemonBase.quickMoves base
-      chargeMoves = PokemonBase.chargeMoves base
-  quickMoves <- do
-    case maybeQuickName of
-      Nothing -> return quickMoves
-      Just quickName ->
-        case filter (nameMatches quickName) quickMoves of
-          [val] -> return [val]
-          val -> Epic.fail $
-            matchingMovesFail val "quick" species
-              (Maybe.fromJust maybeQuickName)
-              (PokemonBase.quickMoves base)
-  chargeMoves <- do
-    case maybeChargeName of
-      Nothing -> return chargeMoves
-      Just chargeName ->
-        case filter (nameMatches chargeName) chargeMoves of
-          [val] -> return [val]
-          val -> Epic.fail $
-            matchingMovesFail val "charge" species
-              (Maybe.fromJust maybeChargeName)
-              (PokemonBase.chargeMoves base)
+  let nameMatches abbrev = Util.matchesAbbrevInsensitive abbrev . Move.name
+      getMoves moveType getMovesFunc getMaybeAbbrev =
+        let moves = getMovesFunc base
+        in case getMaybeAbbrev battler of
+             Nothing -> return moves
+             Just abbrev ->
+               case filter (nameMatches abbrev) moves of
+                 [_] -> return moves
+                 val -> Epic.fail $
+                   matchingMovesFail val moveType species abbrev moves
+  quickMoves <- getMoves "quick" PokemonBase.quickMoves
+    BattlerUtil.maybeQuickName
+  chargeMoves <- getMoves "charge" PokemonBase.chargeMoves
+    BattlerUtil.maybeChargeName
   return $ case BattlerUtil.level battler of
     Level ivs ->
       makeForMoves gameMaster ivs base quickMoves chargeMoves
