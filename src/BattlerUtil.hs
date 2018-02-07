@@ -2,7 +2,7 @@
 
 module BattlerUtil (
   Battler,
-  Level (Level),
+  Level (Normal),
   new,
   species,
   level,
@@ -45,7 +45,7 @@ data Battler = Battler {
   maybeChargeName :: Maybe String
 } deriving (Show)
 
-data Level = Level IVs | RaidBoss Int
+data Level = Normal IVs | RaidBoss Int
   deriving (Show)
 
 new = Battler
@@ -66,7 +66,7 @@ parseBattler defaultIVs = O.eitherReader $ \s ->
         Atto.endOfInput
         return $ Battler {
           species = battler,
-          level = Maybe.fromMaybe (Level defaultIVs) level,
+          level = Maybe.fromMaybe (Normal defaultIVs) level,
           maybeQuickName = maybeQuickName,
           maybeChargeName = maybeChargeName
           }
@@ -82,13 +82,13 @@ parseBattler defaultIVs = O.eitherReader $ \s ->
         defense <- Atto.decimal
         Atto.char '/'
         stamina <- Atto.decimal
-        return $ Level $ IVs.new level' attack defense stamina
+        return $ Normal $ IVs.new level' attack defense stamina
       attoParseLevel = do
         (level, _) <- Atto.match $ do
           Atto.decimal
           optional $ Atto.string ".5"
         let level' = read $ Text.unpack level
-        return $ Level $ IVs.setLevel defaultIVs level'
+        return $ Normal $ IVs.setLevel defaultIVs level'
       attoParseRaidBoss = do
         Atto.char 'r'
         (raidLevel, _) <- Atto.match Atto.decimal
@@ -117,7 +117,7 @@ makeBattlerVariants gameMaster battler = do
   chargeMoves <- getMoves "charge" PokemonBase.chargeMoves
     BattlerUtil.maybeChargeName
   return $ case BattlerUtil.level battler of
-    Level ivs ->
+    Normal ivs ->
       makeForMoves gameMaster ivs base quickMoves chargeMoves
     RaidBoss raidLevel ->
       makeRaidBossForMoves gameMaster raidLevel base quickMoves chargeMoves
@@ -196,8 +196,8 @@ makeRaidBossForMoves gameMaster raidLevel base quickMoves chargeMoves =
 setLevel :: Float -> Battler -> Battler
 setLevel level battler =
   case BattlerUtil.level battler of
-    Level ivs ->
-      battler { level = Level $ IVs.setLevel ivs level }
+    Normal ivs ->
+      battler { level = Normal $ IVs.setLevel ivs level }
     _ -> error $ "Can't set level of " ++ show battler
 
 fromMyPokemon :: Epic.MonadCatch m => MyPokemon -> m Battler
@@ -210,7 +210,7 @@ fromMyPokemon myPokemon = do
     [] -> Epic.fail $ "No ivs for " ++ name
   return $ BattlerUtil.new
     (MyPokemon.species myPokemon)
-    (Level ivs)
+    (Normal ivs)
     (Just $ MyPokemon.quickName myPokemon)
     (Just $ MyPokemon.chargeName myPokemon)
 

@@ -8,7 +8,7 @@ import           Data.Semigroup ((<>))
 
 import qualified Battle
 import qualified BattlerUtil
-import           BattlerUtil (Battler, Level (Level))
+import           BattlerUtil (Battler, Level (Normal))
 import qualified Epic
 import qualified ForceLevel
 import qualified IVs
@@ -299,7 +299,7 @@ makeSomeAttackers gameMaster attackers = do
   attackerLists <- forM attackers $ \ battler -> do
     let species = BattlerUtil.species battler
         level = case BattlerUtil.level battler of
-          Level ivs -> IVs.level ivs
+          Normal ivs -> IVs.level ivs
     base <- GameMaster.getPokemonBase gameMaster species
     return $ makeAllAttackersFromBase gameMaster level base
   return $ concat attackerLists

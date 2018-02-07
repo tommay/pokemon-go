@@ -8,7 +8,7 @@ import           Data.Semigroup ((<>))
 
 import qualified Battle
 import qualified BattlerUtil
-import           BattlerUtil (Battler, Level (Level))
+import           BattlerUtil (Battler)
 import qualified Epic
 import qualified IVs
 import qualified GameMaster
