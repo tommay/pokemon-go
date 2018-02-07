@@ -9,7 +9,7 @@ main :: IO ()
 main =
   Epic.catch (
     do
-      myPokemon <- join $ MyPokemon.load "my_pokemon.yaml"
+      myPokemon <- join $ MyPokemon.load $ Just "my_pokemon.yaml"
       mapM_ print myPokemon
   )
   $ putStrLn . ("oops: " ++)

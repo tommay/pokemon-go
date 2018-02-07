@@ -3,13 +3,17 @@ module Util (
   sortWith,
   Util.groupBy,
   matchesAbbrevInsensitive,
+  toByteString,
 ) where
 
+import qualified Data.ByteString as ByteString
+import           Data.ByteString (ByteString)
 import Data.Char as Char
 import Data.List as List
 import           Data.Hashable (Hashable)
 import qualified Data.HashMap.Strict as HashMap
 import           Data.HashMap.Strict (HashMap)
+import qualified System.IO as IO
 
 compareWith :: Ord b => (a -> b) -> a -> a -> Ordering
 compareWith f first second =
@@ -47,3 +51,9 @@ matchesAbbrev' a@(a0:aa) (s0:ss) =
   if a0 == s0
     then matchesAbbrev' aa ss
     else matchesAbbrev' a ss
+
+toByteString :: Maybe FilePath -> IO ByteString
+toByteString maybeFilePath =
+  case maybeFilePath of
+    Just filePath -> ByteString.readFile filePath
+    Nothing -> ByteString.hGetContents IO.stdin

@@ -166,7 +166,7 @@ main =
                   gameMaster
                   (getLevel options))
                   myPokemon
-          myPokemonLists <- mapM loadPokemon filenames
+          myPokemonLists <- mapM (loadPokemon . Just) filenames
           return $ concat myPokemonLists
         AllAttackers -> do
           mythicalMap <- join $ Mythical.load "mythical.yaml"

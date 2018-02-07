@@ -68,7 +68,7 @@ main =
 
       attacker <- case maybeFilename options of
         Just filename -> do
-          myPokemon <- join $ MyPokemon.load filename
+          myPokemon <- join $ MyPokemon.load $ Just filename
           let name = BattlerUtil.species $ Main.attacker options
           case filter ((Util.matchesAbbrevInsensitive name) . MyPokemon.name)
               myPokemon of

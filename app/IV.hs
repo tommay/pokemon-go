@@ -27,7 +27,7 @@ data Options = Options {
   new       :: Bool,
   stats     :: Bool,
   getLevel  :: Float -> Float,
-  filename  :: String
+  maybeFilename :: Maybe String
 }
 
 getOptions :: IO Options
@@ -42,7 +42,7 @@ getOptions =
         <> O.short 's'
         <> O.help "Include the complate base+iv * level stats")
       optGetLevel = ForceLevel.optForceLevel 
-      optFilename = O.argument O.str (O.metavar "FILENAME")
+      optFilename = O.optional $ O.argument O.str (O.metavar "FILENAME")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc "Calculate IVs for pokemon.")
@@ -55,7 +55,7 @@ main = Epic.catch (
 
     gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
 
-    myPokemon <- join $ MyPokemon.load $ filename options
+    myPokemon <- join $ MyPokemon.load $ maybeFilename options
 
     let new' = new options
         setLevel' = getLevel options

@@ -20,13 +20,13 @@ import qualified Data.Yaml.Builder as Builder
 import qualified System.IO as I
 
 data Options = Options {
-  filename  :: String
+  maybeFilename  :: Maybe String
 }
 
 getOptions :: IO Options
 getOptions =
   let opts = Options <$> optFilename
-      optFilename = O.argument O.str (O.metavar "FILENAME")
+      optFilename = O.optional $ O.argument O.str (O.metavar "FILENAME")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc "Calculate pokemon values from IVs.")
@@ -39,7 +39,7 @@ main = Epic.catch (
 
     gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
 
-    myPokemon <- join $ MyPokemon.load $ filename options
+    myPokemon <- join $ MyPokemon.load $ maybeFilename options
 
     myNewPokemon <- mapM (updateFromIVs gameMaster) myPokemon
     B.putStr $ Builder.toByteString myNewPokemon

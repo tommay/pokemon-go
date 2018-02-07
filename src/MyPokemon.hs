@@ -26,8 +26,11 @@ import qualified IVs
 import           IVs (IVs)
 import qualified Stats
 import           Stats (Stats)
+import qualified Util
 
 import qualified Data.Aeson.Types
+import qualified Data.ByteString as ByteString
+import           Data.ByteString (ByteString)
 import qualified Data.Yaml as Yaml
 import           Data.Yaml ((.:), (.:?))
 import qualified Data.Yaml.Builder as Builder
@@ -95,10 +98,10 @@ instance (Builder.ToYaml a) => Builder.ToYaml (Maybe a) where
   toYaml Nothing = undefined
   toYaml (Just a) = Builder.toYaml a
 
-load :: Epic.MonadCatch m => FilePath -> IO (m [MyPokemon])
-load filename = do
-  either <- Yaml.decodeFileEither filename
-  case either of
+load :: Epic.MonadCatch m => Maybe FilePath -> IO (m [MyPokemon])
+load maybeFilepath = do
+  byteString <- Util.toByteString maybeFilepath
+  case Yaml.decodeEither' byteString of
     Right myPokemon -> return $ pure myPokemon
     Left yamlParseException ->
       Epic.fail $ Yaml.prettyPrintParseException yamlParseException

@@ -82,7 +82,7 @@ main =
 
       attackers <- case attackersFile options of
         Just filename -> do
-          myPokemon <- join $ MyPokemon.load filename
+          myPokemon <- join $ MyPokemon.load $ Just filename
           mapM (MakePokemon.makePokemon gameMaster id) myPokemon
         Nothing -> do
           let attackerBases =

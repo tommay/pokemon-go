@@ -15,13 +15,13 @@ import qualified Data.Yaml.Builder as Builder
 import qualified System.IO as I
 
 data Options = Options {
-  filename :: String
+  maybeFilename :: Maybe String
 }
 
 getOptions :: IO Options
 getOptions =
   let opts = Options <$> optFilename
-      optFilename = O.argument O.str (O.metavar "FILENAME")
+      optFilename = O.optional $ O.argument O.str (O.metavar "FILENAME")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc "Sort a pokemon file by cp")
@@ -33,7 +33,7 @@ main =
   Epic.catch (
     do
       options <- getOptions
-      myPokemon <- join $ MyPokemon.load $ filename options
+      myPokemon <- join $ MyPokemon.load $ maybeFilename options
       let mySortedPokemon = reverse $ Util.sortWith MyPokemon.cp myPokemon
       B.putStr $ Builder.toByteString mySortedPokemon
   )
