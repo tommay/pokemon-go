@@ -166,7 +166,8 @@ main =
                   gameMaster
                   (getLevel options))
                   myPokemon
-          fmap concat $ sequence $ map loadPokemon filenames
+          myPokemonLists <- mapM loadPokemon filenames
+          return $ concat myPokemonLists
         AllAttackers -> do
           mythicalMap <- join $ Mythical.load "mythical.yaml"
           let attackerLevel = getLevel options $ defaultAttackerLevel
