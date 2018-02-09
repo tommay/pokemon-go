@@ -273,15 +273,15 @@ ludicolo:
 seedot:
 nuzleaf:
 shiftry:
-taillow: mythical
-swellow: mythical
-wingull: mythical
-pelipper: mythical
+taillow:
+swellow:
+wingull:
+pelipper:
 ralts:
 kirlia:
 gardevoir:
 surskit: mythical
-masquerain: mythical
+masquerain:
 shroomish:
 breloom:
 slakoth:
@@ -330,8 +330,8 @@ vibrava:
 flygon:
 cacnea:
 cacturne:
-swablu: mythical
-altaria: mythical
+swablu:
+altaria:
 zangoose: 
 seviper:
 lunatone: mythical # regional
@@ -354,8 +354,8 @@ shuppet:
 banette: 
 duskull: 
 dusclops: 
-tropius: mythical
-chimecho: mythical
+tropius:
+chimecho:
 absol:
 wynaut:
 snorunt:
@@ -368,12 +368,12 @@ huntail: mythical
 gorebyss: mythical
 relicanth: mythical # regional
 luvdisc:
-bagon: mythical
-shelgon: mythical
-salamence: mythical
-beldum: mythical
-metang: mythical
-metagross: mythical
+bagon:
+shelgon:
+salamence:
+beldum:
+metang:
+metagross:
 regirock: mythical
 regice: mythical
 registeel: mythical
@@ -381,6 +381,6 @@ latias: mythical
 latios: mythical
 kyogre: legendary
 groudon: legendary
-rayquaza: mythical
+rayquaza: legendary
 jirachi: mythical
 deoxys: mythical
