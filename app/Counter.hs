@@ -10,7 +10,7 @@ import qualified Battle
 import qualified BattlerUtil
 import           BattlerUtil (Battler, Level (Normal))
 import qualified Epic
-import qualified ForceLevel
+import qualified TweakLevel
 import qualified IVs
 import qualified GameMaster
 import           GameMaster (GameMaster)
@@ -44,7 +44,7 @@ data Options = Options {
   sortOutputBy :: SortOutputBy,
   dpsFilter :: Maybe Int,
   top      :: Maybe Int,
-  getLevel :: Float -> Float,
+  tweakLevel :: Float -> Float,
   legendary :: Bool,
   attackerSource :: AttackerSource,
   showBreakpoints :: Bool,
@@ -75,7 +75,7 @@ getOptions :: IO Options
 getOptions =
   let opts = Options <$> optWeather <*> optSortOutputBy <*> optDpsFilter <*>
         optTop <*>
-        optGetLevel <*> optLegendary <*> optAttackerSource <*>
+        optTweakLevel <*> optLegendary <*> optAttackerSource <*>
         optShowBreakpoints <*> optDefender
       optWeather = O.optional Weather.optWeather
       optSortOutputBy =
@@ -109,7 +109,7 @@ getOptions =
         <> O.short 't'
         <> O.metavar "N"
         <> O.help "Show the top N attacker species")
-      optGetLevel = ForceLevel.optForceLevel 
+      optTweakLevel = TweakLevel.optTweakLevel 
       optLegendary = O.flag True False
         (  O.long "legendary"
         <> O.short 'L'
@@ -164,13 +164,13 @@ main =
                 myPokemon <- join $ MyPokemon.load filename
                 mapM (fmap head . MakePokemon.makePokemon
                   gameMaster
-                  (getLevel options))
+                  (tweakLevel options))
                   myPokemon
           myPokemonLists <- mapM (loadPokemon . Just) filenames
           return $ concat myPokemonLists
         AllAttackers -> do
           mythicalMap <- join $ Mythical.load "mythical.yaml"
-          let attackerLevel = getLevel options $ defaultAttackerLevel
+          let attackerLevel = tweakLevel options $ defaultAttackerLevel
               all = allAttackers gameMaster attackerLevel
               notMythical = not . Mythical.isMythical mythicalMap . Pokemon.species
               notLegendary = not . Mythical.isLegendary mythicalMap . Pokemon.species

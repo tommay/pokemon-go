@@ -3,7 +3,7 @@ module Main where
 import qualified Appraisal
 import qualified Calc
 import qualified Epic
-import qualified ForceLevel
+import qualified TweakLevel
 import qualified GameMaster
 import           GameMaster (GameMaster)
 import qualified IVs
@@ -26,7 +26,7 @@ import qualified System.IO as I
 data Options = Options {
   new       :: Bool,
   stats     :: Bool,
-  getLevel  :: Float -> Float,
+  tweakLevel:: Float -> Float,
   maybeFilename :: Maybe String
 }
 
@@ -41,7 +41,7 @@ getOptions =
         (  O.long "stats"
         <> O.short 's'
         <> O.help "Include the complate base+iv * level stats")
-      optGetLevel = ForceLevel.optForceLevel 
+      optGetLevel = TweakLevel.optTweakLevel 
       optFilename = O.optional $ O.argument O.str (O.metavar "FILENAME")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
@@ -58,10 +58,10 @@ main = Epic.catch (
     myPokemon <- join $ MyPokemon.load $ maybeFilename options
 
     let new' = new options
-        setLevel' = getLevel options
+        tweakLevel' = tweakLevel options
     myNewPokemon <- do
       myNewPokemon <- mapM (updateIVs gameMaster new') myPokemon
-      myNewPokemon <- return $ map (updateLevel setLevel') myNewPokemon
+      myNewPokemon <- return $ map (updateLevel tweakLevel') myNewPokemon
       if stats options
         then mapM (PokeUtil.addStats gameMaster) myNewPokemon
         else return myNewPokemon

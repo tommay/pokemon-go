@@ -18,7 +18,7 @@ import qualified Text.Regex as Regex
 
 makePokemon :: Epic.MonadCatch m =>
   GameMaster -> (Float -> Float) -> MyPokemon -> m [Pokemon]
-makePokemon gameMaster getLevel myPokemon = do
+makePokemon gameMaster tweakLevel myPokemon = do
   let name = MyPokemon.name myPokemon
       species = MyPokemon.species myPokemon
 
@@ -52,7 +52,7 @@ makePokemon gameMaster getLevel myPokemon = do
     _ -> Epic.fail $ "No ivs for " ++ MyPokemon.name myPokemon
 
   let makeForIvs ivs =
-        let level = getLevel $ IVs.level ivs
+        let level = tweakLevel $ IVs.level ivs
             cpMultiplier = GameMaster.getCpMultiplier gameMaster level
             getStat getBaseStat getIv =
               let baseStat = getBaseStat base
