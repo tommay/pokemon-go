@@ -9,6 +9,8 @@ import           Data.Semigroup ((<>))
 import qualified Battle
 import           Battle (Battle)
 import qualified Epic
+import qualified IVs
+import           IVs (IVs)
 import qualified GameMaster
 import           GameMaster (GameMaster)
 import qualified Logger
@@ -34,7 +36,7 @@ import qualified Data.Text as Text
 import           Data.Text (Text)
 import qualified System.IO as I
 
-defaultLevel = 20
+defaultIvs = IVs.new 20 11 11 11
 
 data Options = Options {
   level :: Float,
@@ -48,7 +50,7 @@ getOptions =
         (  O.long "level"
         <> O.short 'l'
         <> O.metavar "LEVEL"
-        <> O.value 20
+        <> O.value (IVs.level defaultIvs)
         <> O.showDefault
         <> O.help ("Set the level of the battling pokemon"))
       optAttackers = O.optional $ O.strOption
@@ -76,7 +78,7 @@ main =
           notLegendary =
             not . Mythical.isLegendary mythicalMap . PokemonBase.species
 
-          level = Main.level options
+          ivs = IVs.setLevel defaultIvs $ level options
 
           allBases = GameMaster.allPokemonBases gameMaster
 
@@ -91,7 +93,7 @@ main =
                 $ filter (not . PokemonBase.hasEvolutions)
                 allBases
           return $ concat $ map
-            (makeWithAllMovesetsFromBase gameMaster level)
+            (makeWithAllMovesetsFromBase gameMaster ivs)
             attackerBases
 
       let defenderBases =
@@ -100,7 +102,7 @@ main =
             allBases
 
           defenderSets =
-            map (makeWithAllMovesetsFromBase gameMaster level) defenderBases
+            map (makeWithAllMovesetsFromBase gameMaster ivs) defenderBases
 
           attackerResults = [getAttackerResult defenders attacker |
             defenders <- defenderSets, attacker <- attackers]
@@ -115,19 +117,20 @@ main =
     )
     $ I.hPutStrLn I.stderr
 
-makeWithAllMovesetsFromBase :: GameMaster -> Float -> PokemonBase -> [Pokemon]
-makeWithAllMovesetsFromBase gameMaster level base =
-  let cpMultiplier = GameMaster.getCpMultiplier gameMaster level
-      makeStat baseFunc = (fromIntegral $ baseFunc base + 11) * cpMultiplier
+makeWithAllMovesetsFromBase :: GameMaster -> IVs -> PokemonBase -> [Pokemon]
+makeWithAllMovesetsFromBase gameMaster ivs base =
+  let cpMultiplier = GameMaster.getCpMultiplier gameMaster $ IVs.level ivs
+      makeStat baseFunc ivFunc =
+        (fromIntegral $ baseFunc base + ivFunc ivs) * cpMultiplier
       makeBattler quickMove chargeMove =
         Pokemon.new
           (PokemonBase.species base)
           (PokemonBase.species base)
-          level
           (PokemonBase.types base)
-          (makeStat PokemonBase.attack)
-          (makeStat PokemonBase.defense)
-          (makeStat PokemonBase.stamina)
+          ivs
+          (makeStat PokemonBase.attack IVs.attack)
+          (makeStat PokemonBase.defense IVs.defense)
+          (makeStat PokemonBase.stamina IVs.stamina)
           quickMove
           chargeMove
           base

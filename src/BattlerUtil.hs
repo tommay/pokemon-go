@@ -140,8 +140,8 @@ makeForMoves gameMaster ivs base quickMoves chargeMoves =
         Pokemon.new
           (PokemonBase.species base)
           (PokemonBase.species base)
-          level
           (PokemonBase.types base)
+          ivs
           (makeStat PokemonBase.attack IVs.attack)
           (makeStat PokemonBase.defense IVs.defense)
           (makeStat PokemonBase.stamina IVs.stamina)
@@ -179,12 +179,12 @@ makeRaidBossForMoves gameMaster raidLevel base quickMoves chargeMoves =
         Pokemon.new
           (PokemonBase.species base)
           (PokemonBase.species base)
-          0   -- level, not used
           (PokemonBase.types base)
+          IVs.null     -- not used
           (makeStat PokemonBase.attack)
           (makeStat PokemonBase.defense)
           -- Defender's hp is doubled, but that doesn't seem to be
-          -- the case for raid bosses, so here we halve the stamins to
+          -- the case for raid bosses, so here we halve the stamina to
           -- compensate for the doubling.
           (hp / 2)
           quickMove

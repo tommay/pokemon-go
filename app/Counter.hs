@@ -12,6 +12,7 @@ import           BattlerUtil (Battler, Level (Normal))
 import qualified Epic
 import qualified TweakLevel
 import qualified IVs
+import           IVs (IVs)
 import qualified GameMaster
 import           GameMaster (GameMaster)
 import qualified Move
@@ -170,8 +171,9 @@ main =
           return $ concat myPokemonLists
         AllAttackers -> do
           mythicalMap <- join $ Mythical.load "mythical.yaml"
-          let attackerLevel = tweakLevel options $ defaultAttackerLevel
-              all = allAttackers gameMaster attackerLevel
+          let ivs = IVs.setLevel defaultIVs $ tweakLevel options
+                $ IVs.level defaultIVs
+              all = allAttackers gameMaster ivs
               notMythical = not . Mythical.isMythical mythicalMap . Pokemon.species
               notLegendary = not . Mythical.isLegendary mythicalMap . Pokemon.species
               nonMythical = filter notMythical all
@@ -252,7 +254,7 @@ nameSpeciesAndLevelAndMoveset :: Pokemon -> String
 nameSpeciesAndLevelAndMoveset pokemon =
   let speciesAndLevel = Printf.printf "%s:%f"
         (Pokemon.species pokemon)
-        (Pokemon.level pokemon)
+        (IVs.level $ Pokemon.ivs pokemon)
       speciesAndLevel' = Regex.subRegex (Regex.mkRegex "\\.0$") speciesAndLevel ""
       format = Printf.printf "%-15s %-13s/ %-15s"
   in format speciesAndLevel'
@@ -269,24 +271,25 @@ counter weatherBonus defenderVariants attacker =
       minDps = getMinValue Battle.dps battles
   in Result attacker minDps minDamage
 
-allAttackers :: GameMaster -> Float -> [Pokemon]
-allAttackers gameMaster level =
-  concat $ map (makeAllAttackersFromBase gameMaster level) $
+allAttackers :: GameMaster -> IVs -> [Pokemon]
+allAttackers gameMaster ivs =
+  concat $ map (makeAllAttackersFromBase gameMaster ivs) $
     GameMaster.allPokemonBases gameMaster
 
-makeAllAttackersFromBase :: GameMaster -> Float -> PokemonBase ->[Pokemon]
-makeAllAttackersFromBase gameMaster level base =
-  let cpMultiplier = GameMaster.getCpMultiplier gameMaster level
-      makeStat baseFunc = (fromIntegral $ baseFunc base + 11) * cpMultiplier
+makeAllAttackersFromBase :: GameMaster -> IVs -> PokemonBase ->[Pokemon]
+makeAllAttackersFromBase gameMaster ivs base =
+  let cpMultiplier = GameMaster.getCpMultiplier gameMaster $ IVs.level ivs
+      makeStat baseFunc ivFunc =
+        (fromIntegral $ baseFunc base + ivFunc ivs) * cpMultiplier
       makeAttacker quickMove chargeMove =
         Pokemon.new
           (PokemonBase.species base)
           (PokemonBase.species base)
-          level
           (PokemonBase.types base)
-          (makeStat PokemonBase.attack)
-          (makeStat PokemonBase.defense)
-          (makeStat PokemonBase.stamina)
+          ivs
+          (makeStat PokemonBase.attack IVs.attack)
+          (makeStat PokemonBase.defense IVs.defense)
+          (makeStat PokemonBase.stamina IVs.stamina)
           quickMove
           chargeMove
           base
@@ -298,10 +301,11 @@ makeSomeAttackers :: (Epic.MonadCatch m) => GameMaster -> [Battler] -> m [Pokemo
 makeSomeAttackers gameMaster attackers = do
   attackerLists <- forM attackers $ \ battler -> do
     let species = BattlerUtil.species battler
-        level = case BattlerUtil.level battler of
-          Normal ivs -> IVs.level ivs
     base <- GameMaster.getPokemonBase gameMaster species
-    return $ makeAllAttackersFromBase gameMaster level base
+    ivs <- case BattlerUtil.level battler of
+      Normal ivs -> return ivs
+      _ -> Epic.fail $ "Counter.makeSomeAttackers called for raid boss"
+    return $ makeAllAttackersFromBase gameMaster ivs base
   return $ concat attackerLists
 
 getBreakpoints :: GameMaster -> [(Float, Int)]

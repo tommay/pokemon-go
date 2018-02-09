@@ -3,7 +3,7 @@ module Pokemon (
   new,
   pname,
   species,
-  level,
+  ivs,
   types,
   attack,
   defense,
@@ -14,6 +14,8 @@ module Pokemon (
   possibleMoves,
 ) where
 
+import qualified IVs
+import           IVs (IVs)
 import           Move (Move)
 import qualified PokemonBase
 import           PokemonBase (PokemonBase)
@@ -22,8 +24,8 @@ import           Type (Type)
 data Pokemon = Pokemon {
   pname       :: String,
   species     :: String,
-  level       :: Float,
   types       :: [Type],
+  ivs         :: IVs,
   attack      :: Float,
   defense     :: Float,
   stamina     :: Float,

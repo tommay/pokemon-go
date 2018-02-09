@@ -61,7 +61,7 @@ makePokemon gameMaster tweakLevel myPokemon = do
             attack = getStat PokemonBase.attack IVs.attack
             defense = getStat PokemonBase.defense IVs.defense
             stamina = getStat PokemonBase.stamina IVs.stamina
-        in Pokemon.new name species level types attack defense stamina
+        in Pokemon.new name species types ivs attack defense stamina
              quick charge base
 
   return $ map makeForIvs ivs
