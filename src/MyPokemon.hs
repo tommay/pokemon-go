@@ -13,9 +13,6 @@ module MyPokemon (
   chargeName,
   appraisal,
   ivs,
-  attack,
-  defense,
-  stamina,
   level,
   setIVs,
   setStats
@@ -108,15 +105,6 @@ load maybeFilepath = do
 
 level :: Epic.MonadCatch m => MyPokemon -> m Float
 level = getIv IVs.level
-
-attack :: Epic.MonadCatch m => MyPokemon -> m Int
-attack = getIv IVs.attack
-
-defense :: Epic.MonadCatch m => MyPokemon -> m Int
-defense = getIv IVs.defense
-
-stamina :: Epic.MonadCatch m => MyPokemon -> m Int
-stamina = getIv IVs.stamina
 
 getIv :: (Num a, Epic.MonadCatch m) => (IVs -> a) -> MyPokemon -> m a
 getIv getter this = do

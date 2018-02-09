@@ -5,6 +5,7 @@ module MakePokemon (
 import qualified Epic
 import qualified GameMaster
 import           GameMaster (GameMaster)
+import qualified IVs
 import qualified Move
 import           Move (Move)
 import qualified MyPokemon
@@ -15,7 +16,8 @@ import qualified PokemonBase
 
 import qualified Text.Regex as Regex
 
-makePokemon :: Epic.MonadCatch m => GameMaster -> (Float -> Float) -> MyPokemon -> m Pokemon
+makePokemon :: Epic.MonadCatch m =>
+  GameMaster -> (Float -> Float) -> MyPokemon -> m [Pokemon]
 makePokemon gameMaster getLevel myPokemon = do
   let name = MyPokemon.name myPokemon
       species = MyPokemon.species myPokemon
@@ -24,13 +26,15 @@ makePokemon gameMaster getLevel myPokemon = do
 
   base <- fromGameMaster GameMaster.getPokemonBase MyPokemon.species
 
-  let getMove string getFunc keyFunc moveListFunc = do
+  let types = PokemonBase.types base
+
+      getMove moveType getFunc keyFunc moveListFunc = do
         move <- fromGameMaster getFunc keyFunc
         let moveList = moveListFunc base
         if move `elem` moveList
           then return move
-          else Epic.fail $
-            species ++ " can't do " ++ string ++ " move " ++ keyFunc myPokemon
+          else Epic.fail $ species ++ " can't do " ++ moveType ++ " move " ++
+                 keyFunc myPokemon
 
   quick <- do
     let split = Regex.mkRegex "([^,]*)(, *(.*))?"
@@ -43,22 +47,24 @@ makePokemon gameMaster getLevel myPokemon = do
   charge <- getMove "charge"
     GameMaster.getCharge MyPokemon.chargeName PokemonBase.chargeMoves
 
-  level <- getLevel <$> MyPokemon.level myPokemon
+  ivs <- case MyPokemon.ivs myPokemon of
+    Just ivs@(_:_) -> return ivs
+    _ -> Epic.fail $ "No ivs for " ++ MyPokemon.name myPokemon
 
-  let types = PokemonBase.types base
+  let makeForIvs ivs =
+        let level = getLevel $ IVs.level ivs
+            cpMultiplier = GameMaster.getCpMultiplier gameMaster level
+            getStat getBaseStat getIv =
+              let baseStat = getBaseStat base
+                  iv = getIv ivs
+              in fromIntegral (baseStat + iv) * cpMultiplier
+            attack = getStat PokemonBase.attack IVs.attack
+            defense = getStat PokemonBase.defense IVs.defense
+            stamina = getStat PokemonBase.stamina IVs.stamina
+        in Pokemon.new name species level types attack defense stamina
+             quick charge base
 
-  let cpMultiplier = GameMaster.getCpMultiplier gameMaster level
-      getStat getBaseStat getMyStat = do
-        let baseStat = getBaseStat base
-        myStat <- getMyStat myPokemon
-        return $ fromIntegral (baseStat + myStat) * cpMultiplier
-
-  attack <- getStat PokemonBase.attack MyPokemon.attack
-  defense <- getStat PokemonBase.defense MyPokemon.defense
-  stamina <- getStat PokemonBase.stamina MyPokemon.stamina
-
-  return $ Pokemon.new name species level types attack defense stamina
-    quick charge base
+  return $ map makeForIvs ivs
 
 maybeSetHiddenPowerType :: (Epic.MonadCatch m) =>
     GameMaster -> Move -> String -> m Move

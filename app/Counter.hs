@@ -162,7 +162,7 @@ main =
         FromFiles filenames -> do
           let loadPokemon filename = do
                 myPokemon <- join $ MyPokemon.load filename
-                mapM (MakePokemon.makePokemon
+                mapM (fmap head . MakePokemon.makePokemon
                   gameMaster
                   (getLevel options))
                   myPokemon
