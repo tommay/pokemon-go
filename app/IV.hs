@@ -120,7 +120,7 @@ computeIVs gameMaster new myPokemon = do
     _ -> return possibleIVs
 
 updateLevel :: (Float -> Float) -> MyPokemon -> MyPokemon
-updateLevel calcLevel myPokemon =
+updateLevel tweakLevel myPokemon =
   MyPokemon.setIVs myPokemon $
-    map (\ivs -> IVs.setLevel ivs $ calcLevel $ IVs.level ivs) <$>
+    map (\ivs -> IVs.setLevel ivs $ tweakLevel $ IVs.level ivs) <$>
     MyPokemon.ivs myPokemon
