@@ -11,7 +11,6 @@ module Pokemon (
   quick,
   charge,
   hp,
-  possibleMoves,
 ) where
 
 import qualified IVs
@@ -23,15 +22,13 @@ import           Type (Type)
 
 data Pokemon = Pokemon {
   pname       :: String,
-  species     :: String,
-  types       :: [Type],
+  base        :: PokemonBase,
   ivs         :: IVs,
   attack      :: Float,
   defense     :: Float,
   stamina     :: Float,
   quick       :: Move,
-  charge      :: Move,
-  base        :: PokemonBase
+  charge      :: Move
 } deriving (Show)
 
 new = Pokemon
@@ -39,7 +36,10 @@ new = Pokemon
 hp :: Pokemon -> Int
 hp this = floor $ stamina this
 
-possibleMoves :: Pokemon -> [Move]
-possibleMoves this =
-  let pokemonBase = Pokemon.base this
-  in concat $ sequence [PokemonBase.quickMoves, PokemonBase.chargeMoves] pokemonBase
+species :: Pokemon -> String
+species this =
+  PokemonBase.species $ base this
+
+types :: Pokemon -> [Type]
+types this =
+  PokemonBase.types $ base this

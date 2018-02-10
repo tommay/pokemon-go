@@ -139,15 +139,13 @@ makeForMoves gameMaster ivs base quickMoves chargeMoves =
       makeAttacker quickMove chargeMove =
         Pokemon.new
           (PokemonBase.species base)
-          (PokemonBase.species base)
-          (PokemonBase.types base)
+          base
           ivs
           (makeStat PokemonBase.attack IVs.attack)
           (makeStat PokemonBase.defense IVs.defense)
           (makeStat PokemonBase.stamina IVs.stamina)
           quickMove
           chargeMove
-          base
   in [makeAttacker quickMove chargeMove |
        quickMove <- quickMoves, chargeMove <- chargeMoves]
 
@@ -178,8 +176,7 @@ makeRaidBossForMoves gameMaster raidLevel base quickMoves chargeMoves =
       makePokemon quickMove chargeMove =
         Pokemon.new
           (PokemonBase.species base)
-          (PokemonBase.species base)
-          (PokemonBase.types base)
+          base
           IVs.null     -- not used
           (makeStat PokemonBase.attack)
           (makeStat PokemonBase.defense)
@@ -189,7 +186,6 @@ makeRaidBossForMoves gameMaster raidLevel base quickMoves chargeMoves =
           (hp / 2)
           quickMove
           chargeMove
-          base
   in [makePokemon quickMove chargeMove |
        quickMove <- quickMoves, chargeMove <- chargeMoves]
 
