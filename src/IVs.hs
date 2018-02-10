@@ -11,6 +11,7 @@ module IVs (
   stamina,
   getAll,
   setLevel,
+  tweakLevel,
 ) where
 
 import qualified Yaml
@@ -56,3 +57,8 @@ getAll this =
 setLevel :: IVs -> Float -> IVs
 setLevel this level =
   this { level = level }
+
+tweakLevel :: (Float -> Float) -> IVs -> IVs
+tweakLevel func this =
+  IVs.setLevel this $ func $ IVs.level this
+

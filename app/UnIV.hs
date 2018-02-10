@@ -61,7 +61,7 @@ updateFromIVs gameMaster maybeTweakLevel myPokemon = do
     Just (ivs:_) ->
       let ivs' = case maybeTweakLevel of
             Nothing -> ivs
-            Just tweakLevel -> IVs.setLevel ivs $ tweakLevel $ IVs.level ivs
+            Just tweakLevel -> IVs.tweakLevel tweakLevel ivs
           cp = Calc.cp gameMaster pokemonBase ivs'
           hp = Calc.hp gameMaster pokemonBase ivs'
           stardust =

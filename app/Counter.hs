@@ -171,8 +171,7 @@ main =
           return $ concat myPokemonLists
         AllAttackers -> do
           mythicalMap <- join $ Mythical.load "mythical.yaml"
-          let ivs = IVs.setLevel defaultIVs $ tweakLevel options
-                $ IVs.level defaultIVs
+          let ivs = IVs.tweakLevel (tweakLevel options) defaultIVs
               all = allAttackers gameMaster ivs
               notMythical = not . Mythical.isMythical mythicalMap . Pokemon.species
               notLegendary = not . Mythical.isLegendary mythicalMap . Pokemon.species
