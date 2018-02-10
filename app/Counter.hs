@@ -163,10 +163,9 @@ main =
         FromFiles filenames -> do
           let loadPokemon filename = do
                 myPokemon <- join $ MyPokemon.load filename
-                mapM (fmap head . MakePokemon.makePokemon
-                  gameMaster
-                  (tweakLevel options))
-                  myPokemon
+                let myPokemon' =
+                      map (doTweakLevel $ tweakLevel options) myPokemon
+                mapM (fmap head . MakePokemon.makePokemon gameMaster) myPokemon'
           myPokemonLists <- mapM (loadPokemon . Just) filenames
           return $ concat myPokemonLists
         AllAttackers -> do
@@ -260,6 +259,12 @@ nameSpeciesAndLevelAndMoveset pokemon =
        (Move.name $ Pokemon.quick pokemon)
        (Move.name $ Pokemon.charge pokemon)
 
+doTweakLevel :: (Float -> Float) -> MyPokemon -> MyPokemon
+doTweakLevel tweakLevel myPokemon =
+  let ivs = MyPokemon.ivs myPokemon
+      ivs' = (fmap $ map $ IVs.tweakLevel tweakLevel) ivs
+  in MyPokemon.setIVs myPokemon ivs'
+
 counter :: (Type -> Float) -> [Pokemon] -> Pokemon -> Result
 counter weatherBonus defenderVariants attacker =
   let battles = [Battle.runBattleOnly $
@@ -272,27 +277,8 @@ counter weatherBonus defenderVariants attacker =
 
 allAttackers :: GameMaster -> IVs -> [Pokemon]
 allAttackers gameMaster ivs =
-  concat $ map (makeAllAttackersFromBase gameMaster ivs) $
+  concat $ map (MakePokemon.makeWithAllMovesetsFromBase gameMaster ivs) $
     GameMaster.allPokemonBases gameMaster
-
-makeAllAttackersFromBase :: GameMaster -> IVs -> PokemonBase ->[Pokemon]
-makeAllAttackersFromBase gameMaster ivs base =
-  let cpMultiplier = GameMaster.getCpMultiplier gameMaster $ IVs.level ivs
-      makeStat baseFunc ivFunc =
-        (fromIntegral $ baseFunc base + ivFunc ivs) * cpMultiplier
-      makeAttacker quickMove chargeMove =
-        Pokemon.new
-          (PokemonBase.species base)
-          base
-          ivs
-          (makeStat PokemonBase.attack IVs.attack)
-          (makeStat PokemonBase.defense IVs.defense)
-          (makeStat PokemonBase.stamina IVs.stamina)
-          quickMove
-          chargeMove
-  in [makeAttacker quickMove chargeMove |
-       quickMove <- PokemonBase.quickMoves base,
-       chargeMove <- PokemonBase.chargeMoves base]
 
 makeSomeAttackers :: (Epic.MonadCatch m) => GameMaster -> [Battler] -> m [Pokemon]
 makeSomeAttackers gameMaster attackers = do
@@ -302,7 +288,7 @@ makeSomeAttackers gameMaster attackers = do
     ivs <- case BattlerUtil.level battler of
       Normal ivs -> return ivs
       _ -> Epic.fail $ "Counter.makeSomeAttackers called for raid boss"
-    return $ makeAllAttackersFromBase gameMaster ivs base
+    return $ MakePokemon.makeWithAllMovesetsFromBase gameMaster ivs base
   return $ concat attackerLists
 
 getBreakpoints :: GameMaster -> [(Float, Int)]

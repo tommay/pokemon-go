@@ -20,6 +20,7 @@ import qualified GameMaster
 import           GameMaster (GameMaster)
 import qualified IVs
 import           IVs (IVs)
+import qualified MakePokemon
 import qualified Move
 import           Move (Move)
 import qualified MyPokemon
@@ -118,7 +119,13 @@ makeBattlerVariants gameMaster battler = do
     BattlerUtil.maybeChargeName
   return $ case BattlerUtil.level battler of
     Normal ivs ->
-      makeForMoves gameMaster ivs base quickMoves chargeMoves
+      MakePokemon.makeForWhatevers
+        gameMaster
+        [ivs]
+        (PokemonBase.species base)
+        base
+        quickMoves
+        chargeMoves
     RaidBoss raidLevel ->
       makeRaidBossForMoves gameMaster raidLevel base quickMoves chargeMoves
 
@@ -129,25 +136,6 @@ matchingMovesFail list moveType species moveName moves =
        "Available %s moves:\n%s")
        species howMany moveType moveName moveType
        (List.intercalate "\n" $ map (("  " ++) . Move.name) moves)
-
-makeForMoves :: GameMaster -> IVs -> PokemonBase -> [Move] -> [Move] -> [Pokemon]
-makeForMoves gameMaster ivs base quickMoves chargeMoves =
-  let level = IVs.level ivs
-      cpMultiplier = GameMaster.getCpMultiplier gameMaster level
-      makeStat baseFunc ivFunc =
-        (fromIntegral $ baseFunc base + ivFunc ivs) * cpMultiplier
-      makeAttacker quickMove chargeMove =
-        Pokemon.new
-          (PokemonBase.species base)
-          base
-          ivs
-          (makeStat PokemonBase.attack IVs.attack)
-          (makeStat PokemonBase.defense IVs.defense)
-          (makeStat PokemonBase.stamina IVs.stamina)
-          quickMove
-          chargeMove
-  in [makeAttacker quickMove chargeMove |
-       quickMove <- quickMoves, chargeMove <- chargeMoves]
 
 -- https://pokemongo.gamepress.gg/how-raid-boss-cp-calculated
 -- This is more to the point.  The CP calculations don't actually
@@ -162,9 +150,9 @@ makeRaidBossForMoves gameMaster raidLevel base quickMoves chargeMoves =
       -- ones used by https://pokemongo.gamepress.gg/breakpoint-calculator#/.
       -- With these values ./breakpoint gyarados:30/13/14/10:wf machamp:r3
       -- matches that site, but using getCpmForLevel gives the jump to
-      -- 14 at level 28 whereas the site and thte hardcoded numbers put
+      -- 14 at level 28 whereas the site and the hardcoded numbers put
       -- it at level 27.5.
-      getCpmForLevel = GameMaster.getCpMultiplier gameMaster
+      -- getCpmForLevel = GameMaster.getCpMultiplier gameMaster
       (cpm, hp) = case raidLevel of
         1 -> (0.61, 600)
         2 -> (0.67, 1800)

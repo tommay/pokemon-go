@@ -43,3 +43,7 @@ species this =
 types :: Pokemon -> [Type]
 types this =
   PokemonBase.types $ base this
+
+setName :: String -> Pokemon -> Pokemon
+setName pname this =
+  this { pname = pname }

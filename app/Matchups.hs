@@ -18,6 +18,7 @@ import qualified Move
 import           Move (Move)
 import qualified MakePokemon
 import qualified MyPokemon
+import           MyPokemon (MyPokemon)
 import qualified Mythical
 import qualified Pokemon
 import           Pokemon (Pokemon)
@@ -85,7 +86,7 @@ main =
       attackers <- case attackersFile options of
         Just filename -> do
           myPokemon <- join $ MyPokemon.load $ Just filename
-          mapM (fmap head . MakePokemon.makePokemon gameMaster id) myPokemon
+          mapM (fmap head . MakePokemon.makePokemon gameMaster) myPokemon
         Nothing -> do
           let attackerBases =
                   filter notMythical
@@ -93,7 +94,7 @@ main =
                 $ filter (not . PokemonBase.hasEvolutions)
                 allBases
           return $ concat $ map
-            (makeWithAllMovesetsFromBase gameMaster ivs)
+            (MakePokemon.makeWithAllMovesetsFromBase gameMaster ivs)
             attackerBases
 
       let defenderBases =
@@ -102,7 +103,8 @@ main =
             allBases
 
           defenderSets =
-            map (makeWithAllMovesetsFromBase gameMaster ivs) defenderBases
+            map (MakePokemon.makeWithAllMovesetsFromBase gameMaster ivs)
+            defenderBases
 
           attackerResults = [getAttackerResult defenders attacker |
             defenders <- defenderSets, attacker <- attackers]
@@ -116,25 +118,6 @@ main =
       mapM_ (B.putStr . Builder.toByteString . (:[])) attackerResults
     )
     $ I.hPutStrLn I.stderr
-
-makeWithAllMovesetsFromBase :: GameMaster -> IVs -> PokemonBase -> [Pokemon]
-makeWithAllMovesetsFromBase gameMaster ivs base =
-  let cpMultiplier = GameMaster.getCpMultiplier gameMaster $ IVs.level ivs
-      makeStat baseFunc ivFunc =
-        (fromIntegral $ baseFunc base + ivFunc ivs) * cpMultiplier
-      makeBattler quickMove chargeMove =
-        Pokemon.new
-          (PokemonBase.species base)
-          base
-          ivs
-          (makeStat PokemonBase.attack IVs.attack)
-          (makeStat PokemonBase.defense IVs.defense)
-          (makeStat PokemonBase.stamina IVs.stamina)
-          quickMove
-          chargeMove
-  in [makeBattler quickMove chargeMove |
-       quickMove <- PokemonBase.quickMoves base,
-       chargeMove <- PokemonBase.chargeMoves base]
 
 -- Results of a particular attacker/moveset against all defender
 -- movesets.  The pokemon is expected to score at least minDamage no

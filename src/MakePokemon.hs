@@ -1,11 +1,14 @@
 module MakePokemon (
-  makePokemon
+  makePokemon,
+  makeForWhatevers,
+  makeWithAllMovesetsFromBase,
 ) where
 
 import qualified Epic
 import qualified GameMaster
 import           GameMaster (GameMaster)
 import qualified IVs
+import           IVs (IVs)
 import qualified Move
 import           Move (Move)
 import qualified MyPokemon
@@ -13,12 +16,12 @@ import           MyPokemon (MyPokemon)
 import qualified Pokemon
 import           Pokemon (Pokemon)
 import qualified PokemonBase
+import           PokemonBase (PokemonBase)
 
 import qualified Text.Regex as Regex
 
-makePokemon :: Epic.MonadCatch m =>
-  GameMaster -> (Float -> Float) -> MyPokemon -> m [Pokemon]
-makePokemon gameMaster tweakLevel myPokemon = do
+makePokemon :: Epic.MonadCatch m => GameMaster -> MyPokemon -> m [Pokemon]
+makePokemon gameMaster myPokemon = do
   let name = MyPokemon.name myPokemon
       species = MyPokemon.species myPokemon
 
@@ -26,9 +29,11 @@ makePokemon gameMaster tweakLevel myPokemon = do
 
   base <- fromGameMaster GameMaster.getPokemonBase MyPokemon.species
 
-  let types = PokemonBase.types base
+  ivs <- case MyPokemon.ivs myPokemon of
+    Just ivs@(_:_) -> return ivs
+    _ -> Epic.fail $ "No ivs for " ++ MyPokemon.name myPokemon
 
-      getMove moveType getFunc keyFunc moveListFunc = do
+  let getMove moveType getFunc keyFunc moveListFunc = do
         move <- fromGameMaster getFunc keyFunc
         let moveList = moveListFunc base
         if move `elem` moveList
@@ -47,23 +52,40 @@ makePokemon gameMaster tweakLevel myPokemon = do
   charge <- getMove "charge"
     GameMaster.getCharge MyPokemon.chargeName PokemonBase.chargeMoves
 
-  ivs <- case MyPokemon.ivs myPokemon of
-    Just ivs@(_:_) -> return ivs
-    _ -> Epic.fail $ "No ivs for " ++ MyPokemon.name myPokemon
+  return $ makeForWhatevers gameMaster ivs name base [quick] [charge]
 
-  let makeForIvs ivs =
-        let level = tweakLevel $ IVs.level ivs
-            cpMultiplier = GameMaster.getCpMultiplier gameMaster level
-            getStat getBaseStat getIv =
-              let baseStat = getBaseStat base
-                  iv = getIv ivs
-              in fromIntegral (baseStat + iv) * cpMultiplier
-            attack = getStat PokemonBase.attack IVs.attack
-            defense = getStat PokemonBase.defense IVs.defense
-            stamina = getStat PokemonBase.stamina IVs.stamina
-        in Pokemon.new name base ivs attack defense stamina quick charge
+makeWithAllMovesetsFromBase :: GameMaster -> IVs -> PokemonBase -> [Pokemon]
+makeWithAllMovesetsFromBase gameMaster ivs base =
+  MakePokemon.makeForWhatevers
+    gameMaster
+    [ivs]
+    (PokemonBase.species base)
+    base
+    (PokemonBase.quickMoves base)
+    (PokemonBase.chargeMoves base)
 
-  return $ map makeForIvs ivs
+makeForWhatevers ::
+ GameMaster -> [IVs] -> String -> PokemonBase -> [Move] -> [Move] -> [Pokemon]
+makeForWhatevers gameMaster ivsList name base quickMoves chargeMoves =
+  [makeForWhatever gameMaster ivs name base quick charge |
+    ivs <- ivsList, quick <- quickMoves, charge <- chargeMoves]
+
+makeForWhatever ::
+  GameMaster -> IVs -> String -> PokemonBase -> Move -> Move -> Pokemon
+makeForWhatever gameMaster ivs name base quick charge =
+  let level = IVs.level ivs
+      cpMultiplier = GameMaster.getCpMultiplier gameMaster level
+      makeStat baseFunc ivFunc =
+        (fromIntegral $ baseFunc base + ivFunc ivs) * cpMultiplier
+  in Pokemon.new
+       name
+       base
+       ivs
+       (makeStat PokemonBase.attack IVs.attack)
+       (makeStat PokemonBase.defense IVs.defense)
+       (makeStat PokemonBase.stamina IVs.stamina)
+       quick
+       charge
 
 maybeSetHiddenPowerType :: (Epic.MonadCatch m) =>
     GameMaster -> Move -> String -> m Move
