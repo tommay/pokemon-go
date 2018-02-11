@@ -112,20 +112,20 @@ rhyhorn:
 rhydon: 
 chansey: 
 tangela: 
-kangaskhan: 
+kangaskhan: # regional australis
 horsea: 
 seadra: 
 goldeen: 
 seaking: 
 staryu: 
 starmie: 
-mr_mime: 
+mr_mime: # regional europe
 scyther: 
 jynx: 
 electabuzz: 
 magmar: 
 pinsir: 
-tauros: 
+tauros: # regional north america
 magikarp: 
 gyarados: 
 lapras: 
@@ -211,7 +211,7 @@ granbull:
 qwilfish: 
 scizor: 
 shuckle: 
-heracross: 
+heracross: # regional central america, south america, south florida
 sneasel: 
 teddiursa: 
 ursaring: 
@@ -219,7 +219,7 @@ slugma:
 magcargo: 
 swinub: 
 piloswine: 
-corsola: 
+corsola: # regional
 remoraid: 
 octillery: 
 delibird: 
@@ -309,9 +309,9 @@ medicham:
 electrike:
 manectric:
 plusle:
-minun: mythical # regional
-volbeat: mythical
-illumise: mythical
+minun:
+volbeat: mythical # regional
+illumise: mythical # regional
 roselia:
 gulpin:
 swalot:
@@ -354,7 +354,7 @@ shuppet:
 banette: 
 duskull: 
 dusclops: 
-tropius:
+tropius: # regional
 chimecho:
 absol:
 wynaut:
