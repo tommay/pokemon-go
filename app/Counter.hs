@@ -159,30 +159,30 @@ main =
       defenderVariants <-
         BattlerUtil.makeBattlerVariants gameMaster (defender options)
 
+      -- attackers :: [[Pokemon]]
       attackers <- case attackerSource options of
         FromFiles filenames -> do
           let loadPokemon filename = do
                 myPokemon <- join $ MyPokemon.load filename
                 let myPokemon' =
                       map (doTweakLevel $ tweakLevel options) myPokemon
-                mapM (fmap head . MakePokemon.makePokemon gameMaster) myPokemon'
-          myPokemonLists <- mapM (loadPokemon . Just) filenames
-          return $ concat myPokemonLists
+                mapM (MakePokemon.makePokemon gameMaster) myPokemon'
+          fmap concat $ mapM (loadPokemon . Just) filenames
         AllAttackers -> do
           mythicalMap <- join $ Mythical.load "mythical.yaml"
-          let ivs = IVs.tweakLevel (tweakLevel options) defaultIVs
-              all = allAttackers gameMaster ivs
-              notMythical = not . Mythical.isMythical mythicalMap . Pokemon.species
-              notLegendary = not . Mythical.isLegendary mythicalMap . Pokemon.species
-              nonMythical = filter notMythical all
-              result = if legendary options
+          let notMythical = not . Mythical.isMythical mythicalMap . PokemonBase.species
+              notLegendary = not . Mythical.isLegendary mythicalMap . PokemonBase.species
+              nonMythical = filter notMythical $ GameMaster.allPokemonBases gameMaster
+              bases = if legendary options
                 then nonMythical
                 else filter notLegendary nonMythical
-          return result  
-        MovesetFor attackers ->
-          let attackerSpecies = map BattlerUtil.species attackers
+              ivs = IVs.tweakLevel (tweakLevel options) defaultIVs
+          return $ map
+            (MakePokemon.makeWithAllMovesetsFromBase gameMaster ivs) bases
+        MovesetFor battlers ->
+          let attackerSpecies = map BattlerUtil.species battlers
           in case filter (not . GameMaster.isSpecies gameMaster) attackerSpecies of
-               [] -> makeSomeAttackers gameMaster attackers
+               [] -> mapM (makeWithAllMovesetsFromBattler gameMaster) battlers
                noSuchSpecies -> Epic.fail $ "No such species: " ++ (List.intercalate ", " noSuchSpecies)
 
       let weatherBonus = case maybeWeather options of
@@ -265,31 +265,31 @@ doTweakLevel tweakLevel myPokemon =
       ivs' = (fmap $ map $ IVs.tweakLevel tweakLevel) ivs
   in MyPokemon.setIVs myPokemon ivs'
 
-counter :: (Type -> Float) -> [Pokemon] -> Pokemon -> Result
-counter weatherBonus defenderVariants attacker =
+counter :: (Type -> Float) -> [Pokemon] -> [Pokemon] -> Result
+counter weatherBonus defenderVariants attackerVariants =
   let battles = [Battle.runBattleOnly $
         Battle.init weatherBonus attacker defender |
+        attacker <- attackerVariants,
         defender <- defenderVariants]
       getMinValue fn = fn . List.minimumBy (Util.compareWith fn)
       minDamage = getMinValue Battle.damageInflicted battles
       minDps = getMinValue Battle.dps battles
-  in Result attacker minDps minDamage
+  in Result (head attackerVariants) minDps minDamage
 
-allAttackers :: GameMaster -> IVs -> [Pokemon]
+allAttackers :: GameMaster -> IVs -> [[Pokemon]]
 allAttackers gameMaster ivs =
-  concat $ map (MakePokemon.makeWithAllMovesetsFromBase gameMaster ivs) $
-    GameMaster.allPokemonBases gameMaster
+  map (:[]) $ concat
+    $ map (MakePokemon.makeWithAllMovesetsFromBase gameMaster ivs)
+    $ GameMaster.allPokemonBases gameMaster
 
-makeSomeAttackers :: (Epic.MonadCatch m) => GameMaster -> [Battler] -> m [Pokemon]
-makeSomeAttackers gameMaster attackers = do
-  attackerLists <- forM attackers $ \ battler -> do
-    let species = BattlerUtil.species battler
-    base <- GameMaster.getPokemonBase gameMaster species
-    ivs <- case BattlerUtil.level battler of
-      Normal ivs -> return ivs
-      _ -> Epic.fail $ "Counter.makeSomeAttackers called for raid boss"
-    return $ MakePokemon.makeWithAllMovesetsFromBase gameMaster ivs base
-  return $ concat attackerLists
+makeWithAllMovesetsFromBattler :: (Epic.MonadCatch m) => GameMaster -> Battler -> m [Pokemon]
+makeWithAllMovesetsFromBattler gameMaster battler = do
+  let species = BattlerUtil.species battler
+  base <- GameMaster.getPokemonBase gameMaster species
+  ivs <- case BattlerUtil.level battler of
+    Normal ivs -> return ivs
+    _ -> Epic.fail $ "Counter.makeSomeAttackers called for raid boss"
+  return $ MakePokemon.makeWithAllMovesetsFromBase gameMaster ivs base
 
 getBreakpoints :: GameMaster -> [(Float, Int)]
 getBreakpoints gameMaster =
