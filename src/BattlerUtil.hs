@@ -110,7 +110,7 @@ makeBattlerVariants gameMaster battler = do
              Nothing -> return moves
              Just abbrev ->
                case filter (nameMatches abbrev) moves of
-                 [_] -> return moves
+                 moves@[_] -> return moves
                  val -> Epic.fail $
                    matchingMovesFail val moveType species abbrev moves
   quickMoves <- getMoves "quick" PokemonBase.quickMoves
