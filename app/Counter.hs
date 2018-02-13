@@ -9,6 +9,7 @@ import           Data.Semigroup ((<>))
 import qualified Battle
 import qualified BattlerUtil
 import           BattlerUtil (Battler, Level (Normal))
+import qualified Breakpoint
 import qualified Epic
 import qualified TweakLevel
 import qualified IVs
@@ -137,7 +138,7 @@ getOptions =
              <|> (pure $ FromFiles [defaultFilename])
       optShowBreakpoints = O.switch
         (  O.long "breakpoints"
-        <> O.short 'b'
+        <> O.short 'k'
         <> O.help "Show attacker breakpoints")
       optDefender = O.argument
         (BattlerUtil.parseBattler defaultIVs)
@@ -232,7 +233,10 @@ main =
           putStrLn $ showResult nameFunc result
           if showBreakpoints options
             then do
-              let breakpoints = getBreakpoints gameMaster
+              let defender = head defenderVariants
+                  breakpoints = Breakpoint.getBreakpoints
+                    gameMaster weatherBonus
+                    (pokemon result) defender
               forM_ breakpoints $ \ (level, damage) ->
                 putStrLn $ Printf.printf "  %4.1f %d" level damage
             else return ()
@@ -290,7 +294,3 @@ makeWithAllMovesetsFromBattler gameMaster battler = do
     Normal ivs -> return ivs
     _ -> Epic.fail $ "Counter.makeSomeAttackers called for raid boss"
   return $ MakePokemon.makeWithAllMovesetsFromBase gameMaster ivs base
-
-getBreakpoints :: GameMaster -> [(Float, Int)]
-getBreakpoints gameMaster =
-  [(10, 15), (15, 16), (30, 17)]
