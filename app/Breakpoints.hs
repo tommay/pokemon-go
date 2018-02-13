@@ -6,27 +6,23 @@ import qualified Options.Applicative as O
 import           Options.Applicative ((<|>), (<**>))
 import           Data.Semigroup ((<>))
 
-import qualified Battle
 import qualified BattlerUtil
 import           BattlerUtil (Battler)
+import qualified Breakpoint
 import qualified Epic
 import qualified IVs
 import qualified GameMaster
 import           GameMaster (GameMaster)
 import qualified MakePokemon
 import qualified MyPokemon
-import           MyPokemon (MyPokemon)
 import qualified Pokemon
 import           Pokemon (Pokemon)
-import qualified PokeUtil
-import           Type (Type)
 import qualified Util
 import qualified Weather
 import           Weather (Weather (..))
 
 import           Control.Applicative (optional, some)
 import           Control.Monad (join, forM, forM_)
-import qualified Data.List as List
 import qualified System.IO as I
 import qualified Text.Printf as Printf
 
@@ -95,26 +91,13 @@ main =
           _ -> do
             putStrLn $ showPokemon attacker
             return "  "
-        let breakPoints = getBreakPoints
+        let breakpoints = Breakpoint.getBreakpoints
               gameMaster weatherBonus attacker defender
-        forM_ breakPoints $ \ (level, damage) ->
+        forM_ breakpoints $ \ (level, damage) ->
           putStrLn $ Printf.printf "%s%-4s %d"
             (indent :: String) (levelToString level) damage
     )
     $ I.hPutStrLn I.stderr
-
-getBreakPoints ::
-  GameMaster -> (Type -> Float) -> Pokemon -> Pokemon -> [(Float, Int)]
-getBreakPoints gameMaster weatherBonus attacker defender =
-  let levels = GameMaster.allLevels gameMaster
-      levelAndDamageList = map (\ level ->
-        let attacker' = PokeUtil.setLevel gameMaster level attacker
-            damage = Battle.getDamage weatherBonus
-              attacker' (Pokemon.quick attacker') defender
-        in (level, damage)) levels
-      filtered = filter (\ (level, _) -> level >= Pokemon.level attacker)
-        levelAndDamageList
-  in List.nubBy (\ (_, d1) (_, d2) -> d1 == d2) filtered
 
 showPokemon :: Pokemon -> String
 showPokemon pokemon =
