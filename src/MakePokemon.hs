@@ -1,6 +1,7 @@
 module MakePokemon (
   makePokemon,
   makeForWhatevers,
+  makeForWhatever,
   makeWithAllMovesetsFromBase,
 ) where
 

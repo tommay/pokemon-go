@@ -2,9 +2,11 @@ module Pokemon (
   Pokemon,
   new,
   pname,
+  base,
   species,
   ivs,
   types,
+  level,
   attack,
   defense,
   stamina,
@@ -43,6 +45,10 @@ species this =
 types :: Pokemon -> [Type]
 types this =
   PokemonBase.types $ base this
+
+level :: Pokemon -> Float
+level this =
+  IVs.level $ Pokemon.ivs this
 
 setName :: String -> Pokemon -> Pokemon
 setName pname this =

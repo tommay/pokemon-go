@@ -1,5 +1,6 @@
 module PokeUtil (
   addStats,
+  setLevel,
 ) where
 
 import qualified Epic
@@ -7,8 +8,11 @@ import qualified GameMaster
 import           GameMaster (GameMaster)
 import qualified IVs
 import           IVs (IVs)
+import qualified MakePokemon
 import qualified MyPokemon
 import           MyPokemon (MyPokemon)
+import qualified Pokemon
+import           Pokemon (Pokemon)
 import qualified PokemonBase
 import           PokemonBase (PokemonBase)
 import qualified Stats
@@ -33,3 +37,14 @@ makeStats gameMaster pokemonBase ivs =
        (makeStat PokemonBase.attack IVs.attack)
        (makeStat PokemonBase.defense IVs.defense)
        (floor (makeStat PokemonBase.stamina IVs.stamina))
+
+setLevel :: GameMaster -> Float -> Pokemon -> Pokemon
+setLevel gameMaster level pokemon =
+  let ivs = IVs.setLevel (Pokemon.ivs pokemon) level
+  in MakePokemon.makeForWhatever
+       gameMaster
+       ivs
+       (Pokemon.pname pokemon)
+       (Pokemon.base pokemon)
+       (Pokemon.quick pokemon)
+       (Pokemon.charge pokemon)
