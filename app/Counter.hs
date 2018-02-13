@@ -233,14 +233,17 @@ main =
         Nothing -> forM_ filtered $ \ result -> do
           putStrLn $ showResult nameFunc result
           if showBreakpoints options
-            then do
+            then
               let defender = head defenderVariants
                   breakpoints = Breakpoint.getBreakpoints
                     gameMaster weatherBonus
                     (pokemon result) defender
-              forM_ breakpoints $ \ (level, damage) ->
-                putStrLn $ Printf.printf
-                  "  %-4s %d" (PokeUtil.levelToString level) damage
+              in case breakpoints of
+                (_:_:_) ->  -- Onlt show if there wre two or more.
+                  forM_ breakpoints $ \ (level, damage) ->
+                    putStrLn $ Printf.printf
+                      "  %-4s %d" (PokeUtil.levelToString level) damage
+                _ -> return ()
             else return ()
     )
     $ I.hPutStrLn I.stderr
