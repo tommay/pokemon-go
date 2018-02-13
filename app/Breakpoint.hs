@@ -85,10 +85,9 @@ main =
       defenderVariants <-
         BattlerUtil.makeBattlerVariants gameMaster $ defender options
 
-      defender <- case defenderVariants of
-        [defender] -> return defender
-        [] -> Epic.fail $ "No possible variants for defender"
-        _ -> Epic.fail $ "Multiple variants for defender"
+      -- We can just use the first defender variant because we don't care
+      -- about its moveset, just its level and ivs.
+      let defender = head defenderVariants
 
       forM_ attackerVariants $ \ attacker -> do
         indent <- case attackerVariants of
