@@ -26,6 +26,7 @@ import qualified Pokemon
 import           Pokemon (Pokemon)
 import qualified PokemonBase
 import           PokemonBase (PokemonBase)
+import qualified PokeUtil
 import qualified Type
 import           Type (Type)
 import qualified Util
@@ -238,7 +239,8 @@ main =
                     gameMaster weatherBonus
                     (pokemon result) defender
               forM_ breakpoints $ \ (level, damage) ->
-                putStrLn $ Printf.printf "  %4.1f %d" level damage
+                putStrLn $ Printf.printf
+                  "  %-4s %d" (PokeUtil.levelToString level) damage
             else return ()
     )
     $ I.hPutStrLn I.stderr

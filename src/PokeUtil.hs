@@ -1,6 +1,7 @@
 module PokeUtil (
   addStats,
   setLevel,
+  levelToString,
 ) where
 
 import qualified Epic
@@ -17,6 +18,8 @@ import qualified PokemonBase
 import           PokemonBase (PokemonBase)
 import qualified Stats
 import           Stats (Stats)
+
+import qualified Text.Printf as Printf
 
 addStats :: Epic.MonadCatch m => GameMaster -> MyPokemon -> m MyPokemon
 addStats gameMaster myPokemon =
@@ -48,3 +51,9 @@ setLevel gameMaster level pokemon =
        (Pokemon.base pokemon)
        (Pokemon.quick pokemon)
        (Pokemon.charge pokemon)
+
+levelToString :: Float -> String
+levelToString level =
+  if fromIntegral (floor level) == level
+    then show $ floor level
+    else Printf.printf "%.1f" level
