@@ -183,9 +183,12 @@ main =
             (MakePokemon.makeWithAllMovesetsFromBase gameMaster ivs) bases
         MovesetFor battlers ->
           let attackerSpecies = map BattlerUtil.species battlers
+              makeAttackers battler = do
+                 attackers <- makeWithAllMovesetsFromBattler gameMaster battler
+                 return $ map (:[]) attackers
           in case filter (not . GameMaster.isSpecies gameMaster) attackerSpecies of
-               [] -> mapM (makeWithAllMovesetsFromBattler gameMaster) battlers
-               noSuchSpecies -> Epic.fail $ "No such species: " ++ (List.intercalate ", " noSuchSpecies)
+            [] -> fmap concat $ mapM makeAttackers battlers
+            noSuchSpecies -> Epic.fail $ "No such species: " ++ (List.intercalate ", " noSuchSpecies)
 
       let weatherBonus = case maybeWeather options of
             Just weather -> GameMaster.getWeatherBonus gameMaster weather
