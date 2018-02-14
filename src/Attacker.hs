@@ -99,11 +99,20 @@ makeMove' this = do
   move':moves' <- case Attacker.moves this of
     [] ->
       if Attacker.energy this >= negate (Move.energy charge)
+{-
         -- Do an extra quick move to simulate delayed player reaction
         -- to the flashing charge bars.
         then do
           Logger.log $ "Attacker can use " ++ Move.name charge
           return [quick, charge]
+-}
+        -- Now  that the battle gui has changed to enable the charge move
+        -- button whenever it's ready and the player can keep tapping in the
+        -- same place, there is no reaction time to simulate and we can
+        -- fire fire off the charge move asap.
+        then do
+          Logger.log $ "Attacker can use " ++ Move.name charge
+          return [charge]
         else return [quick]
     val -> return val
   let -- If it's a quick move, its energy is available immediately.
