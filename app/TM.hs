@@ -16,7 +16,7 @@ import qualified Util
 import           Control.Monad (join)
 import qualified Data.HashMap.Strict as HashMap
 import qualified Data.Maybe as Maybe
-import qualified System.IO as IO
+import qualified System.Exit as Exit
 import qualified Text.Printf as Printf
 
 data Options = Options {
@@ -51,7 +51,7 @@ main =
 
       mapM_ (putStrLn . showWorse) worse
     )
-    $ IO.hPutStrLn IO.stderr
+    $ Exit.die
 
 showWorse :: (String, String, Int, Int) -> String
 showWorse (defender, charge, oldDamage, newDamage) =

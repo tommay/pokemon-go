@@ -12,7 +12,7 @@ import           Data.Semigroup ((<>))
 import           Control.Monad (join)
 import qualified Data.ByteString as B
 import qualified Data.Yaml.Builder as Builder
-import qualified System.IO as I
+import qualified System.Exit as Exit
 
 data Options = Options {
   maybeFilename :: Maybe String
@@ -37,4 +37,4 @@ main =
       let mySortedPokemon = reverse $ Util.sortWith MyPokemon.cp myPokemon
       B.putStr $ Builder.toByteString mySortedPokemon
   )
-  $ I.hPutStrLn I.stderr
+  $ Exit.die

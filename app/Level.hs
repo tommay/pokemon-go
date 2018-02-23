@@ -12,7 +12,7 @@ import           GameMaster (GameMaster)
 import           PokemonBase (PokemonBase)
 
 import           Control.Monad (join)
-import qualified System.IO as I
+import qualified System.Exit as Exit
 import qualified Text.Printf as Printf
 
 data Options = Options {
@@ -59,7 +59,7 @@ main = Epic.catch (
       Nothing -> printAllLevels gameMaster pokemonBase ivPred
       Just cp -> printLevelsForCp gameMaster pokemonBase ivPred cp
   )
-  $ I.hPutStrLn I.stderr
+  $ Exit.die
 
 levels = [1..40]  -- Catches can npw exceed maxEncounterPlayerLevel (30)
                   -- depending on the weather.

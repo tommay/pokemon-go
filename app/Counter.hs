@@ -38,7 +38,7 @@ import qualified Debug
 import           Control.Monad (join, forM, forM_)
 import qualified Data.List as List
 import qualified Data.Set as Set
-import qualified System.IO as I
+import qualified System.Exit as Exit
 import qualified Text.Printf as Printf
 import qualified Text.Regex as Regex
 
@@ -249,7 +249,7 @@ main =
                 _ -> return ()
             else return ()
     )
-    $ I.hPutStrLn I.stderr
+    $ Exit.die
 
 showResult :: (Pokemon -> String) -> Result -> String
 showResult nameFunc result =

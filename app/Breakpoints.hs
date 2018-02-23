@@ -23,7 +23,7 @@ import           Weather (Weather (..))
 
 import           Control.Applicative (optional, some)
 import           Control.Monad (join, forM, forM_)
-import qualified System.IO as I
+import qualified System.Exit as Exit
 import qualified Text.Printf as Printf
 
 defaultIVs = IVs.new 20 11 11 11
@@ -97,7 +97,7 @@ main =
           putStrLn $ Printf.printf "%s%-4s %d"
             (indent :: String) (levelToString level) damage
     )
-    $ I.hPutStrLn I.stderr
+    $ Exit.die
 
 showPokemon :: Pokemon -> String
 showPokemon pokemon =

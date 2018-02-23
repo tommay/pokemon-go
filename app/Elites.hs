@@ -14,7 +14,7 @@ import qualified Data.HashMap.Strict as HashMap
 import           Data.HashMap.Strict (HashMap)
 import qualified Data.List as List
 import qualified Data.Maybe as Maybe
-import qualified System.IO as IO
+import qualified System.Exit as Exit
 import qualified Text.Printf as Printf
 import qualified Text.Regex as Regex
 
@@ -103,7 +103,7 @@ main =
 
       mapM_ (putStrLn . showElite) $ sorted
     )
-    $ IO.hPutStrLn IO.stderr
+    $ Exit.die
 
 showElite :: ((String, String, String), [String]) -> String
 showElite ((attacker, quick, charge), victims) =

@@ -35,7 +35,8 @@ import qualified Data.List as List
 import qualified Data.Scientific as Scientific
 import qualified Data.Text as Text
 import           Data.Text (Text)
-import qualified System.IO as I
+import qualified System.IO as IO
+import qualified System.Exit as Exit
 
 defaultIvs = IVs.new 20 11 11 11
 
@@ -109,7 +110,7 @@ main =
           attackerResults = [getAttackerResult defenders attacker |
             defenders <- defenderSets, attacker <- attackers]
 
-      I.hSetBuffering I.stdout I.NoBuffering
+      IO.hSetBuffering IO.stdout IO.NoBuffering
 
       -- Using mapM_ to output the individual array elements (as
       -- arrays of one element) instead of writing the entire array
@@ -117,7 +118,7 @@ main =
 
       mapM_ (B.putStr . Builder.toByteString . (:[])) attackerResults
     )
-    $ I.hPutStrLn I.stderr
+    $ Exit.die
 
 -- Results of a particular attacker/moveset against all defender
 -- movesets.  The pokemon is expected to score at least minDamage no

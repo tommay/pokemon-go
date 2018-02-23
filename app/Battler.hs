@@ -42,7 +42,7 @@ import           Control.Monad (join)
 import qualified Data.List as List
 import qualified Data.Maybe as Maybe
 import qualified Data.Text as Text
-import qualified System.IO as I
+import qualified System.Exit as Exit
 import qualified Text.Printf as Printf
 
 defaultIVs = IVs.new 20 11 11 11
@@ -90,7 +90,7 @@ main =
 
       putStrLn $ List.intercalate "\n" $ map showBattle battleResults
     )
-    $ I.hPutStrLn I.stderr
+    $ Exit.die
 
 tell :: a -> Logger a ()
 tell = Logger.log

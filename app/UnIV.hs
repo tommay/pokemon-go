@@ -17,7 +17,7 @@ import           Data.Semigroup ((<>))
 import           Control.Monad (join)
 import qualified Data.ByteString as B
 import qualified Data.Yaml.Builder as Builder
-import qualified System.IO as I
+import qualified System.Exit as Exit
 
 data Options = Options {
   maybeTweakLevel :: Maybe (Float -> Float),
@@ -47,7 +47,7 @@ main = Epic.catch (
       mapM (updateFromIVs gameMaster (maybeTweakLevel options)) myPokemon
     B.putStr $ Builder.toByteString myNewPokemon
   )
-  $ I.hPutStrLn I.stderr
+  $ Exit.die
 
 updateFromIVs :: (Epic.MonadCatch m) =>
   GameMaster -> Maybe (Float -> Float) -> MyPokemon -> m MyPokemon
