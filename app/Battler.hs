@@ -45,13 +45,15 @@ import qualified Data.Text as Text
 import qualified System.Exit as Exit
 import qualified Text.Printf as Printf
 
+import qualified Debug
+
 defaultIVs = IVs.new 20 11 11 11
 
 data Options = Options {
   maybeWeather :: Maybe Weather,
   attacker :: Battler,
   defender :: Battler
-}
+} deriving (Show)
 
 getOptions :: IO Options
 getOptions =
