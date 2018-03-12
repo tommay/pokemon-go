@@ -225,7 +225,7 @@ main =
             Nothing -> sorted
           nameFunc = case attackerSource options of
             FromFiles _ -> nameName
-            AllAttackers -> nameSpeciesAndLevelAndMoveset
+            AllAttackers -> nameSpeciesAndLevel
             MovesetFor _ -> nameSpeciesAndLevelAndMoveset
 
       case top options of
@@ -260,16 +260,20 @@ nameName :: Pokemon -> String
 nameName pokemon =
   Pokemon.pname pokemon
 
-nameSpeciesAndLevelAndMoveset :: Pokemon -> String
-nameSpeciesAndLevelAndMoveset pokemon =
+nameSpeciesAndLevel :: Pokemon -> String
+nameSpeciesAndLevel pokemon =
   let speciesAndLevel = Printf.printf "%s:%f"
         (Pokemon.species pokemon)
         (IVs.level $ Pokemon.ivs pokemon)
       speciesAndLevel' = Regex.subRegex (Regex.mkRegex "\\.0$") speciesAndLevel ""
-      format = Printf.printf "%-15s %-13s/ %-15s"
-  in format speciesAndLevel'
-       (Move.name $ Pokemon.quick pokemon)
-       (Move.name $ Pokemon.charge pokemon)
+  in speciesAndLevel'
+
+nameSpeciesAndLevelAndMoveset :: Pokemon -> String
+nameSpeciesAndLevelAndMoveset pokemon =
+  Printf.printf "%-15s %-13s/ %-15s"
+    (nameSpeciesAndLevel pokemon)
+    (Move.name $ Pokemon.quick pokemon)
+    (Move.name $ Pokemon.charge pokemon)
 
 doTweakLevel :: (Float -> Float) -> MyPokemon -> MyPokemon
 doTweakLevel tweakLevel myPokemon =
