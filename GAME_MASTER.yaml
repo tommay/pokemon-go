@@ -18937,6 +18937,7 @@ itemTemplates:
     - HURRICANE
     - HYPER_BEAM
     - OUTRAGE
+    - DRACO_METEOR
     animationTime:
     - 2.6667
     - 0.6667

@@ -1,5 +1,5 @@
 --- GAME_MASTER.yaml.orig	2018-03-15 12:03:44.591001000 -0700
-+++ GAME_MASTER.yaml	2018-03-15 12:03:44.609001000 -0700
++++ GAME_MASTER.yaml	2018-03-15 12:32:51.119001000 -0700
 @@ -16905,6 +16905,7 @@
      quickMoves:
      - PECK_FAST
@@ -16,7 +16,15 @@
      cinematicMoves:
      - HYDRO_PUMP
      - CRUNCH
-@@ -25427,6 +25429,7 @@
+@@ -18935,6 +18937,7 @@
+     - HURRICANE
+     - HYPER_BEAM
+     - OUTRAGE
++    - DRACO_METEOR
+     animationTime:
+     - 2.6667
+     - 0.6667
+@@ -25427,6 +25430,7 @@
      quickMoves:
      - EXTRASENSORY_FAST
      - SNARL_FAST
@@ -24,7 +32,7 @@
      cinematicMoves:
      - HYDRO_PUMP
      - BUBBLE_BEAM
-@@ -34599,6 +34602,7 @@
+@@ -34599,6 +34603,7 @@
        baseDefense: 251
      quickMoves:
      - WATERFALL_FAST
