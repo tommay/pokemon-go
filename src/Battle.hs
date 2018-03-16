@@ -37,19 +37,21 @@ data Battle = Battle {
   defender :: Defender,
   weatherBonus :: Type -> Float,
   timer :: Int,
-  initialDefenderHp :: Int
+  initialDefenderHp :: Int,
+  raidGroup :: Bool
 }
 
 battleDuration = 100 * 1000
 
-init :: (Type -> Float) -> Pokemon -> Pokemon -> Battle
-init weatherBonus attacker defender =
+init :: (Type -> Float) -> Pokemon -> Pokemon -> Bool -> Battle
+init weatherBonus attacker defender raidGroup =
   Battle {
     attacker = Attacker.init attacker,
     defender = Defender.init defender,
     weatherBonus = weatherBonus,
     timer = battleDuration,
-    initialDefenderHp = Pokemon.hp defender * 2
+    initialDefenderHp = Pokemon.hp defender * 2,
+    raidGroup = raidGroup
     }
 
 -- Given an initial Battle state, run the Battle and return the final
@@ -103,7 +105,8 @@ tick this = do
   battle <- checkAttackerHits battle
   battle <- checkDefenderHits battle
   battle <- makeLogs $ Battle.updateAttacker battle $ Attacker.makeMove
-  battle <- makeLogs $ Battle.updateDefender battle $ Defender.makeMove
+  battle <- makeLogs $ Battle.updateDefender battle $
+    Defender.makeMove (Battle.raidGroup this)
   return battle
 
 checkAttackerHits :: Battle -> Logger (Log Battle) Battle

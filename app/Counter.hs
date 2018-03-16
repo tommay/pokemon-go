@@ -51,7 +51,8 @@ data Options = Options {
   legendary :: Bool,
   attackerSource :: AttackerSource,
   showBreakpoints :: Bool,
-  defender :: Battler
+  defender :: Battler,
+  raidGroup :: Bool
 }
 
 data SortOutputBy =
@@ -79,7 +80,8 @@ getOptions =
   let opts = Options <$> optWeather <*> optSortOutputBy <*> optDpsFilter <*>
         optTop <*>
         optTweakLevel <*> optLegendary <*> optAttackerSource <*>
-        optShowBreakpoints <*> optDefender
+        optShowBreakpoints <*> optDefender <*>
+        optRaidGroup
       optWeather = O.optional Weather.optWeather
       optSortOutputBy =
         let optGlass = O.flag' ByDps
@@ -144,6 +146,10 @@ getOptions =
       optDefender = O.argument
         (BattlerUtil.parseBattler defaultIVs)
           (O.metavar "DEFENDER[:LEVEL]")
+      optRaidGroup = O.switch
+        (  O.long "raidgroup"
+        <> O.short 'R'
+        <> O.help "Defender is facing a raid group and always has energy for a charge move")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc "Find good counters for a Pokemon."
@@ -193,7 +199,9 @@ main =
       let weatherBonus = case maybeWeather options of
             Just weather -> GameMaster.getWeatherBonus gameMaster weather
             Nothing -> const 1
-          results = map (counter weatherBonus defenderVariants) attackers
+          raidGroup' = raidGroup options
+          results =
+            map (counter weatherBonus raidGroup' defenderVariants) attackers
           sortedByDps = List.reverse $ Util.sortWith minDps results
           damagePerHp result = (fromIntegral $ minDamage result) /
             (fromIntegral $ Pokemon.hp $ pokemon result)
@@ -281,10 +289,10 @@ doTweakLevel tweakLevel myPokemon =
       ivs' = (fmap $ map $ IVs.tweakLevel tweakLevel) ivs
   in MyPokemon.setIVs myPokemon ivs'
 
-counter :: (Type -> Float) -> [Pokemon] -> [Pokemon] -> Result
-counter weatherBonus defenderVariants attackerVariants =
+counter :: (Type -> Float) -> Bool -> [Pokemon] -> [Pokemon] -> Result
+counter weatherBonus raidGroup defenderVariants attackerVariants =
   let battles = [Battle.runBattleOnly $
-        Battle.init weatherBonus attacker defender |
+        Battle.init weatherBonus attacker defender raidGroup |
         attacker <- attackerVariants,
         defender <- defenderVariants]
       getMinValue fn = fn . List.minimumBy (Util.compareWith fn)

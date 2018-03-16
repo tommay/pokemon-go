@@ -90,14 +90,14 @@ nextTick :: Defender -> Int
 nextTick this =
   minimum $ filter (> 0) [Defender.cooldown this, Defender.damageWindow this]
 
-makeMove :: Defender -> Logger String Defender
-makeMove this =
+makeMove :: Bool -> Defender -> Logger String Defender
+makeMove raidGroup this =
   if Defender.cooldown this == 0
-    then makeMove' this
+    then makeMove' raidGroup this
     else return this
 
-makeMove' :: Defender -> Logger String Defender
-makeMove' this = do
+makeMove' :: Bool -> Defender -> Logger String Defender
+makeMove' raidGroup this = do
   let -- Get the next move and any move(s) after that.
       (move', cooldown'):moves' = Defender.moves this
   Logger.log $ "Defender uses " ++ Move.name move'
@@ -127,7 +127,7 @@ makeMove' this = do
       -- Both quick moves and charge moves get an additional 1.5-2.5
       -- seconds added to their duration.  Just use the average, 2.
       -- https://www.reddit.com/r/TheSilphRoad/comments/52b453/testing_gym_combat_misconceptions_2/
-      if decisionEnergy >= negate (Move.energy charge) then do
+      if raidGroup || decisionEnergy >= negate (Move.energy charge) then do
           Logger.log $ "Defender can use " ++ Move.name charge
           let (random, rnd') = NotRandom.randomBool $ Defender.rnd this
           if random then do
