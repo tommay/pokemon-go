@@ -52,7 +52,8 @@ data Options = Options {
   attackerSource :: AttackerSource,
   showBreakpoints :: Bool,
   defender :: Battler,
-  raidGroup :: Bool
+  raidGroup :: Bool,
+  showMoveset :: Bool
 }
 
 data SortOutputBy =
@@ -81,7 +82,7 @@ getOptions =
         optTop <*>
         optTweakLevel <*> optLegendary <*> optAttackerSource <*>
         optShowBreakpoints <*> optDefender <*>
-        optRaidGroup
+        optRaidGroup <*> optShowMoveset
       optWeather = O.optional Weather.optWeather
       optSortOutputBy =
         let optGlass = O.flag' ByDps
@@ -150,6 +151,9 @@ getOptions =
         (  O.long "raidgroup"
         <> O.short 'R'
         <> O.help "Defender is facing a raid group and always has energy for a charge move")
+      optShowMoveset = O.switch
+        (  O.short 'M'
+        <> O.help "Show movesets for -a")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc "Find good counters for a Pokemon."
@@ -185,8 +189,11 @@ main =
                 then nonMythical
                 else filter notLegendary nonMythical
               ivs = IVs.tweakLevel (tweakLevel options) defaultIVs
-          return $ map
-            (MakePokemon.makeWithAllMovesetsFromBase gameMaster ivs) bases
+              allAttackers = map
+                (MakePokemon.makeWithAllMovesetsFromBase gameMaster ivs) bases
+          if showMoveset options
+            then return $ map (:[]) $ concat allAttackers
+            else return $ allAttackers
         MovesetFor battlers ->
           let attackerSpecies = map BattlerUtil.species battlers
               makeAttackers battler = do
@@ -233,7 +240,10 @@ main =
             Nothing -> sorted
           nameFunc = case attackerSource options of
             FromFiles _ -> nameName
-            AllAttackers -> nameSpeciesAndLevel
+            AllAttackers ->
+              if showMoveset options
+                then nameSpeciesAndLevelAndMoveset
+                else nameSpeciesAndLevel
             MovesetFor _ -> nameSpeciesAndLevelAndMoveset
 
       case top options of
