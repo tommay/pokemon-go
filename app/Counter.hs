@@ -144,7 +144,7 @@ getOptions =
              <|> (pure $ FromFiles [defaultFilename])
       optShowBreakpoints = O.switch
         (  O.long "breakpoints"
-        <> O.short 'k'
+        <> O.short 'B'
         <> O.help "Show attacker breakpoints")
       optShowPowerups = O.switch
         (  O.long "powerups"
