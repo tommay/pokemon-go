@@ -13,6 +13,7 @@ module Pokemon (
   quick,
   charge,
   hp,
+  setName,
 ) where
 
 import qualified IVs

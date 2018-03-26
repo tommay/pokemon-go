@@ -51,6 +51,7 @@ data Options = Options {
   legendary :: Bool,
   attackerSource :: AttackerSource,
   showBreakpoints :: Bool,
+  showPowerups :: Bool,
   defender :: Battler,
   raidGroup :: Bool,
   showMoveset :: Bool
@@ -81,7 +82,8 @@ getOptions =
   let opts = Options <$> optWeather <*> optSortOutputBy <*> optDpsFilter <*>
         optTop <*>
         optTweakLevel <*> optLegendary <*> optAttackerSource <*>
-        optShowBreakpoints <*> optDefender <*>
+        optShowBreakpoints <*> optShowPowerups <*>
+        optDefender <*>
         optRaidGroup <*> optShowMoveset
       optWeather = O.optional Weather.optWeather
       optSortOutputBy =
@@ -144,6 +146,10 @@ getOptions =
         (  O.long "breakpoints"
         <> O.short 'k'
         <> O.help "Show attacker breakpoints")
+      optShowPowerups = O.switch
+        (  O.long "powerups"
+        <> O.short 'P'
+        <> O.help "Show attacker with powerups")
       optDefender = O.argument
         (BattlerUtil.parseBattler defaultIVs)
           (O.metavar "DEFENDER[:LEVEL]")
@@ -175,11 +181,25 @@ main =
       attackers <- case attackerSource options of
         FromFiles filenames -> do
           let loadPokemon filename = do
+                -- myPokemon is a [MyPokemon] with one MyPokemon for
+                -- each entry in the file.  Each MyPokemon may have
+                -- multiple possible IV sets.
                 myPokemon <- join $ MyPokemon.load filename
                 let myPokemon' =
                       map (doTweakLevel $ tweakLevel options) myPokemon
+                -- makePokemon expands each MyPokemon into a [Pokemon] with
+                -- one Pokemon per possible IV, so the result of the mapM
+                -- (and of loadPokemon) is m [[Pokemon]].
                 mapM (MakePokemon.makePokemon gameMaster) myPokemon'
-          fmap concat $ mapM (loadPokemon . Just) filenames
+          -- Load all the files and concat them into one [[Pokemon]].
+          pokemonLists <- fmap concat $ mapM (loadPokemon . Just) filenames
+          if showPowerups options
+            then return $
+              -- Turn each [Pokemon] into multiple lists of powered-up
+              -- Pokemon by turning each Pokemon into a list of
+              -- powered up Pokmon and concatenating the lists.
+              concat $ map (expandLevels gameMaster) $ pokemonLists
+            else return pokemonLists
         AllAttackers -> do
           mythicalMap <- join $ Mythical.load "mythical.yaml"
           let notMythical = not . Mythical.isMythical mythicalMap . PokemonBase.species
@@ -292,6 +312,22 @@ nameSpeciesAndLevelAndMoveset pokemon =
     (nameSpeciesAndLevel pokemon)
     (Move.name $ Pokemon.quick pokemon)
     (Move.name $ Pokemon.charge pokemon)
+
+-- [A:iva:0, A:ivb:0] -> [[A:iva:0, A:ivb:0], [A<1>:iva:1, A<1>:ivb:1]]
+--
+expandLevels :: GameMaster -> [Pokemon] -> [[Pokemon]]
+expandLevels gameMaster pokemonList =
+  let pokemonLevel = Pokemon.level $ head pokemonList
+      powerupLevels = filter (> pokemonLevel) $ GameMaster.allLevels gameMaster
+      addLevelToName pokemon = Pokemon.setName
+        (Printf.printf "%s <%s>"
+          (Pokemon.pname pokemon)
+          (PokeUtil.levelToString $ Pokemon.level pokemon))
+        pokemon
+      setLevelAndName level pokemon =
+        addLevelToName $ PokeUtil.setLevel gameMaster level pokemon
+  in pokemonList :
+       [map (setLevelAndName level) pokemonList | level <- powerupLevels]
 
 doTweakLevel :: (Float -> Float) -> MyPokemon -> MyPokemon
 doTweakLevel tweakLevel myPokemon =
