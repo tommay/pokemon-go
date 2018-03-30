@@ -324,11 +324,14 @@ getType :: Epic.MonadCatch m => GameMaster -> String -> m Type
 getType this typeName =
   get (GameMaster.types this) ("POKEMON_TYPE_" ++ (map toUpper typeName))
 
-getWeatherBonus :: GameMaster -> Weather -> Type -> Float
-getWeatherBonus this weather =
-  case HashMap.lookup weather (weatherBonusMap this) of
-    Just map -> (\ptype -> HashMap.lookupDefault 1 ptype map)
-    Nothing -> error $ "No weatherBonusMap for " ++ show weather
+getWeatherBonus :: GameMaster -> Maybe Weather -> Type -> Float
+getWeatherBonus this maybeWeather =
+  case maybeWeather of
+    Just weather ->
+      case HashMap.lookup weather (weatherBonusMap this) of
+        Just map -> (\ptype -> HashMap.lookupDefault 1 ptype map)
+        Nothing -> error $ "No weatherBonusMap for " ++ show weather
+    Nothing -> const 1
 
 toWeather :: String -> Weather
 toWeather string = case string of

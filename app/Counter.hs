@@ -223,9 +223,8 @@ main =
             [] -> fmap concat $ mapM makeAttackers battlers
             noSuchSpecies -> Epic.fail $ "No such species: " ++ (List.intercalate ", " noSuchSpecies)
 
-      let weatherBonus = case maybeWeather options of
-            Just weather -> GameMaster.getWeatherBonus gameMaster weather
-            Nothing -> const 1
+      let weatherBonus =
+            GameMaster.getWeatherBonus gameMaster $ maybeWeather options
           raidGroup' = raidGroup options
           results =
             map (counter weatherBonus raidGroup' defenderVariants) attackers

@@ -62,9 +62,8 @@ main =
 
       gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
 
-      let weatherBonus = case maybeWeather options of
-            Just weather -> GameMaster.getWeatherBonus gameMaster weather
-            Nothing -> const 1
+      let weatherBonus =
+            GameMaster.getWeatherBonus gameMaster $ maybeWeather options 
 
       attackerVariants <- case maybeFilename options of
         Just filename -> do
