@@ -7,6 +7,7 @@ module BattlerUtil (
   species,
   level,
   parseBattler,
+  optParseBattler,
   makeBattlerVariants,
   setLevel,
 ) where
@@ -48,8 +49,11 @@ data Level = Normal IVs | RaidBoss Int
 
 new = Battler
 
-parseBattler :: IVs -> O.ReadM Battler
-parseBattler defaultIVs = O.eitherReader $ \s ->
+optParseBattler :: IVs -> O.ReadM Battler
+optParseBattler = O.eitherReader . parseBattler
+
+parseBattler :: IVs -> String -> Either String Battler
+parseBattler defaultIVs string =
   let attoParseBattler = do
         battler <- some $ Atto.satisfy $ Atto.notInClass ":/"
         level <- optional $ do
@@ -91,9 +95,9 @@ parseBattler defaultIVs = O.eitherReader $ \s ->
         Atto.char 'r'
         (raidLevel, _) <- Atto.match Atto.decimal
         return $ RaidBoss $ read $ Text.unpack raidLevel
-  in case Atto.parseOnly attoParseBattler (Text.pack s) of
+  in case Atto.parseOnly attoParseBattler (Text.pack string) of
     Left _ ->
-      Left $ "`" ++ s ++ "' should look like SPECIES[:LEVEL] or SPECIES:[rRAID-:LEVEL]"
+      Left $ "`" ++ string ++ "' should look like SPECIES[:LEVEL] or SPECIES:[rRAID-:LEVEL]"
     Right battler -> Right battler
 
 makeBattlerVariants :: Epic.MonadCatch m => GameMaster -> Battler -> m [Pokemon]

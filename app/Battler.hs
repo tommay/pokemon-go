@@ -60,9 +60,9 @@ getOptions =
   let opts = Options <$> optWeather <*> optAttacker <*> optDefender
       optWeather = O.optional Weather.optWeather
       optAttacker = O.argument
-        (BattlerUtil.parseBattler defaultIVs) (O.metavar "ATTACKER[:LEVEL]")
+        (BattlerUtil.optParseBattler defaultIVs) (O.metavar "ATTACKER[:LEVEL]")
       optDefender = O.argument
-        (BattlerUtil.parseBattler defaultIVs) (O.metavar "DEFENDER[:LEVEL]")
+        (BattlerUtil.optParseBattler defaultIVs) (O.metavar "DEFENDER[:LEVEL]")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc "Battle some pokemon.")

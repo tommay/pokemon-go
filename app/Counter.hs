@@ -135,7 +135,7 @@ getOptions =
               <> O.help "Consider all pokemon, not just the ones in FILE")
             optMovesetFor = MovesetFor <$>
                 (O.some . O.option
-                  (BattlerUtil.parseBattler defaultIVs))
+                  (BattlerUtil.optParseBattler defaultIVs))
               (  O.long "moveset"
               <> O.short 'm'
               <> O.metavar "ATTACKER[:LEVEL]"
@@ -151,7 +151,7 @@ getOptions =
         <> O.short 'P'
         <> O.help "Show attacker with powerups")
       optDefender = O.argument
-        (BattlerUtil.parseBattler defaultIVs)
+        (BattlerUtil.optParseBattler defaultIVs)
           (O.metavar "DEFENDER[:LEVEL]")
       optRaidGroup = O.switch
         (  O.long "raidgroup"
