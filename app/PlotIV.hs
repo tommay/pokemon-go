@@ -87,11 +87,15 @@ main =
 
       let weatherBonus = GameMaster.getWeatherBonus gameMaster Nothing
 
+      let attackerString = Main.attacker options
+          iv1Range =
+            case Regex.matchRegex (Regex.mkRegex ":%") attackerString of
+              Just _ -> [25..40]
+              Nothing -> [0..15]
+          ivs = [(iv1, iv2) | iv1 <- iv1Range, iv2 <- [0..15]]
+
       defenderVariants <-
         BattlerUtil.makeBattlerVariants gameMaster $ defender options
-
-      let attackerString = Main.attacker options
-          ivs = [(iv1, iv2) | iv1 <- [0..15], iv2 <- [0..15]]
 
       forM_ ivs $ \ (iv1, iv2) -> do
         let a = replacePercent attackerString iv1
