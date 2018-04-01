@@ -4,6 +4,15 @@ set -e
 
 # ./plotiv.sh attacker defender
 
+# ./plotiv.sh -p golem:32/%/%/14:rt/se entei:r5:fs/oh
+
+# Increasing sdef and sta causes dps to decrease until a breakpoint
+# is reached when both are near maximum. Meanwhile TDO increases.
+# both graphs have th same shape.  Weird.
+#
+# ./plotiv.sh -p golem:32/12/%/%:rt/se entei:r5:fs/fb
+
+
 # Makes a gnuplot script to create a color map (planview xyz plot) of
 # matchup DPS and TDO while any two of level, attack, defense, and
 # stamina are varied.
@@ -25,6 +34,28 @@ if [[ "$1" == "-p" ]]; then
   shift
   exec gnuplot <("$0" "$@")
 fi
+
+# Select the palette.  Default is rainbow.
+
+palette='(0 "blue", 1 "magenta", 2 "red", 3 "yellow", 4 "green")'
+case "$1" in
+  -m)  # monochrome
+    palette='(0 "black", 1 "white")'
+    shift
+    ;;
+  -r)  # rainbow
+    palette='(0 "blue", 1 "magenta", 2 "red", 3 "yellow", 4 "green")'
+    shift
+    ;;
+  -s)  # stoplight
+    palette='(0 "red", 1 "yellow", 2 "green" )'
+    shift
+    ;;
+  -h)  # heat
+    palette='(0 "black", 1 "red", 2 "yellow", 3 "white")'
+    shift
+    ;;
+esac
 
 ATTACKER="$1"
 DEFENDER="$2"
@@ -81,13 +112,7 @@ set ylabel "${Y_LABEL}"
   # Except I decided rainbow from blue to green works better.
 
 set palette model RGB
-set palette defined ( 0 "blue", 1 "magenta", 2 "red", 3 "yellow", 4 "green" )
-#set palette defined ( 0 "red", 1 "yellow", 2 "green" )
-#set palette defined ( 0 "#0000ff", 1 "#00ff00", 2 "#ffff00", 3 "#fff000" )
-#set palette defined ( 0 "#000000", 1 "#ff0000", 2 "#ffff00", 3 "#ffffff" )
-
-#set palette model HSV
-#set palette defined ( 0 0 1 1, 1 1 1 1 )
+set palette defined $palette
 
 set multiplot layout 1,2 \
   title "${TITLE}" font ",16"
