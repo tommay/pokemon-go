@@ -27,8 +27,6 @@ data Options = Options {
 
 defaultIVs = IVs.new 30 11 11 11
 
-weatherBonus = const 1
-
 getOptions :: IO Options
 getOptions =
   let opts = Options <$> optAttacker <*> optDefender
