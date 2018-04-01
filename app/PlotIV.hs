@@ -90,7 +90,7 @@ main =
       let attackerString = Main.attacker options
           iv1Range =
             case Regex.matchRegex (Regex.mkRegex ":%") attackerString of
-              Just _ -> [25..40]
+              Just _ -> [20..40]
               Nothing -> [0..15]
           ivs = [(iv1, iv2) | iv1 <- iv1Range, iv2 <- [0..15]]
 
