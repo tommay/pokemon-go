@@ -9128,6 +9128,7 @@ itemTemplates:
     - SLUDGE_BOMB
     - PETAL_BLIZZARD
     - SOLAR_BEAM
+    - FRENZY_PLANT    # Community day 3/2018.
     animationTime:
     - 2.4667
     - 0.6667
@@ -10818,6 +10819,7 @@ itemTemplates:
     - DISCHARGE
     - THUNDERBOLT
     - WILD_CHARGE
+    - SURF            # Community day 1/2018
     animationTime:
     - 1.8333
     - 0.6667
@@ -20960,7 +20962,7 @@ itemTemplates:
     - HURRICANE
     - HYPER_BEAM
     - OUTRAGE
-    - DRACO_METEOR
+    - DRACO_METEOR    # Community day 2/2018.
     animationTime:
     - 2.6667
     - 0.6667
