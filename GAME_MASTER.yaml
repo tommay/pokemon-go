@@ -20958,11 +20958,14 @@ itemTemplates:
     quickMoves:
     - DRAGON_TAIL_FAST
     - STEEL_WING_FAST
+    - DRAGON_BREATH_FAST   # legacy
     cinematicMoves:
     - HURRICANE
     - HYPER_BEAM
     - OUTRAGE
     - DRACO_METEOR    # Community day 2/2018.
+    - DRAGON_CLAW     # legacy
+    - DRAGON_PULSE    # legacy
     animationTime:
     - 2.6667
     - 0.6667

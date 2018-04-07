@@ -39,8 +39,7 @@ getOptions =
       optSpecies = O.argument O.str (O.metavar "SPECIES")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
-        <> O.progDesc "Map levels to CP range for a species."
-        <> O.header "Map levels to CP range for a species.")
+        <> O.progDesc "Map levels to CP range for a species.")
       prefs = O.prefs O.showHelpOnEmpty
   in O.customExecParser prefs options
 

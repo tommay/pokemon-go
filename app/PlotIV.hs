@@ -37,8 +37,7 @@ getOptions =
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc ("Create a gnplot script to plot dps and tdo for " ++
-             "varying IV combonations")
-        <> O.header "header - Plot dps and tdo vs. IVs")
+             "varying IV combinations"))
       prefs = O.prefs O.showHelpOnEmpty
   in O.customExecParser prefs options
 

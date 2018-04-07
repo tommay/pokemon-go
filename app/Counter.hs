@@ -162,8 +162,7 @@ getOptions =
         <> O.help "Show movesets for -a")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
-        <> O.progDesc "Find good counters for a Pokemon."
-        <> O.header "header - Find good counters for a Pokemon.")
+        <> O.progDesc "Find good counters for a Pokemon.")
       prefs = O.prefs O.showHelpOnEmpty
   in O.customExecParser prefs options
 

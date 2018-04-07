@@ -22,8 +22,7 @@ getOptions =
         <> O.help "Show stardust costs from LEVEL")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
-        <> O.progDesc "Show stardust costs to get to various levels."
-        <> O.header "header - Show stardust costs to get to various levels.")
+        <> O.progDesc "Show stardust costs to get to various levels.")
       prefs = O.prefs O.showHelpOnEmpty
   in O.customExecParser prefs options
 
