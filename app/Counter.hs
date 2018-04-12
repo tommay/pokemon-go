@@ -37,6 +37,7 @@ import qualified Debug
 
 import           Control.Monad (join, forM, forM_)
 import qualified Data.List as List
+import qualified Data.Maybe as Maybe
 import qualified Data.Set as Set
 import qualified System.Exit as Exit
 import qualified Text.Printf as Printf
@@ -52,6 +53,7 @@ data Options = Options {
   attackerSource :: AttackerSource,
   showBreakpoints :: Bool,
   showPowerups :: Bool,
+  maybeMaxCandy :: Maybe Int,
   defender :: Battler,
   raidGroup :: Bool,
   showMoveset :: Bool
@@ -82,7 +84,7 @@ getOptions =
   let opts = Options <$> optWeather <*> optSortOutputBy <*> optDpsFilter <*>
         optTop <*>
         optTweakLevel <*> optLegendary <*> optAttackerSource <*>
-        optShowBreakpoints <*> optShowPowerups <*>
+        optShowBreakpoints <*> optShowPowerups <*> optMaxCandy <*>
         optDefender <*>
         optRaidGroup <*> optShowMoveset
       optWeather = O.optional Weather.optWeather
@@ -149,7 +151,12 @@ getOptions =
       optShowPowerups = O.switch
         (  O.long "powerups"
         <> O.short 'P'
-        <> O.help "Show attacker with powerups")
+        <> O.help "Show attacker with all powerups")
+      optMaxCandy = O.optional $ O.option O.auto
+        (  O.long "candy"
+        <> O.short 'C'
+        <> O.metavar "CANDY"
+        <> O.help "Use up to CANDY candy to power up the pokemon")
       optDefender = O.argument
         (BattlerUtil.optParseBattler defaultIVs)
           (O.metavar "DEFENDER[:LEVEL]")
@@ -192,12 +199,14 @@ main =
                 mapM (MakePokemon.makePokemon gameMaster) myPokemon'
           -- Load all the files and concat them into one [[Pokemon]].
           pokemonLists <- fmap concat $ mapM (loadPokemon . Just) filenames
-          if showPowerups options
+          let maybeMaxCandy = Main.maybeMaxCandy options
+          if showPowerups options || Maybe.isJust maybeMaxCandy
             then return $
               -- Turn each [Pokemon] into multiple lists of powered-up
               -- Pokemon by turning each Pokemon into a list of
               -- powered up Pokmon and concatenating the lists.
-              concat $ map (expandLevels gameMaster) $ pokemonLists
+              concat $ map (expandLevels gameMaster maybeMaxCandy)
+                $ pokemonLists
             else return pokemonLists
         AllAttackers -> do
           mythicalMap <- join $ Mythical.load "mythical.yaml"
@@ -313,10 +322,14 @@ nameSpeciesAndLevelAndMoveset pokemon =
 
 -- [A:iva:0, A:ivb:0] -> [[A:iva:0, A:ivb:0], [A<1>:iva:1, A<1>:ivb:1]]
 --
-expandLevels :: GameMaster -> [Pokemon] -> [[Pokemon]]
-expandLevels gameMaster pokemonList =
+expandLevels :: GameMaster -> Maybe Int -> [Pokemon] -> [[Pokemon]]
+expandLevels gameMaster maybeMaxCandy pokemonList =
   let pokemonLevel = Pokemon.level $ head pokemonList
-      powerupLevels = filter (> pokemonLevel) $ GameMaster.allLevels gameMaster
+      powerupLevelsAndCandy = getPowerUpLevelsAndCandy gameMaster pokemonLevel
+      powerupLevelsAndCandy' = case maybeMaxCandy of
+        Nothing -> powerupLevelsAndCandy
+        Just maxCandy -> filter ((<= maxCandy) . snd) powerupLevelsAndCandy
+      powerupLevels = map fst powerupLevelsAndCandy'
       addLevelToName pokemon = Pokemon.setName
         (Printf.printf "%s <%s>"
           (Pokemon.pname pokemon)
@@ -326,6 +339,13 @@ expandLevels gameMaster pokemonList =
         addLevelToName $ PokeUtil.setLevel gameMaster level pokemon
   in pokemonList :
        [map (setLevelAndName level) pokemonList | level <- powerupLevels]
+
+getPowerUpLevelsAndCandy :: GameMaster -> Float -> [(Float, Int)]
+getPowerUpLevelsAndCandy gameMaster pokemonLevel =
+  let powerUpLevelsAndCandy =
+        filter ((> pokemonLevel) . snd) $ GameMaster.candyAndLevel gameMaster
+  in List.scanl (\ (_, total) (candy, level) ->
+       (level, total + candy)) (1, 0) powerUpLevelsAndCandy
 
 doTweakLevel :: (Float -> Float) -> MyPokemon -> MyPokemon
 doTweakLevel tweakLevel myPokemon =
