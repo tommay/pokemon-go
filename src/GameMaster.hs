@@ -14,6 +14,8 @@ module GameMaster (
   getType,
   getWeatherBonus,
   isSpecies,
+  dustAndLevel,
+  candyAndLevel,
   allLevels
 ) where
 
@@ -49,6 +51,7 @@ data GameMaster = GameMaster {
   pokemonBases  :: StringMap PokemonBase,
   cpMultipliers :: Vector Float,
   stardustCost  :: [Int],
+  candyCost     :: [Int],
   weatherBonusMap :: HashMap Weather (HashMap Type Float)
 } deriving (Show)
 
@@ -100,10 +103,18 @@ getCpMultiplier this level =
           cp1 = cpMultipliers' ! intLevel
       in sqrt $ (cp0*cp0 + cp1*cp1) / 2
 
+costAndLevel :: [Int] -> [(Int, Float)]
+costAndLevel costs =
+  init $ concat $ map (\ (cost, level) -> [(cost, level), (cost, level + 0.5)])
+    $ zip costs [1..]
+
 dustAndLevel :: GameMaster -> [(Int, Float)]
 dustAndLevel this =
-  init $ concat $ map (\ (dust, level) -> [(dust, level), (dust, level + 0.5)])
-    $ zip (stardustCost this) [1..]
+  costAndLevel $ stardustCost this
+
+candyAndLevel :: GameMaster -> [(Int, Float)]
+candyAndLevel this =
+  costAndLevel $ candyCost this
 
 allLevels :: GameMaster -> [Float]
 allLevels =
@@ -144,6 +155,9 @@ makeGameMaster yamlObject = do
   stardustCost <- do
     pokemonUpgrades <- getFirst itemTemplates "pokemonUpgrades"
     getObjectValue pokemonUpgrades "stardustCost"
+  candyCost <- do
+    pokemonUpgrades <- getFirst itemTemplates "pokemonUpgrades"
+    getObjectValue pokemonUpgrades "candyCost"
   weatherBonusMap <- do
     weatherBonusSettings <- getFirst itemTemplates "weatherBonusSettings"
     attackBonusMultiplier <-
@@ -162,7 +176,7 @@ makeGameMaster yamlObject = do
       HashMap.empty
       $ HashMap.toList weatherAffinityMap
   return $ GameMaster.new types moves pokemonBases cpMultipliers stardustCost
-    weatherBonusMap
+    candyCost weatherBonusMap
 
 -- Here it's nice to use Yaml.Parser because it will error if we don't
 -- get a [ItemTemplate], i.e., it checks that the Yaml.Values are the

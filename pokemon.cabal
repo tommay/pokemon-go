@@ -118,6 +118,7 @@ executable stardust-exe
   main-is:             Stardust.hs
   ghc-options:         -O2 -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
+                     , pokemon
                      , optparse-applicative
   default-language:    Haskell2010
 
