@@ -83,10 +83,10 @@ main =
           Nothing -> return () -- Ok for now, will blowout when making Pokemon.
           Just ivs ->
             let levels = map IVs.level ivs
-            in if length levels == length (List.nub levels)
-              then return () -- Epic.fail "ooops"
+            in if length (List.nub levels) == 1
+              then return ()
               else Epic.fail $
-                MyPokemon.name myPokemon ++ " has multiple possible levels"
+                MyPokemon.name myPokemon ++ " has multiple possible levels."
 
       forM_ myPokemon $ \ myPokemon -> do
         Printf.printf "\"%s\"\n" $ MyPokemon.name myPokemon
