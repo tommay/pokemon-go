@@ -274,7 +274,11 @@ makePokemonBase types moves pokemonSettings =
     evolutions <- do
       case getValue "evolutionBranch" of
         Right evolutionBranch ->
-          mapM (\ branch -> getObjectValue branch "evolution") evolutionBranch
+          mapM (\ branch -> do
+            evolution <- getObjectValue branch "evolution"
+            candyCost <- getObjectValue branch "candyCost"
+            return (evolution, candyCost))
+            evolutionBranch
         -- XXX This can swallow parse errors?
         Left _ -> return []
 

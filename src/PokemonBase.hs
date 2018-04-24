@@ -23,7 +23,7 @@ data PokemonBase = PokemonBase {
   attack       :: Int,
   defense      :: Int,
   stamina      :: Int,
-  evolutions   :: [String],
+  evolutions   :: [(String, Int)],
   quickMoves   :: [Move],
   chargeMoves  :: [Move],
   parent       :: Maybe String,
