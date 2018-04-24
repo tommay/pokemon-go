@@ -16,7 +16,7 @@ set -e
 
 if [[ "$1" == "-p" ]]; then
   shift
-  exec gnuplot <("$0" "$@")
+  exec gnuplot -persist <("$0" "$@")
 fi
 
 # Generate the plot data.
@@ -30,10 +30,9 @@ set y2label "TDO"
 # https://stackoverflow.com/questions/12818797/how-to-plot-several-datasets-with-titles-from-one-file-in-gnuplot
 
 set key right bottom
-plot for [i=0:*] "-" index i using 1:3 \
+plot for [i=0:*] "-" using 1:3 \\
   with lines lw 3 title columnheader(1)
 ${DATA}
-e
 
 pause -1 "Hit return"
 EOF

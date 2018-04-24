@@ -84,7 +84,7 @@ main =
           Just ivs ->
             let levels = map IVs.level ivs
             in if length levels == length (List.nub levels)
-              then return ()
+              then return () -- Epic.fail "ooops"
               else Epic.fail $
                 MyPokemon.name myPokemon ++ " has multiple possible levels"
 
@@ -98,7 +98,7 @@ main =
             (stardust result)
             (dps result)
             (tdo result)
-        putStr "\n\n"
+        putStrLn "e"
     )
     $ Exit.die
 
