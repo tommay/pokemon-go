@@ -6,8 +6,8 @@ set -e
 
 # ./plotiv.sh -p golem:32/%/%/14:rt/se entei:r5:fs/oh
 
-# Increasing sdef and sta causes dps to decrease until a breakpoint
-# is reached when both are near maximum. Meanwhile TDO increases.
+# Increasing def and sta causes dps to decrease until a breakpoint
+# is reached when both are near maximum.  Meanwhile TDO increases.
 # both graphs have th same shape.  Weird.
 #
 # ./plotiv.sh -p golem:32/12/%/%:rt/se entei:r5:fs/fb
@@ -25,7 +25,7 @@ set -e
 # Uses "./plotiv" to generate the data then uses a here document with
 # variable expansion to create the gnuplot script.
 
-# ./plotiv.sh attacker defender | gnplot -persist
+# ./plotiv.sh attacker defender | gnuplot -persist
 # gnuplot <(./plotiv rhydon:%/%/12/12:ms/surf vileplume:r5:a/sb)
 
 # -p runs gnuplot automatically:
