@@ -15,7 +15,8 @@ module MyPokemon (
   ivs,
   level,
   setIVs,
-  setStats
+  setStats,
+  setLevel
 ) where
 
 import qualified Epic
@@ -119,3 +120,10 @@ setIVs this ivs =
 setStats :: MyPokemon -> [Stats] -> MyPokemon
 setStats this stats =
   this { stats = Just stats }
+
+setLevel :: MyPokemon -> Float -> MyPokemon
+setLevel this level =
+  case MyPokemon.ivs this of
+    Nothing -> this
+    Just ivs ->
+      setIVs this $ Just $ map (flip IVs.setLevel $ level) ivs

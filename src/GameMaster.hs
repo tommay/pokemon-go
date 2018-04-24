@@ -16,7 +16,8 @@ module GameMaster (
   isSpecies,
   dustAndLevel,
   candyAndLevel,
-  allLevels
+  allLevels,
+  nextLevel,
 ) where
 
 import qualified Epic
@@ -36,6 +37,8 @@ import           Data.Yaml ((.:), (.:?), (.!=))
 import           Data.Text.Conversions (convertText)
 import           Data.Char (toLower, toUpper)
 import           Data.Hashable (Hashable)
+import qualified Data.List as List
+import qualified Data.Maybe as Maybe
 import           Data.Maybe (mapMaybe)
 import qualified Data.HashMap.Strict as HashMap
 import           Data.HashMap.Strict (HashMap)
@@ -119,6 +122,14 @@ candyAndLevel this =
 allLevels :: GameMaster -> [Float]
 allLevels =
   map snd . dustAndLevel
+
+nextLevel :: GameMaster -> Float -> Maybe (Int, Int, Float)
+nextLevel this level =
+  let candy = Maybe.fromJust $ candyAtLevel this level
+      stardust = Maybe.fromJust $ dustAtLevel this level
+  in case filter (> level) $ allLevels this of
+       [] -> Nothing
+       list -> Just (candy, stardust, minimum list)
 
 getLevelsForStardust :: (Epic.MonadCatch m) => GameMaster -> Int -> m [Float]
 getLevelsForStardust this starDust =
@@ -367,3 +378,20 @@ toEpic either =
 isSpecies :: GameMaster -> String -> Bool
 isSpecies this speciesName =
   HashMap.member (sanitize speciesName) (GameMaster.pokemonBases this)
+
+costAtLevel :: GameMaster -> (GameMaster -> [(Int, Float)]) -> Float -> Maybe Int
+costAtLevel this func level =
+  case nextLevel this level of
+    Nothing -> Nothing
+    Just _ ->
+      case List.find ((== level) . snd) $ func this of
+        Just (cost, _) -> Just cost
+        Nothing -> Nothing
+
+dustAtLevel :: GameMaster -> Float -> Maybe Int
+dustAtLevel this =
+  costAtLevel this GameMaster.dustAndLevel
+
+candyAtLevel :: GameMaster -> Float -> Maybe Int
+candyAtLevel this =
+  costAtLevel this GameMaster.candyAndLevel
