@@ -6,6 +6,7 @@ module PokemonBase (
   attack,
   defense,
   stamina,
+  evolutions,
   quickMoves,
   chargeMoves,
   hasEvolutions,

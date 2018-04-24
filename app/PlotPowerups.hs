@@ -17,6 +17,8 @@ import qualified MakePokemon
 import qualified MyPokemon
 import           MyPokemon (MyPokemon)
 import           Pokemon (Pokemon)
+import qualified PokemonBase
+import           PokemonBase (PokemonBase)
 import           Type (Type)
 
 import qualified Debug
@@ -88,24 +90,42 @@ main =
               else Epic.fail $
                 MyPokemon.name myPokemon ++ " has multiple possible levels."
 
-      forM_ myPokemon $ \ myPokemon -> do
+      -- Evolve al pokemon to their highest level and remember how
+      -- much candy it took.
+
+      myPokemon <- mapM (evolveFully gameMaster) myPokemon
+
+      forM_ myPokemon $ \ (myPokemon, candy) -> do
         Printf.printf "\"%s\"\n" $ MyPokemon.name myPokemon
         results <-
-          getResultsForAllPowerups gameMaster myPokemon defenderVariants
+          getResultsForAllPowerups gameMaster candy myPokemon defenderVariants
         forM_ results $ \ result -> do
           Printf.printf "%d %d %f %d\n"
-            (candy result)
-            (stardust result)
-            (dps result)
-            (tdo result)
+            (Main.candy result)
+            (Main.stardust result)
+            (Main.dps result)
+            (Main.tdo result)
         putStrLn "e"
     )
     $ Exit.die
 
-getResultsForAllPowerups ::
-  Epic.MonadCatch m => GameMaster -> MyPokemon -> [Pokemon] -> m [Result]
-getResultsForAllPowerups gameMaster myPokemon defenderVariants = do
-  allPowerups <- allPowerups gameMaster myPokemon
+evolveFully :: Epic.MonadCatch m =>
+  GameMaster -> MyPokemon -> m (MyPokemon, Int)
+evolveFully gameMaster myPokemon = do
+  let evolve myPokemon candy = do
+        let species = MyPokemon.species myPokemon
+        base <- GameMaster.getPokemonBase gameMaster species
+        case PokemonBase.evolutions base of
+          [] -> return (myPokemon, candy)
+          [(evolution, candy')] ->
+            evolve (MyPokemon.setSpecies myPokemon evolution) (candy + candy')
+          _ -> Epic.fail $ species ++ " has multiple possible evolutions"
+  evolve myPokemon 0
+
+getResultsForAllPowerups :: Epic.MonadCatch m =>
+  GameMaster -> Int -> MyPokemon -> [Pokemon] -> m [Result]
+getResultsForAllPowerups gameMaster candy myPokemon defenderVariants = do
+  allPowerups <- allPowerups gameMaster candy myPokemon
   mapM (getResult gameMaster defenderVariants) allPowerups
 
 getResult :: Epic.MonadCatch m =>
@@ -141,9 +161,10 @@ getMinDpsTdo weatherBonus attackerVariants defenderVariants =
 -- ittle overkill but it was done to build things up in small
 -- potentially reusable steps instead of going it in one function.
 
-allPowerups :: Epic.MonadCatch m => GameMaster -> MyPokemon -> m [(Int, Int, MyPokemon)]
-allPowerups gameMaster myPokemon =
-  iterateWhileJust (cumulativePowerup gameMaster) (0, 0, myPokemon)
+allPowerups :: Epic.MonadCatch m =>
+  GameMaster -> Int -> MyPokemon -> m [(Int, Int, MyPokemon)]
+allPowerups gameMaster candy myPokemon =
+  iterateWhileJust (cumulativePowerup gameMaster) (candy, 0, myPokemon)
 
 -- This is like iterate but stops when the function returns Nothing.
 -- Perhaps this could be done with something from Control.Monad.Loops,

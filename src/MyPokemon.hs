@@ -16,7 +16,8 @@ module MyPokemon (
   level,
   setIVs,
   setStats,
-  setLevel
+  setLevel,
+  setSpecies
 ) where
 
 import qualified Epic
@@ -127,3 +128,7 @@ setLevel this level =
     Nothing -> this
     Just ivs ->
       setIVs this $ Just $ map (flip IVs.setLevel $ level) ivs
+
+setSpecies :: MyPokemon -> String -> MyPokemon
+setSpecies this species =
+  this { species = species }
