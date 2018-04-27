@@ -31,7 +31,7 @@ set y2label "TDO"
 
 set key right bottom
 plot for [i=0:*] "-" using 1:3 \\
-  with lines lw 3 title columnheader(1)
+  with linespoints lw 3 pt 7 title columnheader(1)
 ${DATA}
 
 pause -1 "Hit return"
