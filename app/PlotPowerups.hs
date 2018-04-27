@@ -24,6 +24,7 @@ import           Type (Type)
 import qualified Debug
 
 import           Control.Monad (join, mapM, forM_)
+import qualified Data.Char as Char
 import qualified Data.List as List
 import qualified System.Exit as Exit
 import qualified Text.Printf as Printf
@@ -31,6 +32,7 @@ import qualified Text.Regex as Regex
 
 data Options = Options {
   filename :: String,
+  maybeEvolution :: Maybe String,
   defender :: Battler
 }
 
@@ -45,12 +47,17 @@ defaultIVs = IVs.new 30 11 11 11
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optFilename <*> optDefender
+  let opts = Options <$> optFilename <*> optEvolution <*> optDefender
       optFilename = O.strOption
         (  O.long "file"
         <> O.short 'f'
         <> O.metavar "FILE"
         <> O.help "File to read my_pokemon from")
+      optEvolution = O.optional $ O.strOption
+        (  O.long "evolution"
+        <> O.short 'e'
+        <> O.metavar "EVOLUTION"
+        <> O.help "Final evolution desired")
       optDefender = O.argument
         (BattlerUtil.optParseBattler defaultIVs) (O.metavar "DEFENDER[:LEVEL]")
       options = O.info (opts <**> O.helper)
@@ -90,10 +97,11 @@ main =
               else Epic.fail $
                 MyPokemon.name myPokemon ++ " has multiple possible levels."
 
-      -- Evolve al pokemon to their highest level and remember how
+      -- Evolve all pokemon to their highest level and remember how
       -- much candy it took.
 
-      myPokemon <- mapM (evolveFully gameMaster) myPokemon
+      myPokemon <-
+        mapM (evolveFully gameMaster $ maybeEvolution options) myPokemon
 
       forM_ myPokemon $ \ (myPokemon, candy) -> do
         Printf.printf "\"%s\"\n" $ MyPokemon.name myPokemon
@@ -110,17 +118,34 @@ main =
     $ Exit.die
 
 evolveFully :: Epic.MonadCatch m =>
-  GameMaster -> MyPokemon -> m (MyPokemon, Int)
-evolveFully gameMaster myPokemon = do
-  let evolve myPokemon candy = do
-        let species = MyPokemon.species myPokemon
-        base <- GameMaster.getPokemonBase gameMaster species
-        case PokemonBase.evolutions base of
-          [] -> return (myPokemon, candy)
-          [(evolution, candy')] ->
-            evolve (MyPokemon.setSpecies myPokemon evolution) (candy + candy')
-          _ -> Epic.fail $ species ++ " has multiple possible evolutions"
-  evolve myPokemon 0
+  GameMaster -> Maybe String -> MyPokemon -> m (MyPokemon, Int)
+evolveFully gameMaster maybeTarget myPokemon = do
+  let species = MyPokemon.species myPokemon
+  chains <- evolutionChains gameMaster (species, 0)
+  chain <- case maybeTarget of
+    Just target ->
+      case filter ((== map Char.toLower target)
+          . map Char.toLower . fst . List.last) chains of
+        [] -> Epic.fail $ species ++ " does not evolve to " ++ target
+        [chain] -> return chain
+    Nothing ->
+      case chains of
+        [chain] -> return chain
+        _ -> Epic.fail $ species ++ " has multiple possible evolutions"
+  let (evolvedSpecies, candy) = List.last chain
+  return $ (MyPokemon.setSpecies myPokemon evolvedSpecies, candy)
+
+evolutionChains ::
+  Epic.MonadCatch m => GameMaster -> (String, Int) -> m [[(String, Int)]]
+evolutionChains gameMaster (species, candy) = do
+  base <- GameMaster.getPokemonBase gameMaster species
+  case PokemonBase.evolutions base of
+    [] -> return [[(species, candy)]]
+    evolutions -> do
+      concat <$> (mapM (\ (evolution, candy') -> do
+          rest <- evolutionChains gameMaster (evolution, candy + candy')
+          return $ map ((species, candy):) rest))
+        evolutions
 
 getResultsForAllPowerups :: Epic.MonadCatch m =>
   GameMaster -> Int -> MyPokemon -> [Pokemon] -> m [Result]
