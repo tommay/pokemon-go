@@ -19,12 +19,15 @@ import           MyPokemon (MyPokemon)
 import           Pokemon (Pokemon)
 import qualified PokemonBase
 import           PokemonBase (PokemonBase)
+import qualified PokeUtil
 import           Type (Type)
+import qualified Util
 
 import qualified Debug
 
 import           Control.Monad (join, mapM, forM_)
 import qualified Data.Char as Char
+import qualified Data.HashMap.Strict as HashMap
 import qualified Data.List as List
 import qualified System.Exit as Exit
 import qualified Text.Printf as Printf
@@ -84,18 +87,11 @@ main =
       -- multiple possible IV sets.
       myPokemon <- join $ MyPokemon.load $ Just $ filename options
 
-      -- The plots of dps/tdo vs. candy/dust cost onlu make sense if
-      -- all IV sets have the same level, so check that.
+      -- The plots of dps/tdo vs. candy/dust cost only make sense if
+      -- all IV sets have the same level, so split each MyPokemon into
+      -- multiple pokemon with the same level in their IVs.
 
-      forM_ myPokemon $ \ myPokemon ->
-        case MyPokemon.ivs myPokemon of
-          Nothing -> return () -- Ok for now, will blowout when making Pokemon.
-          Just ivs ->
-            let levels = map IVs.level ivs
-            in if length (List.nub levels) == 1
-              then return ()
-              else Epic.fail $
-                MyPokemon.name myPokemon ++ " has multiple possible levels."
+      myPokemon <- do return $ concat $ map splitByLevel myPokemon
 
       -- Evolve all pokemon to their highest level and remember how
       -- much candy it took.
@@ -116,6 +112,24 @@ main =
         putStrLn "e"
     )
     $ Exit.die
+
+splitByLevel :: MyPokemon -> [MyPokemon]
+splitByLevel myPokemon =
+  case MyPokemon.ivs myPokemon of
+    Nothing -> [myPokemon]
+    Just ivs ->
+      let groups = Util.groupBy IVs.level ivs
+      in if HashMap.size groups == 1
+           then [myPokemon]
+           else
+             map (\ (level, ivs) ->
+               let myPokemon' = MyPokemon.setIVs myPokemon $ Just ivs
+                   nameAndLevel = Printf.printf "%s (%s)"
+                     (MyPokemon.name myPokemon)
+                     (PokeUtil.levelToString level)
+               in MyPokemon.setName myPokemon' nameAndLevel)
+             $ List.sortBy (\(a,_) (b,_) -> compare a b)
+               $ HashMap.toList groups
 
 evolveFully :: Epic.MonadCatch m =>
   GameMaster -> Maybe String -> MyPokemon -> m (MyPokemon, Int)

@@ -14,6 +14,7 @@ module MyPokemon (
   appraisal,
   ivs,
   level,
+  setName,
   setIVs,
   setStats,
   setLevel,
@@ -113,6 +114,10 @@ getIv getter this = do
   case MyPokemon.ivs this of
     Just (ivs:_) -> return $ getter ivs
     Nothing -> Epic.fail $ "No ivs for " ++ (MyPokemon.name this)
+
+setName :: MyPokemon -> String -> MyPokemon
+setName this name =
+  this { name = name }
 
 setIVs :: MyPokemon -> Maybe [IVs] -> MyPokemon
 setIVs this ivs =
