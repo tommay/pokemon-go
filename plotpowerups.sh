@@ -2,7 +2,7 @@
 
 set -e
 
-# ./plotpowerups.sh -f file defender
+# ./plotpowerups.sh [-p] [-t] -f file defender
 
 # Makes a gnuplot script to create a plot of dps vs. candy cost.
 
@@ -19,6 +19,15 @@ if [[ "$1" == "-p" ]]; then
   exec gnuplot -persist <("$0" "$@")
 fi
 
+# -t plots tdo instead of dps:
+
+if [[ "$1" == "-t" ]]; then
+  shift
+  yfield=4
+else
+  yfield=3
+fi
+
 # Generate the plot data.
 
 DATA=$(./plotpowerups "$@")
@@ -30,7 +39,7 @@ set y2label "TDO"
 # https://stackoverflow.com/questions/12818797/how-to-plot-several-datasets-with-titles-from-one-file-in-gnuplot
 
 set key right bottom
-plot for [i=0:*] "-" using 1:3 \\
+plot for [i=0:*] "-" using 1:$yfield \\
   with linespoints lw 3 pt 7 title columnheader(1)
 ${DATA}
 
