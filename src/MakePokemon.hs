@@ -46,7 +46,7 @@ makePokemon gameMaster myPokemon = do
     let split = Regex.mkRegex "([^,]*)(, *(.*))?"
         Just [quickName, _, extra] =
           Regex.matchRegex split $ MyPokemon.quickName myPokemon
-    quick <- getMove quickName GameMaster.getQuick (const quickName)
+    quick <- getMove "quick" GameMaster.getQuick (const quickName)
       PokemonBase.quickMoves
     maybeSetHiddenPowerType gameMaster quick extra
 
