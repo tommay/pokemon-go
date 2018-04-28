@@ -23,8 +23,10 @@ fi
 
 if [[ "$1" == "-t" ]]; then
   shift
+  ylabel="TDO"
   yfield=4
 else
+  ylabel="DPS"
   yfield=3
 fi
 
@@ -33,8 +35,8 @@ fi
 DATA=$(./plotpowerups "$@")
 
 cat <<EOF
-set ylabel "DPS"
-set y2label "TDO"
+set title "$*" offset 0,-2.5
+set ylabel "$ylabel"
 
 # https://stackoverflow.com/questions/12818797/how-to-plot-several-datasets-with-titles-from-one-file-in-gnuplot
 
