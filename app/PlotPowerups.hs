@@ -34,10 +34,15 @@ import qualified Text.Printf as Printf
 import qualified Text.Regex as Regex
 
 data Options = Options {
-  filename :: String,
+  attackerSource :: AttackerSource,
   maybeEvolution :: Maybe String,
   defender :: Battler
 }
+
+data AttackerSource =
+    FromFile FilePath
+  | MovesetsFor Battler
+  deriving (Show)
 
 data Result = Result {
   candy :: Int,
@@ -50,12 +55,21 @@ defaultIVs = IVs.new 30 11 11 11
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optFilename <*> optEvolution <*> optDefender
-      optFilename = O.strOption
-        (  O.long "file"
-        <> O.short 'f'
-        <> O.metavar "FILE"
-        <> O.help "File to read my_pokemon from")
+  let opts = Options <$> optAttackerSource <*> optEvolution <*> optDefender
+      optAttackerSource =
+        let optFilename = FromFile <$>
+              O.strOption
+              (  O.long "file"
+              <> O.short 'f'
+              <> O.metavar "FILE"
+              <> O.help "File to read my_pokemon from")
+            optMovesetsFor = MovesetsFor <$>
+              (O.option $ BattlerUtil.optParseBattler defaultIVs)
+              (  O.long "movesets"
+              <> O.short 'm'
+              <> O.metavar "ATTACKER[:LEVEL]"
+              <> O.help "Plot the movesets for ATTACKER against DEFENDER")
+        in optFilename <|> optMovesetsFor
       optEvolution = O.optional $ O.strOption
         (  O.long "evolution"
         <> O.short 'e'
@@ -82,10 +96,14 @@ main =
       defenderVariants <-
         BattlerUtil.makeBattlerVariants gameMaster $ defender options
 
-      -- myPokemon is a [MyPokemon] with one MyPokemon for
-      -- each entry in the file.  Each MyPokemon may have
-      -- multiple possible IV sets.
-      myPokemon <- join $ MyPokemon.load $ Just $ filename options
+      myPokemon <- case attackerSource options of
+        FromFile filename ->
+          -- myPokemon is a [MyPokemon] with one MyPokemon for
+          -- each entry in the file.  Each MyPokemon may have
+          -- multiple possible IV sets.
+          join $ MyPokemon.load $ Just filename
+        MovesetsFor _ ->
+          error "Can't do -m yet"
 
       -- The plots of dps/tdo vs. candy/dust cost only make sense if
       -- all IV sets have the same level, so split each MyPokemon into
