@@ -30,6 +30,15 @@ else
   yfield=3
 fi
 
+# -s plots stardust instead of candy:
+
+if [[ "$1" == "-s" ]]; then
+  shift
+  xfield=2
+else
+  xfield=1
+fi
+
 # Generate the plot data.
 
 DATA=$(./plotpowerups "$@")
@@ -41,7 +50,7 @@ set ylabel "$ylabel"
 # https://stackoverflow.com/questions/12818797/how-to-plot-several-datasets-with-titles-from-one-file-in-gnuplot
 
 set key right bottom
-plot for [i=0:*] "-" using 1:$yfield \\
+plot for [i=0:*] "-" using $xfield:$yfield \\
   with linespoints lw 3 pt 7 title columnheader(1)
 ${DATA}
 
