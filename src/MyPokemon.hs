@@ -13,6 +13,7 @@ module MyPokemon (
   chargeName,
   appraisal,
   ivs,
+  stats,
   level,
   setName,
   setIVs,

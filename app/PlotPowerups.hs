@@ -14,8 +14,10 @@ import           GameMaster (GameMaster)
 import qualified Log
 import qualified Logger
 import qualified MakePokemon
+import qualified Move
 import qualified MyPokemon
 import           MyPokemon (MyPokemon)
+import qualified Pokemon
 import           Pokemon (Pokemon)
 import qualified PokemonBase
 import           PokemonBase (PokemonBase)
@@ -51,7 +53,7 @@ data Result = Result {
   tdo :: Int
 }
 
-defaultIVs = IVs.new 30 11 11 11
+defaultIVs = IVs.new 25 13 12 12
 
 getOptions :: IO Options
 getOptions =
@@ -102,8 +104,10 @@ main =
           -- each entry in the file.  Each MyPokemon may have
           -- multiple possible IV sets.
           join $ MyPokemon.load $ Just filename
-        MovesetsFor _ ->
-          error "Can't do -m yet"
+        MovesetsFor attacker -> do
+          attackerVariants <-
+            BattlerUtil.makeBattlerVariants gameMaster attacker
+          return $ map makeMyPokemonFromPokemon attackerVariants
 
       -- The plots of dps/tdo vs. candy/dust cost only make sense if
       -- all IV sets have the same level, so split each MyPokemon into
@@ -130,6 +134,30 @@ main =
         putStrLn "e"
     )
     $ Exit.die
+
+-- "Dumb down" a Pokemon into a MyPokemon.  The one asvantage of using
+-- MyPokemon instead of using Pokemon throughout is that when we
+-- evolve and do MyPokemon.setSpecies the moves will be checked for
+-- compatibility in MakePokemon.makePokemon.
+--
+makeMyPokemonFromPokemon :: Pokemon -> MyPokemon
+makeMyPokemonFromPokemon pokemon =
+  MyPokemon.MyPokemon {
+    MyPokemon.name =
+      Printf.printf "%s %s/%s"
+      (Pokemon.pname pokemon)
+      (Move.name $ Pokemon.quick pokemon)
+      (Move.name $ Pokemon.charge pokemon),
+    MyPokemon.species = PokemonBase.species $ Pokemon.base pokemon,
+    MyPokemon.cp = undefined,
+    MyPokemon.hp = undefined,
+    MyPokemon.stardust = undefined,
+    MyPokemon.quickName = Move.name $ Pokemon.quick pokemon,
+    MyPokemon.chargeName = Move.name $ Pokemon.charge pokemon,
+    MyPokemon.appraisal = undefined,
+    MyPokemon.ivs = Just [Pokemon.ivs pokemon],
+    MyPokemon.stats = undefined
+  }
 
 splitByLevel :: MyPokemon -> [MyPokemon]
 splitByLevel myPokemon =
