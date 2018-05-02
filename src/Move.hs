@@ -12,6 +12,7 @@ module Move (
   stabFor,
   effectivenessAgainst,
   name,
+  bars,
   isHiddenPower,
   setType
 ) where
@@ -70,6 +71,17 @@ name this =
         else alphaOnly
       lower = map Char.toLower alphaOnly
   in lower
+
+bars :: Move -> Int
+bars this =
+  if Move.isCharge this
+    then case Move.energy this of
+      -33 -> 3
+      -50 -> 2
+      -100 -> 1
+      _ ->  error $ "Unknown energy for " ++ Move.name this
+    else  error $
+      "`" ++ Move.name this ++ "' is not a charge move and has no bars"
 
 isHiddenPower :: Move -> Bool
 isHiddenPower this =

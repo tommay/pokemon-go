@@ -46,6 +46,7 @@ DATA=$(./plotpowerups "$@")
 cat <<EOF
 set title "$*" offset 0,-2.5
 set ylabel "$ylabel"
+set grid ytics lt 1
 
 # https://stackoverflow.com/questions/12818797/how-to-plot-several-datasets-with-titles-from-one-file-in-gnuplot
 

@@ -144,10 +144,11 @@ makeMyPokemonFromPokemon :: Pokemon -> MyPokemon
 makeMyPokemonFromPokemon pokemon =
   MyPokemon.MyPokemon {
     MyPokemon.name =
-      Printf.printf "%s %s/%s"
+      Printf.printf "%s %s/%s %d"
       (Pokemon.pname pokemon)
       (Move.name $ Pokemon.quick pokemon)
-      (Move.name $ Pokemon.charge pokemon),
+      (Move.name $ Pokemon.charge pokemon)
+      (Move.bars $ Pokemon.charge pokemon),
     MyPokemon.species = PokemonBase.species $ Pokemon.base pokemon,
     MyPokemon.cp = undefined,
     MyPokemon.hp = undefined,
