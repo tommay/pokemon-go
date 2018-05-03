@@ -20958,14 +20958,11 @@ itemTemplates:
     quickMoves:
     - DRAGON_TAIL_FAST
     - STEEL_WING_FAST
-    - DRAGON_BREATH_FAST   # legacy
     cinematicMoves:
     - HURRICANE
     - HYPER_BEAM
     - OUTRAGE
     - DRACO_METEOR    # Community day 2/2018.
-    - DRAGON_CLAW     # legacy
-    - DRAGON_PULSE    # legacy
     animationTime:
     - 2.6667
     - 0.6667
@@ -38744,7 +38741,7 @@ itemTemplates:
     - ZEN_HEADBUTT_FAST
     cinematicMoves:
     - PSYCHIC
-    - DRAGON_CLAW
+    - OUTRAGE
     - THUNDER
     animationTime:
     - 1.3333
@@ -55761,4 +55758,4 @@ itemTemplates:
     - wait 0.25
     - sys ui-sync
     - sys complete
-timestampMs: '1522434927325'
+timestampMs: '1522693536910'

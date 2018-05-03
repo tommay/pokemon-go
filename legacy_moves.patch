@@ -1,5 +1,5 @@
 --- GAME_MASTER.yaml.orig	2018-04-03 18:39:19.279522500 -0700
-+++ GAME_MASTER.yaml	2018-04-03 18:38:12.703250999 -0700
++++ GAME_MASTER.yaml	2018-05-03 11:51:16.601423335 -0700
 @@ -9128,6 +9128,7 @@
      - SLUDGE_BOMB
      - PETAL_BLIZZARD
@@ -48,6 +48,15 @@
      cinematicMoves:
      - HYDRO_PUMP
      - BUBBLE_BEAM
+@@ -38735,7 +38741,7 @@
+     - ZEN_HEADBUTT_FAST
+     cinematicMoves:
+     - PSYCHIC
+-    - DRAGON_CLAW
++    - OUTRAGE
+     - THUNDER
+     animationTime:
+     - 1.3333
 @@ -38869,6 +38875,7 @@
        baseDefense: 251
      quickMoves:
@@ -56,3 +65,9 @@
      cinematicMoves:
      - HYDRO_PUMP
      - BLIZZARD
+@@ -55751,4 +55758,4 @@
+     - wait 0.25
+     - sys ui-sync
+     - sys complete
+-timestampMs: '1522434927325'
++timestampMs: '1522693536910'
