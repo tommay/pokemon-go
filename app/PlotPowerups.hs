@@ -36,6 +36,8 @@ import qualified Text.Printf as Printf
 import qualified Text.Regex as Regex
 
 data Options = Options {
+  plotCandy :: Bool,
+  plotDps :: Bool,
   attackerSource :: AttackerSource,
   maybeEvolution :: Maybe String,
   defender :: Battler
@@ -57,7 +59,32 @@ defaultIVs = IVs.new 25 13 12 12
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optAttackerSource <*> optEvolution <*> optDefender
+  let opts = Options <$> optPlotCandy <*> optPlotDps
+        <*> optAttackerSource <*> optEvolution <*> optDefender
+      optPlotCandy =
+        let optPlotCandy =
+              O.flag' True
+              (  O.long "candy"
+              <> O.short 'c'
+              <> O.help "Plot candy on the X axis")
+            optPlotStardust =
+              O.flag' False
+              (  O.long "stardust"
+              <> O.short 's'
+              <> O.help "Plot stardust on the X axis")
+         in optPlotCandy <|> optPlotStardust <|> pure True
+      optPlotDps =
+        let optPlotDps =
+              O.flag' True
+              (  O.long "dps"
+              <> O.short 'd'
+              <> O.help "Plot dps on the Y axis")
+            optPlotTdo =
+              O.flag' False
+              (  O.long "tdo"
+              <> O.short 't'
+              <> O.help "Plot tdo on the Y axis")
+         in optPlotDps <|> optPlotTdo <|> pure True
       optAttackerSource =
         let optFilename = FromFile <$>
               O.strOption
@@ -121,16 +148,40 @@ main =
       myPokemon <-
         mapM (evolveFully gameMaster $ maybeEvolution options) myPokemon
 
+      let commands = reverse $ fst $
+            foldl (\ (commands, (lastColor, lastDash)) myPokemon ->
+              let color = if List.notElem '[' $ MyPokemon.name myPokemon
+                    then lastColor + 1
+                    else lastColor
+                  thisDash = if color /= lastColor
+                    then 0
+                    else lastDash + 1
+                  dashType = if thisDash == 0
+                    then "1"
+                    else case (thisDash - 1) `mod` 3 of
+                      0 -> "3"
+                      1 -> "5"
+                  command = Printf.printf ("  \"-\" using 1:2" ++
+                    " with linespoints lw 2 pt 7 lc %d dt %s title \"%s\"")
+                    color dashType (MyPokemon.name myPokemon)
+              in (command : commands, (color, thisDash)))
+              ([], (0 :: Int, 0 :: Int))
+              (map fst myPokemon)
+
+      putStrLn "plot \\"
+      putStrLn $ List.intercalate ", \\\n" commands
+
       forM_ myPokemon $ \ (myPokemon, candy) -> do
-        Printf.printf "\"%s\"\n" $ MyPokemon.name myPokemon
         results <-
           getResultsForAllPowerups gameMaster candy myPokemon defenderVariants
         forM_ results $ \ result -> do
-          Printf.printf "%d %d %f %d\n"
-            (Main.candy result)
-            (Main.stardust result)
-            (Main.dps result)
-            (Main.tdo result)
+          Printf.printf "%d %f\n"
+            (if plotCandy options
+              then Main.candy result
+              else Main.stardust result)
+            (if plotDps options
+              then Main.dps result
+              else fromIntegral $ Main.tdo result)
         putStrLn "e"
     )
     $ Exit.die
