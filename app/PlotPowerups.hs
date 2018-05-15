@@ -161,9 +161,10 @@ main =
                     else case (thisDash - 1) `mod` 3 of
                       0 -> "3"
                       1 -> "5"
+                  pointType = if color > 8 then 8 else 7 :: Int
                   command = Printf.printf ("  \"-\" using 1:2" ++
-                    " with linespoints lw 2 pt 7 lc %d dt %s title \"%s\"")
-                    color dashType (MyPokemon.name myPokemon)
+                    " with linespoints lw 2 pt %d lc %d dt %s title \"%s\"")
+                    pointType color dashType (MyPokemon.name myPokemon)
               in (command : commands, (color, thisDash)))
               ([], (0 :: Int, 0 :: Int))
               (map fst myPokemon)
