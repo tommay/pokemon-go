@@ -283,7 +283,8 @@ makePokemonBase types moves pokemonSettings =
         Left _ -> return []
 
     let getMoves key = do
-          moveNames <- getValue key
+          -- Mew has some moves specified multiple times so nub them.
+          moveNames <- List.nub <$> getValue key
           mapM (get moves) moveNames
 
     quickMoves <- getMoves "quickMoves"
