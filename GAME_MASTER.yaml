@@ -4679,6 +4679,10 @@ itemTemplates:
 - templateId: FORMS_V0103_POKEMON_EXEGGUTOR
   formSettings:
     pokemon: EXEGGUTOR
+    forms:
+    - form: EXEGGUTOR_NORMAL
+    - form: EXEGGUTOR_ALOLA
+      assetBundleValue: 61
 - templateId: FORMS_V0104_POKEMON_CUBONE
   formSettings:
     pokemon: CUBONE
@@ -6155,7 +6159,7 @@ itemTemplates:
   pokemonScaleSettings:
     pokemonScaleMode: MapPokemonScale
     minHeight: 2.3
-    maxHeight: 6.0
+    maxHeight: 10.0
 - templateId: POKEMON_SCALE_SETTINGS_NATURAL_SCALE
   pokemonScaleSettings:
     minHeight: 0.31
@@ -7264,6 +7268,18 @@ itemTemplates:
       malePercent: 0.5
       femalePercent: 0.5
 - templateId: SPAWN_V0103_POKEMON_EXEGGUTOR
+  genderSettings:
+    pokemon: EXEGGUTOR
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0103_POKEMON_EXEGGUTOR_ALOLA
+  genderSettings:
+    pokemon: EXEGGUTOR
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0103_POKEMON_EXEGGUTOR_NORMAL
   genderSettings:
     pokemon: EXEGGUTOR
     gender:
@@ -9020,7 +9036,7 @@ itemTemplates:
     weightStdDev: 0.8625
     familyId: FAMILY_BULBASAUR
     candyToEvolve: 25
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.7
     evolutionBranch:
     - evolution: IVYSAUR
@@ -9095,7 +9111,7 @@ itemTemplates:
     weightStdDev: 1.625
     familyId: FAMILY_BULBASAUR
     candyToEvolve: 100
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.25
     evolutionBranch:
@@ -9169,7 +9185,7 @@ itemTemplates:
     heightStdDev: 0.25
     weightStdDev: 12.5
     familyId: FAMILY_BULBASAUR
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.9
     modelScaleV2: 0.84
@@ -9238,7 +9254,7 @@ itemTemplates:
     weightStdDev: 1.0625
     familyId: FAMILY_CHARMANDER
     candyToEvolve: 25
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.6
     evolutionBranch:
     - evolution: CHARMELEON
@@ -9312,7 +9328,7 @@ itemTemplates:
     weightStdDev: 2.375
     familyId: FAMILY_CHARMANDER
     candyToEvolve: 100
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 1.03
     evolutionBranch:
     - evolution: CHARIZARD
@@ -9385,7 +9401,7 @@ itemTemplates:
     heightStdDev: 0.2125
     weightStdDev: 11.3125
     familyId: FAMILY_CHARMANDER
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.91
     modelScaleV2: 1.1
@@ -9454,7 +9470,7 @@ itemTemplates:
     weightStdDev: 1.125
     familyId: FAMILY_SQUIRTLE
     candyToEvolve: 25
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.43
     evolutionBranch:
     - evolution: WARTORTLE
@@ -9528,7 +9544,7 @@ itemTemplates:
     weightStdDev: 2.8125
     familyId: FAMILY_SQUIRTLE
     candyToEvolve: 100
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 1.0
     evolutionBranch:
     - evolution: BLASTOISE
@@ -9599,7 +9615,7 @@ itemTemplates:
     heightStdDev: 0.2
     weightStdDev: 10.6875
     familyId: FAMILY_SQUIRTLE
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.39
     modelScaleV2: 1.15
@@ -9665,7 +9681,7 @@ itemTemplates:
     weightStdDev: 0.3625
     familyId: FAMILY_CATERPIE
     candyToEvolve: 12
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_SHOULDER
     modelHeight: 0.19
     evolutionBranch:
@@ -9735,7 +9751,7 @@ itemTemplates:
     weightStdDev: 1.2375
     familyId: FAMILY_CATERPIE
     candyToEvolve: 50
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     modelHeight: 0.7
     evolutionBranch:
     - evolution: BUTTERFREE
@@ -9808,7 +9824,7 @@ itemTemplates:
     heightStdDev: 0.1375
     weightStdDev: 4.0
     familyId: FAMILY_CATERPIE
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_FLYING
     modelHeight: 0.95
     modelScaleV2: 1.14
@@ -9892,7 +9908,7 @@ itemTemplates:
     weightStdDev: 0.4
     familyId: FAMILY_WEEDLE
     candyToEvolve: 12
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_SHOULDER
     modelHeight: 0.18
     evolutionBranch:
@@ -9979,7 +9995,7 @@ itemTemplates:
     weightStdDev: 1.25
     familyId: FAMILY_WEEDLE
     candyToEvolve: 50
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     modelHeight: 0.6
     evolutionBranch:
     - evolution: BEEDRILL
@@ -10052,7 +10068,7 @@ itemTemplates:
     heightStdDev: 0.125
     weightStdDev: 3.6875
     familyId: FAMILY_WEEDLE
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_FLYING
     modelHeight: 1.28
     modelScaleV2: 0.77
@@ -10138,7 +10154,7 @@ itemTemplates:
     weightStdDev: 0.225
     familyId: FAMILY_PIDGEY
     candyToEvolve: 12
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_SHOULDER
     modelHeight: 0.3
     evolutionBranch:
@@ -10215,7 +10231,7 @@ itemTemplates:
     weightStdDev: 3.75
     familyId: FAMILY_PIDGEY
     candyToEvolve: 50
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_FLYING
     modelHeight: 1.74
     evolutionBranch:
@@ -10305,7 +10321,7 @@ itemTemplates:
     heightStdDev: 0.1875
     weightStdDev: 4.9375
     familyId: FAMILY_PIDGEY
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_FLYING
     modelHeight: 2.18
     modelScaleV2: 0.97
@@ -10374,7 +10390,7 @@ itemTemplates:
     weightStdDev: 0.4375
     familyId: FAMILY_RATTATA
     candyToEvolve: 25
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     modelHeight: 0.42
     evolutionBranch:
     - evolution: RATICATE
@@ -10461,7 +10477,7 @@ itemTemplates:
     heightStdDev: 0.0875
     weightStdDev: 2.3125
     familyId: FAMILY_RATTATA
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     modelHeight: 0.7
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -10546,7 +10562,7 @@ itemTemplates:
     weightStdDev: 0.25
     familyId: FAMILY_SPEAROW
     candyToEvolve: 50
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_SHOULDER
     modelHeight: 0.4
     evolutionBranch:
@@ -10636,7 +10652,7 @@ itemTemplates:
     heightStdDev: 0.15
     weightStdDev: 4.75
     familyId: FAMILY_SPEAROW
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_FLYING
     modelHeight: 1.5
     modelScaleV2: 1.35
@@ -10705,7 +10721,7 @@ itemTemplates:
     weightStdDev: 0.8625
     familyId: FAMILY_EKANS
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.28
     evolutionBranch:
     - evolution: ARBOK
@@ -10792,7 +10808,7 @@ itemTemplates:
     heightStdDev: 0.4375
     weightStdDev: 8.125
     familyId: FAMILY_EKANS
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.6
     modelScaleV2: 1.0
@@ -10863,7 +10879,7 @@ itemTemplates:
     weightStdDev: 0.75
     familyId: FAMILY_PIKACHU
     candyToEvolve: 50
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_SHOULDER
     modelHeight: 0.4
     evolutionBranch:
@@ -10951,7 +10967,7 @@ itemTemplates:
     heightStdDev: 0.1
     weightStdDev: 3.75
     familyId: FAMILY_PIKACHU
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     modelHeight: 0.83
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -11019,7 +11035,7 @@ itemTemplates:
     weightStdDev: 1.5
     familyId: FAMILY_SANDSHREW
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.55
     evolutionBranch:
     - evolution: SANDSLASH
@@ -11106,7 +11122,7 @@ itemTemplates:
     heightStdDev: 0.125
     weightStdDev: 3.6875
     familyId: FAMILY_SANDSHREW
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 1.0
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -11174,7 +11190,7 @@ itemTemplates:
     weightStdDev: 0.875
     familyId: FAMILY_NIDORAN_FEMALE
     candyToEvolve: 25
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.4
     evolutionBranch:
     - evolution: NIDORINA
@@ -11264,7 +11280,7 @@ itemTemplates:
     weightStdDev: 2.5
     familyId: FAMILY_NIDORAN_FEMALE
     candyToEvolve: 100
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.7
     evolutionBranch:
     - evolution: NIDOQUEEN
@@ -11352,7 +11368,7 @@ itemTemplates:
     heightStdDev: 0.1625
     weightStdDev: 7.5
     familyId: FAMILY_NIDORAN_FEMALE
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.25
     modelScaleV2: 1.0
@@ -11437,7 +11453,7 @@ itemTemplates:
     weightStdDev: 1.125
     familyId: FAMILY_NIDORAN_MALE
     candyToEvolve: 25
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.5
     evolutionBranch:
     - evolution: NIDORINO
@@ -11527,7 +11543,7 @@ itemTemplates:
     weightStdDev: 2.4375
     familyId: FAMILY_NIDORAN_MALE
     candyToEvolve: 100
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.9
     evolutionBranch:
     - evolution: NIDOKING
@@ -11615,7 +11631,7 @@ itemTemplates:
     heightStdDev: 0.175
     weightStdDev: 7.75
     familyId: FAMILY_NIDORAN_MALE
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.4
     modelScaleV2: 1.0
@@ -11701,7 +11717,7 @@ itemTemplates:
     weightStdDev: 0.9375
     familyId: FAMILY_CLEFAIRY
     candyToEvolve: 50
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     modelHeight: 0.6
     evolutionBranch:
     - evolution: CLEFABLE
@@ -11788,7 +11804,7 @@ itemTemplates:
     heightStdDev: 0.1625
     weightStdDev: 5.0
     familyId: FAMILY_CLEFAIRY
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_BIG
     modelHeight: 1.3
     modelScaleV2: 1.0
@@ -11857,7 +11873,7 @@ itemTemplates:
     weightStdDev: 1.2375
     familyId: FAMILY_VULPIX
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.58
     evolutionBranch:
     - evolution: NINETALES
@@ -11944,7 +11960,7 @@ itemTemplates:
     heightStdDev: 0.1375
     weightStdDev: 2.4875
     familyId: FAMILY_VULPIX
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.11
     modelScaleV2: 1.0
@@ -12031,7 +12047,7 @@ itemTemplates:
     weightStdDev: 0.6875
     familyId: FAMILY_JIGGLYPUFF
     candyToEvolve: 50
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     modelHeight: 0.56
     evolutionBranch:
     - evolution: WIGGLYTUFF
@@ -12119,7 +12135,7 @@ itemTemplates:
     heightStdDev: 0.125
     weightStdDev: 1.5
     familyId: FAMILY_JIGGLYPUFF
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_BIG
     modelHeight: 1.3
     modelScaleV2: 1.0
@@ -12190,7 +12206,7 @@ itemTemplates:
     weightStdDev: 0.9375
     familyId: FAMILY_ZUBAT
     candyToEvolve: 50
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_FLYING
     modelHeight: 0.85
     evolutionBranch:
@@ -12280,7 +12296,7 @@ itemTemplates:
     heightStdDev: 0.2
     weightStdDev: 6.875
     familyId: FAMILY_ZUBAT
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_FLYING
     modelHeight: 1.95
     evolutionBranch:
@@ -12353,7 +12369,7 @@ itemTemplates:
     weightStdDev: 0.675
     familyId: FAMILY_ODDISH
     candyToEvolve: 25
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.5
     evolutionBranch:
     - evolution: GLOOM
@@ -12428,7 +12444,7 @@ itemTemplates:
     weightStdDev: 1.075
     familyId: FAMILY_ODDISH
     candyToEvolve: 100
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.8
     evolutionBranch:
     - evolution: VILEPLUME
@@ -12519,7 +12535,7 @@ itemTemplates:
     heightStdDev: 0.15
     weightStdDev: 2.325
     familyId: FAMILY_ODDISH
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.2
     modelScaleV2: 1.0
@@ -12605,7 +12621,7 @@ itemTemplates:
     weightStdDev: 0.675
     familyId: FAMILY_PARAS
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.43
     evolutionBranch:
     - evolution: PARASECT
@@ -12693,7 +12709,7 @@ itemTemplates:
     heightStdDev: 0.125
     weightStdDev: 3.6875
     familyId: FAMILY_PARAS
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.97
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -12779,7 +12795,7 @@ itemTemplates:
     weightStdDev: 3.75
     familyId: FAMILY_VENONAT
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 1.42
     evolutionBranch:
     - evolution: VENOMOTH
@@ -12868,7 +12884,7 @@ itemTemplates:
     heightStdDev: 0.1875
     weightStdDev: 1.5625
     familyId: FAMILY_VENONAT
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_FLYING
     modelHeight: 1.6
     modelScaleV2: 0.8
@@ -12950,7 +12966,7 @@ itemTemplates:
     weightStdDev: 0.1
     familyId: FAMILY_DIGLETT
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.2
     evolutionBranch:
     - evolution: DUGTRIO
@@ -13034,7 +13050,7 @@ itemTemplates:
     heightStdDev: 0.0875
     weightStdDev: 4.1625
     familyId: FAMILY_DIGLETT
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 0.77
     modelScaleV2: 1.0
@@ -13103,7 +13119,7 @@ itemTemplates:
     weightStdDev: 0.525
     familyId: FAMILY_MEOWTH
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.4
     evolutionBranch:
     - evolution: PERSIAN
@@ -13190,7 +13206,7 @@ itemTemplates:
     heightStdDev: 0.125
     weightStdDev: 4.0
     familyId: FAMILY_MEOWTH
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 1.38
     modelScaleV2: 0.9
     buddyOffsetMale:
@@ -13274,7 +13290,7 @@ itemTemplates:
     weightStdDev: 2.45
     familyId: FAMILY_PSYDUCK
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.9
     evolutionBranch:
     - evolution: GOLDUCK
@@ -13345,7 +13361,7 @@ itemTemplates:
     heightStdDev: 0.2125
     weightStdDev: 9.575
     familyId: FAMILY_PSYDUCK
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.4
     modelScaleV2: 1.13
@@ -13430,7 +13446,7 @@ itemTemplates:
     weightStdDev: 3.5
     familyId: FAMILY_MANKEY
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.55
     evolutionBranch:
     - evolution: PRIMEAPE
@@ -13517,7 +13533,7 @@ itemTemplates:
     heightStdDev: 0.125
     weightStdDev: 4.0
     familyId: FAMILY_MANKEY
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.2
     modelScaleV2: 1.0
@@ -13602,7 +13618,7 @@ itemTemplates:
     weightStdDev: 2.375
     familyId: FAMILY_GROWLITHE
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.7
     evolutionBranch:
     - evolution: ARCANINE
@@ -13689,7 +13705,7 @@ itemTemplates:
     heightStdDev: 0.2375
     weightStdDev: 19.375
     familyId: FAMILY_GROWLITHE
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 2.0
     modelScaleV2: 1.0
@@ -13774,7 +13790,7 @@ itemTemplates:
     weightStdDev: 1.55
     familyId: FAMILY_POLIWAG
     candyToEvolve: 25
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.6
     evolutionBranch:
     - evolution: POLIWHIRL
@@ -13848,7 +13864,7 @@ itemTemplates:
     weightStdDev: 2.5
     familyId: FAMILY_POLIWAG
     candyToEvolve: 100
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.05
     evolutionBranch:
@@ -13940,7 +13956,7 @@ itemTemplates:
     heightStdDev: 0.1625
     weightStdDev: 6.75
     familyId: FAMILY_POLIWAG
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.42
     modelScaleV2: 1.0
@@ -14026,7 +14042,7 @@ itemTemplates:
     weightStdDev: 2.4375
     familyId: FAMILY_ABRA
     candyToEvolve: 25
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.77
     evolutionBranch:
     - evolution: KADABRA
@@ -14116,7 +14132,7 @@ itemTemplates:
     weightStdDev: 7.0625
     familyId: FAMILY_ABRA
     candyToEvolve: 100
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.3
     evolutionBranch:
@@ -14204,7 +14220,7 @@ itemTemplates:
     heightStdDev: 0.1875
     weightStdDev: 6.0
     familyId: FAMILY_ABRA
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.45
     modelScaleV2: 1.0
@@ -14289,7 +14305,7 @@ itemTemplates:
     weightStdDev: 2.4375
     familyId: FAMILY_MACHOP
     candyToEvolve: 25
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.8
     evolutionBranch:
     - evolution: MACHOKE
@@ -14379,7 +14395,7 @@ itemTemplates:
     weightStdDev: 8.8125
     familyId: FAMILY_MACHOP
     candyToEvolve: 100
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.4
     evolutionBranch:
@@ -14451,7 +14467,7 @@ itemTemplates:
     heightStdDev: 0.2
     weightStdDev: 16.25
     familyId: FAMILY_MACHOP
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.5
     modelScaleV2: 1.1
@@ -14537,7 +14553,7 @@ itemTemplates:
     weightStdDev: 0.5
     familyId: FAMILY_BELLSPROUT
     candyToEvolve: 25
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.55
     evolutionBranch:
     - evolution: WEEPINBELL
@@ -14629,7 +14645,7 @@ itemTemplates:
     weightStdDev: 0.8
     familyId: FAMILY_BELLSPROUT
     candyToEvolve: 100
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.0
     evolutionBranch:
@@ -14703,7 +14719,7 @@ itemTemplates:
     heightStdDev: 0.2125
     weightStdDev: 1.9375
     familyId: FAMILY_BELLSPROUT
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.48
     modelScaleV2: 1.0
@@ -14790,7 +14806,7 @@ itemTemplates:
     weightStdDev: 5.6875
     familyId: FAMILY_TENTACOOL
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.9
     evolutionBranch:
     - evolution: TENTACRUEL
@@ -14863,7 +14879,7 @@ itemTemplates:
     heightStdDev: 0.2
     weightStdDev: 6.875
     familyId: FAMILY_TENTACOOL
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.6
     modelScaleV2: 1.0
@@ -14950,7 +14966,7 @@ itemTemplates:
     weightStdDev: 2.5
     familyId: FAMILY_GEODUDE
     candyToEvolve: 25
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     modelHeight: 1.38
     evolutionBranch:
     - evolution: GRAVELER
@@ -15042,7 +15058,7 @@ itemTemplates:
     weightStdDev: 13.125
     familyId: FAMILY_GEODUDE
     candyToEvolve: 100
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_BIG
     modelHeight: 1.6
     evolutionBranch:
@@ -15115,7 +15131,7 @@ itemTemplates:
     heightStdDev: 0.175
     weightStdDev: 37.5
     familyId: FAMILY_GEODUDE
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_BIG
     modelHeight: 1.5
     modelScaleV2: 1.0
@@ -15200,7 +15216,7 @@ itemTemplates:
     weightStdDev: 3.75
     familyId: FAMILY_PONYTA
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.97
     evolutionBranch:
     - evolution: RAPIDASH
@@ -15287,7 +15303,7 @@ itemTemplates:
     heightStdDev: 0.2125
     weightStdDev: 11.875
     familyId: FAMILY_PONYTA
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.65
     modelScaleV2: 1.0
@@ -15373,7 +15389,7 @@ itemTemplates:
     weightStdDev: 4.5
     familyId: FAMILY_SLOWPOKE
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 1.52
     evolutionBranch:
     - evolution: SLOWBRO
@@ -15464,7 +15480,7 @@ itemTemplates:
     heightStdDev: 0.2
     weightStdDev: 9.8125
     familyId: FAMILY_SLOWPOKE
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.46
     modelScaleV2: 1.0
@@ -15535,7 +15551,7 @@ itemTemplates:
     weightStdDev: 0.75
     familyId: FAMILY_MAGNEMITE
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_FLYING
     modelHeight: 0.38
     evolutionBranch:
@@ -15625,7 +15641,7 @@ itemTemplates:
     heightStdDev: 0.125
     weightStdDev: 7.5
     familyId: FAMILY_MAGNEMITE
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 0.8
     modelScaleV2: 1.0
@@ -15708,7 +15724,7 @@ itemTemplates:
     heightStdDev: 0.1
     weightStdDev: 1.875
     familyId: FAMILY_FARFETCHD
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.75
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -15793,7 +15809,7 @@ itemTemplates:
     weightStdDev: 4.9
     familyId: FAMILY_DODUO
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 1.35
     evolutionBranch:
     - evolution: DODRIO
@@ -15882,7 +15898,7 @@ itemTemplates:
     heightStdDev: 0.225
     weightStdDev: 10.65
     familyId: FAMILY_DODUO
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.8
     modelScaleV2: 1.0
@@ -15967,7 +15983,7 @@ itemTemplates:
     weightStdDev: 11.25
     familyId: FAMILY_SEEL
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.8
     evolutionBranch:
     - evolution: DEWGONG
@@ -16056,7 +16072,7 @@ itemTemplates:
     heightStdDev: 0.2125
     weightStdDev: 15.0
     familyId: FAMILY_SEEL
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.89
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -16140,7 +16156,7 @@ itemTemplates:
     weightStdDev: 3.75
     familyId: FAMILY_GRIMER
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.05
     evolutionBranch:
@@ -16228,7 +16244,7 @@ itemTemplates:
     heightStdDev: 0.15
     weightStdDev: 3.75
     familyId: FAMILY_GRIMER
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.88
     modelScaleV2: 1.0
@@ -16313,7 +16329,7 @@ itemTemplates:
     weightStdDev: 0.5
     familyId: FAMILY_SHELLDER
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.3
     evolutionBranch:
     - evolution: CLOYSTER
@@ -16402,7 +16418,7 @@ itemTemplates:
     heightStdDev: 0.1875
     weightStdDev: 16.5625
     familyId: FAMILY_SHELLDER
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.5
     modelScaleV2: 1.0
@@ -16489,7 +16505,7 @@ itemTemplates:
     weightStdDev: 0.0125
     familyId: FAMILY_GASTLY
     candyToEvolve: 25
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_FLYING
     modelHeight: 1.0
     evolutionBranch:
@@ -16566,7 +16582,7 @@ itemTemplates:
     weightStdDev: 0.0125
     familyId: FAMILY_GASTLY
     candyToEvolve: 100
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_FLYING
     modelHeight: 1.87
     evolutionBranch:
@@ -16655,7 +16671,7 @@ itemTemplates:
     heightStdDev: 0.1875
     weightStdDev: 5.0625
     familyId: FAMILY_GASTLY
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.5
     modelScaleV2: 1.0
@@ -16736,7 +16752,7 @@ itemTemplates:
     heightStdDev: 1.1
     weightStdDev: 26.25
     familyId: FAMILY_ONIX
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BIG
     modelHeight: 5.75
     evolutionBranch:
@@ -16825,7 +16841,7 @@ itemTemplates:
     weightStdDev: 4.05
     familyId: FAMILY_DROWZEE
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 0.9
     evolutionBranch:
@@ -16897,7 +16913,7 @@ itemTemplates:
     heightStdDev: 0.2
     weightStdDev: 9.45
     familyId: FAMILY_DROWZEE
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.55
     modelScaleV2: 1.0
@@ -16966,7 +16982,7 @@ itemTemplates:
     weightStdDev: 0.8125
     familyId: FAMILY_KRABBY
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.71
     evolutionBranch:
     - evolution: KINGLER
@@ -17053,7 +17069,7 @@ itemTemplates:
     heightStdDev: 0.1625
     weightStdDev: 7.5
     familyId: FAMILY_KRABBY
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.37
     modelScaleV2: 1.0
@@ -17138,7 +17154,7 @@ itemTemplates:
     weightStdDev: 1.3
     familyId: FAMILY_VOLTORB
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.5
     evolutionBranch:
     - evolution: ELECTRODE
@@ -17225,7 +17241,7 @@ itemTemplates:
     heightStdDev: 0.15
     weightStdDev: 8.325
     familyId: FAMILY_VOLTORB
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.2
     modelScaleV2: 1.0
@@ -17311,7 +17327,7 @@ itemTemplates:
     weightStdDev: 0.3125
     familyId: FAMILY_EXEGGCUTE
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.93
     evolutionBranch:
     - evolution: EXEGGUTOR
@@ -17412,6 +17428,148 @@ itemTemplates:
     - 0.0
     - 23.79
     buddyScale: 19.0
+- templateId: V0103_POKEMON_EXEGGUTOR_ALOLA
+  pokemonSettings:
+    pokemonId: EXEGGUTOR
+    modelScale: 0.78
+    type: POKEMON_TYPE_GRASS
+    type2: POKEMON_TYPE_DRAGON
+    camera:
+      diskRadiusM: 0.7605
+      cylinderRadiusM: 1.25
+      cylinderHeightM: 1.75
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.2
+      baseFleeRate: 0.06
+      collisionRadiusM: 0.507
+      collisionHeightM: 1.365
+      collisionHeadRadiusM: 0.2535
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 8.0
+      jumpTimeS: 1.0
+      attackTimerS: 3.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 4.5
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 190
+      baseAttack: 230
+      baseDefense: 158
+    quickMoves:
+    - BULLET_SEED_FAST
+    - DRAGON_TAIL_FAST
+    cinematicMoves:
+    - SEED_BOMB
+    - DRAGON_PULSE
+    - SOLAR_BEAM
+    animationTime:
+    - 2.4667
+    - 0.6667
+    - 1.6667
+    - 2.0
+    - 0.0
+    - 2.2
+    - 1.6
+    - 0.0
+    evolutionPips: 1
+    pokedexHeightM: 10.9
+    pokedexWeightKg: 415.6
+    parentPokemonId: EXEGGCUTE
+    heightStdDev: 1.3625
+    weightStdDev: 51.95
+    familyId: FAMILY_EXEGGCUTE
+    kmBuddyDistance: 3.0
+    buddySize: BUDDY_BIG
+    modelHeight: 6.0
+    modelScaleV2: 1.0
+    form: EXEGGUTOR_ALOLA
+    buddyOffsetMale:
+    - 20.0
+    - 0.0
+    - 23.79
+    buddyOffsetFemale:
+    - 20.0
+    - 0.0
+    - 23.79
+    buddyScale: 19.0
+- templateId: V0103_POKEMON_EXEGGUTOR_NORMAL
+  pokemonSettings:
+    pokemonId: EXEGGUTOR
+    modelScale: 0.78
+    type: POKEMON_TYPE_GRASS
+    type2: POKEMON_TYPE_PSYCHIC
+    camera:
+      diskRadiusM: 0.7605
+      cylinderRadiusM: 1.25
+      cylinderHeightM: 1.75
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.2
+      baseFleeRate: 0.06
+      collisionRadiusM: 0.507
+      collisionHeightM: 1.365
+      collisionHeadRadiusM: 0.2535
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 8.0
+      jumpTimeS: 1.0
+      attackTimerS: 3.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 4.5
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 190
+      baseAttack: 233
+      baseDefense: 158
+    quickMoves:
+    - BULLET_SEED_FAST
+    - EXTRASENSORY_FAST
+    cinematicMoves:
+    - SEED_BOMB
+    - PSYCHIC
+    - SOLAR_BEAM
+    animationTime:
+    - 2.4667
+    - 0.6667
+    - 1.6667
+    - 2.0
+    - 0.0
+    - 2.2
+    - 1.6
+    - 0.0
+    evolutionPips: 1
+    pokedexHeightM: 2.0
+    pokedexWeightKg: 120.0
+    parentPokemonId: EXEGGCUTE
+    heightStdDev: 0.25
+    weightStdDev: 15.0
+    familyId: FAMILY_EXEGGCUTE
+    kmBuddyDistance: 3.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.8
+    modelScaleV2: 1.0
+    form: EXEGGUTOR_NORMAL
+    buddyOffsetMale:
+    - 20.0
+    - 0.0
+    - 23.79
+    buddyOffsetFemale:
+    - 20.0
+    - 0.0
+    - 23.79
+    buddyScale: 19.0
 - templateId: V0104_MOVE_BRINE
   moveSettings:
     movementId: BRINE
@@ -17484,7 +17642,7 @@ itemTemplates:
     weightStdDev: 0.8125
     familyId: FAMILY_CUBONE
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.4
     evolutionBranch:
     - evolution: MAROWAK
@@ -17571,7 +17729,7 @@ itemTemplates:
     heightStdDev: 0.125
     weightStdDev: 5.625
     familyId: FAMILY_CUBONE
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 1.0
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -17653,7 +17811,7 @@ itemTemplates:
     heightStdDev: 0.1875
     weightStdDev: 6.225
     familyId: FAMILY_TYROGUE
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BIG
     modelHeight: 1.44
     modelScaleV2: 0.96
@@ -17737,7 +17895,7 @@ itemTemplates:
     heightStdDev: 0.175
     weightStdDev: 6.275
     familyId: FAMILY_TYROGUE
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BIG
     modelHeight: 1.14
     modelScaleV2: 1.13
@@ -17819,7 +17977,7 @@ itemTemplates:
     heightStdDev: 0.15
     weightStdDev: 8.1875
     familyId: FAMILY_LICKITUNG
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 1.2
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -17904,7 +18062,7 @@ itemTemplates:
     weightStdDev: 0.125
     familyId: FAMILY_KOFFING
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 0.65
     evolutionBranch:
@@ -17977,7 +18135,7 @@ itemTemplates:
     heightStdDev: 0.15
     weightStdDev: 1.1875
     familyId: FAMILY_KOFFING
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 0.76
     modelScaleV2: 1.18
@@ -18063,7 +18221,7 @@ itemTemplates:
     weightStdDev: 14.375
     familyId: FAMILY_RHYHORN
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.0
     evolutionBranch:
@@ -18136,7 +18294,7 @@ itemTemplates:
     heightStdDev: 0.2375
     weightStdDev: 15.0
     familyId: FAMILY_RHYHORN
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.85
     modelScaleV2: 1.05
@@ -18202,7 +18360,7 @@ itemTemplates:
     heightStdDev: 0.1375
     weightStdDev: 4.325
     familyId: FAMILY_CHANSEY
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BIG
     modelHeight: 1.1
     evolutionBranch:
@@ -18288,7 +18446,7 @@ itemTemplates:
     heightStdDev: 0.125
     weightStdDev: 4.375
     familyId: FAMILY_TANGELA
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 1.0
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -18369,7 +18527,7 @@ itemTemplates:
     heightStdDev: 0.275
     weightStdDev: 10.0
     familyId: FAMILY_KANGASKHAN
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 2.18
     modelScaleV2: 0.97
@@ -18455,7 +18613,7 @@ itemTemplates:
     weightStdDev: 1.0
     familyId: FAMILY_HORSEA
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.4
     evolutionBranch:
     - evolution: SEADRA
@@ -18543,7 +18701,7 @@ itemTemplates:
     heightStdDev: 0.15
     weightStdDev: 3.125
     familyId: FAMILY_HORSEA
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.2
     evolutionBranch:
@@ -18632,7 +18790,7 @@ itemTemplates:
     weightStdDev: 1.875
     familyId: FAMILY_GOLDEEN
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.5
     evolutionBranch:
     - evolution: SEAKING
@@ -18705,7 +18863,7 @@ itemTemplates:
     heightStdDev: 0.1625
     weightStdDev: 4.875
     familyId: FAMILY_GOLDEEN
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.36
     modelScaleV2: 1.0
@@ -18774,7 +18932,7 @@ itemTemplates:
     weightStdDev: 4.3125
     familyId: FAMILY_STARYU
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 0.8
     evolutionBranch:
@@ -18863,7 +19021,7 @@ itemTemplates:
     heightStdDev: 0.1375
     weightStdDev: 10.0
     familyId: FAMILY_STARYU
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.08
     modelScaleV2: 1.0
@@ -18946,7 +19104,7 @@ itemTemplates:
     heightStdDev: 0.1625
     weightStdDev: 6.8125
     familyId: FAMILY_MR_MIME
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 1.3
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -19029,7 +19187,7 @@ itemTemplates:
     heightStdDev: 0.1875
     weightStdDev: 7.0
     familyId: FAMILY_SCYTHER
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BIG
     modelHeight: 1.5
     evolutionBranch:
@@ -19101,7 +19259,7 @@ itemTemplates:
     heightStdDev: 0.175
     weightStdDev: 5.075
     familyId: FAMILY_JYNX
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BIG
     modelHeight: 1.4
     modelScaleV2: 1.0
@@ -19184,7 +19342,7 @@ itemTemplates:
     heightStdDev: 0.1375
     weightStdDev: 3.75
     familyId: FAMILY_ELECTABUZZ
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BIG
     modelHeight: 1.2
     modelScaleV2: 1.09
@@ -19267,7 +19425,7 @@ itemTemplates:
     heightStdDev: 0.1625
     weightStdDev: 5.5625
     familyId: FAMILY_MAGMAR
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BIG
     modelHeight: 1.35
     modelScaleV2: 0.95
@@ -19349,7 +19507,7 @@ itemTemplates:
     heightStdDev: 0.1875
     weightStdDev: 6.875
     familyId: FAMILY_PINSIR
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BIG
     modelHeight: 1.4
     modelScaleV2: 1.0
@@ -19415,7 +19573,7 @@ itemTemplates:
     heightStdDev: 0.175
     weightStdDev: 11.05
     familyId: FAMILY_TAUROS
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.4
     modelScaleV2: 1.0
@@ -19496,7 +19654,7 @@ itemTemplates:
     weightStdDev: 1.25
     familyId: FAMILY_MAGIKARP
     candyToEvolve: 400
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     modelHeight: 0.85
     evolutionBranch:
     - evolution: GYARADOS
@@ -19570,7 +19728,7 @@ itemTemplates:
     heightStdDev: 0.8125
     weightStdDev: 29.375
     familyId: FAMILY_MAGIKARP
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_BIG
     modelHeight: 5.56
     modelScaleV2: 0.62
@@ -19653,7 +19811,7 @@ itemTemplates:
     heightStdDev: 0.3125
     weightStdDev: 27.5
     familyId: FAMILY_LAPRAS
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BIG
     modelHeight: 2.57
     modelScaleV2: 0.97
@@ -19731,7 +19889,7 @@ itemTemplates:
     heightStdDev: 0.0375
     weightStdDev: 0.5
     familyId: FAMILY_DITTO
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.33
     modelScaleV2: 1.21
     buddyOffsetMale:
@@ -19814,7 +19972,7 @@ itemTemplates:
     weightStdDev: 0.8125
     familyId: FAMILY_EEVEE
     candyToEvolve: 25
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_SHOULDER
     modelHeight: 0.3
     evolutionBranch:
@@ -19909,7 +20067,7 @@ itemTemplates:
     heightStdDev: 0.125
     weightStdDev: 3.625
     familyId: FAMILY_EEVEE
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 0.89
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -19993,7 +20151,7 @@ itemTemplates:
     heightStdDev: 0.1
     weightStdDev: 3.0625
     familyId: FAMILY_EEVEE
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 0.8
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -20077,7 +20235,7 @@ itemTemplates:
     heightStdDev: 0.1125
     weightStdDev: 3.125
     familyId: FAMILY_EEVEE
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 1.27
     modelScaleV2: 0.95
     buddyOffsetMale:
@@ -20159,7 +20317,7 @@ itemTemplates:
     heightStdDev: 0.1
     weightStdDev: 4.5625
     familyId: FAMILY_PORYGON
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 0.8
     evolutionBranch:
@@ -20233,7 +20391,7 @@ itemTemplates:
     weightStdDev: 0.9375
     familyId: FAMILY_OMANYTE
     candyToEvolve: 50
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 0.4
     evolutionBranch:
     - evolution: OMASTAR
@@ -20305,7 +20463,7 @@ itemTemplates:
     heightStdDev: 0.125
     weightStdDev: 4.375
     familyId: FAMILY_OMANYTE
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BIG
     modelHeight: 1.0
     modelScaleV2: 1.0
@@ -20375,7 +20533,7 @@ itemTemplates:
     weightStdDev: 1.4375
     familyId: FAMILY_KABUTO
     candyToEvolve: 50
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 0.5
     evolutionBranch:
     - evolution: KABUTOPS
@@ -20447,7 +20605,7 @@ itemTemplates:
     heightStdDev: 0.1625
     weightStdDev: 5.0625
     familyId: FAMILY_KABUTO
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BIG
     modelHeight: 1.25
     modelScaleV2: 1.0
@@ -20515,7 +20673,7 @@ itemTemplates:
     heightStdDev: 0.225
     weightStdDev: 7.375
     familyId: FAMILY_AERODACTYL
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BIG
     modelHeight: 3.7
     modelScaleV2: 0.77
@@ -20581,7 +20739,7 @@ itemTemplates:
     heightStdDev: 0.2625
     weightStdDev: 57.5
     familyId: FAMILY_SNORLAX
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BIG
     modelHeight: 2.0
     modelScaleV2: 1.0
@@ -20649,7 +20807,7 @@ itemTemplates:
     heightStdDev: 0.2125
     weightStdDev: 6.925
     familyId: FAMILY_ARTICUNO
-    kmBuddyDistance: 20.0
+    kmBuddyDistance: 5.0
     buddySize: BUDDY_FLYING
     modelHeight: 2.6
     modelScaleV2: 0.91
@@ -20717,7 +20875,7 @@ itemTemplates:
     heightStdDev: 0.2
     weightStdDev: 6.575
     familyId: FAMILY_ZAPDOS
-    kmBuddyDistance: 20.0
+    kmBuddyDistance: 5.0
     buddySize: BUDDY_FLYING
     modelHeight: 2.36
     modelScaleV2: 0.94
@@ -20785,7 +20943,7 @@ itemTemplates:
     heightStdDev: 0.25
     weightStdDev: 7.5
     familyId: FAMILY_MOLTRES
-    kmBuddyDistance: 20.0
+    kmBuddyDistance: 5.0
     buddySize: BUDDY_FLYING
     modelHeight: 3.0
     modelScaleV2: 0.86
@@ -20854,7 +21012,7 @@ itemTemplates:
     weightStdDev: 0.4125
     familyId: FAMILY_DRATINI
     candyToEvolve: 25
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 0.78
     evolutionBranch:
     - evolution: DRAGONAIR
@@ -20928,7 +21086,7 @@ itemTemplates:
     weightStdDev: 2.0625
     familyId: FAMILY_DRATINI
     candyToEvolve: 100
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BIG
     modelHeight: 1.95
     evolutionBranch:
@@ -21003,7 +21161,7 @@ itemTemplates:
     heightStdDev: 0.275
     weightStdDev: 26.25
     familyId: FAMILY_DRATINI
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BIG
     modelHeight: 2.28
     modelScaleV2: 0.96
@@ -21071,7 +21229,7 @@ itemTemplates:
     heightStdDev: 0.25
     weightStdDev: 15.25
     familyId: FAMILY_MEWTWO
-    kmBuddyDistance: 20.0
+    kmBuddyDistance: 5.0
     buddySize: BUDDY_BIG
     modelHeight: 2.0
     modelScaleV2: 1.0
@@ -21181,7 +21339,7 @@ itemTemplates:
     heightStdDev: 0.05
     weightStdDev: 0.5
     familyId: FAMILY_MEW
-    kmBuddyDistance: 20.0
+    kmBuddyDistance: 5.0
     modelHeight: 0.45
     modelScaleV2: 1.04
     buddyOffsetMale:
@@ -21249,7 +21407,7 @@ itemTemplates:
     weightStdDev: 0.8
     familyId: FAMILY_CHIKORITA
     candyToEvolve: 25
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.55
     evolutionBranch:
     - evolution: BAYLEEF
@@ -21323,7 +21481,7 @@ itemTemplates:
     weightStdDev: 1.975
     familyId: FAMILY_CHIKORITA
     candyToEvolve: 100
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 1.3
     evolutionBranch:
     - evolution: MEGANIUM
@@ -21394,7 +21552,7 @@ itemTemplates:
     heightStdDev: 0.225
     weightStdDev: 12.5625
     familyId: FAMILY_CHIKORITA
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.75
     modelScaleV2: 1.0
@@ -21463,7 +21621,7 @@ itemTemplates:
     weightStdDev: 0.9875
     familyId: FAMILY_CYNDAQUIL
     candyToEvolve: 25
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.46
     evolutionBranch:
     - evolution: QUILAVA
@@ -21537,7 +21695,7 @@ itemTemplates:
     weightStdDev: 2.375
     familyId: FAMILY_CYNDAQUIL
     candyToEvolve: 100
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 1.06
     evolutionBranch:
     - evolution: TYPHLOSION
@@ -21608,7 +21766,7 @@ itemTemplates:
     heightStdDev: 0.2125
     weightStdDev: 9.9375
     familyId: FAMILY_CYNDAQUIL
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.69
     modelScaleV2: 1.0
@@ -21677,7 +21835,7 @@ itemTemplates:
     weightStdDev: 1.1875
     familyId: FAMILY_TOTODILE
     candyToEvolve: 25
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.57
     evolutionBranch:
     - evolution: CROCONAW
@@ -21751,7 +21909,7 @@ itemTemplates:
     weightStdDev: 3.125
     familyId: FAMILY_TOTODILE
     candyToEvolve: 100
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 1.05
     evolutionBranch:
     - evolution: FERALIGATR
@@ -21822,7 +21980,7 @@ itemTemplates:
     heightStdDev: 0.28875
     weightStdDev: 11.1
     familyId: FAMILY_TOTODILE
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 2.05
     modelScaleV2: 0.99
@@ -21891,7 +22049,7 @@ itemTemplates:
     weightStdDev: 0.75
     familyId: FAMILY_SENTRET
     candyToEvolve: 25
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     modelHeight: 0.72
     evolutionBranch:
     - evolution: FURRET
@@ -21962,7 +22120,7 @@ itemTemplates:
     heightStdDev: 0.225
     weightStdDev: 4.0625
     familyId: FAMILY_SENTRET
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     modelHeight: 0.83
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -22031,7 +22189,7 @@ itemTemplates:
     weightStdDev: 2.65
     familyId: FAMILY_HOOTHOOT
     candyToEvolve: 50
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     modelHeight: 0.7
     evolutionBranch:
     - evolution: NOCTOWL
@@ -22104,7 +22262,7 @@ itemTemplates:
     heightStdDev: 0.2
     weightStdDev: 5.1
     familyId: FAMILY_HOOTHOOT
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_FLYING
     modelHeight: 1.64
     modelScaleV2: 1.0
@@ -22175,7 +22333,7 @@ itemTemplates:
     weightStdDev: 1.35
     familyId: FAMILY_LEDYBA
     candyToEvolve: 25
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_FLYING
     modelHeight: 1.18
     evolutionBranch:
@@ -22249,7 +22407,7 @@ itemTemplates:
     heightStdDev: 0.175
     weightStdDev: 4.45
     familyId: FAMILY_LEDYBA
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_FLYING
     modelHeight: 1.4
     modelScaleV2: 1.0
@@ -22319,7 +22477,7 @@ itemTemplates:
     weightStdDev: 1.0625
     familyId: FAMILY_SPINARAK
     candyToEvolve: 50
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     modelHeight: 0.52
     evolutionBranch:
     - evolution: ARIADOS
@@ -22391,7 +22549,7 @@ itemTemplates:
     heightStdDev: 0.13625
     weightStdDev: 4.1875
     familyId: FAMILY_SPINARAK
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     modelHeight: 1.03
     modelScaleV2: 1.05
     buddyOffsetMale:
@@ -22461,7 +22619,7 @@ itemTemplates:
     heightStdDev: 0.225
     weightStdDev: 9.375
     familyId: FAMILY_ZUBAT
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_FLYING
     modelHeight: 2.65
     modelScaleV2: 0.9
@@ -22532,7 +22690,7 @@ itemTemplates:
     weightStdDev: 1.5
     familyId: FAMILY_CHINCHOU
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.6
     evolutionBranch:
     - evolution: LANTURN
@@ -22605,7 +22763,7 @@ itemTemplates:
     heightStdDev: 0.14875
     weightStdDev: 2.8125
     familyId: FAMILY_CHINCHOU
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.4
     modelScaleV2: 1.0
@@ -22672,7 +22830,7 @@ itemTemplates:
     weightStdDev: 0.25
     familyId: FAMILY_PIKACHU
     candyToEvolve: 25
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_BABY
     modelHeight: 0.37
     evolutionBranch:
@@ -22743,7 +22901,7 @@ itemTemplates:
     weightStdDev: 0.375
     familyId: FAMILY_CLEFAIRY
     candyToEvolve: 25
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_BABY
     modelHeight: 0.3
     evolutionBranch:
@@ -22816,7 +22974,7 @@ itemTemplates:
     weightStdDev: 0.125
     familyId: FAMILY_JIGGLYPUFF
     candyToEvolve: 25
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     modelHeight: 0.33
     evolutionBranch:
     - evolution: JIGGLYPUFF
@@ -22886,7 +23044,7 @@ itemTemplates:
     weightStdDev: 0.1875
     familyId: FAMILY_TOGEPI
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BABY
     modelHeight: 0.3
     evolutionBranch:
@@ -22960,7 +23118,7 @@ itemTemplates:
     heightStdDev: 0.07625
     weightStdDev: 0.4
     familyId: FAMILY_TOGEPI
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.6
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -23029,7 +23187,7 @@ itemTemplates:
     weightStdDev: 0.25
     familyId: FAMILY_NATU
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_SHOULDER
     modelHeight: 0.2
     evolutionBranch:
@@ -23103,7 +23261,7 @@ itemTemplates:
     heightStdDev: 0.1875
     weightStdDev: 1.875
     familyId: FAMILY_NATU
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_FLYING
     modelHeight: 1.65
     modelScaleV2: 1.0
@@ -23172,7 +23330,7 @@ itemTemplates:
     weightStdDev: 0.975
     familyId: FAMILY_MAREEP
     candyToEvolve: 25
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 0.6
     evolutionBranch:
     - evolution: FLAAFFY
@@ -23246,7 +23404,7 @@ itemTemplates:
     weightStdDev: 1.6625
     familyId: FAMILY_MAREEP
     candyToEvolve: 100
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 0.8
     evolutionBranch:
     - evolution: AMPHAROS
@@ -23317,7 +23475,7 @@ itemTemplates:
     heightStdDev: 0.175
     weightStdDev: 7.6875
     familyId: FAMILY_MAREEP
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BIG
     modelHeight: 1.48
     modelScaleV2: 1.0
@@ -23386,7 +23544,7 @@ itemTemplates:
     heightStdDev: 0.05125
     weightStdDev: 0.725
     familyId: FAMILY_ODDISH
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.4
     modelScaleV2: 1.1
     buddyOffsetMale:
@@ -23456,7 +23614,7 @@ itemTemplates:
     weightStdDev: 1.0625
     familyId: FAMILY_MARILL
     candyToEvolve: 25
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.41
     evolutionBranch:
     - evolution: AZUMARILL
@@ -23528,7 +23686,7 @@ itemTemplates:
     heightStdDev: 0.09875
     weightStdDev: 3.5625
     familyId: FAMILY_MARILL
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.72
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -23591,7 +23749,7 @@ itemTemplates:
     heightStdDev: 0.14875
     weightStdDev: 4.75
     familyId: FAMILY_SUDOWOODO
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 1.2
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -23659,7 +23817,7 @@ itemTemplates:
     heightStdDev: 0.13625
     weightStdDev: 4.2375
     familyId: FAMILY_POLIWAG
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 1.1
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -23729,7 +23887,7 @@ itemTemplates:
     weightStdDev: 0.0625
     familyId: FAMILY_HOPPIP
     candyToEvolve: 25
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_FLYING
     modelHeight: 0.82
     evolutionBranch:
@@ -23806,7 +23964,7 @@ itemTemplates:
     weightStdDev: 0.125
     familyId: FAMILY_HOPPIP
     candyToEvolve: 100
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_FLYING
     modelHeight: 0.68
     evolutionBranch:
@@ -23880,7 +24038,7 @@ itemTemplates:
     heightStdDev: 0.09875
     weightStdDev: 0.375
     familyId: FAMILY_HOPPIP
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_FLYING
     modelHeight: 0.75
     modelScaleV2: 1.0
@@ -23946,7 +24104,7 @@ itemTemplates:
     heightStdDev: 0.09875
     weightStdDev: 1.4375
     familyId: FAMILY_AIPOM
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.8
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -24014,7 +24172,7 @@ itemTemplates:
     weightStdDev: 0.225
     familyId: FAMILY_SUNKERN
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_SHOULDER
     modelHeight: 0.3
     evolutionBranch:
@@ -24087,7 +24245,7 @@ itemTemplates:
     heightStdDev: 0.09875
     weightStdDev: 1.0625
     familyId: FAMILY_SUNKERN
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.76
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -24154,7 +24312,7 @@ itemTemplates:
     heightStdDev: 0.14875
     weightStdDev: 4.75
     familyId: FAMILY_YANMA
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 1.13
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -24223,7 +24381,7 @@ itemTemplates:
     weightStdDev: 1.0625
     familyId: FAMILY_WOOPER
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.4
     evolutionBranch:
     - evolution: QUAGSIRE
@@ -24295,7 +24453,7 @@ itemTemplates:
     heightStdDev: 0.175
     weightStdDev: 9.375
     familyId: FAMILY_WOOPER
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.4
     modelScaleV2: 1.0
@@ -24363,7 +24521,7 @@ itemTemplates:
     heightStdDev: 0.11125
     weightStdDev: 3.3125
     familyId: FAMILY_EEVEE
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 0.76
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -24429,7 +24587,7 @@ itemTemplates:
     heightStdDev: 0.12375
     weightStdDev: 3.375
     familyId: FAMILY_EEVEE
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 1.0
     modelScaleV2: 1.05
     buddyOffsetMale:
@@ -24495,7 +24653,7 @@ itemTemplates:
     heightStdDev: 0.06375
     weightStdDev: 0.2625
     familyId: FAMILY_MURKROW
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_SHOULDER
     modelHeight: 0.5
     modelScaleV2: 1.0
@@ -24564,7 +24722,7 @@ itemTemplates:
     heightStdDev: 0.25125
     weightStdDev: 9.9375
     familyId: FAMILY_SLOWPOKE
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 2.0
     modelScaleV2: 1.0
@@ -24646,7 +24804,7 @@ itemTemplates:
     heightStdDev: 0.08875
     weightStdDev: 0.125
     familyId: FAMILY_MISDREAVUS
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_FLYING
     modelHeight: 0.63
     modelScaleV2: 1.0
@@ -24725,7 +24883,7 @@ itemTemplates:
     heightStdDev: 0.06375
     weightStdDev: 0.625
     familyId: FAMILY_UNOWN
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 0.5
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -24804,7 +24962,7 @@ itemTemplates:
     heightStdDev: 0.1625
     weightStdDev: 3.5625
     familyId: FAMILY_WOBBUFFET
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.3
     modelScaleV2: 1.0
@@ -24886,7 +25044,7 @@ itemTemplates:
     heightStdDev: 0.1875
     weightStdDev: 5.1875
     familyId: FAMILY_GIRAFARIG
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.5
     modelScaleV2: 1.0
@@ -24970,7 +25128,7 @@ itemTemplates:
     weightStdDev: 0.9
     familyId: FAMILY_PINECO
     candyToEvolve: 50
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 0.6
     evolutionBranch:
     - evolution: FORRETRESS
@@ -25058,7 +25216,7 @@ itemTemplates:
     heightStdDev: 0.14875
     weightStdDev: 15.725
     familyId: FAMILY_PINECO
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BIG
     modelHeight: 1.2
     modelScaleV2: 1.0
@@ -25139,7 +25297,7 @@ itemTemplates:
     heightStdDev: 0.1875
     weightStdDev: 1.75
     familyId: FAMILY_DUNSPARCE
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 1.5
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -25221,7 +25379,7 @@ itemTemplates:
     heightStdDev: 0.13625
     weightStdDev: 8.1
     familyId: FAMILY_GLIGAR
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 1.07
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -25303,7 +25461,7 @@ itemTemplates:
     heightStdDev: 1.14875
     weightStdDev: 50.0
     familyId: FAMILY_ONIX
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BIG
     modelHeight: 7.26
     modelScaleV2: 0.58
@@ -25387,7 +25545,7 @@ itemTemplates:
     weightStdDev: 0.975
     familyId: FAMILY_SNUBBULL
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.66
     evolutionBranch:
     - evolution: GRANBULL
@@ -25473,7 +25631,7 @@ itemTemplates:
     heightStdDev: 0.175
     weightStdDev: 6.0875
     familyId: FAMILY_SNUBBULL
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.4
     modelScaleV2: 1.0
@@ -25556,7 +25714,7 @@ itemTemplates:
     heightStdDev: 0.06375
     weightStdDev: 0.4875
     familyId: FAMILY_QWILFISH
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.5
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -25640,7 +25798,7 @@ itemTemplates:
     heightStdDev: 0.25125
     weightStdDev: 15.625
     familyId: FAMILY_SCYTHER
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BIG
     modelHeight: 1.91
     modelScaleV2: 1.0
@@ -25722,7 +25880,7 @@ itemTemplates:
     heightStdDev: 0.07625
     weightStdDev: 2.5625
     familyId: FAMILY_SHUCKLE
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.6
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -25803,7 +25961,7 @@ itemTemplates:
     heightStdDev: 0.1875
     weightStdDev: 6.75
     familyId: FAMILY_HERACROSS
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.5
     modelScaleV2: 1.0
@@ -25885,7 +26043,7 @@ itemTemplates:
     heightStdDev: 0.11125
     weightStdDev: 3.5
     familyId: FAMILY_SNEASEL
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.8
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -25968,7 +26126,7 @@ itemTemplates:
     weightStdDev: 1.1
     familyId: FAMILY_TEDDIURSA
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.6
     evolutionBranch:
     - evolution: URSARING
@@ -26054,7 +26212,7 @@ itemTemplates:
     heightStdDev: 0.225
     weightStdDev: 15.725
     familyId: FAMILY_TEDDIURSA
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.8
     modelScaleV2: 1.0
@@ -26138,7 +26296,7 @@ itemTemplates:
     weightStdDev: 4.375
     familyId: FAMILY_SLUGMA
     candyToEvolve: 50
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     modelHeight: 0.66
     evolutionBranch:
     - evolution: MAGCARGO
@@ -26225,7 +26383,7 @@ itemTemplates:
     heightStdDev: 0.09875
     weightStdDev: 6.875
     familyId: FAMILY_SLUGMA
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     modelHeight: 0.78
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -26309,7 +26467,7 @@ itemTemplates:
     weightStdDev: 0.8125
     familyId: FAMILY_SWINUB
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.4
     evolutionBranch:
     - evolution: PILOSWINE
@@ -26396,7 +26554,7 @@ itemTemplates:
     heightStdDev: 0.13625
     weightStdDev: 6.975
     familyId: FAMILY_SWINUB
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.1
     modelScaleV2: 1.0
@@ -26477,7 +26635,7 @@ itemTemplates:
     heightStdDev: 0.07625
     weightStdDev: 0.625
     familyId: FAMILY_CORSOLA
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.6
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -26561,7 +26719,7 @@ itemTemplates:
     weightStdDev: 1.5
     familyId: FAMILY_REMORAID
     candyToEvolve: 50
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     modelHeight: 0.55
     evolutionBranch:
     - evolution: OCTILLERY
@@ -26647,7 +26805,7 @@ itemTemplates:
     heightStdDev: 0.11125
     weightStdDev: 3.5625
     familyId: FAMILY_REMORAID
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     modelHeight: 0.92
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -26727,7 +26885,7 @@ itemTemplates:
     heightStdDev: 0.11125
     weightStdDev: 2.0
     familyId: FAMILY_DELIBIRD
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 0.9
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -26809,7 +26967,7 @@ itemTemplates:
     heightStdDev: 0.26375
     weightStdDev: 27.5
     familyId: FAMILY_MANTINE
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BIG
     modelHeight: 2.1
     modelScaleV2: 0.99
@@ -26892,7 +27050,7 @@ itemTemplates:
     heightStdDev: 0.2125
     weightStdDev: 6.3125
     familyId: FAMILY_SKARMORY
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_FLYING
     modelHeight: 1.84
     modelScaleV2: 1.0
@@ -26977,7 +27135,7 @@ itemTemplates:
     weightStdDev: 1.35
     familyId: FAMILY_HOUNDOUR
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.6
     evolutionBranch:
     - evolution: HOUNDOOM
@@ -27064,7 +27222,7 @@ itemTemplates:
     heightStdDev: 0.175
     weightStdDev: 4.375
     familyId: FAMILY_HOUNDOUR
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 1.25
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -27149,7 +27307,7 @@ itemTemplates:
     heightStdDev: 0.225
     weightStdDev: 19.0
     familyId: FAMILY_HORSEA
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.8
     modelScaleV2: 1.0
@@ -27232,7 +27390,7 @@ itemTemplates:
     weightStdDev: 4.1875
     familyId: FAMILY_PHANPY
     candyToEvolve: 50
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.5
     evolutionBranch:
     - evolution: DONPHAN
@@ -27318,7 +27476,7 @@ itemTemplates:
     heightStdDev: 0.13625
     weightStdDev: 15.0
     familyId: FAMILY_PHANPY
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.02
     modelScaleV2: 1.0
@@ -27403,7 +27561,7 @@ itemTemplates:
     heightStdDev: 0.07625
     weightStdDev: 4.0625
     familyId: FAMILY_PORYGON
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.61
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -27483,7 +27641,7 @@ itemTemplates:
     heightStdDev: 0.175
     weightStdDev: 8.9
     familyId: FAMILY_STANTLER
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.4
     modelScaleV2: 1.0
@@ -27561,7 +27719,7 @@ itemTemplates:
     heightStdDev: 0.14875
     weightStdDev: 7.25
     familyId: FAMILY_SMEARGLE
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.2
     modelScaleV2: 1.0
@@ -27646,7 +27804,7 @@ itemTemplates:
     weightStdDev: 2.625
     familyId: FAMILY_TYROGUE
     candyToEvolve: 25
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 0.7
     evolutionBranch:
     - evolution: HITMONLEE
@@ -27734,7 +27892,7 @@ itemTemplates:
     heightStdDev: 0.175
     weightStdDev: 6.0
     familyId: FAMILY_TYROGUE
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 1.3
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -27817,7 +27975,7 @@ itemTemplates:
     weightStdDev: 0.75
     familyId: FAMILY_JYNX
     candyToEvolve: 25
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BABY
     modelHeight: 0.48
     evolutionBranch:
@@ -27903,7 +28061,7 @@ itemTemplates:
     weightStdDev: 2.9375
     familyId: FAMILY_ELECTABUZZ
     candyToEvolve: 25
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BABY
     modelHeight: 0.6
     evolutionBranch:
@@ -27989,7 +28147,7 @@ itemTemplates:
     weightStdDev: 2.675
     familyId: FAMILY_MAGMAR
     candyToEvolve: 25
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BABY
     modelHeight: 0.7
     evolutionBranch:
@@ -28073,7 +28231,7 @@ itemTemplates:
     heightStdDev: 0.14875
     weightStdDev: 9.4375
     familyId: FAMILY_MILTANK
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BIG
     modelHeight: 1.2
     modelScaleV2: 1.0
@@ -28155,7 +28313,7 @@ itemTemplates:
     heightStdDev: 0.1875
     weightStdDev: 5.85
     familyId: FAMILY_CHANSEY
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BIG
     modelHeight: 1.5
     modelScaleV2: 1.0
@@ -28237,7 +28395,7 @@ itemTemplates:
     heightStdDev: 0.23875
     weightStdDev: 22.25
     familyId: FAMILY_RAIKOU
-    kmBuddyDistance: 20.0
+    kmBuddyDistance: 5.0
     buddySize: BUDDY_BIG
     modelHeight: 1.8
     modelScaleV2: 1.0
@@ -28319,7 +28477,7 @@ itemTemplates:
     heightStdDev: 0.26375
     weightStdDev: 24.75
     familyId: FAMILY_ENTEI
-    kmBuddyDistance: 20.0
+    kmBuddyDistance: 5.0
     buddySize: BUDDY_BIG
     modelHeight: 2.1
     modelScaleV2: 0.99
@@ -28403,7 +28561,7 @@ itemTemplates:
     heightStdDev: 0.25125
     weightStdDev: 23.375
     familyId: FAMILY_SUICUNE
-    kmBuddyDistance: 20.0
+    kmBuddyDistance: 5.0
     buddySize: BUDDY_BIG
     modelHeight: 2.1
     modelScaleV2: 0.99
@@ -28489,7 +28647,7 @@ itemTemplates:
     weightStdDev: 9.0
     familyId: FAMILY_LARVITAR
     candyToEvolve: 25
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 0.61
     evolutionBranch:
     - evolution: PUPITAR
@@ -28580,7 +28738,7 @@ itemTemplates:
     weightStdDev: 19.0
     familyId: FAMILY_LARVITAR
     candyToEvolve: 100
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 1.2
     evolutionBranch:
     - evolution: TYRANITAR
@@ -28668,7 +28826,7 @@ itemTemplates:
     heightStdDev: 0.25125
     weightStdDev: 25.25
     familyId: FAMILY_LARVITAR
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BIG
     modelHeight: 2.0
     modelScaleV2: 1.0
@@ -28752,7 +28910,7 @@ itemTemplates:
     heightStdDev: 0.65125
     weightStdDev: 27.0
     familyId: FAMILY_LUGIA
-    kmBuddyDistance: 20.0
+    kmBuddyDistance: 5.0
     buddySize: BUDDY_BIG
     modelHeight: 4.85
     modelScaleV2: 0.67
@@ -28836,7 +28994,7 @@ itemTemplates:
     heightStdDev: 0.47625
     weightStdDev: 24.875
     familyId: FAMILY_HO_OH
-    kmBuddyDistance: 20.0
+    kmBuddyDistance: 5.0
     buddySize: BUDDY_BIG
     modelHeight: 5.26
     modelScaleV2: 0.64
@@ -28920,7 +29078,7 @@ itemTemplates:
     heightStdDev: 0.07625
     weightStdDev: 0.625
     familyId: FAMILY_CELEBI
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 0.65
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -29001,7 +29159,7 @@ itemTemplates:
     heightStdDev: 0.06375
     weightStdDev: 0.625
     familyId: FAMILY_TREECKO
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.5
     evolutionBranch:
     - evolution: GROVYLE
@@ -29087,7 +29245,7 @@ itemTemplates:
     heightStdDev: 0.11125
     weightStdDev: 2.7
     familyId: FAMILY_TREECKO
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.82
     evolutionBranch:
     - evolution: SCEPTILE
@@ -29174,18 +29332,18 @@ itemTemplates:
     heightStdDev: 0.2125
     weightStdDev: 6.525
     familyId: FAMILY_TREECKO
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.7
     modelScaleV2: 1.0
     buddyOffsetMale:
+    - 15.0
     - 0.0
-    - 0.0
-    - 0.0
+    - 27.0
     buddyOffsetFemale:
+    - 15.0
     - 0.0
-    - 0.0
-    - 0.0
+    - 27.0
     buddyScale: 19.0
 - templateId: V0255_MOVE_AIR_SLASH_FAST
   moveSettings:
@@ -29255,7 +29413,7 @@ itemTemplates:
     heightStdDev: 0.05125
     weightStdDev: 0.3125
     familyId: FAMILY_TORCHIC
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.4
     evolutionBranch:
     - evolution: COMBUSKEN
@@ -29343,7 +29501,7 @@ itemTemplates:
     heightStdDev: 0.11125
     weightStdDev: 2.4375
     familyId: FAMILY_TORCHIC
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 0.94
     evolutionBranch:
@@ -29432,7 +29590,7 @@ itemTemplates:
     heightStdDev: 0.23875
     weightStdDev: 6.5
     familyId: FAMILY_TORCHIC
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.76
     modelScaleV2: 1.0
@@ -29514,7 +29672,7 @@ itemTemplates:
     heightStdDev: 0.05125
     weightStdDev: 0.95
     familyId: FAMILY_MUDKIP
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.4
     evolutionBranch:
     - evolution: MARSHTOMP
@@ -29602,7 +29760,7 @@ itemTemplates:
     heightStdDev: 0.08875
     weightStdDev: 3.5
     familyId: FAMILY_MUDKIP
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.7
     evolutionBranch:
     - evolution: SWAMPERT
@@ -29689,7 +29847,7 @@ itemTemplates:
     heightStdDev: 0.1875
     weightStdDev: 10.2375
     familyId: FAMILY_MUDKIP
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.8
     modelScaleV2: 1.0
@@ -29770,7 +29928,7 @@ itemTemplates:
     heightStdDev: 0.06375
     weightStdDev: 1.7
     familyId: FAMILY_POOCHYENA
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     modelHeight: 0.5
     evolutionBranch:
     - evolution: MIGHTYENA
@@ -29857,7 +30015,7 @@ itemTemplates:
     heightStdDev: 0.12375
     weightStdDev: 4.625
     familyId: FAMILY_POOCHYENA
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     modelHeight: 1.0
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -29937,7 +30095,7 @@ itemTemplates:
     heightStdDev: 0.05125
     weightStdDev: 2.1875
     familyId: FAMILY_ZIGZAGOON
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     modelHeight: 1.1
     evolutionBranch:
     - evolution: LINOONE
@@ -30023,7 +30181,7 @@ itemTemplates:
     heightStdDev: 0.06375
     weightStdDev: 4.0625
     familyId: FAMILY_ZIGZAGOON
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     modelHeight: 1.8
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -30102,7 +30260,7 @@ itemTemplates:
     heightStdDev: 0.0375
     weightStdDev: 0.45
     familyId: FAMILY_WURMPLE
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_SHOULDER
     modelHeight: 0.22
     evolutionBranch:
@@ -30189,7 +30347,7 @@ itemTemplates:
     heightStdDev: 0.07625
     weightStdDev: 1.25
     familyId: FAMILY_WURMPLE
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     modelHeight: 0.39
     evolutionBranch:
     - evolution: BEAUTIFLY
@@ -30278,7 +30436,7 @@ itemTemplates:
     heightStdDev: 0.12375
     weightStdDev: 3.55
     familyId: FAMILY_WURMPLE
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_FLYING
     modelHeight: 1.12
     modelScaleV2: 1.0
@@ -30361,7 +30519,7 @@ itemTemplates:
     heightStdDev: 0.08875
     weightStdDev: 1.4375
     familyId: FAMILY_WURMPLE
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     modelHeight: 0.46
     evolutionBranch:
     - evolution: DUSTOX
@@ -30449,7 +30607,7 @@ itemTemplates:
     heightStdDev: 0.14875
     weightStdDev: 3.95
     familyId: FAMILY_WURMPLE
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_FLYING
     modelHeight: 1.3
     modelScaleV2: 1.0
@@ -30531,7 +30689,7 @@ itemTemplates:
     heightStdDev: 0.06375
     weightStdDev: 0.325
     familyId: FAMILY_LOTAD
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 0.4074074
     evolutionBranch:
@@ -30541,11 +30699,11 @@ itemTemplates:
     buddyOffsetMale:
     - 20.0
     - 0.0
-    - 40.0
+    - 65.0
     buddyOffsetFemale:
     - 20.0
     - 0.0
-    - 40.0
+    - 65.0
     buddyScale: 19.0
 - templateId: V0271_MOVE_BULLET_SEED_FAST
   moveSettings:
@@ -30619,7 +30777,7 @@ itemTemplates:
     heightStdDev: 0.14875
     weightStdDev: 4.0625
     familyId: FAMILY_LOTAD
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.1086956
     evolutionBranch:
@@ -30629,11 +30787,11 @@ itemTemplates:
     buddyOffsetMale:
     - 20.0
     - 0.0
-    - 40.0
+    - 58.0
     buddyOffsetFemale:
     - 20.0
     - 0.0
-    - 40.0
+    - 58.0
     buddyScale: 19.0
 - templateId: V0272_MOVE_GRASS_KNOT
   moveSettings:
@@ -30708,18 +30866,18 @@ itemTemplates:
     heightStdDev: 0.1875
     weightStdDev: 6.875
     familyId: FAMILY_LOTAD
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.9642857
     modelScaleV2: 1.0
     buddyOffsetMale:
     - 20.0
     - 0.0
-    - 40.0
+    - 60.0
     buddyOffsetFemale:
     - 20.0
     - 0.0
-    - 40.0
+    - 60.0
     buddyScale: 19.0
 - templateId: V0273_MOVE_ENERGY_BALL
   moveSettings:
@@ -30790,7 +30948,7 @@ itemTemplates:
     heightStdDev: 0.06375
     weightStdDev: 0.5
     familyId: FAMILY_SEEDOT
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.5
     evolutionBranch:
     - evolution: NUZLEAF
@@ -30877,7 +31035,7 @@ itemTemplates:
     heightStdDev: 0.12375
     weightStdDev: 3.5
     familyId: FAMILY_SEEDOT
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.0
     evolutionBranch:
@@ -30966,18 +31124,18 @@ itemTemplates:
     heightStdDev: 0.1625
     weightStdDev: 7.45
     familyId: FAMILY_SEEDOT
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.2782608
     modelScaleV2: 1.0
     buddyOffsetMale:
     - 20.0
     - 0.0
-    - 40.0
+    - 45.0
     buddyOffsetFemale:
     - 20.0
     - 0.0
-    - 40.0
+    - 45.0
     buddyScale: 19.0
 - templateId: V0276_MOVE_MIRROR_COAT
   moveSettings:
@@ -31047,7 +31205,7 @@ itemTemplates:
     heightStdDev: 0.0375
     weightStdDev: 0.2875
     familyId: FAMILY_TAILLOW
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     modelHeight: 0.3
     evolutionBranch:
     - evolution: SWELLOW
@@ -31136,7 +31294,7 @@ itemTemplates:
     heightStdDev: 0.08875
     weightStdDev: 2.475
     familyId: FAMILY_TAILLOW
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_FLYING
     modelHeight: 1.21
     modelScaleV2: 1.0
@@ -31219,7 +31377,7 @@ itemTemplates:
     heightStdDev: 0.07625
     weightStdDev: 1.1875
     familyId: FAMILY_WINGULL
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_FLYING
     modelHeight: 1.7341464
     evolutionBranch:
@@ -31309,7 +31467,7 @@ itemTemplates:
     heightStdDev: 0.14875
     weightStdDev: 3.5
     familyId: FAMILY_WINGULL
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_FLYING
     modelHeight: 2.5828571
     modelScaleV2: 0.96
@@ -31392,7 +31550,7 @@ itemTemplates:
     heightStdDev: 0.05125
     weightStdDev: 0.825
     familyId: FAMILY_RALTS
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 0.4
     evolutionBranch:
     - evolution: KIRLIA
@@ -31480,7 +31638,7 @@ itemTemplates:
     heightStdDev: 0.09875
     weightStdDev: 2.525
     familyId: FAMILY_RALTS
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 0.94545454
     evolutionBranch:
     - evolution: GARDEVOIR
@@ -31567,18 +31725,18 @@ itemTemplates:
     heightStdDev: 0.2
     weightStdDev: 6.05
     familyId: FAMILY_RALTS
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BIG
     modelHeight: 1.7341464
     modelScaleV2: 1.0
     buddyOffsetMale:
     - 20.0
     - 0.0
-    - 40.0
+    - 75.0
     buddyOffsetFemale:
     - 20.0
     - 0.0
-    - 40.0
+    - 75.0
     buddyScale: 19.0
 - templateId: V0283_MOVE_WATERFALL_FAST
   moveSettings:
@@ -31649,7 +31807,7 @@ itemTemplates:
     heightStdDev: 0.06375
     weightStdDev: 0.2125
     familyId: FAMILY_SURSKIT
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     modelHeight: 0.5
     evolutionBranch:
     - evolution: MASQUERAIN
@@ -31737,7 +31895,7 @@ itemTemplates:
     heightStdDev: 0.09875
     weightStdDev: 0.45
     familyId: FAMILY_SURSKIT
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_FLYING
     modelHeight: 0.75
     modelScaleV2: 1.0
@@ -31818,7 +31976,7 @@ itemTemplates:
     heightStdDev: 0.05125
     weightStdDev: 0.5625
     familyId: FAMILY_SHROOMISH
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.4
     evolutionBranch:
     - evolution: BRELOOM
@@ -31905,18 +32063,18 @@ itemTemplates:
     heightStdDev: 0.14875
     weightStdDev: 4.9
     familyId: FAMILY_SHROOMISH
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.2604166
     modelScaleV2: 1.0
     buddyOffsetMale:
     - 20.0
     - 0.0
-    - 60.0
+    - 66.0
     buddyOffsetFemale:
     - 20.0
     - 0.0
-    - 60.0
+    - 66.0
     buddyScale: 19.0
 - templateId: V0287_MOVE_YAWN_FAST
   moveSettings:
@@ -31983,7 +32141,7 @@ itemTemplates:
     heightStdDev: 0.09875
     weightStdDev: 3.0
     familyId: FAMILY_SLAKOTH
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BIG
     modelHeight: 0.8
     evolutionBranch:
@@ -32070,7 +32228,7 @@ itemTemplates:
     heightStdDev: 0.175
     weightStdDev: 5.8125
     familyId: FAMILY_SLAKOTH
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BIG
     modelHeight: 1.5
     evolutionBranch:
@@ -32080,11 +32238,11 @@ itemTemplates:
     buddyOffsetMale:
     - 20.0
     - 0.0
-    - 40.0
+    - 50.0
     buddyOffsetFemale:
     - 20.0
     - 0.0
-    - 40.0
+    - 50.0
     buddyScale: 19.0
 - templateId: V0289_MOVE_ORIGIN_PULSE
   moveSettings:
@@ -32155,7 +32313,7 @@ itemTemplates:
     heightStdDev: 0.25125
     weightStdDev: 16.3125
     familyId: FAMILY_SLAKOTH
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BIG
     modelHeight: 2.589041
     modelScaleV2: 0.99
@@ -32237,7 +32395,7 @@ itemTemplates:
     heightStdDev: 0.06375
     weightStdDev: 0.6875
     familyId: FAMILY_NINCADA
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 0.5555556
     evolutionBranch:
     - evolution: NINJASK
@@ -32327,7 +32485,7 @@ itemTemplates:
     heightStdDev: 0.09875
     weightStdDev: 1.5
     familyId: FAMILY_NINCADA
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_FLYING
     modelHeight: 0.81391305
     modelScaleV2: 1.0
@@ -32413,7 +32571,7 @@ itemTemplates:
     heightStdDev: 0.09875
     weightStdDev: 0.15
     familyId: FAMILY_NINCADA
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_FLYING
     modelHeight: 0.8449074
     modelScaleV2: 1.0
@@ -32494,7 +32652,7 @@ itemTemplates:
     heightStdDev: 0.07625
     weightStdDev: 2.0375
     familyId: FAMILY_WHISMUR
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     modelHeight: 0.6
     evolutionBranch:
     - evolution: LOUDRED
@@ -32580,7 +32738,7 @@ itemTemplates:
     heightStdDev: 0.12375
     weightStdDev: 5.0625
     familyId: FAMILY_WHISMUR
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_BIG
     modelHeight: 1.0
     evolutionBranch:
@@ -32590,11 +32748,11 @@ itemTemplates:
     buddyOffsetMale:
     - 20.0
     - 0.0
-    - 40.0
+    - 65.0
     buddyOffsetFemale:
     - 20.0
     - 0.0
-    - 40.0
+    - 65.0
     buddyScale: 19.0
 - templateId: V0295_MOVE_WEATHER_BALL_WATER
   moveSettings:
@@ -32667,18 +32825,18 @@ itemTemplates:
     heightStdDev: 0.1875
     weightStdDev: 10.5
     familyId: FAMILY_WHISMUR
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_BIG
     modelHeight: 1.5
     modelScaleV2: 1.0
     buddyOffsetMale:
     - 20.0
     - 0.0
-    - 40.0
+    - 60.0
     buddyOffsetFemale:
     - 20.0
     - 0.0
-    - 40.0
+    - 60.0
     buddyScale: 19.0
 - templateId: V0296_MOVE_FRENZY_PLANT
   moveSettings:
@@ -32748,7 +32906,7 @@ itemTemplates:
     heightStdDev: 0.12375
     weightStdDev: 10.8
     familyId: FAMILY_MAKUHITA
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.0
     evolutionBranch:
@@ -32764,6 +32922,21 @@ itemTemplates:
     - 0.0
     - 40.0
     buddyScale: 19.0
+- templateId: V0297_MOVE_SMACK_DOWN_FAST
+  moveSettings:
+    movementId: SMACK_DOWN_FAST
+    animationId: 4
+    pokemonType: POKEMON_TYPE_ROCK
+    power: 12.0
+    accuracyChance: 1.0
+    staminaLossScalar: 0.01
+    trainerLevelMin: 1
+    trainerLevelMax: 100
+    vfxName: smack_down_fast
+    durationMs: 900
+    damageWindowStartMs: 500
+    damageWindowEndMs: 800
+    energyDelta: 7
 - templateId: V0297_POKEMON_HARIYAMA
   pokemonSettings:
     pokemonId: HARIYAMA
@@ -32820,7 +32993,7 @@ itemTemplates:
     heightStdDev: 0.28875
     weightStdDev: 31.725
     familyId: FAMILY_MAKUHITA
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 2.3
     modelScaleV2: 0.96
@@ -32833,6 +33006,21 @@ itemTemplates:
     - 0.0
     - -80.0
     buddyScale: 19.0
+- templateId: V0298_MOVE_BLAST_BURN
+  moveSettings:
+    movementId: BLAST_BURN
+    animationId: 5
+    pokemonType: POKEMON_TYPE_FIRE
+    power: 110.0
+    accuracyChance: 1.0
+    staminaLossScalar: 0.01
+    trainerLevelMin: 1
+    trainerLevelMax: 100
+    vfxName: blast_burn
+    durationMs: 3300
+    damageWindowStartMs: 2750
+    damageWindowEndMs: 3200
+    energyDelta: -50
 - templateId: V0298_POKEMON_AZURILL
   pokemonSettings:
     pokemonId: AZURILL
@@ -32887,7 +33075,7 @@ itemTemplates:
     heightStdDev: 0.025
     weightStdDev: 0.25
     familyId: FAMILY_MARILL
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.31
     evolutionBranch:
     - evolution: MARILL
@@ -32955,18 +33143,18 @@ itemTemplates:
     heightStdDev: 0.12375
     weightStdDev: 12.125
     familyId: FAMILY_NOSEPASS
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.0
     modelScaleV2: 1.0
     buddyOffsetMale:
     - 20.0
     - 0.0
-    - 40.0
+    - 65.0
     buddyOffsetFemale:
     - 20.0
     - 0.0
-    - 40.0
+    - 65.0
     buddyScale: 19.0
 - templateId: V0300_POKEMON_SKITTY
   pokemonSettings:
@@ -33021,7 +33209,7 @@ itemTemplates:
     heightStdDev: 0.07625
     weightStdDev: 1.375
     familyId: FAMILY_SKITTY
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.6
     evolutionBranch:
     - evolution: DELCATTY
@@ -33092,7 +33280,7 @@ itemTemplates:
     heightStdDev: 0.13625
     weightStdDev: 4.075
     familyId: FAMILY_SKITTY
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.2604166
     modelScaleV2: 1.0
@@ -33159,7 +33347,7 @@ itemTemplates:
     heightStdDev: 0.06375
     weightStdDev: 1.375
     familyId: FAMILY_SABLEYE
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 0.5
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -33225,7 +33413,7 @@ itemTemplates:
     heightStdDev: 0.07625
     weightStdDev: 1.4375
     familyId: FAMILY_MAWILE
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 0.62
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -33291,7 +33479,7 @@ itemTemplates:
     heightStdDev: 0.05125
     weightStdDev: 7.5
     familyId: FAMILY_ARON
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     modelHeight: 0.4
     evolutionBranch:
     - evolution: LAIRON
@@ -33363,7 +33551,7 @@ itemTemplates:
     heightStdDev: 0.11125
     weightStdDev: 15.0
     familyId: FAMILY_ARON
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_BIG
     modelHeight: 0.9
     evolutionBranch:
@@ -33373,11 +33561,11 @@ itemTemplates:
     buddyOffsetMale:
     - 20.0
     - 0.0
-    - 40.0
+    - 60.0
     buddyOffsetFemale:
     - 20.0
     - 0.0
-    - 40.0
+    - 60.0
     buddyScale: 19.0
 - templateId: V0306_POKEMON_AGGRON
   pokemonSettings:
@@ -33436,7 +33624,7 @@ itemTemplates:
     heightStdDev: 0.26375
     weightStdDev: 45.0
     familyId: FAMILY_ARON
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_BIG
     modelHeight: 2.2
     modelScaleV2: 0.97
@@ -33503,7 +33691,7 @@ itemTemplates:
     heightStdDev: 0.07625
     weightStdDev: 1.4
     familyId: FAMILY_MEDITITE
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.57
     evolutionBranch:
     - evolution: MEDICHAM
@@ -33575,18 +33763,18 @@ itemTemplates:
     heightStdDev: 0.1625
     weightStdDev: 3.9375
     familyId: FAMILY_MEDITITE
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.5113636
     modelScaleV2: 1.0
     buddyOffsetMale:
     - 20.0
     - 0.0
-    - 40.0
+    - 65.0
     buddyOffsetFemale:
     - 20.0
     - 0.0
-    - 40.0
+    - 65.0
     buddyScale: 19.0
 - templateId: V0309_POKEMON_ELECTRIKE
   pokemonSettings:
@@ -33641,7 +33829,7 @@ itemTemplates:
     heightStdDev: 0.07625
     weightStdDev: 1.9
     familyId: FAMILY_ELECTRIKE
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.02
     evolutionBranch:
@@ -33713,7 +33901,7 @@ itemTemplates:
     heightStdDev: 0.1875
     weightStdDev: 5.025
     familyId: FAMILY_ELECTRIKE
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.6091954
     modelScaleV2: 1.0
@@ -33779,7 +33967,7 @@ itemTemplates:
     heightStdDev: 0.05125
     weightStdDev: 0.525
     familyId: FAMILY_PLUSLE
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_SHOULDER
     modelHeight: 0.4
     modelScaleV2: 1.1
@@ -33845,7 +34033,7 @@ itemTemplates:
     heightStdDev: 0.05125
     weightStdDev: 0.525
     familyId: FAMILY_MINUN
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_SHOULDER
     modelHeight: 0.4
     modelScaleV2: 1.1
@@ -33911,7 +34099,7 @@ itemTemplates:
     heightStdDev: 0.08875
     weightStdDev: 2.2125
     familyId: FAMILY_VOLBEAT
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 0.7
     modelScaleV2: 1.0
@@ -33977,7 +34165,7 @@ itemTemplates:
     heightStdDev: 0.07625
     weightStdDev: 2.2125
     familyId: FAMILY_ILLUMISE
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 0.6
     modelScaleV2: 1.0
@@ -34044,7 +34232,7 @@ itemTemplates:
     heightStdDev: 0.0375
     weightStdDev: 0.25
     familyId: FAMILY_ROSELIA
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.35714287
     modelScaleV2: 1.27
     buddyOffsetMale:
@@ -34109,7 +34297,7 @@ itemTemplates:
     heightStdDev: 0.05125
     weightStdDev: 1.2875
     familyId: FAMILY_GULPIN
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     modelHeight: 0.55
     evolutionBranch:
     - evolution: SWALOT
@@ -34180,7 +34368,7 @@ itemTemplates:
     heightStdDev: 0.2125
     weightStdDev: 10.0
     familyId: FAMILY_GULPIN
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_BIG
     modelHeight: 1.7
     modelScaleV2: 1.0
@@ -34248,7 +34436,7 @@ itemTemplates:
     heightStdDev: 0.09875
     weightStdDev: 2.6
     familyId: FAMILY_CARVANHA
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 0.86
     evolutionBranch:
@@ -34322,18 +34510,18 @@ itemTemplates:
     heightStdDev: 0.225
     weightStdDev: 11.1
     familyId: FAMILY_CARVANHA
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.35
     modelScaleV2: 1.0
     buddyOffsetMale:
     - 20.0
     - 0.0
-    - 40.0
+    - 60.0
     buddyOffsetFemale:
     - 20.0
     - 0.0
-    - 40.0
+    - 60.0
     buddyScale: 19.0
 - templateId: V0320_POKEMON_WAILMER
   pokemonSettings:
@@ -34389,7 +34577,7 @@ itemTemplates:
     heightStdDev: 0.25125
     weightStdDev: 16.25
     familyId: FAMILY_WAILMER
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_BIG
     modelHeight: 1.654054
     evolutionBranch:
@@ -34460,7 +34648,7 @@ itemTemplates:
     heightStdDev: 1.8125
     weightStdDev: 49.75
     familyId: FAMILY_WAILMER
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_BIG
     modelHeight: 7.0
     modelScaleV2: 0.33
@@ -34527,7 +34715,7 @@ itemTemplates:
     heightStdDev: 0.08875
     weightStdDev: 3.0
     familyId: FAMILY_NUMEL
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.7
     evolutionBranch:
     - evolution: CAMERUPT
@@ -34599,7 +34787,7 @@ itemTemplates:
     heightStdDev: 0.23875
     weightStdDev: 27.5
     familyId: FAMILY_NUMEL
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.8461539
     modelScaleV2: 1.0
@@ -34664,7 +34852,7 @@ itemTemplates:
     heightStdDev: 0.06375
     weightStdDev: 10.05
     familyId: FAMILY_TORKOAL
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.82
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -34729,7 +34917,7 @@ itemTemplates:
     heightStdDev: 0.08875
     weightStdDev: 3.825
     familyId: FAMILY_SPOINK
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     modelHeight: 0.768
     evolutionBranch:
     - evolution: GRUMPIG
@@ -34800,7 +34988,7 @@ itemTemplates:
     heightStdDev: 0.11125
     weightStdDev: 8.9375
     familyId: FAMILY_SPOINK
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_BIG
     modelHeight: 1.1490566
     modelScaleV2: 1.0
@@ -34866,18 +35054,18 @@ itemTemplates:
     heightStdDev: 0.13625
     weightStdDev: 0.625
     familyId: FAMILY_SPINDA
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.05
     modelScaleV2: 1.0
     buddyOffsetMale:
     - 20.0
     - 0.0
-    - 60.0
+    - 70.0
     buddyOffsetFemale:
     - 20.0
     - 0.0
-    - 60.0
+    - 70.0
     buddyScale: 19.0
 - templateId: V0328_POKEMON_TRAPINCH
   pokemonSettings:
@@ -34932,7 +35120,7 @@ itemTemplates:
     heightStdDev: 0.08875
     weightStdDev: 1.875
     familyId: FAMILY_TRAPINCH
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 0.65
     evolutionBranch:
     - evolution: VIBRAVA
@@ -35005,7 +35193,7 @@ itemTemplates:
     heightStdDev: 0.13625
     weightStdDev: 1.9125
     familyId: FAMILY_TRAPINCH
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_FLYING
     modelHeight: 1.1
     evolutionBranch:
@@ -35079,7 +35267,7 @@ itemTemplates:
     heightStdDev: 0.25125
     weightStdDev: 10.25
     familyId: FAMILY_TRAPINCH
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_FLYING
     modelHeight: 2.0869565
     modelScaleV2: 0.94
@@ -35145,7 +35333,7 @@ itemTemplates:
     heightStdDev: 0.05125
     weightStdDev: 6.4125
     familyId: FAMILY_CACNEA
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 0.43
     evolutionBranch:
@@ -35218,7 +35406,7 @@ itemTemplates:
     heightStdDev: 0.1625
     weightStdDev: 9.675
     familyId: FAMILY_CACNEA
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.3736264
     modelScaleV2: 1.0
@@ -35285,7 +35473,7 @@ itemTemplates:
     heightStdDev: 0.05125
     weightStdDev: 0.15
     familyId: FAMILY_SWABLU
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_FLYING
     modelHeight: 1.39
     evolutionBranch:
@@ -35359,7 +35547,7 @@ itemTemplates:
     heightStdDev: 0.13625
     weightStdDev: 2.575
     familyId: FAMILY_SWABLU
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_BIG
     modelHeight: 2.17
     modelScaleV2: 0.97
@@ -35425,7 +35613,7 @@ itemTemplates:
     heightStdDev: 0.1625
     weightStdDev: 5.0375
     familyId: FAMILY_ZANGOOSE
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.35
     modelScaleV2: 1.0
@@ -35491,7 +35679,7 @@ itemTemplates:
     heightStdDev: 0.33625
     weightStdDev: 6.5625
     familyId: FAMILY_SEVIPER
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 1.8344444
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -35558,7 +35746,7 @@ itemTemplates:
     heightStdDev: 0.12375
     weightStdDev: 21.0
     familyId: FAMILY_LUNATONE
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_FLYING
     modelHeight: 1.0
     modelScaleV2: 1.0
@@ -35626,7 +35814,7 @@ itemTemplates:
     heightStdDev: 0.14875
     weightStdDev: 19.25
     familyId: FAMILY_SOLROCK
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_FLYING
     modelHeight: 1.2
     modelScaleV2: 1.0
@@ -35694,7 +35882,7 @@ itemTemplates:
     heightStdDev: 0.05125
     weightStdDev: 0.2375
     familyId: FAMILY_BARBOACH
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     modelHeight: 0.4864865
     evolutionBranch:
     - evolution: WHISCASH
@@ -35767,7 +35955,7 @@ itemTemplates:
     heightStdDev: 0.11125
     weightStdDev: 2.95
     familyId: FAMILY_BARBOACH
-    kmBuddyDistance: 1.0
+    kmBuddyDistance: 0.25
     buddySize: BUDDY_BIG
     modelHeight: 1.1142857
     modelScaleV2: 1.0
@@ -35833,7 +36021,7 @@ itemTemplates:
     heightStdDev: 0.07625
     weightStdDev: 1.4375
     familyId: FAMILY_CORPHISH
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.56
     evolutionBranch:
     - evolution: CRAWDAUNT
@@ -35905,7 +36093,7 @@ itemTemplates:
     heightStdDev: 0.13625
     weightStdDev: 4.1
     familyId: FAMILY_CORPHISH
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.2
     modelScaleV2: 1.0
@@ -35973,7 +36161,7 @@ itemTemplates:
     heightStdDev: 0.06375
     weightStdDev: 2.6875
     familyId: FAMILY_BALTOY
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.5
     evolutionBranch:
     - evolution: CLAYDOL
@@ -36046,18 +36234,18 @@ itemTemplates:
     heightStdDev: 0.1875
     weightStdDev: 13.5
     familyId: FAMILY_BALTOY
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.35
     modelScaleV2: 1.0
     buddyOffsetMale:
+    - 30.0
     - 0.0
-    - 0.0
-    - 0.0
+    - 65.0
     buddyOffsetFemale:
+    - 30.0
     - 0.0
-    - 0.0
-    - 0.0
+    - 65.0
     buddyScale: 19.0
 - templateId: V0345_POKEMON_LILEEP
   pokemonSettings:
@@ -36112,7 +36300,7 @@ itemTemplates:
     heightStdDev: 0.12375
     weightStdDev: 2.975
     familyId: FAMILY_LILEEP
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 0.92
     evolutionBranch:
@@ -36184,7 +36372,7 @@ itemTemplates:
     heightStdDev: 0.1875
     weightStdDev: 7.55
     familyId: FAMILY_LILEEP
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.45
     modelScaleV2: 1.0
@@ -36251,7 +36439,7 @@ itemTemplates:
     heightStdDev: 0.08875
     weightStdDev: 1.5625
     familyId: FAMILY_ANORITH
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 0.7
     evolutionBranch:
@@ -36324,7 +36512,7 @@ itemTemplates:
     heightStdDev: 0.1875
     weightStdDev: 8.525
     familyId: FAMILY_ANORITH
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.38
     modelScaleV2: 1.0
@@ -36389,7 +36577,7 @@ itemTemplates:
     heightStdDev: 0.07625
     weightStdDev: 0.925
     familyId: FAMILY_FEEBAS
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 0.6
     evolutionBranch:
     - evolution: MILOTIC
@@ -36461,7 +36649,7 @@ itemTemplates:
     heightStdDev: 0.775
     weightStdDev: 20.25
     familyId: FAMILY_FEEBAS
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BIG
     modelHeight: 2.3
     modelScaleV2: 0.96
@@ -36527,7 +36715,7 @@ itemTemplates:
     heightStdDev: 0.0375
     weightStdDev: 0.1
     familyId: FAMILY_CASTFORM
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 0.35
     modelScaleV2: 1.17
     buddyOffsetMale:
@@ -36592,7 +36780,7 @@ itemTemplates:
     heightStdDev: 0.0375
     weightStdDev: 0.1
     familyId: FAMILY_CASTFORM
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 0.35
     modelScaleV2: 1.17
     form: CASTFORM_NORMAL
@@ -36658,7 +36846,7 @@ itemTemplates:
     heightStdDev: 0.0375
     weightStdDev: 0.1
     familyId: FAMILY_CASTFORM
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 0.35
     modelScaleV2: 1.17
     form: CASTFORM_RAINY
@@ -36724,7 +36912,7 @@ itemTemplates:
     heightStdDev: 0.0375
     weightStdDev: 0.1
     familyId: FAMILY_CASTFORM
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 0.35
     modelScaleV2: 1.17
     form: CASTFORM_SNOWY
@@ -36790,7 +36978,7 @@ itemTemplates:
     heightStdDev: 0.0375
     weightStdDev: 0.1
     familyId: FAMILY_CASTFORM
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 0.35
     modelScaleV2: 1.17
     form: CASTFORM_SUNNY
@@ -36859,7 +37047,7 @@ itemTemplates:
     heightStdDev: 0.12375
     weightStdDev: 2.75
     familyId: FAMILY_KECLEON
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 0.95
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -36925,18 +37113,18 @@ itemTemplates:
     heightStdDev: 0.07625
     weightStdDev: 0.2875
     familyId: FAMILY_SHUPPET
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.64
     evolutionBranch:
     - evolution: BANETTE
       candyCost: 50
     modelScaleV2: 1.0
     buddyOffsetMale:
-    - 10.0
+    - 4.0
     - 0.0
     - 0.0
     buddyOffsetFemale:
-    - 10.0
+    - 4.0
     - 0.0
     - 0.0
     buddyScale: 19.0
@@ -36996,7 +37184,7 @@ itemTemplates:
     heightStdDev: 0.13625
     weightStdDev: 1.5625
     familyId: FAMILY_SHUPPET
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.08
     modelScaleV2: 1.0
@@ -37062,7 +37250,7 @@ itemTemplates:
     heightStdDev: 0.09875
     weightStdDev: 1.875
     familyId: FAMILY_DUSKULL
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 0.8
     evolutionBranch:
@@ -37134,7 +37322,7 @@ itemTemplates:
     heightStdDev: 0.2
     weightStdDev: 3.825
     familyId: FAMILY_DUSKULL
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.55
     modelScaleV2: 1.0
@@ -37202,7 +37390,7 @@ itemTemplates:
     heightStdDev: 0.25125
     weightStdDev: 12.5
     familyId: FAMILY_TROPIUS
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BIG
     modelHeight: 3.09
     modelScaleV2: 0.84
@@ -37270,7 +37458,7 @@ itemTemplates:
     heightStdDev: 0.07625
     weightStdDev: 0.125
     familyId: FAMILY_CHIMECHO
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 0.58
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -37335,7 +37523,7 @@ itemTemplates:
     heightStdDev: 0.14875
     weightStdDev: 5.875
     familyId: FAMILY_ABSOL
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 1.3043479
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -37398,7 +37586,7 @@ itemTemplates:
     heightStdDev: 0.07625
     weightStdDev: 1.75
     familyId: FAMILY_WOBBUFFET
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 0.59583336
     evolutionBranch:
@@ -37467,7 +37655,7 @@ itemTemplates:
     heightStdDev: 0.08875
     weightStdDev: 2.1
     familyId: FAMILY_SNORUNT
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.6581197
     evolutionBranch:
     - evolution: GLALIE
@@ -37539,7 +37727,7 @@ itemTemplates:
     heightStdDev: 0.1875
     weightStdDev: 32.0625
     familyId: FAMILY_SNORUNT
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.5
     modelScaleV2: 1.0
@@ -37606,7 +37794,7 @@ itemTemplates:
     heightStdDev: 0.09875
     weightStdDev: 4.9375
     familyId: FAMILY_SPHEAL
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 0.8
     evolutionBranch:
@@ -37679,7 +37867,7 @@ itemTemplates:
     heightStdDev: 0.13625
     weightStdDev: 10.95
     familyId: FAMILY_SPHEAL
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 0.84705883
     evolutionBranch:
@@ -37752,7 +37940,7 @@ itemTemplates:
     heightStdDev: 0.175
     weightStdDev: 18.825
     familyId: FAMILY_SPHEAL
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 1.3876405
     modelScaleV2: 1.0
@@ -37815,7 +38003,7 @@ itemTemplates:
     heightStdDev: 0.05125
     weightStdDev: 6.5625
     familyId: FAMILY_CLAMPERL
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.4
     evolutionBranch:
     - evolution: HUNTAIL
@@ -37888,7 +38076,7 @@ itemTemplates:
     heightStdDev: 0.2125
     weightStdDev: 3.375
     familyId: FAMILY_CLAMPERL
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 2.1465116
     modelScaleV2: 1.0
@@ -37957,7 +38145,7 @@ itemTemplates:
     heightStdDev: 0.225
     weightStdDev: 2.825
     familyId: FAMILY_CLAMPERL
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     buddySize: BUDDY_BIG
     modelHeight: 2.009091
     modelScaleV2: 1.0
@@ -38025,7 +38213,7 @@ itemTemplates:
     heightStdDev: 0.12375
     weightStdDev: 2.925
     familyId: FAMILY_RELICANTH
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BIG
     modelHeight: 0.92
     modelScaleV2: 1.0
@@ -38092,7 +38280,7 @@ itemTemplates:
     heightStdDev: 0.07625
     weightStdDev: 1.0875
     familyId: FAMILY_LUVDISC
-    kmBuddyDistance: 3.0
+    kmBuddyDistance: 0.75
     modelHeight: 0.6
     modelScaleV2: 1.0
     buddyOffsetMale:
@@ -38157,7 +38345,7 @@ itemTemplates:
     heightStdDev: 0.07625
     weightStdDev: 5.2625
     familyId: FAMILY_BAGON
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 0.65
     evolutionBranch:
     - evolution: SHELGON
@@ -38228,7 +38416,7 @@ itemTemplates:
     heightStdDev: 0.13625
     weightStdDev: 13.8125
     familyId: FAMILY_BAGON
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BIG
     modelHeight: 1.1
     evolutionBranch:
@@ -38302,7 +38490,7 @@ itemTemplates:
     heightStdDev: 0.1875
     weightStdDev: 12.825
     familyId: FAMILY_BAGON
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BIG
     modelHeight: 1.6
     modelScaleV2: 1.0
@@ -38367,7 +38555,7 @@ itemTemplates:
     heightStdDev: 0.07625
     weightStdDev: 11.9
     familyId: FAMILY_BELDUM
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     modelHeight: 0.61
     evolutionBranch:
     - evolution: METANG
@@ -38440,7 +38628,7 @@ itemTemplates:
     heightStdDev: 0.14875
     weightStdDev: 25.3125
     familyId: FAMILY_BELDUM
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BIG
     modelHeight: 1.53
     evolutionBranch:
@@ -38513,7 +38701,7 @@ itemTemplates:
     heightStdDev: 0.2
     weightStdDev: 68.75
     familyId: FAMILY_BELDUM
-    kmBuddyDistance: 5.0
+    kmBuddyDistance: 1.25
     buddySize: BUDDY_BIG
     modelHeight: 2.6
     modelScaleV2: 0.91
@@ -38580,7 +38768,7 @@ itemTemplates:
     heightStdDev: 0.2125
     weightStdDev: 28.75
     familyId: FAMILY_REGIROCK
-    kmBuddyDistance: 20.0
+    kmBuddyDistance: 5.0
     buddySize: BUDDY_BIG
     modelHeight: 1.7
     modelScaleV2: 1.0
@@ -38647,7 +38835,7 @@ itemTemplates:
     heightStdDev: 0.225
     weightStdDev: 21.875
     familyId: FAMILY_REGICE
-    kmBuddyDistance: 20.0
+    kmBuddyDistance: 5.0
     buddySize: BUDDY_BIG
     modelHeight: 1.8
     modelScaleV2: 1.0
@@ -38714,7 +38902,7 @@ itemTemplates:
     heightStdDev: 0.23875
     weightStdDev: 25.625
     familyId: FAMILY_REGISTEEL
-    kmBuddyDistance: 20.0
+    kmBuddyDistance: 5.0
     buddySize: BUDDY_BIG
     modelHeight: 1.5
     modelScaleV2: 1.0
@@ -38783,7 +38971,7 @@ itemTemplates:
     heightStdDev: 0.175
     weightStdDev: 5.0
     familyId: FAMILY_LATIAS
-    kmBuddyDistance: 20.0
+    kmBuddyDistance: 5.0
     buddySize: BUDDY_FLYING
     modelHeight: 1.5225806
     modelScaleV2: 1.0
@@ -38852,7 +39040,7 @@ itemTemplates:
     heightStdDev: 0.25125
     weightStdDev: 7.5
     familyId: FAMILY_LATIOS
-    kmBuddyDistance: 20.0
+    kmBuddyDistance: 5.0
     buddySize: BUDDY_FLYING
     modelHeight: 1.92
     modelScaleV2: 1.0
@@ -38920,7 +39108,7 @@ itemTemplates:
     heightStdDev: 0.5625
     weightStdDev: 44.0
     familyId: FAMILY_KYOGRE
-    kmBuddyDistance: 20.0
+    kmBuddyDistance: 5.0
     buddySize: BUDDY_BIG
     modelHeight: 1.0
     modelScaleV2: 0.85
@@ -38986,7 +39174,7 @@ itemTemplates:
     heightStdDev: 0.43875
     weightStdDev: 118.75
     familyId: FAMILY_GROUDON
-    kmBuddyDistance: 20.0
+    kmBuddyDistance: 5.0
     buddySize: BUDDY_BIG
     modelHeight: 3.0
     modelScaleV2: 0.85
@@ -39055,18 +39243,18 @@ itemTemplates:
     heightStdDev: 0.87625
     weightStdDev: 25.8125
     familyId: FAMILY_RAYQUAZA
-    kmBuddyDistance: 20.0
+    kmBuddyDistance: 5.0
     buddySize: BUDDY_BIG
     modelHeight: 3.76
     modelScaleV2: 0.77
     buddyOffsetMale:
     - 0.0
-    - -32.0
-    - 0.0
+    - -45.0
+    - 50.0
     buddyOffsetFemale:
     - 0.0
-    - -32.0
-    - 0.0
+    - -45.0
+    - 50.0
     buddyScale: 19.0
 - templateId: V0385_POKEMON_JIRACHI
   pokemonSettings:
@@ -39124,7 +39312,7 @@ itemTemplates:
     heightStdDev: 0.0375
     weightStdDev: 0.1375
     familyId: FAMILY_JIRACHI
-    kmBuddyDistance: 20.0
+    kmBuddyDistance: 5.0
     modelHeight: 0.3
     modelScaleV2: 1.27
     buddyOffsetMale:
@@ -39190,7 +39378,7 @@ itemTemplates:
     heightStdDev: 0.2125
     weightStdDev: 7.6
     familyId: FAMILY_DEOXYS
-    kmBuddyDistance: 20.0
+    kmBuddyDistance: 5.0
     buddySize: BUDDY_BIG
     modelHeight: 1.55
     modelScaleV2: 1.0
@@ -39257,7 +39445,7 @@ itemTemplates:
     heightStdDev: 0.2125
     weightStdDev: 7.6
     familyId: FAMILY_DEOXYS
-    kmBuddyDistance: 20.0
+    kmBuddyDistance: 5.0
     buddySize: BUDDY_BIG
     modelHeight: 1.55
     modelScaleV2: 1.0
@@ -39325,7 +39513,7 @@ itemTemplates:
     heightStdDev: 0.2125
     weightStdDev: 7.6
     familyId: FAMILY_DEOXYS
-    kmBuddyDistance: 20.0
+    kmBuddyDistance: 5.0
     buddySize: BUDDY_BIG
     modelHeight: 1.55
     modelScaleV2: 1.0
@@ -39393,7 +39581,7 @@ itemTemplates:
     heightStdDev: 0.2125
     weightStdDev: 7.6
     familyId: FAMILY_DEOXYS
-    kmBuddyDistance: 20.0
+    kmBuddyDistance: 5.0
     buddySize: BUDDY_BIG
     modelHeight: 1.55
     modelScaleV2: 1.0
@@ -39461,7 +39649,7 @@ itemTemplates:
     heightStdDev: 0.2125
     weightStdDev: 7.6
     familyId: FAMILY_DEOXYS
-    kmBuddyDistance: 20.0
+    kmBuddyDistance: 5.0
     buddySize: BUDDY_BIG
     modelHeight: 1.55
     modelScaleV2: 1.0
@@ -53740,6 +53928,11 @@ itemTemplates:
     sku: incenseordinary.25
     category: IAP_CATEGORY_ITEMS
     sortOrder: 42
+- templateId: incubatorsuper.1
+  iapItemDisplay:
+    sku: incubatorsuper.1
+    category: IAP_CATEGORY_BUNDLE
+    sortOrder: 5
 - templateId: luckyegg.25
   iapItemDisplay:
     sku: luckyegg.25
@@ -53860,6 +54053,16 @@ itemTemplates:
     - vfx defender bite_fast
     - wait 0.25
     - sfx attacker 044-0_bite
+    - sys ui-sync
+    - sys complete
+- templateId: sequence_blast_burn
+  moveSequenceSettings:
+    sequence:
+    - anim attacker atk-move
+    - wait 0.5
+    - vfx blast_burn
+    - sfx attacker 307-0_blast_burn
+    - wait 1.5
     - sys ui-sync
     - sys complete
 - templateId: sequence_blizzard
@@ -55395,6 +55598,16 @@ itemTemplates:
     - wait 1.5
     - sys ui-sync
     - sys complete
+- templateId: sequence_smack_down
+  moveSequenceSettings:
+    sequence:
+    - anim attacker atk-move
+    - wait 0.5
+    - vfx smack_down_fast
+    - sfx attacker 479-0_smack_down
+    - wait 1.5
+    - sys ui-sync
+    - sys complete
 - templateId: sequence_snarl_fast
   moveSequenceSettings:
     sequence:
@@ -55807,4 +56020,9 @@ itemTemplates:
     - wait 0.25
     - sys ui-sync
     - sys complete
-timestampMs: '1525476111703'
+- templateId: starpiece.8
+  iapItemDisplay:
+    sku: starpiece.8
+    category: IAP_CATEGORY_BUNDLE
+    sortOrder: 4
+timestampMs: '1527880437230'
