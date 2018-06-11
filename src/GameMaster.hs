@@ -158,7 +158,7 @@ makeGameMaster yamlObject = do
   types <- getTypes itemTemplates
   moves <- getMoves types itemTemplates
   pokemonBases <-
-    makeObjects "pokemonSettings" "pokemonId"
+    makeObjects "pokemonSettings" (getNameFromKey "pokemonId")
       (makePokemonBase types moves) itemTemplates
   cpMultipliers <- do
     playerLevel <- getFirst itemTemplates "playerLevel"
@@ -174,7 +174,7 @@ makeGameMaster yamlObject = do
     attackBonusMultiplier <-
       getObjectValue weatherBonusSettings "attackBonusMultiplier"
     weatherAffinityMap <-
-      makeObjects "weatherAffinities" "weatherCondition"
+      makeObjects "weatherAffinities" (getNameFromKey "weatherCondition")
         (makeWeatherAffinity types) itemTemplates
     return $
       foldr (\ (wstring, ptypes) map ->
@@ -201,7 +201,8 @@ getTypes :: Epic.MonadCatch m => [ItemTemplate] -> m (StringMap Type)
 getTypes itemTemplates = do
   battleSettings <- getFirst itemTemplates "battleSettings"
   stab <- getObjectValue battleSettings "sameTypeAttackBonusMultiplier"
-  makeObjects "typeEffective" "attackType" (makeType stab) itemTemplates
+  makeObjects "typeEffective" (getNameFromKey "attackType")
+    (makeType stab) itemTemplates
 
 makeType :: Epic.MonadCatch m => Float -> ItemTemplate -> m Type
 makeType stab itemTemplate = do
@@ -234,7 +235,8 @@ effectivenessOrder =
 
 getMoves :: Epic.MonadCatch m => StringMap Type -> [ItemTemplate] -> m (StringMap Move)
 getMoves types itemTemplates =
-  makeObjects "moveSettings" "movementId" (makeMove types) itemTemplates
+  makeObjects "moveSettings" (getNameFromKey "movementId")
+    (makeMove types) itemTemplates
 
 makeMove :: Epic.MonadCatch m => StringMap Type -> ItemTemplate -> m Move
 makeMove types itemTemplate =
@@ -308,12 +310,16 @@ makeWeatherAffinity types weatherAffinity = do
   ptypes <- getObjectValue weatherAffinity "pokemonType"
   mapM (get types) ptypes
 
-makeObjects :: Epic.MonadCatch m => String -> String -> (ItemTemplate -> m a) -> [ItemTemplate]
+getNameFromKey :: Epic.MonadCatch m => String -> ItemTemplate -> m String
+getNameFromKey nameKey itemTemplate =
+  getObjectValue itemTemplate nameKey
+
+makeObjects :: Epic.MonadCatch m => String -> (ItemTemplate -> m String) -> (ItemTemplate -> m a) -> [ItemTemplate]
   -> m (StringMap a)
-makeObjects filterKey nameKey makeObject itemTemplates =
+makeObjects filterKey getName makeObject itemTemplates =
   foldr (\ itemTemplate maybeHash -> do
       hash <- maybeHash
-      name <- getObjectValue itemTemplate nameKey
+      name <- getName itemTemplate
       obj <- makeObject itemTemplate
       return $ HashMap.insert name obj hash)
     (pure HashMap.empty)
