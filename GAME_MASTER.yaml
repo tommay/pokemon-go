@@ -9385,6 +9385,7 @@ itemTemplates:
     - FIRE_BLAST
     - DRAGON_CLAW
     - OVERHEAT
+    - BLAST_BURN   # Community day 5/2018.
     animationTime:
     - 2.2
     - 0.6667
