@@ -158,7 +158,7 @@ makeGameMaster yamlObject = do
   types <- getTypes itemTemplates
   moves <- getMoves types itemTemplates
   pokemonBases <-
-    makeObjects "pokemonSettings" (getNameFromKey "pokemonId")
+    makeObjects "pokemonSettings" getNameForPokemonBase
       (makePokemonBase types moves) itemTemplates
   cpMultipliers <- do
     playerLevel <- getFirst itemTemplates "playerLevel"
@@ -250,6 +250,11 @@ makeMove types itemTemplate =
     <*> ((/1000) <$> getTemplateValue "durationMs")
     <*> getTemplateValue "damageWindowStartMs"
     <*> getObjectValueWithDefault itemTemplate "energyDelta" 0
+
+getNameForPokemonBase :: Epic.MonadCatch m => ItemTemplate -> m String
+getNameForPokemonBase itemTemplate =
+  Epic.catch (getObjectValue itemTemplate "form")
+  $ \ex -> getObjectValue itemTemplate "pokemonId"
 
 makePokemonBase :: Epic.MonadCatch m => StringMap Type -> StringMap Move -> ItemTemplate -> m PokemonBase
 makePokemonBase types moves pokemonSettings =
