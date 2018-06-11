@@ -23459,6 +23459,7 @@ itemTemplates:
     - ZAP_CANNON
     - FOCUS_BLAST
     - THUNDER
+    - DRAGON_PULSE    # Community day 4/2018.
     animationTime:
     - 1.3333
     - 0.6667
