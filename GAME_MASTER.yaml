@@ -28857,6 +28857,7 @@ itemTemplates:
     quickMoves:
     - BITE_FAST
     - IRON_TAIL_FAST
+    - SMACK_DOWN_FAST    # Community day 6/2018.
     cinematicMoves:
     - FIRE_BLAST
     - CRUNCH

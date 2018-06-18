@@ -1,5 +1,5 @@
 --- GAME_MASTER.yaml.orig	2018-06-17 21:29:06.242276666 -0700
-+++ GAME_MASTER.yaml	2018-06-17 21:29:06.268956667 -0700
++++ GAME_MASTER.yaml	2018-06-18 19:32:09.342667666 -0700
 @@ -9218,6 +9218,7 @@
      - SLUDGE_BOMB
      - PETAL_BLIZZARD
@@ -64,7 +64,15 @@
      cinematicMoves:
      - HYDRO_PUMP
      - BUBBLE_BEAM
-@@ -39130,6 +39138,7 @@
+@@ -28849,6 +28857,7 @@
+     quickMoves:
+     - BITE_FAST
+     - IRON_TAIL_FAST
++    - SMACK_DOWN_FAST    # Community day 6/2018.
+     cinematicMoves:
+     - FIRE_BLAST
+     - CRUNCH
+@@ -39130,6 +39139,7 @@
        baseDefense: 251
      quickMoves:
      - WATERFALL_FAST
