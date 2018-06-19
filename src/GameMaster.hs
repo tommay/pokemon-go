@@ -158,7 +158,7 @@ makeGameMaster yamlObject = do
   types <- getTypes itemTemplates
   moves <- getMoves types itemTemplates
   pokemonBases <-
-    makeObjects "pokemonSettings" getNameForPokemonBase
+    makeObjects "pokemonSettings" getSpeciesForPokemonBase
       (makePokemonBase types moves) itemTemplates
   cpMultipliers <- do
     playerLevel <- getFirst itemTemplates "playerLevel"
@@ -268,8 +268,8 @@ makeMove types itemTemplate =
 -- redundant templates to the pokemonBases hash, but the first one will
 -- be overwritten which is find because except for the form the are identical.
 --
-getNameForPokemonBase :: Epic.MonadCatch m => ItemTemplate -> m String
-getNameForPokemonBase itemTemplate =
+getSpeciesForPokemonBase :: Epic.MonadCatch m => ItemTemplate -> m String
+getSpeciesForPokemonBase itemTemplate =
   let mPokemonId = getObjectValue itemTemplate "pokemonId"
   in Epic.catch (do
        form <- getObjectValue itemTemplate "form"
@@ -284,7 +284,7 @@ makePokemonBase types moves pokemonSettings =
     let getValue key = getObjectValue pokemonSettings key
 
     species <- do
-      species <- getNameForPokemonBase pokemonSettings
+      species <- getSpeciesForPokemonBase pokemonSettings
       return $ map toLower species
 
     ptypes <- do
