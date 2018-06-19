@@ -1,5 +1,15 @@
 module Main where
 
+-- Read matchups.out and output the elite attackers + moveset and their
+-- victims.
+--
+-- To be an alite against a particular defender an attacker needs to
+-- in the top 10 percentile in dps and must have tdo >= 90% of the
+-- best tdo.
+--
+-- XXX Perhaps this should just be about dps since that's what mostly
+-- matters for raids.
+
 import qualified Options.Applicative as O
 import           Options.Applicative ((<|>), (<**>))
 import           Data.Semigroup ((<>))

@@ -251,10 +251,32 @@ makeMove types itemTemplate =
     <*> getTemplateValue "damageWindowStartMs"
     <*> getObjectValueWithDefault itemTemplate "energyDelta" 0
 
+-- This is a little goofy because GAME_MASTER is a little goofy.  There are
+-- three templates for the two exeggutor forms.  The firrst and third are
+-- redundant:
+--   pokemonId: EXEGGUTOR
+-- and 
+--   pokemonId: EXEGGUTOR
+--   form: EXEGGUTOR_ALOLA
+-- and
+--   pokemonId: EXEGGUTOR
+--   form: EXEGGUTOR_NORMAL
+-- I want the original exeggutor to be known as just "exeggutor", and the
+-- alola form to be known as "exeggutor_alola".  So, if there is a form
+-- and the form does not end with "_NORMAL" then use it as the name, else
+-- use the pokemonId.  This also works with DEOXYS.  Note that we'll add both
+-- redundant templates to the pokemonBases hash, but the first one will
+-- be overwritten which is find because except for the form the are identical.
+--
 getNameForPokemonBase :: Epic.MonadCatch m => ItemTemplate -> m String
 getNameForPokemonBase itemTemplate =
-  Epic.catch (getObjectValue itemTemplate "form")
-  $ \ex -> getObjectValue itemTemplate "pokemonId"
+  let mPokemonId = getObjectValue itemTemplate "pokemonId"
+  in Epic.catch (do
+       form <- getObjectValue itemTemplate "form"
+       if "_NORMAL" `List.isSuffixOf` form
+         then mPokemonId
+         else return form)
+     $ \ex -> mPokemonId
 
 makePokemonBase :: Epic.MonadCatch m => StringMap Type -> StringMap Move -> ItemTemplate -> m PokemonBase
 makePokemonBase types moves pokemonSettings =
@@ -262,7 +284,7 @@ makePokemonBase types moves pokemonSettings =
     let getValue key = getObjectValue pokemonSettings key
 
     species <- do
-      species <- getValue "pokemonId"
+      species <- getNameForPokemonBase pokemonSettings
       return $ map toLower species
 
     ptypes <- do
