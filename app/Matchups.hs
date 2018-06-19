@@ -1,5 +1,17 @@
 {-# LANGUAGE OverloadedStrings #-}
 
+-- Simulates matchups between all pokemon that are non-mythical (i.e.,
+-- actually available) non-legendary pokemon at the top of their
+-- evolution chain.  Except legendary defenders are simulated.
+-- Alternatively a file of attackers can be given and they will be
+-- simulated against all defenders.
+--
+-- For each defender, consider all movesets and output the worst case
+-- dps and the min and max damage for each of the attacker's movesets.
+--
+-- The output can be used by "elites" to figure which pokemon are the
+-- best attackers.
+
 module Main where
 
 import qualified Options.Applicative as O
