@@ -83,7 +83,7 @@ main =
 
           eliteMatchups :: [Matchup]
           eliteMatchups = concat
-            $ map (keepTopDamageMatchups . keepHighDpsMatchups)
+            $ map keepHighDpsMatchups
             $ HashMap.elems byDefender  -- [[Matchup]]
 
           -- HashMap (attacker, _, _) [Matchup]
@@ -131,7 +131,7 @@ attackerInfo matchup =
 keepHighDpsMatchups :: [Matchup] -> [Matchup]
 keepHighDpsMatchups matchups =
   let sortedByDps = reverse $ Util.sortWith Matchup.dps matchups
-      dpsCutoff = Matchup.dps $ sortedByDps !! (length sortedByDps `div` 10)
+      dpsCutoff = Matchup.dps $ sortedByDps !! (length sortedByDps `div` 200)
   in takeWhile ((>= dpsCutoff) . Matchup.dps) sortedByDps
 
 -- Keep Matchups with damage >= 90% of the maximum damage.  This may
