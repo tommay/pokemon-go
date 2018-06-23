@@ -252,8 +252,8 @@ makeMove types itemTemplate =
     <*> getObjectValueWithDefault itemTemplate "energyDelta" 0
 
 -- This is a little goofy because GAME_MASTER is a little goofy.  There are
--- three templates for the two exeggutor forms.  The firrst and third are
--- redundant:
+-- three templates for the two exeggutor forms.  The first and third are
+-- redundant with each other:
 --   pokemonId: EXEGGUTOR
 -- and 
 --   pokemonId: EXEGGUTOR
@@ -261,13 +261,14 @@ makeMove types itemTemplate =
 -- and
 --   pokemonId: EXEGGUTOR
 --   form: EXEGGUTOR_NORMAL
--- I want the original exeggutor to be known as just "exeggutor", and the
--- alola form to be known as "exeggutor_alola".  So, if there is a form
--- and the form does not end with "_NORMAL" then use it as the name, else
--- use the pokemonId.  This also works with DEOXYS.  Note that we'll add both
--- redundant templates to the pokemonBases hash, but the first one will
--- be overwritten which is find because except for the form the are identical.
---
+-- I want the original exeggutor to be known as just "exeggutor", and
+-- the alola form to be known as "exeggutor_alola".  So, if there is a
+-- form and the form does not end with "_NORMAL" then use it as the
+-- species, else use the pokemonId.  This also works with DEOXYS.
+-- Note that we'll add both redundant templates to the pokemonBases
+-- hash, but the first one will be overwritten which is fine because
+-- except for the form they are identical.
+
 getSpeciesForPokemonBase :: Epic.MonadCatch m => ItemTemplate -> m String
 getSpeciesForPokemonBase itemTemplate =
   let mPokemonId = getObjectValue itemTemplate "pokemonId"
