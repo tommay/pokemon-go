@@ -4150,6 +4150,14 @@ itemTemplates:
     - 10
     - 100
     - 1000
+- templateId: BADGE_MAX_LEVEL_FRIENDS
+  badgeSettings:
+    badgeType: 48
+    badgeRank: 4
+    targets:
+    - 1
+    - 2
+    - 3
 - templateId: BADGE_PIKACHU
   badgeSettings:
     badgeType: BADGE_PIKACHU
@@ -4234,6 +4242,22 @@ itemTemplates:
     - 3
     - 50
     - 300
+- templateId: BADGE_TRADING
+  badgeSettings:
+    badgeType: 49
+    badgeRank: 4
+    targets:
+    - 10
+    - 100
+    - 1000
+- templateId: BADGE_TRADING_DISTANCE
+  badgeSettings:
+    badgeType: 50
+    badgeRank: 4
+    targets:
+    - 1000
+    - 100000
+    - 1000000
 - templateId: BADGE_TRAVEL_KM
   badgeSettings:
     badgeType: BADGE_TRAVEL_KM
@@ -4477,9 +4501,17 @@ itemTemplates:
 - templateId: FORMS_V0019_POKEMON_RATTATA
   formSettings:
     pokemon: RATTATA
+    forms:
+    - form: RATTATA_NORMAL
+    - form: RATTATA_ALOLA
+      assetBundleValue: 61
 - templateId: FORMS_V0020_POKEMON_RATICATE
   formSettings:
     pokemon: RATICATE
+    forms:
+    - form: RATICATE_NORMAL
+    - form: RATICATE_ALOLA
+      assetBundleValue: 61
 - templateId: FORMS_V0021_POKEMON_SPEAROW
   formSettings:
     pokemon: SPEAROW
@@ -4498,12 +4530,24 @@ itemTemplates:
 - templateId: FORMS_V0026_POKEMON_RAICHU
   formSettings:
     pokemon: RAICHU
+    forms:
+    - form: RAICHU_NORMAL
+    - form: RAICHU_ALOLA
+      assetBundleValue: 61
 - templateId: FORMS_V0027_POKEMON_SANDSHREW
   formSettings:
     pokemon: SANDSHREW
+    forms:
+    - form: SANDSHREW_NORMAL
+    - form: SANDSHREW_ALOLA
+      assetBundleValue: 61
 - templateId: FORMS_V0028_POKEMON_SANDSLASH
   formSettings:
     pokemon: SANDSLASH
+    forms:
+    - form: SANDSLASH_NORMAL
+    - form: SANDSLASH_ALOLA
+      assetBundleValue: 61
 - templateId: FORMS_V0029_POKEMON_NIDORAN
   formSettings:
     pokemon: NIDORAN_FEMALE
@@ -4531,9 +4575,17 @@ itemTemplates:
 - templateId: FORMS_V0037_POKEMON_VULPIX
   formSettings:
     pokemon: VULPIX
+    forms:
+    - form: VULPIX_NORMAL
+    - form: VULPIX_ALOLA
+      assetBundleValue: 61
 - templateId: FORMS_V0038_POKEMON_NINETALES
   formSettings:
     pokemon: NINETALES
+    forms:
+    - form: NINETALES_NORMAL
+    - form: NINETALES_ALOLA
+      assetBundleValue: 61
 - templateId: FORMS_V0039_POKEMON_JIGGLYPUFF
   formSettings:
     pokemon: JIGGLYPUFF
@@ -4570,15 +4622,31 @@ itemTemplates:
 - templateId: FORMS_V0050_POKEMON_DIGLETT
   formSettings:
     pokemon: DIGLETT
+    forms:
+    - form: DIGLETT_NORMAL
+    - form: DIGLETT_ALOLA
+      assetBundleValue: 61
 - templateId: FORMS_V0051_POKEMON_DUGTRIO
   formSettings:
     pokemon: DUGTRIO
+    forms:
+    - form: DUGTRIO_NORMAL
+    - form: DUGTRIO_ALOLA
+      assetBundleValue: 61
 - templateId: FORMS_V0052_POKEMON_MEOWTH
   formSettings:
     pokemon: MEOWTH
+    forms:
+    - form: MEOWTH_NORMAL
+    - form: MEOWTH_ALOLA
+      assetBundleValue: 61
 - templateId: FORMS_V0053_POKEMON_PERSIAN
   formSettings:
     pokemon: PERSIAN
+    forms:
+    - form: PERSIAN_NORMAL
+    - form: PERSIAN_ALOLA
+      assetBundleValue: 61
 - templateId: FORMS_V0054_POKEMON_PSYDUCK
   formSettings:
     pokemon: PSYDUCK
@@ -4642,12 +4710,24 @@ itemTemplates:
 - templateId: FORMS_V0074_POKEMON_GEODUDE
   formSettings:
     pokemon: GEODUDE
+    forms:
+    - form: GEODUDE_NORMAL
+    - form: GEODUDE_ALOLA
+      assetBundleValue: 61
 - templateId: FORMS_V0075_POKEMON_GRAVELER
   formSettings:
     pokemon: GRAVELER
+    forms:
+    - form: GRAVELER_NORMAL
+    - form: GRAVELER_ALOLA
+      assetBundleValue: 61
 - templateId: FORMS_V0076_POKEMON_GOLEM
   formSettings:
     pokemon: GOLEM
+    forms:
+    - form: GOLEM_NORMAL
+    - form: GOLEM_ALOLA
+      assetBundleValue: 61
 - templateId: FORMS_V0077_POKEMON_PONYTA
   formSettings:
     pokemon: PONYTA
@@ -4684,9 +4764,17 @@ itemTemplates:
 - templateId: FORMS_V0088_POKEMON_GRIMER
   formSettings:
     pokemon: GRIMER
+    forms:
+    - form: GRIMER_NORMAL
+    - form: GRIMER_ALOLA
+      assetBundleValue: 61
 - templateId: FORMS_V0089_POKEMON_MUK
   formSettings:
     pokemon: MUK
+    forms:
+    - form: MUK_NORMAL
+    - form: MUK_ALOLA
+      assetBundleValue: 61
 - templateId: FORMS_V0090_POKEMON_SHELLDER
   formSettings:
     pokemon: SHELLDER
@@ -4739,6 +4827,10 @@ itemTemplates:
 - templateId: FORMS_V0105_POKEMON_MAROWAK
   formSettings:
     pokemon: MAROWAK
+    forms:
+    - form: MAROWAK_NORMAL
+    - form: MAROWAK_ALOLA
+      assetBundleValue: 61
 - templateId: FORMS_V0106_POKEMON_HITMONLEE
   formSettings:
     pokemon: HITMONLEE
@@ -5657,6 +5749,11 @@ itemTemplates:
       assetBundleValue: 13
     - form: DEOXYS_SPEED
       assetBundleValue: 14
+- templateId: FRIENDSHIP_LEVEL_0
+- templateId: FRIENDSHIP_LEVEL_1
+- templateId: FRIENDSHIP_LEVEL_2
+- templateId: FRIENDSHIP_LEVEL_3
+- templateId: FRIENDSHIP_LEVEL_4
 - templateId: GYM_BADGE_SETTINGS
   gymBadgeSettings:
     target:
@@ -5755,6 +5852,12 @@ itemTemplates:
     itemId: ITEM_FREE_RAID_TICKET
     itemType: ITEM_TYPE_RAID_TICKET
     category: ITEM_CATEGORY_RAID_TICKET
+    dropTrainerLevel: 100
+- templateId: ITEM_FRIEND_GIFT_BOX
+  itemSettings:
+    itemId: 1405
+    itemType: 18
+    category: 17
     dropTrainerLevel: 100
 - templateId: ITEM_GOLDEN_RAZZ_BERRY
   itemSettings:
@@ -6829,7 +6932,31 @@ itemTemplates:
     gender:
       malePercent: 0.5
       femalePercent: 0.5
+- templateId: SPAWN_V0019_POKEMON_RATTATA_ALOLA
+  genderSettings:
+    pokemon: RATTATA
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0019_POKEMON_RATTATA_NORMAL
+  genderSettings:
+    pokemon: RATTATA
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
 - templateId: SPAWN_V0020_POKEMON_RATICATE
+  genderSettings:
+    pokemon: RATICATE
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0020_POKEMON_RATICATE_ALOLA
+  genderSettings:
+    pokemon: RATICATE
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0020_POKEMON_RATICATE_NORMAL
   genderSettings:
     pokemon: RATICATE
     gender:
@@ -6871,13 +6998,49 @@ itemTemplates:
     gender:
       malePercent: 0.5
       femalePercent: 0.5
+- templateId: SPAWN_V0026_POKEMON_RAICHU_ALOLA
+  genderSettings:
+    pokemon: RAICHU
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0026_POKEMON_RAICHU_NORMAL
+  genderSettings:
+    pokemon: RAICHU
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
 - templateId: SPAWN_V0027_POKEMON_SANDSHREW
   genderSettings:
     pokemon: SANDSHREW
     gender:
       malePercent: 0.5
       femalePercent: 0.5
+- templateId: SPAWN_V0027_POKEMON_SANDSHREW_ALOLA
+  genderSettings:
+    pokemon: SANDSHREW
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0027_POKEMON_SANDSHREW_NORMAL
+  genderSettings:
+    pokemon: SANDSHREW
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
 - templateId: SPAWN_V0028_POKEMON_SANDSLASH
+  genderSettings:
+    pokemon: SANDSLASH
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0028_POKEMON_SANDSLASH_ALOLA
+  genderSettings:
+    pokemon: SANDSLASH
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0028_POKEMON_SANDSLASH_NORMAL
   genderSettings:
     pokemon: SANDSLASH
     gender:
@@ -6931,7 +7094,31 @@ itemTemplates:
     gender:
       malePercent: 0.25
       femalePercent: 0.75
+- templateId: SPAWN_V0037_POKEMON_VULPIX_ALOLA
+  genderSettings:
+    pokemon: VULPIX
+    gender:
+      malePercent: 0.25
+      femalePercent: 0.75
+- templateId: SPAWN_V0037_POKEMON_VULPIX_NORMAL
+  genderSettings:
+    pokemon: VULPIX
+    gender:
+      malePercent: 0.25
+      femalePercent: 0.75
 - templateId: SPAWN_V0038_POKEMON_NINETALES
+  genderSettings:
+    pokemon: NINETALES
+    gender:
+      malePercent: 0.25
+      femalePercent: 0.75
+- templateId: SPAWN_V0038_POKEMON_NINETALES_ALOLA
+  genderSettings:
+    pokemon: NINETALES
+    gender:
+      malePercent: 0.25
+      femalePercent: 0.75
+- templateId: SPAWN_V0038_POKEMON_NINETALES_NORMAL
   genderSettings:
     pokemon: NINETALES
     gender:
@@ -7009,7 +7196,31 @@ itemTemplates:
     gender:
       malePercent: 0.5
       femalePercent: 0.5
+- templateId: SPAWN_V0050_POKEMON_DIGLETT_ALOLA
+  genderSettings:
+    pokemon: DIGLETT
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0050_POKEMON_DIGLETT_NORMAL
+  genderSettings:
+    pokemon: DIGLETT
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
 - templateId: SPAWN_V0051_POKEMON_DUGTRIO
+  genderSettings:
+    pokemon: DUGTRIO
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0051_POKEMON_DUGTRIO_ALOLA
+  genderSettings:
+    pokemon: DUGTRIO
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0051_POKEMON_DUGTRIO_NORMAL
   genderSettings:
     pokemon: DUGTRIO
     gender:
@@ -7021,7 +7232,31 @@ itemTemplates:
     gender:
       malePercent: 0.5
       femalePercent: 0.5
+- templateId: SPAWN_V0052_POKEMON_MEOWTH_ALOLA
+  genderSettings:
+    pokemon: MEOWTH
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0052_POKEMON_MEOWTH_NORMAL
+  genderSettings:
+    pokemon: MEOWTH
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
 - templateId: SPAWN_V0053_POKEMON_PERSIAN
+  genderSettings:
+    pokemon: PERSIAN
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0053_POKEMON_PERSIAN_ALOLA
+  genderSettings:
+    pokemon: PERSIAN
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0053_POKEMON_PERSIAN_NORMAL
   genderSettings:
     pokemon: PERSIAN
     gender:
@@ -7153,13 +7388,49 @@ itemTemplates:
     gender:
       malePercent: 0.5
       femalePercent: 0.5
+- templateId: SPAWN_V0074_POKEMON_GEODUDE_ALOLA
+  genderSettings:
+    pokemon: GEODUDE
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0074_POKEMON_GEODUDE_NORMAL
+  genderSettings:
+    pokemon: GEODUDE
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
 - templateId: SPAWN_V0075_POKEMON_GRAVELER
   genderSettings:
     pokemon: GRAVELER
     gender:
       malePercent: 0.5
       femalePercent: 0.5
+- templateId: SPAWN_V0075_POKEMON_GRAVELER_ALOLA
+  genderSettings:
+    pokemon: GRAVELER
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0075_POKEMON_GRAVELER_NORMAL
+  genderSettings:
+    pokemon: GRAVELER
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
 - templateId: SPAWN_V0076_POKEMON_GOLEM
+  genderSettings:
+    pokemon: GOLEM
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0076_POKEMON_GOLEM_ALOLA
+  genderSettings:
+    pokemon: GOLEM
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0076_POKEMON_GOLEM_NORMAL
   genderSettings:
     pokemon: GOLEM
     gender:
@@ -7235,7 +7506,31 @@ itemTemplates:
     gender:
       malePercent: 0.5
       femalePercent: 0.5
+- templateId: SPAWN_V0088_POKEMON_GRIMER_ALOLA
+  genderSettings:
+    pokemon: GRIMER
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0088_POKEMON_GRIMER_NORMAL
+  genderSettings:
+    pokemon: GRIMER
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
 - templateId: SPAWN_V0089_POKEMON_MUK
+  genderSettings:
+    pokemon: MUK
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0089_POKEMON_MUK_ALOLA
+  genderSettings:
+    pokemon: MUK
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0089_POKEMON_MUK_NORMAL
   genderSettings:
     pokemon: MUK
     gender:
@@ -7342,6 +7637,18 @@ itemTemplates:
       malePercent: 0.5
       femalePercent: 0.5
 - templateId: SPAWN_V0105_POKEMON_MAROWAK
+  genderSettings:
+    pokemon: MAROWAK
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0105_POKEMON_MAROWAK_ALOLA
+  genderSettings:
+    pokemon: MAROWAK
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0105_POKEMON_MAROWAK_NORMAL
   genderSettings:
     pokemon: MAROWAK
     gender:
@@ -10446,7 +10753,155 @@ itemTemplates:
     evolutionBranch:
     - evolution: RATICATE
       candyCost: 25
+      form: RATICATE_NORMAL
     modelScaleV2: 1.14
+    buddyOffsetMale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyOffsetFemale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyScale: 19.0
+- templateId: V0019_POKEMON_RATTATA_ALOLA
+  pokemonSettings:
+    pokemonId: RATTATA
+    modelScale: 1.26
+    type: POKEMON_TYPE_DARK
+    type2: POKEMON_TYPE_NORMAL
+    camera:
+      diskRadiusM: 0.378
+      cylinderRadiusM: 0.252
+      cylinderHeightM: 0.378
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.5
+      baseFleeRate: 0.2
+      collisionRadiusM: 0.189
+      collisionHeightM: 0.252
+      collisionHeadRadiusM: 0.126
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 10.0
+      jumpTimeS: 0.9
+      attackTimerS: 29.0
+      attackProbability: 0.2
+      dodgeProbability: 0.3
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 1.89
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 60
+      baseAttack: 103
+      baseDefense: 70
+    quickMoves:
+    - TACKLE_FAST
+    - QUICK_ATTACK_FAST
+    cinematicMoves:
+    - CRUNCH
+    - HYPER_FANG
+    - SHADOW_BALL
+    animationTime:
+    - 1.9
+    - 0.6667
+    - 1.8
+    - 1.7667
+    - 0.0
+    - 2.4
+    - 0.8667
+    - 0.0
+    evolutionIds:
+    - RATICATE
+    evolutionPips: 1
+    pokedexHeightM: 0.3
+    pokedexWeightKg: 3.8
+    heightStdDev: 0.0375
+    weightStdDev: 0.475
+    familyId: FAMILY_RATTATA
+    candyToEvolve: 25
+    kmBuddyDistance: 1.0
+    modelHeight: 0.42
+    evolutionBranch:
+    - evolution: RATICATE
+      candyCost: 25
+      form: RATICATE_ALOLA
+    modelScaleV2: 1.14
+    form: RATTATA_ALOLA
+    buddyOffsetMale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyOffsetFemale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyScale: 19.0
+- templateId: V0019_POKEMON_RATTATA_NORMAL
+  pokemonSettings:
+    pokemonId: RATTATA
+    modelScale: 1.26
+    type: POKEMON_TYPE_NORMAL
+    camera:
+      diskRadiusM: 0.378
+      cylinderRadiusM: 0.252
+      cylinderHeightM: 0.378
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.5
+      baseFleeRate: 0.2
+      collisionRadiusM: 0.189
+      collisionHeightM: 0.252
+      collisionHeadRadiusM: 0.126
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 10.0
+      jumpTimeS: 0.9
+      attackTimerS: 29.0
+      attackProbability: 0.2
+      dodgeProbability: 0.3
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 1.89
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 60
+      baseAttack: 103
+      baseDefense: 70
+    quickMoves:
+    - TACKLE_FAST
+    - QUICK_ATTACK_FAST
+    cinematicMoves:
+    - DIG
+    - HYPER_FANG
+    - BODY_SLAM
+    animationTime:
+    - 1.9
+    - 0.6667
+    - 1.8
+    - 1.7667
+    - 0.0
+    - 2.4
+    - 0.8667
+    - 0.0
+    evolutionIds:
+    - RATICATE
+    evolutionPips: 1
+    pokedexHeightM: 0.3
+    pokedexWeightKg: 3.5
+    heightStdDev: 0.0375
+    weightStdDev: 0.4375
+    familyId: FAMILY_RATTATA
+    candyToEvolve: 25
+    kmBuddyDistance: 1.0
+    modelHeight: 0.42
+    evolutionBranch:
+    - evolution: RATICATE
+      candyCost: 25
+      form: RATICATE_NORMAL
+    modelScaleV2: 1.14
+    form: RATTATA_NORMAL
     buddyOffsetMale:
     - 0.0
     - 0.0
@@ -10531,6 +10986,145 @@ itemTemplates:
     kmBuddyDistance: 1.0
     modelHeight: 0.7
     modelScaleV2: 1.0
+    buddyOffsetMale:
+    - 9.7
+    - 0.0
+    - -21.2
+    buddyOffsetFemale:
+    - 9.7
+    - 0.0
+    - -21.2
+    buddyScale: 19.0
+- templateId: V0020_POKEMON_RATICATE_ALOLA
+  pokemonSettings:
+    pokemonId: RATICATE
+    modelScale: 1.17
+    type: POKEMON_TYPE_DARK
+    type2: POKEMON_TYPE_NORMAL
+    camera:
+      diskRadiusM: 0.7898
+      cylinderRadiusM: 0.5265
+      cylinderHeightM: 0.936
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.2
+      baseFleeRate: 0.07
+      collisionRadiusM: 0.2925
+      collisionHeightM: 0.585
+      collisionHeadRadiusM: 0.26325
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 23.0
+      jumpTimeS: 1.0
+      attackTimerS: 8.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.2
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 3.94875
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 150
+      baseAttack: 135
+      baseDefense: 159
+    quickMoves:
+    - BITE_FAST
+    - QUICK_ATTACK_FAST
+    cinematicMoves:
+    - CRUNCH
+    - HYPER_FANG
+    - HYPER_BEAM
+    animationTime:
+    - 1.6667
+    - 0.6667
+    - 1.7333
+    - 1.6667
+    - 0.0
+    - 2.0
+    - 2.0667
+    - 0.0
+    evolutionPips: 1
+    pokedexHeightM: 0.7
+    pokedexWeightKg: 25.5
+    parentPokemonId: RATTATA
+    heightStdDev: 0.0875
+    weightStdDev: 3.1875
+    familyId: FAMILY_RATTATA
+    kmBuddyDistance: 1.0
+    modelHeight: 0.7
+    modelScaleV2: 1.0
+    form: RATICATE_ALOLA
+    buddyOffsetMale:
+    - 9.7
+    - 0.0
+    - -21.2
+    buddyOffsetFemale:
+    - 9.7
+    - 0.0
+    - -21.2
+    buddyScale: 19.0
+- templateId: V0020_POKEMON_RATICATE_NORMAL
+  pokemonSettings:
+    pokemonId: RATICATE
+    modelScale: 1.17
+    type: POKEMON_TYPE_NORMAL
+    camera:
+      diskRadiusM: 0.7898
+      cylinderRadiusM: 0.5265
+      cylinderHeightM: 0.936
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.2
+      baseFleeRate: 0.07
+      collisionRadiusM: 0.2925
+      collisionHeightM: 0.585
+      collisionHeadRadiusM: 0.26325
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 23.0
+      jumpTimeS: 1.0
+      attackTimerS: 8.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.2
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 3.94875
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 110
+      baseAttack: 161
+      baseDefense: 144
+    quickMoves:
+    - BITE_FAST
+    - QUICK_ATTACK_FAST
+    cinematicMoves:
+    - DIG
+    - HYPER_FANG
+    - HYPER_BEAM
+    animationTime:
+    - 1.6667
+    - 0.6667
+    - 1.7333
+    - 1.6667
+    - 0.0
+    - 2.0
+    - 2.0667
+    - 0.0
+    evolutionPips: 1
+    pokedexHeightM: 0.7
+    pokedexWeightKg: 18.5
+    parentPokemonId: RATTATA
+    heightStdDev: 0.0875
+    weightStdDev: 2.3125
+    familyId: FAMILY_RATTATA
+    kmBuddyDistance: 1.0
+    modelHeight: 0.7
+    modelScaleV2: 1.0
+    form: RATICATE_NORMAL
     buddyOffsetMale:
     - 9.7
     - 0.0
@@ -11030,6 +11624,145 @@ itemTemplates:
     - 0.0
     - -14.2
     buddyScale: 19.0
+- templateId: V0026_POKEMON_RAICHU_ALOLA
+  pokemonSettings:
+    pokemonId: RAICHU
+    modelScale: 1.08
+    type: POKEMON_TYPE_ELECTRIC
+    type2: POKEMON_TYPE_PSYCHIC
+    camera:
+      diskRadiusM: 0.729
+      cylinderRadiusM: 0.486
+      cylinderHeightM: 0.75
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.1
+      baseFleeRate: 0.06
+      collisionRadiusM: 0.27
+      collisionHeightM: 0.54
+      collisionHeadRadiusM: 0.216
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 6.0
+      jumpTimeS: 1.25
+      attackTimerS: 17.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 4.0
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 120
+      baseAttack: 201
+      baseDefense: 172
+    quickMoves:
+    - VOLT_SWITCH_FAST
+    - SPARK_FAST
+    cinematicMoves:
+    - PSYCHIC
+    - THUNDER_PUNCH
+    - WILD_CHARGE
+    animationTime:
+    - 2.2333
+    - 0.6667
+    - 2.0
+    - 2.0
+    - 0.0
+    - 2.6667
+    - 1.0
+    - 1.133333
+    evolutionPips: 1
+    pokedexHeightM: 0.7
+    pokedexWeightKg: 21.0
+    parentPokemonId: PIKACHU
+    heightStdDev: 0.0875
+    weightStdDev: 2.625
+    familyId: FAMILY_PIKACHU
+    kmBuddyDistance: 1.0
+    modelHeight: 0.83
+    modelScaleV2: 1.0
+    form: RAICHU_ALOLA
+    buddyOffsetMale:
+    - 6.9
+    - 0.0
+    - -14.2
+    buddyOffsetFemale:
+    - 6.9
+    - 0.0
+    - -14.2
+    buddyScale: 19.0
+- templateId: V0026_POKEMON_RAICHU_NORMAL
+  pokemonSettings:
+    pokemonId: RAICHU
+    modelScale: 1.08
+    type: POKEMON_TYPE_ELECTRIC
+    camera:
+      diskRadiusM: 0.729
+      cylinderRadiusM: 0.486
+      cylinderHeightM: 0.75
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.1
+      baseFleeRate: 0.06
+      collisionRadiusM: 0.27
+      collisionHeightM: 0.54
+      collisionHeadRadiusM: 0.216
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 6.0
+      jumpTimeS: 1.25
+      attackTimerS: 17.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 4.0
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 120
+      baseAttack: 193
+      baseDefense: 165
+    quickMoves:
+    - VOLT_SWITCH_FAST
+    - SPARK_FAST
+    cinematicMoves:
+    - BRICK_BREAK
+    - THUNDER_PUNCH
+    - WILD_CHARGE
+    animationTime:
+    - 2.2333
+    - 0.6667
+    - 2.0
+    - 2.0
+    - 0.0
+    - 2.6667
+    - 1.0
+    - 1.133333
+    evolutionPips: 1
+    pokedexHeightM: 0.8
+    pokedexWeightKg: 30.0
+    parentPokemonId: PIKACHU
+    heightStdDev: 0.1
+    weightStdDev: 3.75
+    familyId: FAMILY_PIKACHU
+    kmBuddyDistance: 1.0
+    modelHeight: 0.83
+    modelScaleV2: 1.0
+    form: RAICHU_NORMAL
+    buddyOffsetMale:
+    - 6.9
+    - 0.0
+    - -14.2
+    buddyOffsetFemale:
+    - 6.9
+    - 0.0
+    - -14.2
+    buddyScale: 19.0
 - templateId: V0027_POKEMON_SANDSHREW
   pokemonSettings:
     pokemonId: SANDSHREW
@@ -11091,7 +11824,155 @@ itemTemplates:
     evolutionBranch:
     - evolution: SANDSLASH
       candyCost: 50
+      form: SANDSLASH_NORMAL
     modelScaleV2: 1.0
+    buddyOffsetMale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyOffsetFemale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyScale: 19.0
+- templateId: V0027_POKEMON_SANDSHREW_ALOLA
+  pokemonSettings:
+    pokemonId: SANDSHREW
+    modelScale: 1.29
+    type: POKEMON_TYPE_ICE
+    type2: POKEMON_TYPE_STEEL
+    camera:
+      diskRadiusM: 0.4838
+      cylinderRadiusM: 0.4
+      cylinderHeightM: 0.6
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.5
+      baseFleeRate: 0.1
+      collisionRadiusM: 0.258
+      collisionHeightM: 0.48375
+      collisionHeadRadiusM: 0.1935
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 8.0
+      jumpTimeS: 1.0
+      attackTimerS: 23.0
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 3.0
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 100
+      baseAttack: 125
+      baseDefense: 154
+    quickMoves:
+    - METAL_CLAW_FAST
+    - POWDER_SNOW_FAST
+    cinematicMoves:
+    - BLIZZARD
+    - GYRO_BALL
+    - NIGHT_SLASH
+    animationTime:
+    - 1.8
+    - 0.6667
+    - 1.4667
+    - 1.6667
+    - 0.0
+    - 2.6667
+    - 1.0
+    - 0.0
+    evolutionIds:
+    - SANDSLASH
+    evolutionPips: 1
+    pokedexHeightM: 0.7
+    pokedexWeightKg: 40.0
+    heightStdDev: 0.0875
+    weightStdDev: 5.0
+    familyId: FAMILY_SANDSHREW
+    candyToEvolve: 50
+    kmBuddyDistance: 3.0
+    modelHeight: 0.55
+    evolutionBranch:
+    - evolution: SANDSLASH
+      candyCost: 50
+      form: SANDSLASH_ALOLA
+    modelScaleV2: 1.0
+    form: SANDSHREW_ALOLA
+    buddyOffsetMale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyOffsetFemale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyScale: 19.0
+- templateId: V0027_POKEMON_SANDSHREW_NORMAL
+  pokemonSettings:
+    pokemonId: SANDSHREW
+    modelScale: 1.29
+    type: POKEMON_TYPE_GROUND
+    camera:
+      diskRadiusM: 0.4838
+      cylinderRadiusM: 0.4
+      cylinderHeightM: 0.6
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.5
+      baseFleeRate: 0.1
+      collisionRadiusM: 0.258
+      collisionHeightM: 0.48375
+      collisionHeadRadiusM: 0.1935
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 8.0
+      jumpTimeS: 1.0
+      attackTimerS: 23.0
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 3.0
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 100
+      baseAttack: 126
+      baseDefense: 145
+    quickMoves:
+    - SCRATCH_FAST
+    - MUD_SHOT_FAST
+    cinematicMoves:
+    - DIG
+    - ROCK_SLIDE
+    - SAND_TOMB
+    animationTime:
+    - 1.8
+    - 0.6667
+    - 1.4667
+    - 1.6667
+    - 0.0
+    - 2.6667
+    - 1.0
+    - 0.0
+    evolutionIds:
+    - SANDSLASH
+    evolutionPips: 1
+    pokedexHeightM: 0.6
+    pokedexWeightKg: 12.0
+    heightStdDev: 0.075
+    weightStdDev: 1.5
+    familyId: FAMILY_SANDSHREW
+    candyToEvolve: 50
+    kmBuddyDistance: 3.0
+    modelHeight: 0.55
+    evolutionBranch:
+    - evolution: SANDSLASH
+      candyCost: 50
+      form: SANDSLASH_NORMAL
+    modelScaleV2: 1.0
+    form: SANDSHREW_NORMAL
     buddyOffsetMale:
     - 0.0
     - 0.0
@@ -11176,6 +12057,145 @@ itemTemplates:
     kmBuddyDistance: 3.0
     modelHeight: 1.0
     modelScaleV2: 1.0
+    buddyOffsetMale:
+    - 11.5
+    - 0.0
+    - -1.4
+    buddyOffsetFemale:
+    - 11.5
+    - 0.0
+    - -1.4
+    buddyScale: 19.0
+- templateId: V0028_POKEMON_SANDSLASH_ALOLA
+  pokemonSettings:
+    pokemonId: SANDSLASH
+    modelScale: 1.0
+    type: POKEMON_TYPE_ICE
+    type2: POKEMON_TYPE_STEEL
+    camera:
+      diskRadiusM: 0.6
+      cylinderRadiusM: 0.4
+      cylinderHeightM: 1.0
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.2
+      baseFleeRate: 0.06
+      collisionRadiusM: 0.35
+      collisionHeightM: 0.9
+      collisionHeadRadiusM: 0.35
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 11.0
+      jumpTimeS: 1.0
+      attackTimerS: 4.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 3.75
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 150
+      baseAttack: 177
+      baseDefense: 221
+    quickMoves:
+    - METAL_CLAW_FAST
+    - POWDER_SNOW_FAST
+    cinematicMoves:
+    - BLIZZARD
+    - GYRO_BALL
+    - BULLDOZE
+    animationTime:
+    - 1.7333
+    - 0.6667
+    - 1.6667
+    - 1.6667
+    - 0.0
+    - 2.0
+    - 1.6
+    - 0.0
+    evolutionPips: 1
+    pokedexHeightM: 1.2
+    pokedexWeightKg: 55.0
+    parentPokemonId: SANDSHREW
+    heightStdDev: 0.15
+    weightStdDev: 6.875
+    familyId: FAMILY_SANDSHREW
+    kmBuddyDistance: 3.0
+    modelHeight: 1.0
+    modelScaleV2: 1.0
+    form: SANDSLASH_ALOLA
+    buddyOffsetMale:
+    - 11.5
+    - 0.0
+    - -1.4
+    buddyOffsetFemale:
+    - 11.5
+    - 0.0
+    - -1.4
+    buddyScale: 19.0
+- templateId: V0028_POKEMON_SANDSLASH_NORMAL
+  pokemonSettings:
+    pokemonId: SANDSLASH
+    modelScale: 1.0
+    type: POKEMON_TYPE_GROUND
+    camera:
+      diskRadiusM: 0.6
+      cylinderRadiusM: 0.4
+      cylinderHeightM: 1.0
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.2
+      baseFleeRate: 0.06
+      collisionRadiusM: 0.35
+      collisionHeightM: 0.9
+      collisionHeadRadiusM: 0.35
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 11.0
+      jumpTimeS: 1.0
+      attackTimerS: 4.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 3.75
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 150
+      baseAttack: 182
+      baseDefense: 202
+    quickMoves:
+    - METAL_CLAW_FAST
+    - MUD_SHOT_FAST
+    cinematicMoves:
+    - EARTHQUAKE
+    - ROCK_TOMB
+    - BULLDOZE
+    animationTime:
+    - 1.7333
+    - 0.6667
+    - 1.6667
+    - 1.6667
+    - 0.0
+    - 2.0
+    - 1.6
+    - 0.0
+    evolutionPips: 1
+    pokedexHeightM: 1.0
+    pokedexWeightKg: 29.5
+    parentPokemonId: SANDSHREW
+    heightStdDev: 0.125
+    weightStdDev: 3.6875
+    familyId: FAMILY_SANDSHREW
+    kmBuddyDistance: 3.0
+    modelHeight: 1.0
+    modelScaleV2: 1.0
+    form: SANDSLASH_NORMAL
     buddyOffsetMale:
     - 11.5
     - 0.0
@@ -11929,7 +12949,154 @@ itemTemplates:
     evolutionBranch:
     - evolution: NINETALES
       candyCost: 50
+      form: NINETALES_NORMAL
     modelScaleV2: 1.0
+    buddyOffsetMale:
+    - -1.6
+    - 0.0
+    - -1.8
+    buddyOffsetFemale:
+    - -1.6
+    - 0.0
+    - -1.8
+    buddyScale: 19.0
+- templateId: V0037_POKEMON_VULPIX_ALOLA
+  pokemonSettings:
+    pokemonId: VULPIX
+    modelScale: 1.26
+    type: POKEMON_TYPE_ICE
+    camera:
+      diskRadiusM: 0.8505
+      cylinderRadiusM: 0.4
+      cylinderHeightM: 0.65
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.3
+      baseFleeRate: 0.1
+      collisionRadiusM: 0.315
+      collisionHeightM: 0.63
+      collisionHeadRadiusM: 0.252
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 10.0
+      jumpTimeS: 1.0
+      attackTimerS: 29.0
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 4.0
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 76
+      baseAttack: 96
+      baseDefense: 122
+    quickMoves:
+    - ZEN_HEADBUTT_FAST
+    - POWDER_SNOW_FAST
+    cinematicMoves:
+    - DARK_PULSE
+    - ICE_BEAM
+    - BLIZZARD
+    animationTime:
+    - 1.6667
+    - 0.6667
+    - 1.6667
+    - 1.6
+    - 0.0
+    - 2.0
+    - 1.3333
+    - 2.2
+    evolutionIds:
+    - NINETALES
+    evolutionPips: 1
+    pokedexHeightM: 0.6
+    pokedexWeightKg: 9.9
+    heightStdDev: 0.075
+    weightStdDev: 1.2375
+    familyId: FAMILY_VULPIX
+    candyToEvolve: 50
+    kmBuddyDistance: 3.0
+    modelHeight: 0.58
+    evolutionBranch:
+    - evolution: NINETALES
+      candyCost: 50
+      form: NINETALES_ALOLA
+    modelScaleV2: 1.0
+    form: VULPIX_ALOLA
+    buddyOffsetMale:
+    - -1.6
+    - 0.0
+    - -1.8
+    buddyOffsetFemale:
+    - -1.6
+    - 0.0
+    - -1.8
+    buddyScale: 19.0
+- templateId: V0037_POKEMON_VULPIX_NORMAL
+  pokemonSettings:
+    pokemonId: VULPIX
+    modelScale: 1.26
+    type: POKEMON_TYPE_FIRE
+    camera:
+      diskRadiusM: 0.8505
+      cylinderRadiusM: 0.4
+      cylinderHeightM: 0.65
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.3
+      baseFleeRate: 0.1
+      collisionRadiusM: 0.315
+      collisionHeightM: 0.63
+      collisionHeadRadiusM: 0.252
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 10.0
+      jumpTimeS: 1.0
+      attackTimerS: 29.0
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 4.0
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 76
+      baseAttack: 96
+      baseDefense: 122
+    quickMoves:
+    - QUICK_ATTACK_FAST
+    - EMBER_FAST
+    cinematicMoves:
+    - BODY_SLAM
+    - FLAMETHROWER
+    - FLAME_CHARGE
+    animationTime:
+    - 1.6667
+    - 0.6667
+    - 1.6667
+    - 1.6
+    - 0.0
+    - 2.0
+    - 1.3333
+    - 2.2
+    evolutionIds:
+    - NINETALES
+    evolutionPips: 1
+    pokedexHeightM: 0.6
+    pokedexWeightKg: 9.9
+    heightStdDev: 0.075
+    weightStdDev: 1.2375
+    familyId: FAMILY_VULPIX
+    candyToEvolve: 50
+    kmBuddyDistance: 3.0
+    modelHeight: 0.58
+    evolutionBranch:
+    - evolution: NINETALES
+      candyCost: 50
+      form: NINETALES_NORMAL
+    modelScaleV2: 1.0
+    form: VULPIX_NORMAL
     buddyOffsetMale:
     - -1.6
     - 0.0
@@ -12015,6 +13182,147 @@ itemTemplates:
     buddySize: BUDDY_BIG
     modelHeight: 1.11
     modelScaleV2: 1.0
+    buddyOffsetMale:
+    - 0.0
+    - 0.0
+    - 68.3
+    buddyOffsetFemale:
+    - 0.0
+    - 0.0
+    - 68.3
+    buddyScale: 19.0
+- templateId: V0038_POKEMON_NINETALES_ALOLA
+  pokemonSettings:
+    pokemonId: NINETALES
+    modelScale: 0.96
+    type: POKEMON_TYPE_ICE
+    type2: POKEMON_TYPE_FAIRY
+    camera:
+      diskRadiusM: 1.296
+      cylinderRadiusM: 0.65
+      cylinderHeightM: 1.2
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.1
+      baseFleeRate: 0.06
+      collisionRadiusM: 0.36
+      collisionHeightM: 0.96
+      collisionHeadRadiusM: 0.24
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 5.0
+      jumpTimeS: 1.25
+      attackTimerS: 14.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 4.7
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 146
+      baseAttack: 170
+      baseDefense: 207
+    quickMoves:
+    - FEINT_ATTACK_FAST
+    - POWDER_SNOW_FAST
+    cinematicMoves:
+    - DAZZLING_GLEAM
+    - ICE_BEAM
+    - BLIZZARD
+    animationTime:
+    - 2.6667
+    - 0.6667
+    - 2.0
+    - 2.0
+    - 0.0
+    - 2.1667
+    - 2.0
+    - 2.0
+    evolutionPips: 1
+    pokedexHeightM: 1.1
+    pokedexWeightKg: 19.9
+    parentPokemonId: VULPIX
+    heightStdDev: 0.1375
+    weightStdDev: 2.4875
+    familyId: FAMILY_VULPIX
+    kmBuddyDistance: 3.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.11
+    modelScaleV2: 1.0
+    form: NINETALES_ALOLA
+    buddyOffsetMale:
+    - 0.0
+    - 0.0
+    - 68.3
+    buddyOffsetFemale:
+    - 0.0
+    - 0.0
+    - 68.3
+    buddyScale: 19.0
+- templateId: V0038_POKEMON_NINETALES_NORMAL
+  pokemonSettings:
+    pokemonId: NINETALES
+    modelScale: 0.96
+    type: POKEMON_TYPE_FIRE
+    camera:
+      diskRadiusM: 1.296
+      cylinderRadiusM: 0.65
+      cylinderHeightM: 1.2
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.1
+      baseFleeRate: 0.06
+      collisionRadiusM: 0.36
+      collisionHeightM: 0.96
+      collisionHeadRadiusM: 0.24
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 5.0
+      jumpTimeS: 1.25
+      attackTimerS: 14.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 4.7
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 146
+      baseAttack: 169
+      baseDefense: 204
+    quickMoves:
+    - FEINT_ATTACK_FAST
+    - FIRE_SPIN_FAST
+    cinematicMoves:
+    - HEAT_WAVE
+    - OVERHEAT
+    - SOLAR_BEAM
+    animationTime:
+    - 2.6667
+    - 0.6667
+    - 2.0
+    - 2.0
+    - 0.0
+    - 2.1667
+    - 2.0
+    - 2.0
+    evolutionPips: 1
+    pokedexHeightM: 1.1
+    pokedexWeightKg: 19.9
+    parentPokemonId: VULPIX
+    heightStdDev: 0.1375
+    weightStdDev: 2.4875
+    familyId: FAMILY_VULPIX
+    kmBuddyDistance: 3.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.11
+    modelScaleV2: 1.0
+    form: NINETALES_NORMAL
     buddyOffsetMale:
     - 0.0
     - 0.0
@@ -13022,7 +14330,149 @@ itemTemplates:
     evolutionBranch:
     - evolution: DUGTRIO
       candyCost: 50
+      form: DUGTRIO_NORMAL
     modelScaleV2: 1.6
+    buddyOffsetMale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyOffsetFemale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyScale: 19.0
+- templateId: V0050_POKEMON_DIGLETT_ALOLA
+  pokemonSettings:
+    pokemonId: DIGLETT
+    modelScale: 2.0
+    type: POKEMON_TYPE_GROUND
+    type2: POKEMON_TYPE_STEEL
+    camera:
+      diskRadiusM: 0.45
+      cylinderRadiusM: 0.15
+      cylinderHeightM: 0.25
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.5
+      baseFleeRate: 0.1
+      collisionRadiusM: 0.16
+      collisionHeightM: 0.4
+      collisionHeadRadiusM: 0.18
+      movementTimerS: 29.0
+      attackTimerS: 10.0
+      attackProbability: 0.1
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 2.25
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 20
+      baseAttack: 109
+      baseDefense: 89
+    quickMoves:
+    - MUD_SLAP_FAST
+    - METAL_CLAW_FAST
+    cinematicMoves:
+    - DIG
+    - MUD_BOMB
+    - ROCK_TOMB
+    animationTime:
+    - 1.4333
+    - 0.6667
+    - 2.0
+    - 0.8667
+    - 0.0
+    - 2.1667
+    - 1.3333
+    - 1.333333
+    evolutionIds:
+    - DUGTRIO
+    evolutionPips: 1
+    pokedexHeightM: 0.2
+    pokedexWeightKg: 1.0
+    heightStdDev: 0.025
+    weightStdDev: 0.125
+    familyId: FAMILY_DIGLETT
+    candyToEvolve: 50
+    kmBuddyDistance: 3.0
+    modelHeight: 0.2
+    evolutionBranch:
+    - evolution: DUGTRIO
+      candyCost: 50
+      form: DUGTRIO_ALOLA
+    modelScaleV2: 1.6
+    form: DIGLETT_ALOLA
+    buddyOffsetMale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyOffsetFemale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyScale: 19.0
+- templateId: V0050_POKEMON_DIGLETT_NORMAL
+  pokemonSettings:
+    pokemonId: DIGLETT
+    modelScale: 2.0
+    type: POKEMON_TYPE_GROUND
+    camera:
+      diskRadiusM: 0.45
+      cylinderRadiusM: 0.15
+      cylinderHeightM: 0.25
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.5
+      baseFleeRate: 0.1
+      collisionRadiusM: 0.16
+      collisionHeightM: 0.4
+      collisionHeadRadiusM: 0.18
+      movementTimerS: 29.0
+      attackTimerS: 10.0
+      attackProbability: 0.1
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 2.25
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 20
+      baseAttack: 109
+      baseDefense: 88
+    quickMoves:
+    - MUD_SLAP_FAST
+    - SCRATCH_FAST
+    cinematicMoves:
+    - DIG
+    - MUD_BOMB
+    - ROCK_TOMB
+    animationTime:
+    - 1.4333
+    - 0.6667
+    - 2.0
+    - 0.8667
+    - 0.0
+    - 2.1667
+    - 1.3333
+    - 1.333333
+    evolutionIds:
+    - DUGTRIO
+    evolutionPips: 1
+    pokedexHeightM: 0.2
+    pokedexWeightKg: 0.8
+    heightStdDev: 0.025
+    weightStdDev: 0.1
+    familyId: FAMILY_DIGLETT
+    candyToEvolve: 50
+    kmBuddyDistance: 3.0
+    modelHeight: 0.2
+    evolutionBranch:
+    - evolution: DUGTRIO
+      candyCost: 50
+      form: DUGTRIO_NORMAL
+    modelScaleV2: 1.6
+    form: DIGLETT_NORMAL
     buddyOffsetMale:
     - 0.0
     - 0.0
@@ -13114,6 +14564,141 @@ itemTemplates:
     - 0.0
     - 51.9
     buddyScale: 19.0
+- templateId: V0051_POKEMON_DUGTRIO_ALOLA
+  pokemonSettings:
+    pokemonId: DUGTRIO
+    modelScale: 1.12
+    type: POKEMON_TYPE_GROUND
+    type2: POKEMON_TYPE_STEEL
+    camera:
+      diskRadiusM: 1.008
+      cylinderRadiusM: 0.672
+      cylinderHeightM: 0.84
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.2
+      baseFleeRate: 0.06
+      collisionRadiusM: 0.448
+      collisionHeightM: 0.84
+      collisionHeadRadiusM: 0.336
+      movementTimerS: 29.0
+      attackTimerS: 10.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.1
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 4.5
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 70
+      baseAttack: 201
+      baseDefense: 148
+    quickMoves:
+    - METAL_CLAW_FAST
+    - MUD_SLAP_FAST
+    cinematicMoves:
+    - EARTHQUAKE
+    - MUD_BOMB
+    - IRON_HEAD
+    animationTime:
+    - 1.7333
+    - 0.6667
+    - 1.6667
+    - 0.9
+    - 0.0
+    - 2.1333
+    - 2.0
+    - 0.0
+    evolutionPips: 1
+    pokedexHeightM: 0.7
+    pokedexWeightKg: 66.6
+    parentPokemonId: DIGLETT
+    heightStdDev: 0.0875
+    weightStdDev: 8.325
+    familyId: FAMILY_DIGLETT
+    kmBuddyDistance: 3.0
+    buddySize: BUDDY_BIG
+    modelHeight: 0.77
+    modelScaleV2: 1.0
+    form: DUGTRIO_ALOLA
+    buddyOffsetMale:
+    - 4.5
+    - 0.0
+    - 51.9
+    buddyOffsetFemale:
+    - 4.5
+    - 0.0
+    - 51.9
+    buddyScale: 19.0
+- templateId: V0051_POKEMON_DUGTRIO_NORMAL
+  pokemonSettings:
+    pokemonId: DUGTRIO
+    modelScale: 1.12
+    type: POKEMON_TYPE_GROUND
+    camera:
+      diskRadiusM: 1.008
+      cylinderRadiusM: 0.672
+      cylinderHeightM: 0.84
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.2
+      baseFleeRate: 0.06
+      collisionRadiusM: 0.448
+      collisionHeightM: 0.84
+      collisionHeadRadiusM: 0.336
+      movementTimerS: 29.0
+      attackTimerS: 10.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.1
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 4.5
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 70
+      baseAttack: 167
+      baseDefense: 147
+    quickMoves:
+    - SUCKER_PUNCH_FAST
+    - MUD_SLAP_FAST
+    cinematicMoves:
+    - EARTHQUAKE
+    - MUD_BOMB
+    - STONE_EDGE
+    animationTime:
+    - 1.7333
+    - 0.6667
+    - 1.6667
+    - 0.9
+    - 0.0
+    - 2.1333
+    - 2.0
+    - 0.0
+    evolutionPips: 1
+    pokedexHeightM: 0.7
+    pokedexWeightKg: 33.3
+    parentPokemonId: DIGLETT
+    heightStdDev: 0.0875
+    weightStdDev: 4.1625
+    familyId: FAMILY_DIGLETT
+    kmBuddyDistance: 3.0
+    buddySize: BUDDY_BIG
+    modelHeight: 0.77
+    modelScaleV2: 1.0
+    form: DUGTRIO_NORMAL
+    buddyOffsetMale:
+    - 4.5
+    - 0.0
+    - 51.9
+    buddyOffsetFemale:
+    - 4.5
+    - 0.0
+    - 51.9
+    buddyScale: 19.0
 - templateId: V0052_POKEMON_MEOWTH
   pokemonSettings:
     pokemonId: MEOWTH
@@ -13175,7 +14760,154 @@ itemTemplates:
     evolutionBranch:
     - evolution: PERSIAN
       candyCost: 50
+      form: PERSIAN_NORMAL
     modelScaleV2: 1.2
+    buddyOffsetMale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyOffsetFemale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyScale: 19.0
+- templateId: V0052_POKEMON_MEOWTH_ALOLA
+  pokemonSettings:
+    pokemonId: MEOWTH
+    modelScale: 1.6
+    type: POKEMON_TYPE_DARK
+    camera:
+      diskRadiusM: 0.6
+      cylinderRadiusM: 0.2
+      cylinderHeightM: 0.45
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.5
+      baseFleeRate: 0.15
+      collisionRadiusM: 0.128
+      collisionHeightM: 0.4
+      collisionHeadRadiusM: 0.2
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 29.0
+      jumpTimeS: 1.0
+      attackTimerS: 10.0
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 3.0
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 80
+      baseAttack: 99
+      baseDefense: 81
+    quickMoves:
+    - SCRATCH_FAST
+    - BITE_FAST
+    cinematicMoves:
+    - NIGHT_SLASH
+    - DARK_PULSE
+    - FOUL_PLAY
+    animationTime:
+    - 2.0
+    - 0.6667
+    - 1.7333
+    - 1.5
+    - 0.0
+    - 2.0
+    - 1.4
+    - 2.0
+    evolutionIds:
+    - PERSIAN
+    evolutionPips: 1
+    pokedexHeightM: 0.4
+    pokedexWeightKg: 4.2
+    heightStdDev: 0.05
+    weightStdDev: 0.525
+    familyId: FAMILY_MEOWTH
+    candyToEvolve: 50
+    kmBuddyDistance: 3.0
+    modelHeight: 0.4
+    evolutionBranch:
+    - evolution: PERSIAN
+      candyCost: 50
+      form: PERSIAN_ALOLA
+    modelScaleV2: 1.2
+    form: MEOWTH_ALOLA
+    buddyOffsetMale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyOffsetFemale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyScale: 19.0
+- templateId: V0052_POKEMON_MEOWTH_NORMAL
+  pokemonSettings:
+    pokemonId: MEOWTH
+    modelScale: 1.6
+    type: POKEMON_TYPE_NORMAL
+    camera:
+      diskRadiusM: 0.6
+      cylinderRadiusM: 0.2
+      cylinderHeightM: 0.45
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.5
+      baseFleeRate: 0.15
+      collisionRadiusM: 0.128
+      collisionHeightM: 0.4
+      collisionHeadRadiusM: 0.2
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 29.0
+      jumpTimeS: 1.0
+      attackTimerS: 10.0
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 3.0
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 80
+      baseAttack: 92
+      baseDefense: 81
+    quickMoves:
+    - SCRATCH_FAST
+    - BITE_FAST
+    cinematicMoves:
+    - NIGHT_SLASH
+    - DARK_PULSE
+    - FOUL_PLAY
+    animationTime:
+    - 2.0
+    - 0.6667
+    - 1.7333
+    - 1.5
+    - 0.0
+    - 2.0
+    - 1.4
+    - 2.0
+    evolutionIds:
+    - PERSIAN
+    evolutionPips: 1
+    pokedexHeightM: 0.4
+    pokedexWeightKg: 4.2
+    heightStdDev: 0.05
+    weightStdDev: 0.525
+    familyId: FAMILY_MEOWTH
+    candyToEvolve: 50
+    kmBuddyDistance: 3.0
+    modelHeight: 0.4
+    evolutionBranch:
+    - evolution: PERSIAN
+      candyCost: 50
+      form: PERSIAN_NORMAL
+    modelScaleV2: 1.2
+    form: MEOWTH_NORMAL
     buddyOffsetMale:
     - 0.0
     - 0.0
@@ -13260,6 +14992,144 @@ itemTemplates:
     kmBuddyDistance: 3.0
     modelHeight: 1.38
     modelScaleV2: 0.9
+    buddyOffsetMale:
+    - 3.5
+    - 0.0
+    - -29.9
+    buddyOffsetFemale:
+    - 3.5
+    - 0.0
+    - -29.9
+    buddyScale: 19.0
+- templateId: V0053_POKEMON_PERSIAN_ALOLA
+  pokemonSettings:
+    pokemonId: PERSIAN
+    modelScale: 0.82
+    type: POKEMON_TYPE_DARK
+    camera:
+      diskRadiusM: 0.7995
+      cylinderRadiusM: 0.8
+      cylinderHeightM: 1.0
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.2
+      baseFleeRate: 0.07
+      collisionRadiusM: 0.328
+      collisionHeightM: 0.615
+      collisionHeadRadiusM: 0.164
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 8.0
+      jumpTimeS: 1.25
+      attackTimerS: 23.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 3.9975
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 130
+      baseAttack: 158
+      baseDefense: 139
+    quickMoves:
+    - SCRATCH_FAST
+    - FEINT_ATTACK_FAST
+    cinematicMoves:
+    - FOUL_PLAY
+    - DARK_PULSE
+    - PLAY_ROUGH
+    animationTime:
+    - 2.0
+    - 0.6667
+    - 1.6667
+    - 1.8333
+    - 0.0
+    - 1.6667
+    - 1.6667
+    - 0.0
+    evolutionPips: 1
+    pokedexHeightM: 1.1
+    pokedexWeightKg: 33.0
+    parentPokemonId: MEOWTH
+    heightStdDev: 0.1375
+    weightStdDev: 4.125
+    familyId: FAMILY_MEOWTH
+    kmBuddyDistance: 3.0
+    modelHeight: 1.38
+    modelScaleV2: 0.9
+    form: PERSIAN_ALOLA
+    buddyOffsetMale:
+    - 3.5
+    - 0.0
+    - -29.9
+    buddyOffsetFemale:
+    - 3.5
+    - 0.0
+    - -29.9
+    buddyScale: 19.0
+- templateId: V0053_POKEMON_PERSIAN_NORMAL
+  pokemonSettings:
+    pokemonId: PERSIAN
+    modelScale: 0.82
+    type: POKEMON_TYPE_NORMAL
+    camera:
+      diskRadiusM: 0.7995
+      cylinderRadiusM: 0.8
+      cylinderHeightM: 1.0
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.2
+      baseFleeRate: 0.07
+      collisionRadiusM: 0.328
+      collisionHeightM: 0.615
+      collisionHeadRadiusM: 0.164
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 8.0
+      jumpTimeS: 1.25
+      attackTimerS: 23.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 3.9975
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 130
+      baseAttack: 150
+      baseDefense: 139
+    quickMoves:
+    - SCRATCH_FAST
+    - FEINT_ATTACK_FAST
+    cinematicMoves:
+    - FOUL_PLAY
+    - POWER_GEM
+    - PLAY_ROUGH
+    animationTime:
+    - 2.0
+    - 0.6667
+    - 1.6667
+    - 1.8333
+    - 0.0
+    - 1.6667
+    - 1.6667
+    - 0.0
+    evolutionPips: 1
+    pokedexHeightM: 1.0
+    pokedexWeightKg: 32.0
+    parentPokemonId: MEOWTH
+    heightStdDev: 0.125
+    weightStdDev: 4.0
+    familyId: FAMILY_MEOWTH
+    kmBuddyDistance: 3.0
+    modelHeight: 1.38
+    modelScaleV2: 0.9
+    form: PERSIAN_NORMAL
     buddyOffsetMale:
     - 3.5
     - 0.0
@@ -15022,7 +16892,158 @@ itemTemplates:
     evolutionBranch:
     - evolution: GRAVELER
       candyCost: 25
+      form: GRAVELER_NORMAL
     modelScaleV2: 1.0
+    buddyOffsetMale:
+    - -0.2
+    - 0.0
+    - 16.1
+    buddyOffsetFemale:
+    - -0.2
+    - 0.0
+    - 16.1
+    buddyScale: 19.0
+- templateId: V0074_POKEMON_GEODUDE_ALOLA
+  pokemonSettings:
+    pokemonId: GEODUDE
+    modelScale: 0.87
+    type: POKEMON_TYPE_ROCK
+    type2: POKEMON_TYPE_ELECTRIC
+    camera:
+      diskRadiusM: 0.5873
+      cylinderRadiusM: 0.7
+      cylinderHeightM: 0.5
+      cylinderGroundM: 0.3
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.5
+      baseFleeRate: 0.1
+      collisionRadiusM: 0.3915
+      collisionHeightM: 0.1305
+      collisionHeadRadiusM: 0.19575
+      movementType: MOVEMENT_HOVERING
+      movementTimerS: 8.0
+      jumpTimeS: 1.0
+      attackTimerS: 23.0
+      attackProbability: 0.2
+      dodgeProbability: 0.1
+      dodgeDurationS: 1.0
+      dodgeDistance: 0.5
+      cameraDistance: 2.93625
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 80
+      baseAttack: 132
+      baseDefense: 163
+    quickMoves:
+    - ROCK_THROW_FAST
+    - VOLT_SWITCH_FAST
+    cinematicMoves:
+    - ROCK_SLIDE
+    - ROCK_TOMB
+    - THUNDERBOLT
+    animationTime:
+    - 2.3333
+    - 0.6667
+    - 1.6667
+    - 0.6667
+    - 0.0
+    - 2.0
+    - 1.6667
+    - 0.0
+    evolutionIds:
+    - GRAVELER
+    evolutionPips: 1
+    pokedexHeightM: 0.4
+    pokedexWeightKg: 20.3
+    heightStdDev: 0.05
+    weightStdDev: 2.5375
+    familyId: FAMILY_GEODUDE
+    candyToEvolve: 25
+    kmBuddyDistance: 1.0
+    modelHeight: 1.38
+    evolutionBranch:
+    - evolution: GRAVELER
+      candyCost: 25
+      form: GRAVELER_ALOLA
+    modelScaleV2: 1.0
+    form: GEODUDE_ALOLA
+    buddyOffsetMale:
+    - -0.2
+    - 0.0
+    - 16.1
+    buddyOffsetFemale:
+    - -0.2
+    - 0.0
+    - 16.1
+    buddyScale: 19.0
+- templateId: V0074_POKEMON_GEODUDE_NORMAL
+  pokemonSettings:
+    pokemonId: GEODUDE
+    modelScale: 0.87
+    type: POKEMON_TYPE_ROCK
+    type2: POKEMON_TYPE_GROUND
+    camera:
+      diskRadiusM: 0.5873
+      cylinderRadiusM: 0.7
+      cylinderHeightM: 0.5
+      cylinderGroundM: 0.3
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.5
+      baseFleeRate: 0.1
+      collisionRadiusM: 0.3915
+      collisionHeightM: 0.1305
+      collisionHeadRadiusM: 0.19575
+      movementType: MOVEMENT_HOVERING
+      movementTimerS: 8.0
+      jumpTimeS: 1.0
+      attackTimerS: 23.0
+      attackProbability: 0.2
+      dodgeProbability: 0.1
+      dodgeDurationS: 1.0
+      dodgeDistance: 0.5
+      cameraDistance: 2.93625
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 80
+      baseAttack: 132
+      baseDefense: 163
+    quickMoves:
+    - ROCK_THROW_FAST
+    - TACKLE_FAST
+    cinematicMoves:
+    - ROCK_SLIDE
+    - ROCK_TOMB
+    - DIG
+    animationTime:
+    - 2.3333
+    - 0.6667
+    - 1.6667
+    - 0.6667
+    - 0.0
+    - 2.0
+    - 1.6667
+    - 0.0
+    evolutionIds:
+    - GRAVELER
+    evolutionPips: 1
+    pokedexHeightM: 0.4
+    pokedexWeightKg: 20.0
+    heightStdDev: 0.05
+    weightStdDev: 2.5
+    familyId: FAMILY_GEODUDE
+    candyToEvolve: 25
+    kmBuddyDistance: 1.0
+    modelHeight: 1.38
+    evolutionBranch:
+    - evolution: GRAVELER
+      candyCost: 25
+      form: GRAVELER_NORMAL
+    modelScaleV2: 1.0
+    form: GEODUDE_NORMAL
     buddyOffsetMale:
     - -0.2
     - 0.0
@@ -15115,7 +17136,164 @@ itemTemplates:
     evolutionBranch:
     - evolution: GOLEM
       candyCost: 100
+      form: GOLEM_NORMAL
     modelScaleV2: 1.0
+    buddyOffsetMale:
+    - 15.0
+    - 0.0
+    - 43.9
+    buddyOffsetFemale:
+    - 15.0
+    - 0.0
+    - 43.9
+    buddyScale: 19.0
+- templateId: V0075_POKEMON_GRAVELER_ALOLA
+  pokemonSettings:
+    pokemonId: GRAVELER
+    modelScale: 0.82
+    type: POKEMON_TYPE_ROCK
+    type2: POKEMON_TYPE_ELECTRIC
+    camera:
+      diskRadiusM: 1.0455
+      cylinderRadiusM: 0.8
+      cylinderHeightM: 1.0
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.25
+      baseFleeRate: 0.07
+      collisionRadiusM: 0.492
+      collisionHeightM: 0.697
+      collisionHeadRadiusM: 0.369
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 14.0
+      jumpTimeS: 1.2
+      attackTimerS: 5.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 5.2275
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 110
+      baseAttack: 164
+      baseDefense: 196
+    quickMoves:
+    - ROCK_THROW_FAST
+    - VOLT_SWITCH_FAST
+    cinematicMoves:
+    - THUNDERBOLT
+    - STONE_EDGE
+    - ROCK_BLAST
+    animationTime:
+    - 2.3333
+    - 0.6667
+    - 1.8667
+    - 1.8333
+    - 0.0
+    - 2.0
+    - 1.6667
+    - 0.0
+    evolutionIds:
+    - GOLEM
+    evolutionPips: 1
+    pokedexHeightM: 1.0
+    pokedexWeightKg: 110.0
+    parentPokemonId: GEODUDE
+    heightStdDev: 0.125
+    weightStdDev: 13.75
+    familyId: FAMILY_GEODUDE
+    candyToEvolve: 100
+    kmBuddyDistance: 1.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.6
+    evolutionBranch:
+    - evolution: GOLEM
+      candyCost: 100
+      form: GOLEM_ALOLA
+    modelScaleV2: 1.0
+    form: GRAVELER_ALOLA
+    buddyOffsetMale:
+    - 15.0
+    - 0.0
+    - 43.9
+    buddyOffsetFemale:
+    - 15.0
+    - 0.0
+    - 43.9
+    buddyScale: 19.0
+- templateId: V0075_POKEMON_GRAVELER_NORMAL
+  pokemonSettings:
+    pokemonId: GRAVELER
+    modelScale: 0.82
+    type: POKEMON_TYPE_ROCK
+    type2: POKEMON_TYPE_GROUND
+    camera:
+      diskRadiusM: 1.0455
+      cylinderRadiusM: 0.8
+      cylinderHeightM: 1.0
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.25
+      baseFleeRate: 0.07
+      collisionRadiusM: 0.492
+      collisionHeightM: 0.697
+      collisionHeadRadiusM: 0.369
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 14.0
+      jumpTimeS: 1.2
+      attackTimerS: 5.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 5.2275
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 110
+      baseAttack: 164
+      baseDefense: 196
+    quickMoves:
+    - ROCK_THROW_FAST
+    - MUD_SLAP_FAST
+    cinematicMoves:
+    - DIG
+    - STONE_EDGE
+    - ROCK_BLAST
+    animationTime:
+    - 2.3333
+    - 0.6667
+    - 1.8667
+    - 1.8333
+    - 0.0
+    - 2.0
+    - 1.6667
+    - 0.0
+    evolutionIds:
+    - GOLEM
+    evolutionPips: 1
+    pokedexHeightM: 1.0
+    pokedexWeightKg: 105.0
+    parentPokemonId: GEODUDE
+    heightStdDev: 0.125
+    weightStdDev: 13.125
+    familyId: FAMILY_GEODUDE
+    candyToEvolve: 100
+    kmBuddyDistance: 1.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.6
+    evolutionBranch:
+    - evolution: GOLEM
+      candyCost: 100
+      form: GOLEM_NORMAL
+    modelScaleV2: 1.0
+    form: GRAVELER_NORMAL
     buddyOffsetMale:
     - 15.0
     - 0.0
@@ -15186,6 +17364,148 @@ itemTemplates:
     buddySize: BUDDY_BIG
     modelHeight: 1.5
     modelScaleV2: 1.0
+    buddyOffsetMale:
+    - 15.0
+    - 0.0
+    - 30.0
+    buddyOffsetFemale:
+    - 15.0
+    - 0.0
+    - 30.0
+    buddyScale: 19.0
+- templateId: V0076_POKEMON_GOLEM_ALOLA
+  pokemonSettings:
+    pokemonId: GOLEM
+    modelScale: 0.84
+    type: POKEMON_TYPE_ROCK
+    type2: POKEMON_TYPE_ELECTRIC
+    camera:
+      diskRadiusM: 0.945
+      cylinderRadiusM: 0.8
+      cylinderHeightM: 1.25
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.125
+      baseFleeRate: 0.05
+      collisionRadiusM: 0.63
+      collisionHeightM: 1.092
+      collisionHeadRadiusM: 0.315
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 8.0
+      jumpTimeS: 1.2
+      attackTimerS: 3.0
+      bonusCandyCaptureReward: 7
+      bonusStardustCaptureReward: 400
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 4.725
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 160
+      baseAttack: 211
+      baseDefense: 229
+    quickMoves:
+    - ROCK_THROW_FAST
+    - VOLT_SWITCH_FAST
+    cinematicMoves:
+    - STONE_EDGE
+    - ROCK_BLAST
+    - WILD_CHARGE
+    animationTime:
+    - 2.6667
+    - 0.6667
+    - 2.0
+    - 2.0
+    - 0.0
+    - 2.1667
+    - 2.0
+    - 0.0
+    evolutionPips: 1
+    pokedexHeightM: 1.7
+    pokedexWeightKg: 316.0
+    parentPokemonId: GRAVELER
+    heightStdDev: 0.2125
+    weightStdDev: 39.5
+    familyId: FAMILY_GEODUDE
+    kmBuddyDistance: 1.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.5
+    modelScaleV2: 1.0
+    form: GOLEM_ALOLA
+    buddyOffsetMale:
+    - 15.0
+    - 0.0
+    - 30.0
+    buddyOffsetFemale:
+    - 15.0
+    - 0.0
+    - 30.0
+    buddyScale: 19.0
+- templateId: V0076_POKEMON_GOLEM_NORMAL
+  pokemonSettings:
+    pokemonId: GOLEM
+    modelScale: 0.84
+    type: POKEMON_TYPE_ROCK
+    type2: POKEMON_TYPE_GROUND
+    camera:
+      diskRadiusM: 0.945
+      cylinderRadiusM: 0.8
+      cylinderHeightM: 1.25
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.125
+      baseFleeRate: 0.05
+      collisionRadiusM: 0.63
+      collisionHeightM: 1.092
+      collisionHeadRadiusM: 0.315
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 8.0
+      jumpTimeS: 1.2
+      attackTimerS: 3.0
+      bonusCandyCaptureReward: 7
+      bonusStardustCaptureReward: 400
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 4.725
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 160
+      baseAttack: 211
+      baseDefense: 229
+    quickMoves:
+    - ROCK_THROW_FAST
+    - MUD_SLAP_FAST
+    cinematicMoves:
+    - STONE_EDGE
+    - ROCK_BLAST
+    - EARTHQUAKE
+    animationTime:
+    - 2.6667
+    - 0.6667
+    - 2.0
+    - 2.0
+    - 0.0
+    - 2.1667
+    - 2.0
+    - 0.0
+    evolutionPips: 1
+    pokedexHeightM: 1.4
+    pokedexWeightKg: 300.0
+    parentPokemonId: GRAVELER
+    heightStdDev: 0.175
+    weightStdDev: 37.5
+    familyId: FAMILY_GEODUDE
+    kmBuddyDistance: 1.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.5
+    modelScaleV2: 1.0
+    form: GOLEM_NORMAL
     buddyOffsetMale:
     - 15.0
     - 0.0
@@ -16213,7 +18533,157 @@ itemTemplates:
     evolutionBranch:
     - evolution: MUK
       candyCost: 50
+      form: MUK_NORMAL
     modelScaleV2: 1.0
+    buddyOffsetMale:
+    - 11.1
+    - 0.0
+    - 31.7
+    buddyOffsetFemale:
+    - 11.1
+    - 0.0
+    - 31.7
+    buddyScale: 19.0
+- templateId: V0088_POKEMON_GRIMER_ALOLA
+  pokemonSettings:
+    pokemonId: GRIMER
+    modelScale: 0.98
+    type: POKEMON_TYPE_POISON
+    type2: POKEMON_TYPE_DARK
+    camera:
+      diskRadiusM: 0.882
+      cylinderRadiusM: 0.75
+      cylinderHeightM: 1.1
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.5
+      baseFleeRate: 0.1
+      collisionRadiusM: 0.49
+      collisionHeightM: 0.8330001
+      collisionHeadRadiusM: 0.294
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 23.0
+      jumpTimeS: 1.0
+      attackTimerS: 8.0
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 4.410001
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 160
+      baseAttack: 135
+      baseDefense: 90
+    quickMoves:
+    - POISON_JAB_FAST
+    - BITE_FAST
+    cinematicMoves:
+    - CRUNCH
+    - GUNK_SHOT
+    - SLUDGE_BOMB
+    animationTime:
+    - 1.6667
+    - 0.6667
+    - 1.6667
+    - 1.6667
+    - 10.0
+    - 1.6667
+    - 2.6667
+    - 0.0
+    evolutionIds:
+    - MUK
+    evolutionPips: 1
+    pokedexHeightM: 0.7
+    pokedexWeightKg: 42.0
+    heightStdDev: 0.0875
+    weightStdDev: 5.25
+    familyId: FAMILY_GRIMER
+    candyToEvolve: 50
+    kmBuddyDistance: 3.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.05
+    evolutionBranch:
+    - evolution: MUK
+      candyCost: 50
+      form: MUK_ALOLA
+    modelScaleV2: 1.0
+    form: GRIMER_ALOLA
+    buddyOffsetMale:
+    - 11.1
+    - 0.0
+    - 31.7
+    buddyOffsetFemale:
+    - 11.1
+    - 0.0
+    - 31.7
+    buddyScale: 19.0
+- templateId: V0088_POKEMON_GRIMER_NORMAL
+  pokemonSettings:
+    pokemonId: GRIMER
+    modelScale: 0.98
+    type: POKEMON_TYPE_POISON
+    camera:
+      diskRadiusM: 0.882
+      cylinderRadiusM: 0.75
+      cylinderHeightM: 1.1
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.5
+      baseFleeRate: 0.1
+      collisionRadiusM: 0.49
+      collisionHeightM: 0.8330001
+      collisionHeadRadiusM: 0.294
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 23.0
+      jumpTimeS: 1.0
+      attackTimerS: 8.0
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 4.410001
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 160
+      baseAttack: 135
+      baseDefense: 90
+    quickMoves:
+    - POISON_JAB_FAST
+    - MUD_SLAP_FAST
+    cinematicMoves:
+    - SLUDGE
+    - MUD_BOMB
+    - SLUDGE_BOMB
+    animationTime:
+    - 1.6667
+    - 0.6667
+    - 1.6667
+    - 1.6667
+    - 10.0
+    - 1.6667
+    - 2.6667
+    - 0.0
+    evolutionIds:
+    - MUK
+    evolutionPips: 1
+    pokedexHeightM: 0.9
+    pokedexWeightKg: 30.0
+    heightStdDev: 0.1125
+    weightStdDev: 3.75
+    familyId: FAMILY_GRIMER
+    candyToEvolve: 50
+    kmBuddyDistance: 3.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.05
+    evolutionBranch:
+    - evolution: MUK
+      candyCost: 50
+      form: MUK_NORMAL
+    modelScaleV2: 1.0
+    form: GRIMER_NORMAL
     buddyOffsetMale:
     - 11.1
     - 0.0
@@ -16299,6 +18769,147 @@ itemTemplates:
     buddySize: BUDDY_BIG
     modelHeight: 1.88
     modelScaleV2: 1.0
+    buddyOffsetMale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyOffsetFemale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyScale: 19.0
+- templateId: V0089_POKEMON_MUK_ALOLA
+  pokemonSettings:
+    pokemonId: MUK
+    modelScale: 0.76
+    type: POKEMON_TYPE_POISON
+    type2: POKEMON_TYPE_DARK
+    camera:
+      diskRadiusM: 1.14
+      cylinderRadiusM: 1.5
+      cylinderHeightM: 1.5
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.2
+      baseFleeRate: 0.06
+      collisionRadiusM: 0.76
+      collisionHeightM: 0.57
+      collisionHeadRadiusM: 0.38
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 8.0
+      jumpTimeS: 1.25
+      attackTimerS: 3.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 6.45
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 210
+      baseAttack: 190
+      baseDefense: 184
+    quickMoves:
+    - BITE_FAST
+    - POISON_JAB_FAST
+    cinematicMoves:
+    - DARK_PULSE
+    - GUNK_SHOT
+    - SLUDGE_WAVE
+    animationTime:
+    - 2.0
+    - 1.0
+    - 1.6667
+    - 2.1667
+    - 10.0
+    - 2.0
+    - 2.6667
+    - 0.0
+    evolutionPips: 1
+    pokedexHeightM: 1.0
+    pokedexWeightKg: 52.0
+    parentPokemonId: GRIMER
+    heightStdDev: 0.125
+    weightStdDev: 6.5
+    familyId: FAMILY_GRIMER
+    kmBuddyDistance: 3.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.88
+    modelScaleV2: 1.0
+    form: MUK_ALOLA
+    buddyOffsetMale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyOffsetFemale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyScale: 19.0
+- templateId: V0089_POKEMON_MUK_NORMAL
+  pokemonSettings:
+    pokemonId: MUK
+    modelScale: 0.76
+    type: POKEMON_TYPE_POISON
+    camera:
+      diskRadiusM: 1.14
+      cylinderRadiusM: 1.5
+      cylinderHeightM: 1.5
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.2
+      baseFleeRate: 0.06
+      collisionRadiusM: 0.76
+      collisionHeightM: 0.57
+      collisionHeadRadiusM: 0.38
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 8.0
+      jumpTimeS: 1.25
+      attackTimerS: 3.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 6.45
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 210
+      baseAttack: 190
+      baseDefense: 184
+    quickMoves:
+    - INFESTATION_FAST
+    - POISON_JAB_FAST
+    cinematicMoves:
+    - DARK_PULSE
+    - GUNK_SHOT
+    - SLUDGE_WAVE
+    animationTime:
+    - 2.0
+    - 1.0
+    - 1.6667
+    - 2.1667
+    - 10.0
+    - 2.0
+    - 2.6667
+    - 0.0
+    evolutionPips: 1
+    pokedexHeightM: 1.2
+    pokedexWeightKg: 30.0
+    parentPokemonId: GRIMER
+    heightStdDev: 0.15
+    weightStdDev: 3.75
+    familyId: FAMILY_GRIMER
+    kmBuddyDistance: 3.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.88
+    modelScaleV2: 1.0
+    form: MUK_NORMAL
     buddyOffsetMale:
     - 0.0
     - 0.0
@@ -17533,7 +20144,7 @@ itemTemplates:
     pokedexHeightM: 10.9
     pokedexWeightKg: 415.6
     parentPokemonId: EXEGGCUTE
-    heightStdDev: 1.3625
+    heightStdDev: 1.375
     weightStdDev: 51.95
     familyId: FAMILY_EXEGGCUTE
     kmBuddyDistance: 3.0
@@ -17783,6 +20394,145 @@ itemTemplates:
     kmBuddyDistance: 3.0
     modelHeight: 1.0
     modelScaleV2: 1.0
+    buddyOffsetMale:
+    - 0.0
+    - 0.0
+    - 20.0
+    buddyOffsetFemale:
+    - 0.0
+    - 0.0
+    - 20.0
+    buddyScale: 19.0
+- templateId: V0105_POKEMON_MAROWAK_ALOLA
+  pokemonSettings:
+    pokemonId: MAROWAK
+    modelScale: 1.0
+    type: POKEMON_TYPE_FIRE
+    type2: POKEMON_TYPE_GHOST
+    camera:
+      diskRadiusM: 0.525
+      cylinderRadiusM: 0.4
+      cylinderHeightM: 1.0
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.15
+      baseFleeRate: 0.06
+      collisionRadiusM: 0.25
+      collisionHeightM: 0.75
+      collisionHeadRadiusM: 0.25
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 14.0
+      jumpTimeS: 0.85
+      attackTimerS: 5.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 3.2
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 120
+      baseAttack: 144
+      baseDefense: 200
+    quickMoves:
+    - HEX_FAST
+    - ROCK_SMASH_FAST
+    cinematicMoves:
+    - BONE_CLUB
+    - SHADOW_BALL
+    - FIRE_BLAST
+    animationTime:
+    - 2.0
+    - 0.6667
+    - 1.6667
+    - 1.5
+    - 0.0
+    - 2.0
+    - 1.4
+    - 0.0
+    evolutionPips: 1
+    pokedexHeightM: 1.0
+    pokedexWeightKg: 34.0
+    parentPokemonId: CUBONE
+    heightStdDev: 0.125
+    weightStdDev: 4.25
+    familyId: FAMILY_CUBONE
+    kmBuddyDistance: 3.0
+    modelHeight: 1.0
+    modelScaleV2: 1.0
+    form: MAROWAK_ALOLA
+    buddyOffsetMale:
+    - 0.0
+    - 0.0
+    - 20.0
+    buddyOffsetFemale:
+    - 0.0
+    - 0.0
+    - 20.0
+    buddyScale: 19.0
+- templateId: V0105_POKEMON_MAROWAK_NORMAL
+  pokemonSettings:
+    pokemonId: MAROWAK
+    modelScale: 1.0
+    type: POKEMON_TYPE_GROUND
+    camera:
+      diskRadiusM: 0.525
+      cylinderRadiusM: 0.4
+      cylinderHeightM: 1.0
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.15
+      baseFleeRate: 0.06
+      collisionRadiusM: 0.25
+      collisionHeightM: 0.75
+      collisionHeadRadiusM: 0.25
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 14.0
+      jumpTimeS: 0.85
+      attackTimerS: 5.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 3.2
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 120
+      baseAttack: 144
+      baseDefense: 200
+    quickMoves:
+    - MUD_SLAP_FAST
+    - ROCK_SMASH_FAST
+    cinematicMoves:
+    - BONE_CLUB
+    - DIG
+    - EARTHQUAKE
+    animationTime:
+    - 2.0
+    - 0.6667
+    - 1.6667
+    - 1.5
+    - 0.0
+    - 2.0
+    - 1.4
+    - 0.0
+    evolutionPips: 1
+    pokedexHeightM: 1.0
+    pokedexWeightKg: 45.0
+    parentPokemonId: CUBONE
+    heightStdDev: 0.125
+    weightStdDev: 5.625
+    familyId: FAMILY_CUBONE
+    kmBuddyDistance: 3.0
+    modelHeight: 1.0
+    modelScaleV2: 1.0
+    form: MAROWAK_NORMAL
     buddyOffsetMale:
     - 0.0
     - 0.0
@@ -28662,8 +31412,6 @@ itemTemplates:
       movementTimerS: 11.0
       jumpTimeS: 0.9
       attackTimerS: 20.0
-      attackProbability: 0.3
-      dodgeProbability: 0.15
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
       cameraDistance: 2.9
@@ -56065,4 +58813,4 @@ itemTemplates:
     - wait 0.25
     - sys ui-sync
     - sys complete
-timestampMs: '1529838719021'
+timestampMs: '1531334404553'
