@@ -7,6 +7,7 @@ import           Data.Semigroup ((<>))
 import qualified Epic
 import qualified GameMaster
 import           GameMaster (GameMaster)
+import qualified Powerups
 
 import           Control.Monad (join, forM_)
 import           Data.List as List
@@ -37,17 +38,8 @@ main =
     do
       options <- getOptions
       gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
-      let makeRunningCostAndLevels costsAndLevel =
-            let filteredCostAndLevel =
-                  filter (\ (_, lvl) -> lvl >= level options) costsAndLevel
-                (costs, levels) = unzip filteredCostAndLevel
-                runningTotal = List.scanl' (+) 0 costs
-            in (runningTotal, levels)
-          (stardustCosts, levels) =
-            makeRunningCostAndLevels $ GameMaster.dustAndLevel gameMaster
-          (candyCosts, _) =
-            makeRunningCostAndLevels $ GameMaster.candyAndLevel gameMaster
-      forM_ (zip3 levels stardustCosts candyCosts) $ \ (level, dust, candy) ->
+      let levelsAndCosts = Powerups.levelsAndCosts gameMaster (level options)
+      forM_ levelsAndCosts $ \ (level, dust, candy) ->
         putStrLn $ show level ++ ": " ++ show dust ++ " " ++ show candy
     )
     $ Exit.die

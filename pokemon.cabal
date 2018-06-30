@@ -19,7 +19,8 @@ library
                        Appraisal, IVs, Calc, Mythical,
                        Battle, Attacker, Defender, Debug, Log, Matchup,
                        Util, Weather, Logger, BattlerUtil, NotRandom, Yaml,
-                       MakePokemon, Stats, PokeUtil, TweakLevel, Breakpoint
+                       MakePokemon, Stats, PokeUtil, TweakLevel, Breakpoint,
+                       Powerups
   other-modules:       StringMap
   ghc-options:         -O2
   build-depends:       base >= 4.7 && < 5, yaml, vector, text,
