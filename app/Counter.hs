@@ -55,6 +55,7 @@ data Options = Options {
   showBreakpoints :: Bool,
   showPowerups :: Bool,
   maybeMaxCandy :: Maybe Int,
+  maybeMaxDust  :: Maybe Int,
   defender :: Battler,
   raidGroup :: Bool,
   showMoveset :: Bool
@@ -85,7 +86,8 @@ getOptions =
   let opts = Options <$> optWeather <*> optSortOutputBy <*> optDpsFilter <*>
         optTop <*>
         optTweakLevel <*> optLegendary <*> optAttackerSource <*>
-        optShowBreakpoints <*> optShowPowerups <*> optMaxCandy <*>
+        optShowBreakpoints <*>
+        optShowPowerups <*> optMaxCandy <*> optMaxDust <*>
         optDefender <*>
         optRaidGroup <*> optShowMoveset
       optWeather = O.optional Weather.optWeather
@@ -158,6 +160,11 @@ getOptions =
         <> O.short 'C'
         <> O.metavar "CANDY"
         <> O.help "Use up to CANDY candy to power up the pokemon")
+      optMaxDust = O.optional $ O.option O.auto
+        (  O.long "stardust"
+        <> O.short 'S'
+        <> O.metavar "STARDUST"
+        <> O.help "Use up to STARDUST starust to power up the pokemon")
       optDefender = O.argument
         (BattlerUtil.optParseBattler defaultIVs)
           (O.metavar "DEFENDER[:LEVEL]")
@@ -201,12 +208,14 @@ main =
           -- Load all the files and concat them into one [[Pokemon]].
           pokemonLists <- fmap concat $ mapM (loadPokemon . Just) filenames
           let maybeMaxCandy = Main.maybeMaxCandy options
-          if showPowerups options || Maybe.isJust maybeMaxCandy
+              maybeMaxDust = Main.maybeMaxDust options
+          if showPowerups options || Maybe.isJust maybeMaxCandy ||
+              Maybe.isJust maybeMaxDust
             then return $
               -- Turn each [Pokemon] into multiple lists of powered-up
               -- Pokemon by turning each Pokemon into a list of
               -- powered up Pokmon and concatenating the lists.
-              concat $ map (expandLevels gameMaster maybeMaxCandy)
+              concat $ map (expandLevels gameMaster maybeMaxCandy maybeMaxDust)
                 $ pokemonLists
             else return pokemonLists
         AllAttackers -> do
@@ -323,14 +332,16 @@ nameSpeciesAndLevelAndMoveset pokemon =
 
 -- [A:iva:0, A:ivb:0] -> [[A:iva:0, A:ivb:0], [A<1>:iva:1, A<1>:ivb:1]]
 --
-expandLevels :: GameMaster -> Maybe Int -> [Pokemon] -> [[Pokemon]]
-expandLevels gameMaster maybeMaxCandy pokemonList =
+expandLevels :: GameMaster -> Maybe Int -> Maybe Int -> [Pokemon] -> [[Pokemon]]
+expandLevels gameMaster maybeMaxCandy maybeMaxDust pokemonList =
   let pokemonLevel = Pokemon.level $ head pokemonList
-      powerupLevelsAndCandy = getPowerUpLevelsAndCandy gameMaster pokemonLevel
-      powerupLevelsAndCandy' = case maybeMaxCandy of
-        Nothing -> powerupLevelsAndCandy
-        Just maxCandy -> filter ((<= maxCandy) . snd) powerupLevelsAndCandy
-      powerupLevels = map fst powerupLevelsAndCandy'
+      powerupLevelsAndCosts =
+        maybeFilter maybeMaxCandy
+          (\ maxCandy (_, candy, _) -> candy <= maxCandy) $
+        maybeFilter maybeMaxDust
+          (\ maxDust (_, _, dust) -> dust <= maxDust) $
+        Powerups.levelsAndCosts gameMaster pokemonLevel
+      powerupLevels = map (\ (lvl, _, _) -> lvl) powerupLevelsAndCosts
       addLevelToName pokemon = Pokemon.setName
         (Printf.printf "%s <%s>"
           (Pokemon.pname pokemon)
@@ -341,11 +352,16 @@ expandLevels gameMaster maybeMaxCandy pokemonList =
   in pokemonList :
        [map (setLevelAndName level) pokemonList | level <- powerupLevels]
 
-getPowerUpLevelsAndCandy :: GameMaster -> Float -> [(Float, Int)]
-getPowerUpLevelsAndCandy gameMaster pokemonLevel =
-  let levelsAndCosts = Powerups.levelsAndCosts gameMaster pokemonLevel
-  in [(level, candy) |
-       (level, candy, _) <- levelsAndCosts, level > pokemonLevel]
+maybeFilter :: Maybe a -> (a -> b -> Bool) -> [b] -> [b]
+maybeFilter maybeA pred list =
+  case maybeA of
+    Nothing -> list
+    Just a -> filter (pred a) list
+
+getPowerUpLevelsAndCosts :: GameMaster -> Float -> [(Float, Int, Int)]
+getPowerUpLevelsAndCosts gameMaster pokemonLevel =
+  filter (\ (lvl, _, _) -> lvl > pokemonLevel) $
+    Powerups.levelsAndCosts gameMaster pokemonLevel
 
 doTweakLevel :: (Float -> Float) -> MyPokemon -> MyPokemon
 doTweakLevel tweakLevel myPokemon =
