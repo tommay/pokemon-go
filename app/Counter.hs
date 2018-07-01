@@ -27,6 +27,7 @@ import           Pokemon (Pokemon)
 import qualified PokemonBase
 import           PokemonBase (PokemonBase)
 import qualified PokeUtil
+import qualified Powerups
 import qualified Type
 import           Type (Type)
 import qualified Util
@@ -342,12 +343,9 @@ expandLevels gameMaster maybeMaxCandy pokemonList =
 
 getPowerUpLevelsAndCandy :: GameMaster -> Float -> [(Float, Int)]
 getPowerUpLevelsAndCandy gameMaster pokemonLevel =
-  let powerUpLevelsAndCandy =
-        filter ((> pokemonLevel) . snd) $ GameMaster.candyAndLevel gameMaster
-    -- Return the tail because the first element in the scanl result is
-    -- (pokemonLevel, 0) and we only want levels > pokemonLevel.
-  in tail $ List.scanl (\ (_, total) (candy, level) ->
-       (level, total + candy)) (pokemonLevel, 0) powerUpLevelsAndCandy
+  let levelsAndCosts = Powerups.levelsAndCosts gameMaster pokemonLevel
+  in [(level, candy) |
+       (level, candy, _) <- levelsAndCosts, level > pokemonLevel]
 
 doTweakLevel :: (Float -> Float) -> MyPokemon -> MyPokemon
 doTweakLevel tweakLevel myPokemon =
