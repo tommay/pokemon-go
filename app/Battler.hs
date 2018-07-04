@@ -34,6 +34,7 @@ import qualified Pokemon
 import           Pokemon (Pokemon)
 import qualified PokemonBase
 import           PokemonBase (PokemonBase)
+import qualified PokeUtil
 import qualified Weather
 import           Weather (Weather (..))
 
@@ -132,7 +133,11 @@ showLog log =
 
 showPokemon :: Pokemon -> String
 showPokemon pokemon =
-  Printf.printf "%s %s / %s"
+  Printf.printf "%s:%s/%d/%d/%d:%s/%s"
     (Pokemon.species pokemon)
+    (PokeUtil.levelToString $ Pokemon.level pokemon)
+    (IVs.attack $ Pokemon.ivs pokemon)
+    (IVs.defense $ Pokemon.ivs pokemon)
+    (IVs.stamina $ Pokemon.ivs pokemon)
     (Move.name $ Pokemon.quick pokemon)
     (Move.name $ Pokemon.charge pokemon)
