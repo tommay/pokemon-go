@@ -17,6 +17,7 @@ import qualified MakePokemon
 import qualified MyPokemon
 import qualified Pokemon
 import           Pokemon (Pokemon)
+import qualified PokeUtil
 import qualified Util
 import qualified Weather
 import           Weather (Weather (..))
@@ -94,7 +95,7 @@ main =
               gameMaster weatherBonus attacker defender
         forM_ breakpoints $ \ (level, damage) ->
           putStrLn $ Printf.printf "%s%-4s %d"
-            (indent :: String) (levelToString level) damage
+            (indent :: String) (PokeUtil.levelToString level) damage
     )
     $ Exit.die
 
@@ -103,13 +104,7 @@ showPokemon pokemon =
   let ivs = Pokemon.ivs pokemon
   in Printf.printf "%s:%s/%d/%d/%d"
        (Pokemon.pname pokemon)
-       (levelToString $ IVs.level ivs)
+       (PokeUtil.levelToString $ IVs.level ivs)
        (IVs.attack ivs)
        (IVs.defense ivs)
        (IVs.stamina ivs)
-
-levelToString :: Float -> String
-levelToString level =
-  if fromIntegral (floor level) == level
-    then show $ floor level
-    else Printf.printf "%.1f" level
