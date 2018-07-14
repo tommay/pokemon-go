@@ -131,8 +131,7 @@ attackerInfo matchup =
 keepHighDpsMatchups :: [Matchup] -> [Matchup]
 keepHighDpsMatchups matchups =
   let sortedByDps = reverse $ Util.sortWith Matchup.dps matchups
-      dpsCutoff = Matchup.dps $ sortedByDps !! (length sortedByDps `div` 200)
-  in takeWhile ((>= dpsCutoff) . Matchup.dps) sortedByDps
+  in take 10 sortedByDps
 
 -- Keep Matchups with damage >= 90% of the maximum damage.  This may
 -- keep only one Matchup if no other attacker even comes close to the
