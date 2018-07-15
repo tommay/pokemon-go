@@ -207,6 +207,11 @@ main =
                 mapM (MakePokemon.makePokemon gameMaster) myPokemon'
           -- Load all the files and concat them into one [[Pokemon]].
           pokemonLists <- fmap concat $ mapM (loadPokemon . Just) filenames
+--          [[A1, A2], [B1]]
+--          [[A1/1, A2/1], [A1/2, A1/2], [B1/1], [B1/2]]
+          let pokemonLists' = if showMoveset options
+                then concat $ map (expandMoves gameMaster) pokemonLists
+                else pokemonLists
           let maybeMaxCandy = Main.maybeMaxCandy options
               maybeMaxDust = Main.maybeMaxDust options
           if showPowerups options || Maybe.isJust maybeMaxCandy ||
@@ -216,8 +221,8 @@ main =
               -- Pokemon by turning each Pokemon into a list of
               -- powered up Pokmon and concatenating the lists.
               concat $ map (expandLevels gameMaster maybeMaxCandy maybeMaxDust)
-                $ pokemonLists
-            else return pokemonLists
+                pokemonLists'
+            else return pokemonLists'
         AllAttackers -> do
           mythicalMap <- join $ Mythical.load "mythical.yaml"
           let notMythical = not . Mythical.isMythical mythicalMap . PokemonBase.species
@@ -305,6 +310,28 @@ main =
             else return ()
     )
     $ Exit.die
+
+expandMoves :: GameMaster -> [Pokemon] -> [[Pokemon]]
+expandMoves gameMaster pokemonList =
+  let base = Pokemon.base $ head pokemonList
+      movesets = [(quick, charge) |
+        quick <- PokemonBase.quickMoves base,
+        charge <- PokemonBase.chargeMoves base]
+      setMovesAndName quick charge pokemon =
+        let current =
+              if Pokemon.quick pokemon == quick &&
+                 Pokemon.charge pokemon == charge
+              then "*-" :: String else "  "
+            name = Printf.printf "%s%s [%s/%s]"
+              current
+              (Pokemon.pname pokemon)
+              (Move.name quick)
+              (Move.name charge)
+        in Pokemon.setName name $
+             PokeUtil.setMoves gameMaster quick charge pokemon
+  in map (\ (quick, charge) ->
+       map (setMovesAndName quick charge) pokemonList)
+       movesets
 
 showResult :: (Pokemon -> String) -> Result -> String
 showResult nameFunc result =

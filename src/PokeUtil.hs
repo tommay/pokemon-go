@@ -1,6 +1,7 @@
 module PokeUtil (
   addStats,
   setLevel,
+  setMoves,
   levelToString,
 ) where
 
@@ -10,6 +11,7 @@ import           GameMaster (GameMaster)
 import qualified IVs
 import           IVs (IVs)
 import qualified MakePokemon
+import           Move (Move)
 import qualified MyPokemon
 import           MyPokemon (MyPokemon)
 import qualified Pokemon
@@ -51,6 +53,16 @@ setLevel gameMaster level pokemon =
        (Pokemon.base pokemon)
        (Pokemon.quick pokemon)
        (Pokemon.charge pokemon)
+
+setMoves :: GameMaster -> Move -> Move -> Pokemon -> Pokemon
+setMoves gameMaster quick charge pokemon =
+  MakePokemon.makeForWhatever
+    gameMaster
+    (Pokemon.ivs pokemon)
+    (Pokemon.pname pokemon)
+    (Pokemon.base pokemon)
+    quick
+    charge
 
 levelToString :: Float -> String
 levelToString level =
