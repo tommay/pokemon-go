@@ -1,3 +1,4 @@
+# "mythical" here just means they're not actually in the game.
 bulbasaur: 
 ivysaur: 
 venusaur: 
@@ -266,7 +267,7 @@ wurmple:
 silcoon:
 beautifly:
 cascoon:
-dustox: mythical
+dustox:
 lotad:
 lombre:
 ludicolo:
@@ -280,7 +281,7 @@ pelipper:
 ralts:
 kirlia:
 gardevoir:
-surskit: mythical
+surskit:
 masquerain:
 shroomish:
 breloom:
@@ -311,7 +312,7 @@ manectric:
 plusle:
 minun:
 volbeat: mythical # regional
-illumise: mythical # regional
+illumise: # regional
 roselia:
 gulpin:
 swalot:
@@ -334,8 +335,8 @@ swablu:
 altaria:
 zangoose: 
 seviper:
-lunatone: mythical # regional
-solrock: mythical # regional
+lunatone:  # regional
+solrock:  # regional
 barboach:
 whiscash:
 corphish:
@@ -348,7 +349,7 @@ anorith:
 armaldo:
 feebas:
 milotic:
-castform: mythical
+castform:
 kecleon: mythical
 shuppet: 
 banette: 
@@ -374,11 +375,11 @@ salamence:
 beldum:
 metang:
 metagross:
-regirock: mythical
-regice: mythical
-registeel: mythical
-latias: mythical
-latios: mythical
+regirock: legendary
+regice: legendary
+registeel: legendary
+latias: legendary
+latios: legendary
 kyogre: legendary
 groudon: legendary
 rayquaza: legendary
