@@ -108,9 +108,9 @@ If a pokemon's alrezdy had `ivs` then they are retained except that
 combinations that aren't possible will be removed.  This is useful when
 you power up a pokemon and update its `cp` and `hp`.  Running `ivs` will
 remove any ambiguous `ivs` that are no longer possible given the new
-`cp` and `hp`.`q
+`cp` and `hp`.
 
-### Soecifying the `appraisal`
+### Specifying the `appraisal`
 
 The `appraisal` looks like this:
 
@@ -122,7 +122,8 @@ It consists of the team leader's overall evaluation, the list of best
 ivs (one, two, or three of `hp`, `attack`, and `defense`), and the
 evaluation of the best ivs.  The evaluations depend on your team:
 
-Mystic:
+#### Mystic:
+
 |Blanche's phrase includes|appraisal term|
 |-------------------------|--------------|
 |Your pokemon is a wonder!|wonder|
@@ -137,7 +138,8 @@ Mystic:
 |noticeably trending to the positive|trending|
 |not out of the norm|not out|
 
-Valor:
+#### Valor:
+
 |Candela's phrase includes|appraisal term|
 |-------------------------|--------------|
 |amazes me|amazes|
