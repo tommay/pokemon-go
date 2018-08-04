@@ -156,3 +156,94 @@ evaluation of the best ivs.  The evaluations depend on your team:
 
 If you're Instinct, you rock~ But you'll have to either use the Mystic
 or Valor terms or edit src/Appraisal.hs (and submit a pull request).
+
+## Examples
+
+### What are the best counters to blizzard Kyogre tier 5 raid boss?
+
+`-a`: simulate all pokemon species instead of `-f` to read pokemon
+from a file.
+
+`-g`: sort by DPS (glass cannon option)
+
+`-M`: show moveset
+
+Pokemon are simulated at level 30 by default.
+
+This is for default (extreme) weather with no weather-boosted moves.
+
+```
+$ counter -g -M -a kyogre:r5/b
+14.3   242  zapdos:30       charge beam  / thunderbolt    
+14.0   237  raikou:30       thunder shock/ thunderbolt    
+13.7   231  jolteon:30      thunder shock/ thunderbolt    
+13.4   226  sceptile:30     fury cutter  / leaf blade     
+12.8   216  rayquaza:30     dragon tail  / outrage        
+12.8   216  victreebel:30   razor leaf   / leaf blade     
+12.7   214  venusaur:30     vine whip    / frenzy plant   
+12.6   213  shiftry:30      razor leaf   / leaf blade     
+12.5   212  venusaur:30     razor leaf   / frenzy plant   
+12.2   207  electabuzz:30   thunder shock/ thunderbolt    
+12.2   206  breloom:30      bullet seed  / seed bomb      
+```
+
+### Where are their breakpoints?
+
+Just add `-B`:
+
+```
+$ ./counter -B -g -M -a kyogre:r5/b
+14.3   242  zapdos:30       charge beam  / thunderbolt    
+14.0   237  raikou:30       thunder shock/ thunderbolt    
+13.7   231  jolteon:30      thunder shock/ thunderbolt    
+13.4   226  sceptile:30     fury cutter  / leaf blade     
+12.8   216  rayquaza:30     dragon tail  / outrage        
+12.8   216  victreebel:30   razor leaf   / leaf blade     
+12.7   214  venusaur:30     vine whip    / frenzy plant   
+12.6   213  shiftry:30      razor leaf   / leaf blade     
+12.5   212  venusaur:30     razor leaf   / frenzy plant   
+  30   8
+  31   9
+12.2   207  electabuzz:30   thunder shock/ thunderbolt    
+```
+
+So RL/FP Venusaur has a breakpoint at level 31, but the rest have reached
+their final breakpoiint by level 30.  Let's see where those breakpoints are
+alsoby using `-l 20`:
+
+```
+$ counter -l 20 -B -g -M -a kyogre:r5/b
+12.2   207  raikou:20       thunder shock/ thunderbolt    
+11.9   201  zapdos:20       charge beam  / thunderbolt    
+  20   6
+  28.5 7
+11.2   222  venusaur:20     vine whip    / frenzy plant   
+  20   4
+  26.5 5
+10.5   177  venusaur:20     razor leaf   / frenzy plant   
+  20   7
+  23.5 8
+  31   9
+10.5   176  sceptile:20     fury cutter  / leaf blade     
+  20   1
+  20.5 2
+10.3   164  victreebel:20   razor leaf   / solar beam     
+  20   7
+  21.5 8
+  28   9
+10.3   170  raikou:20       thunder shock/ wild charge    
+10.3   174  victreebel:20   razor leaf   / leaf blade     
+  20   7
+  21.5 8
+  28   9
+10.1   171  shiftry:20      razor leaf   / leaf blade     
+  20   7
+  23   8
+  30   9
+10.0   118  manectric:20    charge beam  / wild charge    
+  20   5
+  27   6
+ 9.9   130  jolteon:20      thunder shock/ thunderbolt    
+  20   3
+  21.5 4
+```
