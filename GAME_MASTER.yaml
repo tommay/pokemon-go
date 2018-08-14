@@ -23715,6 +23715,7 @@ itemTemplates:
       baseDefense: 188
     quickMoves:
     - CHARGE_BEAM_FAST
+    - THUNDER_SHOCK_FAST   # Zapdos day move 7/21/2018
     cinematicMoves:
     - ZAP_CANNON
     - THUNDERBOLT
