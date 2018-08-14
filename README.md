@@ -247,3 +247,83 @@ $ counter -l 20 -B -g -M -a kyogre:r5/b
   20   3
   21.5 4
 ```
+
+# Plotting
+
+There are several useful plots that can be done to help evaluate which
+pokemon to evolve and possibly subsequently power up.  It often takes
+125 candy to evolve a pokemon.  Would that candy (along with some
+stardust) be better spent in powering up an existing pokemon, perhaps
+one with lower IVs, instead?  And how far should you power up?  As
+always it depends on the matchups, so these plots compare DPS or TDO
+vs. stardust or candy costs by simulating particular matchups that you
+choose.  In the end it's really subjective and depends on you candy
+and stardust budget but the plots can help weed out the bad pokemon
+and perhaps also spot some surprising stars.
+
+## Here's how it works:
+
+Create a file with the type of pokemon being considered, say
+shiftry.yaml.  Make an entry for each shiftry, nuzleaf, and seedot
+you're considering.  For the moveset, use the moveset you plan to have
+on the fully evolved pokemon.  If the pokemon is already fully
+evolved, use its existing moveset and also consider making another
+entry with a different name and the ideal moveset.  Using square
+brackets somewhere in the name will cause that pokeon to be plotted
+with a dashed line, which is useful when using hypothetical pokemon
+with an alternate moveet -- pokemon with solid lines repreent the
+moveset you have, and pokemon with dashed lines are what you could get
+with a TM.  Just remember not to get too excited if you see a dotted line
+getting high samage -- you're going to have to TM it first.
+
+Then do
+
+```
+plotpowerups.sh -p -s -t -f shiftry.yaml raichu_alola:r3
+```
+
+Ignore any libGL error messages; I have no idea what that's all about.
+
+The command arguments are:
+
+```-p``` run gnuplot to actually create a plot
+
+```-c``` plot candy cost on the X axis
+
+```-t``` plot TDO on the Y axis
+
+```-f <filename>``` yaml file with the pokemon to plot
+
+The final argument is the defending pokemon.  It can be of the usual form
+```species[:level[/attack/defense/stamina]][:fast_move][/charge_move]```
+
+Any unevolved pokemon are simulated as fully evolved.  For any pokemon
+that needs to be evolved, the lowest candy cost will be the candy
+needed to evolve, and will increase from there with power ups.  Fully
+evolved pokemon will start from a candy cost of zero.
+
+If a pokemon has multiple evolutions, specify which one you want on
+the command line:
+
+```-e <species>```
+
+What you'll invariably find is that powering up existing pokemon is
+always much better in the short term because it won't take much candy
+to power them up to their next breakpoint(s) compared to evolving a
+pokemon.  But a newly evolved pokemon may eventually surpass existing
+pokemon if you spend enoough candy.
+
+The power up breakpoints will be pretty obvious in the plot; they are
+the large jumps in damage.  Between breakpoints, damage can increase
+slowly, stay fairly level, or even decrease as your pokemon's ```(base
+defense + defense IV) * CPM``` increases and it gains energy more slowly.
+
+Damage can also be plotted vs. stardust cost by using ```-s``` instead
+of ```-c```.  Remember that evolving takes no stardust so all
+pokemon's plots start at zero stardust but it's going to cost some
+candy first to get there if the pokemon is not already fully evolved.
+
+DPS can be plotted instead of TDO by using ```-d``` instead of
+```-t```.  DPS can really jump around a lot, both up and down, with
+power ups.  You'll often find you get the best DPS by powering up only
+to level 30-something.
