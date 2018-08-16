@@ -1,5 +1,5 @@
 --- GAME_MASTER.yaml.orig	2018-08-11 21:47:34.822123546 -0700
-+++ GAME_MASTER.yaml	2018-08-13 21:06:46.791411299 -0700
++++ GAME_MASTER.yaml	2018-08-16 15:09:06.449875317 -0700
 @@ -9584,6 +9584,7 @@
      - SLUDGE_BOMB
      - PETAL_BLIZZARD
@@ -40,7 +40,15 @@
      cinematicMoves:
      - HYDRO_PUMP
      - CRUNCH
-@@ -23710,6 +23715,7 @@
+@@ -23579,6 +23584,7 @@
+     - HEAVY_SLAM
+     - HYPER_BEAM
+     - EARTHQUAKE
++    - BODY_SLAM    # July 2018 research reward
+     animationTime:
+     - 2.4
+     - 0.6667
+@@ -23710,6 +23716,7 @@
        baseDefense: 188
      quickMoves:
      - CHARGE_BEAM_FAST
@@ -48,7 +56,7 @@
      cinematicMoves:
      - ZAP_CANNON
      - THUNDERBOLT
-@@ -23999,6 +24005,7 @@
+@@ -23999,6 +24006,7 @@
      - HURRICANE
      - HYPER_BEAM
      - OUTRAGE
@@ -56,7 +64,7 @@
      animationTime:
      - 2.6667
      - 0.6667
-@@ -26313,6 +26320,7 @@
+@@ -26313,6 +26321,7 @@
      - ZAP_CANNON
      - FOCUS_BLAST
      - THUNDER
@@ -64,7 +72,7 @@
      animationTime:
      - 1.3333
      - 0.6667
-@@ -31393,6 +31401,7 @@
+@@ -31393,6 +31402,7 @@
      quickMoves:
      - EXTRASENSORY_FAST
      - SNARL_FAST
@@ -72,7 +80,7 @@
      cinematicMoves:
      - HYDRO_PUMP
      - BUBBLE_BEAM
-@@ -31656,6 +31665,7 @@
+@@ -31656,6 +31666,7 @@
      quickMoves:
      - BITE_FAST
      - IRON_TAIL_FAST
@@ -80,7 +88,7 @@
      cinematicMoves:
      - FIRE_BLAST
      - CRUNCH
-@@ -41953,6 +41963,7 @@
+@@ -41953,6 +41964,7 @@
        baseDefense: 251
      quickMoves:
      - WATERFALL_FAST

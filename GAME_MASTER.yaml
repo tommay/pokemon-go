@@ -23584,6 +23584,7 @@ itemTemplates:
     - HEAVY_SLAM
     - HYPER_BEAM
     - EARTHQUAKE
+    - BODY_SLAM    # July 2018 research reward
     animationTime:
     - 2.4
     - 0.6667
