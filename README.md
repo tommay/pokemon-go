@@ -251,15 +251,19 @@ $ counter -l 20 -B -g -M -a kyogre:r5/b
 # Plotting
 
 There are several useful plots that can be done to help evaluate which
-pokemon to evolve and possibly subsequently power up.  It often takes
-125 candy to evolve a pokemon.  Would that candy (along with some
-stardust) be better spent in powering up an existing pokemon, perhaps
-one with lower IVs, instead?  And how far should you power up?  As
-always it depends on the matchups, so these plots compare DPS or TDO
-vs. stardust or candy costs by simulating particular matchups that you
-choose.  In the end it's really subjective and depends on you candy
-and stardust budget but the plots can help weed out the bad pokemon
-and perhaps also spot some surprising stars.
+pokemon to evolve and/or power up.  They can plot the DPS or TDO for a
+group of pokemon as a function of how much candy or stardust is spent
+on them.
+
+It often takes 125 candy to evolve a pokemon.  Would that candy (and
+stardust) stardust be better spent by powering up an already evolved
+pokemon, perhaps one with lower IVs, instead?  And how far should you
+power up?  As always it depends on the matchups, so these plots
+compare DPS or TDO vs. stardust or candy costs by simulating
+particular matchups that you choose.  In the end it's really
+subjective and depends on you candy and stardust budget but the plots
+can help weed out the bad pokemon and perhaps also spot some
+surprising stars.
 
 ## Here's how it works:
 

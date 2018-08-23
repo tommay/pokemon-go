@@ -33,10 +33,10 @@ possibleIvs this =
 
 getSummary :: (Epic.MonadCatch m) => [String] -> m (Range Int)
 getSummary words
-  | includes words ["not likely", "may not"] = return $ SpanRange 0 22
-  | includes words ["above", "decent"] = return $ SpanRange 23 29
-  | includes words ["attention", "strong"] = return $ SpanRange 30 36
-  | includes words ["wonder", "amazes"] = return $ SpanRange 37 45
+  | includes words ["not likely", "may not", "room"] = return $ SpanRange 0 22
+  | includes words ["above", "decent", "decent"] = return $ SpanRange 23 29
+  | includes words ["attention", "strong", "strong"] = return $ SpanRange 30 36
+  | includes words ["wonder", "amazes", "best"] = return $ SpanRange 37 45
   | otherwise = Epic.fail $ "Bad summary in appraisal"
 
 getBest :: (Epic.MonadCatch m) => [String] -> m [String]
@@ -50,10 +50,10 @@ getBest words =
 
 getBestRange :: (Epic.MonadCatch m) => [String] -> m (Range Int)
 getBestRange words
-  | includes words ["not out", "point"] = return $ SpanRange 0 7
-  | includes words ["trending", "indicate"] = return $ SpanRange 8 12
-  | includes words ["impressed", "excellent"] = return $ SpanRange 13 14
-  | includes words ["incredible", "blown"] = return $ SpanRange 15 15
+  | includes words ["not out", "point", "basic"] = return $ SpanRange 0 7
+  | includes words ["trending", "indicate", "definitely"] = return $ SpanRange 8 12
+  | includes words ["impressed", "excellent", "impressive"] = return $ SpanRange 13 14
+  | includes words ["incredible", "blown", "no doubt"] = return $ SpanRange 15 15
   | otherwise = Epic.fail $ "Bad best IV description in appraisal"
 
 ok :: Appraisal -> Int -> Int -> Int -> Bool
