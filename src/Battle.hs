@@ -1,8 +1,8 @@
 module Battle (
   Battle,
   Battle.init,
-  runBattle,
-  runBattleOnly,
+  doBattle,
+  doBattleOnly,
   attacker,
   defender,
   dps,
@@ -62,11 +62,16 @@ runBattle :: Battle -> Logger (Log Battle) Battle
 runBattle =
   Loops.iterateUntilM Battle.attackerFainted Battle.tick
 
--- Like runBattle but returns only the final Battle state.
+doBattle :: (Type -> Float) -> Bool -> Pokemon -> Pokemon ->
+  Logger (Log Battle) Battle
+doBattle weatherBonus raidGroup attacker defender =
+  Battle.runBattle $ Battle.init weatherBonus raidGroup attacker defender
+
+-- Like doBattle but returns only the final Battle state.
 --
-runBattleOnly :: Battle -> Battle
-runBattleOnly =
-  fst . Logger.runLogger . runBattle
+doBattleOnly :: (Type -> Float) -> Bool -> Pokemon -> Pokemon -> Battle
+doBattleOnly weatherBonus raidGroup attacker defender =
+  fst $ Logger.runLogger $ doBattle weatherBonus raidGroup attacker defender
 
 -- XXX This is not quite right because there is some delay before the
 -- attacker's first move, so the dps only starts after the delay.
