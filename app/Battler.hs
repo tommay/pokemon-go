@@ -87,7 +87,7 @@ main =
 
       let battleLoggers =
             [Battle.runBattle $
-              Battle.init weatherBonus attacker defender False |
+              Battle.init weatherBonus False attacker defender |
               attacker <- attackerVariants, defender <- defenderVariants]
           battleResults = map Logger.runLogger battleLoggers
 

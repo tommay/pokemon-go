@@ -43,8 +43,8 @@ data Battle = Battle {
 
 battleDuration = 100 * 1000
 
-init :: (Type -> Float) -> Pokemon -> Pokemon -> Bool -> Battle
-init weatherBonus attacker defender raidGroup =
+init :: (Type -> Float) -> Bool -> Pokemon -> Pokemon -> Battle
+init weatherBonus raidGroup attacker defender =
   Battle {
     attacker = Attacker.init attacker,
     defender = Defender.init defender,

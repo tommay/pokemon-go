@@ -149,7 +149,7 @@ data AttackerResult = AttackerResult {
 getAttackerResult :: [Pokemon] -> Pokemon -> AttackerResult
 getAttackerResult defenders attacker =
   let battleLoggers = [
-        Battle.runBattle $ Battle.init (const 1) attacker defender False |
+        Battle.runBattle $ Battle.init (const 1) False attacker defender |
         defender <- defenders]
       battles = map (fst . Logger.runLogger) battleLoggers
       minByDamage =

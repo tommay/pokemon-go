@@ -405,7 +405,7 @@ doTweakLevel tweakLevel myPokemon =
 counter :: (Type -> Float) -> Bool -> [Pokemon] -> [Pokemon] -> Result
 counter weatherBonus raidGroup defenderVariants attackerVariants =
   let battles = [Battle.runBattleOnly $
-        Battle.init weatherBonus attacker defender raidGroup |
+        Battle.init weatherBonus raidGroup attacker defender |
         attacker <- attackerVariants,
         defender <- defenderVariants]
       getMinValue fn = fn . List.minimumBy (Util.compareWith fn)
