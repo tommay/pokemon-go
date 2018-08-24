@@ -62,7 +62,7 @@ runBattle :: Battle -> Logger (Log Battle) Battle
 runBattle =
   Loops.iterateUntilM Battle.attackerFainted Battle.tick
 
--- Like runBattle but returns only he final Battle state.
+-- Like runBattle but returns only the final Battle state.
 --
 runBattleOnly :: Battle -> Battle
 runBattleOnly =

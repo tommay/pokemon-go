@@ -302,7 +302,7 @@ main =
                     gameMaster weatherBonus
                     (pokemon result) defender
               in case breakpoints of
-                (_:_:_) ->  -- Onlt show if there wre two or more.
+                (_:_:_) ->  -- Only show if there are two or more.
                   forM_ breakpoints $ \ (level, damage) ->
                     putStrLn $ Printf.printf
                       "  %-4s %d" (PokeUtil.levelToString level) damage
