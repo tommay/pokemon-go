@@ -7,6 +7,7 @@ import           Options.Applicative ((<|>), (<**>))
 import           Data.Semigroup ((<>))
 
 import qualified Battle
+import           Battle (Battle)
 import qualified BattlerUtil
 import           BattlerUtil (Battler, Level (Normal))
 import qualified Breakpoint
@@ -249,9 +250,9 @@ main =
 
       let weatherBonus =
             GameMaster.getWeatherBonus gameMaster $ maybeWeather options
-          raidGroup' = raidGroup options
+          doOneBattle = Battle.doBattleOnly weatherBonus (raidGroup options)
           results =
-            map (counter weatherBonus raidGroup' defenderVariants) attackers
+            map (counter doOneBattle defenderVariants) attackers
           sortedByDps = List.reverse $ Util.sortWith minDps results
           damagePerHp result = (fromIntegral $ minDamage result) /
             (fromIntegral $ Pokemon.hp $ pokemon result)
@@ -402,9 +403,9 @@ doTweakLevel tweakLevel myPokemon =
       ivs' = (fmap $ map $ IVs.tweakLevel tweakLevel) ivs
   in MyPokemon.setIVs myPokemon ivs'
 
-counter :: (Type -> Float) -> Bool -> [Pokemon] -> [Pokemon] -> Result
-counter weatherBonus raidGroup defenderVariants attackerVariants =
-  let battles = [Battle.doBattleOnly weatherBonus raidGroup attacker defender |
+counter :: (Pokemon -> Pokemon -> Battle) -> [Pokemon] -> [Pokemon] -> Result
+counter doOneBattle defenderVariants attackerVariants =
+  let battles = [doOneBattle attacker defender |
         attacker <- attackerVariants,
         defender <- defenderVariants]
       getMinValue fn = fn . List.minimumBy (Util.compareWith fn)
