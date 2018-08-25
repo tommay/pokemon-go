@@ -73,6 +73,7 @@ data AttackerSource =
 
 data Result = Result {
   pokemon   :: Pokemon,
+  pokemonVariants :: [Pokemon],
   minDps    :: Float,
   minDamage :: Int
 } deriving (Show)
@@ -297,16 +298,21 @@ main =
           putStrLn $ showResult nameFunc result
           if showBreakpoints options
             then
-              let defender = head defenderVariants
-                  breakpoints = Breakpoint.getBreakpoints
-                    gameMaster weatherBonus
-                    (pokemon result) defender
-              in case breakpoints of
-                (_:_:_) ->  -- Only show if there are two or more.
-                  forM_ breakpoints $ \ (level, damage) ->
-                    putStrLn $ Printf.printf
-                      "  %-4s %d" (PokeUtil.levelToString level) damage
-                _ -> return ()
+              case pokemonVariants result of
+                [attacker] ->
+                  -- The defender moveset doesn't matter, so here we assume
+                  -- all variants have the same level and IVs.
+                  let defender = head defenderVariants
+                      breakpoints = Breakpoint.getBreakpoints
+                        gameMaster weatherBonus
+                        attacker defender
+                  in case breakpoints of
+                       (_:_:_) ->  -- Only show if there are two or more.
+                         forM_ breakpoints $ \ (level, damage) ->
+                           putStrLn $ Printf.printf "  %-4s %d"
+                            (PokeUtil.levelToString level) damage
+                       _ -> return ()
+                _ -> putStrLn "  multiple attacker variants"
             else return ()
     )
     $ Exit.die
@@ -405,7 +411,7 @@ counter weatherBonus raidGroup defenderVariants attackerVariants =
       getMinValue fn = fn . List.minimumBy (Util.compareWith fn)
       minDamage = getMinValue Battle.damageInflicted battles
       minDps = getMinValue Battle.dps battles
-  in Result (head attackerVariants) minDps minDamage
+  in Result (head attackerVariants) attackerVariants minDps minDamage
 
 allAttackers :: GameMaster -> IVs -> [[Pokemon]]
 allAttackers gameMaster ivs =
