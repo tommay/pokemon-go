@@ -1,6 +1,6 @@
---- GAME_MASTER.yaml.orig	2018-08-11 21:47:34.822123546 -0700
-+++ GAME_MASTER.yaml	2018-08-16 15:09:06.449875317 -0700
-@@ -9584,6 +9584,7 @@
+--- GAME_MASTER.yaml.orig	2018-08-29 09:45:47.219041756 -0700
++++ GAME_MASTER.yaml	2018-08-29 09:45:47.338981756 -0700
+@@ -9838,6 +9838,7 @@
      - SLUDGE_BOMB
      - PETAL_BLIZZARD
      - SOLAR_BEAM
@@ -8,7 +8,7 @@
      animationTime:
      - 2.4667
      - 0.6667
-@@ -9800,6 +9801,7 @@
+@@ -10054,6 +10055,7 @@
      - FIRE_BLAST
      - DRAGON_CLAW
      - OVERHEAT
@@ -16,7 +16,7 @@
      animationTime:
      - 2.2
      - 0.6667
-@@ -11561,6 +11563,7 @@
+@@ -11815,6 +11817,7 @@
      - DISCHARGE
      - THUNDERBOLT
      - WILD_CHARGE
@@ -24,7 +24,7 @@
      animationTime:
      - 1.8333
      - 0.6667
-@@ -21699,6 +21702,7 @@
+@@ -21953,6 +21956,7 @@
      quickMoves:
      - PECK_FAST
      - WATERFALL_FAST
@@ -32,7 +32,7 @@
      cinematicMoves:
      - ICE_BEAM
      - WATER_PULSE
-@@ -22563,6 +22567,7 @@
+@@ -22817,6 +22821,7 @@
      quickMoves:
      - BITE_FAST
      - WATERFALL_FAST
@@ -40,7 +40,7 @@
      cinematicMoves:
      - HYDRO_PUMP
      - CRUNCH
-@@ -23579,6 +23584,7 @@
+@@ -23833,6 +23838,7 @@
      - HEAVY_SLAM
      - HYPER_BEAM
      - EARTHQUAKE
@@ -48,7 +48,7 @@
      animationTime:
      - 2.4
      - 0.6667
-@@ -23710,6 +23716,7 @@
+@@ -23964,6 +23970,7 @@
        baseDefense: 188
      quickMoves:
      - CHARGE_BEAM_FAST
@@ -56,7 +56,7 @@
      cinematicMoves:
      - ZAP_CANNON
      - THUNDERBOLT
-@@ -23999,6 +24006,7 @@
+@@ -24253,6 +24260,7 @@
      - HURRICANE
      - HYPER_BEAM
      - OUTRAGE
@@ -64,7 +64,7 @@
      animationTime:
      - 2.6667
      - 0.6667
-@@ -26313,6 +26321,7 @@
+@@ -26567,6 +26575,7 @@
      - ZAP_CANNON
      - FOCUS_BLAST
      - THUNDER
@@ -72,7 +72,7 @@
      animationTime:
      - 1.3333
      - 0.6667
-@@ -31393,6 +31402,7 @@
+@@ -31648,6 +31657,7 @@
      quickMoves:
      - EXTRASENSORY_FAST
      - SNARL_FAST
@@ -80,7 +80,7 @@
      cinematicMoves:
      - HYDRO_PUMP
      - BUBBLE_BEAM
-@@ -31656,6 +31666,7 @@
+@@ -31913,6 +31923,7 @@
      quickMoves:
      - BITE_FAST
      - IRON_TAIL_FAST
@@ -88,7 +88,7 @@
      cinematicMoves:
      - FIRE_BLAST
      - CRUNCH
-@@ -41953,6 +41964,7 @@
+@@ -42226,6 +42237,7 @@
        baseDefense: 251
      quickMoves:
      - WATERFALL_FAST
