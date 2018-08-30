@@ -1,3 +1,5 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module Appraisal (
   new,
   possibleIvs
@@ -5,24 +7,68 @@ module Appraisal (
 
 import qualified Epic
 
+import qualified Data.Attoparsec.Text as Atto
 import qualified Data.List as List
 import qualified Data.Range.Range as Range
 import           Data.Range.Range (Range (SpanRange))
+import qualified Data.Text as Text
+import           Options.Applicative ((<|>))
 import qualified Text.Regex as Regex
+
+import qualified Debug
 
 data Appraisal = Appraisal {
   summary     :: Range Int,
-  best        :: [String],
+  bestIvs     :: [Text.Text],
   bestRange   :: Range Int
 } deriving (Show)
 
 new :: (Epic.MonadCatch m) => String -> m Appraisal
-new string = do
-  let words = split ", *" string
-  summary' <- getSummary words
-  best' <- getBest words
-  bestRange' <- getBestRange words
-  return $ Appraisal summary' best' bestRange'
+new string =
+  let parseAppraisal = do
+        summary <- parseSummary
+        comma
+        bestIvs <- parseBestIvs
+        comma
+        bestRange <- parseBestRange
+        Atto.endOfInput
+        return $ Appraisal summary bestIvs bestRange
+  in case Atto.parseOnly parseAppraisal (Text.pack string) of
+    Left error -> Epic.fail $ "Bad appraisal: " ++ error
+    Right appraisal -> return appraisal
+
+comma :: Atto.Parser ()
+comma = do
+  Atto.char ','
+  Atto.skipSpace
+
+parseSummary :: Atto.Parser (Range Int)
+parseSummary =
+  Atto.choice [
+    inList ["wonder", "amazes", "best"]      $ SpanRange 37 45,
+    inList ["attention", "strong"]           $ SpanRange 30 36,
+    inList ["above", "decent"]               $ SpanRange 23 29,
+    inList ["not likely", "may not", "room"] $ SpanRange 0 22
+  ]
+
+inList :: [Text.Text] -> a -> Atto.Parser a
+inList list result = do
+  Atto.choice $ map Atto.string list
+  return result
+
+parseBestIvs :: Atto.Parser [Text.Text]
+parseBestIvs = do
+  bestIvs <- Atto.sepBy1 ("attack" <|> "defense" <|> "hp") comma
+  return $ List.sort $ List.nub bestIvs
+
+parseBestRange :: Atto.Parser (Range Int)
+parseBestRange =
+  Atto.choice [
+    inList ["not out", "point", "basic"]            $ SpanRange 0 7,
+    inList ["trending", "indicate", "definitely"]   $ SpanRange 8 12,
+    inList ["impressed", "excellent", "impressive"] $ SpanRange 13 14,
+    inList ["incredible", "blown", "no doubt"]      $ SpanRange 15 15
+  ]
 
 possibleIvs :: Appraisal -> [(Int, Int, Int)]
 possibleIvs this =
@@ -31,48 +77,23 @@ possibleIvs this =
     attack <- ivs, defense <- ivs, stamina <- ivs,
     ok this attack defense stamina]
 
-getSummary :: (Epic.MonadCatch m) => [String] -> m (Range Int)
-getSummary words
-  | includes words ["not likely", "may not", "room"] = return $ SpanRange 0 22
-  | includes words ["above", "decent", "decent"] = return $ SpanRange 23 29
-  | includes words ["attention", "strong", "strong"] = return $ SpanRange 30 36
-  | includes words ["wonder", "amazes", "best"] = return $ SpanRange 37 45
-  | otherwise = Epic.fail $ "Bad summary in appraisal"
-
-getBest :: (Epic.MonadCatch m) => [String] -> m [String]
-getBest words =
-  let best = List.sort $
-        filter (`elem` ["attack", "defense", "hp"]) words
-      len = length best
-  in case len `inRange` (SpanRange 1 3) && len == (length $ List.nub best) of
-    True -> return $ best
-    False -> Epic.fail "Bad best IV in appraisal"
-
-getBestRange :: (Epic.MonadCatch m) => [String] -> m (Range Int)
-getBestRange words
-  | includes words ["not out", "point", "basic"] = return $ SpanRange 0 7
-  | includes words ["trending", "indicate", "definitely"] = return $ SpanRange 8 12
-  | includes words ["impressed", "excellent", "impressive"] = return $ SpanRange 13 14
-  | includes words ["incredible", "blown", "no doubt"] = return $ SpanRange 15 15
-  | otherwise = Epic.fail $ "Bad best IV description in appraisal"
-
 ok :: Appraisal -> Int -> Int -> Int -> Bool
 ok this attack defense stamina =
   (attack + defense + stamina) `inRange` summary this &&
   checkBestRange this attack defense stamina &&
-  checkBest this attack defense stamina
+  checkBestIvs this attack defense stamina
 
 checkBestRange :: Appraisal -> Int -> Int -> Int -> Bool
 checkBestRange this attack defense stamina =
-  let bestValue = case head $ best this of
+  let bestValue = case head $ bestIvs this of
         "attack" -> attack
         "defense" -> defense
         "hp" -> stamina
   in bestValue `inRange` bestRange this
 
-checkBest :: Appraisal -> Int -> Int -> Int -> Bool
-checkBest this attack defense stamina =
-  case best this of
+checkBestIvs :: Appraisal -> Int -> Int -> Int -> Bool
+checkBestIvs this attack defense stamina =
+  case bestIvs this of
     ["attack"] ->
       attack > defense && attack > stamina
     ["attack", "defense"] ->
@@ -87,13 +108,6 @@ checkBest this attack defense stamina =
       defense == stamina && defense > attack
     ["hp"] ->
       stamina > attack && stamina > defense
-
-split :: String -> String -> [String]
-split delim = Regex.splitRegex $ Regex.mkRegex delim
-
-includes :: [String] -> [String] -> Bool
-includes words list =
-  any (`elem` list) words
 
 -- inRange can be used sensibly as an infix operator.
 --
