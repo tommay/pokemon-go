@@ -42,7 +42,7 @@ getSummary words
 getBest :: (Epic.MonadCatch m) => [String] -> m [String]
 getBest words =
   let best = List.sort $
-        filter (\w -> w `elem` ["attack", "defense", "hp"]) words
+        filter (`elem` ["attack", "defense", "hp"]) words
       len = length best
   in case len `inRange` (SpanRange 1 3) && len == (length $ List.nub best) of
     True -> return $ best
@@ -93,7 +93,7 @@ split delim = Regex.splitRegex $ Regex.mkRegex delim
 
 includes :: [String] -> [String] -> Bool
 includes words list =
-  any (\w -> w `elem` list) words
+  any (`elem` list) words
 
 -- inRange can be used sensibly as an infix operator.
 --
