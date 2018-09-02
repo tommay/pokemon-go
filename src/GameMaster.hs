@@ -270,14 +270,14 @@ makeMove types itemTemplate =
 -- except for the form they are identical.
 
 getSpeciesForPokemonBase :: Epic.MonadCatch m => ItemTemplate -> m String
-getSpeciesForPokemonBase itemTemplate =
-  let mPokemonId = getObjectValue itemTemplate "pokemonId"
-  in Epic.catch (do
-       form <- getObjectValue itemTemplate "form"
-       if "_NORMAL" `List.isSuffixOf` form
-         then mPokemonId
-         else return form)
-     $ \ex -> mPokemonId
+getSpeciesForPokemonBase itemTemplate = do
+  pokemonId <- getObjectValue itemTemplate "pokemonId"
+  Epic.catch (do
+    form <- getObjectValue itemTemplate "form"
+    if "_NORMAL" `List.isSuffixOf` form
+      then return pokemonId
+      else return form)
+    $ \ex -> return pokemonId
 
 makePokemonBase :: Epic.MonadCatch m => StringMap Type -> StringMap Move -> ItemTemplate -> m PokemonBase
 makePokemonBase types moves pokemonSettings =
