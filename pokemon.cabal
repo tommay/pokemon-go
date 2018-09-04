@@ -30,7 +30,7 @@ library
                      , range
                      , aeson
                      , scientific
-                     , mtl
+                     , transformers
                      , monad-loops
                      , tuple
                      , text
@@ -151,7 +151,6 @@ executable battler-exe
   build-depends:       base
                      , pokemon
                      , optparse-applicative
-                     , mtl
                      , attoparsec
                      , text
   default-language:    Haskell2010
@@ -163,7 +162,6 @@ executable matchups-exe
   build-depends:       base
                      , pokemon
                      , optparse-applicative
-                     , mtl
                      , yaml
                      , text
                      , bytestring

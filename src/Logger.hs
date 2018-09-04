@@ -11,8 +11,8 @@ module Logger (
   logger,
 ) where
 
-import qualified Control.Monad.Writer as Writer
-import           Control.Monad.Writer (Writer)
+import qualified Control.Monad.Trans.Writer as Writer
+import           Control.Monad.Trans.Writer (Writer)
 
 type Logger w = Writer [w]
 
