@@ -24043,6 +24043,7 @@ itemTemplates:
     - FIRE_BLAST
     - HEAT_WAVE
     - OVERHEAT
+    - SKY_ATTACK   # Moltres day 9/8/2018
     animationTime:
     - 2.7333
     - 1.3333
