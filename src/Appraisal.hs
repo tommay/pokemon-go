@@ -34,13 +34,27 @@ new string =
         Atto.endOfInput
         return $ Appraisal summary bestIvs bestRange
   in case Atto.parseOnly parseAppraisal (Text.pack string) of
-    Left error -> Epic.fail $ "Bad appraisal: " ++ error
+    Left error -> Epic.fail $ "Bad appraisal: " ++ getError error
     Right appraisal -> return appraisal
 
 comma :: Atto.Parser ()
 comma = do
   Atto.char ','
   Atto.skipSpace
+
+-- This is terrible.  I want to report decent smantic errors but Attoparsec
+-- insists on prefixing all error messages with some junk.  So I start my
+-- errors with errorChar and discard the prefix.
+
+errorChar :: Char
+errorChar = '='
+
+reportError :: String -> Atto.Parser a
+reportError string =
+  fail $ errorChar : string
+
+getError :: String -> String
+getError = tail . dropWhile (/= errorChar)
 
 parseSummary :: Atto.Parser (Range Int)
 parseSummary =
@@ -49,7 +63,7 @@ parseSummary =
     inList ["attention", "strong"]           $ SpanRange 30 36,
     inList ["above", "decent"]               $ SpanRange 23 29,
     inList ["not likely", "may not", "room"] $ SpanRange 0 22
-  ]
+  ] <|> reportError "Bad summary string"
 
 inList :: [Text.Text] -> a -> Atto.Parser a
 inList list result = do
