@@ -1,15 +1,16 @@
 module Epic (
   Epic.catch,
   Epic.fail,
-  E.SomeException,
   E.MonadCatch,
 ) where
 
 import qualified Control.Monad.Catch as E
-import           Data.Typeable (Typeable)
 
 data EpicException = EpicException String
-  deriving (Show, Typeable)
+
+instance Show EpicException where
+  show (EpicException string) = string
+
 instance E.Exception EpicException
 
 fail :: E.MonadThrow m => String -> m a

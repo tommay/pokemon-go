@@ -15,6 +15,8 @@ import qualified PokeUtil
 import qualified Options.Applicative as O
 import           Options.Applicative ((<**>))
 import           Control.Monad (join)
+import qualified Data.Either as Either
+import qualified Data.List as List
 import qualified Data.Maybe as Maybe
 import           Data.Semigroup ((<>))
 
@@ -60,17 +62,22 @@ main = Epic.catch (
     let new' = new options
         tweakLevel' = tweakLevel options
     myNewPokemon <- do
-      myNewPokemon <- mapM (updateIVs gameMaster new') myPokemon
-      myNewPokemon <- return $ map (updateLevel tweakLevel') myNewPokemon
-      if stats options
-        then mapM (PokeUtil.addStats gameMaster) myNewPokemon
-        else return myNewPokemon
-
+      let eithers = map (updateIVs gameMaster new') myPokemon
+          errors = Either.lefts eithers
+          myNewPokemon = Either.rights eithers
+      case errors of
+        [] -> do
+          myNewPokemon <- return $ map (updateLevel tweakLevel') myNewPokemon
+          if stats options
+            then mapM (PokeUtil.addStats gameMaster) myNewPokemon
+            else return myNewPokemon
+        _ -> Epic.fail $ List.intercalate "\n" $ map show errors
+          
     B.putStr $ Builder.toByteString myNewPokemon
   )
   $ Exit.die
 
-updateIVs :: (Epic.MonadCatch m) => GameMaster -> Bool -> MyPokemon -> m MyPokemon
+updateIVs :: Epic.MonadCatch m => GameMaster -> Bool -> MyPokemon -> m MyPokemon
 updateIVs gameMaster new myPokemon = Epic.catch (
   do
     newIVs <- computeIVs gameMaster new myPokemon
