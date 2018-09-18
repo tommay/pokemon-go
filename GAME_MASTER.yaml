@@ -23906,6 +23906,7 @@ itemTemplates:
     - ICE_BEAM
     - ICY_WIND
     - BLIZZARD
+    - HURRICANE   # 9/2018
     animationTime:
     - 2.0667
     - 1.0

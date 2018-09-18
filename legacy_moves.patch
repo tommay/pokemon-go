@@ -1,5 +1,5 @@
---- GAME_MASTER.yaml.orig	2018-08-29 09:45:47.219041756 -0700
-+++ GAME_MASTER.yaml	2018-09-04 20:43:29.679669216 -0700
+--- GAME_MASTER.yaml.orig	2018-09-18 14:40:49.333239644 -0700
++++ GAME_MASTER.yaml	2018-09-18 14:42:50.472768381 -0700
 @@ -9838,6 +9838,7 @@
      - SLUDGE_BOMB
      - PETAL_BLIZZARD
@@ -48,7 +48,15 @@
      animationTime:
      - 2.4
      - 0.6667
-@@ -23964,6 +23970,7 @@
+@@ -23900,6 +23906,7 @@
+     - ICE_BEAM
+     - ICY_WIND
+     - BLIZZARD
++    - HURRICANE   # 9/2018
+     animationTime:
+     - 2.0667
+     - 1.0
+@@ -23964,6 +23971,7 @@
        baseDefense: 188
      quickMoves:
      - CHARGE_BEAM_FAST
@@ -56,7 +64,7 @@
      cinematicMoves:
      - ZAP_CANNON
      - THUNDERBOLT
-@@ -24036,6 +24043,7 @@
+@@ -24036,6 +24044,7 @@
      - FIRE_BLAST
      - HEAT_WAVE
      - OVERHEAT
@@ -64,7 +72,7 @@
      animationTime:
      - 2.7333
      - 1.3333
-@@ -24253,6 +24261,7 @@
+@@ -24253,6 +24262,7 @@
      - HURRICANE
      - HYPER_BEAM
      - OUTRAGE
@@ -72,7 +80,7 @@
      animationTime:
      - 2.6667
      - 0.6667
-@@ -26567,6 +26576,7 @@
+@@ -26567,6 +26577,7 @@
      - ZAP_CANNON
      - FOCUS_BLAST
      - THUNDER
@@ -80,7 +88,7 @@
      animationTime:
      - 1.3333
      - 0.6667
-@@ -31648,6 +31658,7 @@
+@@ -31648,6 +31659,7 @@
      quickMoves:
      - EXTRASENSORY_FAST
      - SNARL_FAST
@@ -88,7 +96,7 @@
      cinematicMoves:
      - HYDRO_PUMP
      - BUBBLE_BEAM
-@@ -31913,6 +31924,7 @@
+@@ -31913,6 +31925,7 @@
      quickMoves:
      - BITE_FAST
      - IRON_TAIL_FAST
@@ -96,7 +104,7 @@
      cinematicMoves:
      - FIRE_BLAST
      - CRUNCH
-@@ -42226,6 +42238,7 @@
+@@ -42226,6 +42239,7 @@
        baseDefense: 251
      quickMoves:
      - WATERFALL_FAST
