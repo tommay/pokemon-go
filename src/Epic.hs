@@ -6,7 +6,7 @@ module Epic (
 
 import qualified Control.Monad.Catch as E
 
-data EpicException = EpicException String
+newtype EpicException = EpicException String
 
 instance Show EpicException where
   show (EpicException string) = string
