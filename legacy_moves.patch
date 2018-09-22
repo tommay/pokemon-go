@@ -1,5 +1,5 @@
---- GAME_MASTER.yaml.orig	2018-09-18 14:40:49.333239644 -0700
-+++ GAME_MASTER.yaml	2018-09-18 14:42:50.472768381 -0700
+--- GAME_MASTER.yaml.orig	2018-09-21 18:42:27.950698412 -0700
++++ GAME_MASTER.yaml	2018-09-21 18:51:05.395958638 -0700
 @@ -9838,6 +9838,7 @@
      - SLUDGE_BOMB
      - PETAL_BLIZZARD
@@ -80,7 +80,17 @@
      animationTime:
      - 2.6667
      - 0.6667
-@@ -26567,6 +26577,7 @@
+@@ -24321,6 +24331,9 @@
+     - SHADOW_BALL
+     - HYPER_BEAM
+     - FOCUS_BLAST
++    - ICE_BEAM        #  My mewtwo knows ice beam, ugh.
++    - FLAMETHROWER    # 9/2018 raid boss
++    - THUNDERBOLT     # 9/2018 raid boss
+     animationTime:
+     - 1.3333
+     - 0.6667
+@@ -26567,6 +26580,7 @@
      - ZAP_CANNON
      - FOCUS_BLAST
      - THUNDER
@@ -88,7 +98,7 @@
      animationTime:
      - 1.3333
      - 0.6667
-@@ -31648,6 +31659,7 @@
+@@ -31648,6 +31662,7 @@
      quickMoves:
      - EXTRASENSORY_FAST
      - SNARL_FAST
@@ -96,7 +106,7 @@
      cinematicMoves:
      - HYDRO_PUMP
      - BUBBLE_BEAM
-@@ -31913,6 +31925,7 @@
+@@ -31913,6 +31928,7 @@
      quickMoves:
      - BITE_FAST
      - IRON_TAIL_FAST
@@ -104,7 +114,7 @@
      cinematicMoves:
      - FIRE_BLAST
      - CRUNCH
-@@ -42226,6 +42239,7 @@
+@@ -42226,6 +42242,7 @@
        baseDefense: 251
      quickMoves:
      - WATERFALL_FAST

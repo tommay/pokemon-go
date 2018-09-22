@@ -24331,6 +24331,9 @@ itemTemplates:
     - SHADOW_BALL
     - HYPER_BEAM
     - FOCUS_BLAST
+    - ICE_BEAM        #  My mewtwo knows ice beam, ugh.
+    - FLAMETHROWER    # 9/2018 raid boss
+    - THUNDERBOLT     # 9/2018 raid boss
     animationTime:
     - 1.3333
     - 0.6667
