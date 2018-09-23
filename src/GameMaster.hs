@@ -12,6 +12,7 @@ module GameMaster (
   getStardustForLevel,
   allPokemonBases,
   getType,
+  getAllTypes,
   getWeatherBonus,
   isSpecies,
   dustAndLevel,
@@ -387,6 +388,10 @@ get map key =
 getType :: Epic.MonadCatch m => GameMaster -> String -> m Type
 getType this typeName =
   get (GameMaster.types this) ("POKEMON_TYPE_" ++ (map toUpper typeName))
+
+getAllTypes :: GameMaster -> [Type]
+getAllTypes this =
+  HashMap.elems $ types this
 
 getWeatherBonus :: GameMaster -> Maybe Weather -> Type -> Float
 getWeatherBonus this maybeWeather =
