@@ -62,9 +62,8 @@ main = Epic.catch (
     let new' = new options
         tweakLevel' = tweakLevel options
     myNewPokemon <- do
-      let eithers = map (updateIVs gameMaster new') myPokemon
-          errors = Either.lefts eithers
-          myNewPokemon = Either.rights eithers
+      let (errors, myNewPokemon) =
+            mapEither (updateIVs gameMaster new') myPokemon
       case errors of
         [] -> do
           myNewPokemon <- return $ map (updateLevel tweakLevel') myNewPokemon
@@ -76,6 +75,11 @@ main = Epic.catch (
     B.putStr $ Builder.toByteString myNewPokemon
   )
   $ Exit.die
+
+mapEither :: (a -> Either b c) -> [a] -> ([b], [c])
+mapEither fn list =
+  let result = map fn list
+  in (Either.lefts result, Either.rights result)
 
 updateIVs :: Epic.MonadCatch m => GameMaster -> Bool -> MyPokemon -> m MyPokemon
 updateIVs gameMaster new myPokemon = Epic.catch (
