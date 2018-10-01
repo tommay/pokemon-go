@@ -17657,6 +17657,7 @@ itemTemplates:
     - STONE_EDGE
     - ROCK_BLAST
     - EARTHQUAKE
+    - ANCIENT_POWER
     animationTime:
     - 2.6667
     - 0.6667
