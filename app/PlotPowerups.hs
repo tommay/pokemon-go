@@ -145,7 +145,7 @@ main =
       -- Evolve all pokemon to their highest level and remember how
       -- much candy it took.
 
-      myPokemon <-
+      myPokemonAndCandy <-
         mapM (evolveFully gameMaster $ maybeEvolution options) myPokemon
 
       let commands = reverse $ fst $
@@ -167,12 +167,12 @@ main =
                     pointType color dashType (MyPokemon.name myPokemon)
               in (command : commands, (color, thisDash)))
               ([], (0 :: Int, 0 :: Int))
-              (map fst myPokemon)
+              (map fst myPokemonAndCandy)
 
       putStrLn "plot \\"
       putStrLn $ List.intercalate ", \\\n" commands
 
-      forM_ myPokemon $ \ (myPokemon, candy) -> do
+      forM_ myPokemonAndCandy $ \ (myPokemon, candy) -> do
         results <-
           getResultsForAllPowerups gameMaster candy myPokemon defenderVariants
         forM_ results $ \ result -> do
