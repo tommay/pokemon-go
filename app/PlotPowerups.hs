@@ -161,12 +161,13 @@ main =
                     else case (thisDash - 1) `mod` 3 of
                       0 -> "3"
                       1 -> "5"
-                  pointType = if color > 8 then 8 else 7 :: Int
+                  pointType = if color > numColors then 8 else 7 :: Int
                   command = Printf.printf ("  \"-\" using 1:2" ++
-                    " with linespoints lw 2 pt %d lc %d dt %s title \"%s\"")
-                    pointType color dashType (MyPokemon.name myPokemon)
+                    " with linespoints lw 2 pt %d lc %s dt %s title \"%s\"")
+                    pointType (getColor color) dashType
+                    (MyPokemon.name myPokemon)
               in (command : commands, (color, thisDash)))
-              ([], (0 :: Int, 0 :: Int))
+              ([], (-1, 0))
               (map fst myPokemonAndCandy)
 
       putStrLn "plot \\"
@@ -343,3 +344,22 @@ powerup gameMaster myPokemon = do
     Just (candy, dust, level) ->
       Just (candy, dust, MyPokemon.setLevel myPokemon level)
     Nothing -> Nothing
+
+colors = map (Printf.printf "rgb \"%s\"")
+  [
+  "#ff0000",
+  "#00cc00",
+  "#0000dd",
+  "#ff00ff",
+  "#00acf7",
+  "#f38100",
+  "#d4d400",
+  "#009000",
+  "#707070"
+  ]
+
+numColors = length colors
+
+getColor :: Int -> String
+getColor n =
+  colors !! (n `mod` numColors)
