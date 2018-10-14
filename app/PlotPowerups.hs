@@ -140,7 +140,7 @@ main =
       -- all IV sets have the same level, so split each MyPokemon into
       -- multiple pokemon with the same level in their IVs.
 
-      myPokemon <- do return $ concat $ map splitByLevel myPokemon
+      myPokemon <- return $ concat $ map splitByLevel myPokemon
 
       -- Evolve all pokemon to their highest level and remember how
       -- much candy it took.
