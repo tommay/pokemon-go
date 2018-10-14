@@ -160,7 +160,7 @@ main =
                     else case (thisDash - 1) `mod` 3 of
                       0 -> "3"
                       1 -> "5"
-                  pointType = if color > numColors then 8 else 7 :: Int
+                  pointType = if color < numColors then 12 else 2 :: Int
                   command = Printf.printf ("  \"-\" using 1:2" ++
                     " with linespoints lw 2 pt %d lc %s dt %s title \"%s\"")
                     pointType (getColor color) dashType
