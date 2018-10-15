@@ -120,7 +120,7 @@ main =
 
       gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
 
-      let weatherBonus = GameMaster.getWeatherBonus gameMaster Nothing
+      let weatherBonus = GameMaster.defaultWeatherBonus
 
       defenderVariants <-
         BattlerUtil.makeBattlerVariants gameMaster $ defender options
@@ -271,7 +271,7 @@ getResult :: Epic.MonadCatch m =>
   GameMaster -> [Pokemon] -> (Int, Int, MyPokemon) -> m Result
 getResult gameMaster defenderVariants (candy, stardust, myPokemon) = do
   attackerVariants <- MakePokemon.makePokemon gameMaster myPokemon
-  let weatherBonus = GameMaster.getWeatherBonus gameMaster Nothing
+  let weatherBonus = GameMaster.defaultWeatherBonus
       (dps, tdo) = getMinDpsTdo weatherBonus attackerVariants defenderVariants
   return Result {
     candy = candy,

@@ -60,7 +60,7 @@ main =
 
       gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
 
-      let weatherBonus = GameMaster.getWeatherBonus gameMaster Nothing
+      let weatherBonus = GameMaster.defaultWeatherBonus
 
       let attackerString = Main.attacker options
           iv1Range =

@@ -14,6 +14,7 @@ module GameMaster (
   getType,
   getAllTypes,
   getWeatherBonus,
+  defaultWeatherBonus,
   isSpecies,
   dustAndLevel,
   candyAndLevel,
@@ -400,7 +401,11 @@ getWeatherBonus this maybeWeather =
       case HashMap.lookup weather (weatherBonusMap this) of
         Just map -> (\ptype -> HashMap.lookupDefault 1 ptype map)
         Nothing -> error $ "No weatherBonusMap for " ++ show weather
-    Nothing -> const 1
+    Nothing -> defaultWeatherBonus
+
+defaultWeatherBonus :: Type -> Float
+defaultWeatherBonus =
+  const 1
 
 toWeather :: String -> Weather
 toWeather string = case string of
