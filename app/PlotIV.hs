@@ -25,15 +25,14 @@ data Options = Options {
   defender :: Battler
 }
 
-defaultIVs = IVs.new 30 11 11 11
-
 getOptions :: IO Options
 getOptions =
   let opts = Options <$> optAttacker <*> optDefender
       optAttacker = O.argument O.str
         (O.metavar "ATTACKER")
       optDefender = O.argument
-        (BattlerUtil.optParseBattler defaultIVs) (O.metavar "DEFENDER[:LEVEL]")
+        (BattlerUtil.optParseBattler IVs.defaultIVs)
+        (O.metavar "DEFENDER[:LEVEL]")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc ("Create a gnplot script to plot dps and tdo for " ++
@@ -49,7 +48,7 @@ replacePercent string value =
 
 parseBattler :: (Epic.MonadCatch m) => String -> m Battler
 parseBattler string =
-  case BattlerUtil.parseBattler defaultIVs string of
+  case BattlerUtil.parseBattler IVs.defaultIVs string of
     Right battler -> return battler
     Left errorString -> Epic.fail errorString
 

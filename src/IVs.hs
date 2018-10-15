@@ -4,6 +4,7 @@
 module IVs (
   IVs (IVs),
   new,
+  defaultIVs,
   IVs.null,
   level,
   attack,
@@ -47,8 +48,11 @@ instance Builder.ToYaml IVs where
 
 new = IVs
 
+defaultIVs :: IVs
+defaultIVs = new 30 13 13 13
+
 null :: IVs
-null = IVs 0 0 0 0
+null = new 0 0 0 0
 
 getAll :: IVs -> (Float, Int, Int, Int)
 getAll this =

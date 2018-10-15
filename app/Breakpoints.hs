@@ -27,8 +27,6 @@ import           Control.Monad (join, forM, forM_)
 import qualified System.Exit as Exit
 import qualified Text.Printf as Printf
 
-defaultIVs = IVs.new 20 11 11 11
-
 data Options = Options {
   maybeWeather :: Maybe Weather,
   maybeFilename :: Maybe String,
@@ -47,9 +45,11 @@ getOptions =
         <> O.metavar "FILE"
         <> O.help "File to read my_pokemon from to get the attacker")
       optAttacker = O.argument
-        (BattlerUtil.optParseBattler defaultIVs) (O.metavar "ATTACKER[:LEVEL]")
+        (BattlerUtil.optParseBattler IVs.defaultIVs)
+        (O.metavar "ATTACKER[:LEVEL]")
       optDefender = O.argument
-        (BattlerUtil.optParseBattler defaultIVs) (O.metavar "DEFENDER[:LEVEL]")
+        (BattlerUtil.optParseBattler IVs.defaultIVs)
+        (O.metavar "DEFENDER[:LEVEL]")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc "Battle some pokemon.")

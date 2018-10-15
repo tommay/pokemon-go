@@ -80,8 +80,7 @@ data Result = Result {
 } deriving (Show)
 
 defaultFilename = "my_pokemon.yaml"
-defaultIVs = IVs.new 30 11 11 11
-defaultAttackerLevel = IVs.level defaultIVs
+defaultAttackerLevel = IVs.level IVs.defaultIVs
 
 getOptions :: IO Options
 getOptions =
@@ -142,7 +141,7 @@ getOptions =
               <> O.help "Consider all pokemon, not just the ones in FILE")
             optMovesetFor = MovesetFor <$>
                 (O.some . O.option
-                  (BattlerUtil.optParseBattler defaultIVs))
+                  (BattlerUtil.optParseBattler IVs.defaultIVs))
               (  O.long "moveset"
               <> O.short 'm'
               <> O.metavar "ATTACKER[:LEVEL]"
@@ -168,7 +167,7 @@ getOptions =
         <> O.metavar "STARDUST"
         <> O.help "Use up to STARDUST starust to power up the pokemon")
       optDefender = O.argument
-        (BattlerUtil.optParseBattler defaultIVs)
+        (BattlerUtil.optParseBattler IVs.defaultIVs)
           (O.metavar "DEFENDER[:LEVEL]")
       optRaidGroup = O.switch
         (  O.long "raidgroup"
@@ -233,7 +232,7 @@ main =
               bases = if legendary options
                 then nonMythical
                 else filter notLegendary nonMythical
-              ivs = IVs.tweakLevel (tweakLevel options) defaultIVs
+              ivs = IVs.tweakLevel (tweakLevel options) IVs.defaultIVs
               allAttackers = map
                 (MakePokemon.makeWithAllMovesetsFromBase gameMaster ivs) bases
           if showMoveset options

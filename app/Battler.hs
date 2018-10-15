@@ -48,8 +48,6 @@ import qualified Text.Printf as Printf
 
 import qualified Debug
 
-defaultIVs = IVs.new 20 11 11 11
-
 data Options = Options {
   maybeWeather :: Maybe Weather,
   attacker :: Battler,
@@ -61,9 +59,11 @@ getOptions =
   let opts = Options <$> optWeather <*> optAttacker <*> optDefender
       optWeather = O.optional Weather.optWeather
       optAttacker = O.argument
-        (BattlerUtil.optParseBattler defaultIVs) (O.metavar "ATTACKER[:LEVEL]")
+        (BattlerUtil.optParseBattler IVs.defaultIVs)
+        (O.metavar "ATTACKER[:LEVEL]")
       optDefender = O.argument
-        (BattlerUtil.optParseBattler defaultIVs) (O.metavar "DEFENDER[:LEVEL]")
+        (BattlerUtil.optParseBattler IVs.defaultIVs)
+        (O.metavar "DEFENDER[:LEVEL]")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc "Battle some pokemon.")

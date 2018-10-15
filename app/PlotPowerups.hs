@@ -55,8 +55,6 @@ data Result = Result {
   tdo :: Int
 }
 
-defaultIVs = IVs.new 25 13 12 12
-
 getOptions :: IO Options
 getOptions =
   let opts = Options <$> optPlotCandy <*> optPlotDps
@@ -93,7 +91,7 @@ getOptions =
               <> O.metavar "FILE"
               <> O.help "File to read my_pokemon from")
             optMovesetsFor = MovesetsFor <$>
-              (O.option $ BattlerUtil.optParseBattler defaultIVs)
+              (O.option $ BattlerUtil.optParseBattler IVs.defaultIVs)
               (  O.long "movesets"
               <> O.short 'm'
               <> O.metavar "ATTACKER[:LEVEL]"
@@ -105,7 +103,8 @@ getOptions =
         <> O.metavar "EVOLUTION"
         <> O.help "Final evolution desired")
       optDefender = O.argument
-        (BattlerUtil.optParseBattler defaultIVs) (O.metavar "DEFENDER[:LEVEL]")
+        (BattlerUtil.optParseBattler IVs.defaultIVs)
+        (O.metavar "DEFENDER[:LEVEL]")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc ("Create gnuplot data for plotting dps/tdo" ++
