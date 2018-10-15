@@ -286,11 +286,9 @@ getMinDpsTdo weatherBonus attackerVariants defenderVariants =
           attacker <- attackerVariants, defender <- defenderVariants]
       -- battleResults :: [[Log Battle]], where each [Battle] is the
       -- move-by-move starting from the initial Battle state.
-      battleResults = map Logger.execLogger battleLoggers
-      blah = map (map Log.state) battleResults
-      finalBattles = map last blah
-      dps = minimum $ map Battle.dps finalBattles
-      tdo = minimum $ map Battle.damageInflicted finalBattles
+      battleResults = map (fst . Logger.runLogger) battleLoggers
+      dps = minimum $ map Battle.dps battleResults
+      tdo = minimum $ map Battle.damageInflicted battleResults
   in (dps, tdo)
 
 -- This set of functions to take a Pokemon and return a list of all
