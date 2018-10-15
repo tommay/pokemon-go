@@ -69,7 +69,7 @@ makeForWhatevers ::
  GameMaster -> [IVs] -> String -> PokemonBase -> [Move] -> [Move] -> [Pokemon]
 makeForWhatevers gameMaster ivsList name base quickMoves chargeMoves =
   [makeForWhatever gameMaster ivs name base quick charge |
-    ivs <- ivsList, quick <- quickMoves, charge <- chargeMoves]
+    ivs <- ivsList, charge <- chargeMoves, quick <- quickMoves]
 
 makeForWhatever ::
   GameMaster -> IVs -> String -> PokemonBase -> Move -> Move -> Pokemon
