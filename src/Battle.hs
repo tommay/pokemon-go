@@ -29,6 +29,7 @@ import           Type (Type)
 import qualified Control.Monad.Loops as Loops
 import qualified Data.List as List
 import qualified Text.Printf as Printf
+import qualified Text.Show.Functions
 
 import qualified Debug as D
 
@@ -39,7 +40,7 @@ data Battle = Battle {
   timer :: Int,
   initialDefenderHp :: Int,
   raidGroup :: Bool
-}
+} deriving Show
 
 battleDuration = 100 * 1000
 
