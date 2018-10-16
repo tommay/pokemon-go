@@ -1,6 +1,6 @@
---- GAME_MASTER.yaml.orig	2018-10-11 21:27:54.621987269 -0700
-+++ GAME_MASTER.yaml	2018-10-11 21:27:54.788737269 -0700
-@@ -10264,6 +10264,7 @@
+--- GAME_MASTER.yaml.orig	2018-10-16 16:46:55.619145808 -0700
++++ GAME_MASTER.yaml	2018-10-16 16:46:55.652462474 -0700
+@@ -11497,6 +11497,7 @@
      - SLUDGE_BOMB
      - PETAL_BLIZZARD
      - SOLAR_BEAM
@@ -8,7 +8,7 @@
      animationTime:
      - 2.4667
      - 0.6667
-@@ -10480,6 +10481,7 @@
+@@ -11731,6 +11732,7 @@
      - FIRE_BLAST
      - DRAGON_CLAW
      - OVERHEAT
@@ -16,7 +16,7 @@
      animationTime:
      - 2.2
      - 0.6667
-@@ -12240,6 +12242,7 @@
+@@ -13630,6 +13632,7 @@
      - DISCHARGE
      - THUNDERBOLT
      - WILD_CHARGE
@@ -24,7 +24,7 @@
      animationTime:
      - 1.8333
      - 0.6667
-@@ -18079,6 +18082,7 @@
+@@ -19907,6 +19910,7 @@
      - STONE_EDGE
      - ROCK_BLAST
      - EARTHQUAKE
@@ -32,7 +32,7 @@
      animationTime:
      - 2.6667
      - 0.6667
-@@ -22378,6 +22382,7 @@
+@@ -24524,6 +24528,7 @@
      quickMoves:
      - PECK_FAST
      - WATERFALL_FAST
@@ -40,7 +40,7 @@
      cinematicMoves:
      - ICE_BEAM
      - WATER_PULSE
-@@ -23242,6 +23247,7 @@
+@@ -25454,6 +25459,7 @@
      quickMoves:
      - BITE_FAST
      - WATERFALL_FAST
@@ -48,7 +48,7 @@
      cinematicMoves:
      - HYDRO_PUMP
      - CRUNCH
-@@ -24258,6 +24264,7 @@
+@@ -26548,6 +26554,7 @@
      - HEAVY_SLAM
      - HYPER_BEAM
      - EARTHQUAKE
@@ -56,7 +56,7 @@
      animationTime:
      - 2.4
      - 0.6667
-@@ -24325,6 +24332,7 @@
+@@ -26621,6 +26628,7 @@
      - ICE_BEAM
      - ICY_WIND
      - BLIZZARD
@@ -64,7 +64,7 @@
      animationTime:
      - 2.0667
      - 1.0
-@@ -24389,6 +24397,7 @@
+@@ -26690,6 +26698,7 @@
        baseDefense: 188
      quickMoves:
      - CHARGE_BEAM_FAST
@@ -72,7 +72,7 @@
      cinematicMoves:
      - ZAP_CANNON
      - THUNDERBOLT
-@@ -24461,6 +24470,7 @@
+@@ -26767,6 +26776,7 @@
      - FIRE_BLAST
      - HEAT_WAVE
      - OVERHEAT
@@ -80,7 +80,7 @@
      animationTime:
      - 2.7333
      - 1.3333
-@@ -24678,6 +24688,7 @@
+@@ -27001,6 +27011,7 @@
      - HURRICANE
      - HYPER_BEAM
      - OUTRAGE
@@ -88,17 +88,16 @@
      animationTime:
      - 2.6667
      - 0.6667
-@@ -24746,6 +24757,9 @@
-     - SHADOW_BALL
-     - HYPER_BEAM
-     - FOCUS_BLAST
-+    - ICE_BEAM        #  My mewtwo knows ice beam, ugh.
-+    - FLAMETHROWER    # 9/2018 raid boss
-+    - THUNDERBOLT     # 9/2018 raid boss
-     animationTime:
-     - 1.3333
-     - 0.6667
-@@ -26992,6 +27006,7 @@
+@@ -27071,6 +27082,8 @@
+     - PSYCHO_CUT_FAST
+     - CONFUSION_FAST
+     cinematicMoves:
++    - SHADOW_BALL
++    - HYPER_BEAM
+     - PSYCHIC
+     - THUNDERBOLT
+     - ICE_BEAM
+@@ -29505,6 +29518,7 @@
      - ZAP_CANNON
      - FOCUS_BLAST
      - THUNDER
@@ -106,15 +105,7 @@
      animationTime:
      - 1.3333
      - 0.6667
-@@ -32073,6 +32088,7 @@
-     quickMoves:
-     - EXTRASENSORY_FAST
-     - SNARL_FAST
-+    - HIDDEN_POWER_FAST
-     cinematicMoves:
-     - HYDRO_PUMP
-     - BUBBLE_BEAM
-@@ -32338,6 +32354,7 @@
+@@ -35250,6 +35264,7 @@
      quickMoves:
      - BITE_FAST
      - IRON_TAIL_FAST
@@ -122,11 +113,3 @@
      cinematicMoves:
      - FIRE_BLAST
      - CRUNCH
-@@ -42650,6 +42667,7 @@
-       baseDefense: 251
-     quickMoves:
-     - WATERFALL_FAST
-+    - DRAGON_TAIL_FAST
-     cinematicMoves:
-     - HYDRO_PUMP
-     - BLIZZARD
