@@ -308,9 +308,14 @@ makePokemonBase types moves pokemonSettings =
         Right evolutionBranch ->
           mapM (\ branch -> do
             evolution <- getObjectValue branch "evolution"
-            candyCost <- getObjectValue branch "candyCost"
+            candyCost <- case getObjectValue branch "candyCost" of
+              Right candyCost -> return candyCost
+              Left _ -> getValue "candyToEvolve"
             return (evolution, candyCost))
-            evolutionBranch
+            -- Parts of GAME_MASTER seem to be in shambles as gen 4 is
+            -- being released.  Filter out seemingly malformed elements
+            -- that don't have an evolution.
+            $ filter (HashMap.member "evolution") evolutionBranch
         -- XXX This can swallow parse errors?
         Left _ -> return []
 
