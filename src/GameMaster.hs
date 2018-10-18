@@ -307,7 +307,9 @@ makePokemonBase types moves pokemonSettings =
       case getValue "evolutionBranch" of
         Right evolutionBranch ->
           mapM (\ branch -> do
-            evolution <- getObjectValue branch "evolution"
+            evolution <- case getObjectValue branch "form" of
+              Right form -> return form
+              Left _ -> getObjectValue branch "evolution"
             candyCost <- case getObjectValue branch "candyCost" of
               Right candyCost -> return candyCost
               Left _ -> getValue "candyToEvolve"
