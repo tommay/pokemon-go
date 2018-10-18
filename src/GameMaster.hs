@@ -275,11 +275,12 @@ getSpeciesForPokemonBase :: Epic.MonadCatch m => ItemTemplate -> m String
 getSpeciesForPokemonBase itemTemplate = do
   pokemonId <- getObjectValue itemTemplate "pokemonId"
   return $ case getObjectValue itemTemplate "form" of
-    Right form ->
-      if "_NORMAL" `List.isSuffixOf` form
-        then pokemonId
-        else form
+    Right form -> removeNormal form
     Left _ -> pokemonId
+
+removeNormal :: String -> String
+removeNormal string =
+  Regex.subRegex (Regex.mkRegex "_NORMAL") string ""
 
 makePokemonBase :: Epic.MonadCatch m => StringMap Type -> StringMap Move -> ItemTemplate -> m PokemonBase
 makePokemonBase types moves pokemonSettings =
@@ -308,7 +309,7 @@ makePokemonBase types moves pokemonSettings =
         Right evolutionBranch ->
           mapM (\ branch -> do
             evolution <- case getObjectValue branch "form" of
-              Right form -> return form
+              Right form -> return $ removeNormal form
               Left _ -> getObjectValue branch "evolution"
             candyCost <- case getObjectValue branch "candyCost" of
               Right candyCost -> return candyCost
