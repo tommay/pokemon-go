@@ -34982,6 +34982,7 @@ itemTemplates:
     quickMoves:
     - EXTRASENSORY_FAST
     - SNARL_FAST
+    - HIDDEN_POWER_FAST
     cinematicMoves:
     - HYDRO_PUMP
     - BUBBLE_BEAM

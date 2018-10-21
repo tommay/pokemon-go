@@ -1,5 +1,5 @@
---- GAME_MASTER.yaml.orig	2018-10-16 16:46:55.619145808 -0700
-+++ GAME_MASTER.yaml	2018-10-16 16:46:55.652462474 -0700
+--- GAME_MASTER.yaml.orig	2018-10-20 19:22:33.225269806 -0700
++++ GAME_MASTER.yaml	2018-10-20 19:24:33.760062245 -0700
 @@ -11497,6 +11497,7 @@
      - SLUDGE_BOMB
      - PETAL_BLIZZARD
@@ -105,7 +105,15 @@
      animationTime:
      - 1.3333
      - 0.6667
-@@ -35250,6 +35264,7 @@
+@@ -34968,6 +34982,7 @@
+     quickMoves:
+     - EXTRASENSORY_FAST
+     - SNARL_FAST
++    - HIDDEN_POWER_FAST
+     cinematicMoves:
+     - HYDRO_PUMP
+     - BUBBLE_BEAM
+@@ -35250,6 +35265,7 @@
      quickMoves:
      - BITE_FAST
      - IRON_TAIL_FAST
