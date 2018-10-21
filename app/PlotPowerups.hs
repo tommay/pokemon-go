@@ -24,6 +24,7 @@ import           PokemonBase (PokemonBase)
 import qualified PokeUtil
 import           Type (Type)
 import qualified Util
+import           WeatherBonus (WeatherBonus)
 
 import qualified Debug
 
@@ -279,7 +280,7 @@ getResult gameMaster defenderVariants (candy, stardust, myPokemon) = do
     tdo = tdo
   }
 
-getMinDpsTdo :: (Type -> Float) -> [Pokemon] -> [Pokemon] -> (Float, Int)
+getMinDpsTdo :: WeatherBonus -> [Pokemon] -> [Pokemon] -> (Float, Int)
 getMinDpsTdo weatherBonus attackerVariants defenderVariants =
   let battleLoggers =
         [Battle.doBattle weatherBonus False attacker defender |

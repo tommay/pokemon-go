@@ -9,11 +9,12 @@ import qualified Pokemon
 import           Pokemon (Pokemon)
 import qualified PokeUtil
 import           Type (Type)
+import           WeatherBonus (WeatherBonus)
 
 import qualified Data.List as List
 
 getBreakpoints ::
-  GameMaster -> (Type -> Float) -> Pokemon -> Pokemon -> [(Float, Int)]
+  GameMaster -> WeatherBonus -> Pokemon -> Pokemon -> [(Float, Int)]
 getBreakpoints gameMaster weatherBonus attacker defender =
   let levels = GameMaster.allLevels gameMaster
       levelAndDamageList = map (\ level ->

@@ -25,6 +25,7 @@ import qualified Pokemon
 import           Pokemon (Pokemon)
 import qualified Type
 import           Type (Type)
+import           WeatherBonus (WeatherBonus)
 
 import qualified Control.Monad.Loops as Loops
 import qualified Data.List as List
@@ -36,7 +37,7 @@ import qualified Debug as D
 data Battle = Battle {
   attacker :: Attacker,
   defender :: Defender,
-  weatherBonus :: Type -> Float,
+  weatherBonus :: WeatherBonus,
   timer :: Int,
   initialDefenderHp :: Int,
   raidGroup :: Bool
@@ -44,7 +45,7 @@ data Battle = Battle {
 
 battleDuration = 100 * 1000
 
-init :: (Type -> Float) -> Bool -> Pokemon -> Pokemon -> Battle
+init :: WeatherBonus -> Bool -> Pokemon -> Pokemon -> Battle
 init weatherBonus raidGroup attacker defender =
   Battle {
     attacker = Attacker.init attacker,
@@ -63,14 +64,14 @@ runBattle :: Battle -> Logger (Log Battle) Battle
 runBattle =
   Loops.iterateUntilM Battle.attackerFainted Battle.tick
 
-doBattle :: (Type -> Float) -> Bool -> Pokemon -> Pokemon ->
+doBattle :: WeatherBonus -> Bool -> Pokemon -> Pokemon ->
   Logger (Log Battle) Battle
 doBattle weatherBonus raidGroup attacker defender =
   Battle.runBattle $ Battle.init weatherBonus raidGroup attacker defender
 
 -- Like doBattle but returns only the final Battle state.
 --
-doBattleOnly :: (Type -> Float) -> Bool -> Pokemon -> Pokemon -> Battle
+doBattleOnly :: WeatherBonus -> Bool -> Pokemon -> Pokemon -> Battle
 doBattleOnly weatherBonus raidGroup attacker defender =
   fst $ Logger.runLogger $ doBattle weatherBonus raidGroup attacker defender
 
@@ -173,7 +174,7 @@ updateDefender this fn = do
   defender <- fn $ Battle.defender this
   return $ this { defender = defender }
 
-getDamage :: (Type -> Float) -> Pokemon -> Move -> Pokemon -> Int
+getDamage :: WeatherBonus -> Pokemon -> Move -> Pokemon -> Int
 getDamage weatherBonus attacker move defender =
   let power = Move.power move
       stab = Move.stabFor move $ Pokemon.types attacker

@@ -32,6 +32,7 @@ import qualified Type
 import           Type (Type)
 import qualified Weather
 import           Weather (Weather (..))
+import           WeatherBonus (WeatherBonus)
 
 import qualified Data.Yaml as Yaml
 import           Data.Yaml ((.:), (.:?), (.!=))
@@ -402,7 +403,7 @@ getAllTypes :: GameMaster -> [Type]
 getAllTypes this =
   HashMap.elems $ types this
 
-getWeatherBonus :: GameMaster -> Maybe Weather -> Type -> Float
+getWeatherBonus :: GameMaster -> Maybe Weather -> WeatherBonus
 getWeatherBonus this maybeWeather =
   case maybeWeather of
     Just weather ->
@@ -411,7 +412,7 @@ getWeatherBonus this maybeWeather =
         Nothing -> error $ "No weatherBonusMap for " ++ show weather
     Nothing -> defaultWeatherBonus
 
-defaultWeatherBonus :: Type -> Float
+defaultWeatherBonus :: WeatherBonus
 defaultWeatherBonus =
   const 1
 
