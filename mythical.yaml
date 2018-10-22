@@ -1,5 +1,13 @@
 # "mythical" here just means they're not actually in the game.
 # Gen 4 has been added but they aren't categorized yet.
+#
+# There is a "rarity" field in GAME_MASTER that is either LEGENDARY
+# or MYTHIC but it's no use to this software because DEOXYS is MYTHIC
+# but I want to treat it as any other legendary.
+#
+# I just want to be able to distinguish between in-game and not in-game
+# pokemonso "counter -a" only includes in-hame pokemon, and distinguish
+# legendaries so "counter -a -L" can exclude them.
 
 bulbasaur: 
 ivysaur: 
