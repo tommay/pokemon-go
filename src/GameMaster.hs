@@ -273,11 +273,10 @@ makeMove types itemTemplate =
 -- except for the form they are identical.
 
 getSpeciesForPokemonBase :: Epic.MonadCatch m => ItemTemplate -> m String
-getSpeciesForPokemonBase itemTemplate = do
-  pokemonId <- getObjectValue itemTemplate "pokemonId"
-  return $ case getObjectValue itemTemplate "form" of
-    Right form -> removeNormal form
-    Left _ -> pokemonId
+getSpeciesForPokemonBase itemTemplate =
+  case getObjectValue itemTemplate "form" of
+    Right form -> return $ removeNormal form
+    Left _ -> getObjectValue itemTemplate "pokemonId"
 
 removeNormal :: String -> String
 removeNormal string =
