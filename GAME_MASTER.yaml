@@ -39597,6 +39597,21 @@ itemTemplates:
     damageWindowStartMs: 2145
     damageWindowEndMs: 2550
     energyDelta: -50
+- templateId: V0296_MOVE_METEOR_MASH
+  moveSettings:
+    movementId: METEOR_MASH
+    animationId: 5
+    pokemonType: POKEMON_TYPE_STEEL
+    power: 100.0
+    accuracyChance: 1.0
+    staminaLossScalar: 0.01
+    trainerLevelMin: 1
+    trainerLevelMax: 100
+    vfxName: frenzy_plant
+    durationMs: 2600
+    damageWindowStartMs: 2145
+    damageWindowEndMs: 2550
+    energyDelta: -50
 - templateId: V0296_POKEMON_MAKUHITA
   pokemonSettings:
     pokemonId: MAKUHITA
