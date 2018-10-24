@@ -1,5 +1,5 @@
---- GAME_MASTER.yaml.orig	2018-10-20 19:22:33.225269806 -0700
-+++ GAME_MASTER.yaml	2018-10-20 19:24:33.760062245 -0700
+--- GAME_MASTER.yaml.orig	2018-10-23 18:21:59.099286463 -0700
++++ GAME_MASTER.yaml	2018-10-23 18:26:33.019503136 -0700
 @@ -11497,6 +11497,7 @@
      - SLUDGE_BOMB
      - PETAL_BLIZZARD
@@ -121,3 +121,11 @@
      cinematicMoves:
      - FIRE_BLAST
      - CRUNCH
+@@ -45948,6 +45964,7 @@
+     - PSYCHIC
+     - FLASH_CANNON
+     - EARTHQUAKE
++    - METEOR_MASH     # Community day 10/2018.
+     animationTime:
+     - 1.3333
+     - 0.6667

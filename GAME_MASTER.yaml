@@ -45964,6 +45964,7 @@ itemTemplates:
     - PSYCHIC
     - FLASH_CANNON
     - EARTHQUAKE
+    - METEOR_MASH     # Community day 10/2018.
     animationTime:
     - 1.3333
     - 0.6667
