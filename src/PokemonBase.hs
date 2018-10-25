@@ -10,7 +10,7 @@ module PokemonBase (
   quickMoves,
   chargeMoves,
   hasEvolutions,
-  baseCaptureeRate,
+  baseCaptureRate,
 ) where
 
 import           Type (Type)
@@ -28,7 +28,7 @@ data PokemonBase = PokemonBase {
   quickMoves   :: [Move],
   chargeMoves  :: [Move],
   parent       :: Maybe String,
-  baseCaptureeRate :: Float
+  baseCaptureRate :: Float
 }
 
 instance Show PokemonBase where
