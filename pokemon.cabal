@@ -78,6 +78,8 @@ executable plotpowerups-exe
                      , optparse-applicative
                      , containers
                      , unordered-containers
+                     , text
+                     , attoparsec
   default-language:    Haskell2010
 
 executable breakpoints-exe
