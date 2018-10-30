@@ -19,7 +19,9 @@ module MyPokemon (
   setIVs,
   setStats,
   setLevel,
-  setSpecies
+  setSpecies,
+  setQuickName,
+  setChargeName,
 ) where
 
 import qualified Epic
@@ -138,3 +140,11 @@ setLevel this level =
 setSpecies :: MyPokemon -> String -> MyPokemon
 setSpecies this species =
   this { species = species }
+
+setQuickName :: String -> MyPokemon -> MyPokemon
+setQuickName quickName this =
+  this { quickName = quickName }
+
+setChargeName :: String -> MyPokemon -> MyPokemon
+setChargeName chargeName this =
+  this { chargeName = chargeName }

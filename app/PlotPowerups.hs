@@ -15,6 +15,7 @@ import qualified Log
 import qualified Logger
 import qualified MakePokemon
 import qualified Move
+import           Move (Move)
 import qualified MyPokemon
 import           MyPokemon (MyPokemon)
 import qualified Pokemon
@@ -29,7 +30,7 @@ import           WeatherBonus (WeatherBonus)
 import qualified Debug
 
 import           Control.Applicative (optional, some, many)
-import           Control.Monad (join, mapM, forM_)
+import           Control.Monad (join, mapM, forM, forM_)
 import qualified Data.Attoparsec.Text as Atto
 import qualified Data.Char as Char
 import qualified Data.HashMap.Strict as HashMap
@@ -174,6 +175,13 @@ main =
       myPokemonAndCandy <-
         mapM (evolveFully gameMaster $ maybeEvolution options) myPokemon
 
+      myPokemonAndCandy <- case maybeMoveset options of
+        Nothing -> return myPokemonAndCandy
+        Just (fastName, chargeName) ->
+          forM myPokemonAndCandy $ \ (pokemon, candy) -> do
+            pokemon <- setMoves gameMaster fastName chargeName pokemon
+            return (pokemon, candy)
+
       let commands = reverse $ fst $
             foldl (\ (commands, (lastColor, lastDash)) myPokemon ->
               let color = if List.notElem '[' $ MyPokemon.name myPokemon
@@ -286,6 +294,24 @@ evolutionChains gameMaster (species, candy) = do
           rest <- evolutionChains gameMaster (evolution, candy + candy')
           return $ map ((species, candy):) rest))
         evolutions
+
+setMoves :: Epic.MonadCatch m =>
+  GameMaster -> String -> String -> MyPokemon -> m MyPokemon
+setMoves gameMaster quickName chargeName myPokemon = do
+  base <-
+    GameMaster.getPokemonBase gameMaster $ MyPokemon.species myPokemon
+  quickName <- getMoveName "quick" PokemonBase.quickMoves quickName base
+  chargeName <- getMoveName "charge" PokemonBase.chargeMoves chargeName base
+  return $
+    MyPokemon.setQuickName quickName $
+    MyPokemon.setChargeName chargeName myPokemon
+
+getMoveName :: Epic.MonadCatch m => String -> (PokemonBase -> [Move]) -> String -> PokemonBase -> m String
+getMoveName moveType getMovesFunc moveAbbrev base = do
+  let moves = getMovesFunc base
+      species = PokemonBase.species base
+  move <- BattlerUtil.getMatchingMove moveAbbrev moves moveType species
+  return $ Move.name move
 
 getResultsForAllPowerups :: Epic.MonadCatch m =>
   GameMaster -> Int -> MyPokemon -> [Pokemon] -> m [Result]

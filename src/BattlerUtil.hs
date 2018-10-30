@@ -10,6 +10,7 @@ module BattlerUtil (
   optParseBattler,
   makeBattlerVariants,
   setLevel,
+  getMatchingMove,
 ) where
 
 import qualified Options.Applicative as O
