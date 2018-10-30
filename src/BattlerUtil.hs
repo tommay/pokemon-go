@@ -104,16 +104,13 @@ makeBattlerVariants :: Epic.MonadCatch m => GameMaster -> Battler -> m [Pokemon]
 makeBattlerVariants gameMaster battler = do
   let species = BattlerUtil.species battler
   base <- GameMaster.getPokemonBase gameMaster species
-  let nameMatches abbrev = Util.matchesAbbrevInsensitive abbrev . Move.name
-      getMoves moveType getMovesFunc getMaybeAbbrev =
+  let getMoves moveType getMovesFunc getMaybeAbbrev = do
         let moves = getMovesFunc base
-        in case getMaybeAbbrev battler of
-             Nothing -> return moves
-             Just abbrev ->
-               case filter (nameMatches abbrev) moves of
-                 moves@[_] -> return moves
-                 val -> Epic.fail $
-                   matchingMovesFail val moveType species abbrev moves
+        case getMaybeAbbrev battler of
+          Nothing -> return moves
+          Just abbrev -> do
+            move <- getMatchingMove abbrev moves moveType species
+            return [move]
   quickMoves <- getMoves "quick" PokemonBase.quickMoves
     BattlerUtil.maybeQuickName
   chargeMoves <- getMoves "charge" PokemonBase.chargeMoves
@@ -130,13 +127,20 @@ makeBattlerVariants gameMaster battler = do
     RaidBoss raidLevel ->
       makeRaidBossForMoves gameMaster raidLevel base quickMoves chargeMoves
 
-matchingMovesFail :: [a] -> String -> String -> String -> [Move] -> String
-matchingMovesFail list moveType species moveName moves =
+getMatchingMove :: Epic.MonadCatch m => String -> [Move] -> String -> String -> m Move
+getMatchingMove abbrev moves moveType species =
+  let nameMatches = Util.matchesAbbrevInsensitive abbrev . Move.name
+  in case filter nameMatches moves of
+       [move] -> return move
+       val -> Epic.fail $ matchingMoveFail abbrev moves moveType species val
+
+matchingMoveFail :: String -> [Move] -> String -> String -> [a] -> String
+matchingMoveFail abbrev allMoves moveType species list =
   let howMany = if null list then "no" else "multiple" :: String
   in Printf.printf ("%s has %s %s moves matching `%s'\n" ++
        "Available %s moves:\n%s")
-       species howMany moveType moveName moveType
-       (List.intercalate "\n" $ map (("  " ++) . Move.name) moves)
+       species howMany moveType abbrev moveType
+       (List.intercalate "\n" $ map (("  " ++) . Move.name) allMoves)
 
 -- https://pokemongo.gamepress.gg/how-raid-boss-cp-calculated
 -- This is more to the point.  The CP calculations don't actually
