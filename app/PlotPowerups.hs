@@ -101,7 +101,7 @@ getOptions =
             optMovesetsFor = MovesetsFor <$>
               (O.option $ BattlerUtil.optParseBattler IVs.defaultIVs)
               (  O.long "movesets"
-              <> O.short 'm'
+              <> O.short 'M'
               <> O.metavar "ATTACKER[:LEVEL]"
               <> O.help "Plot the movesets for ATTACKER against DEFENDER")
         in optFilename <|> optMovesetsFor
@@ -112,7 +112,7 @@ getOptions =
         <> O.help "Final evolution desired")
       optMoveset = O.optional $ (O.option $ optParseMoveset 0)
         (  O.long "moveset"
-        <> O.short 'M'
+        <> O.short 'm'
         <> O.metavar "ATTACKER_MOVESET"
         <> O.help "Override the attacker moveset")
       optDefender = O.argument
