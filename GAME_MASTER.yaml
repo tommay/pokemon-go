@@ -9,7 +9,7 @@ itemTemplates:
     bundleName: f_backpack_cute_bundle
     assetName: f_backpack_cute_0
     groupName: group_backpack
-    sortOrder: 114
+    sortOrder: 125
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_backpack_cute_0
     iconName: f_backpack_cute_bundle_icon
@@ -22,7 +22,7 @@ itemTemplates:
     bundleName: f_backpack_default_bundle
     assetName: f_backpack_default_0
     groupName: group_backpack
-    sortOrder: 115
+    sortOrder: 126
     unlockType: DEFAULT
     iconName: f_backpack_default_bundle_icon
 - templateId: AVATAR_f_backpack_default_1
@@ -34,7 +34,7 @@ itemTemplates:
     bundleName: f_backpack_default_bundle
     assetName: f_backpack_default_1
     groupName: group_backpack
-    sortOrder: 116
+    sortOrder: 127
     unlockType: DEFAULT
     iconName: f_backpack_default_bundle_icon
 - templateId: AVATAR_f_backpack_default_2
@@ -46,7 +46,7 @@ itemTemplates:
     bundleName: f_backpack_default_bundle
     assetName: f_backpack_default_2
     groupName: group_backpack
-    sortOrder: 117
+    sortOrder: 128
     unlockType: DEFAULT
     iconName: f_backpack_default_bundle_icon
 - templateId: AVATAR_f_backpack_default_3
@@ -58,7 +58,7 @@ itemTemplates:
     bundleName: f_backpack_default_bundle
     assetName: f_backpack_default_3
     groupName: group_backpack
-    sortOrder: 118
+    sortOrder: 129
     unlockType: DEFAULT
     iconName: f_backpack_default_bundle_icon
 - templateId: AVATAR_f_backpack_empty
@@ -70,7 +70,7 @@ itemTemplates:
     bundleName: f_backpack_empty_bundle
     assetName: f_backpack_empty
     groupName: group_backpack
-    sortOrder: 119
+    sortOrder: 130
     unlockType: DEFAULT
     iconName: f_backpack_empty_bundle_icon
 - templateId: AVATAR_f_backpack_frlg_0
@@ -82,12 +82,25 @@ itemTemplates:
     bundleName: f_backpack_frlg_bundle
     assetName: f_backpack_frlg_0
     groupName: group_backpack
-    sortOrder: 112
+    sortOrder: 123
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_POKEDEX_ENTRIES
     iapSku: pgorelease.avatar.f_backpack_frlg_0
     unlockBadgeLevel: 5
     iconName: f_backpack_frlg_bundle_icon
+- templateId: AVATAR_f_backpack_gengar_0
+  avatarCustomization:
+    enabled: true
+    avatarType: PLAYER_AVATAR_FEMALE
+    slot:
+    - BACKPACK
+    bundleName: f_backpack_gengar_bundle
+    assetName: f_backpack_gengar_0
+    groupName: group_backpack
+    sortOrder: 121
+    unlockType: IAP_CLOTHING
+    iapSku: pgorelease.avatar.f_backpack_gengar_0
+    iconName: f_backpack_gengar_0_bundle_icon
 - templateId: AVATAR_f_backpack_hgss_0
   avatarCustomization:
     enabled: true
@@ -97,7 +110,7 @@ itemTemplates:
     bundleName: f_backpack_hgss_bundle
     assetName: f_backpack_hgss_0
     groupName: group_backpack
-    sortOrder: 111
+    sortOrder: 122
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_POKEDEX_ENTRIES_GEN2
     iapSku: pgorelease.avatar.f_backpack_hgss_0
@@ -112,7 +125,7 @@ itemTemplates:
     bundleName: f_backpack_ultra_bundle
     assetName: f_backpack_ultra
     groupName: group_backpack
-    sortOrder: 113
+    sortOrder: 124
     unlockType: DEFAULT
     iconName: f_backpack_ultra_bundle_icon
 - templateId: AVATAR_f_belt_default_0
@@ -124,7 +137,7 @@ itemTemplates:
     bundleName: f_belt_default_bundle
     assetName: f_belt_default_0
     groupName: group_belt
-    sortOrder: 135
+    sortOrder: 147
     unlockType: DEFAULT
     iconName: f_belt_default_bundle_icon
 - templateId: AVATAR_f_belt_default_1
@@ -136,7 +149,7 @@ itemTemplates:
     bundleName: f_belt_default_bundle
     assetName: f_belt_default_1
     groupName: group_belt
-    sortOrder: 136
+    sortOrder: 148
     unlockType: DEFAULT
     iconName: f_belt_default_bundle_icon
 - templateId: AVATAR_f_belt_default_2
@@ -148,7 +161,7 @@ itemTemplates:
     bundleName: f_belt_default_bundle
     assetName: f_belt_default_2
     groupName: group_belt
-    sortOrder: 137
+    sortOrder: 149
     unlockType: DEFAULT
     iconName: f_belt_default_bundle_icon
 - templateId: AVATAR_f_belt_default_3
@@ -160,7 +173,7 @@ itemTemplates:
     bundleName: f_belt_default_bundle
     assetName: f_belt_default_3
     groupName: group_belt
-    sortOrder: 138
+    sortOrder: 150
     unlockType: DEFAULT
     iconName: f_belt_default_bundle_icon
 - templateId: AVATAR_f_belt_default_4
@@ -172,7 +185,7 @@ itemTemplates:
     bundleName: f_belt_default_bundle
     assetName: f_belt_default_4
     groupName: group_belt
-    sortOrder: 139
+    sortOrder: 151
     unlockType: DEFAULT
     iconName: f_belt_default_bundle_icon
 - templateId: AVATAR_f_belt_default_5
@@ -184,7 +197,7 @@ itemTemplates:
     bundleName: f_belt_default_bundle
     assetName: f_belt_default_5
     groupName: group_belt
-    sortOrder: 140
+    sortOrder: 152
     unlockType: DEFAULT
     iconName: f_belt_default_bundle_icon
 - templateId: AVATAR_f_belt_default_6
@@ -196,7 +209,7 @@ itemTemplates:
     bundleName: f_belt_default_bundle
     assetName: f_belt_default_6
     groupName: group_belt
-    sortOrder: 141
+    sortOrder: 153
     unlockType: DEFAULT
     iconName: f_belt_default_bundle_icon
 - templateId: AVATAR_f_belt_default_7
@@ -208,7 +221,7 @@ itemTemplates:
     bundleName: f_belt_default_bundle
     assetName: f_belt_default_7
     groupName: group_belt
-    sortOrder: 142
+    sortOrder: 154
     unlockType: DEFAULT
     iconName: f_belt_default_bundle_icon
 - templateId: AVATAR_f_belt_default_8
@@ -220,7 +233,7 @@ itemTemplates:
     bundleName: f_belt_default_bundle
     assetName: f_belt_default_8
     groupName: group_belt
-    sortOrder: 143
+    sortOrder: 155
     unlockType: DEFAULT
     iconName: f_belt_default_bundle_icon
 - templateId: AVATAR_f_belt_empty
@@ -232,7 +245,7 @@ itemTemplates:
     bundleName: f_belt_empty_bundle
     assetName: f_belt_empty
     groupName: group_belt
-    sortOrder: 144
+    sortOrder: 156
     unlockType: DEFAULT
     iconName: f_belt_empty_bundle_icon
 - templateId: AVATAR_f_belt_simple_0
@@ -244,7 +257,7 @@ itemTemplates:
     bundleName: f_belt_simple_bundle
     assetName: f_belt_simple_0
     groupName: group_belt
-    sortOrder: 131
+    sortOrder: 143
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_belt_simple_0
     iconName: f_belt_simple_bundle_icon
@@ -257,7 +270,7 @@ itemTemplates:
     bundleName: f_belt_simple_bundle
     assetName: f_belt_simple_1
     groupName: group_belt
-    sortOrder: 132
+    sortOrder: 144
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_belt_simple_1
     iconName: f_belt_simple_bundle_icon
@@ -270,7 +283,7 @@ itemTemplates:
     bundleName: f_belt_simple_bundle
     assetName: f_belt_simple_2
     groupName: group_belt
-    sortOrder: 133
+    sortOrder: 145
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_belt_simple_2
     iconName: f_belt_simple_bundle_icon
@@ -283,7 +296,7 @@ itemTemplates:
     bundleName: f_belt_simple_bundle
     assetName: f_belt_simple_3
     groupName: group_belt
-    sortOrder: 134
+    sortOrder: 146
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_belt_simple_3
     iconName: f_belt_simple_bundle_icon
@@ -296,7 +309,7 @@ itemTemplates:
     bundleName: f_belt_teamrocket_bundle
     assetName: f_belt_teamrocket_0
     groupName: group_belt
-    sortOrder: 129
+    sortOrder: 141
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_belt_teamrocket_0
     iconName: f_belt_teamrocket_0_bundle_icon
@@ -309,7 +322,7 @@ itemTemplates:
     bundleName: f_belt_teamrocket_bundle
     assetName: f_belt_teamrocket_1
     groupName: group_belt
-    sortOrder: 130
+    sortOrder: 142
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_belt_teamrocket_1
     iconName: f_belt_teamrocket_1_bundle_icon
@@ -382,7 +395,7 @@ itemTemplates:
     bundleName: f_glasses_3d_bundle
     assetName: f_glasses_3d
     groupName: group_glasses
-    sortOrder: 45
+    sortOrder: 48
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_glasses_3d
     iconName: f_glasses_3d_bundle_icon
@@ -395,7 +408,7 @@ itemTemplates:
     bundleName: f_glasses_empty_bundle
     assetName: f_glasses_empty
     groupName: group_glasses
-    sortOrder: 51
+    sortOrder: 54
     unlockType: DEFAULT
     iconName: f_glasses_empty_bundle_icon
 - templateId: AVATAR_f_glasses_mask_0
@@ -407,7 +420,7 @@ itemTemplates:
     bundleName: f_glasses_mask_bundle
     assetName: f_glasses_mask_0
     groupName: group_glasses
-    sortOrder: 43
+    sortOrder: 46
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_glasses_mask_0
     iconName: f_glasses_mask_bundle_icon
@@ -420,7 +433,7 @@ itemTemplates:
     bundleName: f_glasses_mask_bundle
     assetName: f_glasses_mask_1
     groupName: group_glasses
-    sortOrder: 44
+    sortOrder: 47
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_glasses_mask_1
     iconName: f_glasses_mask_bundle_icon
@@ -433,7 +446,7 @@ itemTemplates:
     bundleName: f_glasses_teardrop_bundle
     assetName: f_glasses_teardrop_0
     groupName: group_glasses
-    sortOrder: 42
+    sortOrder: 45
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_glasses_teardrop_0
     iconName: f_glasses_teardrop_bundle_icon
@@ -446,7 +459,7 @@ itemTemplates:
     bundleName: f_glasses_thick_bundle
     assetName: f_glasses_thick_0
     groupName: group_glasses
-    sortOrder: 46
+    sortOrder: 49
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_glasses_thick_0
     iconName: f_glasses_thick_bundle_icon
@@ -459,7 +472,7 @@ itemTemplates:
     bundleName: f_glasses_thick_bundle
     assetName: f_glasses_thick_1
     groupName: group_glasses
-    sortOrder: 47
+    sortOrder: 50
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_glasses_thick_1
     iconName: f_glasses_thick_bundle_icon
@@ -472,7 +485,7 @@ itemTemplates:
     bundleName: f_glasses_thick_bundle
     assetName: f_glasses_thick_2
     groupName: group_glasses
-    sortOrder: 48
+    sortOrder: 51
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_glasses_thick_2
     iconName: f_glasses_thick_bundle_icon
@@ -485,7 +498,7 @@ itemTemplates:
     bundleName: f_glasses_thick_bundle
     assetName: f_glasses_thick_3
     groupName: group_glasses
-    sortOrder: 49
+    sortOrder: 52
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_glasses_thick_3
     iconName: f_glasses_thick_bundle_icon
@@ -498,7 +511,7 @@ itemTemplates:
     bundleName: f_glasses_thick_bundle
     assetName: f_glasses_thick_4
     groupName: group_glasses
-    sortOrder: 50
+    sortOrder: 53
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_glasses_thick_4
     iconName: f_glasses_thick_bundle_icon
@@ -511,7 +524,7 @@ itemTemplates:
     bundleName: f_gloves_battlegirl_bundle
     assetName: f_gloves_battlegirl_0
     groupName: group_gloves
-    sortOrder: 123
+    sortOrder: 135
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_BATTLE_ATTACK_WON
     iapSku: pgorelease.avatar.f_gloves_battlegirl_0
@@ -526,7 +539,7 @@ itemTemplates:
     bundleName: f_gloves_default_bundle
     assetName: f_gloves_default_0
     groupName: group_gloves
-    sortOrder: 124
+    sortOrder: 136
     unlockType: DEFAULT
     iconName: f_gloves_default_bundle_icon
 - templateId: AVATAR_f_gloves_default_1
@@ -538,7 +551,7 @@ itemTemplates:
     bundleName: f_gloves_default_bundle
     assetName: f_gloves_default_1
     groupName: group_gloves
-    sortOrder: 125
+    sortOrder: 137
     unlockType: DEFAULT
     iconName: f_gloves_default_bundle_icon
 - templateId: AVATAR_f_gloves_default_2
@@ -550,7 +563,7 @@ itemTemplates:
     bundleName: f_gloves_default_bundle
     assetName: f_gloves_default_2
     groupName: group_gloves
-    sortOrder: 126
+    sortOrder: 138
     unlockType: DEFAULT
     iconName: f_gloves_default_bundle_icon
 - templateId: AVATAR_f_gloves_default_3
@@ -562,7 +575,7 @@ itemTemplates:
     bundleName: f_gloves_default_bundle
     assetName: f_gloves_default_3
     groupName: group_gloves
-    sortOrder: 127
+    sortOrder: 139
     unlockType: DEFAULT
     iconName: f_gloves_default_bundle_icon
 - templateId: AVATAR_f_gloves_empty
@@ -574,7 +587,7 @@ itemTemplates:
     bundleName: f_gloves_empty_bundle
     assetName: f_gloves_empty
     groupName: group_gloves
-    sortOrder: 128
+    sortOrder: 140
     unlockType: DEFAULT
     iconName: f_gloves_empty_bundle_icon
 - templateId: AVATAR_f_gloves_frlg_0
@@ -586,7 +599,7 @@ itemTemplates:
     bundleName: f_gloves_frlg_bundle
     assetName: f_gloves_frlg_0
     groupName: group_gloves
-    sortOrder: 121
+    sortOrder: 132
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_POKEDEX_ENTRIES
     iapSku: pgorelease.avatar.f_gloves_frlg_0
@@ -601,7 +614,7 @@ itemTemplates:
     bundleName: f_gloves_gymleader_bundle
     assetName: f_gloves_gymleader_0
     groupName: group_gloves
-    sortOrder: 120
+    sortOrder: 131
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_HOURS_DEFENDED
     iapSku: pgorelease.avatar.f_gloves_gymleader_0
@@ -616,7 +629,7 @@ itemTemplates:
     bundleName: f_gloves_teamrocket_bundle
     assetName: f_gloves_teamrocket_0
     groupName: group_gloves
-    sortOrder: 122
+    sortOrder: 134
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_gloves_teamrocket_0
     iconName: f_gloves_teamrocket_bundle_icon
@@ -701,7 +714,7 @@ itemTemplates:
     bundleName: f_hat_adventure_bundle
     assetName: f_hat_adventure_0
     groupName: group_hat
-    sortOrder: 25
+    sortOrder: 28
     unlockType: DEFAULT
     iconName: f_hat_adventure_bundle_icon
 - templateId: AVATAR_f_hat_casket_0
@@ -713,7 +726,7 @@ itemTemplates:
     bundleName: f_hat_casket_bundle
     assetName: f_hat_casket_0
     groupName: group_hat
-    sortOrder: 32
+    sortOrder: 35
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_hat_casket_0
     iconName: f_hat_casket_bundle_icon
@@ -726,7 +739,7 @@ itemTemplates:
     bundleName: f_hat_default_bundle
     assetName: f_hat_default_A_0
     groupName: group_hat
-    sortOrder: 34
+    sortOrder: 37
     unlockType: DEFAULT
     iconName: f_hat_default_a_bundle_icon
 - templateId: AVATAR_f_hat_default_A_1
@@ -738,7 +751,7 @@ itemTemplates:
     bundleName: f_hat_default_bundle
     assetName: f_hat_default_A_1
     groupName: group_hat
-    sortOrder: 35
+    sortOrder: 38
     unlockType: DEFAULT
     iconName: f_hat_default_a_bundle_icon
 - templateId: AVATAR_f_hat_default_A_2
@@ -750,7 +763,7 @@ itemTemplates:
     bundleName: f_hat_default_bundle
     assetName: f_hat_default_A_2
     groupName: group_hat
-    sortOrder: 36
+    sortOrder: 39
     unlockType: DEFAULT
     iconName: f_hat_default_a_bundle_icon
 - templateId: AVATAR_f_hat_default_A_3
@@ -762,7 +775,7 @@ itemTemplates:
     bundleName: f_hat_default_bundle
     assetName: f_hat_default_A_3
     groupName: group_hat
-    sortOrder: 37
+    sortOrder: 40
     unlockType: DEFAULT
     iconName: f_hat_default_a_bundle_icon
 - templateId: AVATAR_f_hat_default_A_4
@@ -774,7 +787,7 @@ itemTemplates:
     bundleName: f_hat_default_bundle
     assetName: f_hat_default_A_4
     groupName: group_hat
-    sortOrder: 38
+    sortOrder: 41
     unlockType: DEFAULT
     iconName: f_hat_default_a_bundle_icon
 - templateId: AVATAR_f_hat_default_A_5
@@ -786,7 +799,7 @@ itemTemplates:
     bundleName: f_hat_default_bundle
     assetName: f_hat_default_A_5
     groupName: group_hat
-    sortOrder: 33
+    sortOrder: 36
     unlockType: DEFAULT
     iconName: f_hat_default_a_bundle_icon
 - templateId: AVATAR_f_hat_default_B_0
@@ -798,7 +811,7 @@ itemTemplates:
     bundleName: f_hat_default_bundle
     assetName: f_hat_default_B_0
     groupName: group_hat
-    sortOrder: 39
+    sortOrder: 42
     unlockType: DEFAULT
     iconName: f_hat_default_b_bundle_icon
 - templateId: AVATAR_f_hat_default_B_1
@@ -810,9 +823,22 @@ itemTemplates:
     bundleName: f_hat_default_bundle
     assetName: f_hat_default_B_1
     groupName: group_hat
-    sortOrder: 40
+    sortOrder: 43
     unlockType: DEFAULT
     iconName: f_hat_default_b_bundle_icon
+- templateId: AVATAR_f_hat_drifloon_0
+  avatarCustomization:
+    enabled: true
+    avatarType: PLAYER_AVATAR_FEMALE
+    slot:
+    - HAT
+    bundleName: f_hat_drifloon_bundle
+    assetName: f_hat_drifloon_0
+    groupName: group_hat
+    sortOrder: 12
+    unlockType: IAP_CLOTHING
+    iapSku: pgorelease.avatar.f_hat_drifloon_0
+    iconName: f_hat_drifloon_0_bundle_icon
 - templateId: AVATAR_f_hat_empty
   avatarCustomization:
     enabled: true
@@ -822,7 +848,7 @@ itemTemplates:
     bundleName: f_hat_empty_bundle
     assetName: f_hat_empty
     groupName: group_hat
-    sortOrder: 41
+    sortOrder: 44
     unlockType: DEFAULT
     iconName: f_hat_empty_bundle_icon
 - templateId: AVATAR_f_hat_fedora_0
@@ -834,7 +860,7 @@ itemTemplates:
     bundleName: f_hat_fedora_bundle
     assetName: f_hat_fedora_0
     groupName: group_hat
-    sortOrder: 29
+    sortOrder: 32
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_hat_fedora_0
     iconName: f_hat_fedora_bundle_icon
@@ -847,7 +873,7 @@ itemTemplates:
     bundleName: f_hat_fedora_bundle
     assetName: f_hat_fedora_1
     groupName: group_hat
-    sortOrder: 30
+    sortOrder: 33
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_hat_fedora_1
     iconName: f_hat_fedora_bundle_icon
@@ -860,7 +886,7 @@ itemTemplates:
     bundleName: f_hat_fragment_bundle
     assetName: f_hat_fragment_0
     groupName: group_hat
-    sortOrder: 12
+    sortOrder: 15
     unlockType: DEFAULT
     iconName: f_hat_fragment_bundle_icon
 - templateId: AVATAR_f_hat_frlg_0
@@ -872,12 +898,25 @@ itemTemplates:
     bundleName: f_hat_frlg_bundle
     assetName: f_hat_frlg_0
     groupName: group_hat
-    sortOrder: 21
+    sortOrder: 24
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_POKEDEX_ENTRIES
     iapSku: pgorelease.avatar.f_hat_frlg_0
     unlockBadgeLevel: 5
     iconName: f_hat_frlg_bundle_icon
+- templateId: AVATAR_f_hat_gengar_0
+  avatarCustomization:
+    enabled: true
+    avatarType: PLAYER_AVATAR_FEMALE
+    slot:
+    - HAT
+    bundleName: f_hat_gengar_bundle
+    assetName: f_hat_gengar_0
+    groupName: group_hat
+    sortOrder: 14
+    unlockType: IAP_CLOTHING
+    iapSku: pgorelease.avatar.f_hat_gengar_0
+    iconName: f_hat_gengar_0_bundle_icon
 - templateId: AVATAR_f_hat_hgss_0
   avatarCustomization:
     enabled: true
@@ -887,7 +926,7 @@ itemTemplates:
     bundleName: f_hat_hgss_bundle
     assetName: f_hat_hgss_0
     groupName: group_hat
-    sortOrder: 19
+    sortOrder: 22
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_POKEDEX_ENTRIES_GEN2
     iapSku: pgorelease.avatar.f_hat_hgss_0
@@ -902,7 +941,7 @@ itemTemplates:
     bundleName: f_hat_knitted_bundle
     assetName: f_hat_knitted_0
     groupName: group_hat
-    sortOrder: 27
+    sortOrder: 30
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_hat_knitted_0
     iconName: f_hat_knitted_bundle_icon
@@ -915,7 +954,7 @@ itemTemplates:
     bundleName: f_hat_knitted_bundle
     assetName: f_hat_knitted_1
     groupName: group_hat
-    sortOrder: 28
+    sortOrder: 31
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_hat_knitted_1
     iconName: f_hat_knitted_bundle_icon
@@ -928,7 +967,7 @@ itemTemplates:
     bundleName: f_hat_magikarp_bundle
     assetName: f_hat_magikarp
     groupName: group_hat
-    sortOrder: 26
+    sortOrder: 29
     unlockType: DEFAULT
     iconName: f_hat_magikarp_bundle_icon
 - templateId: AVATAR_f_hat_mimikyu_0
@@ -940,9 +979,22 @@ itemTemplates:
     bundleName: f_hat_mimikyu_bundle
     assetName: f_hat_mimikyu_0
     groupName: group_hat
-    sortOrder: 24
+    sortOrder: 27
     unlockType: DEFAULT
     iconName: f_hat_mimikyu_bundle_icon
+- templateId: AVATAR_f_hat_mismagius_0
+  avatarCustomization:
+    enabled: true
+    avatarType: PLAYER_AVATAR_FEMALE
+    slot:
+    - HAT
+    bundleName: f_hat_mismagius_bundle
+    assetName: f_hat_mismagius_0
+    groupName: group_hat
+    sortOrder: 13
+    unlockType: IAP_CLOTHING
+    iapSku: pgorelease.avatar.f_hat_mismagius_0
+    iconName: f_hat_mismagius_0_bundle_icon
 - templateId: AVATAR_f_hat_pikachufan_0
   avatarCustomization:
     enabled: true
@@ -952,7 +1004,7 @@ itemTemplates:
     bundleName: f_hat_pikachufan_bundle
     assetName: f_hat_pikachufan_0
     groupName: group_hat
-    sortOrder: 20
+    sortOrder: 23
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_PIKACHU
     iapSku: pgorelease.avatar.f_hat_pikachufan_0
@@ -967,7 +1019,7 @@ itemTemplates:
     bundleName: f_hat_pkmncap_bundle
     assetName: f_hat_pkmncap_0
     groupName: group_hat
-    sortOrder: 13
+    sortOrder: 16
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_hat_pkmncap_0
     iconName: f_hat_pkmncap_0_bundle_icon
@@ -980,7 +1032,7 @@ itemTemplates:
     bundleName: f_hat_pkmncap_bundle
     assetName: f_hat_pkmncap_1
     groupName: group_hat
-    sortOrder: 14
+    sortOrder: 17
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_hat_pkmncap_1
     iconName: f_hat_pkmncap_1_bundle_icon
@@ -993,7 +1045,7 @@ itemTemplates:
     bundleName: f_hat_pkmncap_bundle
     assetName: f_hat_pkmncap_2
     groupName: group_hat
-    sortOrder: 15
+    sortOrder: 18
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_hat_pkmncap_2
     iconName: f_hat_pkmncap_2_bundle_icon
@@ -1006,7 +1058,7 @@ itemTemplates:
     bundleName: f_hat_teamleadercap_bundle
     assetName: f_hat_teamleadercap_0
     groupName: group_hat
-    sortOrder: 16
+    sortOrder: 19
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_hat_teamleadercap_0
     iconName: f_hat_teamleadercap_0_bundle_icon
@@ -1019,7 +1071,7 @@ itemTemplates:
     bundleName: f_hat_teamleadercap_bundle
     assetName: f_hat_teamleadercap_1
     groupName: group_hat
-    sortOrder: 17
+    sortOrder: 20
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_hat_teamleadercap_1
     iconName: f_hat_teamleadercap_1_bundle_icon
@@ -1032,7 +1084,7 @@ itemTemplates:
     bundleName: f_hat_teamleadercap_bundle
     assetName: f_hat_teamleadercap_2
     groupName: group_hat
-    sortOrder: 18
+    sortOrder: 21
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_hat_teamleadercap_2
     iconName: f_hat_teamleadercap_2_bundle_icon
@@ -1045,7 +1097,7 @@ itemTemplates:
     bundleName: f_hat_teamrocket_bundle
     assetName: f_hat_teamrocket_0
     groupName: group_hat
-    sortOrder: 22
+    sortOrder: 25
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_hat_teamrocket_0
     iconName: f_hat_teamrocket_bundle_icon
@@ -1058,7 +1110,7 @@ itemTemplates:
     bundleName: f_hat_tophat_bundle
     assetName: f_hat_tophat_0
     groupName: group_hat
-    sortOrder: 31
+    sortOrder: 34
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_hat_tophat_0
     iconName: f_hat_tophat_bundle_icon
@@ -1071,7 +1123,7 @@ itemTemplates:
     bundleName: f_hat_ultra_bundle
     assetName: f_hat_ultra_0
     groupName: group_hat
-    sortOrder: 23
+    sortOrder: 26
     unlockType: DEFAULT
     iconName: f_hat_ultra_bundle_icon
 - templateId: AVATAR_f_necklace_default_0
@@ -1083,7 +1135,7 @@ itemTemplates:
     bundleName: f_necklace_default_bundle
     assetName: f_necklace_default_0
     groupName: group_necklace
-    sortOrder: 54
+    sortOrder: 57
     unlockType: DEFAULT
     iconName: f_necklace_default_bundle_icon
 - templateId: AVATAR_f_necklace_default_1
@@ -1095,7 +1147,7 @@ itemTemplates:
     bundleName: f_necklace_default_bundle
     assetName: f_necklace_default_1
     groupName: group_necklace
-    sortOrder: 55
+    sortOrder: 58
     unlockType: DEFAULT
     iconName: f_necklace_default_bundle_icon
 - templateId: AVATAR_f_necklace_empty
@@ -1107,7 +1159,7 @@ itemTemplates:
     bundleName: f_necklace_empty_bundle
     assetName: f_necklace_empty
     groupName: group_necklace
-    sortOrder: 56
+    sortOrder: 59
     unlockType: DEFAULT
     iconName: f_necklace_empty_bundle_icon
 - templateId: AVATAR_f_necklace_heart_0
@@ -1119,7 +1171,7 @@ itemTemplates:
     bundleName: f_necklace_heart_bundle
     assetName: f_necklace_heart_0
     groupName: group_necklace
-    sortOrder: 52
+    sortOrder: 55
     unlockType: DEFAULT
     iconName: f_necklace_heart_bundle_icon
 - templateId: AVATAR_f_necklace_star_0
@@ -1131,7 +1183,7 @@ itemTemplates:
     bundleName: f_necklace_star_bundle
     assetName: f_necklace_star_0
     groupName: group_necklace
-    sortOrder: 53
+    sortOrder: 56
     unlockType: DEFAULT
     iconName: f_necklace_star_bundle_icon
 - templateId: AVATAR_f_pants_battlegirl_0
@@ -1143,7 +1195,7 @@ itemTemplates:
     bundleName: f_pants_battlegirl_bundle
     assetName: f_pants_battlegirl_0
     groupName: group_pants
-    sortOrder: 152
+    sortOrder: 165
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_BATTLE_ATTACK_WON
     iapSku: pgorelease.avatar.f_pants_battlegirl_0
@@ -1158,7 +1210,7 @@ itemTemplates:
     bundleName: f_pants_default_bundle
     assetName: f_pants_default_0
     groupName: group_pants
-    sortOrder: 175
+    sortOrder: 188
     unlockType: DEFAULT
     iconName: f_pants_default_bundle_icon
 - templateId: AVATAR_f_pants_default_1
@@ -1170,7 +1222,7 @@ itemTemplates:
     bundleName: f_pants_default_bundle
     assetName: f_pants_default_1
     groupName: group_pants
-    sortOrder: 176
+    sortOrder: 189
     unlockType: DEFAULT
     iconName: f_pants_default_bundle_icon
 - templateId: AVATAR_f_pants_default_2
@@ -1182,7 +1234,7 @@ itemTemplates:
     bundleName: f_pants_default_bundle
     assetName: f_pants_default_2
     groupName: group_pants
-    sortOrder: 177
+    sortOrder: 190
     unlockType: DEFAULT
     iconName: f_pants_default_bundle_icon
 - templateId: AVATAR_f_pants_default_3
@@ -1194,7 +1246,7 @@ itemTemplates:
     bundleName: f_pants_default_bundle
     assetName: f_pants_default_3
     groupName: group_pants
-    sortOrder: 178
+    sortOrder: 191
     unlockType: DEFAULT
     iconName: f_pants_default_bundle_icon
 - templateId: AVATAR_f_pants_default_4
@@ -1206,7 +1258,7 @@ itemTemplates:
     bundleName: f_pants_default_bundle
     assetName: f_pants_default_4
     groupName: group_pants
-    sortOrder: 174
+    sortOrder: 187
     unlockType: DEFAULT
     iconName: f_pants_default_bundle_icon
 - templateId: AVATAR_f_pants_default_5
@@ -1218,7 +1270,7 @@ itemTemplates:
     bundleName: f_pants_default_bundle
     assetName: f_pants_default_5
     groupName: group_pants
-    sortOrder: 179
+    sortOrder: 192
     unlockType: DEFAULT
     iconName: f_pants_default_bundle_icon
 - templateId: AVATAR_f_pants_frlg_0
@@ -1230,7 +1282,7 @@ itemTemplates:
     bundleName: f_pants_frlg_bundle
     assetName: f_pants_frlg_0
     groupName: group_pants
-    sortOrder: 150
+    sortOrder: 163
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_POKEDEX_ENTRIES
     iapSku: pgorelease.avatar.f_pants_frlg_0
@@ -1245,7 +1297,7 @@ itemTemplates:
     bundleName: f_pants_gymleader_bundle
     assetName: f_pants_gymleader_0
     groupName: group_pants
-    sortOrder: 147
+    sortOrder: 159
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_HOURS_DEFENDED
     iapSku: pgorelease.avatar.f_pants_gymleader_0
@@ -1260,7 +1312,7 @@ itemTemplates:
     bundleName: f_pants_gymleader_bundle
     assetName: f_pants_gymleader_1
     groupName: group_pants
-    sortOrder: 148
+    sortOrder: 161
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_HOURS_DEFENDED
     iapSku: pgorelease.avatar.f_pants_gymleader_1
@@ -1275,7 +1327,7 @@ itemTemplates:
     bundleName: f_pants_gymleader_bundle
     assetName: f_pants_gymleader_2
     groupName: group_pants
-    sortOrder: 149
+    sortOrder: 162
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_HOURS_DEFENDED
     iapSku: pgorelease.avatar.f_pants_gymleader_2
@@ -1290,7 +1342,7 @@ itemTemplates:
     bundleName: f_pants_hgss_bundle
     assetName: f_pants_hgss_0
     groupName: group_pants
-    sortOrder: 145
+    sortOrder: 157
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_POKEDEX_ENTRIES_GEN2
     iapSku: pgorelease.avatar.f_pants_hgss_0
@@ -1305,7 +1357,7 @@ itemTemplates:
     bundleName: f_pants_miniskirt_bundle
     assetName: f_pants_miniskirt_0
     groupName: group_pants
-    sortOrder: 167
+    sortOrder: 180
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_pants_miniskirt_0
     iconName: f_pants_miniskirt_bundle_icon
@@ -1318,7 +1370,7 @@ itemTemplates:
     bundleName: f_pants_miniskirt_bundle
     assetName: f_pants_miniskirt_1
     groupName: group_pants
-    sortOrder: 168
+    sortOrder: 181
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_pants_miniskirt_1
     iconName: f_pants_miniskirt_bundle_icon
@@ -1331,7 +1383,7 @@ itemTemplates:
     bundleName: f_pants_miniskirt_bundle
     assetName: f_pants_miniskirt_2
     groupName: group_pants
-    sortOrder: 169
+    sortOrder: 182
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_pants_miniskirt_2
     iconName: f_pants_miniskirt_bundle_icon
@@ -1344,7 +1396,7 @@ itemTemplates:
     bundleName: f_pants_miniskirt_bundle
     assetName: f_pants_miniskirt_3
     groupName: group_pants
-    sortOrder: 170
+    sortOrder: 183
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_pants_miniskirt_3
     iconName: f_pants_miniskirt_bundle_icon
@@ -1357,7 +1409,7 @@ itemTemplates:
     bundleName: f_pants_miniskirt_bundle
     assetName: f_pants_miniskirt_wave_0
     groupName: group_pants
-    sortOrder: 164
+    sortOrder: 177
     unlockType: DEFAULT
     iconName: f_pants_miniskirt_wave_bundle_icon
 - templateId: AVATAR_f_pants_miniskirt_wave_1
@@ -1369,7 +1421,7 @@ itemTemplates:
     bundleName: f_pants_miniskirt_bundle
     assetName: f_pants_miniskirt_wave_1
     groupName: group_pants
-    sortOrder: 165
+    sortOrder: 178
     unlockType: DEFAULT
     iconName: f_pants_miniskirt_wave_bundle_icon
 - templateId: AVATAR_f_pants_miniskirt_wave_2
@@ -1381,7 +1433,7 @@ itemTemplates:
     bundleName: f_pants_miniskirt_bundle
     assetName: f_pants_miniskirt_wave_2
     groupName: group_pants
-    sortOrder: 166
+    sortOrder: 179
     unlockType: DEFAULT
     iconName: f_pants_miniskirt_wave_bundle_icon
 - templateId: AVATAR_f_pants_neon_solid_0
@@ -1393,7 +1445,7 @@ itemTemplates:
     bundleName: f_pants_neon_bundle
     assetName: f_pants_neon_solid_0
     groupName: group_pants
-    sortOrder: 156
+    sortOrder: 169
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_pants_neon_solid_0
     iconName: f_pants_neon_bundle_icon
@@ -1406,7 +1458,7 @@ itemTemplates:
     bundleName: f_pants_neon_bundle
     assetName: f_pants_neon_solid_1
     groupName: group_pants
-    sortOrder: 157
+    sortOrder: 170
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_pants_neon_solid_1
     iconName: f_pants_neon_bundle_icon
@@ -1419,7 +1471,7 @@ itemTemplates:
     bundleName: f_pants_neon_bundle
     assetName: f_pants_neon_solid_2
     groupName: group_pants
-    sortOrder: 158
+    sortOrder: 171
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_pants_neon_solid_2
     iconName: f_pants_neon_bundle_icon
@@ -1432,7 +1484,7 @@ itemTemplates:
     bundleName: f_pants_neon_bundle
     assetName: f_pants_neon_stripes_0
     groupName: group_pants
-    sortOrder: 154
+    sortOrder: 167
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_pants_neon_stripes_0
     iconName: f_pants_neon_bundle_icon
@@ -1445,7 +1497,7 @@ itemTemplates:
     bundleName: f_pants_neon_bundle
     assetName: f_pants_neon_stripes_1
     groupName: group_pants
-    sortOrder: 155
+    sortOrder: 168
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_pants_neon_stripes_1
     iconName: f_pants_neon_bundle_icon
@@ -1458,7 +1510,7 @@ itemTemplates:
     bundleName: f_pants_pikachufan_bundle
     assetName: f_pants_pikachufan_0
     groupName: group_pants
-    sortOrder: 146
+    sortOrder: 158
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_PIKACHU
     iapSku: pgorelease.avatar.f_pants_pikachufan_0
@@ -1473,7 +1525,7 @@ itemTemplates:
     bundleName: f_pants_shorts_bundle
     assetName: f_pants_shorts_0
     groupName: group_pants
-    sortOrder: 160
+    sortOrder: 173
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_pants_shorts_0
     iconName: f_pants_shorts_bundle_icon
@@ -1486,7 +1538,7 @@ itemTemplates:
     bundleName: f_pants_shorts_bundle
     assetName: f_pants_shorts_1
     groupName: group_pants
-    sortOrder: 161
+    sortOrder: 174
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_pants_shorts_1
     iconName: f_pants_shorts_bundle_icon
@@ -1499,7 +1551,7 @@ itemTemplates:
     bundleName: f_pants_shorts_bundle
     assetName: f_pants_shorts_2
     groupName: group_pants
-    sortOrder: 162
+    sortOrder: 175
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_pants_shorts_2
     iconName: f_pants_shorts_bundle_icon
@@ -1512,7 +1564,7 @@ itemTemplates:
     bundleName: f_pants_shorts_bundle
     assetName: f_pants_shorts_3
     groupName: group_pants
-    sortOrder: 163
+    sortOrder: 176
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_pants_shorts_3
     iconName: f_pants_shorts_bundle_icon
@@ -1525,7 +1577,7 @@ itemTemplates:
     bundleName: f_pants_skinnyjeans_bundle
     assetName: f_pants_skinnyjeans_0
     groupName: group_pants
-    sortOrder: 159
+    sortOrder: 172
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_pants_skinnyjeans_0
     iconName: f_pants_skinnyjeans_bundle_icon
@@ -1538,7 +1590,7 @@ itemTemplates:
     bundleName: f_pants_teamrocket_bundle
     assetName: f_pants_teamrocket_0
     groupName: group_pants
-    sortOrder: 151
+    sortOrder: 164
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_pants_teamrocket_0
     iconName: f_pants_teamrocket_bundle_icon
@@ -1551,7 +1603,7 @@ itemTemplates:
     bundleName: f_pants_miniskirt_bundle
     assetName: f_pants_miniskirt_turbine_0
     groupName: group_pants
-    sortOrder: 171
+    sortOrder: 184
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_pants_miniskirt_turbine_0
     iconName: f_pants_miniskirt_turbine_bundle_icon
@@ -1564,7 +1616,7 @@ itemTemplates:
     bundleName: f_pants_miniskirt_bundle
     assetName: f_pants_miniskirt_turbine_1
     groupName: group_pants
-    sortOrder: 172
+    sortOrder: 185
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_pants_miniskirt_turbine_1
     iconName: f_pants_miniskirt_turbine_bundle_icon
@@ -1577,7 +1629,7 @@ itemTemplates:
     bundleName: f_pants_miniskirt_bundle
     assetName: f_pants_miniskirt_turbine_2
     groupName: group_pants
-    sortOrder: 173
+    sortOrder: 186
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_pants_miniskirt_turbine_2
     iconName: f_pants_miniskirt_turbine_bundle_icon
@@ -1590,7 +1642,7 @@ itemTemplates:
     bundleName: f_pants_ultra_bundle
     assetName: f_pants_ultra_0
     groupName: group_pants
-    sortOrder: 153
+    sortOrder: 166
     unlockType: DEFAULT
     iconName: f_pants_ultra_bundle_icon
 - templateId: AVATAR_f_shirt_battlegirl_0
@@ -1602,7 +1654,7 @@ itemTemplates:
     bundleName: f_shirt_battlegirl_bundle
     assetName: f_shirt_battlegirl_0
     groupName: group_shirt
-    sortOrder: 71
+    sortOrder: 81
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_BATTLE_ATTACK_WON
     iapSku: pgorelease.avatar.f_shirt_battlegirl_0
@@ -1616,7 +1668,7 @@ itemTemplates:
     bundleName: f_shirt_buttondown_bundle
     assetName: f_shirt_buttondown_0
     groupName: group_shirt
-    sortOrder: 98
+    sortOrder: 108
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_shirt_buttondown_0
     iconName: f_shirt_buttondown_bundle_icon
@@ -1629,7 +1681,7 @@ itemTemplates:
     bundleName: f_shirt_celebi_bundle
     assetName: f_shirt_celebi_0
     groupName: group_shirt
-    sortOrder: 59
+    sortOrder: 69
     unlockType: DEFAULT
     iconName: f_shirt_celebi_bundle_icon
 - templateId: AVATAR_f_shirt_default_0
@@ -1641,7 +1693,7 @@ itemTemplates:
     bundleName: f_shirt_default_bundle
     assetName: f_shirt_default_0
     groupName: group_shirt
-    sortOrder: 103
+    sortOrder: 113
     unlockType: DEFAULT
     iconName: f_shirt_default_bundle_icon
 - templateId: AVATAR_f_shirt_default_1
@@ -1653,7 +1705,7 @@ itemTemplates:
     bundleName: f_shirt_default_bundle
     assetName: f_shirt_default_1
     groupName: group_shirt
-    sortOrder: 104
+    sortOrder: 114
     unlockType: DEFAULT
     iconName: f_shirt_default_bundle_icon
 - templateId: AVATAR_f_shirt_default_2
@@ -1665,7 +1717,7 @@ itemTemplates:
     bundleName: f_shirt_default_bundle
     assetName: f_shirt_default_2
     groupName: group_shirt
-    sortOrder: 105
+    sortOrder: 115
     unlockType: DEFAULT
     iconName: f_shirt_default_bundle_icon
 - templateId: AVATAR_f_shirt_default_3
@@ -1677,7 +1729,7 @@ itemTemplates:
     bundleName: f_shirt_default_bundle
     assetName: f_shirt_default_3
     groupName: group_shirt
-    sortOrder: 106
+    sortOrder: 116
     unlockType: DEFAULT
     iconName: f_shirt_default_bundle_icon
 - templateId: AVATAR_f_shirt_default_4
@@ -1689,7 +1741,7 @@ itemTemplates:
     bundleName: f_shirt_default_bundle
     assetName: f_shirt_default_4
     groupName: group_shirt
-    sortOrder: 107
+    sortOrder: 117
     unlockType: DEFAULT
     iconName: f_shirt_default_bundle_icon
 - templateId: AVATAR_f_shirt_default_5
@@ -1701,7 +1753,7 @@ itemTemplates:
     bundleName: f_shirt_default_bundle
     assetName: f_shirt_default_5
     groupName: group_shirt
-    sortOrder: 102
+    sortOrder: 112
     unlockType: DEFAULT
     iconName: f_shirt_default_bundle_icon
 - templateId: AVATAR_f_shirt_default_6
@@ -1713,7 +1765,7 @@ itemTemplates:
     bundleName: f_shirt_default_bundle
     assetName: f_shirt_default_6
     groupName: group_shirt
-    sortOrder: 108
+    sortOrder: 118
     unlockType: DEFAULT
     iconName: f_shirt_default_bundle_icon
 - templateId: AVATAR_f_shirt_default_7
@@ -1725,7 +1777,7 @@ itemTemplates:
     bundleName: f_shirt_default_bundle
     assetName: f_shirt_default_7
     groupName: group_shirt
-    sortOrder: 109
+    sortOrder: 119
     unlockType: DEFAULT
     iconName: f_shirt_default_bundle_icon
 - templateId: AVATAR_f_shirt_default_8
@@ -1737,9 +1789,22 @@ itemTemplates:
     bundleName: f_shirt_default_bundle
     assetName: f_shirt_default_8
     groupName: group_shirt
-    sortOrder: 110
+    sortOrder: 120
     unlockType: DEFAULT
     iconName: f_shirt_default_bundle_icon
+- templateId: AVATAR_f_shirt_drifblim_0
+  avatarCustomization:
+    enabled: true
+    avatarType: PLAYER_AVATAR_FEMALE
+    slot:
+    - SHIRT
+    bundleName: f_shirt_drifblim_bundle
+    assetName: f_shirt_drifblim_0
+    groupName: group_shirt
+    sortOrder: 60
+    unlockType: IAP_CLOTHING
+    iapSku: pgorelease.avatar.f_shirt_drifblim_0
+    iconName: f_shirt_drifblim_0_bundle_icon
 - templateId: AVATAR_f_shirt_earthday_2018
   avatarCustomization:
     enabled: true
@@ -1749,7 +1814,7 @@ itemTemplates:
     bundleName: f_shirt_earthday_2018_bundle
     assetName: f_shirt_earthday_2018
     groupName: group_shirt
-    sortOrder: 64
+    sortOrder: 74
     unlockType: DEFAULT
     iconName: f_shirt_earthday_2018_bundle_icon
 - templateId: AVATAR_f_shirt_fragment_0
@@ -1761,7 +1826,7 @@ itemTemplates:
     bundleName: f_shirt_fragment_bundle
     assetName: f_shirt_fragment_0
     groupName: group_shirt
-    sortOrder: 57
+    sortOrder: 67
     unlockType: DEFAULT
     iconName: f_shirt_fragment_bundle_icon
 - templateId: AVATAR_f_shirt_frlg_0
@@ -1773,12 +1838,25 @@ itemTemplates:
     bundleName: f_shirt_frlg_bundle
     assetName: f_shirt_frlg_0
     groupName: group_shirt
-    sortOrder: 68
+    sortOrder: 78
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_POKEDEX_ENTRIES
     iapSku: pgorelease.avatar.f_shirt_frlg_0
     unlockBadgeLevel: 5
     iconName: f_shirt_frlg_bundle_icon
+- templateId: AVATAR_f_shirt_gengar_0
+  avatarCustomization:
+    enabled: true
+    avatarType: PLAYER_AVATAR_FEMALE
+    slot:
+    - SHIRT
+    bundleName: f_shirt_gengar_bundle
+    assetName: f_shirt_gengar_0
+    groupName: group_shirt
+    sortOrder: 66
+    unlockType: IAP_CLOTHING
+    iapSku: pgorelease.avatar.f_shirt_gengar_0
+    iconName: f_shirt_gengar_0_bundle_icon
 - templateId: AVATAR_f_shirt_gymleader_0
   avatarCustomization:
     enabled: true
@@ -1788,7 +1866,7 @@ itemTemplates:
     bundleName: f_shirt_gymleader_bundle
     assetName: f_shirt_gymleader_0
     groupName: group_shirt
-    sortOrder: 65
+    sortOrder: 75
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_HOURS_DEFENDED
     iapSku: pgorelease.avatar.f_shirt_gymleader_0
@@ -1803,7 +1881,7 @@ itemTemplates:
     bundleName: f_shirt_gymleader_bundle
     assetName: f_shirt_gymleader_1
     groupName: group_shirt
-    sortOrder: 66
+    sortOrder: 76
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_HOURS_DEFENDED
     iapSku: pgorelease.avatar.f_shirt_gymleader_1
@@ -1818,7 +1896,7 @@ itemTemplates:
     bundleName: f_shirt_gymleader_bundle
     assetName: f_shirt_gymleader_2
     groupName: group_shirt
-    sortOrder: 67
+    sortOrder: 77
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_HOURS_DEFENDED
     iapSku: pgorelease.avatar.f_shirt_gymleader_2
@@ -1833,7 +1911,7 @@ itemTemplates:
     bundleName: f_shirt_hgss_bundle
     assetName: f_shirt_hgss_0
     groupName: group_shirt
-    sortOrder: 58
+    sortOrder: 68
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_shirt_hgss_0
     iconName: f_shirt_hgss_bundle_icon
@@ -1846,7 +1924,7 @@ itemTemplates:
     bundleName: f_shirt_latias_latios_bundle
     assetName: f_shirt_latias_latios_0
     groupName: group_shirt
-    sortOrder: 61
+    sortOrder: 71
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_shirt_latias_latios_0
     iconName: f_shirt_latias_latios_bundle_icon
@@ -1859,7 +1937,7 @@ itemTemplates:
     bundleName: f_shirt_mew_bundle
     assetName: f_shirt_mew_0
     groupName: group_shirt
-    sortOrder: 63
+    sortOrder: 73
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_shirt_mew_0
     iconName: f_shirt_mew_bundle_icon
@@ -1872,12 +1950,25 @@ itemTemplates:
     bundleName: f_shirt_pikachufan_bundle
     assetName: f_shirt_pikachufan_0
     groupName: group_shirt
-    sortOrder: 62
+    sortOrder: 72
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_PIKACHU
     iapSku: pgorelease.avatar.f_shirt_pikachufan_0
     unlockBadgeLevel: 300
     iconName: f_shirt_pikachufan_bundle_icon
+- templateId: AVATAR_f_shirt_spiritomb_0
+  avatarCustomization:
+    enabled: true
+    avatarType: PLAYER_AVATAR_FEMALE
+    slot:
+    - SHIRT
+    bundleName: f_shirt_spiritomb_bundle
+    assetName: f_shirt_spiritomb_0
+    groupName: group_shirt
+    sortOrder: 65
+    unlockType: IAP_CLOTHING
+    iapSku: pgorelease.avatar.f_shirt_spiritomb_0
+    iconName: f_shirt_spiritomb_0_bundle_icon
 - templateId: AVATAR_f_shirt_sweater_30_0
   avatarCustomization:
     enabled: true
@@ -1887,7 +1978,7 @@ itemTemplates:
     bundleName: f_shirt_sweater_bundle
     assetName: f_shirt_sweater_30_0
     groupName: group_shirt
-    sortOrder: 91
+    sortOrder: 101
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_shirt_sweater_30_0
     iconName: f_shirt_sweater_30_bundle_icon
@@ -1901,7 +1992,7 @@ itemTemplates:
     bundleName: f_shirt_sweater_bundle
     assetName: f_shirt_sweater_30_1
     groupName: group_shirt
-    sortOrder: 92
+    sortOrder: 102
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_shirt_sweater_30_1
     iconName: f_shirt_sweater_30_bundle_icon
@@ -1915,7 +2006,7 @@ itemTemplates:
     bundleName: f_shirt_sweater_bundle
     assetName: f_shirt_sweater_30_2
     groupName: group_shirt
-    sortOrder: 93
+    sortOrder: 103
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_shirt_sweater_30_2
     iconName: f_shirt_sweater_30_bundle_icon
@@ -1929,7 +2020,7 @@ itemTemplates:
     bundleName: f_shirt_sweater_bundle
     assetName: f_shirt_sweater_instinct
     groupName: group_shirt
-    sortOrder: 90
+    sortOrder: 100
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_shirt_sweater_instinct
     iconName: f_shirt_sweater_instinct_bundle_icon
@@ -1942,7 +2033,7 @@ itemTemplates:
     bundleName: f_shirt_sweater_bundle
     assetName: f_shirt_sweater_mystic
     groupName: group_shirt
-    sortOrder: 89
+    sortOrder: 99
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_shirt_sweater_mystic
     iconName: f_shirt_sweater_mystic_bundle_icon
@@ -1955,7 +2046,7 @@ itemTemplates:
     bundleName: f_shirt_sweater_bundle
     assetName: f_shirt_sweater_valor
     groupName: group_shirt
-    sortOrder: 88
+    sortOrder: 98
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_shirt_sweater_valor
     iconName: f_shirt_sweater_valor_bundle_icon
@@ -1968,7 +2059,7 @@ itemTemplates:
     bundleName: f_shirt_tanktop_bundle
     assetName: f_shirt_tanktop_0
     groupName: group_shirt
-    sortOrder: 99
+    sortOrder: 109
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_shirt_tanktop_0
     iconName: f_shirt_tanktop_bundle_icon
@@ -1981,7 +2072,7 @@ itemTemplates:
     bundleName: f_shirt_tanktop_bundle
     assetName: f_shirt_tanktop_1
     groupName: group_shirt
-    sortOrder: 100
+    sortOrder: 110
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_shirt_tanktop_1
     iconName: f_shirt_tanktop_bundle_icon
@@ -1994,7 +2085,7 @@ itemTemplates:
     bundleName: f_shirt_tanktop_bundle
     assetName: f_shirt_tanktop_2
     groupName: group_shirt
-    sortOrder: 101
+    sortOrder: 111
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_shirt_tanktop_2
     iconName: f_shirt_tanktop_bundle_icon
@@ -2007,7 +2098,7 @@ itemTemplates:
     bundleName: f_shirt_tanktop_bundle
     assetName: f_shirt_tanktop_charizard_0
     groupName: group_shirt
-    sortOrder: 86
+    sortOrder: 96
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_shirt_tanktop_charizard_0
     iconName: f_shirt_tanktop_charizard_bundle_icon
@@ -2020,7 +2111,7 @@ itemTemplates:
     bundleName: f_shirt_tanktop_bundle
     assetName: f_shirt_tanktop_charizard_1
     groupName: group_shirt
-    sortOrder: 85
+    sortOrder: 95
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_shirt_tanktop_charizard_1
     iconName: f_shirt_tanktop_charizard_bundle_icon
@@ -2033,7 +2124,7 @@ itemTemplates:
     bundleName: f_shirt_tanktop_bundle
     assetName: f_shirt_tanktop_charizard_2
     groupName: group_shirt
-    sortOrder: 87
+    sortOrder: 97
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_shirt_tanktop_charizard_2
     iconName: f_shirt_tanktop_charizard_bundle_icon
@@ -2046,7 +2137,7 @@ itemTemplates:
     bundleName: f_shirt_tanktop_bundle
     assetName: f_shirt_tanktop_pikachu_0
     groupName: group_shirt
-    sortOrder: 82
+    sortOrder: 92
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_shirt_tanktop_pikachu_0
     iconName: f_shirt_tanktop_pikachu_bundle_icon
@@ -2059,7 +2150,7 @@ itemTemplates:
     bundleName: f_shirt_tanktop_bundle
     assetName: f_shirt_tanktop_pikachu_1
     groupName: group_shirt
-    sortOrder: 83
+    sortOrder: 93
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_shirt_tanktop_pikachu_1
     iconName: f_shirt_tanktop_pikachu_bundle_icon
@@ -2072,7 +2163,7 @@ itemTemplates:
     bundleName: f_shirt_tanktop_bundle
     assetName: f_shirt_tanktop_pikachu_2
     groupName: group_shirt
-    sortOrder: 84
+    sortOrder: 94
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_shirt_tanktop_pikachu_2
     iconName: f_shirt_tanktop_pikachu_bundle_icon
@@ -2085,7 +2176,7 @@ itemTemplates:
     bundleName: f_shirt_teamrocket_bundle
     assetName: f_shirt_teamrocket_0
     groupName: group_shirt
-    sortOrder: 69
+    sortOrder: 79
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_shirt_teamrocket_0
     iconName: f_shirt_teamrocket_0_bundle_icon
@@ -2098,7 +2189,7 @@ itemTemplates:
     bundleName: f_shirt_teamrocket_bundle
     assetName: f_shirt_teamrocket_1
     groupName: group_shirt
-    sortOrder: 70
+    sortOrder: 80
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_shirt_teamrocket_1
     iconName: f_shirt_teamrocket_1_bundle_icon
@@ -2111,7 +2202,7 @@ itemTemplates:
     bundleName: f_shirt_tshirt_bundle
     assetName: f_shirt_tshirt_cycling_0
     groupName: group_shirt
-    sortOrder: 94
+    sortOrder: 104
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_shirt_tshirt_cycling_0
     iconName: f_shirt_tshirt_cycling_bundle_icon
@@ -2124,7 +2215,7 @@ itemTemplates:
     bundleName: f_shirt_tshirt_bundle
     assetName: f_shirt_tshirt_cycling_1
     groupName: group_shirt
-    sortOrder: 95
+    sortOrder: 105
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_shirt_tshirt_cycling_1
     iconName: f_shirt_tshirt_cycling_bundle_icon
@@ -2137,7 +2228,7 @@ itemTemplates:
     bundleName: f_shirt_tshirt_bundle
     assetName: f_shirt_tshirt_cycling_2
     groupName: group_shirt
-    sortOrder: 96
+    sortOrder: 106
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_shirt_tshirt_cycling_2
     iconName: f_shirt_tshirt_cycling_bundle_icon
@@ -2150,7 +2241,7 @@ itemTemplates:
     bundleName: f_shirt_tshirt_bundle
     assetName: f_shirt_tshirt_cycling_3
     groupName: group_shirt
-    sortOrder: 97
+    sortOrder: 107
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_shirt_tshirt_cycling_3
     iconName: f_shirt_tshirt_cycling_bundle_icon
@@ -2163,7 +2254,7 @@ itemTemplates:
     bundleName: f_shirt_tshirt_bundle
     assetName: f_shirt_tshirt_fest_chicago_2017
     groupName: group_shirt
-    sortOrder: 74
+    sortOrder: 84
     unlockType: DEFAULT
     iconName: f_shirt_tshirt_fest_chicago_2017_bundle_icon
 - templateId: AVATAR_f_shirt_tshirt_fest_chicago_2018
@@ -2175,7 +2266,7 @@ itemTemplates:
     bundleName: f_shirt_tshirt_bundle
     assetName: f_shirt_tshirt_fest_chicago_2018
     groupName: group_shirt
-    sortOrder: 60
+    sortOrder: 70
     unlockType: DEFAULT
     iconName: f_shirt_tshirt_fest_chicago_2018_bundle_icon
 - templateId: AVATAR_f_shirt_tshirt_global_goals_2017
@@ -2187,7 +2278,7 @@ itemTemplates:
     bundleName: f_shirt_tshirt_bundle
     assetName: f_shirt_tshirt_global_goals_2017
     groupName: group_shirt
-    sortOrder: 73
+    sortOrder: 83
     unlockType: DEFAULT
     iconName: f_shirt_tshirt_global_goals_2017_bundle_icon
 - templateId: AVATAR_f_shirt_tshirt_pikachu_0
@@ -2199,7 +2290,7 @@ itemTemplates:
     bundleName: f_shirt_tshirt_bundle
     assetName: f_shirt_tshirt_pikachu_0
     groupName: group_shirt
-    sortOrder: 75
+    sortOrder: 85
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_shirt_tshirt_pikachu_0
     iconName: f_shirt_tshirt_pikachu_bundle_icon
@@ -2212,7 +2303,7 @@ itemTemplates:
     bundleName: f_shirt_tshirt_bundle
     assetName: f_shirt_tshirt_pikachu_1
     groupName: group_shirt
-    sortOrder: 77
+    sortOrder: 87
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_shirt_tshirt_pikachu_1
     iconName: f_shirt_tshirt_pikachu_bundle_icon
@@ -2225,7 +2316,7 @@ itemTemplates:
     bundleName: f_shirt_tshirt_bundle
     assetName: f_shirt_tshirt_pikachu_2
     groupName: group_shirt
-    sortOrder: 78
+    sortOrder: 88
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_shirt_tshirt_pikachu_2
     iconName: f_shirt_tshirt_pikachu_bundle_icon
@@ -2238,7 +2329,7 @@ itemTemplates:
     bundleName: f_shirt_tshirt_bundle
     assetName: f_shirt_tshirt_pikachu_3
     groupName: group_shirt
-    sortOrder: 79
+    sortOrder: 89
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_shirt_tshirt_pikachu_3
     iconName: f_shirt_tshirt_pikachu_bundle_icon
@@ -2251,7 +2342,7 @@ itemTemplates:
     bundleName: f_shirt_tshirt_bundle
     assetName: f_shirt_tshirt_pikachu_4
     groupName: group_shirt
-    sortOrder: 80
+    sortOrder: 90
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_shirt_tshirt_pikachu_4
     iconName: f_shirt_tshirt_pikachu_bundle_icon
@@ -2264,7 +2355,7 @@ itemTemplates:
     bundleName: f_shirt_tshirt_bundle
     assetName: f_shirt_tshirt_pikachu_5
     groupName: group_shirt
-    sortOrder: 81
+    sortOrder: 91
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_shirt_tshirt_pikachu_5
     iconName: f_shirt_tshirt_pikachu_bundle_icon
@@ -2277,7 +2368,7 @@ itemTemplates:
     bundleName: f_shirt_tshirt_bundle
     assetName: f_shirt_tshirt_pikachu_6
     groupName: group_shirt
-    sortOrder: 76
+    sortOrder: 86
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_shirt_tshirt_pikachu_6
     iconName: f_shirt_tshirt_pikachu_bundle_icon
@@ -2290,7 +2381,7 @@ itemTemplates:
     bundleName: f_shirt_ultra_bundle
     assetName: f_shirt_ultra_0
     groupName: group_shirt
-    sortOrder: 72
+    sortOrder: 82
     unlockType: DEFAULT
     iconName: f_shirt_ultra_bundle_icon
 - templateId: AVATAR_f_shoes_battlegirl_0
@@ -2302,7 +2393,7 @@ itemTemplates:
     bundleName: f_shoes_battlegirl_bundle
     assetName: f_shoes_battlegirl_0
     groupName: group_shoes
-    sortOrder: 194
+    sortOrder: 209
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_BATTLE_ATTACK_WON
     iapSku: pgorelease.avatar.f_shoes_battlegirl_0
@@ -2317,7 +2408,7 @@ itemTemplates:
     bundleName: f_shoes_default_bundle
     assetName: f_shoes_default_0
     groupName: group_shoes
-    sortOrder: 197
+    sortOrder: 212
     unlockType: DEFAULT
     iconName: f_shoes_default_bundle_icon
 - templateId: AVATAR_f_shoes_default_1
@@ -2329,7 +2420,7 @@ itemTemplates:
     bundleName: f_shoes_default_bundle
     assetName: f_shoes_default_1
     groupName: group_shoes
-    sortOrder: 196
+    sortOrder: 211
     unlockType: DEFAULT
     iconName: f_shoes_default_bundle_icon
 - templateId: AVATAR_f_shoes_default_2
@@ -2341,7 +2432,7 @@ itemTemplates:
     bundleName: f_shoes_default_bundle
     assetName: f_shoes_default_2
     groupName: group_shoes
-    sortOrder: 198
+    sortOrder: 213
     unlockType: DEFAULT
     iconName: f_shoes_default_bundle_icon
 - templateId: AVATAR_f_shoes_default_3
@@ -2353,7 +2444,7 @@ itemTemplates:
     bundleName: f_shoes_default_bundle
     assetName: f_shoes_default_3
     groupName: group_shoes
-    sortOrder: 199
+    sortOrder: 214
     unlockType: DEFAULT
     iconName: f_shoes_default_bundle_icon
 - templateId: AVATAR_f_shoes_default_4
@@ -2365,7 +2456,7 @@ itemTemplates:
     bundleName: f_shoes_default_bundle
     assetName: f_shoes_default_4
     groupName: group_shoes
-    sortOrder: 200
+    sortOrder: 215
     unlockType: DEFAULT
     iconName: f_shoes_default_bundle_icon
 - templateId: AVATAR_f_shoes_default_5
@@ -2377,7 +2468,7 @@ itemTemplates:
     bundleName: f_shoes_default_bundle
     assetName: f_shoes_default_5
     groupName: group_shoes
-    sortOrder: 201
+    sortOrder: 216
     unlockType: DEFAULT
     iconName: f_shoes_default_bundle_icon
 - templateId: AVATAR_f_shoes_default_6
@@ -2389,7 +2480,7 @@ itemTemplates:
     bundleName: f_shoes_default_bundle
     assetName: f_shoes_default_6
     groupName: group_shoes
-    sortOrder: 202
+    sortOrder: 217
     unlockType: DEFAULT
     iconName: f_shoes_default_bundle_icon
 - templateId: AVATAR_f_shoes_empty
@@ -2401,7 +2492,7 @@ itemTemplates:
     bundleName: f_shoes_empty_bundle
     assetName: f_shoes_empty
     groupName: group_shoes
-    sortOrder: 203
+    sortOrder: 218
     unlockType: DEFAULT
     iconName: f_shoes_empty_bundle_icon
 - templateId: AVATAR_f_shoes_frlg_0
@@ -2413,7 +2504,7 @@ itemTemplates:
     bundleName: f_shoes_frlg_bundle
     assetName: f_shoes_frlg_0
     groupName: group_shoes
-    sortOrder: 191
+    sortOrder: 206
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_POKEDEX_ENTRIES
     iapSku: pgorelease.avatar.f_shoes_frlg_0
@@ -2428,7 +2519,7 @@ itemTemplates:
     bundleName: f_shoes_gymleader_bundle
     assetName: f_shoes_gymleader_0
     groupName: group_shoes
-    sortOrder: 188
+    sortOrder: 203
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_HOURS_DEFENDED
     iapSku: pgorelease.avatar.f_shoes_gymleader_0
@@ -2443,7 +2534,7 @@ itemTemplates:
     bundleName: f_shoes_gymleader_bundle
     assetName: f_shoes_gymleader_1
     groupName: group_shoes
-    sortOrder: 189
+    sortOrder: 204
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_HOURS_DEFENDED
     iapSku: pgorelease.avatar.f_shoes_gymleader_1
@@ -2458,7 +2549,7 @@ itemTemplates:
     bundleName: f_shoes_gymleader_bundle
     assetName: f_shoes_gymleader_2
     groupName: group_shoes
-    sortOrder: 190
+    sortOrder: 205
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_HOURS_DEFENDED
     iapSku: pgorelease.avatar.f_shoes_gymleader_2
@@ -2473,7 +2564,7 @@ itemTemplates:
     bundleName: f_shoes_hgss_bundle
     assetName: f_shoes_hgss_0
     groupName: group_shoes
-    sortOrder: 186
+    sortOrder: 200
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_POKEDEX_ENTRIES_GEN2
     iapSku: pgorelease.avatar.f_shoes_hgss_0
@@ -2488,7 +2579,7 @@ itemTemplates:
     bundleName: f_shoes_pikachufan_bundle
     assetName: f_shoes_pikachufan_0
     groupName: group_shoes
-    sortOrder: 187
+    sortOrder: 201
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_PIKACHU
     iapSku: pgorelease.avatar.f_shoes_pikachufan_0
@@ -2503,7 +2594,7 @@ itemTemplates:
     bundleName: f_shoes_teamrocket_bundle
     assetName: f_shoes_teamrocket_0
     groupName: group_shoes
-    sortOrder: 192
+    sortOrder: 207
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_shoes_teamrocket_0
     iconName: f_shoes_teamrocket_0_bundle_icon
@@ -2516,7 +2607,7 @@ itemTemplates:
     bundleName: f_shoes_teamrocket_bundle
     assetName: f_shoes_teamrocket_1
     groupName: group_shoes
-    sortOrder: 193
+    sortOrder: 208
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.f_shoes_teamrocket_1
     iconName: f_shoes_teamrocket_1_bundle_icon
@@ -2529,7 +2620,7 @@ itemTemplates:
     bundleName: f_shoes_ultra_bundle
     assetName: f_shoes_ultra_0
     groupName: group_shoes
-    sortOrder: 195
+    sortOrder: 210
     unlockType: DEFAULT
     iconName: f_shoes_ultra_bundle_icon
 - templateId: AVATAR_f_socks_default_0
@@ -2541,7 +2632,7 @@ itemTemplates:
     bundleName: f_socks_default_bundle
     assetName: f_socks_default_0
     groupName: group_socks
-    sortOrder: 182
+    sortOrder: 196
     unlockType: DEFAULT
     iconName: f_socks_default_bundle_icon
 - templateId: AVATAR_f_socks_default_1
@@ -2553,7 +2644,7 @@ itemTemplates:
     bundleName: f_socks_default_bundle
     assetName: f_socks_default_1
     groupName: group_socks
-    sortOrder: 183
+    sortOrder: 197
     unlockType: DEFAULT
     iconName: f_socks_default_bundle_icon
 - templateId: AVATAR_f_socks_default_2
@@ -2565,7 +2656,7 @@ itemTemplates:
     bundleName: f_socks_default_bundle
     assetName: f_socks_default_2
     groupName: group_socks
-    sortOrder: 184
+    sortOrder: 198
     unlockType: DEFAULT
     iconName: f_socks_default_bundle_icon
 - templateId: AVATAR_f_socks_empty
@@ -2577,7 +2668,7 @@ itemTemplates:
     bundleName: f_socks_empty_bundle
     assetName: f_socks_empty
     groupName: group_socks
-    sortOrder: 185
+    sortOrder: 199
     unlockType: DEFAULT
     iconName: f_socks_empty_bundle_icon
 - templateId: AVATAR_f_socks_hgss_0
@@ -2589,7 +2680,7 @@ itemTemplates:
     bundleName: f_socks_hgss_bundle
     assetName: f_socks_hgss_0
     groupName: group_socks
-    sortOrder: 180
+    sortOrder: 193
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_POKEDEX_ENTRIES_GEN2
     iapSku: pgorelease.avatar.f_socks_hgss_0
@@ -2604,7 +2695,7 @@ itemTemplates:
     bundleName: f_socks_thighhighs_bundle
     assetName: f_socks_thighhighs_0
     groupName: group_socks
-    sortOrder: 181
+    sortOrder: 194
     unlockType: DEFAULT
     iconName: f_socks_thighhighs_bundle_icon
 - templateId: AVATAR_m_backpack_default_0
@@ -2615,7 +2706,7 @@ itemTemplates:
     bundleName: m_backpack_default_bundle
     assetName: m_backpack_default_0
     groupName: group_backpack
-    sortOrder: 1312
+    sortOrder: 1338
     unlockType: DEFAULT
     iconName: m_backpack_default_bundle_icon
 - templateId: AVATAR_m_backpack_default_1
@@ -2626,7 +2717,7 @@ itemTemplates:
     bundleName: m_backpack_default_bundle
     assetName: m_backpack_default_1
     groupName: group_backpack
-    sortOrder: 1313
+    sortOrder: 1339
     unlockType: DEFAULT
     iconName: m_backpack_default_bundle_icon
 - templateId: AVATAR_m_backpack_default_2
@@ -2637,7 +2728,7 @@ itemTemplates:
     bundleName: m_backpack_default_bundle
     assetName: m_backpack_default_2
     groupName: group_backpack
-    sortOrder: 1311
+    sortOrder: 1337
     unlockType: DEFAULT
     iconName: m_backpack_default_bundle_icon
 - templateId: AVATAR_m_backpack_default_3
@@ -2648,7 +2739,7 @@ itemTemplates:
     bundleName: m_backpack_default_bundle
     assetName: m_backpack_default_3
     groupName: group_backpack
-    sortOrder: 1314
+    sortOrder: 1340
     unlockType: DEFAULT
     iconName: m_backpack_default_bundle_icon
 - templateId: AVATAR_m_backpack_default_4
@@ -2659,7 +2750,7 @@ itemTemplates:
     bundleName: m_backpack_default_bundle
     assetName: m_backpack_default_4
     groupName: group_backpack
-    sortOrder: 1315
+    sortOrder: 1341
     unlockType: DEFAULT
     iconName: m_backpack_default_bundle_icon
 - templateId: AVATAR_m_backpack_default_5
@@ -2670,7 +2761,7 @@ itemTemplates:
     bundleName: m_backpack_default_bundle
     assetName: m_backpack_default_5
     groupName: group_backpack
-    sortOrder: 1316
+    sortOrder: 1342
     unlockType: DEFAULT
     iconName: m_backpack_default_bundle_icon
 - templateId: AVATAR_m_backpack_empty
@@ -2681,7 +2772,7 @@ itemTemplates:
     bundleName: m_backpack_empty_bundle
     assetName: m_backpack_empty
     groupName: group_backpack
-    sortOrder: 1317
+    sortOrder: 1343
     unlockType: DEFAULT
     iconName: m_backpack_empty_bundle_icon
 - templateId: AVATAR_m_backpack_frlg_0
@@ -2692,12 +2783,24 @@ itemTemplates:
     bundleName: m_backpack_frlg_bundle
     assetName: m_backpack_frlg_0
     groupName: group_backpack
-    sortOrder: 1309
+    sortOrder: 1335
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_POKEDEX_ENTRIES
     iapSku: pgorelease.avatar.m_backpack_frlg_0
     unlockBadgeLevel: 5
     iconName: m_backpack_frlg_bundle_icon
+- templateId: AVATAR_m_backpack_gengar_0
+  avatarCustomization:
+    enabled: true
+    slot:
+    - BACKPACK
+    bundleName: m_backpack_gengar_bundle
+    assetName: m_backpack_gengar_0
+    groupName: group_backpack
+    sortOrder: 1333
+    unlockType: IAP_CLOTHING
+    iapSku: pgorelease.avatar.m_backpack_gengar_0
+    iconName: m_backpack_gengar_0_bundle_icon
 - templateId: AVATAR_m_backpack_hgss_0
   avatarCustomization:
     enabled: true
@@ -2706,7 +2809,7 @@ itemTemplates:
     bundleName: m_backpack_hgss_bundle
     assetName: m_backpack_hgss_0
     groupName: group_backpack
-    sortOrder: 1308
+    sortOrder: 1334
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_POKEDEX_ENTRIES_GEN2
     iapSku: pgorelease.avatar.m_backpack_hgss_0
@@ -2720,7 +2823,7 @@ itemTemplates:
     bundleName: m_backpack_ultra_bundle
     assetName: m_backpack_ultra
     groupName: group_backpack
-    sortOrder: 1310
+    sortOrder: 1336
     unlockType: DEFAULT
     iconName: m_backpack_ultra_bundle_icon
 - templateId: AVATAR_m_eyes_0
@@ -2731,7 +2834,7 @@ itemTemplates:
     bundleName: m_eyes_asset_bundle
     assetName: m_eyes_0
     groupName: group_eyes
-    sortOrder: 1205
+    sortOrder: 1220
     unlockType: DEFAULT
     iconName: m_group_eye
 - templateId: AVATAR_m_eyes_1
@@ -2742,7 +2845,7 @@ itemTemplates:
     bundleName: m_eyes_asset_bundle
     assetName: m_eyes_1
     groupName: group_eyes
-    sortOrder: 1206
+    sortOrder: 1221
     unlockType: DEFAULT
     iconName: m_group_eye
 - templateId: AVATAR_m_eyes_2
@@ -2753,7 +2856,7 @@ itemTemplates:
     bundleName: m_eyes_asset_bundle
     assetName: m_eyes_2
     groupName: group_eyes
-    sortOrder: 1207
+    sortOrder: 1222
     unlockType: DEFAULT
     iconName: m_group_eye
 - templateId: AVATAR_m_eyes_3
@@ -2764,7 +2867,7 @@ itemTemplates:
     bundleName: m_eyes_asset_bundle
     assetName: m_eyes_3
     groupName: group_eyes
-    sortOrder: 1208
+    sortOrder: 1223
     unlockType: DEFAULT
     iconName: m_group_eye
 - templateId: AVATAR_m_eyes_4
@@ -2775,7 +2878,7 @@ itemTemplates:
     bundleName: m_eyes_asset_bundle
     assetName: m_eyes_4
     groupName: group_eyes
-    sortOrder: 1209
+    sortOrder: 1224
     unlockType: DEFAULT
     iconName: m_group_eye
 - templateId: AVATAR_m_glasses_3d
@@ -2786,7 +2889,7 @@ itemTemplates:
     bundleName: m_glasses_3d_bundle
     assetName: m_glasses_3d
     groupName: group_glasses
-    sortOrder: 1248
+    sortOrder: 1266
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_glasses_3d
     iconName: m_glasses_3d_bundle_icon
@@ -2798,7 +2901,7 @@ itemTemplates:
     bundleName: m_glasses_empty_bundle
     assetName: m_glasses_empty
     groupName: group_glasses
-    sortOrder: 1254
+    sortOrder: 1272
     unlockType: DEFAULT
     iconName: m_glasses_empty_bundle_icon
 - templateId: AVATAR_m_glasses_jogger_0
@@ -2809,7 +2912,7 @@ itemTemplates:
     bundleName: m_glasses_jogger_bundle
     assetName: m_glasses_jogger_0
     groupName: group_glasses
-    sortOrder: 1245
+    sortOrder: 1263
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_TRAVEL_KM
     iapSku: pgorelease.avatar.m_glasses_jogger_0
@@ -2823,7 +2926,7 @@ itemTemplates:
     bundleName: m_glasses_mask_bundle
     assetName: m_glasses_mask_0
     groupName: group_glasses
-    sortOrder: 1246
+    sortOrder: 1264
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_glasses_mask_0
     iconName: m_glasses_mask_bundle_icon
@@ -2835,7 +2938,7 @@ itemTemplates:
     bundleName: m_glasses_mask_bundle
     assetName: m_glasses_mask_1
     groupName: group_glasses
-    sortOrder: 1247
+    sortOrder: 1265
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_glasses_mask_1
     iconName: m_glasses_mask_bundle_icon
@@ -2847,7 +2950,7 @@ itemTemplates:
     bundleName: m_glasses_teardrop_bundle
     assetName: m_glasses_teardrop_0
     groupName: group_glasses
-    sortOrder: 1244
+    sortOrder: 1262
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_glasses_teardrop_0
     iconName: m_glasses_teardrop_bundle_icon
@@ -2859,7 +2962,7 @@ itemTemplates:
     bundleName: m_glasses_thick_bundle
     assetName: m_glasses_thick_0
     groupName: group_glasses
-    sortOrder: 1249
+    sortOrder: 1267
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_glasses_thick_0
     iconName: m_glasses_thick_bundle_icon
@@ -2871,7 +2974,7 @@ itemTemplates:
     bundleName: m_glasses_thick_bundle
     assetName: m_glasses_thick_1
     groupName: group_glasses
-    sortOrder: 1250
+    sortOrder: 1268
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_glasses_thick_1
     iconName: m_glasses_thick_bundle_icon
@@ -2883,7 +2986,7 @@ itemTemplates:
     bundleName: m_glasses_thick_bundle
     assetName: m_glasses_thick_2
     groupName: group_glasses
-    sortOrder: 1251
+    sortOrder: 1269
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_glasses_thick_2
     iconName: m_glasses_thick_bundle_icon
@@ -2895,7 +2998,7 @@ itemTemplates:
     bundleName: m_glasses_thick_bundle
     assetName: m_glasses_thick_3
     groupName: group_glasses
-    sortOrder: 1252
+    sortOrder: 1270
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_glasses_thick_3
     iconName: m_glasses_thick_bundle_icon
@@ -2907,7 +3010,7 @@ itemTemplates:
     bundleName: m_glasses_thick_bundle
     assetName: m_glasses_thick_4
     groupName: group_glasses
-    sortOrder: 1253
+    sortOrder: 1271
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_glasses_thick_4
     iconName: m_glasses_thick_bundle_icon
@@ -2919,7 +3022,7 @@ itemTemplates:
     bundleName: m_gloves_default_bundle
     assetName: m_gloves_default_0
     groupName: group_gloves
-    sortOrder: 1323
+    sortOrder: 1350
     unlockType: DEFAULT
     iconName: m_gloves_default_bundle_icon
 - templateId: AVATAR_m_gloves_default_1
@@ -2930,7 +3033,7 @@ itemTemplates:
     bundleName: m_gloves_default_bundle
     assetName: m_gloves_default_1
     groupName: group_gloves
-    sortOrder: 1324
+    sortOrder: 1351
     unlockType: DEFAULT
     iconName: m_gloves_default_bundle_icon
 - templateId: AVATAR_m_gloves_default_2
@@ -2941,7 +3044,7 @@ itemTemplates:
     bundleName: m_gloves_default_bundle
     assetName: m_gloves_default_2
     groupName: group_gloves
-    sortOrder: 1322
+    sortOrder: 1349
     unlockType: DEFAULT
     iconName: m_gloves_default_bundle_icon
 - templateId: AVATAR_m_gloves_default_3
@@ -2952,7 +3055,7 @@ itemTemplates:
     bundleName: m_gloves_default_bundle
     assetName: m_gloves_default_3
     groupName: group_gloves
-    sortOrder: 1325
+    sortOrder: 1352
     unlockType: DEFAULT
     iconName: m_gloves_default_bundle_icon
 - templateId: AVATAR_m_gloves_empty
@@ -2963,7 +3066,7 @@ itemTemplates:
     bundleName: m_gloves_empty_bundle
     assetName: m_gloves_empty
     groupName: group_gloves
-    sortOrder: 1326
+    sortOrder: 1353
     unlockType: DEFAULT
     iconName: m_gloves_empty_bundle_icon
 - templateId: AVATAR_m_gloves_frlg_0
@@ -2974,7 +3077,7 @@ itemTemplates:
     bundleName: m_gloves_frlg_bundle
     assetName: m_gloves_frlg_0
     groupName: group_gloves
-    sortOrder: 1319
+    sortOrder: 1345
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_POKEDEX_ENTRIES
     iapSku: pgorelease.avatar.m_gloves_frlg_0
@@ -2988,7 +3091,7 @@ itemTemplates:
     bundleName: m_gloves_gymleader_bundle
     assetName: m_gloves_gymleader_0
     groupName: group_gloves
-    sortOrder: 1318
+    sortOrder: 1344
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_HOURS_DEFENDED
     iapSku: pgorelease.avatar.m_gloves_gymleader_0
@@ -3002,7 +3105,7 @@ itemTemplates:
     bundleName: m_gloves_jogger_bundle
     assetName: m_gloves_jogger
     groupName: group_gloves
-    sortOrder: 1321
+    sortOrder: 1348
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_TRAVEL_KM
     iapSku: pgorelease.avatar.m_gloves_jogger
@@ -3016,7 +3119,7 @@ itemTemplates:
     bundleName: m_gloves_teamrocket_bundle
     assetName: m_gloves_teamrocket_0
     groupName: group_gloves
-    sortOrder: 1320
+    sortOrder: 1347
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_gloves_teamrocket_0
     iconName: m_gloves_teamrocket_bundle_icon
@@ -3028,7 +3131,7 @@ itemTemplates:
     bundleName: m_hair_default_asset_bundle
     assetName: m_hair_default_0
     groupName: group_hair
-    sortOrder: 1231
+    sortOrder: 1249
     unlockType: DEFAULT
     iconName: m_group_hair
 - templateId: AVATAR_m_hair_default_1
@@ -3039,7 +3142,7 @@ itemTemplates:
     bundleName: m_hair_default_asset_bundle
     assetName: m_hair_default_1
     groupName: group_hair
-    sortOrder: 1232
+    sortOrder: 1250
     unlockType: DEFAULT
     iconName: m_group_hair
 - templateId: AVATAR_m_hair_default_2
@@ -3050,7 +3153,7 @@ itemTemplates:
     bundleName: m_hair_default_asset_bundle
     assetName: m_hair_default_2
     groupName: group_hair
-    sortOrder: 1233
+    sortOrder: 1251
     unlockType: DEFAULT
     iconName: m_group_hair
 - templateId: AVATAR_m_hair_default_3
@@ -3061,7 +3164,7 @@ itemTemplates:
     bundleName: m_hair_default_asset_bundle
     assetName: m_hair_default_3
     groupName: group_hair
-    sortOrder: 1234
+    sortOrder: 1252
     unlockType: DEFAULT
     iconName: m_group_hair
 - templateId: AVATAR_m_hair_default_4
@@ -3072,7 +3175,7 @@ itemTemplates:
     bundleName: m_hair_default_asset_bundle
     assetName: m_hair_default_4
     groupName: group_hair
-    sortOrder: 1235
+    sortOrder: 1253
     unlockType: DEFAULT
     iconName: m_group_hair
 - templateId: AVATAR_m_hair_default_5
@@ -3083,7 +3186,7 @@ itemTemplates:
     bundleName: m_hair_default_asset_bundle
     assetName: m_hair_default_5
     groupName: group_hair
-    sortOrder: 1236
+    sortOrder: 1254
     unlockType: DEFAULT
     iconName: m_group_hair
 - templateId: AVATAR_m_hat_adventure_0
@@ -3094,7 +3197,7 @@ itemTemplates:
     bundleName: m_hat_adventure_bundle
     assetName: m_hat_adventure_0
     groupName: group_hat
-    sortOrder: 1225
+    sortOrder: 1243
     unlockType: DEFAULT
     iconName: m_hat_adventure_bundle_icon
 - templateId: AVATAR_m_hat_casket_0
@@ -3105,7 +3208,7 @@ itemTemplates:
     bundleName: m_hat_casket_bundle
     assetName: m_hat_casket_0
     groupName: group_hat
-    sortOrder: 1230
+    sortOrder: 1248
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_hat_casket_0
     iconName: m_hat_casket_bundle_icon
@@ -3117,7 +3220,7 @@ itemTemplates:
     bundleName: m_hat_default_bundle
     assetName: m_hat_default_0
     groupName: group_hat
-    sortOrder: 1238
+    sortOrder: 1256
     unlockType: DEFAULT
     iconName: m_hat_default_bundle_icon
 - templateId: AVATAR_m_hat_default_1
@@ -3128,7 +3231,7 @@ itemTemplates:
     bundleName: m_hat_default_bundle
     assetName: m_hat_default_1
     groupName: group_hat
-    sortOrder: 1239
+    sortOrder: 1257
     unlockType: DEFAULT
     iconName: m_hat_default_bundle_icon
 - templateId: AVATAR_m_hat_default_2
@@ -3139,7 +3242,7 @@ itemTemplates:
     bundleName: m_hat_default_bundle
     assetName: m_hat_default_2
     groupName: group_hat
-    sortOrder: 1240
+    sortOrder: 1258
     unlockType: DEFAULT
     iconName: m_hat_default_bundle_icon
 - templateId: AVATAR_m_hat_default_3
@@ -3150,7 +3253,7 @@ itemTemplates:
     bundleName: m_hat_default_bundle
     assetName: m_hat_default_3
     groupName: group_hat
-    sortOrder: 1241
+    sortOrder: 1259
     unlockType: DEFAULT
     iconName: m_hat_default_bundle_icon
 - templateId: AVATAR_m_hat_default_4
@@ -3161,7 +3264,7 @@ itemTemplates:
     bundleName: m_hat_default_bundle
     assetName: m_hat_default_4
     groupName: group_hat
-    sortOrder: 1242
+    sortOrder: 1260
     unlockType: DEFAULT
     iconName: m_hat_default_bundle_icon
 - templateId: AVATAR_m_hat_default_5
@@ -3172,9 +3275,21 @@ itemTemplates:
     bundleName: m_hat_default_bundle
     assetName: m_hat_default_5
     groupName: group_hat
-    sortOrder: 1237
+    sortOrder: 1255
     unlockType: DEFAULT
     iconName: m_hat_default_bundle_icon
+- templateId: AVATAR_m_hat_drifloon_0
+  avatarCustomization:
+    enabled: true
+    slot:
+    - HAT
+    bundleName: m_hat_drifloon_bundle
+    assetName: m_hat_drifloon_0
+    groupName: group_hat
+    sortOrder: 1225
+    unlockType: IAP_CLOTHING
+    iapSku: pgorelease.avatar.m_hat_drifloon_0
+    iconName: m_hat_drifloon_0_bundle_icon
 - templateId: AVATAR_m_hat_empty
   avatarCustomization:
     enabled: true
@@ -3183,7 +3298,7 @@ itemTemplates:
     bundleName: m_hat_empty_bundle
     assetName: m_hat_empty
     groupName: group_hat
-    sortOrder: 1243
+    sortOrder: 1261
     unlockType: DEFAULT
     iconName: m_hat_empty_bundle_icon
 - templateId: AVATAR_m_hat_fedora_0
@@ -3194,7 +3309,7 @@ itemTemplates:
     bundleName: m_hat_fedora_bundle
     assetName: m_hat_fedora_0
     groupName: group_hat
-    sortOrder: 1227
+    sortOrder: 1245
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_hat_fedora_0
     iconName: m_hat_fedora_bundle_icon
@@ -3206,7 +3321,7 @@ itemTemplates:
     bundleName: m_hat_fedora_bundle
     assetName: m_hat_fedora_1
     groupName: group_hat
-    sortOrder: 1228
+    sortOrder: 1246
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_hat_fedora_1
     iconName: m_hat_fedora_bundle_icon
@@ -3218,7 +3333,7 @@ itemTemplates:
     bundleName: m_hat_fisher_bundle
     assetName: m_hat_fisher_0
     groupName: group_hat
-    sortOrder: 1221
+    sortOrder: 1239
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_BIG_MAGIKARP
     iapSku: pgorelease.avatar.m_hat_fisher_0
@@ -3232,7 +3347,7 @@ itemTemplates:
     bundleName: m_hat_fragment_bundle
     assetName: m_hat_fragment_0
     groupName: group_hat
-    sortOrder: 1210
+    sortOrder: 1228
     unlockType: DEFAULT
     iconName: m_hat_fragment_bundle_icon
 - templateId: AVATAR_m_hat_frlg_0
@@ -3243,12 +3358,24 @@ itemTemplates:
     bundleName: m_hat_frlg_bundle
     assetName: m_hat_frlg_0
     groupName: group_hat
-    sortOrder: 1219
+    sortOrder: 1237
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_POKEDEX_ENTRIES
     iapSku: pgorelease.avatar.m_hat_frlg_0
     unlockBadgeLevel: 5
     iconName: m_hat_frlg_bundle_icon
+- templateId: AVATAR_m_hat_gengar_0
+  avatarCustomization:
+    enabled: true
+    slot:
+    - HAT
+    bundleName: m_hat_gengar_bundle
+    assetName: m_hat_gengar_0
+    groupName: group_hat
+    sortOrder: 1227
+    unlockType: IAP_CLOTHING
+    iapSku: pgorelease.avatar.m_hat_gengar_0
+    iconName: m_hat_gengar_0_bundle_icon
 - templateId: AVATAR_m_hat_hgss_0
   avatarCustomization:
     enabled: true
@@ -3257,7 +3384,7 @@ itemTemplates:
     bundleName: m_hat_hgss_bundle
     assetName: m_hat_hgss_0
     groupName: group_hat
-    sortOrder: 1217
+    sortOrder: 1235
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_POKEDEX_ENTRIES_GEN2
     iapSku: pgorelease.avatar.m_hat_hgss_0
@@ -3271,7 +3398,7 @@ itemTemplates:
     bundleName: m_hat_jogger_bundle
     assetName: m_hat_jogger_0
     groupName: group_hat
-    sortOrder: 1222
+    sortOrder: 1240
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_TRAVEL_KM
     iapSku: pgorelease.avatar.m_hat_jogger_0
@@ -3285,7 +3412,7 @@ itemTemplates:
     bundleName: m_hat_magikarp_bundle
     assetName: m_hat_magikarp
     groupName: group_hat
-    sortOrder: 1226
+    sortOrder: 1244
     unlockType: DEFAULT
     iconName: m_hat_magikarp_bundle_icon
 - templateId: AVATAR_m_hat_mimikyu_0
@@ -3296,9 +3423,21 @@ itemTemplates:
     bundleName: m_hat_mimikyu_bundle
     assetName: m_hat_mimikyu_0
     groupName: group_hat
-    sortOrder: 1224
+    sortOrder: 1242
     unlockType: DEFAULT
     iconName: m_hat_mimikyu_bundle_icon
+- templateId: AVATAR_m_hat_mismagius_0
+  avatarCustomization:
+    enabled: true
+    slot:
+    - HAT
+    bundleName: m_hat_mismagius_bundle
+    assetName: m_hat_mismagius_0
+    groupName: group_hat
+    sortOrder: 1226
+    unlockType: IAP_CLOTHING
+    iapSku: pgorelease.avatar.m_hat_mismagius_0
+    iconName: m_hat_mismagius_0_bundle_icon
 - templateId: AVATAR_m_hat_pikachufan_0
   avatarCustomization:
     enabled: true
@@ -3307,7 +3446,7 @@ itemTemplates:
     bundleName: m_hat_pikachufan_bundle
     assetName: m_hat_pikachufan_0
     groupName: group_hat
-    sortOrder: 1218
+    sortOrder: 1236
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_PIKACHU
     iapSku: pgorelease.avatar.m_hat_pikachufan_0
@@ -3321,7 +3460,7 @@ itemTemplates:
     bundleName: m_hat_pkmncap_bundle
     assetName: m_hat_pkmncap_0
     groupName: group_hat
-    sortOrder: 1211
+    sortOrder: 1229
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_hat_pkmncap_0
     iconName: m_hat_pkmncap_0_bundle_icon
@@ -3333,7 +3472,7 @@ itemTemplates:
     bundleName: m_hat_pkmncap_bundle
     assetName: m_hat_pkmncap_1
     groupName: group_hat
-    sortOrder: 1212
+    sortOrder: 1230
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_hat_pkmncap_1
     iconName: m_hat_pkmncap_1_bundle_icon
@@ -3345,7 +3484,7 @@ itemTemplates:
     bundleName: m_hat_pkmncap_bundle
     assetName: m_hat_pkmncap_2
     groupName: group_hat
-    sortOrder: 1213
+    sortOrder: 1231
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_hat_pkmncap_2
     iconName: m_hat_pkmncap_2_bundle_icon
@@ -3357,7 +3496,7 @@ itemTemplates:
     bundleName: m_hat_teamleadercap_bundle
     assetName: m_hat_teamleadercap_0
     groupName: group_hat
-    sortOrder: 1214
+    sortOrder: 1232
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_hat_teamleadercap_0
     iconName: m_hat_teamleadercap_0_bundle_icon
@@ -3369,7 +3508,7 @@ itemTemplates:
     bundleName: m_hat_teamleadercap_bundle
     assetName: m_hat_teamleadercap_1
     groupName: group_hat
-    sortOrder: 1215
+    sortOrder: 1233
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_hat_teamleadercap_1
     iconName: m_hat_teamleadercap_1_bundle_icon
@@ -3381,7 +3520,7 @@ itemTemplates:
     bundleName: m_hat_teamleadercap_bundle
     assetName: m_hat_teamleadercap_2
     groupName: group_hat
-    sortOrder: 1216
+    sortOrder: 1234
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_hat_teamleadercap_2
     iconName: m_hat_teamleadercap_2_bundle_icon
@@ -3393,7 +3532,7 @@ itemTemplates:
     bundleName: m_hat_teamrocket_bundle
     assetName: m_hat_teamrocket_0
     groupName: group_hat
-    sortOrder: 1220
+    sortOrder: 1238
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_hat_teamrocket_0
     iconName: m_hat_teamrocket_bundle_icon
@@ -3405,7 +3544,7 @@ itemTemplates:
     bundleName: m_hat_tophat_bundle
     assetName: m_hat_tophat_0
     groupName: group_hat
-    sortOrder: 1229
+    sortOrder: 1247
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_hat_tophat_0
     iconName: m_hat_tophat_bundle_icon
@@ -3417,7 +3556,7 @@ itemTemplates:
     bundleName: m_hat_ultra_bundle
     assetName: m_hat_ultra_0
     groupName: group_hat
-    sortOrder: 1223
+    sortOrder: 1241
     unlockType: DEFAULT
     iconName: m_hat_ultra_bundle_icon
 - templateId: AVATAR_m_pants_default_0
@@ -3428,7 +3567,7 @@ itemTemplates:
     bundleName: m_pants_default_bundle
     assetName: m_pants_default_0
     groupName: group_pants
-    sortOrder: 1345
+    sortOrder: 1373
     unlockType: DEFAULT
     iconName: m_pants_default_bundle_icon
 - templateId: AVATAR_m_pants_fisher_0
@@ -3439,7 +3578,7 @@ itemTemplates:
     bundleName: m_pants_fisher_bundle
     assetName: m_pants_fisher_0
     groupName: group_pants
-    sortOrder: 1334
+    sortOrder: 1362
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_BIG_MAGIKARP
     iapSku: pgorelease.avatar.m_pants_fisher_0
@@ -3453,7 +3592,7 @@ itemTemplates:
     bundleName: m_pants_frlg_bundle
     assetName: m_pants_frlg_0
     groupName: group_pants
-    sortOrder: 1332
+    sortOrder: 1360
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_POKEDEX_ENTRIES
     iapSku: pgorelease.avatar.m_pants_frlg_0
@@ -3467,7 +3606,7 @@ itemTemplates:
     bundleName: m_pants_gymleader_bundle
     assetName: m_pants_gymleader_0
     groupName: group_pants
-    sortOrder: 1329
+    sortOrder: 1357
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_HOURS_DEFENDED
     iapSku: pgorelease.avatar.m_pants_gymleader_0
@@ -3481,7 +3620,7 @@ itemTemplates:
     bundleName: m_pants_gymleader_bundle
     assetName: m_pants_gymleader_1
     groupName: group_pants
-    sortOrder: 1330
+    sortOrder: 1358
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_HOURS_DEFENDED
     iapSku: pgorelease.avatar.m_pants_gymleader_1
@@ -3495,7 +3634,7 @@ itemTemplates:
     bundleName: m_pants_gymleader_bundle
     assetName: m_pants_gymleader_2
     groupName: group_pants
-    sortOrder: 1331
+    sortOrder: 1359
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_HOURS_DEFENDED
     iapSku: pgorelease.avatar.m_pants_gymleader_2
@@ -3509,7 +3648,7 @@ itemTemplates:
     bundleName: m_pants_hgss_bundle
     assetName: m_pants_hgss_0
     groupName: group_pants
-    sortOrder: 1327
+    sortOrder: 1354
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_POKEDEX_ENTRIES_GEN2
     iapSku: pgorelease.avatar.m_pants_hgss_0
@@ -3523,7 +3662,7 @@ itemTemplates:
     bundleName: m_pants_jogger_bundle
     assetName: m_pants_jogger_0
     groupName: group_pants
-    sortOrder: 1335
+    sortOrder: 1363
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_TRAVEL_KM
     iapSku: pgorelease.avatar.m_pants_jogger_0
@@ -3537,7 +3676,7 @@ itemTemplates:
     bundleName: m_pants_pikachufan_bundle
     assetName: m_pants_pikachufan_0
     groupName: group_pants
-    sortOrder: 1328
+    sortOrder: 1356
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_PIKACHU
     iapSku: pgorelease.avatar.m_pants_pikachufan_0
@@ -3551,7 +3690,7 @@ itemTemplates:
     bundleName: m_pants_skinnyjeans_bundle
     assetName: m_pants_skinnyjeans_0
     groupName: group_pants
-    sortOrder: 1342
+    sortOrder: 1370
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_pants_skinnyjeans_0
     iconName: m_pants_skinnyjeans_bundle_icon
@@ -3563,7 +3702,7 @@ itemTemplates:
     bundleName: m_pants_skinnyjeans_bundle
     assetName: m_pants_skinnyjeans_1
     groupName: group_pants
-    sortOrder: 1343
+    sortOrder: 1371
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_pants_skinnyjeans_1
     iconName: m_pants_skinnyjeans_bundle_icon
@@ -3575,7 +3714,7 @@ itemTemplates:
     bundleName: m_pants_skinnyjeans_bundle
     assetName: m_pants_skinnyjeans_2
     groupName: group_pants
-    sortOrder: 1344
+    sortOrder: 1372
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_pants_skinnyjeans_2
     iconName: m_pants_skinnyjeans_bundle_icon
@@ -3587,7 +3726,7 @@ itemTemplates:
     bundleName: m_pants_sweats_bundle
     assetName: m_pants_sweats_0
     groupName: group_pants
-    sortOrder: 1337
+    sortOrder: 1365
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_pants_sweats_0
     iconName: m_pants_sweats_bundle_icon
@@ -3599,7 +3738,7 @@ itemTemplates:
     bundleName: m_pants_sweats_bundle
     assetName: m_pants_sweats_1
     groupName: group_pants
-    sortOrder: 1338
+    sortOrder: 1366
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_pants_sweats_1
     iconName: m_pants_sweats_bundle_icon
@@ -3611,7 +3750,7 @@ itemTemplates:
     bundleName: m_pants_sweats_bundle
     assetName: m_pants_sweats_2
     groupName: group_pants
-    sortOrder: 1339
+    sortOrder: 1367
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_pants_sweats_2
     iconName: m_pants_sweats_bundle_icon
@@ -3623,7 +3762,7 @@ itemTemplates:
     bundleName: m_pants_sweats_bundle
     assetName: m_pants_sweats_3
     groupName: group_pants
-    sortOrder: 1340
+    sortOrder: 1368
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_pants_sweats_3
     iconName: m_pants_sweats_bundle_icon
@@ -3635,7 +3774,7 @@ itemTemplates:
     bundleName: m_pants_sweats_bundle
     assetName: m_pants_sweats_4
     groupName: group_pants
-    sortOrder: 1341
+    sortOrder: 1369
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_pants_sweats_4
     iconName: m_pants_sweats_bundle_icon
@@ -3647,7 +3786,7 @@ itemTemplates:
     bundleName: m_pants_teamrocket_bundle
     assetName: m_pants_teamrocket_0
     groupName: group_pants
-    sortOrder: 1333
+    sortOrder: 1361
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_pants_teamrocket_0
     iconName: m_pants_teamrocket_bundle_icon
@@ -3659,7 +3798,7 @@ itemTemplates:
     bundleName: m_pants_ultra_bundle
     assetName: m_pants_ultra_0
     groupName: group_pants
-    sortOrder: 1336
+    sortOrder: 1364
     unlockType: DEFAULT
     iconName: m_pants_ultra_bundle_icon
 - templateId: AVATAR_m_shirt_blazer_0
@@ -3670,7 +3809,7 @@ itemTemplates:
     bundleName: m_shirt_blazer_bundle
     assetName: m_shirt_blazer_0
     groupName: group_shirt
-    sortOrder: 1273
+    sortOrder: 1298
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_shirt_blazer_0
     iconName: m_shirt_blazer_bundle_icon
@@ -3682,7 +3821,7 @@ itemTemplates:
     bundleName: m_shirt_celebi_bundle
     assetName: m_shirt_celebi_0
     groupName: group_shirt
-    sortOrder: 1257
+    sortOrder: 1282
     unlockType: DEFAULT
     iconName: m_shirt_celebi_bundle_icon
 - templateId: AVATAR_m_shirt_default_0
@@ -3693,7 +3832,7 @@ itemTemplates:
     bundleName: m_shirt_default_bundle
     assetName: m_shirt_default_0
     groupName: group_shirt
-    sortOrder: 1301
+    sortOrder: 1326
     unlockType: DEFAULT
     iconName: m_shirt_default_0_bundle_icon
 - templateId: AVATAR_m_shirt_default_1
@@ -3704,7 +3843,7 @@ itemTemplates:
     bundleName: m_shirt_default_bundle
     assetName: m_shirt_default_1
     groupName: group_shirt
-    sortOrder: 1302
+    sortOrder: 1327
     unlockType: DEFAULT
     iconName: m_shirt_default_1_bundle_icon
 - templateId: AVATAR_m_shirt_default_2
@@ -3715,7 +3854,7 @@ itemTemplates:
     bundleName: m_shirt_default_bundle
     assetName: m_shirt_default_2
     groupName: group_shirt
-    sortOrder: 1300
+    sortOrder: 1325
     unlockType: DEFAULT
     iconName: m_shirt_default_2_bundle_icon
 - templateId: AVATAR_m_shirt_default_2B
@@ -3726,7 +3865,7 @@ itemTemplates:
     bundleName: m_shirt_default_bundle
     assetName: m_shirt_default_2B
     groupName: group_shirt
-    sortOrder: 1299
+    sortOrder: 1324
     unlockType: DEFAULT
     iconName: m_shirt_default_2_bundle_icon
 - templateId: AVATAR_m_shirt_default_3
@@ -3737,7 +3876,7 @@ itemTemplates:
     bundleName: m_shirt_default_bundle
     assetName: m_shirt_default_3
     groupName: group_shirt
-    sortOrder: 1303
+    sortOrder: 1328
     unlockType: DEFAULT
     iconName: m_shirt_default_3_bundle_icon
 - templateId: AVATAR_m_shirt_default_4
@@ -3748,7 +3887,7 @@ itemTemplates:
     bundleName: m_shirt_default_bundle
     assetName: m_shirt_default_4
     groupName: group_shirt
-    sortOrder: 1304
+    sortOrder: 1329
     unlockType: DEFAULT
     iconName: m_shirt_default_2_bundle_icon
 - templateId: AVATAR_m_shirt_default_5
@@ -3759,7 +3898,7 @@ itemTemplates:
     bundleName: m_shirt_default_bundle
     assetName: m_shirt_default_5
     groupName: group_shirt
-    sortOrder: 1305
+    sortOrder: 1330
     unlockType: DEFAULT
     iconName: m_shirt_default_2_bundle_icon
 - templateId: AVATAR_m_shirt_default_6
@@ -3770,7 +3909,7 @@ itemTemplates:
     bundleName: m_shirt_default_bundle
     assetName: m_shirt_default_6
     groupName: group_shirt
-    sortOrder: 1306
+    sortOrder: 1331
     unlockType: DEFAULT
     iconName: m_shirt_default_2_bundle_icon
 - templateId: AVATAR_m_shirt_default_7
@@ -3781,9 +3920,21 @@ itemTemplates:
     bundleName: m_shirt_default_bundle
     assetName: m_shirt_default_7
     groupName: group_shirt
-    sortOrder: 1307
+    sortOrder: 1332
     unlockType: DEFAULT
     iconName: m_shirt_default_2_bundle_icon
+- templateId: AVATAR_m_shirt_drifblim_0
+  avatarCustomization:
+    enabled: true
+    slot:
+    - SHIRT
+    bundleName: m_shirt_drifblim_bundle
+    assetName: m_shirt_drifblim_0
+    groupName: group_shirt
+    sortOrder: 1273
+    unlockType: IAP_CLOTHING
+    iapSku: pgorelease.avatar.m_shirt_drifblim_0
+    iconName: m_shirt_drifblim_0_bundle_icon
 - templateId: AVATAR_m_shirt_earthday_2018
   avatarCustomization:
     enabled: true
@@ -3792,7 +3943,7 @@ itemTemplates:
     bundleName: m_shirt_earthday_2018_bundle
     assetName: m_shirt_earthday_2018
     groupName: group_shirt
-    sortOrder: 1261
+    sortOrder: 1286
     unlockType: DEFAULT
     iconName: m_shirt_earthday_2018_bundle_icon
 - templateId: AVATAR_m_shirt_fisher_0
@@ -3803,7 +3954,7 @@ itemTemplates:
     bundleName: m_shirt_fisher_bundle
     assetName: m_shirt_fisher_0
     groupName: group_shirt
-    sortOrder: 1268
+    sortOrder: 1293
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_BIG_MAGIKARP
     iapSku: pgorelease.avatar.m_shirt_fisher_0
@@ -3817,7 +3968,7 @@ itemTemplates:
     bundleName: m_shirt_fragment_bundle
     assetName: m_shirt_fragment_0
     groupName: group_shirt
-    sortOrder: 1255
+    sortOrder: 1280
     unlockType: DEFAULT
     iconName: m_shirt_fragment_bundle_icon
 - templateId: AVATAR_m_shirt_frlg_0
@@ -3828,12 +3979,24 @@ itemTemplates:
     bundleName: m_shirt_frlg_bundle
     assetName: m_shirt_frlg_0
     groupName: group_shirt
-    sortOrder: 1265
+    sortOrder: 1290
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_POKEDEX_ENTRIES
     iapSku: pgorelease.avatar.m_shirt_frlg_0
     unlockBadgeLevel: 5
     iconName: m_shirt_frlg_bundle_icon
+- templateId: AVATAR_m_shirt_gengar_0
+  avatarCustomization:
+    enabled: true
+    slot:
+    - SHIRT
+    bundleName: m_shirt_gengar_bundle
+    assetName: m_shirt_gengar_0
+    groupName: group_shirt
+    sortOrder: 1279
+    unlockType: IAP_CLOTHING
+    iapSku: pgorelease.avatar.m_shirt_gengar_0
+    iconName: m_shirt_gengar_0_bundle_icon
 - templateId: AVATAR_m_shirt_gymleader_0
   avatarCustomization:
     enabled: true
@@ -3842,7 +4005,7 @@ itemTemplates:
     bundleName: m_shirt_gymleader_bundle
     assetName: m_shirt_gymleader_0
     groupName: group_shirt
-    sortOrder: 1262
+    sortOrder: 1287
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_HOURS_DEFENDED
     iapSku: pgorelease.avatar.m_shirt_gymleader_0
@@ -3856,7 +4019,7 @@ itemTemplates:
     bundleName: m_shirt_gymleader_bundle
     assetName: m_shirt_gymleader_1
     groupName: group_shirt
-    sortOrder: 1263
+    sortOrder: 1288
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_HOURS_DEFENDED
     iapSku: pgorelease.avatar.m_shirt_gymleader_1
@@ -3870,7 +4033,7 @@ itemTemplates:
     bundleName: m_shirt_gymleader_bundle
     assetName: m_shirt_gymleader_2
     groupName: group_shirt
-    sortOrder: 1264
+    sortOrder: 1289
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_HOURS_DEFENDED
     iapSku: pgorelease.avatar.m_shirt_gymleader_2
@@ -3884,7 +4047,7 @@ itemTemplates:
     bundleName: m_shirt_hgss_bundle
     assetName: m_shirt_hgss_0
     groupName: group_shirt
-    sortOrder: 1256
+    sortOrder: 1281
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_POKEDEX_ENTRIES_GEN2
     iapSku: pgorelease.avatar.m_shirt_hgss_0
@@ -3898,7 +4061,7 @@ itemTemplates:
     bundleName: m_shirt_jogger_bundle
     assetName: m_shirt_jogger_0
     groupName: group_shirt
-    sortOrder: 1269
+    sortOrder: 1294
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_TRAVEL_KM
     iapSku: pgorelease.avatar.m_shirt_jogger_0
@@ -3912,7 +4075,7 @@ itemTemplates:
     bundleName: m_shirt_latias_latios_bundle
     assetName: m_shirt_latias_latios_0
     groupName: group_shirt
-    sortOrder: 1258
+    sortOrder: 1283
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_shirt_latias_latios_0
     iconName: m_shirt_latias_latios_bundle_icon
@@ -3924,7 +4087,7 @@ itemTemplates:
     bundleName: m_shirt_longsleeves_bundle
     assetName: m_shirt_longsleeves_charizard_0
     groupName: group_shirt
-    sortOrder: 1274
+    sortOrder: 1299
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_shirt_longsleeves_charizard_0
     iconName: m_shirt_longsleeves_charizard_bundle_icon
@@ -3936,7 +4099,7 @@ itemTemplates:
     bundleName: m_shirt_longsleeves_bundle
     assetName: m_shirt_longsleeves_charizard_1
     groupName: group_shirt
-    sortOrder: 1275
+    sortOrder: 1300
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_shirt_longsleeves_charizard_1
     iconName: m_shirt_longsleeves_charizard_bundle_icon
@@ -3948,7 +4111,7 @@ itemTemplates:
     bundleName: m_shirt_longsleeves_bundle
     assetName: m_shirt_longsleeves_charizard_2
     groupName: group_shirt
-    sortOrder: 1276
+    sortOrder: 1301
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_shirt_longsleeves_charizard_2
     iconName: m_shirt_longsleeves_charizard_bundle_icon
@@ -3960,7 +4123,7 @@ itemTemplates:
     bundleName: m_shirt_longsleeves_bundle
     assetName: m_shirt_longsleeves_pikachu_0
     groupName: group_shirt
-    sortOrder: 1277
+    sortOrder: 1302
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_shirt_longsleeves_pikachu_0
     iconName: m_shirt_longsleeves_pikachu_bundle_icon
@@ -3972,7 +4135,7 @@ itemTemplates:
     bundleName: m_shirt_longsleeves_bundle
     assetName: m_shirt_longsleeves_pikachu_1
     groupName: group_shirt
-    sortOrder: 1278
+    sortOrder: 1303
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_shirt_longsleeves_pikachu_1
     iconName: m_shirt_longsleeves_pikachu_bundle_icon
@@ -3984,7 +4147,7 @@ itemTemplates:
     bundleName: m_shirt_longsleeves_bundle
     assetName: m_shirt_longsleeves_pikachu_2
     groupName: group_shirt
-    sortOrder: 1279
+    sortOrder: 1304
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_shirt_longsleeves_pikachu_2
     iconName: m_shirt_longsleeves_pikachu_bundle_icon
@@ -3996,7 +4159,7 @@ itemTemplates:
     bundleName: m_shirt_mew_bundle
     assetName: m_shirt_mew_0
     groupName: group_shirt
-    sortOrder: 1260
+    sortOrder: 1285
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_shirt_mew_0
     iconName: m_shirt_mew_bundle_icon
@@ -4008,12 +4171,24 @@ itemTemplates:
     bundleName: m_shirt_pikachufan_bundle
     assetName: m_shirt_pikachufan_0
     groupName: group_shirt
-    sortOrder: 1259
+    sortOrder: 1284
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_PIKACHU
     iapSku: pgorelease.avatar.m_shirt_pikachufan_0
     unlockBadgeLevel: 300
     iconName: m_shirt_pikachufan_bundle_icon
+- templateId: AVATAR_m_shirt_spiritomb_0
+  avatarCustomization:
+    enabled: true
+    slot:
+    - SHIRT
+    bundleName: m_shirt_spiritomb_bundle
+    assetName: m_shirt_spiritomb_0
+    groupName: group_shirt
+    sortOrder: 1278
+    unlockType: IAP_CLOTHING
+    iapSku: pgorelease.avatar.m_shirt_spiritomb_0
+    iconName: m_shirt_spiritomb_0_bundle_icon
 - templateId: AVATAR_m_shirt_sweatshirt_sporty_0
   avatarCustomization:
     enabled: true
@@ -4022,7 +4197,7 @@ itemTemplates:
     bundleName: m_shirt_sweatshirt_bundle
     assetName: m_shirt_sweatshirt_sporty_0
     groupName: group_shirt
-    sortOrder: 1290
+    sortOrder: 1315
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_shirt_sweatshirt_sporty_0
     iconName: m_shirt_sweatshirt_sporty_bundle_icon
@@ -4034,7 +4209,7 @@ itemTemplates:
     bundleName: m_shirt_sweatshirt_bundle
     assetName: m_shirt_sweatshirt_sporty_1
     groupName: group_shirt
-    sortOrder: 1291
+    sortOrder: 1316
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_shirt_sweatshirt_sporty_1
     iconName: m_shirt_sweatshirt_sporty_bundle_icon
@@ -4046,7 +4221,7 @@ itemTemplates:
     bundleName: m_shirt_sweatshirt_bundle
     assetName: m_shirt_sweatshirt_sporty_2
     groupName: group_shirt
-    sortOrder: 1292
+    sortOrder: 1317
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_shirt_sweatshirt_sporty_2
     iconName: m_shirt_sweatshirt_sporty_bundle_icon
@@ -4058,7 +4233,7 @@ itemTemplates:
     bundleName: m_shirt_sweatshirt_bundle
     assetName: m_shirt_sweatshirt_sporty_3
     groupName: group_shirt
-    sortOrder: 1293
+    sortOrder: 1318
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_shirt_sweatshirt_sporty_3
     iconName: m_shirt_sweatshirt_sporty_bundle_icon
@@ -4070,7 +4245,7 @@ itemTemplates:
     bundleName: m_shirt_sweatshirt_bundle
     assetName: m_shirt_sweatshirt_streak_0
     groupName: group_shirt
-    sortOrder: 1294
+    sortOrder: 1319
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_shirt_sweatshirt_streak_0
     iconName: m_shirt_sweatshirt_streak_bundle_icon
@@ -4082,7 +4257,7 @@ itemTemplates:
     bundleName: m_shirt_sweatshirt_bundle
     assetName: m_shirt_sweatshirt_streak_1
     groupName: group_shirt
-    sortOrder: 1295
+    sortOrder: 1320
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_shirt_sweatshirt_streak_1
     iconName: m_shirt_sweatshirt_streak_bundle_icon
@@ -4094,7 +4269,7 @@ itemTemplates:
     bundleName: m_shirt_sweatshirt_bundle
     assetName: m_shirt_sweatshirt_streak_2
     groupName: group_shirt
-    sortOrder: 1296
+    sortOrder: 1321
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_shirt_sweatshirt_streak_2
     iconName: m_shirt_sweatshirt_streak_bundle_icon
@@ -4106,7 +4281,7 @@ itemTemplates:
     bundleName: m_shirt_sweatshirt_bundle
     assetName: m_shirt_sweatshirt_streak_3
     groupName: group_shirt
-    sortOrder: 1297
+    sortOrder: 1322
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_shirt_sweatshirt_streak_3
     iconName: m_shirt_sweatshirt_streak_bundle_icon
@@ -4118,7 +4293,7 @@ itemTemplates:
     bundleName: m_shirt_sweatshirt_bundle
     assetName: m_shirt_sweatshirt_streak_4
     groupName: group_shirt
-    sortOrder: 1298
+    sortOrder: 1323
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_shirt_sweatshirt_streak_4
     iconName: m_shirt_sweatshirt_streak_bundle_icon
@@ -4130,7 +4305,7 @@ itemTemplates:
     bundleName: m_shirt_teamrocket_bundle
     assetName: m_shirt_teamrocket_0
     groupName: group_shirt
-    sortOrder: 1266
+    sortOrder: 1291
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_shirt_teamrocket_0
     iconName: m_shirt_teamrocket_0_bundle_icon
@@ -4142,7 +4317,7 @@ itemTemplates:
     bundleName: m_shirt_teamrocket_bundle
     assetName: m_shirt_teamrocket_1
     groupName: group_shirt
-    sortOrder: 1267
+    sortOrder: 1292
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_shirt_teamrocket_1
     iconName: m_shirt_teamrocket_1_bundle_icon
@@ -4154,7 +4329,7 @@ itemTemplates:
     bundleName: m_shirt_tshirt_bundle
     assetName: m_shirt_tshirt_fest_chicago_2017
     groupName: group_shirt
-    sortOrder: 1272
+    sortOrder: 1297
     unlockType: DEFAULT
     iconName: m_shirt_tshirt_fest_chicago_2017_bundle_icon
 - templateId: AVATAR_m_shirt_tshirt_fest_chicago_2018
@@ -4176,7 +4351,7 @@ itemTemplates:
     bundleName: m_shirt_tshirt_bundle
     assetName: m_shirt_tshirt_geometric_0
     groupName: group_shirt
-    sortOrder: 1287
+    sortOrder: 1312
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_shirt_tshirt_geometric_0
     iconName: m_shirt_tshirt_geometric_bundle_icon
@@ -4188,7 +4363,7 @@ itemTemplates:
     bundleName: m_shirt_tshirt_bundle
     assetName: m_shirt_tshirt_geometric_1
     groupName: group_shirt
-    sortOrder: 1288
+    sortOrder: 1313
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_shirt_tshirt_geometric_1
     iconName: m_shirt_tshirt_geometric_bundle_icon
@@ -4200,7 +4375,7 @@ itemTemplates:
     bundleName: m_shirt_tshirt_bundle
     assetName: m_shirt_tshirt_geometric_2
     groupName: group_shirt
-    sortOrder: 1289
+    sortOrder: 1314
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_shirt_tshirt_geometric_2
     iconName: m_shirt_tshirt_geometric_bundle_icon
@@ -4212,7 +4387,7 @@ itemTemplates:
     bundleName: m_shirt_tshirt_bundle
     assetName: m_shirt_tshirt_global_goals_2017
     groupName: group_shirt
-    sortOrder: 1271
+    sortOrder: 1296
     unlockType: DEFAULT
     iconName: m_shirt_tshirt_global_goals_2017_bundle_icon
 - templateId: AVATAR_m_shirt_tshirt_instinct
@@ -4223,7 +4398,7 @@ itemTemplates:
     bundleName: m_shirt_tshirt_bundle
     assetName: m_shirt_tshirt_instinct
     groupName: group_shirt
-    sortOrder: 1282
+    sortOrder: 1307
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_shirt_tshirt_instinct
     iconName: m_shirt_tshirt_instinct_bundle_icon
@@ -4235,7 +4410,7 @@ itemTemplates:
     bundleName: m_shirt_tshirt_bundle
     assetName: m_shirt_tshirt_mystic
     groupName: group_shirt
-    sortOrder: 1281
+    sortOrder: 1306
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_shirt_tshirt_mystic
     iconName: m_shirt_tshirt_mystic_bundle_icon
@@ -4247,7 +4422,7 @@ itemTemplates:
     bundleName: m_shirt_tshirt_bundle
     assetName: m_shirt_tshirt_valor
     groupName: group_shirt
-    sortOrder: 1280
+    sortOrder: 1305
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_shirt_tshirt_valor
     iconName: m_shirt_tshirt_valor_bundle_icon
@@ -4259,7 +4434,7 @@ itemTemplates:
     bundleName: m_shirt_turtleneck_bundle
     assetName: m_shirt_turtleneck_30_0
     groupName: group_shirt
-    sortOrder: 1284
+    sortOrder: 1309
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_shirt_turtleneck_30_0
     iconName: m_shirt_turtleneck_30_bundle_icon
@@ -4272,7 +4447,7 @@ itemTemplates:
     bundleName: m_shirt_turtleneck_bundle
     assetName: m_shirt_turtleneck_30_1
     groupName: group_shirt
-    sortOrder: 1285
+    sortOrder: 1310
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_shirt_turtleneck_30_1
     iconName: m_shirt_turtleneck_30_bundle_icon
@@ -4285,7 +4460,7 @@ itemTemplates:
     bundleName: m_shirt_turtleneck_bundle
     assetName: m_shirt_turtleneck_30_2
     groupName: group_shirt
-    sortOrder: 1283
+    sortOrder: 1308
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_shirt_turtleneck_30_2
     iconName: m_shirt_turtleneck_30_bundle_icon
@@ -4298,7 +4473,7 @@ itemTemplates:
     bundleName: m_shirt_turtleneck_bundle
     assetName: m_shirt_turtleneck_30_3
     groupName: group_shirt
-    sortOrder: 1286
+    sortOrder: 1311
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_shirt_turtleneck_30_3
     iconName: m_shirt_turtleneck_30_bundle_icon
@@ -4311,7 +4486,7 @@ itemTemplates:
     bundleName: m_shirt_ultra_bundle
     assetName: m_shirt_ultra_0
     groupName: group_shirt
-    sortOrder: 1270
+    sortOrder: 1295
     unlockType: DEFAULT
     iconName: m_shirt_ultra_bundle_icon
 - templateId: AVATAR_m_shoes_default_0
@@ -4322,7 +4497,7 @@ itemTemplates:
     bundleName: m_shoes_default_bundle
     assetName: m_shoes_default_0
     groupName: group_shoes
-    sortOrder: 1364
+    sortOrder: 1394
     unlockType: DEFAULT
     iconName: m_shoes_default_bundle_icon
 - templateId: AVATAR_m_shoes_default_1
@@ -4333,7 +4508,7 @@ itemTemplates:
     bundleName: m_shoes_default_bundle
     assetName: m_shoes_default_1
     groupName: group_shoes
-    sortOrder: 1365
+    sortOrder: 1395
     unlockType: DEFAULT
     iconName: m_shoes_default_bundle_icon
 - templateId: AVATAR_m_shoes_default_2
@@ -4344,7 +4519,7 @@ itemTemplates:
     bundleName: m_shoes_default_bundle
     assetName: m_shoes_default_2
     groupName: group_shoes
-    sortOrder: 1363
+    sortOrder: 1393
     unlockType: DEFAULT
     iconName: m_shoes_default_bundle_icon
 - templateId: AVATAR_m_shoes_default_3
@@ -4355,7 +4530,7 @@ itemTemplates:
     bundleName: m_shoes_default_bundle
     assetName: m_shoes_default_3
     groupName: group_shoes
-    sortOrder: 1366
+    sortOrder: 1396
     unlockType: DEFAULT
     iconName: m_shoes_default_bundle_icon
 - templateId: AVATAR_m_shoes_default_4
@@ -4366,7 +4541,7 @@ itemTemplates:
     bundleName: m_shoes_default_bundle
     assetName: m_shoes_default_4
     groupName: group_shoes
-    sortOrder: 1367
+    sortOrder: 1397
     unlockType: DEFAULT
     iconName: m_shoes_default_bundle_icon
 - templateId: AVATAR_m_shoes_default_5
@@ -4377,7 +4552,7 @@ itemTemplates:
     bundleName: m_shoes_default_bundle
     assetName: m_shoes_default_5
     groupName: group_shoes
-    sortOrder: 1368
+    sortOrder: 1398
     unlockType: DEFAULT
     iconName: m_shoes_default_bundle_icon
 - templateId: AVATAR_m_shoes_default_6
@@ -4388,7 +4563,7 @@ itemTemplates:
     bundleName: m_shoes_default_bundle
     assetName: m_shoes_default_6
     groupName: group_shoes
-    sortOrder: 1369
+    sortOrder: 1399
     unlockType: DEFAULT
     iconName: m_shoes_default_bundle_icon
 - templateId: AVATAR_m_shoes_empty
@@ -4399,7 +4574,7 @@ itemTemplates:
     bundleName: m_shoes_empty_bundle
     assetName: m_shoes_empty
     groupName: group_shoes
-    sortOrder: 1370
+    sortOrder: 1400
     unlockType: DEFAULT
     iconName: m_shoes_empty_bundle_icon
 - templateId: AVATAR_m_shoes_fisher_0
@@ -4410,7 +4585,7 @@ itemTemplates:
     bundleName: m_shoes_fisher_bundle
     assetName: m_shoes_fisher_0
     groupName: group_shoes
-    sortOrder: 1360
+    sortOrder: 1390
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_BIG_MAGIKARP
     iapSku: pgorelease.avatar.m_shoes_fisher_0
@@ -4424,7 +4599,7 @@ itemTemplates:
     bundleName: m_shoes_frlg_bundle
     assetName: m_shoes_frlg_0
     groupName: group_shoes
-    sortOrder: 1357
+    sortOrder: 1387
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_POKEDEX_ENTRIES
     iapSku: pgorelease.avatar.m_shoes_frlg_0
@@ -4438,7 +4613,7 @@ itemTemplates:
     bundleName: m_shoes_gymleader_bundle
     assetName: m_shoes_gymleader_0
     groupName: group_shoes
-    sortOrder: 1354
+    sortOrder: 1384
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_HOURS_DEFENDED
     iapSku: pgorelease.avatar.m_shoes_gymleader_0
@@ -4452,7 +4627,7 @@ itemTemplates:
     bundleName: m_shoes_gymleader_bundle
     assetName: m_shoes_gymleader_1
     groupName: group_shoes
-    sortOrder: 1355
+    sortOrder: 1385
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_HOURS_DEFENDED
     iapSku: pgorelease.avatar.m_shoes_gymleader_1
@@ -4466,7 +4641,7 @@ itemTemplates:
     bundleName: m_shoes_gymleader_bundle
     assetName: m_shoes_gymleader_2
     groupName: group_shoes
-    sortOrder: 1356
+    sortOrder: 1386
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_HOURS_DEFENDED
     iapSku: pgorelease.avatar.m_shoes_gymleader_2
@@ -4480,7 +4655,7 @@ itemTemplates:
     bundleName: m_shoes_hgss_bundle
     assetName: m_shoes_hgss_0
     groupName: group_shoes
-    sortOrder: 1352
+    sortOrder: 1382
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_POKEDEX_ENTRIES_GEN2
     iapSku: pgorelease.avatar.m_shoes_hgss_0
@@ -4494,7 +4669,7 @@ itemTemplates:
     bundleName: m_shoes_jogger_bundle
     assetName: m_shoes_jogger_0
     groupName: group_shoes
-    sortOrder: 1361
+    sortOrder: 1391
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_TRAVEL_KM
     iapSku: pgorelease.avatar.m_shoes_jogger_0
@@ -4508,7 +4683,7 @@ itemTemplates:
     bundleName: m_shoes_pikachufan_bundle
     assetName: m_shoes_pikachufan_0
     groupName: group_shoes
-    sortOrder: 1353
+    sortOrder: 1383
     unlockType: IAP_CLOTHING
     unlockBadgeType: BADGE_PIKACHU
     iapSku: pgorelease.avatar.m_shoes_pikachufan_0
@@ -4522,7 +4697,7 @@ itemTemplates:
     bundleName: m_shoes_teamrocket_bundle
     assetName: m_shoes_teamrocket_0
     groupName: group_shoes
-    sortOrder: 1358
+    sortOrder: 1388
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_shoes_teamrocket_0
     iconName: m_shoes_teamrocket_0_bundle_icon
@@ -4534,7 +4709,7 @@ itemTemplates:
     bundleName: m_shoes_teamrocket_bundle
     assetName: m_shoes_teamrocket_1
     groupName: group_shoes
-    sortOrder: 1359
+    sortOrder: 1389
     unlockType: IAP_CLOTHING
     iapSku: pgorelease.avatar.m_shoes_teamrocket_1
     iconName: m_shoes_teamrocket_1_bundle_icon
@@ -4546,7 +4721,7 @@ itemTemplates:
     bundleName: m_shoes_ultra_bundle
     assetName: m_shoes_ultra_0
     groupName: group_shoes
-    sortOrder: 1362
+    sortOrder: 1392
     unlockType: DEFAULT
     iconName: m_shoes_ultra_bundle_icon
 - templateId: AVATAR_m_socks_default_0
@@ -4557,7 +4732,7 @@ itemTemplates:
     bundleName: m_socks_default_bundle
     assetName: m_socks_default_0
     groupName: group_socks
-    sortOrder: 1348
+    sortOrder: 1377
     unlockType: DEFAULT
     iconName: m_socks_default_bundle_icon
 - templateId: AVATAR_m_socks_default_1
@@ -4568,7 +4743,7 @@ itemTemplates:
     bundleName: m_socks_default_bundle
     assetName: m_socks_default_1
     groupName: group_socks
-    sortOrder: 1349
+    sortOrder: 1378
     unlockType: DEFAULT
     iconName: m_socks_default_bundle_icon
 - templateId: AVATAR_m_socks_default_2
@@ -4579,7 +4754,7 @@ itemTemplates:
     bundleName: m_socks_default_bundle
     assetName: m_socks_default_2
     groupName: group_socks
-    sortOrder: 1350
+    sortOrder: 1379
     unlockType: DEFAULT
     iconName: m_socks_default_bundle_icon
 - templateId: AVATAR_m_socks_default_3
@@ -4590,7 +4765,7 @@ itemTemplates:
     bundleName: m_socks_default_bundle
     assetName: m_socks_default_3
     groupName: group_socks
-    sortOrder: 1347
+    sortOrder: 1375
     unlockType: DEFAULT
     iconName: m_socks_default_bundle_icon
 - templateId: AVATAR_m_socks_empty
@@ -4601,7 +4776,7 @@ itemTemplates:
     bundleName: m_socks_empty_bundle
     assetName: m_socks_empty
     groupName: group_socks
-    sortOrder: 1351
+    sortOrder: 1380
     unlockType: DEFAULT
     iconName: m_socks_empty_bundle_icon
 - templateId: BADGE_APAC_PARTNER_JULY_2018_1
@@ -6935,7 +7110,7 @@ itemTemplates:
     category: IAP_CATEGORY_AVATAR
     sortOrder: 2
     bannerEnabled: true
-    imageUrl: https://storage.googleapis.com/devholoholo-news/pkmncap_v1.jpg
+    imageUrl: https://storage.googleapis.com/devholoholo-news/2018_halloween_avatar_storebanner.jpg
     description: avatar_shop_description
 - templateId: IAP_CATEGORY_BUNDLE
   iapCategoryDisplay:
@@ -10677,8 +10852,7 @@ itemTemplates:
   genderSettings:
     pokemon: VESPIQUEN
     gender:
-      malePercent: 0.5
-      femalePercent: 0.5
+      femalePercent: 1.0
 - templateId: SPAWN_V0417_POKEMON_PACHIRISU
   genderSettings:
     pokemon: PACHIRISU
@@ -39597,21 +39771,6 @@ itemTemplates:
     damageWindowStartMs: 2145
     damageWindowEndMs: 2550
     energyDelta: -50
-- templateId: V0296_MOVE_METEOR_MASH
-  moveSettings:
-    movementId: METEOR_MASH
-    animationId: 5
-    pokemonType: POKEMON_TYPE_STEEL
-    power: 100.0
-    accuracyChance: 1.0
-    staminaLossScalar: 0.01
-    trainerLevelMin: 1
-    trainerLevelMax: 100
-    vfxName: frenzy_plant
-    durationMs: 2600
-    damageWindowStartMs: 2145
-    damageWindowEndMs: 2550
-    energyDelta: -50
 - templateId: V0296_POKEMON_MAKUHITA
   pokemonSettings:
     pokemonId: MAKUHITA
@@ -40045,6 +40204,22 @@ itemTemplates:
     - 0.0
     isTransferable: true
     isDeployable: true
+- templateId: V0301_MOVE_METEOR_MASH
+  moveSettings:
+    movementId: METEOR_MASH
+    animationId: 5
+    pokemonType: POKEMON_TYPE_STEEL
+    power: 100.0
+    accuracyChance: 1.0
+    criticalChance: 0.05
+    staminaLossScalar: 0.065
+    trainerLevelMin: 1
+    trainerLevelMax: 100
+    vfxName: meteor_mash
+    durationMs: 2600
+    damageWindowStartMs: 2300
+    damageWindowEndMs: 2500
+    energyDelta: -50
 - templateId: V0301_POKEMON_DELCATTY
   pokemonSettings:
     pokemonId: DELCATTY
@@ -49207,8 +49382,8 @@ itemTemplates:
       maxPokemonActionFrequencyS: 1.6
     stats:
       baseStamina: 155
-      baseAttack: 127
-      baseDefense: 175
+      baseAttack: 141
+      baseDefense: 180
     quickMoves:
     - CONFUSION_FAST
     - BUG_BITE_FAST
@@ -49284,8 +49459,8 @@ itemTemplates:
       maxPokemonActionFrequencyS: 1.6
     stats:
       baseStamina: 155
-      baseAttack: 141
-      baseDefense: 180
+      baseAttack: 127
+      baseDefense: 175
     quickMoves:
     - CONFUSION_FAST
     - BUG_BITE_FAST
@@ -54735,8 +54910,8 @@ itemTemplates:
       maxPokemonActionFrequencyS: 1.6
     stats:
       baseStamina: 137
-      baseAttack: 204
-      baseDefense: 219
+      baseAttack: 185
+      baseDefense: 159
     quickMoves:
     - TACKLE_FAST
     - THUNDER_SHOCK_FAST
@@ -55104,8 +55279,8 @@ itemTemplates:
       maxPokemonActionFrequencyS: 1.6
     stats:
       baseStamina: 137
-      baseAttack: 204
-      baseDefense: 219
+      baseAttack: 185
+      baseDefense: 159
     quickMoves:
     - TACKLE_FAST
     - THUNDER_SHOCK_FAST
@@ -55178,8 +55353,8 @@ itemTemplates:
       maxPokemonActionFrequencyS: 1.6
     stats:
       baseStamina: 137
-      baseAttack: 185
-      baseDefense: 159
+      baseAttack: 204
+      baseDefense: 219
     quickMoves:
     - TACKLE_FAST
     - THUNDER_SHOCK_FAST
@@ -56089,9 +56264,6 @@ itemTemplates:
     candyToEvolve: 25
     kmBuddyDistance: 20.0
     modelHeight: 0.36
-    evolutionBranch:
-    - evolution: MANAPHY
-      candyCost: 50
     modelScaleV2: 1.17
     buddyOffsetMale:
     - 0.0
@@ -56276,8 +56448,8 @@ itemTemplates:
       maxPokemonActionFrequencyS: 1.6
     stats:
       baseStamina: 225
-      baseAttack: 261
-      baseDefense: 166
+      baseAttack: 210
+      baseDefense: 210
     quickMoves:
     - HIDDEN_POWER_FAST
     - ZEN_HEADBUTT_FAST
@@ -56346,8 +56518,8 @@ itemTemplates:
       maxPokemonActionFrequencyS: 1.6
     stats:
       baseStamina: 225
-      baseAttack: 261
-      baseDefense: 166
+      baseAttack: 210
+      baseDefense: 210
     quickMoves:
     - HIDDEN_POWER_FAST
     - ZEN_HEADBUTT_FAST
@@ -56418,8 +56590,8 @@ itemTemplates:
       maxPokemonActionFrequencyS: 1.6
     stats:
       baseStamina: 225
-      baseAttack: 210
-      baseDefense: 210
+      baseAttack: 261
+      baseDefense: 166
     quickMoves:
     - HIDDEN_POWER_FAST
     - ZEN_HEADBUTT_FAST
@@ -73108,6 +73280,16 @@ itemTemplates:
     - wait 0.25
     - sys ui-sync
     - sys complete
+- templateId: sequence_meteor_mash
+  moveSequenceSettings:
+    sequence:
+    - anim attacker atk-move
+    - wait 0.5
+    - vfx meteor_mash
+    - sfx attacker 309-0_meteor_mash
+    - wait 1.5
+    - sys ui-sync
+    - sys complete
 - templateId: sequence_mirror_coat
   moveSequenceSettings:
     sequence:
@@ -74179,4 +74361,4 @@ itemTemplates:
     - wait 0.25
     - sys ui-sync
     - sys complete
-timestampMs: '1540779412719'
+timestampMs: '1542581210773'
