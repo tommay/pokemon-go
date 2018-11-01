@@ -22199,6 +22199,7 @@ itemTemplates:
     - SUCKER_PUNCH_FAST
     - HEX_FAST
     - LICK_FAST     # 11/3/2018 Gengar day
+    - SHADOW_CLAW_FAST
     cinematicMoves:
     - SHADOW_BALL
     - FOCUS_BLAST
