@@ -22198,10 +22198,12 @@ itemTemplates:
     quickMoves:
     - SUCKER_PUNCH_FAST
     - HEX_FAST
+    - LICK_FAST     # 11/3/2018 Gengar day
     cinematicMoves:
     - SHADOW_BALL
     - FOCUS_BLAST
     - SLUDGE_BOMB
+    - PSYCHIC       # 11/3/2018 Gengar day
     animationTime:
     - 1.6667
     - 0.6667
