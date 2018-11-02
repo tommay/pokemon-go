@@ -110,7 +110,7 @@ getOptions =
         <> O.short 'e'
         <> O.metavar "EVOLUTION"
         <> O.help "Final evolution desired")
-      optMoveset = O.optional $ (O.option $ optParseMoveset 0)
+      optMoveset = O.optional $ O.option optParseMoveset
         (  O.long "moveset"
         <> O.short 'm'
         <> O.metavar "ATTACKER_MOVESET"
@@ -125,11 +125,11 @@ getOptions =
       prefs = O.prefs O.showHelpOnEmpty
   in O.customExecParser prefs options
 
-optParseMoveset :: a -> O.ReadM Moveset
-optParseMoveset = O.eitherReader . parseMoveset
+optParseMoveset :: O.ReadM Moveset
+optParseMoveset = O.eitherReader parseMoveset
 
-parseMoveset :: a -> String -> Either String Moveset
-parseMoveset _ string =
+parseMoveset :: String -> Either String Moveset
+parseMoveset string =
   let attoParseMoveset = do
         quickName <- many $ Atto.notChar '/'
         Atto.char '/'
