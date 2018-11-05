@@ -54,6 +54,7 @@ import qualified Debug as D
 data GameMaster = GameMaster {
   types         :: StringMap Type,
   moves         :: StringMap Move,
+  forms         :: StringMap [String],
   pokemonBases  :: StringMap PokemonBase,
   cpMultipliers :: Vector Float,
   stardustCost  :: [Int],
@@ -78,7 +79,16 @@ allPokemonBases this =
 
 getPokemonBase :: Epic.MonadCatch m => GameMaster -> String -> m PokemonBase
 getPokemonBase this speciesName =
-  GameMaster.lookup "species" (pokemonBases this) speciesName
+  let getPokemonBase' = GameMaster.lookup "species" (pokemonBases this)
+  in case getPokemonBase' speciesName of
+       Right pokemonBase -> return pokemonBase
+       Left _ -> case getPokemonBase' (speciesName ++ "_NORMAL") of
+         Right pokemonBase -> return pokemonBase
+         Left _ -> do
+           forms <- GameMaster.lookup "species" (forms this) speciesName
+           Epic.fail $
+             speciesName ++ " has no normal form.  Specify one of " ++
+             map toLower (commaSeparated forms) ++ "."
 
 getMove :: Epic.MonadCatch m => GameMaster -> String -> m Move
 getMove this moveName  =
@@ -160,9 +170,11 @@ makeGameMaster yamlObject = do
   itemTemplates <- getItemTemplates yamlObject
   types <- getTypes itemTemplates
   moves <- getMoves types itemTemplates
+  forms <- getForms itemTemplates
   pokemonBases <-
-    makeObjects "pokemonSettings" getSpeciesForPokemonBase
-      (makePokemonBase types moves) itemTemplates
+    makeObjects "pokemonSettings" (getSpeciesForPokemonBase forms)
+      (makePokemonBase types moves forms)
+      (filter (hasFormIfRequired forms) itemTemplates)
   cpMultipliers <- do
     playerLevel <- getFirst itemTemplates "playerLevel"
     getObjectValue playerLevel "cpMultiplier"
@@ -189,8 +201,8 @@ makeGameMaster yamlObject = do
         in HashMap.insert weather m map)
       HashMap.empty
       $ HashMap.toList weatherAffinityMap
-  return $ GameMaster.new types moves pokemonBases cpMultipliers stardustCost
-    candyCost weatherBonusMap
+  return $ GameMaster.new types moves forms pokemonBases cpMultipliers
+    stardustCost candyCost weatherBonusMap
 
 -- Here it's nice to use Yaml.Parser because it will error if we don't
 -- get a [ItemTemplate], i.e., it checks that the Yaml.Values are the
@@ -254,6 +266,19 @@ makeMove types itemTemplate =
     <*> getTemplateValue "damageWindowStartMs"
     <*> getObjectValueWithDefault itemTemplate "energyDelta" 0
 
+-- Return a map of pokemon species to a (possibly empty) list of its forms.
+--
+getForms :: Epic.MonadCatch m => [ItemTemplate] -> m (StringMap [String])
+getForms itemTemplates =
+  makeObjects "formSettings" (getNameFromKey "pokemon")
+    getFormNames itemTemplates
+
+getFormNames :: Epic.MonadCatch m => ItemTemplate -> m [String]
+getFormNames formSettings =
+  case getObjectValue formSettings "forms" of
+    Left _ -> return []
+    Right forms -> mapM (\ form -> getObjectValue form "form") forms
+
 -- This is a little goofy because GAME_MASTER is a little goofy.  There are
 -- three templates for the two exeggutor forms.  The first and third are
 -- redundant with each other:
@@ -272,23 +297,23 @@ makeMove types itemTemplate =
 -- hash, but the first one will be overwritten which is fine because
 -- except for the form they are identical.
 
-getSpeciesForPokemonBase :: Epic.MonadCatch m => ItemTemplate -> m String
-getSpeciesForPokemonBase itemTemplate =
-  case getObjectValue itemTemplate "form" of
-    Right form -> return $ removeNormal form
-    Left _ -> getObjectValue itemTemplate "pokemonId"
+getSpeciesForPokemonBase :: Epic.MonadCatch m => StringMap [String] -> ItemTemplate -> m String
+getSpeciesForPokemonBase forms itemTemplate = do
+  species <- getObjectValue itemTemplate "pokemonId"
+  case HashMap.lookup species forms of
+    Nothing -> Epic.fail $ "Can't find forms for " ++ species
+    Just [] -> return species
+    Just _ -> case getObjectValue itemTemplate "form" of
+      Right form -> return form
+      Left _ -> Epic.fail $ "No form specified for " ++ species      
 
-removeNormal :: String -> String
-removeNormal string =
-  Regex.subRegex (Regex.mkRegex "_NORMAL") string ""
-
-makePokemonBase :: Epic.MonadCatch m => StringMap Type -> StringMap Move -> ItemTemplate -> m PokemonBase
-makePokemonBase types moves pokemonSettings =
+makePokemonBase :: Epic.MonadCatch m => StringMap Type -> StringMap Move -> StringMap [String] -> ItemTemplate -> m PokemonBase
+makePokemonBase types moves forms pokemonSettings =
   Epic.catch (do
     let getValue key = getObjectValue pokemonSettings key
 
     species <- do
-      species <- getSpeciesForPokemonBase pokemonSettings
+      species <- getSpeciesForPokemonBase forms pokemonSettings
       return $ map toLower species
 
     ptypes <- do
@@ -309,7 +334,7 @@ makePokemonBase types moves pokemonSettings =
         Right evolutionBranch ->
           mapM (\ branch -> do
             evolution <- case getObjectValue branch "form" of
-              Right form -> return $ removeNormal form
+              Right form -> return form
               Left _ -> getObjectValue branch "evolution"
             candyCost <- case getObjectValue branch "candyCost" of
               Right candyCost -> return candyCost
@@ -376,6 +401,27 @@ getFirst itemTemplates filterKey =
   case getAll itemTemplates filterKey of
     [head] -> return head
     _ -> Epic.fail $ "Expected exactly one " ++ show filterKey
+
+hasFormIfRequired :: StringMap [String] -> ItemTemplate -> Bool
+hasFormIfRequired forms itemTemplate =
+  case getObjectValue itemTemplate "pokemonSettings" of
+    Left _ -> False
+    Right pokemonSettings ->
+      case getObjectValue pokemonSettings "pokemonId" of
+        Left _ -> False
+        Right species ->
+          case HashMap.lookup species forms of
+            Nothing -> False
+            Just [] -> True
+            _ -> case getObjectValue pokemonSettings "form" of
+                   Left _ -> False
+                   -- I would like to say Right _ -> True but the compiler
+                   -- needs to know the type of _ so it can make/use the
+                   -- correct variant of getObjectValue.  Rather than trying
+                   -- to come up with a complex annotation for getObjectValue,
+                   -- it is simpler to annotate form but ignore the value like
+                   -- this:
+                   Right form -> const True (form :: String)
 
 -- This seems roundabout, but the good thing is that the type "a" is
 -- inferred from the usage context so the result is error-checked.
@@ -452,3 +498,12 @@ dustAtLevel this =
 candyAtLevel :: GameMaster -> Float -> Maybe Int
 candyAtLevel this =
   costAtLevel this GameMaster.candyAndLevel
+
+commaSeparated :: [String] -> String
+commaSeparated [] = ""
+commaSeparated [a] = a
+commaSeparated [a, b] = a ++ " or " ++ b
+commaSeparated list =
+  let commaSeparated' [a, b] = a ++ ", or " ++ b
+      commaSeparated' (h:t) = h ++ ", " ++ commaSeparated' t
+  in commaSeparated' list
