@@ -27842,6 +27842,7 @@ itemTemplates:
     - FIRE_BLAST
     - OVERHEAT
     - SOLAR_BEAM
+    - BLAST_BURN      # Community day 11/2018.
     animationTime:
     - 1.3333
     - 0.6667
