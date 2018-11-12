@@ -314,7 +314,8 @@ makePokemonBase types moves forms pokemonSettings =
 
     species <- do
       species <- getSpeciesForPokemonBase forms pokemonSettings
-      return $ map toLower species
+      let normal = Regex.mkRegex "_normal$"
+      return $ Regex.subRegex normal (map toLower species) ""
 
     ptypes <- do
       ptype <- getValue "type"
