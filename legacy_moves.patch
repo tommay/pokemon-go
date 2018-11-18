@@ -1,38 +1,38 @@
---- GAME_MASTER.yaml.orig	2018-11-09 10:27:12.793685691 -0800
-+++ GAME_MASTER.yaml	2018-11-09 10:29:16.685038525 -0800
-@@ -11671,6 +11671,7 @@
+--- GAME_MASTER.yaml.orig	2018-11-18 10:17:02.774002786 -0800
++++ GAME_MASTER.yaml	2018-11-18 10:17:02.887336119 -0800
+@@ -11815,6 +11815,7 @@
      - SLUDGE_BOMB
      - PETAL_BLIZZARD
      - SOLAR_BEAM
 +    - FRENZY_PLANT    # Community day 3/2018.
      animationTime:
-     - 2.4667
-     - 0.6667
-@@ -11905,6 +11906,7 @@
+     - 2.4667000770568848
+     - 0.666700005531311
+@@ -12049,6 +12050,7 @@
      - FIRE_BLAST
      - DRAGON_CLAW
      - OVERHEAT
 +    - BLAST_BURN   # Community day 5/2018.
      animationTime:
-     - 2.2
-     - 0.6667
-@@ -13804,6 +13806,7 @@
+     - 2.200000047683716
+     - 0.666700005531311
+@@ -13948,6 +13950,7 @@
      - DISCHARGE
      - THUNDERBOLT
      - WILD_CHARGE
 +    - SURF            # Community day 1/2018
      animationTime:
-     - 1.8333
-     - 0.6667
-@@ -20081,6 +20084,7 @@
+     - 1.833299994468689
+     - 0.666700005531311
+@@ -20225,6 +20228,7 @@
      - STONE_EDGE
      - ROCK_BLAST
      - EARTHQUAKE
 +    - ANCIENT_POWER
      animationTime:
-     - 2.6667
-     - 0.6667
-@@ -22194,10 +22198,13 @@
+     - 2.6666998863220215
+     - 0.666700005531311
+@@ -22338,10 +22342,13 @@
      quickMoves:
      - SUCKER_PUNCH_FAST
      - HEX_FAST
@@ -44,9 +44,9 @@
      - SLUDGE_BOMB
 +    - PSYCHIC       # 11/3/2018 Gengar day
      animationTime:
-     - 1.6667
-     - 0.6667
-@@ -24698,6 +24705,7 @@
+     - 1.666700005531311
+     - 0.666700005531311
+@@ -24846,6 +24853,7 @@
      quickMoves:
      - PECK_FAST
      - WATERFALL_FAST
@@ -54,7 +54,7 @@
      cinematicMoves:
      - ICE_BEAM
      - WATER_PULSE
-@@ -25628,6 +25636,7 @@
+@@ -25784,6 +25792,7 @@
      quickMoves:
      - BITE_FAST
      - WATERFALL_FAST
@@ -62,47 +62,47 @@
      cinematicMoves:
      - HYDRO_PUMP
      - CRUNCH
-@@ -26722,6 +26731,7 @@
+@@ -26878,6 +26887,7 @@
      - HEAVY_SLAM
      - HYPER_BEAM
      - EARTHQUAKE
 +    - BODY_SLAM    # July 2018 research reward
      animationTime:
-     - 2.4
-     - 0.6667
-@@ -26795,6 +26805,7 @@
+     - 2.4000000953674316
+     - 0.666700005531311
+@@ -26951,6 +26961,7 @@
      - ICE_BEAM
      - ICY_WIND
      - BLIZZARD
 +    - HURRICANE   # 9/2018
      animationTime:
-     - 2.0667
+     - 2.066699981689453
      - 1.0
-@@ -26864,6 +26875,7 @@
-       baseDefense: 188
+@@ -27020,6 +27031,7 @@
+       baseDefense: 185
      quickMoves:
      - CHARGE_BEAM_FAST
 +    - THUNDER_SHOCK_FAST   # Zapdos day move 7/21/2018
      cinematicMoves:
      - ZAP_CANNON
      - THUNDERBOLT
-@@ -26941,6 +26953,7 @@
+@@ -27097,6 +27109,7 @@
      - FIRE_BLAST
      - HEAT_WAVE
      - OVERHEAT
 +    - SKY_ATTACK   # Moltres day 9/8/2018
      animationTime:
-     - 2.7333
-     - 1.3333
-@@ -27175,6 +27188,7 @@
+     - 2.733299970626831
+     - 1.333299994468689
+@@ -27331,6 +27344,7 @@
      - HURRICANE
      - HYPER_BEAM
      - OUTRAGE
 +    - DRACO_METEOR    # Community day 2/2018.
      animationTime:
-     - 2.6667
-     - 0.6667
-@@ -27245,6 +27259,8 @@
+     - 2.6666998863220215
+     - 0.666700005531311
+@@ -27401,6 +27415,8 @@
      - PSYCHO_CUT_FAST
      - CONFUSION_FAST
      cinematicMoves:
@@ -111,23 +111,23 @@
      - PSYCHIC
      - THUNDERBOLT
      - ICE_BEAM
-@@ -27826,6 +27842,7 @@
+@@ -27982,6 +27998,7 @@
      - FIRE_BLAST
      - OVERHEAT
      - SOLAR_BEAM
 +    - BLAST_BURN      # Community day 11/2018.
      animationTime:
-     - 1.3333
-     - 0.6667
-@@ -29679,6 +29696,7 @@
+     - 1.333299994468689
+     - 0.666700005531311
+@@ -29839,6 +29856,7 @@
      - ZAP_CANNON
      - FOCUS_BLAST
      - THUNDER
 +    - DRAGON_PULSE    # Community day 4/2018.
      animationTime:
-     - 1.3333
-     - 0.6667
-@@ -35142,6 +35160,7 @@
+     - 1.333299994468689
+     - 0.666700005531311
+@@ -35322,6 +35340,7 @@
      quickMoves:
      - EXTRASENSORY_FAST
      - SNARL_FAST
@@ -135,7 +135,7 @@
      cinematicMoves:
      - HYDRO_PUMP
      - BUBBLE_BEAM
-@@ -35424,6 +35443,7 @@
+@@ -35604,6 +35623,7 @@
      quickMoves:
      - BITE_FAST
      - IRON_TAIL_FAST
@@ -143,11 +143,11 @@
      cinematicMoves:
      - FIRE_BLAST
      - CRUNCH
-@@ -46138,6 +46158,7 @@
+@@ -46325,6 +46345,7 @@
      - PSYCHIC
      - FLASH_CANNON
      - EARTHQUAKE
 +    - METEOR_MASH     # Community day 10/2018.
      animationTime:
-     - 1.3333
-     - 0.6667
+     - 1.333299994468689
+     - 0.666700005531311
