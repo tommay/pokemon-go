@@ -32,7 +32,6 @@ import qualified Debug
 import           Control.Applicative (optional, some, many)
 import           Control.Monad (join, mapM, forM, forM_)
 import qualified Data.Attoparsec.Text as Atto
-import qualified Data.Char as Char
 import qualified Data.HashMap.Strict as HashMap
 import qualified Data.List as List
 import qualified Data.Text as Text
@@ -172,8 +171,9 @@ main =
       -- Evolve all pokemon to their highest level and remember how
       -- much candy it took.
 
-      myPokemonAndCandy <-
-        mapM (evolveFully gameMaster $ maybeEvolution options) myPokemon
+      myPokemonAndCandy <- do
+        let maybeEvolution = Main.maybeEvolution options
+        mapM (PokeUtil.evolveFully gameMaster maybeEvolution) myPokemon
 
       myPokemonAndCandy <- case maybeMoveset options of
         Nothing -> return myPokemonAndCandy
@@ -264,36 +264,6 @@ splitByLevel myPokemon =
                in MyPokemon.setName myPokemon' nameAndLevel)
              $ List.sortBy (\(a,_) (b,_) -> compare a b)
                $ HashMap.toList groups
-
-evolveFully :: Epic.MonadCatch m =>
-  GameMaster -> Maybe String -> MyPokemon -> m (MyPokemon, Int)
-evolveFully gameMaster maybeTarget myPokemon = do
-  let species = MyPokemon.species myPokemon
-  chains <- evolutionChains gameMaster (species, 0)
-  chain <- case maybeTarget of
-    Just target ->
-      case filter ((== map Char.toLower target)
-          . map Char.toLower . fst . List.last) chains of
-        [] -> Epic.fail $ species ++ " does not evolve to " ++ target
-        [chain] -> return chain
-    Nothing ->
-      case chains of
-        [chain] -> return chain
-        _ -> Epic.fail $ species ++ " has multiple possible evolutions"
-  let (evolvedSpecies, candy) = List.last chain
-  return $ (MyPokemon.setSpecies myPokemon evolvedSpecies, candy)
-
-evolutionChains ::
-  Epic.MonadCatch m => GameMaster -> (String, Int) -> m [[(String, Int)]]
-evolutionChains gameMaster (species, candy) = do
-  base <- GameMaster.getPokemonBase gameMaster species
-  case PokemonBase.evolutions base of
-    [] -> return [[(species, candy)]]
-    evolutions -> do
-      concat <$> (mapM (\ (evolution, candy') -> do
-          rest <- evolutionChains gameMaster (evolution, candy + candy')
-          return $ map ((species, candy):) rest))
-        evolutions
 
 setMoves :: Epic.MonadCatch m =>
   GameMaster -> String -> String -> MyPokemon -> m MyPokemon
