@@ -61,10 +61,8 @@ main =
       gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
       myPokemon <- join $ MyPokemon.load $ maybeFilename options
       let evolveFunc = case evolve options of
-            Evolve ->
-              return . fst <=< PokeUtil.evolveFully gameMaster Nothing
-            EvolveTo target ->
-              return . fst <=< PokeUtil.evolveFully gameMaster (Just target)
+            Evolve -> PokeUtil.evolveFully gameMaster Nothing
+            EvolveTo target -> PokeUtil.evolveFully gameMaster (Just target)
             NoEvolve -> return
       let getSortKey = if sortByAttack options
             then getAttack gameMaster

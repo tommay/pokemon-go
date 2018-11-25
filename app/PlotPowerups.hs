@@ -173,7 +173,7 @@ main =
 
       myPokemonAndCandy <- do
         let maybeEvolution = Main.maybeEvolution options
-        mapM (PokeUtil.evolveFully gameMaster maybeEvolution) myPokemon
+        mapM (PokeUtil.evolveFullyWithCandy gameMaster maybeEvolution) myPokemon
 
       myPokemonAndCandy <- case maybeMoveset options of
         Nothing -> return myPokemonAndCandy

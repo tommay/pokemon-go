@@ -4,6 +4,7 @@ module PokeUtil (
   setMoves,
   levelToString,
   evolveFully,
+  evolveFullyWithCandy,
 ) where
 
 import qualified Epic
@@ -74,8 +75,14 @@ levelToString level =
     else Printf.printf "%.1f" level
 
 evolveFully :: Epic.MonadCatch m =>
-  GameMaster -> Maybe String -> MyPokemon -> m (MyPokemon, Int)
+  GameMaster -> Maybe String -> MyPokemon -> m MyPokemon
 evolveFully gameMaster maybeTarget myPokemon = do
+  (evolvedPokemon, _) <- evolveFullyWithCandy gameMaster maybeTarget myPokemon
+  return evolvedPokemon
+
+evolveFullyWithCandy :: Epic.MonadCatch m =>
+  GameMaster -> Maybe String -> MyPokemon -> m (MyPokemon, Int)
+evolveFullyWithCandy gameMaster maybeTarget myPokemon = do
   let species = MyPokemon.species myPokemon
   chains <- evolutionChains gameMaster (species, 0)
   chain <- case maybeTarget of
