@@ -49,7 +49,7 @@ data Options = Options {
 }
 
 data AttackerSource =
-    FromFile FilePath
+    FromFile FilePath (Maybe Int)
   | MovesetsFor Battler
   deriving (Show)
 
@@ -65,7 +65,8 @@ type Moveset = (String, String)
 getOptions :: IO Options
 getOptions =
   let opts = Options <$> optPlotCandy <*> optPlotDps
-        <*> optAttackerSource <*> optEvolution <*> optMoveset <*> optDefender
+        <*> optAttackerSource <*> optEvolution <*> optMoveset
+        <*> optDefender
       optPlotCandy =
         let optPlotCandy =
               O.flag' True
@@ -96,7 +97,12 @@ getOptions =
               (  O.long "file"
               <> O.short 'f'
               <> O.metavar "FILE"
-              <> O.help "File to read my_pokemon from")
+              <> O.help "File to read my_pokemon from") <*> optMaybeN
+            optMaybeN = O.optional $ O.option O.auto
+              (  O.long "n"
+              <> O.short 'n'
+              <> O.metavar "N"
+              <> O.help "Only plot the first N pokemon")
             optMovesetsFor = MovesetsFor <$>
               (O.option $ BattlerUtil.optParseBattler IVs.defaultIVs)
               (  O.long "movesets"
@@ -152,11 +158,14 @@ main =
         BattlerUtil.makeBattlerVariants gameMaster $ defender options
 
       myPokemon <- case attackerSource options of
-        FromFile filename ->
+        FromFile filename maybeN -> do
           -- myPokemon is a [MyPokemon] with one MyPokemon for
           -- each entry in the file.  Each MyPokemon may have
           -- multiple possible IV sets.
-          join $ MyPokemon.load $ Just filename
+          myPokemon <- join $ MyPokemon.load $ Just filename
+          case maybeN of
+            Just n -> return $ take n myPokemon
+            Nothing -> return $ myPokemon
         MovesetsFor attacker -> do
           attackerVariants <-
             BattlerUtil.makeBattlerVariants gameMaster attacker
