@@ -50,7 +50,7 @@ import           Data.Text (Text)
 import qualified System.IO as IO
 import qualified System.Exit as Exit
 
-defaultIvs = IVs.new 20 13 13 13
+defaultIvs = IVs.defaultIVs
 
 data Options = Options {
   level :: Float,
