@@ -1,12 +1,177 @@
-diff --git a/GAME_MASTER.yaml b/GAME_MASTER.yaml
-index 8dc8c73..43d9a6f 100755
---- a/GAME_MASTER.yaml
-+++ b/GAME_MASTER.yaml
-@@ -20386,6 +20386,7 @@ itemTemplates:
+--- GAME_MASTER.yaml.orig	2018-11-18 22:05:28.297641266 -0800
++++ GAME_MASTER.yaml	2018-12-03 19:23:51.183161001 -0800
+@@ -11819,6 +11819,7 @@
+     - SLUDGE_BOMB
+     - PETAL_BLIZZARD
+     - SOLAR_BEAM
++    - FRENZY_PLANT    # Community day 3/2018.
+     animationTime:
+     - 2.4667
+     - 0.6667
+@@ -12053,6 +12054,7 @@
+     - FIRE_BLAST
+     - DRAGON_CLAW
+     - OVERHEAT
++    - BLAST_BURN   # Community day 5/2018.
+     animationTime:
+     - 2.2
+     - 0.6667
+@@ -12285,6 +12287,7 @@
+     - FLASH_CANNON
+     - ICE_BEAM
+     - HYDRO_PUMP
++    - HYDRO_CANNON    # Community day 7/2018.
+     animationTime:
+     - 2.1333
+     - 0.6667
+@@ -13952,6 +13955,7 @@
+     - DISCHARGE
+     - THUNDERBOLT
+     - WILD_CHARGE
++    - SURF            # Community day 1/2018
+     animationTime:
+     - 1.8333
+     - 0.6667
+@@ -20229,6 +20233,7 @@
      - STONE_EDGE
      - ROCK_BLAST
      - EARTHQUAKE
 +    - ANCIENT_POWER
      animationTime:
      - 2.6667
+     - 0.6667
+@@ -20382,6 +20387,7 @@
+     - STONE_EDGE
+     - ROCK_BLAST
+     - EARTHQUAKE
++    - ANCIENT_POWER
+     animationTime:
+     - 2.6667
+     - 0.6667
+@@ -22342,10 +22348,13 @@
+     quickMoves:
+     - SUCKER_PUNCH_FAST
+     - HEX_FAST
++    - LICK_FAST     # 11/3/2018 Gengar day
++    - SHADOW_CLAW_FAST
+     cinematicMoves:
+     - SHADOW_BALL
+     - FOCUS_BLAST
+     - SLUDGE_BOMB
++    - PSYCHIC       # 11/3/2018 Gengar day
+     animationTime:
+     - 1.6667
+     - 0.6667
+@@ -24850,6 +24859,7 @@
+     quickMoves:
+     - PECK_FAST
+     - WATERFALL_FAST
++    - POISON_JAB_FAST
+     cinematicMoves:
+     - ICE_BEAM
+     - WATER_PULSE
+@@ -25788,6 +25798,7 @@
+     quickMoves:
+     - BITE_FAST
+     - WATERFALL_FAST
++    - DRAGON_TAIL_FAST
+     cinematicMoves:
+     - HYDRO_PUMP
+     - CRUNCH
+@@ -26882,6 +26893,7 @@
+     - HEAVY_SLAM
+     - HYPER_BEAM
+     - EARTHQUAKE
++    - BODY_SLAM    # July 2018 research reward
+     animationTime:
+     - 2.4
+     - 0.6667
+@@ -26955,6 +26967,7 @@
+     - ICE_BEAM
+     - ICY_WIND
+     - BLIZZARD
++    - HURRICANE   # 9/2018
+     animationTime:
+     - 2.0667
+     - 1.0
+@@ -27024,6 +27037,7 @@
+       baseDefense: 185
+     quickMoves:
+     - CHARGE_BEAM_FAST
++    - THUNDER_SHOCK_FAST   # Zapdos day move 7/21/2018
+     cinematicMoves:
+     - ZAP_CANNON
+     - THUNDERBOLT
+@@ -27101,6 +27115,7 @@
+     - FIRE_BLAST
+     - HEAT_WAVE
+     - OVERHEAT
++    - SKY_ATTACK   # Moltres day 9/8/2018
+     animationTime:
+     - 2.7333
+     - 1.3333
+@@ -27335,6 +27350,7 @@
+     - HURRICANE
+     - HYPER_BEAM
+     - OUTRAGE
++    - DRACO_METEOR    # Community day 2/2018.
+     animationTime:
+     - 2.6667
+     - 0.6667
+@@ -27405,6 +27421,8 @@
+     - PSYCHO_CUT_FAST
+     - CONFUSION_FAST
+     cinematicMoves:
++    - SHADOW_BALL
++    - HYPER_BEAM
+     - PSYCHIC
+     - THUNDERBOLT
+     - ICE_BEAM
+@@ -27754,6 +27772,7 @@
+     - PETAL_BLIZZARD
+     - SOLAR_BEAM
+     - EARTHQUAKE
++    - FRENZY_PLANT    # Community day 9/2018.
+     animationTime:
+     - 1.3333
+     - 0.6667
+@@ -27986,6 +28005,7 @@
+     - FIRE_BLAST
+     - OVERHEAT
+     - SOLAR_BEAM
++    - BLAST_BURN      # Community day 11/2018.
+     animationTime:
+     - 1.3333
+     - 0.6667
+@@ -29843,6 +29863,7 @@
+     - ZAP_CANNON
+     - FOCUS_BLAST
+     - THUNDER
++    - DRAGON_PULSE    # Community day 4/2018.
+     animationTime:
+     - 1.3333
+     - 0.6667
+@@ -35326,6 +35347,7 @@
+     quickMoves:
+     - EXTRASENSORY_FAST
+     - SNARL_FAST
++    - HIDDEN_POWER_FAST
+     cinematicMoves:
+     - HYDRO_PUMP
+     - BUBBLE_BEAM
+@@ -35608,6 +35630,7 @@
+     quickMoves:
+     - BITE_FAST
+     - IRON_TAIL_FAST
++    - SMACK_DOWN_FAST    # Community day 6/2018.
+     cinematicMoves:
+     - FIRE_BLAST
+     - CRUNCH
+@@ -46329,6 +46352,7 @@
+     - PSYCHIC
+     - FLASH_CANNON
+     - EARTHQUAKE
++    - METEOR_MASH     # Community day 10/2018.
+     animationTime:
+     - 1.3333
      - 0.6667

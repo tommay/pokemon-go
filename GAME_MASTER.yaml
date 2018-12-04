@@ -12287,6 +12287,7 @@ itemTemplates:
     - FLASH_CANNON
     - ICE_BEAM
     - HYDRO_PUMP
+    - HYDRO_CANNON    # Community day 7/2018.
     animationTime:
     - 2.1333
     - 0.6667
@@ -27771,6 +27772,7 @@ itemTemplates:
     - PETAL_BLIZZARD
     - SOLAR_BEAM
     - EARTHQUAKE
+    - FRENZY_PLANT    # Community day 9/2018.
     animationTime:
     - 1.3333
     - 0.6667
