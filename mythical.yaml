@@ -298,9 +298,9 @@ breloom:
 slakoth:
 vigoroth:
 slaking:
-nincada: mythical
-ninjask: mythical
-shedinja: mythical
+nincada: 
+ninjask: 
+shedinja: 
 whismur:
 loudred:
 exploud:
@@ -321,7 +321,7 @@ electrike:
 manectric:
 plusle:
 minun:
-volbeat: mythical # regional
+volbeat:  # regional
 illumise: # regional
 roselia:
 gulpin:
@@ -332,7 +332,7 @@ wailmer:
 wailord:
 numel:
 camerupt:
-torkoal: mythical # regional
+torkoal:  # regional
 spoink:
 grumpig:
 spinda:
@@ -360,7 +360,7 @@ armaldo:
 feebas:
 milotic:
 castform:
-kecleon: mythical
+kecleon: 
 shuppet: 
 banette: 
 duskull: 
@@ -374,10 +374,10 @@ glalie:
 spheal:
 sealeo:
 walrein:
-clamperl: mythical
-huntail: mythical
-gorebyss: mythical
-relicanth: mythical # regional
+clamperl: 
+huntail: 
+gorebyss: 
+relicanth:  # regional
 luvdisc:
 bagon:
 shelgon:
@@ -393,7 +393,7 @@ latios: legendary
 kyogre: legendary
 groudon: legendary
 rayquaza: legendary
-jirachi: mythical
+jirachi: 
 deoxys: legendary
 turtwig: 
 grotle: 
@@ -416,78 +416,78 @@ luxio:
 luxray: 
 budew:
 roserade:
-cranidos: mythical
-rampardos: mythical
-shieldon: mythical
-bastiodon: mythical
-burmy: mythical
-wormadam: mythical
-mothim: mythical
-combee: mythical
-vespiquen: mythical
-pachirisu: mythical
-buizel: mythical
-floatzel: mythical
-cherubi: mythical
-cherrim: mythical
-shellos: mythical
-gastrodon: mythical
-ambipom: mythical
+cranidos: 
+rampardos: 
+shieldon: 
+bastiodon: 
+burmy: 
+wormadam: 
+mothim: 
+combee: 
+vespiquen: 
+pachirisu: 
+buizel: 
+floatzel: 
+cherubi: 
+cherrim: 
+shellos: 
+gastrodon: 
+ambipom: 
 drifloon: 
 drifblim: 
 buneary: 
 lopunny: 
 mismagius:
 honchkrow:
-glameow: mythical
-purugly: mythical
-chingling: mythical
+glameow: 
+purugly: 
+chingling: 
 stunky: 
 skuntank: 
-bronzor: mythical
-bronzong: mythical
-bonsly: mythical
-mime_jr: mythical
-happiny: mythical
-chatot: mythical
+bronzor: 
+bronzong: 
+bonsly: 
+mime_jr: 
+happiny: 
+chatot: 
 spiritomb: 
-gible: mythical
-gabite: mythical
-garchomp: mythical
-munchlax: mythical
-riolu: mythical
-lucario: mythical
-hippopotas: mythical
-hippowdon: mythical
-skorupi: mythical
-drapion: mythical
-croagunk: mythical
-toxicroak: mythical
-carnivine: mythical
-finneon: mythical
-lumineon: mythical
-mantyke: mythical
-snover: mythical
-abomasnow: mythical
+gible: 
+gabite: 
+garchomp: 
+munchlax: 
+riolu: 
+lucario: 
+hippopotas: 
+hippowdon: 
+skorupi: 
+drapion: 
+croagunk: 
+toxicroak: 
+carnivine: 
+finneon: 
+lumineon: 
+mantyke: 
+snover: 
+abomasnow: 
 weavile:
-magnezone: mythical
-lickilicky: mythical
+magnezone: 
+lickilicky: 
 rhyperior:
-tangrowth: mythical
+tangrowth: 
 electivire:
 magmortar:
 togekiss:
-yanmega: mythical
-leafeon: mythical
-glaceon: mythical
+yanmega: 
+leafeon: 
+glaceon: 
 gliscor:
-mamoswine: mythical
+mamoswine: 
 porygon_z:
-gallade: mythical
-probopass: mythical
+gallade: 
+probopass: 
 dusknoir:
-froslass: mythical
-rotom: mythical
+froslass: 
+rotom: 
 uxie: legendary
 mesprit: legendary
 azelf: legendary
@@ -497,8 +497,8 @@ heatran: legendary
 regigigas: legendary
 giratina: legendary
 cresselia: legendary
-phione: mythical
-manaphy: mythical
-darkrai: mythical
-shaymin: mythical
-arceus: mythical
+phione: legendary
+manaphy: legendary
+darkrai: legendary
+shaymin: legendary
+arceus: legendary
