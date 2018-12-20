@@ -252,18 +252,18 @@ main =
           doOneBattle = Battle.doBattleOnly weatherBonus (raidGroup options)
           results =
             map (counter doOneBattle defenderVariants) attackers
-          sortedByDps = List.reverse $ Util.sortWith minDps results
+          sortedByDps = List.reverse $ List.sortOn minDps results
           damagePerHp result = (fromIntegral $ minDamage result) /
             (fromIntegral $ Pokemon.hp $ pokemon result)
           sorted = case sortOutputBy options of
-            ByDamage -> List.reverse $ Util.sortWith minDamage results
+            ByDamage -> List.reverse $ List.sortOn minDamage results
             ByDps -> sortedByDps
             ByProduct -> List.reverse $
               List.sortBy (Util.compareWith $ \result ->
                   minDps result * fromIntegral (minDamage result + 100))
                 results
             ByDamagePerHp -> List.reverse $
-              Util.sortWith damagePerHp results
+              List.sortOn damagePerHp results
             Weighted weight ->
               -- XXX Should this also subtract out dpsMin and damageMin?
               let damageMax = fromIntegral $ maximum $ map minDamage results
@@ -271,7 +271,7 @@ main =
                   weightedAverage result =
                     (fromIntegral $ minDamage result) / damageMax * weight +
                     (minDps result) / dpsMax * (1 - weight)
-              in List.reverse $ Util.sortWith weightedAverage results
+              in List.reverse $ List.sortOn weightedAverage results
 
           filtered = case dpsFilter options of
             Just n ->

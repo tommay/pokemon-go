@@ -1,6 +1,5 @@
 module Util (
   compareWith,
-  sortWith,
   Util.groupBy,
   matchesAbbrevInsensitive,
   toByteString,
@@ -18,10 +17,6 @@ import qualified System.IO as IO
 compareWith :: Ord b => (a -> b) -> a -> a -> Ordering
 compareWith f first second =
   f first `compare` f second
-
-sortWith :: Ord b => (a -> b) -> [a] -> [a]
-sortWith fn =
-  List.sortBy (Util.compareWith fn)
 
 -- There are a number of ways to implement something like this on
 -- https://stackoverflow.com/questions/15412027/haskell-equivalent-to-scalas-groupby

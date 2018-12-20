@@ -18,6 +18,7 @@ import           Data.Semigroup ((<>))
 
 import           Control.Monad (join, forM, (<=<))
 import qualified Data.ByteString as B
+import qualified Data.List as List
 import qualified Data.Yaml.Builder as Builder
 import qualified System.Exit as Exit
 
@@ -68,7 +69,7 @@ main =
             then getAttack gameMaster
             else pure . fromIntegral . MyPokemon.cp
       augmented <- zipMapM (getSortKey <=< evolveFunc) myPokemon
-      let mySortedPokemon = reverse $ map snd $ Util.sortWith fst augmented
+      let mySortedPokemon = reverse $ map snd $ List.sortOn fst augmented
       B.putStr $ Builder.toByteString mySortedPokemon
   )
   $ Exit.die

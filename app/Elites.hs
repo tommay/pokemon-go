@@ -108,7 +108,7 @@ main =
 
           getAttacker ((attacker, _, _), _) = attacker
 
-          sorted = Util.sortWith getAttacker $
+          sorted = List.sortOn getAttacker $
             HashMap.toList filteredEliteAttackers
 
       mapM_ (putStrLn . showElite) $ sorted
@@ -130,7 +130,7 @@ attackerInfo matchup =
 --
 keepHighDpsMatchups :: [Matchup] -> [Matchup]
 keepHighDpsMatchups matchups =
-  let sortedByDps = reverse $ Util.sortWith Matchup.dps matchups
+  let sortedByDps = reverse $ List.sortOn Matchup.dps matchups
   in take 10 sortedByDps
 
 -- Keep Matchups with damage >= 90% of the maximum damage.  This may
