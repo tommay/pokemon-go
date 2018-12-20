@@ -31,7 +31,6 @@ import qualified PokeUtil
 import qualified Powerups
 import qualified Type
 import           Type (Type)
-import qualified Util
 import qualified Weather
 import           Weather (Weather (..))
 
@@ -40,6 +39,7 @@ import qualified Debug
 import           Control.Monad (join, forM, forM_)
 import qualified Data.List as List
 import qualified Data.Maybe as Maybe
+import qualified Data.Ord as Ord
 import qualified Data.Set as Set
 import qualified System.Exit as Exit
 import qualified Text.Printf as Printf
@@ -259,7 +259,7 @@ main =
             ByDamage -> List.reverse $ List.sortOn minDamage results
             ByDps -> sortedByDps
             ByProduct -> List.reverse $
-              List.sortBy (Util.compareWith $ \result ->
+              List.sortBy (Ord.comparing $ \result ->
                   minDps result * fromIntegral (minDamage result + 100))
                 results
             ByDamagePerHp -> List.reverse $
@@ -407,7 +407,7 @@ counter doOneBattle defenderVariants attackerVariants =
   let battles = [doOneBattle attacker defender |
         attacker <- attackerVariants,
         defender <- defenderVariants]
-      getMinValue fn = fn . List.minimumBy (Util.compareWith fn)
+      getMinValue fn = fn . List.minimumBy (Ord.comparing fn)
       minDamage = getMinValue Battle.damageInflicted battles
       minDps = getMinValue Battle.dps battles
   in Result (head attackerVariants) attackerVariants minDps minDamage

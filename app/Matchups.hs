@@ -36,7 +36,6 @@ import qualified Pokemon
 import           Pokemon (Pokemon)
 import qualified PokemonBase
 import           PokemonBase (PokemonBase)
-import qualified Util
 
 import qualified Data.Yaml.Builder as Builder
 import           Data.Yaml.Builder ((.=))
@@ -44,6 +43,7 @@ import           Data.Yaml.Builder ((.=))
 import           Control.Monad (join)
 import qualified Data.ByteString as B
 import qualified Data.List as List
+import qualified Data.Ord as Ord
 import qualified Data.Scientific as Scientific
 import qualified Data.Text as Text
 import           Data.Text (Text)
@@ -153,10 +153,10 @@ getAttackerResult defenders attacker =
         defender <- defenders]
       battles = map (fst . Logger.runLogger) battleLoggers
       minByDamage =
-        List.minimumBy (Util.compareWith Battle.damageInflicted) battles
+        List.minimumBy (Ord.comparing Battle.damageInflicted) battles
       minDamage = Battle.damageInflicted minByDamage
       maxByDamage =
-        List.maximumBy (Util.compareWith Battle.damageInflicted) battles
+        List.maximumBy (Ord.comparing Battle.damageInflicted) battles
       maxDamage = Battle.damageInflicted maxByDamage
   in AttackerResult {
        defender = Pokemon.species $ head defenders,
