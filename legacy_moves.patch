@@ -1,6 +1,6 @@
---- GAME_MASTER.yaml.orig	2018-11-18 22:05:28.297641266 -0800
-+++ GAME_MASTER.yaml	2018-12-03 19:23:51.183161001 -0800
-@@ -11819,6 +11819,7 @@
+--- GAME_MASTER.yaml.orig	2018-12-21 01:01:02.861177591 -0800
++++ GAME_MASTER.yaml	2018-12-21 01:01:03.004582591 -0800
+@@ -14106,6 +14106,7 @@
      - SLUDGE_BOMB
      - PETAL_BLIZZARD
      - SOLAR_BEAM
@@ -8,7 +8,7 @@
      animationTime:
      - 2.4667
      - 0.6667
-@@ -12053,6 +12054,7 @@
+@@ -14361,6 +14362,7 @@
      - FIRE_BLAST
      - DRAGON_CLAW
      - OVERHEAT
@@ -16,7 +16,7 @@
      animationTime:
      - 2.2
      - 0.6667
-@@ -12285,6 +12287,7 @@
+@@ -14602,6 +14604,7 @@
      - FLASH_CANNON
      - ICE_BEAM
      - HYDRO_PUMP
@@ -24,7 +24,7 @@
      animationTime:
      - 2.1333
      - 0.6667
-@@ -13952,6 +13955,7 @@
+@@ -16329,6 +16332,7 @@
      - DISCHARGE
      - THUNDERBOLT
      - WILD_CHARGE
@@ -32,7 +32,7 @@
      animationTime:
      - 1.8333
      - 0.6667
-@@ -20229,6 +20233,7 @@
+@@ -22825,6 +22829,7 @@
      - STONE_EDGE
      - ROCK_BLAST
      - EARTHQUAKE
@@ -40,7 +40,7 @@
      animationTime:
      - 2.6667
      - 0.6667
-@@ -20382,6 +20387,7 @@
+@@ -22984,6 +22989,7 @@
      - STONE_EDGE
      - ROCK_BLAST
      - EARTHQUAKE
@@ -48,7 +48,7 @@
      animationTime:
      - 2.6667
      - 0.6667
-@@ -22342,10 +22348,13 @@
+@@ -25010,10 +25016,13 @@
      quickMoves:
      - SUCKER_PUNCH_FAST
      - HEX_FAST
@@ -62,7 +62,7 @@
      animationTime:
      - 1.6667
      - 0.6667
-@@ -24850,6 +24859,7 @@
+@@ -27609,6 +27618,7 @@
      quickMoves:
      - PECK_FAST
      - WATERFALL_FAST
@@ -70,7 +70,7 @@
      cinematicMoves:
      - ICE_BEAM
      - WATER_PULSE
-@@ -25788,6 +25798,7 @@
+@@ -28584,6 +28594,7 @@
      quickMoves:
      - BITE_FAST
      - WATERFALL_FAST
@@ -78,7 +78,7 @@
      cinematicMoves:
      - HYDRO_PUMP
      - CRUNCH
-@@ -26882,6 +26893,7 @@
+@@ -29729,6 +29740,7 @@
      - HEAVY_SLAM
      - HYPER_BEAM
      - EARTHQUAKE
@@ -86,7 +86,7 @@
      animationTime:
      - 2.4
      - 0.6667
-@@ -26955,6 +26967,7 @@
+@@ -29813,6 +29825,7 @@
      - ICE_BEAM
      - ICY_WIND
      - BLIZZARD
@@ -94,7 +94,7 @@
      animationTime:
      - 2.0667
      - 1.0
-@@ -27024,6 +27037,7 @@
+@@ -29885,6 +29898,7 @@
        baseDefense: 185
      quickMoves:
      - CHARGE_BEAM_FAST
@@ -102,7 +102,7 @@
      cinematicMoves:
      - ZAP_CANNON
      - THUNDERBOLT
-@@ -27101,6 +27115,7 @@
+@@ -29965,6 +29979,7 @@
      - FIRE_BLAST
      - HEAT_WAVE
      - OVERHEAT
@@ -110,7 +110,7 @@
      animationTime:
      - 2.7333
      - 1.3333
-@@ -27335,6 +27350,7 @@
+@@ -30208,6 +30223,7 @@
      - HURRICANE
      - HYPER_BEAM
      - OUTRAGE
@@ -118,7 +118,7 @@
      animationTime:
      - 2.6667
      - 0.6667
-@@ -27405,6 +27421,8 @@
+@@ -30281,6 +30297,8 @@
      - PSYCHO_CUT_FAST
      - CONFUSION_FAST
      cinematicMoves:
@@ -127,7 +127,7 @@
      - PSYCHIC
      - THUNDERBOLT
      - ICE_BEAM
-@@ -27754,6 +27772,7 @@
+@@ -30642,6 +30660,7 @@
      - PETAL_BLIZZARD
      - SOLAR_BEAM
      - EARTHQUAKE
@@ -135,7 +135,7 @@
      animationTime:
      - 1.3333
      - 0.6667
-@@ -27986,6 +28005,7 @@
+@@ -30883,6 +30902,7 @@
      - FIRE_BLAST
      - OVERHEAT
      - SOLAR_BEAM
@@ -143,7 +143,7 @@
      animationTime:
      - 1.3333
      - 0.6667
-@@ -29843,6 +29863,7 @@
+@@ -32812,6 +32832,7 @@
      - ZAP_CANNON
      - FOCUS_BLAST
      - THUNDER
@@ -151,7 +151,7 @@
      animationTime:
      - 1.3333
      - 0.6667
-@@ -35326,6 +35347,7 @@
+@@ -38487,6 +38508,7 @@
      quickMoves:
      - EXTRASENSORY_FAST
      - SNARL_FAST
@@ -159,7 +159,7 @@
      cinematicMoves:
      - HYDRO_PUMP
      - BUBBLE_BEAM
-@@ -35608,6 +35630,7 @@
+@@ -38778,6 +38800,7 @@
      quickMoves:
      - BITE_FAST
      - IRON_TAIL_FAST
@@ -167,7 +167,7 @@
      cinematicMoves:
      - FIRE_BLAST
      - CRUNCH
-@@ -46329,6 +46352,7 @@
+@@ -49911,6 +49934,7 @@
      - PSYCHIC
      - FLASH_CANNON
      - EARTHQUAKE
