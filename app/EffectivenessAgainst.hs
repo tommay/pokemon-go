@@ -53,11 +53,11 @@ zipMap fn list = zip list (map fn list)
 
 display :: Float -> String
 display f =
-  let d "0.364" = "xxx"
-      d "0.510" = " xx"
-      d "0.714" = "  x"
+  let d "0.244" = "xxx"
+      d "0.391" = " xx"
+      d "0.625" = "  x"
       d "1.000" = ""
-      d "1.400" = "    o"
-      d "1.960" = "    oo"
+      d "1.600" = "    o"
+      d "2.560" = "    oo"
       d x = x
   in d $ Printf.printf "%.3f" f
