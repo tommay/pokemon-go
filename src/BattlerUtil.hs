@@ -165,6 +165,7 @@ makeRaidBossForMoves gameMaster raidLevel base quickMoves chargeMoves =
         3 -> (0.73, 3000)
         4 -> (0.79, 7500)
         5 -> (0.79, 12500)
+        6 -> (0.79, 18750)
         _ -> error "Raid level must be 1, 2, 3, 4, or 5"
       makeStat baseFunc = (fromIntegral $ baseFunc base + 15) * cpm
       makePokemon quickMove chargeMove =
