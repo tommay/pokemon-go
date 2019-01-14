@@ -31144,6 +31144,7 @@ itemTemplates:
     - CRUNCH
     - HYDRO_PUMP
     - ICE_BEAM
+    - HYDRO_CANNON      # Community day 1/2019
     animationTime:
     - 1.3333
     - 0.6667

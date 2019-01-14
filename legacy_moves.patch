@@ -1,5 +1,5 @@
---- GAME_MASTER.yaml.orig	2018-12-21 01:01:02.861177591 -0800
-+++ GAME_MASTER.yaml	2018-12-21 01:01:03.004582591 -0800
+--- GAME_MASTER.yaml.orig	2018-12-30 20:58:41.978332215 -0800
++++ GAME_MASTER.yaml	2019-01-13 11:57:21.205644326 -0800
 @@ -14106,6 +14106,7 @@
      - SLUDGE_BOMB
      - PETAL_BLIZZARD
@@ -143,7 +143,15 @@
      animationTime:
      - 1.3333
      - 0.6667
-@@ -32812,6 +32832,7 @@
+@@ -31124,6 +31144,7 @@
+     - CRUNCH
+     - HYDRO_PUMP
+     - ICE_BEAM
++    - HYDRO_CANNON      # Community day 1/2019
+     animationTime:
+     - 1.3333
+     - 0.6667
+@@ -32812,6 +32833,7 @@
      - ZAP_CANNON
      - FOCUS_BLAST
      - THUNDER
@@ -151,7 +159,7 @@
      animationTime:
      - 1.3333
      - 0.6667
-@@ -38487,6 +38508,7 @@
+@@ -38487,6 +38509,7 @@
      quickMoves:
      - EXTRASENSORY_FAST
      - SNARL_FAST
@@ -159,7 +167,7 @@
      cinematicMoves:
      - HYDRO_PUMP
      - BUBBLE_BEAM
-@@ -38778,6 +38800,7 @@
+@@ -38778,6 +38801,7 @@
      quickMoves:
      - BITE_FAST
      - IRON_TAIL_FAST
@@ -167,7 +175,7 @@
      cinematicMoves:
      - FIRE_BLAST
      - CRUNCH
-@@ -49911,6 +49934,7 @@
+@@ -49911,6 +49935,7 @@
      - PSYCHIC
      - FLASH_CANNON
      - EARTHQUAKE
