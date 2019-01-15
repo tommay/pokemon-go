@@ -199,6 +199,15 @@ executable elites-exe
                      , regex-compat
   default-language:    Haskell2010
 
+executable evolvecp-exe
+  hs-source-dirs:      app
+  main-is:             EvolveCp.hs
+  ghc-options:         -O2 -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base
+                     , pokemon
+                     , optparse-applicative
+  default-language:    Haskell2010
+
 executable tm-exe
   hs-source-dirs:      app
   main-is:             TM.hs

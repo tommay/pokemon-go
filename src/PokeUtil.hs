@@ -5,6 +5,7 @@ module PokeUtil (
   levelToString,
   evolveFully,
   evolveFullyWithCandy,
+  evolutionChains
 ) where
 
 import qualified Epic
