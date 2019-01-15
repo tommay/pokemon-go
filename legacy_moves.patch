@@ -1,5 +1,5 @@
 --- GAME_MASTER.yaml.orig	2018-12-30 20:58:41.978332215 -0800
-+++ GAME_MASTER.yaml	2019-01-13 11:57:21.205644326 -0800
++++ GAME_MASTER.yaml	2019-01-14 16:50:49.284346656 -0800
 @@ -14106,6 +14106,7 @@
      - SLUDGE_BOMB
      - PETAL_BLIZZARD
@@ -175,7 +175,15 @@
      cinematicMoves:
      - FIRE_BLAST
      - CRUNCH
-@@ -49911,6 +49935,7 @@
+@@ -42357,6 +42381,7 @@
+     - DYNAMIC_PUNCH
+     - SEED_BOMB
+     - SLUDGE_BOMB
++    - GRASS_KNOT       # 1/2019 Hoenn Event
+     animationTime:
+     - 1.3333
+     - 0.6667
+@@ -49911,6 +49936,7 @@
      - PSYCHIC
      - FLASH_CANNON
      - EARTHQUAKE

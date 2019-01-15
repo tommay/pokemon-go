@@ -42381,6 +42381,7 @@ itemTemplates:
     - DYNAMIC_PUNCH
     - SEED_BOMB
     - SLUDGE_BOMB
+    - GRASS_KNOT       # 1/2019 Hoenn Event
     animationTime:
     - 1.3333
     - 0.6667
