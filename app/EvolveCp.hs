@@ -46,14 +46,14 @@ import qualified Text.Printf as Printf
 
 data Options = Options {
   species :: String,
-  cp :: Int
+  cpList :: [Int]
 }
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optSpecies <*> optCp
+  let opts = Options <$> optSpecies <*> optCps
       optSpecies = O.strArgument (O.metavar "SPECIES")
-      optCp = O.argument O.auto (O.metavar "CP")
+      optCps = O.some $ O.argument O.auto (O.metavar "CP")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc "Show evolved CP")
@@ -68,24 +68,16 @@ main =
       base <- GameMaster.getPokemonBase gameMaster $ species options
       evolutions <- getEvolutions gameMaster $ PokemonBase.species base
       evolutionBases <- mapM (GameMaster.getPokemonBase gameMaster) evolutions
-      -- Assume that if a pokemon hasn't been evolved it also hasn't been
-      -- powered up so we're only concered with whole levels.
-      let wholeLevels = filter (\ lvl -> (fromIntegral $ floor lvl) == lvl)
-            $ GameMaster.allLevels gameMaster
-          allIvs = [IVs.new level attack defense stamina |
-                     level <- wholeLevels,
-                     let ivs = [0 .. 15],
-                     attack <- ivs, defense <- ivs, stamina <- ivs]
-          okIvs = filter ((== cp options) . Calc.cp gameMaster base) allIvs
-          withCps = augment (\ base -> map (Calc.cp gameMaster base) okIvs)
-            evolutionBases
-      forM_ withCps $ \ (base, cps) ->
-        let evolutionSpecies = PokemonBase.species base
-            min = minimum cps
-            max = maximum cps
-        in if min == max
-             then Printf.printf "%s: %d\n" evolutionSpecies min
-             else Printf.printf "%s: %d - %d\n" evolutionSpecies min max
+      forM_ (cpList options) $ \ cp -> do
+        let ivs = getIvs gameMaster base cp
+        forM_ evolutionBases $ \ evolutionBase -> do
+          let evolutionSpecies = PokemonBase.species evolutionBase
+              evolvedCps = map (Calc.cp gameMaster evolutionBase) ivs
+              min = minimum evolvedCps
+              max = maximum evolvedCps
+          putStrLn $ if min == max
+            then Printf.printf "%s: %d" evolutionSpecies min
+            else Printf.printf "%s: %d - %d" evolutionSpecies min max
   )
   $ Exit.die
 
@@ -95,5 +87,17 @@ getEvolutions gameMaster species = do
   evolutionChains <- PokeUtil.evolutionChains gameMaster (species, 0)
   return $ map fst $ concat $ map tail evolutionChains
 
-augment :: (a -> b) -> [a] -> [(a, b)]
-augment fn list = zip list (map fn list)
+getIvs :: GameMaster -> PokemonBase -> Int -> [IVs]
+getIvs gameMaster base cp =
+  -- Assume that if a pokemon hasn't been evolved it also hasn't been
+  -- powered up so we're only concerned with whole levels.
+  let wholeLevels = filter isWholeNumber $ GameMaster.allLevels gameMaster
+      allIvs = [IVs.new level attack defense stamina |
+                 level <- wholeLevels,
+                 let ivs = [0 .. 15],
+                 attack <- ivs, defense <- ivs, stamina <- ivs]
+  in filter ((== cp) . Calc.cp gameMaster base) allIvs
+
+isWholeNumber :: Float -> Bool
+isWholeNumber n =
+  (fromIntegral $ floor n) == n
