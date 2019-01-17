@@ -85,7 +85,7 @@ getEvolutions :: Epic.MonadCatch m => GameMaster -> String -> m [String]
 getEvolutions gameMaster species = do
   -- [[(String, Int)]]
   evolutionChains <- PokeUtil.evolutionChains gameMaster (species, 0)
-  return $ map fst $ concat $ map tail evolutionChains
+  return $ List.nub $ map fst $ concat evolutionChains
 
 getIvs :: GameMaster -> PokemonBase -> Int -> [IVs]
 getIvs gameMaster base cp =
