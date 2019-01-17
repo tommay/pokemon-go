@@ -68,18 +68,21 @@ main =
       base <- GameMaster.getPokemonBase gameMaster $ species options
       evolutions <- getEvolutions gameMaster $ PokemonBase.species base
       evolutionBases <- mapM (GameMaster.getPokemonBase gameMaster) evolutions
-      forM_ (cpList options) $ \ cp -> do
-        let ivs = getIvs gameMaster base cp
-        forM_ evolutionBases $ \ evolutionBase -> do
-          let evolutionSpecies = PokemonBase.species evolutionBase
-              evolvedCps = map (Calc.cp gameMaster evolutionBase) ivs
-              min = minimum evolvedCps
-              max = maximum evolvedCps
-          putStrLn $ if min == max
-            then Printf.printf "%s: %d" evolutionSpecies min
-            else Printf.printf "%s: %d - %d" evolutionSpecies min max
+      putStrLn $ List.intercalate "\n\n" $ for (cpList options) $ \ cp ->
+            let ivs = getIvs gameMaster base cp
+            in List.intercalate "\n" $ for evolutionBases $ \ evolutionBase ->
+              let evolutionSpecies = PokemonBase.species evolutionBase
+                  evolvedCps = map (Calc.cp gameMaster evolutionBase) ivs
+                  min = minimum evolvedCps
+                  max = maximum evolvedCps
+              in if min == max
+                then Printf.printf "%s: %d" evolutionSpecies min
+                else Printf.printf "%s: %d - %d" evolutionSpecies min max
   )
   $ Exit.die
+
+for :: [a] -> (a -> b) -> [b]
+for = flip map
 
 getEvolutions :: Epic.MonadCatch m => GameMaster -> String -> m [String]
 getEvolutions gameMaster species = do
