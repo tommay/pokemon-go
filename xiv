@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# A wrapper for ./iv that updates/calculate ivs for a pokemon.yaml
+# file.  File is updated and backed up $1.0.  A diff is produced that
+# shows the changes made to the file.
+
+# Usage:
+# $0 [-0] pokemon.yaml
+# -0: pass -0 to ./iv to assume that pokemon have not been powered up
+#     and have only whole levels.
+
+if ./iv "$@" >x; then
+  case "$1" in
+    -*)
+      shift
+      ;;
+  esac
+  diff -u -F "name: " "$1" x | less
+  mv "$1" "$1".0
+  mv x "$1"
+fi
