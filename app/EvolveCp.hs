@@ -68,14 +68,14 @@ main =
       base <- GameMaster.getPokemonBase gameMaster $ species options
       evolutions <- getEvolutions gameMaster $ PokemonBase.species base
       evolutionBases <- mapM (GameMaster.getPokemonBase gameMaster) evolutions
-      putStrLn $ List.intercalate "\n\n" $ for (cpList options) $ \ cp ->
+      putStrLn $ show $ NestedResults $ for (cpList options) $ \ cp ->
             let ivs = getIvs gameMaster base cp
-            in List.intercalate "\n" $ for evolutionBases $ \ evolutionBase ->
+            in NestedResults $ for evolutionBases $ \ evolutionBase ->
               let evolutionSpecies = PokemonBase.species evolutionBase
                   evolvedCps = map (Calc.cp gameMaster evolutionBase) ivs
                   min = minimum evolvedCps
                   max = maximum evolvedCps
-              in if min == max
+              in NestedResult $ if min == max
                 then Printf.printf "%s: %d" evolutionSpecies min
                 else Printf.printf "%s: %d - %d" evolutionSpecies min max
   )
@@ -104,3 +104,22 @@ getIvs gameMaster base cp =
 isWholeNumber :: Float -> Bool
 isWholeNumber n =
   (fromIntegral $ floor n) == n
+
+-- NestedResult is supposed to make the code prettier by allowing
+-- arbitrarily nested Lists of result Strings to be printed with the
+-- approproate number of newlines between each (sub)set of results.
+-- This code itself looks a little wonky though.
+
+data NestedResult = NestedResult String | NestedResults [NestedResult]
+instance Show NestedResult where
+  show result =
+    let show' result =
+          case result of
+            NestedResult string -> (string, 1)
+            NestedResults list ->
+              let pieces = map show' list
+                  strings = map fst pieces
+                  depth = maximum $ map snd pieces
+                  newlines = concat $ replicate depth "\n"
+              in (List.intercalate newlines strings, depth + 1)
+    in fst $ show' result
