@@ -7,6 +7,7 @@ module MyPokemon (
   name,
   species,
   cp,
+  powerup,
   hp,
   stardust,
   quickName,
@@ -46,6 +47,7 @@ data MyPokemon = MyPokemon {
   name        :: String,
   species     :: String,
   cp          :: Int,
+  powerup     :: Maybe Int,
   hp          :: Int,
   stardust    :: Int,
   quickName   :: String,
@@ -64,6 +66,7 @@ instance Yaml.FromJSON MyPokemon where
           pure name <*>
           y .: "species" <*>
           y .: "cp" <*>
+          y .:? "powerup" <*>
           y .: "hp" <*>
           y .: "dust" <*>
           y .: "quick" <*>
