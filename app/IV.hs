@@ -124,8 +124,11 @@ computeIVs gameMaster new ivFloor myPokemon = do
         ivsMatchMyPokemon ivs =
           MyPokemon.hp myPokemon ==
             Calc.hp gameMaster pokemonBase ivs &&
-          MyPokemon.cp myPokemon ==
-            Calc.cp gameMaster pokemonBase ivs
+          let calcCp = Calc.cp gameMaster pokemonBase
+          in MyPokemon.cp myPokemon == calcCp ivs &&
+               case MyPokemon.powerup myPokemon of
+                 Nothing -> True
+                 Just powerup -> powerup == calcCp (IVs.tweakLevel (+ 0.5) ivs)
         ivsThatMatchMyPokemon = filter ivsMatchMyPokemon allIVs'
     case ivsThatMatchMyPokemon of
       [] -> Epic.fail "No possible ivs"
