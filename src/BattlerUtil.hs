@@ -93,7 +93,7 @@ parseBattler defaultIVs string =
         let level' = read $ Text.unpack level
         return $ Normal $ IVs.setLevel defaultIVs level'
       attoParseRaidBoss = do
-        Atto.char 'r'
+        Atto.satisfy $ Atto.inClass "rt"    -- r for raid, t for tier
         (raidLevel, _) <- Atto.match Atto.decimal
         return $ RaidBoss $ read $ Text.unpack raidLevel
   in case Atto.parseOnly attoParseBattler (Text.pack string) of
