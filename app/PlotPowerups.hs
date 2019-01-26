@@ -247,6 +247,7 @@ makeMyPokemonFromPokemon pokemon =
       (Move.bars $ Pokemon.charge pokemon),
     MyPokemon.species = PokemonBase.species $ Pokemon.base pokemon,
     MyPokemon.cp = undefined,
+    MyPokemon.powerup = undefined,
     MyPokemon.hp = undefined,
     MyPokemon.stardust = undefined,
     MyPokemon.quickName = Move.name $ Pokemon.quick pokemon,
