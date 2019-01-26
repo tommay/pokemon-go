@@ -35,6 +35,7 @@ import qualified Util
 import qualified Data.Aeson.Types
 import qualified Data.ByteString as ByteString
 import           Data.ByteString (ByteString)
+import qualified Data.Maybe as Maybe
 import qualified Data.Yaml as Yaml
 import           Data.Yaml ((.:), (.:?))
 import qualified Data.Yaml.Builder as Builder
@@ -75,24 +76,24 @@ instance Yaml.FromJSON MyPokemon where
           y .:? "ivs" <*>
           y .:? "stats"
 
-(.=?) :: (Builder.ToYaml a) => Text -> Maybe a -> [(Text, Builder.YamlBuilder)]
+(.=?) :: (Builder.ToYaml a) => Text -> Maybe a -> Maybe (Text, Builder.YamlBuilder)
 label .=? Nothing =
-  []
+  Nothing
 label .=? Just a =
-  [label .= a]
+  Just $ label .= a
 
-(.==) :: (Builder.ToYaml a) => Text -> a -> [(Text, Builder.YamlBuilder)]
+(.==) :: (Builder.ToYaml a) => Text -> a -> Maybe (Text, Builder.YamlBuilder)
 label .== a =
-  [label .= a]
+  Just $ label .= a
 
 instance Builder.ToYaml MyPokemon where
   toYaml this =
-    Builder.mapping $ concat [
+    Builder.mapping $ Maybe.catMaybes [
       "name" .== (Text.pack $ name this),
       "species" .== (Text.pack $ species this),
       "cp" .== cp this,
       case ivs this of
-        Just [_] -> []
+        Just [_] -> Nothing
         _ -> "powerup" .=? powerup this,
       "hp" .== hp this,
       "dust" .== stardust this,
