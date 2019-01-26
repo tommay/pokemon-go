@@ -91,7 +91,9 @@ instance Builder.ToYaml MyPokemon where
       "name" .== (Text.pack $ name this),
       "species" .== (Text.pack $ species this),
       "cp" .== cp this,
-      "powerup" .=? powerup this,
+      case ivs this of
+        Just [_] -> []
+        _ -> "powerup" .=? powerup this,
       "hp" .== hp this,
       "dust" .== stardust this,
       "quick" .== (Text.pack $ quickName this),
