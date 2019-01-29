@@ -12,6 +12,7 @@ import           GameMaster (GameMaster)
 import qualified PokemonBase
 import           PokemonBase (PokemonBase)
 import qualified PokeUtil
+import qualified Util
 
 import           Control.Monad (join, forM_)
 import qualified Data.List as List
@@ -43,7 +44,7 @@ main =
       options <- getOptions
       gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
       base <- GameMaster.getPokemonBase gameMaster (species options)
-      let augmented = augment (getAttack gameMaster base) (stats options)
+      let augmented = Util.augment (getAttack gameMaster base) (stats options)
           sorted = List.reverse $ List.sortOn snd augmented
       forM_ sorted $ \ ((level, attackIv), attack) ->
         Printf.printf "%s %d: %f\n"
@@ -55,6 +56,3 @@ getAttack :: GameMaster -> PokemonBase -> (Float, Int) -> Float
 getAttack gameMaster base (level, attackIv) =
   let cpMultiplier = GameMaster.getCpMultiplier gameMaster level
   in (fromIntegral $ PokemonBase.attack base + attackIv) * cpMultiplier
-
-augment :: (a -> b) -> [a] -> [(a, b)]
-augment fn list = zip list (map fn list)

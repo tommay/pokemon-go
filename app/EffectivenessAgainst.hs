@@ -10,6 +10,7 @@ import qualified Epic
 import qualified GameMaster
 import qualified PokemonBase
 import qualified Type
+import qualified Util
 
 import           Control.Monad (join, forM_)
 import qualified System.Exit as Exit
@@ -40,16 +41,13 @@ main =
       let allTypes = GameMaster.getAllTypes gameMaster
           longest = maximum $ map (length . Type.name) allTypes
           effectiveness =
-            zipMap (\typ -> Type.effectivenessAgainst typ speciesTypes)
+            Util.augment (\typ -> Type.effectivenessAgainst typ speciesTypes)
               allTypes
       forM_ effectiveness $ \ (typ, effectiveness) ->
         Printf.printf "%-*s :%s\n" longest (Type.name typ)
           (display effectiveness)
     )
     $ Exit.die
-
-zipMap :: (a -> b) -> [a] -> [(a, b)]
-zipMap fn list = zip list (map fn list)
 
 display :: Float -> String
 display f =

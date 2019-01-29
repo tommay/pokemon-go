@@ -1,13 +1,18 @@
+{-# LANGUAGE TupleSections #-}  -- So we can do "(,b) a" to get (a,b).
+
 module Util (
   Util.groupBy,
   matchesAbbrevInsensitive,
   toByteString,
+  augment,
+  augmentM,
 ) where
 
+import           Control.Monad (forM)
 import qualified Data.ByteString as ByteString
 import           Data.ByteString (ByteString)
-import Data.Char as Char
-import Data.List as List
+import qualified Data.Char as Char
+import qualified Data.List as List
 import           Data.Hashable (Hashable)
 import qualified Data.HashMap.Strict as HashMap
 import           Data.HashMap.Strict (HashMap)
@@ -47,3 +52,17 @@ toByteString maybeFilePath =
   case maybeFilePath of
     Just filePath -> ByteString.readFile filePath
     Nothing -> ByteString.hGetContents IO.stdin
+
+-- Useful for creating a list augmented with a sort key.
+
+augment :: (a -> b) -> [a] -> [(a, b)]
+augment fn list = zip list (map fn list)
+
+augmentM :: Monad m => (a -> m b) -> [a] -> m [(b, a)]
+augmentM fn list = forM list $ \a -> (,a) <$> fn a
+-- augmentM fn list = forM list $ \a -> (\b -> (b, a)) <$> fn a
+{-
+augmentM fn list = forM list $ \a -> do
+  b <- fn a
+  return $ (b, a)
+-}

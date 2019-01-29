@@ -1,5 +1,3 @@
-{-# LANGUAGE TupleSections #-}
-
 module Main where
 
 import qualified Epic
@@ -16,7 +14,7 @@ import qualified Options.Applicative as O
 import           Options.Applicative ((<|>), (<**>))
 import           Data.Semigroup ((<>))
 
-import           Control.Monad (join, forM, (<=<))
+import           Control.Monad (join, (<=<))
 import qualified Data.ByteString as B
 import qualified Data.List as List
 import qualified Data.Yaml.Builder as Builder
@@ -68,7 +66,7 @@ main =
       let getSortKey = if sortByAttack options
             then getAttack gameMaster
             else pure . fromIntegral . MyPokemon.cp
-      augmented <- zipMapM (getSortKey <=< evolveFunc) myPokemon
+      augmented <- Util.augmentM (getSortKey <=< evolveFunc) myPokemon
       let mySortedPokemon = reverse $ map snd $ List.sortOn fst augmented
       B.putStr $ Builder.toByteString mySortedPokemon
   )
@@ -78,12 +76,3 @@ getAttack :: Epic.MonadCatch m => GameMaster -> MyPokemon -> m Float
 getAttack gameMaster myPokemon = do
   pokemon <- head <$> MakePokemon.makePokemon gameMaster myPokemon
   return $ Pokemon.attack pokemon
-
-zipMapM :: Monad m => (a -> m b) -> [a] -> m [(b, a)]
-zipMapM fn list = forM list $ \a -> (,a) <$> fn a
--- zipMapM fn list = forM list $ \a -> (\b -> (b, a)) <$> fn a
-{-
-zipMapM fn list = forM list $ \a -> do
-  b <- fn a
-  return $ (b, a)
--}
