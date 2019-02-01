@@ -162,10 +162,12 @@ makeRaidBossForMoves gameMaster raidLevel base quickMoves chargeMoves =
       (cpm, hp) = case raidLevel of
         1 -> (0.61, 600)
         2 -> (0.67, 1800)
-        3 -> (0.73, 3000)
-        4 -> (0.79, 7500)
-        5 -> (0.79, 12500)
-        6 -> (0.79, 18750)
+        3 -> (0.73, 3600)
+        4 -> (0.79, 9000)
+        5 -> (0.79, 15000)
+        6 -> (0.79, 18750)  -- XXX It remains to be seen whether "tier 6" has
+                            -- increased, or will beused again, but the 1.2
+                            -- multiplier for tiers 3-5 would make it 22500.
         _ -> error "Raid level must be 1, 2, 3, 4, or 5"
       makeStat baseFunc = (fromIntegral $ baseFunc base + 15) * cpm
       makePokemon quickMove chargeMove =
