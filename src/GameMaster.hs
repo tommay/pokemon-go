@@ -39,13 +39,11 @@ import           Data.Yaml ((.:), (.:?), (.!=))
 
 import           Data.Text.Conversions (convertText)
 import           Data.Char (toLower, toUpper)
-import           Data.Hashable (Hashable)
 import qualified Data.List as List
 import qualified Data.Maybe as Maybe
 import           Data.Maybe (mapMaybe)
 import qualified Data.HashMap.Strict as HashMap
 import           Data.HashMap.Strict (HashMap)
-import qualified Data.Vector as Vector
 import           Data.Vector (Vector, (!))
 import qualified Text.Regex as Regex
 
