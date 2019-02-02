@@ -269,6 +269,7 @@ makeMove types itemTemplate =
     <*> ((/1000) <$> getTemplateValue "durationMs")
     <*> getTemplateValue "damageWindowStartMs"
     <*> getObjectValueWithDefault itemTemplate "energyDelta" 0
+    <*> pure False
 
 -- Return a map of pokemon species to a (possibly empty) list of its forms.
 --
@@ -529,6 +530,7 @@ addLegacyMoves legacyMap this =
       addMovesWithNormalForm species moveNames mGameMaster = do
         gameMaster <- mGameMaster
         moves <- mapM (getMove gameMaster) moveNames
+        moves <- return $ map Move.setLegacy moves
         -- Add the moves to the species with the given name.  Any failure
         -- will be reported.
         gameMaster <- addMoves species moves gameMaster

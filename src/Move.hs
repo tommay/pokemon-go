@@ -14,7 +14,9 @@ module Move (
   name,
   bars,
   isHiddenPower,
-  setType
+  setType,
+  setLegacy,
+  isLegacy,
 ) where
 
 import qualified Type
@@ -31,7 +33,8 @@ data Move = Move {
   power    :: Float,
   duration :: Float,
   damageWindow :: Int,
-  energy   :: Int
+  energy   :: Int,
+  isLegacy :: Bool
 }
 
 instance Eq Move where
@@ -93,3 +96,7 @@ isHiddenPower this =
 setType :: Move -> Type -> Move
 setType this moveType =
   this { moveType = moveType }
+
+setLegacy :: Move -> Move
+setLegacy this =
+  this { isLegacy = True }
