@@ -23,6 +23,7 @@ module GameMaster (
 ) where
 
 import qualified Epic
+import qualified Legacy
 import qualified Move
 import           Move (Move)
 import qualified PokemonBase
@@ -37,6 +38,7 @@ import           WeatherBonus (WeatherBonus)
 import qualified Data.Yaml as Yaml
 import           Data.Yaml ((.:), (.:?), (.!=))
 
+import           Control.Monad (join)
 import           Data.Text.Conversions (convertText)
 import           Data.Char (toLower, toUpper)
 import qualified Data.List as List
@@ -69,7 +71,11 @@ load filename = do
   either <- Yaml.decodeFileEither filename
   case either of
     Left yamlParseException -> Epic.fail $ show yamlParseException
-    Right yamlObject -> return $ makeGameMaster yamlObject
+    Right yamlObject -> do
+      gameMaster <- makeGameMaster yamlObject
+      legacyMap <- join $ Legacy.load "legacy_moves.yaml"
+      gameMaster <- addLegacyMoves legacyMap gameMaster
+      return $ return $ gameMaster
 
 allPokemonBases :: GameMaster -> [PokemonBase]
 allPokemonBases this =
@@ -506,3 +512,31 @@ commaSeparated list =
   let commaSeparated' [a, b] = a ++ ", or " ++ b
       commaSeparated' (h:t) = h ++ ", " ++ commaSeparated' t
   in commaSeparated' list
+
+addLegacyMoves :: Epic.MonadCatch m =>
+  StringMap [String] -> GameMaster -> m GameMaster
+addLegacyMoves legacyMap this =
+  let addMoves :: Epic.MonadCatch m =>
+        String -> [Move] -> GameMaster -> m GameMaster
+      addMoves species moves gameMaster = do
+        base <- getPokemonBase gameMaster species
+        base <- return $ foldr PokemonBase.addMove base moves
+        return $ gameMaster {
+          pokemonBases = HashMap.insert species base $ pokemonBases gameMaster
+        }
+      addMovesWithNormalForm :: Epic.MonadCatch m =>
+        String -> [String] -> m GameMaster -> m GameMaster
+      addMovesWithNormalForm species moveNames mGameMaster = do
+        gameMaster <- mGameMaster
+        moves <- mapM (getMove gameMaster) moveNames
+        -- Add the moves to the species with the given name.  Any failure
+        -- will be reported.
+        gameMaster <- addMoves species moves gameMaster
+        -- Now try again with _normal appended.  There may not be a _normal
+        -- species so ignore failures.
+        return $
+          case addMoves (species ++ "_normal") moves gameMaster of
+            Left _ -> gameMaster
+            Right gameMaster' -> gameMaster'
+  in HashMap.foldrWithKey addMovesWithNormalForm (pure this) legacyMap
+
