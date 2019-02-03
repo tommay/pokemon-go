@@ -282,7 +282,10 @@ main =
               in filter ((`elem` dpsCutoffNames) . Pokemon.pname . Main.pokemon) sorted
             Nothing -> sorted
           nameFunc = case attackerSource options of
-            FromFiles _ -> nameNameAndSpeciesAndMoveset
+            FromFiles _ ->
+              if showMoveset options
+                then nameNameAndSpecies
+                else nameNameAndSpeciesAndMoveset
             AllAttackers ->
               if showMoveset options
                 then nameSpeciesAndLevelAndMoveset
@@ -357,6 +360,10 @@ showResult :: (Pokemon -> String) -> Result -> String
 showResult nameFunc result =
   Printf.printf "%4.1f %5d  %s"
     (minDps result) (minDamage result) (nameFunc $ pokemon result)
+
+nameNameAndSpecies :: Pokemon -> String
+nameNameAndSpecies pokemon =
+  Pokemon.pname pokemon ++ " (" ++ Pokemon.species pokemon ++ ")"
 
 nameNameAndSpeciesAndMoveset :: Pokemon -> String
 nameNameAndSpeciesAndMoveset pokemon =
