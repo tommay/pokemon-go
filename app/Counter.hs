@@ -317,19 +317,33 @@ main =
     )
     $ Exit.die
 
+-- pokemonList represents a single pokemon with multiple possible IVs,
+-- e.g., [P/iv1, P/iv2, P/iv3].  Each element is mapped to P/ivN for
+-- each moveset so we end up with [[P/iv1/m1, [P/iv1/m2], [P/iv2/m1,
+-- P/iv2/m2]].
+--
 expandMoves :: GameMaster -> [Pokemon] -> [[Pokemon]]
 expandMoves gameMaster pokemonList =
-  let base = Pokemon.base $ head pokemonList
-      movesets = [(quick, charge) |
+  let typicalPokemon = head pokemonList
+      base = Pokemon.base typicalPokemon
+      allMovesets = [(quick, charge) |
         quick <- PokemonBase.quickMoves base,
         charge <- PokemonBase.chargeMoves base]
+      isExistingMoveset quick charge =
+        quick == Pokemon.quick typicalPokemon &&
+        charge == Pokemon.charge typicalPokemon
+      notLegacyMove = not . Move.isLegacy
+      -- We only want to show the existing moveset and any moves we can TM to.
+      movesetsToShow = filter (\ (quick, charge) ->
+        isExistingMoveset quick charge ||
+        (notLegacyMove quick && notLegacyMove charge)) allMovesets
       setMovesAndName quick charge pokemon =
-        let current =
-              if Pokemon.quick pokemon == quick &&
-                 Pokemon.charge pokemon == charge
-              then "*-" :: String else "  "
+        let marker =
+              if isExistingMoveset quick charge
+                then "*-" :: String
+                else "  "
             name = Printf.printf "%s%s [%s/%s]"
-              current
+              marker
               (Pokemon.pname pokemon)
               (Move.name quick)
               (Move.name charge)
@@ -337,7 +351,7 @@ expandMoves gameMaster pokemonList =
              PokeUtil.setMoves gameMaster quick charge pokemon
   in map (\ (quick, charge) ->
        map (setMovesAndName quick charge) pokemonList)
-       movesets
+       movesetsToShow
 
 showResult :: (Pokemon -> String) -> Result -> String
 showResult nameFunc result =
