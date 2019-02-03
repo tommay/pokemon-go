@@ -59,7 +59,7 @@ data Options = Options {
   maybeMaxDust  :: Maybe Int,
   defender :: Battler,
   raidGroup :: Bool,
-  showMoveset :: Bool
+  showAllMovesets :: Bool
 }
 
 data SortOutputBy =
@@ -210,7 +210,7 @@ main =
           pokemonLists <- fmap concat $ mapM (loadPokemon . Just) filenames
 --          [[A1, A2], [B1]]
 --          [[A1/1, A2/1], [A1/2, A1/2], [B1/1], [B1/2]]
-          let pokemonLists' = if showMoveset options
+          let pokemonLists' = if showAllMovesets options
                 then concat $ map (expandMoves gameMaster) pokemonLists
                 else pokemonLists
           let maybeMaxCandy = Main.maybeMaxCandy options
@@ -235,7 +235,7 @@ main =
               ivs = IVs.tweakLevel (tweakLevel options) IVs.defaultIVs
               allAttackers = map
                 (MakePokemon.makeWithAllMovesetsFromBase gameMaster ivs) bases
-          if showMoveset options
+          if showAllMovesets options
             then return $ map (:[]) $ concat allAttackers
             else return $ allAttackers
         MovesetFor battlers ->
@@ -283,11 +283,11 @@ main =
             Nothing -> sorted
           nameFunc = case attackerSource options of
             FromFiles _ ->
-              if showMoveset options
+              if showAllMovesets options
                 then nameNameAndSpecies
                 else nameNameAndSpeciesAndMoveset
             AllAttackers ->
-              if showMoveset options
+              if showAllMovesets options
                 then nameSpeciesAndLevelAndMoveset
                 else nameSpeciesAndLevel
             MovesetFor _ -> nameSpeciesAndLevelAndMoveset
