@@ -522,8 +522,9 @@ addLegacyMoves legacyMap this =
       addMoves species moves gameMaster = do
         base <- getPokemonBase gameMaster species
         base <- return $ foldr PokemonBase.addMove base moves
+        let speciesU = map toUpper species
         return $ gameMaster {
-          pokemonBases = HashMap.insert species base $ pokemonBases gameMaster
+          pokemonBases = HashMap.insert speciesU base $ pokemonBases gameMaster
         }
       addMovesWithNormalForm :: Epic.MonadCatch m =>
         String -> [String] -> m GameMaster -> m GameMaster
