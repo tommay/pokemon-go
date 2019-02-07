@@ -518,28 +518,18 @@ addLegacyMoves :: Epic.MonadCatch m =>
   StringMap [String] -> GameMaster -> m GameMaster
 addLegacyMoves legacyMap this =
   let addMoves :: Epic.MonadCatch m =>
-        String -> [Move] -> GameMaster -> m GameMaster
-      addMoves species moves gameMaster = do
-        base <- getPokemonBase gameMaster species
-        base <- return $ foldr PokemonBase.addMove base moves
-        let speciesU = map toUpper species
-        return $ gameMaster {
-          pokemonBases = HashMap.insert speciesU base $ pokemonBases gameMaster
-        }
-      addMovesWithNormalForm :: Epic.MonadCatch m =>
         String -> [String] -> m GameMaster -> m GameMaster
-      addMovesWithNormalForm species moveNames mGameMaster = do
+      addMoves species moveNames mGameMaster = do
         gameMaster <- mGameMaster
         moves <- mapM (getMove gameMaster) moveNames
         moves <- return $ map Move.setLegacy moves
-        -- Add the moves to the species with the given name.  Any failure
-        -- will be reported.
-        gameMaster <- addMoves species moves gameMaster
-        -- Now try again with _normal appended.  There may not be a _normal
-        -- species so ignore failures.
-        return $
-          case addMoves (species ++ "_normal") moves gameMaster of
-            Left _ -> gameMaster
-            Right gameMaster' -> gameMaster'
-  in HashMap.foldrWithKey addMovesWithNormalForm (pure this) legacyMap
-
+        base <- getPokemonBase gameMaster species
+        base <- return $ foldr PokemonBase.addMove base moves
+        let speciesU = map toUpper species
+            key = if HashMap.member speciesU $ pokemonBases gameMaster
+              then speciesU
+              else speciesU ++ "_NORMAL"
+        return $ gameMaster {
+          pokemonBases = HashMap.insert key base $ pokemonBases gameMaster
+        }
+  in HashMap.foldrWithKey addMoves (pure this) legacyMap
