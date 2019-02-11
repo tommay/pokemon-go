@@ -6858,9 +6858,9 @@ itemTemplates:
   combatMove:
     uniqueId: FLAMETHROWER
     type: POKEMON_TYPE_FIRE
-    power: 70.0
+    power: 90.0
     vfxName: flamethrower
-    energyDelta: -50
+    energyDelta: -55
 - templateId: COMBAT_V0026_MOVE_DIG
   combatMove:
     uniqueId: DIG
@@ -6900,7 +6900,7 @@ itemTemplates:
   combatMove:
     uniqueId: ICE_PUNCH
     type: POKEMON_TYPE_ICE
-    power: 50.0
+    power: 55.0
     vfxName: ice_punch
     energyDelta: -40
 - templateId: COMBAT_V0034_MOVE_HEART_STAMP
@@ -7047,7 +7047,7 @@ itemTemplates:
   combatMove:
     uniqueId: PSYSHOCK
     type: POKEMON_TYPE_PSYCHIC
-    power: 65.0
+    power: 70.0
     vfxName: psyshock
     energyDelta: -45
 - templateId: COMBAT_V0062_MOVE_ANCIENT_POWER
@@ -7117,7 +7117,7 @@ itemTemplates:
   combatMove:
     uniqueId: IRON_HEAD
     type: POKEMON_TYPE_STEEL
-    power: 60.0
+    power: 70.0
     vfxName: iron_head
     energyDelta: -50
 - templateId: COMBAT_V0075_MOVE_PARABOLIC_CHARGE
@@ -7131,9 +7131,9 @@ itemTemplates:
   combatMove:
     uniqueId: THUNDER_PUNCH
     type: POKEMON_TYPE_ELECTRIC
-    power: 45.0
+    power: 55.0
     vfxName: thunder_punch
-    energyDelta: -35
+    energyDelta: -40
 - templateId: COMBAT_V0078_MOVE_THUNDER
   combatMove:
     uniqueId: THUNDER
@@ -7145,9 +7145,9 @@ itemTemplates:
   combatMove:
     uniqueId: THUNDERBOLT
     type: POKEMON_TYPE_ELECTRIC
-    power: 80.0
+    power: 90.0
     vfxName: thunderbolt
-    energyDelta: -45
+    energyDelta: -55
 - templateId: COMBAT_V0080_MOVE_TWISTER
   combatMove:
     uniqueId: TWISTER
@@ -7187,7 +7187,7 @@ itemTemplates:
   combatMove:
     uniqueId: DAZZLING_GLEAM
     type: POKEMON_TYPE_FAIRY
-    power: 100.0
+    power: 110.0
     vfxName: dazzling_gleam
     energyDelta: -70
 - templateId: COMBAT_V0087_MOVE_MOONBLAST
@@ -7425,7 +7425,7 @@ itemTemplates:
   combatMove:
     uniqueId: BODY_SLAM
     type: POKEMON_TYPE_NORMAL
-    power: 50.0
+    power: 60.0
     vfxName: body_slam
     energyDelta: -35
 - templateId: COMBAT_V0132_MOVE_REST
@@ -7576,7 +7576,7 @@ itemTemplates:
     power: 6.0
     vfxName: shadow_claw_fast
     durationTurns: 1
-    energyDelta: 7
+    energyDelta: 8
 - templateId: COMBAT_V0214_MOVE_VINE_WHIP_FAST
   combatMove:
     uniqueId: VINE_WHIP_FAST
@@ -7589,7 +7589,7 @@ itemTemplates:
   combatMove:
     uniqueId: RAZOR_LEAF_FAST
     type: POKEMON_TYPE_GRASS
-    power: 8.0
+    power: 11.0
     vfxName: razor_leaf_fast
     durationTurns: 1
     energyDelta: 4
@@ -7605,7 +7605,7 @@ itemTemplates:
   combatMove:
     uniqueId: ICE_SHARD_FAST
     type: POKEMON_TYPE_ICE
-    power: 8.0
+    power: 9.0
     vfxName: ice_shard_fast
     durationTurns: 2
     energyDelta: 10
@@ -7613,7 +7613,7 @@ itemTemplates:
   combatMove:
     uniqueId: FROST_BREATH_FAST
     type: POKEMON_TYPE_ICE
-    power: 6.0
+    power: 7.0
     vfxName: frost_breath_fast
     durationTurns: 1
     energyDelta: 5
@@ -7744,7 +7744,7 @@ itemTemplates:
   combatMove:
     uniqueId: CONFUSION_FAST
     type: POKEMON_TYPE_PSYCHIC
-    power: 12.0
+    power: 16.0
     vfxName: confusion_fast
     durationTurns: 3
     energyDelta: 12
@@ -8103,7 +8103,7 @@ itemTemplates:
   combatMove:
     uniqueId: WATERFALL_FAST
     type: POKEMON_TYPE_WATER
-    power: 10.0
+    power: 12.0
     vfxName: waterfall_fast
     durationTurns: 2
     energyDelta: 8
@@ -8203,7 +8203,7 @@ itemTemplates:
   combatMove:
     uniqueId: SMACK_DOWN_FAST
     type: POKEMON_TYPE_ROCK
-    power: 10.0
+    power: 12.0
     vfxName: smack_down_fast
     durationTurns: 2
     energyDelta: 8
@@ -14846,7 +14846,6 @@ itemTemplates:
     - SLUDGE_BOMB
     - PETAL_BLIZZARD
     - SOLAR_BEAM
-    - FRENZY_PLANT    # Community day 3/2018
     animationTime:
     - 2.4667
     - 0.6667
@@ -15090,7 +15089,6 @@ itemTemplates:
     - FIRE_BLAST
     - DRAGON_CLAW
     - OVERHEAT
-    - BLAST_BURN      # Community day 5/2018
     animationTime:
     - 2.2
     - 0.6667
@@ -15320,7 +15318,6 @@ itemTemplates:
     - FLASH_CANNON
     - ICE_BEAM
     - HYDRO_PUMP
-    - HYDRO_CANNON    # Community day 7/2018
     animationTime:
     - 2.1333
     - 0.6667
@@ -16981,7 +16978,6 @@ itemTemplates:
     - DISCHARGE
     - THUNDERBOLT
     - WILD_CHARGE
-    - SURF            # Community day 1/2018
     animationTime:
     - 1.8333
     - 0.6667
@@ -23249,7 +23245,6 @@ itemTemplates:
     - STONE_EDGE
     - ROCK_BLAST
     - EARTHQUAKE
-    - ANCIENT_POWER
     animationTime:
     - 2.6667
     - 0.6667
@@ -23401,7 +23396,6 @@ itemTemplates:
     - STONE_EDGE
     - ROCK_BLAST
     - EARTHQUAKE
-    - ANCIENT_POWER
     animationTime:
     - 2.6667
     - 0.6667
@@ -25367,13 +25361,10 @@ itemTemplates:
     quickMoves:
     - SUCKER_PUNCH_FAST
     - HEX_FAST
-    - SHADOW_CLAW_FAST
-    - LICK_FAST       # Gengar day 11/3/2018
     cinematicMoves:
     - SHADOW_BALL
     - FOCUS_BLAST
     - SLUDGE_BOMB
-    - PSYCHIC         # Gengar day 11/3/2018
     animationTime:
     - 1.6667
     - 0.6667
@@ -27903,7 +27894,6 @@ itemTemplates:
     quickMoves:
     - PECK_FAST
     - WATERFALL_FAST
-    - POISON_JAB_FAST
     cinematicMoves:
     - ICE_BEAM
     - WATER_PULSE
@@ -28847,7 +28837,6 @@ itemTemplates:
     quickMoves:
     - BITE_FAST
     - WATERFALL_FAST
-    - DRAGON_TAIL_FAST
     cinematicMoves:
     - HYDRO_PUMP
     - CRUNCH
@@ -29948,7 +29937,6 @@ itemTemplates:
     - HYPER_BEAM
     - EARTHQUAKE
     - OUTRAGE
-    - BODY_SLAM       # 7/2018 research reward
     animationTime:
     - 2.4
     - 0.6667
@@ -30034,7 +30022,6 @@ itemTemplates:
     - ICE_BEAM
     - ICY_WIND
     - BLIZZARD
-    - HURRICANE       # Articuno day 9/2018
     animationTime:
     - 2.0667
     - 1.0
@@ -30103,7 +30090,6 @@ itemTemplates:
       baseDefense: 185
     quickMoves:
     - CHARGE_BEAM_FAST
-    - THUNDER_SHOCK_FAST   # Zapdos day 7/21/2018
     cinematicMoves:
     - ZAP_CANNON
     - THUNDERBOLT
@@ -30180,7 +30166,6 @@ itemTemplates:
     - FIRE_BLAST
     - HEAT_WAVE
     - OVERHEAT
-    - SKY_ATTACK      # Moltres day 9/8/2018
     animationTime:
     - 2.7333
     - 1.3333
@@ -30412,7 +30397,6 @@ itemTemplates:
     - HURRICANE
     - HYPER_BEAM
     - OUTRAGE
-    - DRACO_METEOR    # Community day 2/2018
     animationTime:
     - 2.6667
     - 0.6667
@@ -30482,8 +30466,6 @@ itemTemplates:
     - PSYCHO_CUT_FAST
     - CONFUSION_FAST
     cinematicMoves:
-    - SHADOW_BALL
-    - HYPER_BEAM
     - PSYCHIC
     - THUNDERBOLT
     - ICE_BEAM
@@ -30833,7 +30815,6 @@ itemTemplates:
     - PETAL_BLIZZARD
     - SOLAR_BEAM
     - EARTHQUAKE
-    - FRENZY_PLANT    # Community day 9/2018
     animationTime:
     - 1.3333
     - 0.6667
@@ -31067,7 +31048,6 @@ itemTemplates:
     - FIRE_BLAST
     - OVERHEAT
     - SOLAR_BEAM
-    - BLAST_BURN      # Community day 11/2018
     animationTime:
     - 1.3333
     - 0.6667
@@ -31297,7 +31277,6 @@ itemTemplates:
     - CRUNCH
     - HYDRO_PUMP
     - ICE_BEAM
-    - HYDRO_CANNON    # Community day 1/2019
     animationTime:
     - 1.3333
     - 0.6667
@@ -32951,7 +32930,6 @@ itemTemplates:
     - FOCUS_BLAST
     - THUNDER
     - POWER_GEM
-    - DRAGON_PULSE    # Community day 4/2018
     animationTime:
     - 1.3333
     - 0.6667
@@ -38490,7 +38468,6 @@ itemTemplates:
     quickMoves:
     - EXTRASENSORY_FAST
     - SNARL_FAST
-    - HIDDEN_POWER_FAST
     cinematicMoves:
     - HYDRO_PUMP
     - BUBBLE_BEAM
@@ -38775,7 +38752,6 @@ itemTemplates:
     quickMoves:
     - BITE_FAST
     - IRON_TAIL_FAST
-    - SMACK_DOWN_FAST # Community day 6/2018
     cinematicMoves:
     - FIRE_BLAST
     - CRUNCH
@@ -42268,7 +42244,6 @@ itemTemplates:
     - DYNAMIC_PUNCH
     - SEED_BOMB
     - SLUDGE_BOMB
-    - GRASS_KNOT      # Hoenn Event 1/2019
     animationTime:
     - 1.3333
     - 0.6667
@@ -49576,7 +49551,6 @@ itemTemplates:
     - PSYCHIC
     - FLASH_CANNON
     - EARTHQUAKE
-    - METEOR_MASH     # Community day 10/2018
     animationTime:
     - 1.3333
     - 0.6667
@@ -53289,8 +53263,6 @@ itemTemplates:
       movementTimerS: 10.0
       jumpTimeS: 0.9
       attackTimerS: 29.0
-      bonusCandyCaptureReward: 2
-      bonusStardustCaptureReward: 200
       attackProbability: 0.05
       dodgeProbability: 0.4
       dodgeDurationS: 1.0
@@ -78344,4 +78316,4 @@ itemTemplates:
     - wait 0.25
     - sys ui-sync
     - sys complete
-timestampMs: '1549586048989'
+timestampMs: '1549590777062'
