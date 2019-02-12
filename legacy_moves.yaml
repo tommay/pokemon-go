@@ -93,6 +93,10 @@
   moves:
   - GRASS_KNOT      # Hoenn Event 1/2019
 - legacy:
+  species: mamoswine
+  moves:
+  - ANCIENT_POWER   # Community day 2/2019
+- legacy:
   species: golem_normal
   moves:
   - ANCIENT_POWER
