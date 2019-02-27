@@ -183,8 +183,11 @@ makeRaidBossForMoves gameMaster raidLevel base quickMoves chargeMoves =
           (hp / 2)
           quickMove
           chargeMove
+      notLegacy = not . Move.isLegacy   
   in [makePokemon quickMove chargeMove |
-       quickMove <- quickMoves, chargeMove <- chargeMoves]
+       quickMove <- quickMoves, chargeMove <- chargeMoves,
+       -- Raid bosses do not use legacy moves.
+       notLegacy quickMove, notLegacy chargeMove]
 
 setLevel :: Float -> Battler -> Battler
 setLevel level battler =
