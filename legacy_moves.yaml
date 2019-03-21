@@ -97,6 +97,10 @@
   moves:
   - ANCIENT_POWER   # Community day 2/2019
 - legacy:
+  species: sceptile
+  moves:
+  - FRENZY_PLANT    # Community day 3/2019
+- legacy:
   species: golem_normal
   moves:
   - ANCIENT_POWER
