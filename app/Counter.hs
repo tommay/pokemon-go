@@ -57,9 +57,9 @@ data Options = Options {
   showPowerups :: Bool,
   maybeMaxCandy :: Maybe Int,
   maybeMaxDust  :: Maybe Int,
-  defender :: Battler,
   raidGroup :: Bool,
-  showAllMovesets :: Bool
+  showAllMovesets :: Bool,
+  defender :: Battler
 }
 
 data SortOutputBy =
@@ -89,8 +89,8 @@ getOptions =
         optTweakLevel <*> optLegendary <*> optAttackerSource <*>
         optShowBreakpoints <*>
         optShowPowerups <*> optMaxCandy <*> optMaxDust <*>
-        optDefender <*>
-        optRaidGroup <*> optShowMoveset
+        optRaidGroup <*> optShowMoveset <*>
+        optDefender
       optWeather = O.optional Weather.optWeather
       optSortOutputBy =
         let optGlass = O.flag' ByDps
@@ -166,9 +166,6 @@ getOptions =
         <> O.short 'S'
         <> O.metavar "STARDUST"
         <> O.help "Use up to STARDUST starust to power up the pokemon")
-      optDefender = O.argument
-        (BattlerUtil.optParseBattler IVs.defaultIVs)
-          (O.metavar "DEFENDER[:LEVEL]")
       optRaidGroup = O.switch
         (  O.long "raidgroup"
         <> O.short 'R'
@@ -176,6 +173,9 @@ getOptions =
       optShowMoveset = O.switch
         (  O.short 'M'
         <> O.help "Show movesets for -a")
+      optDefender = O.argument
+        (BattlerUtil.optParseBattler IVs.defaultIVs)
+          (O.metavar "DEFENDER[:LEVEL]")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc "Find good counters for a Pokemon.")
