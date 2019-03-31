@@ -329,16 +329,19 @@ expandMoves :: GameMaster -> [Pokemon] -> [[Pokemon]]
 expandMoves gameMaster pokemonList =
   let typicalPokemon = head pokemonList
       base = Pokemon.base typicalPokemon
+      existingQuickMove = Pokemon.quick typicalPokemon
+      existingChargeMove = Pokemon.charge typicalPokemon
       allMovesets = [(quick, charge) |
         quick <- PokemonBase.quickMoves base,
         charge <- PokemonBase.chargeMoves base]
       isExistingMoveset quick charge =
-        quick == Pokemon.quick typicalPokemon &&
-        charge == Pokemon.charge typicalPokemon
+        quick == existingQuickMove &&
+        charge == existingChargeMove
       notLegacyMove = not . Move.isLegacy
-      -- We only want to show the existing moveset and any moves we can TM to.
+      -- We only want to show the existing moves and any moves we can TM to.
       movesetsToShow = filter (\ (quick, charge) ->
-        isExistingMoveset quick charge ||
+        quick == existingQuickMove||
+        charge == existingChargeMove ||
         (notLegacyMove quick && notLegacyMove charge)) allMovesets
       setMovesAndName quick charge pokemon =
         let marker =
