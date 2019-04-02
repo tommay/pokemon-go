@@ -353,10 +353,19 @@ makePokemonBase types moves forms pokemonSettings =
         -- XXX This can swallow parse errors?
         Left _ -> return []
 
-    let getMoves key = do
-          -- Mew has some moves specified multiple times so nub them.
-          moveNames <- List.nub <$> getValue key
-          mapM (get moves) moveNames
+    -- XXX Smeargle's doesn't have keys for "quickMoves" and
+    -- "cinematicMoves".  Instead, those keys are in the template
+    -- "SMEARGLE_MOVE_SETTINGS".  Smeargle is the only pokemon like
+    -- that.  Since I will never care about smeargle's moves, they are
+    -- just returned as [] here.  If they start using this scheme for
+    -- other pokemon they will break and I can decide what to do then.
+    --
+    let getMoves key = if species /= "smeargle"
+          then do
+            -- Mew has some moves specified multiple times so nub them.
+            moveNames <- List.nub <$> getValue key
+            mapM (get moves) moveNames
+          else return []
 
     quickMoves <- getMoves "quickMoves"
     chargeMoves <- getMoves "cinematicMoves"
