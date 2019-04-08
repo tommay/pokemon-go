@@ -34,6 +34,10 @@ import qualified Text.Show.Functions
 
 import qualified Debug as D
 
+-- Battle mechanics are from
+-- https://pokemongo.gamepress.gg/new-discoveries-theory-battle-mechanics
+-- See also Attacker.hs and Defender.hs.
+
 data Battle = Battle {
   attacker :: Attacker,
   defender :: Defender,

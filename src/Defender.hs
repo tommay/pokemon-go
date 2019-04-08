@@ -31,6 +31,10 @@ import qualified Text.Printf as Printf
 
 import qualified Debug as D
 
+-- Battle mechanics are from
+-- https://pokemongo.gamepress.gg/new-discoveries-theory-battle-mechanics
+-- See also Battle.hs and Attacker.hs.
+
 data Defender = Defender {
   pokemon :: Pokemon,
   hp :: Int,
