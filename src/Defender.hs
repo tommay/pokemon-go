@@ -132,14 +132,14 @@ makeMove' raidGroup this = do
       -- seconds added to their duration.  Just use the average, 2.
       -- https://www.reddit.com/r/TheSilphRoad/comments/52b453/testing_gym_combat_misconceptions_2/
       if raidGroup || decisionEnergy >= negate (Move.energy charge) then do
-          Logger.log $ "Defender can use " ++ Move.name charge
-          let (random, rnd') = NotRandom.randomBool $ Defender.rnd this
-          if random then do
-            Logger.log $ "Defender chooses " ++ Move.name charge ++ " for next move"
-            return ([(charge, Move.durationMs charge + 2000)], rnd')
-          else do
-            Logger.log $ "Defender chooses " ++ Move.name quick ++ " for next move"
-            return ([(quick, Move.durationMs quick + 2000)], rnd')
+        Logger.log $ "Defender can use " ++ Move.name charge
+        let (random, rnd') = NotRandom.randomBool $ Defender.rnd this
+        if random then do
+          Logger.log $ "Defender chooses " ++ Move.name charge ++ " for next move"
+          return ([(charge, Move.durationMs charge + 2000)], rnd')
+        else do
+          Logger.log $ "Defender chooses " ++ Move.name quick ++ " for next move"
+          return ([(quick, Move.durationMs quick + 2000)], rnd')
       else do
         Logger.log $ "Defender must use " ++ Move.name quick ++ " for next move"
         return ([(quick, Move.durationMs quick + 2000)], Defender.rnd this)
