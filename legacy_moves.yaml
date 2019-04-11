@@ -101,6 +101,10 @@
   moves:
   - FRENZY_PLANT    # Community day 3/2019
 - legacy:
+  species: salamence
+  moves:
+  - OUTRAGE        # Community day 4/2019
+- legacy:
   species: golem_normal
   moves:
   - ANCIENT_POWER
