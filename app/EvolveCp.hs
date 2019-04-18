@@ -69,15 +69,15 @@ main =
       evolutions <- getEvolutions gameMaster $ PokemonBase.species base
       evolutionBases <- mapM (GameMaster.getPokemonBase gameMaster) evolutions
       putStrLn $ show $ NestedResults $ for (cpList options) $ \ cp ->
-            let ivs = getIvs gameMaster base cp
-            in NestedResults $ for evolutionBases $ \ evolutionBase ->
-              let evolutionSpecies = PokemonBase.species evolutionBase
-                  evolvedCps = map (Calc.cp gameMaster evolutionBase) ivs
-                  min = minimum evolvedCps
-                  max = maximum evolvedCps
-              in NestedResult $ if min == max
-                then Printf.printf "%s: %d" evolutionSpecies min
-                else Printf.printf "%s: %d - %d" evolutionSpecies min max
+        let ivs = getIvs gameMaster base cp
+        in NestedResults $ for evolutionBases $ \ evolutionBase ->
+          let evolutionSpecies = PokemonBase.species evolutionBase
+              evolvedCps = map (Calc.cp gameMaster evolutionBase) ivs
+              min = minimum evolvedCps
+              max = maximum evolvedCps
+          in NestedResult $ if min == max
+            then Printf.printf "%s: %d" evolutionSpecies min
+            else Printf.printf "%s: %d - %d" evolutionSpecies min max
   )
   $ Exit.die
 
