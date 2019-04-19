@@ -51,6 +51,8 @@ import           Data.Text (Text)
 import qualified System.IO as IO
 import qualified System.Exit as Exit
 
+import qualified Debug
+
 defaultIvs = IVs.defaultIVs
 
 data Options = Options {
@@ -112,7 +114,12 @@ main =
             (MakePokemon.makeWithAllMovesetsFromBase gameMaster ivs)
             attackerBases
 
-      let defenderBases = allBases
+      -- Smeargle's moves are handled strangely in GAME_MASTER.yaml and
+      -- it currently ends up with an empty move list which causes head to
+      -- fail.  For now, filter it out here.
+
+      let defenderBases =
+            filter ((/= "smeargle") . PokemonBase.species) allBases
 
           defenderSets =
             map (BattlerUtil.makeRaidBossForTier gameMaster 3) defenderBases
