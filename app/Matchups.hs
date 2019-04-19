@@ -1,8 +1,8 @@
 {-# LANGUAGE OverloadedStrings #-}
 
--- Simulates matchups between all pokemon that are non-mythical (i.e.,
--- actually available) non-legendary pokemon at the top of their
--- evolution chain.  Except legendary defenders are simulated.
+-- Simulates matchups between all attackers and defenders where attackers
+-- are at the top of their evolution chain and defenders are all tier 3
+-- raid bosses.
 -- Alternatively a file of attackers can be given and they will be
 -- simulated against all defenders.
 --
@@ -20,6 +20,7 @@ import           Data.Semigroup ((<>))
 
 import qualified Battle
 import           Battle (Battle)
+import qualified BattlerUtil
 import qualified Epic
 import qualified IVs
 import           IVs (IVs)
@@ -66,7 +67,7 @@ getOptions =
         <> O.metavar "LEVEL"
         <> O.value (IVs.level defaultIvs)
         <> O.showDefault
-        <> O.help ("Set the level of the battling pokemon"))
+        <> O.help "Set the level of the attackers")
       optAttackers = O.optional $ O.strOption
         (  O.long "attackers"
         <> O.short 'a'
@@ -74,7 +75,8 @@ getOptions =
         <> O.help "File with attacking pokemon, default all")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
-        <> O.progDesc "Simulate matchups between all pokemon")
+        <> O.progDesc
+          "Simulate matchups between all pokemon against tier 3 raid bosses")
       prefs = O.prefs O.showHelpOnEmpty
   in O.customExecParser prefs options
 
@@ -110,14 +112,10 @@ main =
             (MakePokemon.makeWithAllMovesetsFromBase gameMaster ivs)
             attackerBases
 
-      let defenderBases =
-              filter notMythical
-            $ filter (not . PokemonBase.hasEvolutions)
-            allBases
+      let defenderBases = allBases
 
           defenderSets =
-            map (MakePokemon.makeWithAllMovesetsFromBase gameMaster ivs)
-            defenderBases
+            map (BattlerUtil.makeRaidBossForTier gameMaster 3) defenderBases
 
           attackerResults = [getAttackerResult defenders attacker |
             defenders <- defenderSets, attacker <- attackers]

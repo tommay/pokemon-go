@@ -9,6 +9,7 @@ module BattlerUtil (
   parseBattler,
   optParseBattler,
   makeBattlerVariants,
+  makeRaidBossForTier,
   setLevel,
   getMatchingMove,
 ) where
@@ -142,6 +143,11 @@ matchingMoveFail abbrev allMoves moveType species list =
        "Available %s moves:\n%s")
        species howMany moveType abbrev moveType
        (List.intercalate "\n" $ map (("  " ++) . Move.name) allMoves)
+
+makeRaidBossForTier :: GameMaster -> Int -> PokemonBase -> [Pokemon]
+makeRaidBossForTier gameMaster raidLevel base =
+  makeRaidBossForMoves gameMaster raidLevel base
+    (PokemonBase.quickMoves base) (PokemonBase.chargeMoves base)
 
 -- https://pokemongo.gamepress.gg/how-raid-boss-cp-calculated
 -- This is more to the point.  The CP calculations don't actually
