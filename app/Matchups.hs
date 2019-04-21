@@ -32,7 +32,6 @@ import           Move (Move)
 import qualified MakePokemon
 import qualified MyPokemon
 import           MyPokemon (MyPokemon)
-import qualified Mythical
 import qualified Pokemon
 import           Pokemon (Pokemon)
 import qualified PokemonBase
@@ -89,12 +88,7 @@ main =
 
       gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
 
-      mythicalMap <- join $ Mythical.load "mythical.yaml"
-
-      let notMythical =
-            not . Mythical.isMythical mythicalMap . PokemonBase.species
-          notLegendary =
-            not . Mythical.isLegendary mythicalMap . PokemonBase.species
+      let ivs = IVs.setLevel defaultIvs $ level options
 
           ivs = IVs.setLevel defaultIvs $ level options
 
@@ -106,10 +100,8 @@ main =
           mapM (fmap head . MakePokemon.makePokemon gameMaster) myPokemon
         Nothing -> do
           let attackerBases =
-                  filter notMythical
-                $ filter notLegendary
-                $ filter (not . PokemonBase.hasEvolutions)
-                allBases
+                filter (not . PokemonBase.hasEvolutions)
+                  allBases
           return $ concat $ map
             (MakePokemon.makeWithAllMovesetsFromBase gameMaster ivs)
             attackerBases
