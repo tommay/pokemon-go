@@ -90,8 +90,6 @@ main =
 
       let ivs = IVs.setLevel defaultIvs $ level options
 
-          ivs = IVs.setLevel defaultIvs $ level options
-
           allBases = GameMaster.allPokemonBases gameMaster
 
       attackers <- case attackersFile options of
@@ -137,7 +135,6 @@ data AttackerResult = AttackerResult {
   defender :: String,
   pokemon :: Pokemon,
   battles :: [Battle],
-  minByDamage :: Battle,
   minDamage :: Int,
   dps       :: Float,
   maxDamage :: Int
@@ -149,19 +146,19 @@ getAttackerResult defenders attacker =
         Battle.doBattle (const 1) False attacker defender |
         defender <- defenders]
       battles = map (fst . Logger.runLogger) battleLoggers
-      minByDamage =
+      minDamage = Battle.damageInflicted $
         List.minimumBy (Ord.comparing Battle.damageInflicted) battles
-      minDamage = Battle.damageInflicted minByDamage
-      maxByDamage =
+      maxDamage = Battle.damageInflicted $
         List.maximumBy (Ord.comparing Battle.damageInflicted) battles
-      maxDamage = Battle.damageInflicted maxByDamage
+      dps = Battle.dps $
+        List.minimumBy (Ord.comparing Battle.dps) battles
+
   in AttackerResult {
        defender = Pokemon.species $ head defenders,
        pokemon = attacker,
        battles = battles,
-       minByDamage = minByDamage,
        minDamage = minDamage,
-       dps = Battle.dps minByDamage,
+       dps = dps,
        maxDamage = maxDamage
        }
 
