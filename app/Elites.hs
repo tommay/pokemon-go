@@ -1,3 +1,6 @@
+-- Generic has something to do with making Attacker an instance of Hashable.
+{-# LANGUAGE DeriveGeneric #-} -- For deriving Hashable instance.
+
 module Main where
 
 -- Read matchups.out and output the elite attackers + moveset and their
@@ -19,6 +22,9 @@ import qualified Matchup
 import           Matchup (Matchup)
 import qualified Util
 
+import           GHC.Generics (Generic)
+import           Data.Hashable (Hashable)
+
 import           Control.Monad (join)
 import qualified Data.HashMap.Strict as HashMap
 import           Data.HashMap.Strict (HashMap)
@@ -33,6 +39,13 @@ data Options = Options {
   filterNames :: Bool,
   filename   :: String
 }
+
+-- Attacker is name, quickName, chargeName.
+
+data Attacker = Attacker String String String
+  deriving (Eq, Generic)
+
+instance Hashable Attacker
 
 getOptions :: IO Options
 getOptions =
@@ -64,65 +77,56 @@ main =
     do
       options <- getOptions
 
-      matchups <- do
-        matchups <- join $ Matchup.load $ filename options
+      allMatchups <- do
+        allMatchups <- join $ Matchup.load $ filename options
         return $ case filterNames options of
-          False -> matchups
+          False -> allMatchups
           True -> filter
             (Maybe.isNothing .
              Regex.matchRegex (Regex.mkRegex "\\[.+\\]") .
              Matchup.attacker)
-            matchups
+            allMatchups
 
-      -- byDefender maps a defender to a list of its matchups.
+      -- matchupsByDefender maps a defender to a list of its Matchups.
 
-      let byDefender :: HashMap String [Matchup]
-          byDefender = Util.groupBy Matchup.defender matchups
+      let matchupsByDefender :: HashMap String [Matchup]
+          matchupsByDefender = Util.groupBy Matchup.defender allMatchups
 
-          -- Find the matchups with the most damage and decent dps.
+          -- Keep Matchups against a defender with best dps and decent
+          -- damage.
 
           eliteMatchups :: [Matchup]
           eliteMatchups = concat
             $ map keepHighDpsMatchups
-            $ HashMap.elems byDefender  -- [[Matchup]]
+            $ HashMap.elems matchupsByDefender  -- [[Matchup]]
 
-          -- HashMap (attacker, _, _) [Matchup]
-          eliteAttackers = Util.groupBy attackerInfo eliteMatchups
+          -- HashMap Attacker [Matchup]
+          eliteMatchupsByAttacker =
+            Util.groupBy getAttackerFromMatchup eliteMatchups
 
-          -- HashMap (attacker, _, _) [String]
-          eliteVictims = HashMap.map (map Matchup.defender) eliteAttackers
+          -- HashMap Attacker [String]
+          victimsByAttacker =
+            HashMap.map (map Matchup.defender) eliteMatchupsByAttacker
 
-          -- An attacker is considered elite only if it has elite victims.
-          filterElites blah =
-            let getAttacker (attacker, _, _) = attacker
-                attackers = map getAttacker $ HashMap.keys blah
-                filtered = HashMap.map (filter (`elem` attackers)) blah
-                filtered' = HashMap.filter (not . null) filtered
-            in if blah == filtered'
-                 then blah
-                 else filterElites filtered'
+      victimsByAttacker <- do return $ HashMap.filter (not . isOutclassed victimsByAttacker) victimsByAttacker
 
-          filteredEliteAttackers = if elitesOnly options
-            then filterElites eliteVictims
-            else eliteVictims
-
-          getAttacker ((attacker, _, _), _) = attacker
-
-          sorted = List.sortOn getAttacker $
-            HashMap.toList filteredEliteAttackers
+      let sorted = List.sortOn (\ (Attacker attacker _ _, _) -> attacker)
+            $ HashMap.toList victimsByAttacker
 
       mapM_ (putStrLn . showElite) $ sorted
     )
     $ Exit.die
 
-showElite :: ((String, String, String), [String]) -> String
-showElite ((attacker, quick, charge), victims) =
+showElite :: (Attacker, [String]) -> String
+showElite (Attacker attacker quick charge, victims) =
   let sortedVictims = List.intercalate ", " $ List.sort victims
   in Printf.printf "%s %s / %s => %s" attacker quick charge sortedVictims
 
-attackerInfo :: Matchup -> (String, String, String)
-attackerInfo matchup =
-  (Matchup.attacker matchup, Matchup.quick matchup, Matchup.charge matchup)
+getAttackerFromMatchup :: Matchup -> Attacker
+getAttackerFromMatchup matchup = Attacker
+  (Matchup.attacker matchup)
+  (Matchup.quick matchup)
+  (Matchup.charge matchup)
 
 -- Keep the top ten percentile of Matchups by dps.  This eliminates
 -- attackers with low dps even if they do a lot of damage by having
@@ -142,3 +146,17 @@ keepTopDamageMatchups matchups =
   let damageCutOff =
         (List.maximum $ map Matchup.minDamage matchups) * 9 `div` 10
   in filter ((>= damageCutOff) . Matchup.minDamage) matchups
+
+-- An attacker is outclassed if there another attacker whose victim
+-- list is a strict superset of the given attacker's victim list.  It
+-- dodesn't matter what a given attacker is outclassed by, just that
+-- it is strictly outclassed.
+--
+isOutclassed :: HashMap Attacker [String] -> [String] -> Bool
+isOutclassed victimsByAttacker victims =
+  List.any (`isStrictSupersetOf` victims)
+    $ HashMap.elems victimsByAttacker
+
+isStrictSupersetOf :: Eq a => [a] -> [a] -> Bool
+superset `isStrictSupersetOf` subset =
+  length superset > length subset && List.all (`elem` superset) subset
