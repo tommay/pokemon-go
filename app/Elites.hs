@@ -36,6 +36,7 @@ import qualified Text.Regex as Regex
 
 data Options = Options {
   elitesOnly :: Bool,
+  topNByDps :: Int,
   filterNames :: Bool,
   filename   :: String
 }
@@ -49,11 +50,18 @@ instance Hashable Attacker
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optElitesOnly <*> optHypothetical <*> optFilename
+  let opts = Options <$> optElitesOnly <*> optN <*> optHypothetical
+        <*> optFilename
       optElitesOnly = O.switch
         (  O.long "elites"
         <> O.short 'e'
         <> O.help "Filter non-elites from all output")
+      optN = O.option O.auto
+        (  O.long "top"
+        <> O.short 'n'
+        <> O.metavar "N"
+        <> O.value 10
+        <> O.help "Select the top N pokemon by dps for each defender")
       optHypothetical = O.switch
         (  O.long "hypothetical"
         <> O.short 'h'
@@ -97,7 +105,7 @@ main =
 
           eliteMatchups :: [Matchup]
           eliteMatchups = concat
-            $ map keepHighDpsMatchups
+            $ map (keepHighDpsMatchups $ topNByDps options)
             $ HashMap.elems matchupsByDefender  -- [[Matchup]]
 
           -- HashMap Attacker [Matchup]
@@ -132,10 +140,10 @@ getAttackerFromMatchup matchup = Attacker
 -- attackers with low dps even if they do a lot of damage by having
 -- high bulk, e.g., snorlax.
 --
-keepHighDpsMatchups :: [Matchup] -> [Matchup]
-keepHighDpsMatchups matchups =
+keepHighDpsMatchups :: Int -> [Matchup] -> [Matchup]
+keepHighDpsMatchups n matchups =
   let sortedByDps = reverse $ List.sortOn Matchup.dps matchups
-  in take 10 sortedByDps
+  in take n sortedByDps
 
 -- Keep Matchups with damage >= 90% of the maximum damage.  This may
 -- keep only one Matchup if no other attacker even comes close to the
