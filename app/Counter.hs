@@ -140,8 +140,8 @@ getOptions =
               <> O.short 'a'
               <> O.help "Consider all pokemon, not just the ones in FILE")
             optMovesetFor = MovesetFor <$>
-                (O.some . O.option
-                  (BattlerUtil.optParseBattler IVs.defaultIVs))
+              (O.some . O.option
+                (BattlerUtil.optParseBattler IVs.defaultIVs))
               (  O.long "moveset"
               <> O.short 'm'
               <> O.metavar "ATTACKER[:LEVEL]"
