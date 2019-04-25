@@ -34,11 +34,14 @@ import qualified System.Exit as Exit
 import qualified Text.Printf as Printf
 import qualified Text.Regex as Regex
 
+import qualified Debug as D
+
 data Options = Options {
   elitesOnly :: Bool,
   topNByDps :: Int,
   filterNames :: Bool,
-  filename   :: String
+  filename   :: String,
+  excludes :: [String]
 }
 
 -- Attacker is name, quickName, chargeName.
@@ -51,7 +54,7 @@ instance Hashable Attacker
 getOptions :: IO Options
 getOptions =
   let opts = Options <$> optElitesOnly <*> optN <*> optHypothetical
-        <*> optFilename
+        <*> optFilename <*> optExcludes
       optElitesOnly = O.switch
         (  O.long "elites"
         <> O.short 'e'
@@ -73,6 +76,11 @@ getOptions =
         <> O.value "matchups.out"
         <> O.showDefault
         <> O.help "File to read matchup data from")
+      optExcludes = (O.many . O.strOption)
+        (  O.long "exclude"
+        <> O.short 'x'
+        <> O.metavar "POKEMON"
+        <> O.help "Pokemon to exclude from elite consideration")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc ("Use matchups.out to find elite pokemon and their" ++
@@ -87,6 +95,10 @@ main =
 
       allMatchups <- do
         allMatchups <- join $ Matchup.load $ filename options
+        allMatchups <- do
+          return $
+            filter (not . (`elem` excludes options) . Matchup.attacker)
+              allMatchups
         return $ case filterNames options of
           False -> allMatchups
           True -> filter
