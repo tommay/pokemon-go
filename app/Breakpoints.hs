@@ -93,9 +93,9 @@ main =
             return "  "
         let breakpoints = Breakpoint.getBreakpoints
               gameMaster weatherBonus attacker defender
-        forM_ breakpoints $ \ (level, damage) ->
-          putStrLn $ Printf.printf "%s%-4s %d"
-            (indent :: String) (PokeUtil.levelToString level) damage
+        forM_ breakpoints $ \ (level, damage, dps) ->
+          putStrLn $ Printf.printf "%s%-4s %d  %.1f"
+            (indent :: String) (PokeUtil.levelToString level) damage dps
     )
     $ Exit.die
 

@@ -311,9 +311,9 @@ main =
                         attacker defender
                   in case breakpoints of
                        (_:_:_) ->  -- Only show if there are two or more.
-                         forM_ breakpoints $ \ (level, damage) ->
-                           putStrLn $ Printf.printf "  %-4s %d"
-                            (PokeUtil.levelToString level) damage
+                         forM_ breakpoints $ \ (level, damage, dps) ->
+                           putStrLn $ Printf.printf "  %-4s %d  %.1f"
+                            (PokeUtil.levelToString level) damage dps
                        _ -> return ()
                 _ -> putStrLn "  multiple attacker variants"
             else return ()
