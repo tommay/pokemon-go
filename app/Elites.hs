@@ -128,7 +128,7 @@ main =
           victimsByAttacker =
             HashMap.map (map Matchup.defender) eliteMatchupsByAttacker
 
-      victimsByAttacker <- do return $ HashMap.filter (not . isOutclassed victimsByAttacker) victimsByAttacker
+      victimsByAttacker <- do return $ HashMap.filter (not . isRedundant victimsByAttacker) victimsByAttacker
 
       let sorted = List.sortOn (\ (Attacker attacker _ _, _) -> attacker)
             $ HashMap.toList victimsByAttacker
@@ -172,8 +172,8 @@ keepTopDamageMatchups matchups =
 -- dodesn't matter what a given attacker is outclassed by, just that
 -- it is strictly outclassed.
 --
-isOutclassed :: HashMap Attacker [String] -> [String] -> Bool
-isOutclassed victimsByAttacker victims =
+isRedundant :: HashMap Attacker [String] -> [String] -> Bool
+isRedundant victimsByAttacker victims =
   List.any (`isStrictSupersetOf` victims)
     $ HashMap.elems victimsByAttacker
 
