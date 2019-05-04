@@ -340,9 +340,9 @@ expandMoves gameMaster pokemonList =
       notLegacyMove = not . Move.isLegacy
       -- We only want to show the existing moves and any moves we can TM to.
       movesetsToShow = filter (\ (quick, charge) ->
-        quick == existingQuickMove||
-        charge == existingChargeMove ||
-        (notLegacyMove quick && notLegacyMove charge)) allMovesets
+          (notLegacyMove quick || quick == existingQuickMove) &&
+          (notLegacyMove charge || charge == existingChargeMove))
+        allMovesets
       setMovesAndName quick charge pokemon =
         let marker =
               if isExistingMoveset quick charge
