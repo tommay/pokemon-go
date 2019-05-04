@@ -39,6 +39,7 @@ import qualified Debug as D
 data Options = Options {
   elitesOnly :: Bool,
   topNByDps :: Int,
+  filterRedundant :: Bool,
   filterNames :: Bool,
   filename   :: String,
   excludes :: [String]
@@ -53,8 +54,8 @@ instance Hashable Attacker
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optElitesOnly <*> optN <*> optHypothetical
-        <*> optFilename <*> optExcludes
+  let opts = Options <$> optElitesOnly <*> optN <*> optFilterRedundant
+        <*> optHypothetical <*> optFilename <*> optExcludes
       optElitesOnly = O.switch
         (  O.long "elites"
         <> O.short 'e'
@@ -65,6 +66,10 @@ getOptions =
         <> O.metavar "N"
         <> O.value 10
         <> O.help "Select the top N pokemon by dps for each defender")
+      optFilterRedundant = O.switch
+        (  O.long "noredundant"
+        <> O.short 'r'
+        <> O.help "Filter redundant attackers")
       optHypothetical = O.switch
         (  O.long "hypothetical"
         <> O.short 'h'
@@ -128,7 +133,13 @@ main =
           victimsByAttacker =
             HashMap.map (map Matchup.defender) eliteMatchupsByAttacker
 
-      victimsByAttacker <- do return $ HashMap.filter (not . isRedundant victimsByAttacker) victimsByAttacker
+          filterRedundant = Main.filterRedundant options
+
+      victimsByAttacker <- do
+        return $
+          HashMap.filter
+            (not . (filterRedundant &&) . isRedundant victimsByAttacker)
+            victimsByAttacker
 
       let sorted = List.sortOn (\ (Attacker attacker _ _, _) -> attacker)
             $ HashMap.toList victimsByAttacker
