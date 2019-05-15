@@ -103,7 +103,11 @@
 - legacy:
   species: salamence
   moves:
-  - OUTRAGE        # Community day 4/2019
+  - OUTRAGE         # Community day 4/2019
+- legacy:
+  species: blaziken
+  moves:
+  - BLAST_BURN      # Community day 5/2019
 - legacy:
   species: golem_normal
   moves:
