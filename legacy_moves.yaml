@@ -1,131 +1,99 @@
-- legacy:
-  species: pikachu
+- species: pikachu
   moves:
   - SURF            # Community day 1/2018
-- legacy:
-  species: dragonite
+- species: dragonite
   moves:
   - DRACO_METEOR    # Community day 2/2018
-- legacy:
-  species: venusaur
+- species: venusaur
   moves:
   - FRENZY_PLANT    # Community day 3/2018
-- legacy:
-  species: ampharos
+- species: ampharos
   moves:
   - DRAGON_PULSE    # Community day 4/2018
-- legacy:
-  species: charizard
+- species: charizard
   moves:
   - BLAST_BURN      # Community day 5/2018
-- legacy:
-  species: tyranitar
+- species: tyranitar
   moves:
   - SMACK_DOWN_FAST # Community day 6/2018
-- legacy:
-  species: blastoise
+- species: blastoise
   moves:
   - HYDRO_CANNON    # Community day 7/2018
-- legacy:
-  species: snorlax
+- species: snorlax
   moves:
   - BODY_SLAM       # 7/2018 research reward
-- legacy:
-  species: zapdos
+- species: zapdos
   moves:
   - THUNDER_SHOCK_FAST   # Zapdos day 7/21/2018
-- legacy:
-  species: eevee
+- species: eevee
   moves:
   - LAST_RESORT     # Community day 8/2018
-- legacy:
-  species: vaporeon
+- species: vaporeon
   moves:
   - LAST_RESORT     # Community day 8/2018
-- legacy:
-  species: flareon
+- species: flareon
   moves:
   - LAST_RESORT     # Community day 8/2018
-- legacy:
-  species: jolteon
+- species: jolteon
   moves:
   - LAST_RESORT     # Community day 8/2018
-- legacy:
-  species: espeon
+- species: espeon
   moves:
   - LAST_RESORT     # Community day 8/2018
-- legacy:
-  species: umbreon
+- species: umbreon
   moves:
   - LAST_RESORT     # Community day 8/2018
-- legacy:
-  species: articuno
+- species: articuno
   moves:
   - HURRICANE       # Articuno day 9/2018
-- legacy:
-  species: moltres
+- species: moltres
   moves:
   - SKY_ATTACK      # Moltres day 9/8/2018
-- legacy:
-  species: meganium
+- species: meganium
   moves:
   - FRENZY_PLANT    # Community day 9/2018
-- legacy:
-  species: metagross
+- species: metagross
   moves:
   - METEOR_MASH     # Community day 10/2018
-- legacy:
-  species: typhlosion
+- species: typhlosion
   moves:
   - BLAST_BURN      # Community day 11/2018
-- legacy:
-  species: gengar
+- species: gengar
   moves:
   - SHADOW_CLAW_FAST
   - LICK_FAST       # Gengar day 11/3/2018
   - PSYCHIC         # Gengar day 11/3/2018
-- legacy:
-  species: feraligatr
+- species: feraligatr
   moves:
   - HYDRO_CANNON    # Community day 1/2019
-- legacy:
-  species: breloom
+- species: breloom
   moves:
   - GRASS_KNOT      # Hoenn Event 1/2019
-- legacy:
-  species: mamoswine
+- species: mamoswine
   moves:
   - ANCIENT_POWER   # Community day 2/2019
-- legacy:
-  species: sceptile
+- species: sceptile
   moves:
   - FRENZY_PLANT    # Community day 3/2019
-- legacy:
-  species: salamence
+- species: salamence
   moves:
   - OUTRAGE         # Community day 4/2019
-- legacy:
-  species: blaziken
+- species: blaziken
   moves:
   - BLAST_BURN      # Community day 5/2019
-- legacy:
-  species: golem_normal
+- species: golem_normal
   moves:
   - ANCIENT_POWER
-- legacy:
-  species: seaking
+- species: seaking
   moves:
   - POISON_JAB_FAST
-- legacy:
-  species: gyarados
+- species: gyarados
   moves:
   - DRAGON_TAIL_FAST
-- legacy:
-  species: mewtwo
+- species: mewtwo
   moves:
   - SHADOW_BALL
   - HYPER_BEAM
-- legacy:
-  species: suicune
+- species: suicune
   moves:
   - HIDDEN_POWER_FAST
