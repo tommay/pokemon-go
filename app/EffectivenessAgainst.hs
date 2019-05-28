@@ -17,13 +17,13 @@ import qualified System.Exit as Exit
 import qualified Text.Printf as Printf
 
 data Options = Options {
-  species :: String
+  speciesOrType :: String
 }
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optSpecies
-      optSpecies = O.strArgument (O.metavar "SPECIES")
+  let opts = Options <$> optSpeciesOrType
+      optSpeciesOrType = O.strArgument (O.metavar "SPECIES-OR-TYPE")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc
@@ -36,13 +36,19 @@ main =
     do
       options <- getOptions
       gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
-      base <- GameMaster.getPokemonBase gameMaster $ species options
-      let speciesTypes = PokemonBase.types base
+      let speciesOrType = Main.speciesOrType options
+      types <- do
+        case GameMaster.getType gameMaster speciesOrType of
+          Right tjpe -> return $ [tjpe]
+          Left _ ->
+            case GameMaster.getPokemonBase gameMaster speciesOrType of
+              Right base -> return $ PokemonBase.types base
+              Left _ ->
+                Epic.fail $ "No such species or type: " ++ speciesOrType
       let allTypes = GameMaster.getAllTypes gameMaster
           longest = maximum $ map (length . Type.name) allTypes
           effectiveness =
-            Util.augment (\typ -> Type.effectivenessAgainst typ speciesTypes)
-              allTypes
+            Util.augment (\typ -> Type.effectivenessAgainst typ types) allTypes
       forM_ effectiveness $ \ (typ, effectiveness) ->
         Printf.printf "%-*s :%s\n" longest (Type.name typ)
           (display effectiveness)
