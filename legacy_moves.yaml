@@ -85,6 +85,9 @@
   moves:
   - ICE_SHARD_FAST  # Lapras day 5/25/2019
   - ICE_BEAM        # Lapras day 5/25/2019
+- species: snorlax
+  moves:
+  - YAWN_FAST       # Snoozing Snorlax event 5/2019.
 - species: golem_normal
   moves:
   - ANCIENT_POWER
