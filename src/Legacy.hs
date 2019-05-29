@@ -30,7 +30,7 @@ makeLegacyMap yamlObjects = do
         toEpic $ Yaml.parseEither (.: "species") yamlObject
       moves <-
         toEpic $ Yaml.parseEither (.: "moves") yamlObject
-      return $ HashMap.insert species moves stringMap)
+      return $ HashMap.insertWith (++) species moves stringMap)
     (pure HashMap.empty)
     yamlObjects
 
