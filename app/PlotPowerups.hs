@@ -25,6 +25,8 @@ import           PokemonBase (PokemonBase)
 import qualified PokeUtil
 import           Type (Type)
 import qualified Util
+import qualified Weather
+import           Weather (Weather)
 import           WeatherBonus (WeatherBonus)
 
 import qualified Debug
@@ -37,7 +39,6 @@ import qualified Data.List as List
 import qualified Data.Text as Text
 import qualified System.Exit as Exit
 import qualified Text.Printf as Printf
-import qualified Text.Regex as Regex
 
 data Options = Options {
   plotCandy :: Bool,
@@ -45,7 +46,8 @@ data Options = Options {
   attackerSource :: AttackerSource,
   maybeEvolution :: Maybe String,
   maybeMoveset   :: Maybe Moveset,
-  defender :: Battler
+  defender :: Battler,
+  maybeWeather :: Maybe Weather  
 }
 
 data AttackerSource =
@@ -66,7 +68,7 @@ getOptions :: IO Options
 getOptions =
   let opts = Options <$> optPlotCandy <*> optPlotDps
         <*> optAttackerSource <*> optEvolution <*> optMoveset
-        <*> optDefender
+        <*> optDefender <*> optWeather
       optPlotCandy =
         let optPlotCandy =
               O.flag' True
@@ -123,6 +125,7 @@ getOptions =
       optDefender = O.argument
         (BattlerUtil.optParseBattler IVs.defaultIVs)
         (O.metavar "DEFENDER[:LEVEL]")
+      optWeather = O.optional Weather.optWeather
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc ("Create gnuplot data for plotting dps/tdo" ++
@@ -152,7 +155,8 @@ main =
 
       gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
 
-      let weatherBonus = GameMaster.defaultWeatherBonus
+      let weatherBonus =
+            GameMaster.getWeatherBonus gameMaster $ maybeWeather options
 
       defenderVariants <-
         BattlerUtil.makeBattlerVariants gameMaster $ defender options
@@ -217,8 +221,8 @@ main =
       putStrLn $ List.intercalate ", \\\n" commands
 
       forM_ myPokemonAndCandy $ \ (myPokemon, candy) -> do
-        results <-
-          getResultsForAllPowerups gameMaster candy myPokemon defenderVariants
+        results <- getResultsForAllPowerups gameMaster weatherBonus candy
+          myPokemon defenderVariants
         forM_ results $ \ result -> do
           Printf.printf "%d %f\n"
             (if plotCandy options
@@ -294,17 +298,16 @@ getMoveName moveType getMovesFunc moveAbbrev base = do
   return $ Move.name move
 
 getResultsForAllPowerups :: Epic.MonadCatch m =>
-  GameMaster -> Int -> MyPokemon -> [Pokemon] -> m [Result]
-getResultsForAllPowerups gameMaster candy myPokemon defenderVariants = do
+  GameMaster -> WeatherBonus -> Int -> MyPokemon -> [Pokemon] -> m [Result]
+getResultsForAllPowerups gameMaster weatherBonus candy myPokemon defenderVariants = do
   allPowerups <- allPowerups gameMaster candy myPokemon
-  mapM (getResult gameMaster defenderVariants) allPowerups
+  mapM (getResult gameMaster weatherBonus defenderVariants) allPowerups
 
 getResult :: Epic.MonadCatch m =>
-  GameMaster -> [Pokemon] -> (Int, Int, MyPokemon) -> m Result
-getResult gameMaster defenderVariants (candy, stardust, myPokemon) = do
+  GameMaster -> WeatherBonus -> [Pokemon] -> (Int, Int, MyPokemon) -> m Result
+getResult gameMaster weatherBonus defenderVariants (candy, stardust, myPokemon) = do
   attackerVariants <- MakePokemon.makePokemon gameMaster myPokemon
-  let weatherBonus = GameMaster.defaultWeatherBonus
-      (dps, tdo) = getMinDpsTdo weatherBonus attackerVariants defenderVariants
+  let (dps, tdo) = getMinDpsTdo weatherBonus attackerVariants defenderVariants
   return Result {
     candy = candy,
     stardust = stardust,
