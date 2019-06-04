@@ -6,41 +6,20 @@ import qualified Options.Applicative as O
 import           Options.Applicative ((<|>), (<**>))
 import           Data.Semigroup ((<>))
 
-import qualified Battle
-import           Battle (Battle)
-import qualified BattlerUtil
-import           BattlerUtil (Battler, Level (Normal))
-import qualified Breakpoint
 import qualified Calc
 import qualified Epic
-import qualified TweakLevel
 import qualified IVs
 import           IVs (IVs)
 import qualified GameMaster
 import           GameMaster (GameMaster)
-import qualified Move
-import           Move (Move)
-import qualified MakePokemon
-import qualified MyPokemon
-import           MyPokemon (MyPokemon)
-import qualified Mythical
-import qualified Pokemon
-import           Pokemon (Pokemon)
 import qualified PokemonBase
 import           PokemonBase (PokemonBase)
 import qualified PokeUtil
-import qualified Powerups
-import qualified Type
-import           Type (Type)
-import qualified Weather
-import           Weather (Weather (..))
 
 import qualified Debug
 
-import           Control.Monad (join, forM, forM_)
+import           Control.Monad (join)
 import qualified Data.List as List
-import qualified Data.Maybe as Maybe
-import qualified Data.Ord as Ord
 import qualified System.Exit as Exit
 import qualified Text.Printf as Printf
 
