@@ -20,13 +20,18 @@ import qualified System.Exit as Exit
 import qualified Text.Printf as Printf
 
 data Options = Options {
+  calculateDefense :: Bool,
   species :: String,
   stats :: [(Float, Int)]
 }
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optSpecies <*> optStats
+  let opts = Options <$> optCalculateDefense <*> optSpecies <*> optStats
+      optCalculateDefense = O.switch
+        (  O.long "defense"
+        <> O.short 'd'
+        <> O.help "calculate defense instead of attack")
       optSpecies = O.strArgument (O.metavar "SPECIES")
       optStats = O.some $ (,) <$> optLevel <*> optAttack
       optLevel = O.argument O.auto (O.metavar "LEVEL")
@@ -44,7 +49,11 @@ main =
       options <- getOptions
       gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
       base <- GameMaster.getPokemonBase gameMaster (species options)
-      let augmented = Util.augment (getAttack gameMaster base) (stats options)
+      let baseStat = if calculateDefense options
+            then PokemonBase.defense base
+            else PokemonBase.attack base
+      let augmented = Util.augment (getStat gameMaster baseStat)
+            (stats options)
           sorted = List.reverse $ List.sortOn snd augmented
       forM_ sorted $ \ ((level, attackIv), attack) ->
         Printf.printf "%s %d: %f\n"
@@ -52,7 +61,7 @@ main =
     )
     $ Exit.die
 
-getAttack :: GameMaster -> PokemonBase -> (Float, Int) -> Float
-getAttack gameMaster base (level, attackIv) =
+getStat :: GameMaster -> Int -> (Float, Int) -> Float
+getStat gameMaster baseStat (level, attackIv) =
   let cpMultiplier = GameMaster.getCpMultiplier gameMaster level
-  in (fromIntegral $ PokemonBase.attack base + attackIv) * cpMultiplier
+  in (fromIntegral $ baseStat + attackIv) * cpMultiplier
