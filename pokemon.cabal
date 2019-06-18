@@ -209,6 +209,14 @@ executable evolvecp-exe
                      , optparse-applicative
   default-language:    Haskell2010
 
+executable tankiness-exe
+  hs-source-dirs:      app
+  main-is:             Tankiness.hs
+  ghc-options:         -O2 -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base
+                     , pokemon
+  default-language:    Haskell2010
+
 executable tm-exe
   hs-source-dirs:      app
   main-is:             TM.hs
