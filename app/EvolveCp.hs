@@ -25,18 +25,24 @@ import qualified Text.Printf as Printf
 
 data Options = Options {
   level :: Maybe Float,
+  ivFloor :: Maybe Int,
   species :: String,
   cpList :: [Int]
 }
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optLevel <*> optSpecies <*> optCps
+  let opts = Options <$> optLevel <*> optIvFloor <*> optSpecies <*> optCps
       optLevel = O.optional $ O.option O.auto
         (  O.long "level"
         <> O.short 'l'
         <> O.metavar "LEVEL"
         <> O.help "Set pokemon level, e.g., for a raid boss or egg hatch")
+      optIvFloor = O.optional $ O.option O.auto
+        (  O.long "ivFloor"
+        <> O.short 'm'
+        <> O.metavar "N"
+        <> O.help "Set minimum IV, e.g., 10 for raid boss or hatch")
       optSpecies = O.strArgument (O.metavar "SPECIES")
       optCps = O.some $ O.argument O.auto (O.metavar "CP")
       options = O.info (opts <**> O.helper)
@@ -58,9 +64,14 @@ main =
             ivs' = case level options of
               Nothing -> ivs
               Just level -> filter ((== level) . IVs.level) ivs
+            checkIvFloor ivFloor ivs = all (>= ivFloor) $
+              sequence [IVs.attack, IVs.defense, IVs.stamina] ivs
+            ivs'' = case ivFloor options of
+              Nothing -> ivs'
+              Just ivFloor -> filter (checkIvFloor ivFloor) ivs'
         in NestedResults $ for evolutionBases $ \ evolutionBase ->
           let evolutionSpecies = PokemonBase.species evolutionBase
-              evolvedCps = map (Calc.cp gameMaster evolutionBase) ivs'
+              evolvedCps = map (Calc.cp gameMaster evolutionBase) ivs''
               min = minimum evolvedCps
               max = maximum evolvedCps
           in NestedResult $ if min == max
