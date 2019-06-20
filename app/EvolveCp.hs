@@ -24,13 +24,19 @@ import qualified System.Exit as Exit
 import qualified Text.Printf as Printf
 
 data Options = Options {
+  level :: Maybe Float,
   species :: String,
   cpList :: [Int]
 }
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optSpecies <*> optCps
+  let opts = Options <$> optLevel <*> optSpecies <*> optCps
+      optLevel = O.optional $ O.option O.auto
+        (  O.long "level"
+        <> O.short 'l'
+        <> O.metavar "LEVEL"
+        <> O.help "Set pokemon level, e.g., for a raid boss or egg hatch")
       optSpecies = O.strArgument (O.metavar "SPECIES")
       optCps = O.some $ O.argument O.auto (O.metavar "CP")
       options = O.info (opts <**> O.helper)
@@ -49,9 +55,12 @@ main =
       evolutionBases <- mapM (GameMaster.getPokemonBase gameMaster) evolutions
       putStrLn $ show $ NestedResults $ for (cpList options) $ \ cp ->
         let ivs = getIvs gameMaster base cp
+            ivs' = case level options of
+              Nothing -> ivs
+              Just level -> filter ((== level) . IVs.level) ivs
         in NestedResults $ for evolutionBases $ \ evolutionBase ->
           let evolutionSpecies = PokemonBase.species evolutionBase
-              evolvedCps = map (Calc.cp gameMaster evolutionBase) ivs
+              evolvedCps = map (Calc.cp gameMaster evolutionBase) ivs'
               min = minimum evolvedCps
               max = maximum evolvedCps
           in NestedResult $ if min == max
