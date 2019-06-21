@@ -20,6 +20,7 @@ import qualified Debug
 
 import           Control.Monad (join)
 import qualified Data.List as List
+import qualified Data.Maybe as Maybe
 import qualified System.Exit as Exit
 import qualified Text.Printf as Printf
 
@@ -59,19 +60,12 @@ main =
       base <- GameMaster.getPokemonBase gameMaster $ species options
       evolutions <- getEvolutions gameMaster $ PokemonBase.species base
       evolutionBases <- mapM (GameMaster.getPokemonBase gameMaster) evolutions
+      let testIVs = getIVsToTest gameMaster (level options) (ivFloor options)
       putStrLn $ show $ NestedResults $ for (cpList options) $ \ cp ->
-        let ivs = getIvs gameMaster base cp
-            ivs' = case level options of
-              Nothing -> ivs
-              Just level -> filter ((== level) . IVs.level) ivs
-            checkIvFloor ivFloor ivs = all (>= ivFloor) $
-              sequence [IVs.attack, IVs.defense, IVs.stamina] ivs
-            ivs'' = case ivFloor options of
-              Nothing -> ivs'
-              Just ivFloor -> filter (checkIvFloor ivFloor) ivs'
+        let ivs = filter ((== cp) . Calc.cp gameMaster base) testIVs
         in NestedResults $ for evolutionBases $ \ evolutionBase ->
           let evolutionSpecies = PokemonBase.species evolutionBase
-              evolvedCps = map (Calc.cp gameMaster evolutionBase) ivs''
+              evolvedCps = map (Calc.cp gameMaster evolutionBase) ivs
               min = minimum evolvedCps
               max = maximum evolvedCps
           in NestedResult $ if min == max
@@ -89,16 +83,18 @@ getEvolutions gameMaster species = do
   evolutionChains <- PokeUtil.evolutionChains gameMaster (species, 0)
   return $ List.nub $ map fst $ concat evolutionChains
 
-getIvs :: GameMaster -> PokemonBase -> Int -> [IVs]
-getIvs gameMaster base cp =
+getIVsToTest :: GameMaster -> Maybe Float -> Maybe Int -> [IVs]
+getIVsToTest gameMaster maybeLevel maybeIvFloor =
   -- Assume that if a pokemon hasn't been evolved it also hasn't been
   -- powered up so we're only concerned with whole levels.
   let wholeLevels = filter isWholeNumber $ GameMaster.allLevels gameMaster
-      allIvs = [IVs.new level attack defense stamina |
-                 level <- wholeLevels,
-                 let ivs = [0 .. 15],
-                 attack <- ivs, defense <- ivs, stamina <- ivs]
-  in filter ((== cp) . Calc.cp gameMaster base) allIvs
+      levels = case maybeLevel of
+        Nothing -> wholeLevels
+        Just level -> [level]
+      ivs = [Maybe.fromMaybe 0 maybeIvFloor .. 15]
+  in [IVs.new level attack defense stamina |
+       level <- levels,
+       attack <- ivs, defense <- ivs, stamina <- ivs]
 
 isWholeNumber :: Float -> Bool
 isWholeNumber n =
