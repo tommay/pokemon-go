@@ -33,7 +33,7 @@ data Options = Options {
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optLevel <*> optIvFloor <*> optSpecies <*> optCps
+  let opts = Options <$> optLevel <*> optIvFloor <*> optSpecies <*> optCpList
       optLevel = O.optional $ O.option O.auto
         (  O.long "level"
         <> O.short 'l'
@@ -45,7 +45,7 @@ getOptions =
         <> O.metavar "N"
         <> O.help "Set minimum IV, e.g., 10 for raid boss or hatch")
       optSpecies = O.strArgument (O.metavar "SPECIES")
-      optCps = O.some $ O.argument O.auto (O.metavar "CP")
+      optCpList = O.some $ O.argument O.auto (O.metavar "CP")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc "Show evolved CP")
