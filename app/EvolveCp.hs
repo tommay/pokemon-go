@@ -28,7 +28,7 @@ data Options = Options {
   level :: Maybe Float,
   ivFloor :: Maybe Int,
   species :: String,
-  cpList :: [Int]
+  cpList :: [Int]   -- Possibly empty.
 }
 
 getOptions :: IO Options
@@ -45,7 +45,7 @@ getOptions =
         <> O.metavar "N"
         <> O.help "Set minimum IV, e.g., 10 for raid boss or hatch")
       optSpecies = O.strArgument (O.metavar "SPECIES")
-      optCpList = O.some $ O.argument O.auto (O.metavar "CP")
+      optCpList = O.many $ O.argument O.auto (O.metavar "CP")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc "Show evolved CP")
@@ -61,16 +61,21 @@ main =
       evolutions <- getEvolutions gameMaster $ PokemonBase.species base
       evolutionBases <- mapM (GameMaster.getPokemonBase gameMaster) evolutions
       let testIVs = getIVsToTest gameMaster (level options) (ivFloor options)
-      putStrLn $ show $ NestedResults $ for (cpList options) $ \ cp ->
-        let ivs = filter ((== cp) . Calc.cp gameMaster base) testIVs
-        in NestedResults $ for evolutionBases $ \ evolutionBase ->
-          let evolutionSpecies = PokemonBase.species evolutionBase
-              evolvedCps = map (Calc.cp gameMaster evolutionBase) ivs
-              min = minimum evolvedCps
-              max = maximum evolvedCps
-          in NestedResult $ if min == max
-            then Printf.printf "%s: %d" evolutionSpecies min
-            else Printf.printf "%s: %d - %d" evolutionSpecies min max
+      let resultsForIvs ivList =
+            NestedResults $ for evolutionBases $ \ evolutionBase ->
+              let evolutionSpecies = PokemonBase.species evolutionBase
+                  evolvedCps = map (Calc.cp gameMaster evolutionBase) ivList
+                  min = minimum evolvedCps
+                  max = maximum evolvedCps
+              in NestedResult $ if min == max
+                then Printf.printf "%s: %d" evolutionSpecies min
+                else Printf.printf "%s: %d - %d" evolutionSpecies min max
+      putStrLn $ show $ case cpList options of
+        [] ->
+          resultsForIvs testIVs
+        cps ->
+          NestedResults $ for cps $ \ cp ->
+            resultsForIvs $ filter ((== cp) . Calc.cp gameMaster base) testIVs
   )
   $ Exit.die
 
