@@ -24,8 +24,6 @@ import qualified Pokemon
 import           Pokemon (Pokemon)
 import qualified Move
 import           Move (Move)
-import qualified NotRandom
-import           NotRandom (NotRandom)
 
 import qualified Text.Printf as Printf
 
@@ -48,7 +46,7 @@ data Defender = Defender {
   moves :: [(Move, Int)], -- next move(s) to do.
   move :: Move,           -- move in progess.
   damageWindow :: Int,
-  rnd :: NotRandom
+  rnd :: [Bool]
 } deriving (Show)
 
 init :: Pokemon -> Defender
@@ -72,7 +70,7 @@ init pokemon =
                 (quick, Move.durationMs quick + 2000)],
        move = quick,  -- Not used.
        damageWindow = -1,
-       rnd = NotRandom.new
+       rnd = cycle [True, False]
        }
 
 quick :: Defender -> Move
@@ -133,7 +131,7 @@ makeMove' raidGroup this = do
       -- https://www.reddit.com/r/TheSilphRoad/comments/52b453/testing_gym_combat_misconceptions_2/
       if raidGroup || decisionEnergy >= negate (Move.energy charge) then do
         Logger.log $ "Defender can use " ++ Move.name charge
-        let (random, rnd') = NotRandom.randomBool $ Defender.rnd this
+        let (random : rnd') = Defender.rnd this
         if random then do
           Logger.log $ "Defender chooses " ++ Move.name charge ++ " for next move"
           return ([(charge, Move.durationMs charge + 2000)], rnd')

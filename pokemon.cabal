@@ -18,7 +18,7 @@ library
   exposed-modules:     MyPokemon, GameMaster, PokemonBase, Epic, Move, Type, Pokemon,
                        Appraisal, IVs, Calc, Mythical,
                        Battle, Attacker, Defender, Debug, Log, Matchup,
-                       Util, Weather, Logger, BattlerUtil, NotRandom, Yaml,
+                       Util, Weather, Logger, BattlerUtil, Yaml,
                        MakePokemon, Stats, PokeUtil, TweakLevel, Breakpoint,
                        Powerups, WeatherBonus, Legacy
   other-modules:       StringMap
