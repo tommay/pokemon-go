@@ -63,7 +63,7 @@ data Options = Options {
 }
 
 data SortOutputBy =
-  ByDamage | ByDps | ByProduct | ByDamagePerHp | Weighted Float
+  ByDamage | ByDps | ByProduct | ByDamagePerHp | ByTimeToFaint | Weighted Float
   deriving (Show)
 
 data AttackerSource =
@@ -76,7 +76,8 @@ data Result = Result {
   pokemon   :: Pokemon,
   pokemonVariants :: [Pokemon],
   minDps    :: Float,
-  minDamage :: Int
+  minDamage :: Int,
+  timeToFaint :: Float
 } deriving (Show)
 
 defaultFilename = "my_pokemon.yaml"
@@ -104,6 +105,9 @@ getOptions =
             optDamagePerHp = O.flag' ByDamagePerHp
               (  O.short 'h'
               <> O.help "Sort output by damage per hp")
+            optTimeToFaint = O.flag' ByTimeToFaint
+              (  O.short 'F'
+              <> O.help "Sort output by time to faint")
             optWeighted = Weighted <$> O.option O.auto
               (  O.long "weighted"
               <> O.short 'w'
@@ -111,7 +115,7 @@ getOptions =
               <> O.help ("Sort by weighted mix of dps and damage, " ++
                    "where weight varies from 0.0 for pure dps to " ++
                    "1.0 for pure damage"))
-        in optGlass <|> optProduct <|> optDamagePerHp
+        in optGlass <|> optProduct <|> optDamagePerHp <|> optTimeToFaint
              <|> optWeighted <|> pure ByDamage
       optDpsFilter = O.optional $ O.option O.auto
         (  O.long "dps"
@@ -264,6 +268,7 @@ main =
                 results
             ByDamagePerHp -> List.reverse $
               List.sortOn damagePerHp results
+            ByTimeToFaint -> List.reverse $ List.sortOn timeToFaint results
             Weighted weight ->
               -- XXX Should this also subtract out dpsMin and damageMin?
               let damageMax = fromIntegral $ maximum $ map minDamage results
@@ -440,7 +445,9 @@ counter doOneBattle defenderVariants attackerVariants =
       getMinValue fn = fn . List.minimumBy (Ord.comparing fn)
       minDamage = getMinValue Battle.damageInflicted battles
       minDps = getMinValue Battle.dps battles
+      timeToFaint = getMinValue Battle.secondsElapsed battles
   in Result (head attackerVariants) attackerVariants minDps minDamage
+       timeToFaint
 
 allAttackers :: GameMaster -> IVs -> [[Pokemon]]
 allAttackers gameMaster ivs =
