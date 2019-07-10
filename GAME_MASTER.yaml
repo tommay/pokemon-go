@@ -7671,6 +7671,76 @@ itemTemplates:
     targets:
     - 100
     eventBadge: true
+- templateId: BADGE_GOFEST_2019_EMEA_DAY_00_EARLYACCESS
+  badgeSettings:
+    badgeType: 5022
+    badgeRank: 2
+    targets:
+    - 100
+    eventBadge: true
+- templateId: BADGE_GOFEST_2019_EMEA_DAY_00_GENERAL
+  badgeSettings:
+    badgeType: 5021
+    badgeRank: 2
+    targets:
+    - 100
+    eventBadge: true
+- templateId: BADGE_GOFEST_2019_EMEA_DAY_01_EARLYACCESS
+  badgeSettings:
+    badgeType: 5024
+    badgeRank: 2
+    targets:
+    - 100
+    eventBadge: true
+- templateId: BADGE_GOFEST_2019_EMEA_DAY_01_GENERAL
+  badgeSettings:
+    badgeType: 5023
+    badgeRank: 2
+    targets:
+    - 100
+    eventBadge: true
+- templateId: BADGE_GOFEST_2019_EMEA_DAY_02_EARLYACCESS
+  badgeSettings:
+    badgeType: 5026
+    badgeRank: 2
+    targets:
+    - 100
+    eventBadge: true
+- templateId: BADGE_GOFEST_2019_EMEA_DAY_02_GENERAL
+  badgeSettings:
+    badgeType: 5025
+    badgeRank: 2
+    targets:
+    - 100
+    eventBadge: true
+- templateId: BADGE_GOFEST_2019_EMEA_DAY_03_EARLYACCESS
+  badgeSettings:
+    badgeType: 5028
+    badgeRank: 2
+    targets:
+    - 100
+    eventBadge: true
+- templateId: BADGE_GOFEST_2019_EMEA_DAY_03_GENERAL
+  badgeSettings:
+    badgeType: 5027
+    badgeRank: 2
+    targets:
+    - 100
+    eventBadge: true
+- templateId: BADGE_GOFEST_2019_EMEA_DAY_04_EARLYACCESS
+  badgeSettings:
+    badgeType: 5030
+    badgeRank: 2
+    targets:
+    - 100
+    eventBadge: true
+- templateId: BADGE_GOFEST_2019_EMEA_DAY_04_GENERAL
+  badgeSettings:
+    badgeType: 5029
+    badgeRank: 2
+    targets:
+    - 100
+    eventBadge: true
 - templateId: BADGE_GREAT_LEAGUE
   badgeSettings:
     badgeType: BADGE_GREAT_LEAGUE
@@ -9712,6 +9782,16 @@ itemTemplates:
     power: 100.0
     vfxName: meteor_mash
     energyDelta: -50
+- templateId: COMBAT_V0302_MOVE_SKULL_BASH
+  combatMove:
+    uniqueId: SKULL_BASH
+    type: POKEMON_TYPE_NORMAL
+    power: 130.0
+    vfxName: skull_bash
+    energyDelta: -75
+    buffs:
+      attackerDefenseStatStageChange: 1
+      buffActivationChance: 1.0
 - templateId: COMBAT_V0303_MOVE_ACID_SPRAY
   combatMove:
     uniqueId: ACID_SPRAY
@@ -10302,6 +10382,10 @@ itemTemplates:
 - templateId: FORMS_V0150_POKEMON_MEWTWO
   formSettings:
     pokemon: MEWTWO
+    forms:
+    - form: MEWTWO_NORMAL
+    - form: MEWTWO_A
+      assetBundleSuffix: pm0150_00_pgo_a
 - templateId: FORMS_V0151_POKEMON_MEW
   formSettings:
     pokemon: MEW
@@ -13999,6 +14083,16 @@ itemTemplates:
     pokemon: MEWTWO
     gender:
       genderlessPercent: 1.0
+- templateId: SPAWN_V0150_POKEMON_MEWTWO_A
+  genderSettings:
+    pokemon: MEWTWO
+    gender:
+      genderlessPercent: 1.0
+- templateId: SPAWN_V0150_POKEMON_MEWTWO_NORMAL
+  genderSettings:
+    pokemon: MEWTWO
+    gender:
+      genderlessPercent: 1.0
 - templateId: SPAWN_V0151_POKEMON_MEW
   genderSettings:
     pokemon: MEW
@@ -17079,6 +17173,7 @@ itemTemplates:
     - FLASH_CANNON
     - ICE_BEAM
     - HYDRO_PUMP
+    - SKULL_BASH
     animationTime:
     - 2.1333
     - 0.6667
@@ -18832,10 +18927,12 @@ itemTemplates:
     quickMoves:
     - VOLT_SWITCH_FAST
     - SPARK_FAST
+    - CHARM_FAST
     cinematicMoves:
     - BRICK_BREAK
     - THUNDER_PUNCH
     - WILD_CHARGE
+    - SKULL_BASH
     animationTime:
     - 2.2333
     - 0.6667
@@ -18910,6 +19007,7 @@ itemTemplates:
     - PSYCHIC
     - THUNDER_PUNCH
     - WILD_CHARGE
+    - GRASS_KNOT
     animationTime:
     - 2.2333
     - 0.6667
@@ -18980,10 +19078,12 @@ itemTemplates:
     quickMoves:
     - VOLT_SWITCH_FAST
     - SPARK_FAST
+    - CHARM_FAST
     cinematicMoves:
     - BRICK_BREAK
     - THUNDER_PUNCH
     - WILD_CHARGE
+    - SKULL_BASH
     animationTime:
     - 2.2333
     - 0.6667
@@ -20185,6 +20285,7 @@ itemTemplates:
     quickMoves:
     - CHARGE_BEAM_FAST
     - ZEN_HEADBUTT_FAST
+    - CHARM_FAST
     cinematicMoves:
     - DAZZLING_GLEAM
     - PSYCHIC
@@ -20856,6 +20957,7 @@ itemTemplates:
     quickMoves:
     - POUND_FAST
     - FEINT_ATTACK_FAST
+    - CHARM_FAST
     cinematicMoves:
     - DAZZLING_GLEAM
     - HYPER_BEAM
@@ -21290,6 +21392,7 @@ itemTemplates:
     - PETAL_BLIZZARD
     - SOLAR_BEAM
     - MOONBLAST
+    - SLUDGE_BOMB
     animationTime:
     - 2.1667
     - 0.6667
@@ -27405,6 +27508,9 @@ itemTemplates:
     - FUTURESIGHT
     - PSYCHIC
     - FOCUS_BLAST
+    - FIRE_PUNCH
+    - ICE_PUNCH
+    - THUNDER_PUNCH
     animationTime:
     - 1.8667
     - 0.6667
@@ -27761,6 +27867,7 @@ itemTemplates:
     - DISCHARGE
     - THUNDERBOLT
     - HYPER_BEAM
+    - FOUL_PLAY
     animationTime:
     - 2.3333
     - 0.6667
@@ -30707,6 +30814,7 @@ itemTemplates:
     - HYDRO_PUMP
     - SURF
     - BLIZZARD
+    - SKULL_BASH
     animationTime:
     - 2.6667
     - 0.6667
@@ -31649,6 +31757,7 @@ itemTemplates:
     quickMoves:
     - STEEL_WING_FAST
     - BITE_FAST
+    - ROCK_THROW_FAST
     cinematicMoves:
     - ANCIENT_POWER
     - IRON_HEAD
@@ -31731,6 +31840,7 @@ itemTemplates:
     - HYPER_BEAM
     - EARTHQUAKE
     - OUTRAGE
+    - SKULL_BASH
     animationTime:
     - 2.4
     - 0.6667
@@ -31812,10 +31922,12 @@ itemTemplates:
       baseDefense: 236
     quickMoves:
     - FROST_BREATH_FAST
+    - ICE_SHARD_FAST
     cinematicMoves:
     - ICE_BEAM
     - ICY_WIND
     - BLIZZARD
+    - ANCIENT_POWER
     animationTime:
     - 2.0667
     - 1.0
@@ -31888,6 +32000,8 @@ itemTemplates:
     - ZAP_CANNON
     - THUNDERBOLT
     - THUNDER
+    - ANCIENT_POWER
+    - DRILL_PECK
     animationTime:
     - 1.6
     - 0.8333
@@ -31956,10 +32070,12 @@ itemTemplates:
       baseDefense: 181
     quickMoves:
     - FIRE_SPIN_FAST
+    - WING_ATTACK_FAST
     cinematicMoves:
     - FIRE_BLAST
     - HEAT_WAVE
     - OVERHEAT
+    - ANCIENT_POWER
     animationTime:
     - 2.7333
     - 1.3333
@@ -32285,6 +32401,161 @@ itemTemplates:
     buddySize: BUDDY_BIG
     modelHeight: 2.0
     modelScaleV2: 1.0
+    buddyOffsetMale:
+    - 20.0
+    - 0.0
+    - 59.2
+    buddyOffsetFemale:
+    - 20.0
+    - 0.0
+    - 59.2
+    buddyScale: 19.0
+    buddyPortraitOffset:
+    - 0.09
+    - 0.06
+    - 0.35
+    thirdMove:
+      stardustToUnlock: 100000
+      candyToUnlock: 100
+    isTransferable: true
+- templateId: V0150_POKEMON_MEWTWO_A
+  pokemonSettings:
+    pokemonId: MEWTWO
+    modelScale: 0.74
+    type: POKEMON_TYPE_PSYCHIC
+    camera:
+      diskRadiusM: 0.555
+      cylinderRadiusM: 0.6
+      cylinderHeightM: 2.0
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.06
+      baseFleeRate: 0.1
+      collisionRadiusM: 0.37
+      collisionHeightM: 1.184
+      collisionHeadRadiusM: 0.185
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 8.0
+      jumpTimeS: 1.2
+      attackTimerS: 3.0
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 5.55
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 214
+      baseAttack: 182
+      baseDefense: 278
+    quickMoves:
+    - CONFUSION_FAST
+    - IRON_TAIL_FAST
+    cinematicMoves:
+    - ROCK_SLIDE
+    - DYNAMIC_PUNCH
+    - EARTHQUAKE
+    - FUTURESIGHT
+    animationTime:
+    - 1.3333
+    - 0.6667
+    - 1.6667
+    - 2.0
+    - 0.0
+    - 2.0
+    - 3.0
+    - 3.0
+    evolutionPips: 1
+    rarity: POKEMON_RARITY_LEGENDARY
+    pokedexHeightM: 2.0
+    pokedexWeightKg: 122.0
+    heightStdDev: 0.25
+    weightStdDev: 15.25
+    familyId: FAMILY_MEWTWO
+    kmBuddyDistance: 20.0
+    buddySize: BUDDY_BIG
+    modelHeight: 2.0
+    modelScaleV2: 1.0
+    form: MEWTWO_A
+    buddyOffsetMale:
+    - 20.0
+    - 0.0
+    - 59.2
+    buddyOffsetFemale:
+    - 20.0
+    - 0.0
+    - 59.2
+    buddyScale: 19.0
+    buddyPortraitOffset:
+    - 0.09
+    - 0.06
+    - 0.35
+    thirdMove:
+      stardustToUnlock: 100000
+      candyToUnlock: 100
+    isTransferable: true
+- templateId: V0150_POKEMON_MEWTWO_NORMAL
+  pokemonSettings:
+    pokemonId: MEWTWO
+    modelScale: 0.74
+    type: POKEMON_TYPE_PSYCHIC
+    camera:
+      diskRadiusM: 0.555
+      cylinderRadiusM: 0.6
+      cylinderHeightM: 2.0
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.06
+      baseFleeRate: 0.1
+      collisionRadiusM: 0.37
+      collisionHeightM: 1.184
+      collisionHeadRadiusM: 0.185
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 8.0
+      jumpTimeS: 1.2
+      attackTimerS: 3.0
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 5.55
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 214
+      baseAttack: 300
+      baseDefense: 182
+    quickMoves:
+    - PSYCHO_CUT_FAST
+    - CONFUSION_FAST
+    cinematicMoves:
+    - PSYCHIC
+    - THUNDERBOLT
+    - ICE_BEAM
+    - FOCUS_BLAST
+    - FLAMETHROWER
+    animationTime:
+    - 1.3333
+    - 0.6667
+    - 1.6667
+    - 2.0
+    - 0.0
+    - 2.0
+    - 3.0
+    - 3.0
+    evolutionPips: 1
+    rarity: POKEMON_RARITY_LEGENDARY
+    pokedexHeightM: 2.0
+    pokedexWeightKg: 122.0
+    heightStdDev: 0.25
+    weightStdDev: 15.25
+    familyId: FAMILY_MEWTWO
+    kmBuddyDistance: 20.0
+    buddySize: BUDDY_BIG
+    modelHeight: 2.0
+    modelScaleV2: 1.0
+    form: MEWTWO_NORMAL
     buddyOffsetMale:
     - 20.0
     - 0.0
@@ -36386,6 +36657,7 @@ itemTemplates:
     quickMoves:
     - COUNTER_FAST
     - SPLASH_FAST
+    - CHARM_FAST
     cinematicMoves:
     - MIRROR_COAT
     animationTime:
@@ -37113,6 +37385,7 @@ itemTemplates:
     quickMoves:
     - BITE_FAST
     - SNARL_FAST
+    - CHARM_FAST
     cinematicMoves:
     - CRUNCH
     - PLAY_ROUGH
@@ -39098,6 +39371,7 @@ itemTemplates:
     - TACKLE_FAST
     - COUNTER_FAST
     - MUD_SLAP_FAST
+    - CHARM_FAST
     cinematicMoves:
     - EARTHQUAKE
     - HEAVY_SLAM
@@ -41089,6 +41363,7 @@ itemTemplates:
     - LEAF_BLADE
     - AERIAL_ACE
     - EARTHQUAKE
+    - DRAGON_CLAW
     animationTime:
     - 1.3333
     - 0.6667
@@ -41424,7 +41699,7 @@ itemTemplates:
     type: POKEMON_TYPE_WATER
     camera:
       diskRadiusM: 0.555
-      cylinderRadiusM: 0.5
+      cylinderRadiusM: 0.2
       cylinderHeightM: 0.5
       shoulderModeScale: 0.5
     encounter:
@@ -43673,6 +43948,7 @@ itemTemplates:
     quickMoves:
     - CONFUSION_FAST
     - CHARGE_BEAM_FAST
+    - CHARM_FAST
     cinematicMoves:
     - PSYCHIC
     - DAZZLING_GLEAM
@@ -45413,6 +45689,7 @@ itemTemplates:
     quickMoves:
     - FEINT_ATTACK_FAST
     - ZEN_HEADBUTT_FAST
+    - CHARM_FAST
     cinematicMoves:
     - PLAY_ROUGH
     - DISARMING_VOICE
@@ -45451,6 +45728,21 @@ itemTemplates:
       candyToUnlock: 50
     isTransferable: true
     isDeployable: true
+- templateId: V0302_MOVE_SKULL_BASH
+  moveSettings:
+    movementId: SKULL_BASH
+    animationId: 5
+    pokemonType: POKEMON_TYPE_NORMAL
+    power: 130.0
+    accuracyChance: 1.0
+    staminaLossScalar: 0.01
+    trainerLevelMin: 1
+    trainerLevelMax: 100
+    vfxName: skull_bash
+    durationMs: 3100
+    damageWindowStartMs: 1800
+    damageWindowEndMs: 2300
+    energyDelta: -100
 - templateId: V0302_POKEMON_SABLEYE
   pokemonSettings:
     pokemonId: SABLEYE
@@ -45549,7 +45841,7 @@ itemTemplates:
     type2: POKEMON_TYPE_FAIRY
     camera:
       diskRadiusM: 0.555
-      cylinderRadiusM: 1.0
+      cylinderRadiusM: 0.6
       cylinderHeightM: 0.8
       shoulderModeScale: 0.5
     encounter:
@@ -45824,6 +46116,7 @@ itemTemplates:
     quickMoves:
     - DRAGON_TAIL_FAST
     - IRON_TAIL_FAST
+    - SMACK_DOWN_FAST
     cinematicMoves:
     - THUNDER
     - STONE_EDGE
@@ -46722,7 +47015,7 @@ itemTemplates:
     type2: POKEMON_TYPE_DARK
     camera:
       diskRadiusM: 0.555
-      cylinderRadiusM: 0.8
+      cylinderRadiusM: 0.45
       cylinderHeightM: 1.0
       cylinderGroundM: 0.2
       shoulderModeScale: 0.5
@@ -47519,7 +47812,7 @@ itemTemplates:
     type: POKEMON_TYPE_GROUND
     camera:
       diskRadiusM: 0.555
-      cylinderRadiusM: 0.5
+      cylinderRadiusM: 0.3
       cylinderHeightM: 0.5
       shoulderModeScale: 0.5
     encounter:
@@ -47593,7 +47886,7 @@ itemTemplates:
     type2: POKEMON_TYPE_DRAGON
     camera:
       diskRadiusM: 0.555
-      cylinderRadiusM: 1.0
+      cylinderRadiusM: 0.65
       cylinderHeightM: 0.5
       cylinderGroundM: 0.5
       shoulderModeScale: 0.5
@@ -47672,7 +47965,7 @@ itemTemplates:
     type2: POKEMON_TYPE_DRAGON
     camera:
       diskRadiusM: 0.555
-      cylinderRadiusM: 2.0
+      cylinderRadiusM: 1.5
       cylinderHeightM: 2.4
       cylinderGroundM: 0.3
       shoulderModeScale: 0.5
@@ -47747,7 +48040,7 @@ itemTemplates:
     type: POKEMON_TYPE_GRASS
     camera:
       diskRadiusM: 0.555
-      cylinderRadiusM: 0.6
+      cylinderRadiusM: 0.4
       cylinderHeightM: 0.6
       shoulderModeScale: 0.5
     encounter:
@@ -48759,6 +49052,7 @@ itemTemplates:
     quickMoves:
     - EXTRASENSORY_FAST
     - CONFUSION_FAST
+    - MUD_SLAP_FAST
     cinematicMoves:
     - GYRO_BALL
     - PSYCHIC
@@ -50140,7 +50434,7 @@ itemTemplates:
     type: POKEMON_TYPE_DARK
     camera:
       diskRadiusM: 0.555
-      cylinderRadiusM: 1.0
+      cylinderRadiusM: 0.8
       cylinderHeightM: 1.2
       shoulderModeScale: 0.5
     encounter:
@@ -51038,7 +51332,7 @@ itemTemplates:
     type: POKEMON_TYPE_DRAGON
     camera:
       diskRadiusM: 0.555
-      cylinderRadiusM: 0.7
+      cylinderRadiusM: 0.5
       cylinderHeightM: 0.7
       shoulderModeScale: 0.5
     encounter:
@@ -51753,6 +52047,7 @@ itemTemplates:
     quickMoves:
     - DRAGON_BREATH_FAST
     - ZEN_HEADBUTT_FAST
+    - CHARM_FAST
     cinematicMoves:
     - PSYCHIC
     - OUTRAGE
@@ -52760,7 +53055,7 @@ itemTemplates:
     type: POKEMON_TYPE_FIRE
     camera:
       diskRadiusM: 0.378
-      cylinderRadiusM: 0.1
+      cylinderRadiusM: 0.3
       cylinderHeightM: 0.55
       shoulderModeScale: 0.5
     encounter:
@@ -52839,7 +53134,7 @@ itemTemplates:
     type2: POKEMON_TYPE_FIGHTING
     camera:
       diskRadiusM: 0.378
-      cylinderRadiusM: 0.252
+      cylinderRadiusM: 0.55
       cylinderHeightM: 1.0
       shoulderModeScale: 0.5
     encounter:
@@ -52918,7 +53213,7 @@ itemTemplates:
     type2: POKEMON_TYPE_FIGHTING
     camera:
       diskRadiusM: 0.378
-      cylinderRadiusM: 0.4
+      cylinderRadiusM: 0.8
       cylinderHeightM: 1.5
       shoulderModeScale: 0.5
     encounter:
@@ -56715,7 +57010,7 @@ itemTemplates:
     type: POKEMON_TYPE_GHOST
     camera:
       diskRadiusM: 0.378
-      cylinderRadiusM: 0.23
+      cylinderRadiusM: 0.3
       cylinderHeightM: 0.7
       cylinderGroundM: 0.4
       shoulderModeScale: 0.5
@@ -57364,6 +57659,8 @@ itemTemplates:
     - FLASH_CANNON
     - PSYCHIC
     - HEAVY_SLAM
+    - BULLDOZE
+    - PSYSHOCK
     animationTime:
     - 1.9
     - 0.6667
@@ -59435,6 +59732,7 @@ itemTemplates:
     - SURF
     - EARTHQUAKE
     - STONE_EDGE
+    - SKULL_BASH
     animationTime:
     - 1.9
     - 0.6667
@@ -59470,6 +59768,10 @@ itemTemplates:
       candyToUnlock: 50
     isTransferable: true
     isDeployable: true
+    combatDefaultCameraAngle:
+    - 3.0
+    - 3.0
+    - 2.5
     combatOpponentFocusCameraAngle:
     - 1.9
     - 0.0
@@ -59593,6 +59895,7 @@ itemTemplates:
     - THUNDER_PUNCH
     - WILD_CHARGE
     - THUNDER
+    - ICE_PUNCH
     animationTime:
     - 1.9
     - 0.6667
@@ -59740,6 +60043,7 @@ itemTemplates:
     quickMoves:
     - AIR_SLASH_FAST
     - HIDDEN_POWER_FAST
+    - CHARM_FAST
     cinematicMoves:
     - ANCIENT_POWER
     - DAZZLING_GLEAM
@@ -60023,7 +60327,7 @@ itemTemplates:
     type2: POKEMON_TYPE_FLYING
     camera:
       diskRadiusM: 0.378
-      cylinderRadiusM: 0.65
+      cylinderRadiusM: 0.85
       cylinderHeightM: 1.7
       cylinderGroundM: 0.1
       shoulderModeScale: 0.5
@@ -60259,7 +60563,7 @@ itemTemplates:
     type2: POKEMON_TYPE_FIGHTING
     camera:
       diskRadiusM: 0.378
-      cylinderRadiusM: 0.3
+      cylinderRadiusM: 0.5
       cylinderHeightM: 1.7
       shoulderModeScale: 0.5
     encounter:
@@ -60288,6 +60592,7 @@ itemTemplates:
     quickMoves:
     - CONFUSION_FAST
     - LOW_KICK_FAST
+    - CHARM_FAST
     cinematicMoves:
     - CLOSE_COMBAT
     - PSYCHIC
@@ -61749,6 +62054,10 @@ itemTemplates:
       stardustToUnlock: 100000
       candyToUnlock: 100
     isTransferable: true
+    combatDefaultCameraAngle:
+    - 3.0
+    - 2.0
+    - 2.5
 - templateId: V0487_POKEMON_GIRATINA_ORIGIN
   pokemonSettings:
     pokemonId: GIRATINA
@@ -79818,6 +80127,16 @@ itemTemplates:
     - wait 1.5
     - sys ui-sync
     - sys complete
+- templateId: sequence_skull_bash
+  moveSequenceSettings:
+    sequence:
+    - anim attacker atk-move
+    - wait 0.5
+    - vfx skull_bash
+    - sfx attacker 130-1_skull_bash
+    - wait 1.5
+    - sys ui-sync
+    - sys complete
 - templateId: sequence_sky_attack
   moveSequenceSettings:
     sequence:
@@ -80287,4 +80606,4 @@ itemTemplates:
     - wait 0.25
     - sys ui-sync
     - sys complete
-timestampMs: '1562995931983'
+timestampMs: '1563993960513'
