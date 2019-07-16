@@ -7,7 +7,6 @@ module MyPokemon (
   name,
   species,
   cp,
-  powerup,
   hp,
   stardust,
   quickName,
@@ -48,14 +47,13 @@ data MyPokemon = MyPokemon {
   name        :: String,
   species     :: String,
   cp          :: Int,
-  powerup     :: Maybe Int,
   hp          :: Int,
   stardust    :: Int,
   quickName   :: String,
   chargeName  :: String,
   appraisal   :: String,
-  ivs         :: Maybe [IVs],
-  stats       :: Maybe [Stats]
+  ivs         :: IVs,
+  stats       :: Maybe Stats
 } deriving (Show)
 
 instance Yaml.FromJSON MyPokemon where
@@ -67,13 +65,12 @@ instance Yaml.FromJSON MyPokemon where
           pure name <*>
           y .: "species" <*>
           y .: "cp" <*>
-          y .:? "powerup" <*>
           y .: "hp" <*>
           y .: "dust" <*>
           y .: "quick" <*>
           y .: "charge" <*>
           y .: "appraisal" <*>
-          y .:? "ivs" <*>
+          y .: "ivs" <*>
           y .:? "stats"
 
 (.=?) :: (Builder.ToYaml a) => Text -> Maybe a -> Maybe (Text, Builder.YamlBuilder)
@@ -92,15 +89,12 @@ instance Builder.ToYaml MyPokemon where
       "name" .== (Text.pack $ name this),
       "species" .== (Text.pack $ species this),
       "cp" .== cp this,
-      case ivs this of
-        Just [_] -> Nothing
-        _ -> "powerup" .=? powerup this,
       "hp" .== hp this,
       "dust" .== stardust this,
       "quick" .== (Text.pack $ quickName this),
       "charge" .== (Text.pack $ chargeName this),
       "appraisal" .== (Text.pack $ appraisal this),
-      "ivs" .=? ivs this,
+      "ivs" .== ivs this,
       "stats" .=? stats this
     ]
 
@@ -116,33 +110,28 @@ load maybeFilepath = do
     Left yamlParseException ->
       Epic.fail $ Yaml.prettyPrintParseException yamlParseException
 
-level :: Epic.MonadCatch m => MyPokemon -> m Float
+level :: MyPokemon -> Float
 level = getIv IVs.level
 
-getIv :: (Num a, Epic.MonadCatch m) => (IVs -> a) -> MyPokemon -> m a
-getIv getter this = do
-  case MyPokemon.ivs this of
-    Just (ivs:_) -> return $ getter ivs
-    Nothing -> Epic.fail $ "No ivs for " ++ (MyPokemon.name this)
+getIv :: Num a => (IVs -> a) -> MyPokemon -> a
+getIv getter =
+  getter . ivs
 
 setName :: MyPokemon -> String -> MyPokemon
 setName this name =
   this { name = name }
 
-setIVs :: MyPokemon -> Maybe [IVs] -> MyPokemon
+setIVs :: MyPokemon -> IVs -> MyPokemon
 setIVs this ivs =
   this { ivs = ivs }
 
-setStats :: MyPokemon -> [Stats] -> MyPokemon
+setStats :: MyPokemon -> Stats -> MyPokemon
 setStats this stats =
   this { stats = Just stats }
 
 setLevel :: MyPokemon -> Float -> MyPokemon
 setLevel this level =
-  case MyPokemon.ivs this of
-    Nothing -> this
-    Just ivs ->
-      setIVs this $ Just $ map (flip IVs.setLevel $ level) ivs
+  setIVs this $ IVs.setLevel (ivs this) level
 
 setSpecies :: MyPokemon -> String -> MyPokemon
 setSpecies this species =

@@ -121,7 +121,7 @@ makeBattlerVariants gameMaster battler = do
     Normal ivs ->
       MakePokemon.makeForWhatevers
         gameMaster
-        [ivs]
+        ivs
         (PokemonBase.species base)
         base
         quickMoves

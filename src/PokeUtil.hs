@@ -29,14 +29,11 @@ import qualified Data.List as List
 import qualified Text.Printf as Printf
 
 addStats :: Epic.MonadCatch m => GameMaster -> MyPokemon -> m MyPokemon
-addStats gameMaster myPokemon =
-  case MyPokemon.ivs myPokemon of
-    Nothing -> return myPokemon
-    Just ivs -> do
-      pokemonBase <- GameMaster.getPokemonBase gameMaster $
-        MyPokemon.species myPokemon
-      return $ MyPokemon.setStats myPokemon $
-        map (makeStats gameMaster pokemonBase) ivs
+addStats gameMaster myPokemon = do
+  pokemonBase <- GameMaster.getPokemonBase gameMaster $
+    MyPokemon.species myPokemon
+  return $ MyPokemon.setStats myPokemon $
+    makeStats gameMaster pokemonBase $ MyPokemon.ivs myPokemon
 
 makeStats :: GameMaster -> PokemonBase -> IVs -> Stats
 makeStats gameMaster pokemonBase ivs =

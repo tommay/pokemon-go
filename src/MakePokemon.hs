@@ -30,9 +30,7 @@ makePokemon gameMaster myPokemon = do
 
   base <- fromGameMaster GameMaster.getPokemonBase MyPokemon.species
 
-  ivs <- case MyPokemon.ivs myPokemon of
-    Just ivs@(_:_) -> return ivs
-    _ -> Epic.fail $ "No ivs for " ++ MyPokemon.name myPokemon
+  let ivs = MyPokemon.ivs myPokemon
 
   let getMove moveType getFunc keyFunc moveListFunc = do
         move <- fromGameMaster getFunc keyFunc
@@ -59,17 +57,17 @@ makeWithAllMovesetsFromBase :: GameMaster -> IVs -> PokemonBase -> [Pokemon]
 makeWithAllMovesetsFromBase gameMaster ivs base =
   MakePokemon.makeForWhatevers
     gameMaster
-    [ivs]
+    ivs
     (PokemonBase.species base)
     base
     (PokemonBase.quickMoves base)
     (PokemonBase.chargeMoves base)
 
 makeForWhatevers ::
- GameMaster -> [IVs] -> String -> PokemonBase -> [Move] -> [Move] -> [Pokemon]
-makeForWhatevers gameMaster ivsList name base quickMoves chargeMoves =
+ GameMaster -> IVs -> String -> PokemonBase -> [Move] -> [Move] -> [Pokemon]
+makeForWhatevers gameMaster ivs name base quickMoves chargeMoves =
   [makeForWhatever gameMaster ivs name base quick charge |
-    ivs <- ivsList, charge <- chargeMoves, quick <- quickMoves]
+    charge <- chargeMoves, quick <- quickMoves]
 
 makeForWhatever ::
   GameMaster -> IVs -> String -> PokemonBase -> Move -> Move -> Pokemon
