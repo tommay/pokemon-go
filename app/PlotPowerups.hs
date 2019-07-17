@@ -249,7 +249,6 @@ makeMyPokemonFromPokemon pokemon =
     MyPokemon.stardust = undefined,
     MyPokemon.quickName = Move.name $ Pokemon.quick pokemon,
     MyPokemon.chargeName = Move.name $ Pokemon.charge pokemon,
-    MyPokemon.appraisal = undefined,
     MyPokemon.ivs = Pokemon.ivs pokemon,
     MyPokemon.stats = undefined
   }
