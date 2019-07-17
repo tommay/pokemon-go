@@ -433,9 +433,8 @@ getPowerUpLevelsAndCosts gameMaster pokemonLevel =
 
 doTweakLevel :: (Float -> Float) -> MyPokemon -> MyPokemon
 doTweakLevel tweakLevel myPokemon =
-  let ivs = MyPokemon.ivs myPokemon
-      ivs' = (fmap $ map $ IVs.tweakLevel tweakLevel) ivs
-  in MyPokemon.setIVs myPokemon ivs'
+  MyPokemon.setIVs myPokemon $ IVs.tweakLevel tweakLevel $
+    MyPokemon.ivs myPokemon
 
 counter :: (Pokemon -> Pokemon -> Battle) -> [Pokemon] -> [Pokemon] -> Result
 counter doOneBattle defenderVariants attackerVariants =
