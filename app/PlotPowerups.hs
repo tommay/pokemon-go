@@ -175,12 +175,6 @@ main =
             BattlerUtil.makeBattlerVariants gameMaster attacker
           return $ map makeMyPokemonFromPokemon attackerVariants
 
-      -- The plots of dps/tdo vs. candy/dust cost only make sense if
-      -- all IV sets have the same level, so split each MyPokemon into
-      -- multiple pokemon with the same level in their IVs.
-
-      myPokemon <- return $ concat $ map splitByLevel myPokemon
-
       -- Evolve all pokemon to their highest level and remember how
       -- much candy it took.
 
@@ -235,7 +229,7 @@ main =
     )
     $ Exit.die
 
--- "Dumb down" a Pokemon into a MyPokemon.  The one asvantage of using
+-- "Dumb down" a Pokemon into a MyPokemon.  The one advantage of using
 -- MyPokemon instead of using Pokemon throughout is that when we
 -- evolve and do MyPokemon.setSpecies the moves will be checked for
 -- compatibility in MakePokemon.makePokemon.
@@ -251,33 +245,14 @@ makeMyPokemonFromPokemon pokemon =
       (Move.bars $ Pokemon.charge pokemon),
     MyPokemon.species = PokemonBase.species $ Pokemon.base pokemon,
     MyPokemon.cp = undefined,
-    MyPokemon.powerup = undefined,
     MyPokemon.hp = undefined,
     MyPokemon.stardust = undefined,
     MyPokemon.quickName = Move.name $ Pokemon.quick pokemon,
     MyPokemon.chargeName = Move.name $ Pokemon.charge pokemon,
     MyPokemon.appraisal = undefined,
-    MyPokemon.ivs = Just [Pokemon.ivs pokemon],
+    MyPokemon.ivs = Pokemon.ivs pokemon,
     MyPokemon.stats = undefined
   }
-
-splitByLevel :: MyPokemon -> [MyPokemon]
-splitByLevel myPokemon =
-  case MyPokemon.ivs myPokemon of
-    Nothing -> [myPokemon]
-    Just ivs ->
-      let groups = Util.groupBy IVs.level ivs
-      in if HashMap.size groups == 1
-           then [myPokemon]
-           else
-             map (\ (level, ivs) ->
-               let myPokemon' = MyPokemon.setIVs myPokemon $ Just ivs
-                   nameAndLevel = Printf.printf "%s (%s)"
-                     (MyPokemon.name myPokemon)
-                     (PokeUtil.levelToString level)
-               in MyPokemon.setName myPokemon' nameAndLevel)
-             $ List.sortBy (\(a,_) (b,_) -> compare a b)
-               $ HashMap.toList groups
 
 setMoves :: Epic.MonadCatch m =>
   GameMaster -> String -> String -> MyPokemon -> m MyPokemon
@@ -372,7 +347,7 @@ cumulativePowerup gameMaster (candy, stardust, myPokemon) = do
 powerup :: Epic.MonadCatch m =>
   GameMaster -> MyPokemon -> m (Maybe (Int, Int, MyPokemon))
 powerup gameMaster myPokemon = do
-  level <- MyPokemon.level myPokemon
+  let level = MyPokemon.level myPokemon
   return $ case GameMaster.nextLevel gameMaster level of
     Just (candy, dust, level) ->
       Just (candy, dust, MyPokemon.setLevel myPokemon level)
