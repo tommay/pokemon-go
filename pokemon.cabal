@@ -16,7 +16,7 @@ cabal-version:       >=1.10
 library
   hs-source-dirs:      src
   exposed-modules:     MyPokemon, GameMaster, PokemonBase, Epic, Move, Type, Pokemon,
-                       Appraisal, IVs, Calc, Mythical,
+                       IVs, Calc, Mythical,
                        Battle, Attacker, Defender, Debug, Log, Matchup,
                        Util, Weather, Logger, BattlerUtil, Yaml,
                        MakePokemon, Stats, PokeUtil, TweakLevel, Breakpoint,
@@ -116,17 +116,6 @@ executable counter-exe
 executable sort-exe
   hs-source-dirs:      app
   main-is:             Sort.hs
-  ghc-options:         -O2 -threaded -rtsopts -with-rtsopts=-N
-  build-depends:       base
-                     , pokemon
-                     , optparse-applicative
-                     , yaml
-                     , bytestring
-  default-language:    Haskell2010
-
-executable iv-exe
-  hs-source-dirs:      app
-  main-is:             IV.hs
   ghc-options:         -O2 -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
                      , pokemon
