@@ -54,23 +54,17 @@ updateFromIVs :: (Epic.MonadCatch m) =>
 updateFromIVs gameMaster maybeTweakLevel myPokemon = do
   pokemonBase <-
     GameMaster.getPokemonBase gameMaster $ MyPokemon.species myPokemon
-  let failNoIVs = Epic.fail $ MyPokemon.name myPokemon ++ ": no ivs"
-  case MyPokemon.ivs myPokemon of
-    Nothing -> failNoIVs
-    Just [] -> failNoIVs
-    Just (ivs:_) ->
-      let ivs' = case maybeTweakLevel of
-            Nothing -> ivs
-            Just tweakLevel -> IVs.tweakLevel tweakLevel ivs
-          cp = Calc.cp gameMaster pokemonBase ivs'
-          hp = Calc.hp gameMaster pokemonBase ivs'
-          stardust =
-            GameMaster.getStardustForLevel gameMaster $ IVs.level ivs'
-      in return $ myPokemon {
-        MyPokemon.ivs = case maybeTweakLevel of
-          Nothing -> MyPokemon.ivs myPokemon
-          _ -> Just [ivs'],
-        MyPokemon.cp = cp,
-        MyPokemon.hp = hp,
-        MyPokemon.stardust = stardust
-        }
+  let ivs = MyPokemon.ivs myPokemon
+      ivs' = case maybeTweakLevel of
+        Nothing -> ivs
+        Just tweakLevel -> IVs.tweakLevel tweakLevel ivs
+      cp = Calc.cp gameMaster pokemonBase ivs'
+      hp = Calc.hp gameMaster pokemonBase ivs'
+      stardust =
+        GameMaster.getStardustForLevel gameMaster $ IVs.level ivs'
+  return $ myPokemon {
+    MyPokemon.ivs = ivs',
+    MyPokemon.cp = cp,
+    MyPokemon.hp = hp,
+    MyPokemon.stardust = stardust
+    }
