@@ -20,7 +20,8 @@ library
                        Battle, Attacker, Defender, Debug, Log, Matchup,
                        Util, Weather, Logger, BattlerUtil, Yaml,
                        MakePokemon, Stats, PokeUtil, TweakLevel, Breakpoint,
-                       Powerups, WeatherBonus, Legacy
+                       Powerups, WeatherBonus, Legacy,
+                       YamlUtil
   other-modules:       StringMap
   ghc-options:         -O2
   build-depends:       base >= 4.7 && < 5, yaml, vector, text,

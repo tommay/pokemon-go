@@ -29,6 +29,7 @@ import           IVs (IVs)
 import qualified Stats
 import           Stats (Stats)
 import qualified Util
+import           YamlUtil ((.=?), (.==))
 
 import qualified Data.Aeson.Types
 import qualified Data.ByteString as ByteString
@@ -69,16 +70,6 @@ instance Yaml.FromJSON MyPokemon where
           y .: "charge" <*>
           y .: "ivs" <*>
           y .:? "stats"
-
-(.=?) :: (Builder.ToYaml a) => Text -> Maybe a -> Maybe (Text, Builder.YamlBuilder)
-label .=? Nothing =
-  Nothing
-label .=? Just a =
-  Just $ label .= a
-
-(.==) :: (Builder.ToYaml a) => Text -> a -> Maybe (Text, Builder.YamlBuilder)
-label .== a =
-  Just $ label .= a
 
 instance Builder.ToYaml MyPokemon where
   toYaml this =
