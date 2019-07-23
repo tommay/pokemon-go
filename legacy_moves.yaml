@@ -91,6 +91,9 @@
 - species: slaking
   moves:
   - BODY_SLAM       # Community day 6/8/2019
+- species: swampert
+  moves:
+  - HYDRO_CANNON    # Community day 7/21/2019
 - species: golem_normal
   moves:
   - ANCIENT_POWER
