@@ -129,12 +129,23 @@ makeBattlerVariants gameMaster battler = do
     RaidBoss raidLevel ->
       makeRaidBossForMoves gameMaster raidLevel base quickMoves chargeMoves
 
+toLower :: String -> String
+toLower = map Char.toLower
+
+-- We have to check for a move matching abbrev exactly before checking
+-- with matchesAbbrevInsensitive, otherwise the abbrev "charm" will be
+-- considered an abbreviation for both "charm" and "charge beam".
+--
 getMatchingMove :: Epic.MonadCatch m => String -> [Move] -> String -> String -> m Move
 getMatchingMove abbrev moves moveType species =
-  let nameMatches = Util.matchesAbbrevInsensitive abbrev . Move.name
-  in case filter nameMatches moves of
-       [move] -> return move
-       val -> Epic.fail $ matchingMoveFail abbrev moves moveType species val
+  case filter ((== toLower abbrev) . toLower . Move.name) moves of
+    [move] -> return move
+    _ ->
+      let nameMatches = Util.matchesAbbrevInsensitive abbrev . Move.name
+      in case filter nameMatches moves of
+           [move] -> return move
+           val ->
+             Epic.fail $ matchingMoveFail abbrev moves moveType species val
 
 matchingMoveFail :: String -> [Move] -> String -> String -> [a] -> String
 matchingMoveFail abbrev allMoves moveType species list =
