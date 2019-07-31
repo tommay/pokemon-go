@@ -136,24 +136,24 @@ toLower = map Char.toLower
 -- with matchesAbbrevInsensitive, otherwise the abbrev "charm" will be
 -- considered an abbreviation for both "charm" and "charge beam".
 --
-getMatchingMove :: Epic.MonadCatch m => String -> [Move] -> String -> String -> m Move
-getMatchingMove abbrev moves moveType species =
+getMatchingMoves :: String -> [Move] -> [Move]
+getMatchingMoves abbrev moves =
   case filter ((== toLower abbrev) . toLower . Move.name) moves of
-    [move] -> return move
+    [move] -> [move]
     _ ->
       let nameMatches = Util.matchesAbbrevInsensitive abbrev . Move.name
-      in case filter nameMatches moves of
-           [move] -> return move
-           val ->
-             Epic.fail $ matchingMoveFail abbrev moves moveType species val
+      in filter nameMatches moves
 
-matchingMoveFail :: String -> [Move] -> String -> String -> [a] -> String
-matchingMoveFail abbrev allMoves moveType species list =
-  let howMany = if null list then "no" else "multiple" :: String
-  in Printf.printf ("%s has %s %s moves matching `%s'\n" ++
-       "Available %s moves:\n%s")
-       species howMany moveType abbrev moveType
-       (List.intercalate "\n" $ map (("  " ++) . Move.name) allMoves)
+getMatchingMove :: Epic.MonadCatch m => String -> [Move] -> String -> String -> m Move
+getMatchingMove abbrev moves moveType species =
+  case getMatchingMoves abbrev moves of
+    [move] -> return move
+    matchingMoves ->
+      let howMany = if null matchingMoves then "no" else "multiple" :: String
+      in Epic.fail $ Printf.printf ("%s has %s %s moves matching `%s'\n" ++
+           "Available %s moves:\n%s")
+           species howMany moveType abbrev moveType
+           (List.intercalate "\n" $ map (("  " ++) . Move.name) moves)
 
 makeRaidBossForTier :: GameMaster -> Int -> PokemonBase -> [Pokemon]
 makeRaidBossForTier gameMaster raidLevel base =
