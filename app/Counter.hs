@@ -37,6 +37,7 @@ import           Weather (Weather (..))
 import qualified Debug
 
 import           Control.Monad (join, forM, forM_)
+import qualified Data.Either as Either
 import qualified Data.List as List
 import qualified Data.Maybe as Maybe
 import qualified Data.Ord as Ord
@@ -243,13 +244,11 @@ main =
             then return $ map (:[]) $ concat allAttackers
             else return $ allAttackers
         MovesetFor battlers ->
-          let attackerSpecies = map BattlerUtil.species battlers
-              makeAttackers battler = do
-                 attackers <- makeWithAllMovesetsFromBattler gameMaster battler
-                 return $ map (:[]) attackers
-          in case filter (not . GameMaster.isSpecies gameMaster) attackerSpecies of
-            [] -> fmap concat $ mapM makeAttackers battlers
-            noSuchSpecies -> Epic.fail $ "No such species: " ++ (List.intercalate ", " noSuchSpecies)
+          let (errors, attackerLists) = Either.partitionEithers $
+                map (makeWithAllMovesetsFromBattler gameMaster) battlers
+          in case errors of
+               [] -> return $ map (:[]) $ concat attackerLists
+               _ -> Epic.fail $ List.intercalate "\n" $ map show errors
 
       let weatherBonus =
             GameMaster.getWeatherBonus gameMaster $ maybeWeather options

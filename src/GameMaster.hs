@@ -15,7 +15,6 @@ module GameMaster (
   getAllTypes,
   getWeatherBonus,
   defaultWeatherBonus,
-  isSpecies,
   dustAndLevel,
   candyAndLevel,
   allLevels,
@@ -492,10 +491,6 @@ toEpic either =
   case either of
     Left err -> Epic.fail $ show err
     Right val -> return val
-
-isSpecies :: GameMaster -> String -> Bool
-isSpecies this speciesName =
-  HashMap.member (sanitize speciesName) (GameMaster.pokemonBases this)
 
 costAtLevel :: GameMaster -> (GameMaster -> [(Int, Float)]) -> Float -> Maybe Int
 costAtLevel this func level =
