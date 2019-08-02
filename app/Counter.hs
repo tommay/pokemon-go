@@ -240,6 +240,11 @@ main =
               ivs = IVs.tweakLevel (tweakLevel options) IVs.defaultIVs
               allAttackers = map
                 (MakePokemon.makeWithAllMovesetsFromBase gameMaster ivs) bases
+          -- map (:[]) $ concat
+          -- turns [[attacker1a, attacker1b], [attacker2a, attacker2b]]
+          -- into [[attacker1a], [attacker1b], [attacker2a], [attacker2b]]
+          -- so a Result will be computed for each attack variant
+          -- individuallly.
           if showAllMovesets options
             then return $ map (:[]) $ concat allAttackers
             else return $ allAttackers
