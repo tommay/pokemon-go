@@ -94,6 +94,12 @@
 - species: swampert
   moves:
   - HYDRO_CANNON    # Community day 7/21/2019
+- species: gardevoir
+  moves:
+  - SYNCHRONOISE    # Community day 8/3/2019
+- species: gallade
+  moves:
+  - SYNCHRONOISE    # Community day 8/3/2019
 - species: golem_normal
   moves:
   - ANCIENT_POWER
