@@ -28,6 +28,8 @@ import qualified Data.Char as Char
 import qualified Data.List as List
 import qualified Text.Printf as Printf
 
+import qualified Debug
+
 addStats :: Epic.MonadCatch m => GameMaster -> MyPokemon -> m MyPokemon
 addStats gameMaster myPokemon = do
   pokemonBase <- GameMaster.getPokemonBase gameMaster $
@@ -85,8 +87,8 @@ evolveFullyWithCandy gameMaster maybeTarget myPokemon = do
   chains <- evolutionChains gameMaster (species, 0)
   chain <- case maybeTarget of
     Just target ->
-      case filter ((== map Char.toLower target)
-          . map Char.toLower . fst . List.last) chains of
+      case filter (matchWithNormal (map Char.toLower target) .
+              map Char.toLower . fst . List.last) chains of
         [] -> Epic.fail $ species ++ " does not evolve to " ++ target
         [chain] -> return chain
     Nothing ->
@@ -95,6 +97,13 @@ evolveFullyWithCandy gameMaster maybeTarget myPokemon = do
         _ -> Epic.fail $ species ++ " has multiple possible evolutions"
   let (evolvedSpecies, candy) = List.last chain
   return $ (MyPokemon.setSpecies myPokemon evolvedSpecies, candy)
+
+-- If species has a normal form then species will have _NORMAL here.
+-- Allow a match with either targete or target_NORMAL so the user can
+-- specify either.
+matchWithNormal :: String -> String -> Bool
+matchWithNormal target species =
+  species `elem` [target, target ++ "_normal"]
 
 evolutionChains ::
   Epic.MonadCatch m => GameMaster -> (String, Int) -> m [[(String, Int)]]
