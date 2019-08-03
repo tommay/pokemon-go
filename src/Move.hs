@@ -21,8 +21,8 @@ module Move (
 
 import qualified Type
 import           Type (Type)
+import qualified Util
 
-import qualified Data.Char as Char
 import qualified Data.HashMap.Strict as HashMap
 import qualified Data.List as List
 import qualified Text.Regex as Regex
@@ -72,7 +72,7 @@ name this =
       withType = if Move.isHiddenPower this
         then alphaOnly ++ ", " ++ (Type.name $ Move.moveType this)
         else alphaOnly
-      lower = map Char.toLower alphaOnly
+      lower = Util.toLower alphaOnly
   in lower
 
 bars :: Move -> Int

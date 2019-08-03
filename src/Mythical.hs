@@ -8,8 +8,8 @@ module Mythical (
 ) where
 
 import qualified Epic
+import qualified Util
 
-import qualified Data.Char as Char
 import qualified Data.HashMap.Strict as HashMap
 import           Data.HashMap.Strict (HashMap)
 import qualified Data.Yaml as Yaml
@@ -42,6 +42,6 @@ isLegendary = is Legendary
 
 is :: Status -> MythicalMap -> String -> Bool
 is status mythicalMap species =
-  case HashMap.lookup (map Char.toLower species) mythicalMap of
+  case HashMap.lookup (Util.toLower species) mythicalMap of
     Just status' -> status == status'
     _ -> False

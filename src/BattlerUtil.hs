@@ -33,7 +33,6 @@ import qualified Util
 
 import           Control.Applicative (optional, some, many)
 import qualified Data.Attoparsec.Text as Atto
-import qualified Data.Char as Char
 import qualified Data.List as List
 import qualified Data.Maybe as Maybe
 import qualified Data.Text as Text
@@ -129,16 +128,13 @@ makeBattlerVariants gameMaster battler = do
     RaidBoss raidLevel ->
       makeRaidBossForMoves gameMaster raidLevel base quickMoves chargeMoves
 
-toLower :: String -> String
-toLower = map Char.toLower
-
 -- We have to check for a move matching abbrev exactly before checking
 -- with matchesAbbrevInsensitive, otherwise the abbrev "charm" will be
 -- considered an abbreviation for both "charm" and "charge beam".
 --
 getMatchingMoves :: String -> [Move] -> [Move]
 getMatchingMoves abbrev moves =
-  case filter ((== toLower abbrev) . toLower . Move.name) moves of
+  case filter ((== Util.toLower abbrev) . Util.toLower . Move.name) moves of
     [move] -> [move]
     _ ->
       let nameMatches = Util.matchesAbbrevInsensitive abbrev . Move.name

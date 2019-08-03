@@ -23,8 +23,8 @@ import qualified PokemonBase
 import           PokemonBase (PokemonBase)
 import qualified Stats
 import           Stats (Stats)
+import qualified Util
 
-import qualified Data.Char as Char
 import qualified Data.List as List
 import qualified Text.Printf as Printf
 
@@ -87,8 +87,8 @@ evolveFullyWithCandy gameMaster maybeTarget myPokemon = do
   chains <- evolutionChains gameMaster (species, 0)
   chain <- case maybeTarget of
     Just target ->
-      case filter (matchWithNormal (map Char.toLower target) .
-              map Char.toLower . fst . List.last) chains of
+      case filter (matchWithNormal (Util.toLower target) .
+               Util.toLower . fst . List.last) chains of
         [] -> Epic.fail $ species ++ " does not evolve to " ++ target
         [chain] -> return chain
     Nothing ->

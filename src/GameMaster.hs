@@ -30,6 +30,7 @@ import           PokemonBase (PokemonBase)
 import           StringMap (StringMap)
 import qualified Type
 import           Type (Type)
+import qualified Util
 import qualified Weather
 import           Weather (Weather (..))
 import           WeatherBonus (WeatherBonus)
@@ -39,7 +40,6 @@ import           Data.Yaml ((.:), (.:?), (.!=))
 
 import           Control.Monad (join)
 import           Data.Text.Conversions (convertText)
-import           Data.Char (toLower, toUpper)
 import qualified Data.List as List
 import qualified Data.Maybe as Maybe
 import           Data.Maybe (mapMaybe)
@@ -91,7 +91,7 @@ getPokemonBase this speciesName =
            forms <- GameMaster.lookup "species" (forms this) speciesName
            Epic.fail $
              speciesName ++ " has no normal form.  Specify one of " ++
-             map toLower (commaSeparated forms) ++ "."
+             Util.toLower (commaSeparated forms) ++ "."
 
 getMove :: Epic.MonadCatch m => GameMaster -> String -> m Move
 getMove this moveName  =
@@ -166,7 +166,7 @@ lookup what hash key =
 sanitize :: String -> String
 sanitize string =
   let nonWordChars = Regex.mkRegex "\\W"
-  in map toUpper $ Regex.subRegex nonWordChars string "_"
+  in Util.toUpper $ Regex.subRegex nonWordChars string "_"
 
 makeGameMaster :: Epic.MonadCatch m => Yaml.Object -> m GameMaster
 makeGameMaster yamlObject = do
@@ -231,7 +231,7 @@ makeType stab itemTemplate = do
 
 effectivenessOrder :: [String]
 effectivenessOrder =
-  map (\ ptype -> "POKEMON_TYPE_" ++ map toUpper ptype)
+  map (\ ptype -> "POKEMON_TYPE_" ++ Util.toUpper ptype)
     ["normal",
      "fighting",
      "flying",
@@ -319,7 +319,7 @@ makePokemonBase types moves forms pokemonSettings =
     species <- do
       species <- getSpeciesForPokemonBase forms pokemonSettings
       let normal = Regex.mkRegex "_normal$"
-      return $ Regex.subRegex normal (map toLower species) ""
+      return $ Regex.subRegex normal (Util.toLower species) ""
 
     ptypes <- do
       ptype <- getValue "type"
@@ -456,7 +456,7 @@ get map key =
 
 getType :: Epic.MonadCatch m => GameMaster -> String -> m Type
 getType this typeName =
-  get (GameMaster.types this) ("POKEMON_TYPE_" ++ (map toUpper typeName))
+  get (GameMaster.types this) ("POKEMON_TYPE_" ++ (Util.toUpper typeName))
 
 getAllTypes :: GameMaster -> [Type]
 getAllTypes this =
@@ -529,7 +529,7 @@ addLegacyMoves legacyMap this =
         moves <- return $ map Move.setLegacy moves
         base <- getPokemonBase gameMaster species
         base <- return $ foldr PokemonBase.addMove base moves
-        let speciesU = map toUpper species
+        let speciesU = Util.toUpper species
             key = if HashMap.member speciesU $ pokemonBases gameMaster
               then speciesU
               else speciesU ++ "_NORMAL"

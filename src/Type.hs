@@ -7,9 +7,9 @@ module Type (
   name,
 ) where
 
-import StringMap (StringMap)
+import           StringMap (StringMap)
+import qualified Util
 
-import qualified Data.Char as Char
 import qualified Data.Hashable as Hashable
 import           Data.Hashable (Hashable)
 import qualified Data.HashMap.Strict as HashMap
@@ -49,4 +49,4 @@ name :: Type -> String
 name this =
   -- Get rid of the POKEMON_TYPE_.
   let regex = Regex.mkRegex ".*_"
-  in map Char.toLower $ Regex.subRegex regex (Type.typeId this) ""
+  in Util.toLower $ Regex.subRegex regex (Type.typeId this) ""

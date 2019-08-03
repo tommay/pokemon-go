@@ -6,6 +6,8 @@ module Util (
   toByteString,
   augment,
   augmentM,
+  toLower,
+  toUpper
 ) where
 
 import           Control.Monad (forM)
@@ -66,3 +68,10 @@ augmentM fn list = forM list $ \a -> do
   b <- fn a
   return $ (b, a)
 -}
+
+toLower :: String -> String
+toLower = map Char.toLower
+
+toUpper :: String -> String
+toUpper = map Char.toUpper
+
