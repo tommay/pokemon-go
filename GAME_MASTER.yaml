@@ -7794,6 +7794,62 @@ itemTemplates:
     targets:
     - 100
     eventBadge: true
+- templateId: BADGE_GOFEST_2019_APAC_DAY_00_GENERAL
+  badgeSettings:
+    badgeType: BADGE_GOFEST_2019_APAC_DAY_00_GENERAL
+    badgeRank: 2
+    targets:
+    - 100
+    eventBadge: true
+- templateId: BADGE_GOFEST_2019_APAC_DAY_01_GENERAL
+  badgeSettings:
+    badgeType: BADGE_GOFEST_2019_APAC_DAY_01_GENERAL
+    badgeRank: 2
+    targets:
+    - 100
+    eventBadge: true
+- templateId: BADGE_GOFEST_2019_APAC_DAY_02_GENERAL
+  badgeSettings:
+    badgeType: BADGE_GOFEST_2019_APAC_DAY_02_GENERAL
+    badgeRank: 2
+    targets:
+    - 100
+    eventBadge: true
+- templateId: BADGE_GOFEST_2019_APAC_DAY_03_GENERAL
+  badgeSettings:
+    badgeType: BADGE_GOFEST_2019_APAC_DAY_03_GENERAL
+    badgeRank: 2
+    targets:
+    - 100
+    eventBadge: true
+- templateId: BADGE_GOFEST_2019_APAC_DAY_04_GENERAL
+  badgeSettings:
+    badgeType: BADGE_GOFEST_2019_APAC_DAY_04_GENERAL
+    badgeRank: 2
+    targets:
+    - 100
+    eventBadge: true
+- templateId: BADGE_GOFEST_2019_APAC_DAY_05_GENERAL
+  badgeSettings:
+    badgeType: BADGE_GOFEST_2019_APAC_DAY_05_GENERAL
+    badgeRank: 2
+    targets:
+    - 100
+    eventBadge: true
+- templateId: BADGE_GOFEST_2019_APAC_DAY_06_GENERAL
+  badgeSettings:
+    badgeType: BADGE_GOFEST_2019_APAC_DAY_06_GENERAL
+    badgeRank: 2
+    targets:
+    - 100
+    eventBadge: true
+- templateId: BADGE_GOFEST_2019_APAC_DAY_07_GENERAL
+  badgeSettings:
+    badgeType: BADGE_GOFEST_2019_APAC_DAY_07_GENERAL
+    badgeRank: 2
+    targets:
+    - 100
+    eventBadge: true
 - templateId: BADGE_GOFEST_2019_EMEA_DAY_00_EARLYACCESS
   badgeSettings:
     badgeType: BADGE_GOFEST_2019_EMEA_DAY_00_EARLYACCESS
@@ -10510,6 +10566,13 @@ itemTemplates:
     power: 50.0
     vfxName: return
     energyDelta: -40
+- templateId: COMBAT_V0324_MOVE_SYNCHRONOISE
+  combatMove:
+    uniqueId: SYNCHRONOISE
+    type: POKEMON_TYPE_PSYCHIC
+    power: 80.0
+    vfxName: synchronoise
+    energyDelta: -50
 - templateId: ENCOUNTER_SETTINGS
   encounterSettings:
     spinBonusThreshold: 0.5
@@ -10795,12 +10858,24 @@ itemTemplates:
 - templateId: FORMS_V0060_POKEMON_POLIWAG
   formSettings:
     pokemon: POLIWAG
+    forms:
+    - form: POLIWAG_NORMAL
+    - form: POLIWAG_SHADOW
+    - form: POLIWAG_PURIFIED
 - templateId: FORMS_V0061_POKEMON_POLIWHIRL
   formSettings:
     pokemon: POLIWHIRL
+    forms:
+    - form: POLIWHIRL_NORMAL
+    - form: POLIWHIRL_SHADOW
+    - form: POLIWHIRL_PURIFIED
 - templateId: FORMS_V0062_POKEMON_POLIWRATH
   formSettings:
     pokemon: POLIWRATH
+    forms:
+    - form: POLIWRATH_NORMAL
+    - form: POLIWRATH_SHADOW
+    - form: POLIWRATH_PURIFIED
 - templateId: FORMS_V0063_POKEMON_ABRA
   formSettings:
     pokemon: ABRA
@@ -10895,6 +10970,8 @@ itemTemplates:
     - form: GRIMER_NORMAL
     - form: GRIMER_ALOLA
       assetBundleValue: 61
+    - form: GRIMER_SHADOW
+    - form: GRIMER_PURIFIED
 - templateId: FORMS_V0089_POKEMON_MUK
   formSettings:
     pokemon: MUK
@@ -10902,6 +10979,8 @@ itemTemplates:
     - form: MUK_NORMAL
     - form: MUK_ALOLA
       assetBundleValue: 61
+    - form: MUK_SHADOW
+    - form: MUK_PURIFIED
 - templateId: FORMS_V0090_POKEMON_SHELLDER
   formSettings:
     pokemon: SHELLDER
@@ -10923,9 +11002,17 @@ itemTemplates:
 - templateId: FORMS_V0096_POKEMON_DROWZEE
   formSettings:
     pokemon: DROWZEE
+    forms:
+    - form: DROWZEE_NORMAL
+    - form: DROWZEE_SHADOW
+    - form: DROWZEE_PURIFIED
 - templateId: FORMS_V0097_POKEMON_HYPNO
   formSettings:
     pokemon: HYPNO
+    forms:
+    - form: HYPNO_NORMAL
+    - form: HYPNO_SHADOW
+    - form: HYPNO_PURIFIED
 - templateId: FORMS_V0098_POKEMON_KRABBY
   formSettings:
     pokemon: KRABBY
@@ -10951,6 +11038,10 @@ itemTemplates:
 - templateId: FORMS_V0104_POKEMON_CUBONE
   formSettings:
     pokemon: CUBONE
+    forms:
+    - form: CUBONE_NORMAL
+    - form: CUBONE_SHADOW
+    - form: CUBONE_PURIFIED
 - templateId: FORMS_V0105_POKEMON_MAROWAK
   formSettings:
     pokemon: MAROWAK
@@ -10958,6 +11049,8 @@ itemTemplates:
     - form: MAROWAK_NORMAL
     - form: MAROWAK_ALOLA
       assetBundleValue: 61
+    - form: MAROWAK_SHADOW
+    - form: MAROWAK_PURIFIED
 - templateId: FORMS_V0106_POKEMON_HITMONLEE
   formSettings:
     pokemon: HITMONLEE
@@ -11012,6 +11105,10 @@ itemTemplates:
 - templateId: FORMS_V0123_POKEMON_SCYTHER
   formSettings:
     pokemon: SCYTHER
+    forms:
+    - form: SCYTHER_NORMAL
+    - form: SCYTHER_SHADOW
+    - form: SCYTHER_PURIFIED
 - templateId: FORMS_V0124_POKEMON_JYNX
   formSettings:
     pokemon: JYNX
@@ -11030,9 +11127,17 @@ itemTemplates:
 - templateId: FORMS_V0129_POKEMON_MAGIKARP
   formSettings:
     pokemon: MAGIKARP
+    forms:
+    - form: MAGIKARP_NORMAL
+    - form: MAGIKARP_SHADOW
+    - form: MAGIKARP_PURIFIED
 - templateId: FORMS_V0130_POKEMON_GYARADOS
   formSettings:
     pokemon: GYARADOS
+    forms:
+    - form: GYARADOS_NORMAL
+    - form: GYARADOS_SHADOW
+    - form: GYARADOS_PURIFIED
 - templateId: FORMS_V0131_POKEMON_LAPRAS
   formSettings:
     pokemon: LAPRAS
@@ -11225,6 +11330,10 @@ itemTemplates:
 - templateId: FORMS_V0186_POKEMON_POLITOED
   formSettings:
     pokemon: POLITOED
+    forms:
+    - form: POLITOED_NORMAL
+    - form: POLITOED_SHADOW
+    - form: POLITOED_PURIFIED
 - templateId: FORMS_V0187_POKEMON_HOPPIP
   formSettings:
     pokemon: HOPPIP
@@ -11360,6 +11469,10 @@ itemTemplates:
 - templateId: FORMS_V0212_POKEMON_SCIZOR
   formSettings:
     pokemon: SCIZOR
+    forms:
+    - form: SCIZOR_NORMAL
+    - form: SCIZOR_SHADOW
+    - form: SCIZOR_PURIFIED
 - templateId: FORMS_V0213_POKEMON_SHUCKLE
   formSettings:
     pokemon: SHUCKLE
@@ -11408,9 +11521,17 @@ itemTemplates:
 - templateId: FORMS_V0228_POKEMON_HOUNDOUR
   formSettings:
     pokemon: HOUNDOUR
+    forms:
+    - form: HOUNDOUR_NORMAL
+    - form: HOUNDOUR_SHADOW
+    - form: HOUNDOUR_PURIFIED
 - templateId: FORMS_V0229_POKEMON_HOUNDOOM
   formSettings:
     pokemon: HOUNDOOM
+    forms:
+    - form: HOUNDOOM_NORMAL
+    - form: HOUNDOOM_SHADOW
+    - form: HOUNDOOM_PURIFIED
 - templateId: FORMS_V0230_POKEMON_KINGDRA
   formSettings:
     pokemon: KINGDRA
@@ -11576,12 +11697,24 @@ itemTemplates:
 - templateId: FORMS_V0280_POKEMON_RALTS
   formSettings:
     pokemon: RALTS
+    forms:
+    - form: RALTS_NORMAL
+    - form: RALTS_SHADOW
+    - form: RALTS_PURIFIED
 - templateId: FORMS_V0281_POKEMON_KIRLIA
   formSettings:
     pokemon: KIRLIA
+    forms:
+    - form: KIRLIA_NORMAL
+    - form: KIRLIA_SHADOW
+    - form: KIRLIA_PURIFIED
 - templateId: FORMS_V0282_POKEMON_GARDEVOIR
   formSettings:
     pokemon: GARDEVOIR
+    forms:
+    - form: GARDEVOIR_NORMAL
+    - form: GARDEVOIR_SHADOW
+    - form: GARDEVOIR_PURIFIED
 - templateId: FORMS_V0283_POKEMON_SURSKIT
   formSettings:
     pokemon: SURSKIT
@@ -11736,6 +11869,28 @@ itemTemplates:
       assetBundleValue: 18
     - form: SPINDA_08
       assetBundleValue: 19
+    - form: SPINDA_09
+      assetBundleValue: 20
+    - form: SPINDA_10
+      assetBundleValue: 21
+    - form: SPINDA_11
+      assetBundleValue: 22
+    - form: SPINDA_12
+      assetBundleValue: 23
+    - form: SPINDA_13
+      assetBundleValue: 24
+    - form: SPINDA_14
+      assetBundleValue: 25
+    - form: SPINDA_15
+      assetBundleValue: 26
+    - form: SPINDA_16
+      assetBundleValue: 27
+    - form: SPINDA_17
+      assetBundleValue: 28
+    - form: SPINDA_18
+      assetBundleValue: 29
+    - form: SPINDA_19
+      assetBundleValue: 30
 - templateId: FORMS_V0328_POKEMON_TRAPINCH
   formSettings:
     pokemon: TRAPINCH
@@ -12227,6 +12382,10 @@ itemTemplates:
 - templateId: FORMS_V0475_POKEMON_GALLADE
   formSettings:
     pokemon: GALLADE
+    forms:
+    - form: GALLADE_NORMAL
+    - form: GALLADE_SHADOW
+    - form: GALLADE_PURIFIED
 - templateId: FORMS_V0476_POKEMON_PROBOPASS
   formSettings:
     pokemon: PROBOPASS
@@ -14446,13 +14605,67 @@ itemTemplates:
     gender:
       malePercent: 0.5
       femalePercent: 0.5
+- templateId: SPAWN_V0060_POKEMON_POLIWAG_NORMAL
+  genderSettings:
+    pokemon: POLIWAG
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0060_POKEMON_POLIWAG_PURIFIED
+  genderSettings:
+    pokemon: POLIWAG
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0060_POKEMON_POLIWAG_SHADOW
+  genderSettings:
+    pokemon: POLIWAG
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
 - templateId: SPAWN_V0061_POKEMON_POLIWHIRL
   genderSettings:
     pokemon: POLIWHIRL
     gender:
       malePercent: 0.5
       femalePercent: 0.5
+- templateId: SPAWN_V0061_POKEMON_POLIWHIRL_NORMAL
+  genderSettings:
+    pokemon: POLIWHIRL
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0061_POKEMON_POLIWHIRL_PURIFIED
+  genderSettings:
+    pokemon: POLIWHIRL
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0061_POKEMON_POLIWHIRL_SHADOW
+  genderSettings:
+    pokemon: POLIWHIRL
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
 - templateId: SPAWN_V0062_POKEMON_POLIWRATH
+  genderSettings:
+    pokemon: POLIWRATH
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0062_POKEMON_POLIWRATH_NORMAL
+  genderSettings:
+    pokemon: POLIWRATH
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0062_POKEMON_POLIWRATH_PURIFIED
+  genderSettings:
+    pokemon: POLIWRATH
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0062_POKEMON_POLIWRATH_SHADOW
   genderSettings:
     pokemon: POLIWRATH
     gender:
@@ -14660,6 +14873,18 @@ itemTemplates:
     gender:
       malePercent: 0.5
       femalePercent: 0.5
+- templateId: SPAWN_V0088_POKEMON_GRIMER_PURIFIED
+  genderSettings:
+    pokemon: GRIMER
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0088_POKEMON_GRIMER_SHADOW
+  genderSettings:
+    pokemon: GRIMER
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
 - templateId: SPAWN_V0089_POKEMON_MUK
   genderSettings:
     pokemon: MUK
@@ -14673,6 +14898,18 @@ itemTemplates:
       malePercent: 0.5
       femalePercent: 0.5
 - templateId: SPAWN_V0089_POKEMON_MUK_NORMAL
+  genderSettings:
+    pokemon: MUK
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0089_POKEMON_MUK_PURIFIED
+  genderSettings:
+    pokemon: MUK
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0089_POKEMON_MUK_SHADOW
   genderSettings:
     pokemon: MUK
     gender:
@@ -14720,7 +14957,43 @@ itemTemplates:
     gender:
       malePercent: 0.5
       femalePercent: 0.5
+- templateId: SPAWN_V0096_POKEMON_DROWZEE_NORMAL
+  genderSettings:
+    pokemon: DROWZEE
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0096_POKEMON_DROWZEE_PURIFIED
+  genderSettings:
+    pokemon: DROWZEE
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0096_POKEMON_DROWZEE_SHADOW
+  genderSettings:
+    pokemon: DROWZEE
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
 - templateId: SPAWN_V0097_POKEMON_HYPNO
+  genderSettings:
+    pokemon: HYPNO
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0097_POKEMON_HYPNO_NORMAL
+  genderSettings:
+    pokemon: HYPNO
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0097_POKEMON_HYPNO_PURIFIED
+  genderSettings:
+    pokemon: HYPNO
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0097_POKEMON_HYPNO_SHADOW
   genderSettings:
     pokemon: HYPNO
     gender:
@@ -14778,6 +15051,24 @@ itemTemplates:
     gender:
       malePercent: 0.5
       femalePercent: 0.5
+- templateId: SPAWN_V0104_POKEMON_CUBONE_NORMAL
+  genderSettings:
+    pokemon: CUBONE
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0104_POKEMON_CUBONE_PURIFIED
+  genderSettings:
+    pokemon: CUBONE
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0104_POKEMON_CUBONE_SHADOW
+  genderSettings:
+    pokemon: CUBONE
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
 - templateId: SPAWN_V0105_POKEMON_MAROWAK
   genderSettings:
     pokemon: MAROWAK
@@ -14791,6 +15082,18 @@ itemTemplates:
       malePercent: 0.5
       femalePercent: 0.5
 - templateId: SPAWN_V0105_POKEMON_MAROWAK_NORMAL
+  genderSettings:
+    pokemon: MAROWAK
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0105_POKEMON_MAROWAK_PURIFIED
+  genderSettings:
+    pokemon: MAROWAK
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0105_POKEMON_MAROWAK_SHADOW
   genderSettings:
     pokemon: MAROWAK
     gender:
@@ -14898,6 +15201,24 @@ itemTemplates:
     gender:
       malePercent: 0.5
       femalePercent: 0.5
+- templateId: SPAWN_V0123_POKEMON_SCYTHER_NORMAL
+  genderSettings:
+    pokemon: SCYTHER
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0123_POKEMON_SCYTHER_PURIFIED
+  genderSettings:
+    pokemon: SCYTHER
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0123_POKEMON_SCYTHER_SHADOW
+  genderSettings:
+    pokemon: SCYTHER
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
 - templateId: SPAWN_V0124_POKEMON_JYNX
   genderSettings:
     pokemon: JYNX
@@ -14932,7 +15253,43 @@ itemTemplates:
     gender:
       malePercent: 0.5
       femalePercent: 0.5
+- templateId: SPAWN_V0129_POKEMON_MAGIKARP_NORMAL
+  genderSettings:
+    pokemon: MAGIKARP
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0129_POKEMON_MAGIKARP_PURIFIED
+  genderSettings:
+    pokemon: MAGIKARP
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0129_POKEMON_MAGIKARP_SHADOW
+  genderSettings:
+    pokemon: MAGIKARP
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
 - templateId: SPAWN_V0130_POKEMON_GYARADOS
+  genderSettings:
+    pokemon: GYARADOS
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0130_POKEMON_GYARADOS_NORMAL
+  genderSettings:
+    pokemon: GYARADOS
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0130_POKEMON_GYARADOS_PURIFIED
+  genderSettings:
+    pokemon: GYARADOS
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0130_POKEMON_GYARADOS_SHADOW
   genderSettings:
     pokemon: GYARADOS
     gender:
@@ -15367,6 +15724,24 @@ itemTemplates:
     gender:
       malePercent: 0.5
       femalePercent: 0.5
+- templateId: SPAWN_V0186_POKEMON_POLITOED_NORMAL
+  genderSettings:
+    pokemon: POLITOED
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0186_POKEMON_POLITOED_PURIFIED
+  genderSettings:
+    pokemon: POLITOED
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0186_POKEMON_POLITOED_SHADOW
+  genderSettings:
+    pokemon: POLITOED
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
 - templateId: SPAWN_V0187_POKEMON_HOPPIP
   genderSettings:
     pokemon: HOPPIP
@@ -15522,6 +15897,24 @@ itemTemplates:
     gender:
       malePercent: 0.5
       femalePercent: 0.5
+- templateId: SPAWN_V0212_POKEMON_SCIZOR_NORMAL
+  genderSettings:
+    pokemon: SCIZOR
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0212_POKEMON_SCIZOR_PURIFIED
+  genderSettings:
+    pokemon: SCIZOR
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0212_POKEMON_SCIZOR_SHADOW
+  genderSettings:
+    pokemon: SCIZOR
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
 - templateId: SPAWN_V0213_POKEMON_SHUCKLE
   genderSettings:
     pokemon: SHUCKLE
@@ -15618,7 +16011,43 @@ itemTemplates:
     gender:
       malePercent: 0.5
       femalePercent: 0.5
+- templateId: SPAWN_V0228_POKEMON_HOUNDOUR_NORMAL
+  genderSettings:
+    pokemon: HOUNDOUR
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0228_POKEMON_HOUNDOUR_PURIFIED
+  genderSettings:
+    pokemon: HOUNDOUR
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0228_POKEMON_HOUNDOUR_SHADOW
+  genderSettings:
+    pokemon: HOUNDOUR
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
 - templateId: SPAWN_V0229_POKEMON_HOUNDOOM
+  genderSettings:
+    pokemon: HOUNDOOM
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0229_POKEMON_HOUNDOOM_NORMAL
+  genderSettings:
+    pokemon: HOUNDOOM
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0229_POKEMON_HOUNDOOM_PURIFIED
+  genderSettings:
+    pokemon: HOUNDOOM
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0229_POKEMON_HOUNDOOM_SHADOW
   genderSettings:
     pokemon: HOUNDOOM
     gender:
@@ -15972,13 +16401,67 @@ itemTemplates:
     gender:
       malePercent: 0.5
       femalePercent: 0.5
+- templateId: SPAWN_V0280_POKEMON_RALTS_NORMAL
+  genderSettings:
+    pokemon: RALTS
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0280_POKEMON_RALTS_PURIFIED
+  genderSettings:
+    pokemon: RALTS
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0280_POKEMON_RALTS_SHADOW
+  genderSettings:
+    pokemon: RALTS
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
 - templateId: SPAWN_V0281_POKEMON_KIRLIA
   genderSettings:
     pokemon: KIRLIA
     gender:
       malePercent: 0.5
       femalePercent: 0.5
+- templateId: SPAWN_V0281_POKEMON_KIRLIA_NORMAL
+  genderSettings:
+    pokemon: KIRLIA
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0281_POKEMON_KIRLIA_PURIFIED
+  genderSettings:
+    pokemon: KIRLIA
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0281_POKEMON_KIRLIA_SHADOW
+  genderSettings:
+    pokemon: KIRLIA
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
 - templateId: SPAWN_V0282_POKEMON_GARDEVOIR
+  genderSettings:
+    pokemon: GARDEVOIR
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0282_POKEMON_GARDEVOIR_NORMAL
+  genderSettings:
+    pokemon: GARDEVOIR
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0282_POKEMON_GARDEVOIR_PURIFIED
+  genderSettings:
+    pokemon: GARDEVOIR
+    gender:
+      malePercent: 0.5
+      femalePercent: 0.5
+- templateId: SPAWN_V0282_POKEMON_GARDEVOIR_SHADOW
   genderSettings:
     pokemon: GARDEVOIR
     gender:
@@ -17226,6 +17709,21 @@ itemTemplates:
     pokemon: GALLADE
     gender:
       malePercent: 1.0
+- templateId: SPAWN_V0475_POKEMON_GALLADE_NORMAL
+  genderSettings:
+    pokemon: GALLADE
+    gender:
+      malePercent: 1.0
+- templateId: SPAWN_V0475_POKEMON_GALLADE_PURIFIED
+  genderSettings:
+    pokemon: GALLADE
+    gender:
+      malePercent: 1.0
+- templateId: SPAWN_V0475_POKEMON_GALLADE_SHADOW
+  genderSettings:
+    pokemon: GALLADE
+    gender:
+      malePercent: 1.0
 - templateId: SPAWN_V0476_POKEMON_PROBOPASS
   genderSettings:
     pokemon: PROBOPASS
@@ -17881,7 +18379,7 @@ itemTemplates:
       cylinderHeightM: 0.763
       shoulderModeScale: 0.5
     encounter:
-      baseCaptureRate: 0.2
+      baseCaptureRate: 0.05
       baseFleeRate: 0.1
       collisionRadiusM: 0.3815
       collisionHeightM: 0.654
@@ -17890,8 +18388,8 @@ itemTemplates:
       movementTimerS: 10.0
       jumpTimeS: 1.15
       attackTimerS: 29.0
-      attackProbability: 0.1
-      dodgeProbability: 0.15
+      attackProbability: 0.7
+      dodgeProbability: 0.2
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
       cameraDistance: 3.75
@@ -17949,8 +18447,8 @@ itemTemplates:
     isTransferable: true
     isDeployable: true
     shadow:
-      purificationStardustNeeded: 2000
-      purificationCandyNeeded: 2
+      purificationStardustNeeded: 3000
+      purificationCandyNeeded: 3
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
 - templateId: V0002_POKEMON_IVYSAUR
@@ -18213,7 +18711,7 @@ itemTemplates:
       cylinderHeightM: 1.0625
       shoulderModeScale: 0.5
     encounter:
-      baseCaptureRate: 0.1
+      baseCaptureRate: 0.05
       baseFleeRate: 0.07
       collisionRadiusM: 0.31875
       collisionHeightM: 0.6375
@@ -18224,8 +18722,8 @@ itemTemplates:
       attackTimerS: 8.0
       bonusCandyCaptureReward: 2
       bonusStardustCaptureReward: 200
-      attackProbability: 0.1
-      dodgeProbability: 0.15
+      attackProbability: 0.7
+      dodgeProbability: 0.2
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
       cameraDistance: 3.984375
@@ -18285,8 +18783,8 @@ itemTemplates:
     isTransferable: true
     isDeployable: true
     shadow:
-      purificationStardustNeeded: 5000
-      purificationCandyNeeded: 5
+      purificationStardustNeeded: 3000
+      purificationCandyNeeded: 3
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
 - templateId: V0003_POKEMON_VENUSAUR
@@ -18575,8 +19073,8 @@ itemTemplates:
       attackTimerS: 4.0
       bonusCandyCaptureReward: 7
       bonusStardustCaptureReward: 400
-      attackProbability: 0.2
-      dodgeProbability: 0.15
+      attackProbability: 0.7
+      dodgeProbability: 0.2
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
       cameraDistance: 5.6925
@@ -18641,8 +19139,8 @@ itemTemplates:
     - -0.7
     - 0.0
     shadow:
-      purificationStardustNeeded: 5000
-      purificationCandyNeeded: 5
+      purificationStardustNeeded: 3000
+      purificationCandyNeeded: 3
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
 - templateId: V0004_POKEMON_CHARMANDER
@@ -18889,7 +19387,7 @@ itemTemplates:
       cylinderHeightM: 0.65
       shoulderModeScale: 0.5
     encounter:
-      baseCaptureRate: 0.2
+      baseCaptureRate: 0.05
       baseFleeRate: 0.1
       collisionRadiusM: 0.15625
       collisionHeightM: 0.46875
@@ -18898,8 +19396,8 @@ itemTemplates:
       movementTimerS: 29.0
       jumpTimeS: 1.25
       attackTimerS: 10.0
-      attackProbability: 0.1
-      dodgeProbability: 0.15
+      attackProbability: 0.7
+      dodgeProbability: 0.2
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
       cameraDistance: 2.8125
@@ -18957,8 +19455,8 @@ itemTemplates:
     isTransferable: true
     isDeployable: true
     shadow:
-      purificationStardustNeeded: 2000
-      purificationCandyNeeded: 2
+      purificationStardustNeeded: 3000
+      purificationCandyNeeded: 3
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
 - templateId: V0005_POKEMON_CHARMELEON
@@ -19214,7 +19712,7 @@ itemTemplates:
       cylinderHeightM: 1.133
       shoulderModeScale: 0.5
     encounter:
-      baseCaptureRate: 0.1
+      baseCaptureRate: 0.05
       baseFleeRate: 0.07
       collisionRadiusM: 0.2575
       collisionHeightM: 0.7725
@@ -19225,8 +19723,8 @@ itemTemplates:
       attackTimerS: 8.0
       bonusCandyCaptureReward: 2
       bonusStardustCaptureReward: 200
-      attackProbability: 0.1
-      dodgeProbability: 0.15
+      attackProbability: 0.7
+      dodgeProbability: 0.2
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
       cameraDistance: 4.24875
@@ -19285,8 +19783,8 @@ itemTemplates:
     isTransferable: true
     isDeployable: true
     shadow:
-      purificationStardustNeeded: 5000
-      purificationCandyNeeded: 5
+      purificationStardustNeeded: 3000
+      purificationCandyNeeded: 3
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
 - templateId: V0006_POKEMON_CHARIZARD
@@ -19543,8 +20041,8 @@ itemTemplates:
       attackTimerS: 4.0
       bonusCandyCaptureReward: 7
       bonusStardustCaptureReward: 400
-      attackProbability: 0.2
-      dodgeProbability: 0.15
+      attackProbability: 0.7
+      dodgeProbability: 0.2
       dodgeDurationS: 0.7
       dodgeDistance: 1.0
       cameraDistance: 5.0
@@ -19597,8 +20095,8 @@ itemTemplates:
     isTransferable: true
     isDeployable: true
     shadow:
-      purificationStardustNeeded: 5000
-      purificationCandyNeeded: 5
+      purificationStardustNeeded: 3000
+      purificationCandyNeeded: 3
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
 - templateId: V0007_POKEMON_SQUIRTLE
@@ -19845,7 +20343,7 @@ itemTemplates:
       cylinderHeightM: 0.5
       shoulderModeScale: 0.1
     encounter:
-      baseCaptureRate: 0.2
+      baseCaptureRate: 0.05
       baseFleeRate: 0.1
       collisionRadiusM: 0.2295
       collisionHeightM: 0.3825
@@ -19854,8 +20352,8 @@ itemTemplates:
       movementTimerS: 10.0
       jumpTimeS: 1.0
       attackTimerS: 29.0
-      attackProbability: 0.1
-      dodgeProbability: 0.15
+      attackProbability: 0.7
+      dodgeProbability: 0.2
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
       cameraDistance: 2.86875
@@ -19913,8 +20411,8 @@ itemTemplates:
     isTransferable: true
     isDeployable: true
     shadow:
-      purificationStardustNeeded: 2000
-      purificationCandyNeeded: 2
+      purificationStardustNeeded: 3000
+      purificationCandyNeeded: 3
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
 - templateId: V0008_POKEMON_WARTORTLE
@@ -20170,7 +20668,7 @@ itemTemplates:
       cylinderHeightM: 1.0
       shoulderModeScale: 0.5
     encounter:
-      baseCaptureRate: 0.1
+      baseCaptureRate: 0.05
       baseFleeRate: 0.07
       collisionRadiusM: 0.25
       collisionHeightM: 0.625
@@ -20181,8 +20679,8 @@ itemTemplates:
       attackTimerS: 8.0
       bonusCandyCaptureReward: 2
       bonusStardustCaptureReward: 200
-      attackProbability: 0.1
-      dodgeProbability: 0.15
+      attackProbability: 0.7
+      dodgeProbability: 0.2
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
       cameraDistance: 3.75
@@ -20241,8 +20739,8 @@ itemTemplates:
     isTransferable: true
     isDeployable: true
     shadow:
-      purificationStardustNeeded: 5000
-      purificationCandyNeeded: 5
+      purificationStardustNeeded: 3000
+      purificationCandyNeeded: 3
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
 - templateId: V0009_POKEMON_BLASTOISE
@@ -20494,8 +20992,8 @@ itemTemplates:
       attackTimerS: 5.0
       bonusCandyCaptureReward: 7
       bonusStardustCaptureReward: 400
-      attackProbability: 0.2
-      dodgeProbability: 0.15
+      attackProbability: 0.7
+      dodgeProbability: 0.2
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
       cameraDistance: 4.846875
@@ -20549,8 +21047,8 @@ itemTemplates:
     isTransferable: true
     isDeployable: true
     shadow:
-      purificationStardustNeeded: 5000
-      purificationCandyNeeded: 5
+      purificationStardustNeeded: 3000
+      purificationCandyNeeded: 3
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
 - templateId: V0010_POKEMON_CATERPIE
@@ -21631,7 +22129,7 @@ itemTemplates:
       cylinderHeightM: 0.378
       shoulderModeScale: 0.5
     encounter:
-      baseCaptureRate: 0.5
+      baseCaptureRate: 0.05
       baseFleeRate: 0.2
       collisionRadiusM: 0.189
       collisionHeightM: 0.252
@@ -21640,8 +22138,8 @@ itemTemplates:
       movementTimerS: 10.0
       jumpTimeS: 0.9
       attackTimerS: 29.0
-      attackProbability: 0.2
-      dodgeProbability: 0.3
+      attackProbability: 0.7
+      dodgeProbability: 0.2
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
       cameraDistance: 1.89
@@ -21699,8 +22197,8 @@ itemTemplates:
     isTransferable: true
     isDeployable: true
     shadow:
-      purificationStardustNeeded: 2000
-      purificationCandyNeeded: 2
+      purificationStardustNeeded: 1000
+      purificationCandyNeeded: 1
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
 - templateId: V0020_MOVE_VICE_GRIP
@@ -22026,7 +22524,7 @@ itemTemplates:
       cylinderHeightM: 0.936
       shoulderModeScale: 0.5
     encounter:
-      baseCaptureRate: 0.2
+      baseCaptureRate: 0.05
       baseFleeRate: 0.07
       collisionRadiusM: 0.2925
       collisionHeightM: 0.585
@@ -22037,8 +22535,8 @@ itemTemplates:
       attackTimerS: 8.0
       bonusCandyCaptureReward: 2
       bonusStardustCaptureReward: 200
-      attackProbability: 0.2
-      dodgeProbability: 0.15
+      attackProbability: 0.7
+      dodgeProbability: 0.2
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
       cameraDistance: 3.94875
@@ -22090,8 +22588,8 @@ itemTemplates:
     isTransferable: true
     isDeployable: true
     shadow:
-      purificationStardustNeeded: 2000
-      purificationCandyNeeded: 2
+      purificationStardustNeeded: 1000
+      purificationCandyNeeded: 1
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
 - templateId: V0021_MOVE_FLAME_WHEEL
@@ -24915,7 +25413,7 @@ itemTemplates:
       cylinderGroundM: 0.5
       shoulderModeScale: 0.5
     encounter:
-      baseCaptureRate: 0.5
+      baseCaptureRate: 0.05
       baseFleeRate: 0.2
       collisionRadiusM: 0.0535
       collisionHeightM: 0.0535
@@ -24924,7 +25422,7 @@ itemTemplates:
       movementTimerS: 10.0
       jumpTimeS: 1.0
       attackTimerS: 29.0
-      attackProbability: 0.1
+      attackProbability: 0.7
       dodgeProbability: 0.2
       dodgeDurationS: 0.7
       dodgeDistance: 0.125
@@ -24984,8 +25482,8 @@ itemTemplates:
     isTransferable: true
     isDeployable: true
     shadow:
-      purificationStardustNeeded: 2000
-      purificationCandyNeeded: 2
+      purificationStardustNeeded: 1000
+      purificationCandyNeeded: 1
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
 - templateId: V0042_MOVE_HEAT_WAVE
@@ -25259,7 +25757,7 @@ itemTemplates:
       cylinderGroundM: 1.5
       shoulderModeScale: 0.5
     encounter:
-      baseCaptureRate: 0.2
+      baseCaptureRate: 0.05
       baseFleeRate: 0.07
       collisionRadiusM: 0.0355
       collisionHeightM: 0.0355
@@ -25270,8 +25768,8 @@ itemTemplates:
       attackTimerS: 17.0
       bonusCandyCaptureReward: 2
       bonusStardustCaptureReward: 200
-      attackProbability: 0.1
-      dodgeProbability: 0.15
+      attackProbability: 0.7
+      dodgeProbability: 0.2
       dodgeDurationS: 0.7
       dodgeDistance: 1.0
       cameraDistance: 5.0
@@ -25328,8 +25826,8 @@ itemTemplates:
     isTransferable: true
     isDeployable: true
     shadow:
-      purificationStardustNeeded: 2000
-      purificationCandyNeeded: 2
+      purificationStardustNeeded: 1000
+      purificationCandyNeeded: 1
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
 - templateId: V0043_POKEMON_ODDISH
@@ -27531,6 +28029,7 @@ itemTemplates:
     evolutionBranch:
     - evolution: POLIWHIRL
       candyCost: 25
+      form: POLIWHIRL_NORMAL
     modelScaleV2: 1.0
     buddyOffsetMale:
     - 0.0
@@ -27546,6 +28045,245 @@ itemTemplates:
       candyToUnlock: 50
     isTransferable: true
     isDeployable: true
+- templateId: V0060_POKEMON_POLIWAG_NORMAL
+  pokemonSettings:
+    pokemonId: POLIWAG
+    modelScale: 1.25
+    type: POKEMON_TYPE_WATER
+    camera:
+      diskRadiusM: 0.75
+      cylinderRadiusM: 0.5
+      cylinderHeightM: 0.7
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.5
+      baseFleeRate: 0.15
+      collisionRadiusM: 0.3125
+      collisionHeightM: 0.75
+      collisionHeadRadiusM: 0.3125
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 10.0
+      jumpTimeS: 1.0
+      attackTimerS: 29.0
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 3.75
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 120
+      baseAttack: 101
+      baseDefense: 82
+    quickMoves:
+    - BUBBLE_FAST
+    - MUD_SHOT_FAST
+    cinematicMoves:
+    - BUBBLE_BEAM
+    - MUD_BOMB
+    - BODY_SLAM
+    animationTime:
+    - 1.6667
+    - 0.6667
+    - 2.0
+    - 1.5
+    - 0.0
+    - 1.6667
+    - 1.5
+    - 0.0
+    evolutionIds:
+    - POLIWHIRL
+    evolutionPips: 1
+    pokedexHeightM: 0.6
+    pokedexWeightKg: 12.4
+    heightStdDev: 0.075
+    weightStdDev: 1.55
+    familyId: FAMILY_POLIWAG
+    candyToEvolve: 25
+    kmBuddyDistance: 3.0
+    modelHeight: 0.6
+    evolutionBranch:
+    - evolution: POLIWHIRL
+      candyCost: 25
+      form: POLIWHIRL_NORMAL
+    modelScaleV2: 1.0
+    form: POLIWAG_NORMAL
+    buddyOffsetMale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyOffsetFemale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 50000
+      candyToUnlock: 50
+    isTransferable: true
+    isDeployable: true
+- templateId: V0060_POKEMON_POLIWAG_PURIFIED
+  pokemonSettings:
+    pokemonId: POLIWAG
+    modelScale: 1.25
+    type: POKEMON_TYPE_WATER
+    camera:
+      diskRadiusM: 0.75
+      cylinderRadiusM: 0.5
+      cylinderHeightM: 0.7
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.5
+      baseFleeRate: 0.15
+      collisionRadiusM: 0.3125
+      collisionHeightM: 0.75
+      collisionHeadRadiusM: 0.3125
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 10.0
+      jumpTimeS: 1.0
+      attackTimerS: 29.0
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 3.75
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 120
+      baseAttack: 101
+      baseDefense: 82
+    quickMoves:
+    - BUBBLE_FAST
+    - MUD_SHOT_FAST
+    cinematicMoves:
+    - BUBBLE_BEAM
+    - MUD_BOMB
+    - BODY_SLAM
+    animationTime:
+    - 1.6667
+    - 0.6667
+    - 2.0
+    - 1.5
+    - 0.0
+    - 1.6667
+    - 1.5
+    - 0.0
+    evolutionIds:
+    - POLIWHIRL
+    evolutionPips: 1
+    pokedexHeightM: 0.6
+    pokedexWeightKg: 12.4
+    heightStdDev: 0.075
+    weightStdDev: 1.55
+    familyId: FAMILY_POLIWAG
+    candyToEvolve: 25
+    kmBuddyDistance: 3.0
+    modelHeight: 0.6
+    evolutionBranch:
+    - evolution: POLIWHIRL
+      candyCost: 22
+      form: POLIWHIRL_PURIFIED
+    modelScaleV2: 1.0
+    form: POLIWAG_PURIFIED
+    buddyOffsetMale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyOffsetFemale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 40000
+      candyToUnlock: 40
+    isTransferable: true
+    isDeployable: true
+- templateId: V0060_POKEMON_POLIWAG_SHADOW
+  pokemonSettings:
+    pokemonId: POLIWAG
+    modelScale: 1.25
+    type: POKEMON_TYPE_WATER
+    camera:
+      diskRadiusM: 0.75
+      cylinderRadiusM: 0.5
+      cylinderHeightM: 0.7
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.05
+      baseFleeRate: 0.15
+      collisionRadiusM: 0.3125
+      collisionHeightM: 0.75
+      collisionHeadRadiusM: 0.3125
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 10.0
+      jumpTimeS: 1.0
+      attackTimerS: 29.0
+      attackProbability: 0.7
+      dodgeProbability: 0.2
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 3.75
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 120
+      baseAttack: 101
+      baseDefense: 82
+    quickMoves:
+    - BUBBLE_FAST
+    - MUD_SHOT_FAST
+    cinematicMoves:
+    - BUBBLE_BEAM
+    - MUD_BOMB
+    - BODY_SLAM
+    animationTime:
+    - 1.6667
+    - 0.6667
+    - 2.0
+    - 1.5
+    - 0.0
+    - 1.6667
+    - 1.5
+    - 0.0
+    evolutionIds:
+    - POLIWHIRL
+    evolutionPips: 1
+    pokedexHeightM: 0.6
+    pokedexWeightKg: 12.4
+    heightStdDev: 0.075
+    weightStdDev: 1.55
+    familyId: FAMILY_POLIWAG
+    candyToEvolve: 25
+    kmBuddyDistance: 3.0
+    modelHeight: 0.6
+    evolutionBranch:
+    - evolution: POLIWHIRL
+      candyCost: 25
+      form: POLIWHIRL_SHADOW
+    modelScaleV2: 1.0
+    form: POLIWAG_SHADOW
+    buddyOffsetMale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyOffsetFemale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 150000
+      candyToUnlock: 150
+    isTransferable: true
+    isDeployable: true
+    shadow:
+      purificationStardustNeeded: 3000
+      purificationCandyNeeded: 3
+      purifiedChargeMove: RETURN
+      shadowChargeMove: FRUSTRATION
 - templateId: V0061_POKEMON_POLIWHIRL
   pokemonSettings:
     pokemonId: POLIWHIRL
@@ -27611,9 +28349,11 @@ itemTemplates:
     evolutionBranch:
     - evolution: POLIWRATH
       candyCost: 100
+      form: POLIWRATH_NORMAL
     - evolution: POLITOED
       evolutionItemRequirement: ITEM_KINGS_ROCK
       candyCost: 100
+      form: POLITOED_NORMAL
     modelScaleV2: 1.0
     buddyOffsetMale:
     - 20.0
@@ -27629,6 +28369,269 @@ itemTemplates:
       candyToUnlock: 50
     isTransferable: true
     isDeployable: true
+- templateId: V0061_POKEMON_POLIWHIRL_NORMAL
+  pokemonSettings:
+    pokemonId: POLIWHIRL
+    modelScale: 0.98
+    type: POKEMON_TYPE_WATER
+    camera:
+      diskRadiusM: 1.1025
+      cylinderRadiusM: 0.735
+      cylinderHeightM: 1.078
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.25
+      baseFleeRate: 0.07
+      collisionRadiusM: 0.49
+      collisionHeightM: 0.882
+      collisionHeadRadiusM: 0.3675
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 8.0
+      jumpTimeS: 0.8
+      attackTimerS: 23.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 5.5125
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 163
+      baseAttack: 130
+      baseDefense: 123
+    quickMoves:
+    - BUBBLE_FAST
+    - MUD_SHOT_FAST
+    cinematicMoves:
+    - WATER_PULSE
+    - MUD_BOMB
+    - BUBBLE_BEAM
+    animationTime:
+    - 1.3333
+    - 0.6667
+    - 2.1667
+    - 1.5
+    - 0.0
+    - 2.0
+    - 1.3333
+    - 0.0
+    evolutionIds:
+    - POLIWRATH
+    evolutionPips: 1
+    pokedexHeightM: 1.0
+    pokedexWeightKg: 20.0
+    parentPokemonId: POLIWAG
+    heightStdDev: 0.125
+    weightStdDev: 2.5
+    familyId: FAMILY_POLIWAG
+    candyToEvolve: 100
+    kmBuddyDistance: 3.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.05
+    evolutionBranch:
+    - evolution: POLIWRATH
+      candyCost: 100
+      form: POLIWRATH_NORMAL
+    - evolution: POLITOED
+      evolutionItemRequirement: ITEM_KINGS_ROCK
+      candyCost: 100
+      form: POLITOED_NORMAL
+    modelScaleV2: 1.0
+    form: POLIWHIRL_NORMAL
+    buddyOffsetMale:
+    - 20.0
+    - 0.0
+    - 51.8
+    buddyOffsetFemale:
+    - 20.0
+    - 0.0
+    - 51.8
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 50000
+      candyToUnlock: 50
+    isTransferable: true
+    isDeployable: true
+- templateId: V0061_POKEMON_POLIWHIRL_PURIFIED
+  pokemonSettings:
+    pokemonId: POLIWHIRL
+    modelScale: 0.98
+    type: POKEMON_TYPE_WATER
+    camera:
+      diskRadiusM: 1.1025
+      cylinderRadiusM: 0.735
+      cylinderHeightM: 1.078
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.25
+      baseFleeRate: 0.07
+      collisionRadiusM: 0.49
+      collisionHeightM: 0.882
+      collisionHeadRadiusM: 0.3675
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 8.0
+      jumpTimeS: 0.8
+      attackTimerS: 23.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 5.5125
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 163
+      baseAttack: 130
+      baseDefense: 123
+    quickMoves:
+    - BUBBLE_FAST
+    - MUD_SHOT_FAST
+    cinematicMoves:
+    - WATER_PULSE
+    - MUD_BOMB
+    - BUBBLE_BEAM
+    animationTime:
+    - 1.3333
+    - 0.6667
+    - 2.1667
+    - 1.5
+    - 0.0
+    - 2.0
+    - 1.3333
+    - 0.0
+    evolutionIds:
+    - POLIWRATH
+    evolutionPips: 1
+    pokedexHeightM: 1.0
+    pokedexWeightKg: 20.0
+    parentPokemonId: POLIWAG
+    heightStdDev: 0.125
+    weightStdDev: 2.5
+    familyId: FAMILY_POLIWAG
+    candyToEvolve: 100
+    kmBuddyDistance: 3.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.05
+    evolutionBranch:
+    - evolution: POLIWRATH
+      candyCost: 90
+      form: POLIWRATH_PURIFIED
+    - evolution: POLITOED
+      evolutionItemRequirement: ITEM_KINGS_ROCK
+      candyCost: 90
+      form: POLITOED_PURIFIED
+    modelScaleV2: 1.0
+    form: POLIWHIRL_PURIFIED
+    buddyOffsetMale:
+    - 20.0
+    - 0.0
+    - 51.8
+    buddyOffsetFemale:
+    - 20.0
+    - 0.0
+    - 51.8
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 40000
+      candyToUnlock: 40
+    isTransferable: true
+    isDeployable: true
+- templateId: V0061_POKEMON_POLIWHIRL_SHADOW
+  pokemonSettings:
+    pokemonId: POLIWHIRL
+    modelScale: 0.98
+    type: POKEMON_TYPE_WATER
+    camera:
+      diskRadiusM: 1.1025
+      cylinderRadiusM: 0.735
+      cylinderHeightM: 1.078
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.05
+      baseFleeRate: 0.07
+      collisionRadiusM: 0.49
+      collisionHeightM: 0.882
+      collisionHeadRadiusM: 0.3675
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 8.0
+      jumpTimeS: 0.8
+      attackTimerS: 23.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.7
+      dodgeProbability: 0.2
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 5.5125
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 163
+      baseAttack: 130
+      baseDefense: 123
+    quickMoves:
+    - BUBBLE_FAST
+    - MUD_SHOT_FAST
+    cinematicMoves:
+    - WATER_PULSE
+    - MUD_BOMB
+    - BUBBLE_BEAM
+    animationTime:
+    - 1.3333
+    - 0.6667
+    - 2.1667
+    - 1.5
+    - 0.0
+    - 2.0
+    - 1.3333
+    - 0.0
+    evolutionIds:
+    - POLIWRATH
+    evolutionPips: 1
+    pokedexHeightM: 1.0
+    pokedexWeightKg: 20.0
+    parentPokemonId: POLIWAG
+    heightStdDev: 0.125
+    weightStdDev: 2.5
+    familyId: FAMILY_POLIWAG
+    candyToEvolve: 100
+    kmBuddyDistance: 3.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.05
+    evolutionBranch:
+    - evolution: POLIWRATH
+      candyCost: 100
+      form: POLIWRATH_SHADOW
+    - evolution: POLITOED
+      evolutionItemRequirement: ITEM_KINGS_ROCK
+      candyCost: 100
+      form: POLITOED_SHADOW
+    modelScaleV2: 1.0
+    form: POLIWHIRL_SHADOW
+    buddyOffsetMale:
+    - 20.0
+    - 0.0
+    - 51.8
+    buddyOffsetFemale:
+    - 20.0
+    - 0.0
+    - 51.8
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 150000
+      candyToUnlock: 150
+    isTransferable: true
+    isDeployable: true
+    shadow:
+      purificationStardustNeeded: 3000
+      purificationCandyNeeded: 3
+      purifiedChargeMove: RETURN
+      shadowChargeMove: FRUSTRATION
 - templateId: V0062_MOVE_ANCIENT_POWER
   moveSettings:
     movementId: ANCIENT_POWER
@@ -27721,6 +28724,242 @@ itemTemplates:
       candyToUnlock: 50
     isTransferable: true
     isDeployable: true
+- templateId: V0062_POKEMON_POLIWRATH_NORMAL
+  pokemonSettings:
+    pokemonId: POLIWRATH
+    modelScale: 0.86
+    type: POKEMON_TYPE_WATER
+    type2: POKEMON_TYPE_FIGHTING
+    camera:
+      diskRadiusM: 1.2255
+      cylinderRadiusM: 0.817
+      cylinderHeightM: 1.4
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.125
+      baseFleeRate: 0.05
+      collisionRadiusM: 0.645
+      collisionHeightM: 1.118
+      collisionHeadRadiusM: 0.344
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 11.0
+      jumpTimeS: 1.05
+      attackTimerS: 4.0
+      bonusCandyCaptureReward: 7
+      bonusStardustCaptureReward: 400
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 6.1275
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 207
+      baseAttack: 182
+      baseDefense: 184
+    quickMoves:
+    - BUBBLE_FAST
+    - ROCK_SMASH_FAST
+    cinematicMoves:
+    - HYDRO_PUMP
+    - DYNAMIC_PUNCH
+    - ICE_PUNCH
+    - POWER_UP_PUNCH
+    animationTime:
+    - 2.0
+    - 0.6667
+    - 1.6667
+    - 1.6667
+    - 0.0
+    - 2.0
+    - 1.2333
+    - 0.0
+    evolutionPips: 1
+    pokedexHeightM: 1.3
+    pokedexWeightKg: 54.0
+    parentPokemonId: POLIWHIRL
+    heightStdDev: 0.1625
+    weightStdDev: 6.75
+    familyId: FAMILY_POLIWAG
+    kmBuddyDistance: 3.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.42
+    modelScaleV2: 1.0
+    form: POLIWRATH_NORMAL
+    buddyOffsetMale:
+    - 30.0
+    - 0.0
+    - 9.3
+    buddyOffsetFemale:
+    - 30.0
+    - 0.0
+    - 9.3
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 50000
+      candyToUnlock: 50
+    isTransferable: true
+    isDeployable: true
+- templateId: V0062_POKEMON_POLIWRATH_PURIFIED
+  pokemonSettings:
+    pokemonId: POLIWRATH
+    modelScale: 0.86
+    type: POKEMON_TYPE_WATER
+    type2: POKEMON_TYPE_FIGHTING
+    camera:
+      diskRadiusM: 1.2255
+      cylinderRadiusM: 0.817
+      cylinderHeightM: 1.4
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.125
+      baseFleeRate: 0.05
+      collisionRadiusM: 0.645
+      collisionHeightM: 1.118
+      collisionHeadRadiusM: 0.344
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 11.0
+      jumpTimeS: 1.05
+      attackTimerS: 4.0
+      bonusCandyCaptureReward: 7
+      bonusStardustCaptureReward: 400
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 6.1275
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 207
+      baseAttack: 182
+      baseDefense: 184
+    quickMoves:
+    - BUBBLE_FAST
+    - ROCK_SMASH_FAST
+    cinematicMoves:
+    - HYDRO_PUMP
+    - DYNAMIC_PUNCH
+    - ICE_PUNCH
+    - POWER_UP_PUNCH
+    animationTime:
+    - 2.0
+    - 0.6667
+    - 1.6667
+    - 1.6667
+    - 0.0
+    - 2.0
+    - 1.2333
+    - 0.0
+    evolutionPips: 1
+    pokedexHeightM: 1.3
+    pokedexWeightKg: 54.0
+    parentPokemonId: POLIWHIRL
+    heightStdDev: 0.1625
+    weightStdDev: 6.75
+    familyId: FAMILY_POLIWAG
+    kmBuddyDistance: 3.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.42
+    modelScaleV2: 1.0
+    form: POLIWRATH_PURIFIED
+    buddyOffsetMale:
+    - 30.0
+    - 0.0
+    - 9.3
+    buddyOffsetFemale:
+    - 30.0
+    - 0.0
+    - 9.3
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 40000
+      candyToUnlock: 40
+    isTransferable: true
+    isDeployable: true
+- templateId: V0062_POKEMON_POLIWRATH_SHADOW
+  pokemonSettings:
+    pokemonId: POLIWRATH
+    modelScale: 0.86
+    type: POKEMON_TYPE_WATER
+    type2: POKEMON_TYPE_FIGHTING
+    camera:
+      diskRadiusM: 1.2255
+      cylinderRadiusM: 0.817
+      cylinderHeightM: 1.4
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.05
+      baseFleeRate: 0.05
+      collisionRadiusM: 0.645
+      collisionHeightM: 1.118
+      collisionHeadRadiusM: 0.344
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 11.0
+      jumpTimeS: 1.05
+      attackTimerS: 4.0
+      bonusCandyCaptureReward: 7
+      bonusStardustCaptureReward: 400
+      attackProbability: 0.7
+      dodgeProbability: 0.2
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 6.1275
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 207
+      baseAttack: 182
+      baseDefense: 184
+    quickMoves:
+    - BUBBLE_FAST
+    - ROCK_SMASH_FAST
+    cinematicMoves:
+    - HYDRO_PUMP
+    - DYNAMIC_PUNCH
+    - ICE_PUNCH
+    - POWER_UP_PUNCH
+    animationTime:
+    - 2.0
+    - 0.6667
+    - 1.6667
+    - 1.6667
+    - 0.0
+    - 2.0
+    - 1.2333
+    - 0.0
+    evolutionPips: 1
+    pokedexHeightM: 1.3
+    pokedexWeightKg: 54.0
+    parentPokemonId: POLIWHIRL
+    heightStdDev: 0.1625
+    weightStdDev: 6.75
+    familyId: FAMILY_POLIWAG
+    kmBuddyDistance: 3.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.42
+    modelScaleV2: 1.0
+    form: POLIWRATH_SHADOW
+    buddyOffsetMale:
+    - 30.0
+    - 0.0
+    - 9.3
+    buddyOffsetFemale:
+    - 30.0
+    - 0.0
+    - 9.3
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 150000
+      candyToUnlock: 150
+    isTransferable: true
+    isDeployable: true
+    shadow:
+      purificationStardustNeeded: 3000
+      purificationCandyNeeded: 3
+      purifiedChargeMove: RETURN
+      shadowChargeMove: FRUSTRATION
 - templateId: V0063_MOVE_ROCK_TOMB
   moveSettings:
     movementId: ROCK_TOMB
@@ -30723,6 +31962,177 @@ itemTemplates:
       candyToUnlock: 50
     isTransferable: true
     isDeployable: true
+- templateId: V0088_POKEMON_GRIMER_PURIFIED
+  pokemonSettings:
+    pokemonId: GRIMER
+    modelScale: 0.98
+    type: POKEMON_TYPE_POISON
+    camera:
+      diskRadiusM: 0.882
+      cylinderRadiusM: 0.75
+      cylinderHeightM: 1.1
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.5
+      baseFleeRate: 0.1
+      collisionRadiusM: 0.49
+      collisionHeightM: 0.8330001
+      collisionHeadRadiusM: 0.294
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 23.0
+      jumpTimeS: 1.0
+      attackTimerS: 8.0
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 4.410001
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 190
+      baseAttack: 135
+      baseDefense: 90
+    quickMoves:
+    - POISON_JAB_FAST
+    - MUD_SLAP_FAST
+    cinematicMoves:
+    - SLUDGE
+    - MUD_BOMB
+    - SLUDGE_BOMB
+    animationTime:
+    - 1.6667
+    - 0.6667
+    - 1.6667
+    - 1.6667
+    - 10.0
+    - 1.6667
+    - 2.6667
+    - 0.0
+    evolutionIds:
+    - MUK
+    evolutionPips: 1
+    pokedexHeightM: 0.9
+    pokedexWeightKg: 30.0
+    heightStdDev: 0.1125
+    weightStdDev: 3.75
+    familyId: FAMILY_GRIMER
+    candyToEvolve: 50
+    kmBuddyDistance: 3.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.05
+    evolutionBranch:
+    - evolution: MUK
+      candyCost: 45
+      form: MUK_PURIFIED
+    modelScaleV2: 1.0
+    form: GRIMER_PURIFIED
+    buddyOffsetMale:
+    - 11.1
+    - 0.0
+    - 31.7
+    buddyOffsetFemale:
+    - 11.1
+    - 0.0
+    - 31.7
+    buddyScale: 19.0
+    buddyPortraitOffset:
+    - 0.0
+    - 0.22
+    - -0.13
+    thirdMove:
+      stardustToUnlock: 40000
+      candyToUnlock: 40
+    isTransferable: true
+    isDeployable: true
+- templateId: V0088_POKEMON_GRIMER_SHADOW
+  pokemonSettings:
+    pokemonId: GRIMER
+    modelScale: 0.98
+    type: POKEMON_TYPE_POISON
+    camera:
+      diskRadiusM: 0.882
+      cylinderRadiusM: 0.75
+      cylinderHeightM: 1.1
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.05
+      baseFleeRate: 0.1
+      collisionRadiusM: 0.49
+      collisionHeightM: 0.8330001
+      collisionHeadRadiusM: 0.294
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 23.0
+      jumpTimeS: 1.0
+      attackTimerS: 8.0
+      attackProbability: 0.7
+      dodgeProbability: 0.2
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 4.410001
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 190
+      baseAttack: 135
+      baseDefense: 90
+    quickMoves:
+    - POISON_JAB_FAST
+    - MUD_SLAP_FAST
+    cinematicMoves:
+    - SLUDGE
+    - MUD_BOMB
+    - SLUDGE_BOMB
+    animationTime:
+    - 1.6667
+    - 0.6667
+    - 1.6667
+    - 1.6667
+    - 10.0
+    - 1.6667
+    - 2.6667
+    - 0.0
+    evolutionIds:
+    - MUK
+    evolutionPips: 1
+    pokedexHeightM: 0.9
+    pokedexWeightKg: 30.0
+    heightStdDev: 0.1125
+    weightStdDev: 3.75
+    familyId: FAMILY_GRIMER
+    candyToEvolve: 50
+    kmBuddyDistance: 3.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.05
+    evolutionBranch:
+    - evolution: MUK
+      candyCost: 50
+      form: MUK_SHADOW
+    modelScaleV2: 1.0
+    form: GRIMER_SHADOW
+    buddyOffsetMale:
+    - 11.1
+    - 0.0
+    - 31.7
+    buddyOffsetFemale:
+    - 11.1
+    - 0.0
+    - 31.7
+    buddyScale: 19.0
+    buddyPortraitOffset:
+    - 0.0
+    - 0.22
+    - -0.13
+    thirdMove:
+      stardustToUnlock: 150000
+      candyToUnlock: 150
+    isTransferable: true
+    isDeployable: true
+    shadow:
+      purificationStardustNeeded: 3000
+      purificationCandyNeeded: 3
+      purifiedChargeMove: RETURN
+      shadowChargeMove: FRUSTRATION
 - templateId: V0089_MOVE_CROSS_POISON
   moveSettings:
     movementId: CROSS_POISON
@@ -30978,6 +32388,173 @@ itemTemplates:
       candyToUnlock: 50
     isTransferable: true
     isDeployable: true
+- templateId: V0089_POKEMON_MUK_PURIFIED
+  pokemonSettings:
+    pokemonId: MUK
+    modelScale: 0.76
+    type: POKEMON_TYPE_POISON
+    camera:
+      diskRadiusM: 1.14
+      cylinderRadiusM: 1.5
+      cylinderHeightM: 1.5
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.2
+      baseFleeRate: 0.06
+      collisionRadiusM: 0.76
+      collisionHeightM: 0.57
+      collisionHeadRadiusM: 0.38
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 8.0
+      jumpTimeS: 1.25
+      attackTimerS: 3.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 6.45
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 233
+      baseAttack: 190
+      baseDefense: 172
+    quickMoves:
+    - INFESTATION_FAST
+    - POISON_JAB_FAST
+    cinematicMoves:
+    - DARK_PULSE
+    - GUNK_SHOT
+    - SLUDGE_WAVE
+    - THUNDER_PUNCH
+    - ACID_SPRAY
+    animationTime:
+    - 2.0
+    - 1.0
+    - 1.6667
+    - 2.1667
+    - 10.0
+    - 2.0
+    - 2.6667
+    - 0.0
+    evolutionPips: 1
+    pokedexHeightM: 1.2
+    pokedexWeightKg: 30.0
+    parentPokemonId: GRIMER
+    heightStdDev: 0.15
+    weightStdDev: 3.75
+    familyId: FAMILY_GRIMER
+    kmBuddyDistance: 3.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.88
+    modelScaleV2: 1.0
+    form: MUK_PURIFIED
+    buddyOffsetMale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyOffsetFemale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyScale: 19.0
+    buddyPortraitOffset:
+    - -0.31
+    - 0.0
+    - -0.99
+    thirdMove:
+      stardustToUnlock: 40000
+      candyToUnlock: 40
+    isTransferable: true
+    isDeployable: true
+- templateId: V0089_POKEMON_MUK_SHADOW
+  pokemonSettings:
+    pokemonId: MUK
+    modelScale: 0.76
+    type: POKEMON_TYPE_POISON
+    camera:
+      diskRadiusM: 1.14
+      cylinderRadiusM: 1.5
+      cylinderHeightM: 1.5
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.05
+      baseFleeRate: 0.06
+      collisionRadiusM: 0.76
+      collisionHeightM: 0.57
+      collisionHeadRadiusM: 0.38
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 8.0
+      jumpTimeS: 1.25
+      attackTimerS: 3.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.7
+      dodgeProbability: 0.2
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 6.45
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 233
+      baseAttack: 190
+      baseDefense: 172
+    quickMoves:
+    - INFESTATION_FAST
+    - POISON_JAB_FAST
+    cinematicMoves:
+    - DARK_PULSE
+    - GUNK_SHOT
+    - SLUDGE_WAVE
+    - THUNDER_PUNCH
+    - ACID_SPRAY
+    animationTime:
+    - 2.0
+    - 1.0
+    - 1.6667
+    - 2.1667
+    - 10.0
+    - 2.0
+    - 2.6667
+    - 0.0
+    evolutionPips: 1
+    pokedexHeightM: 1.2
+    pokedexWeightKg: 30.0
+    parentPokemonId: GRIMER
+    heightStdDev: 0.15
+    weightStdDev: 3.75
+    familyId: FAMILY_GRIMER
+    kmBuddyDistance: 3.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.88
+    modelScaleV2: 1.0
+    form: MUK_SHADOW
+    buddyOffsetMale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyOffsetFemale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyScale: 19.0
+    buddyPortraitOffset:
+    - -0.31
+    - 0.0
+    - -0.99
+    thirdMove:
+      stardustToUnlock: 150000
+      candyToUnlock: 150
+    isTransferable: true
+    isDeployable: true
+    shadow:
+      purificationStardustNeeded: 3000
+      purificationCandyNeeded: 3
+      purifiedChargeMove: RETURN
+      shadowChargeMove: FRUSTRATION
 - templateId: V0090_MOVE_SLUDGE_BOMB
   moveSettings:
     movementId: SLUDGE_BOMB
@@ -31610,6 +33187,7 @@ itemTemplates:
     evolutionBranch:
     - evolution: HYPNO
       candyCost: 50
+      form: HYPNO_NORMAL
     modelScaleV2: 1.0
     buddyOffsetMale:
     - 6.9
@@ -31625,6 +33203,248 @@ itemTemplates:
       candyToUnlock: 50
     isTransferable: true
     isDeployable: true
+- templateId: V0096_POKEMON_DROWZEE_NORMAL
+  pokemonSettings:
+    pokemonId: DROWZEE
+    modelScale: 1.05
+    type: POKEMON_TYPE_PSYCHIC
+    camera:
+      diskRadiusM: 0.63
+      cylinderRadiusM: 0.5
+      cylinderHeightM: 1.05
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.5
+      baseFleeRate: 0.1
+      collisionRadiusM: 0.3675
+      collisionHeightM: 0.63
+      collisionHeadRadiusM: 0.2625
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 8.0
+      jumpTimeS: 1.25
+      attackTimerS: 23.0
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 3.9375
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 155
+      baseAttack: 89
+      baseDefense: 136
+    quickMoves:
+    - POUND_FAST
+    - CONFUSION_FAST
+    cinematicMoves:
+    - PSYBEAM
+    - PSYSHOCK
+    - PSYCHIC
+    animationTime:
+    - 1.8333
+    - 0.6667
+    - 1.6667
+    - 1.7667
+    - 0.0
+    - 2.0
+    - 2.3333
+    - 0.0
+    evolutionIds:
+    - HYPNO
+    evolutionPips: 1
+    pokedexHeightM: 1.0
+    pokedexWeightKg: 32.4
+    heightStdDev: 0.125
+    weightStdDev: 4.05
+    familyId: FAMILY_DROWZEE
+    candyToEvolve: 50
+    kmBuddyDistance: 3.0
+    buddySize: BUDDY_BIG
+    modelHeight: 0.9
+    evolutionBranch:
+    - evolution: HYPNO
+      candyCost: 50
+      form: HYPNO_NORMAL
+    modelScaleV2: 1.0
+    form: DROWZEE_NORMAL
+    buddyOffsetMale:
+    - 6.9
+    - 0.0
+    - 55.3
+    buddyOffsetFemale:
+    - 6.9
+    - 0.0
+    - 55.3
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 50000
+      candyToUnlock: 50
+    isTransferable: true
+    isDeployable: true
+- templateId: V0096_POKEMON_DROWZEE_PURIFIED
+  pokemonSettings:
+    pokemonId: DROWZEE
+    modelScale: 1.05
+    type: POKEMON_TYPE_PSYCHIC
+    camera:
+      diskRadiusM: 0.63
+      cylinderRadiusM: 0.5
+      cylinderHeightM: 1.05
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.5
+      baseFleeRate: 0.1
+      collisionRadiusM: 0.3675
+      collisionHeightM: 0.63
+      collisionHeadRadiusM: 0.2625
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 8.0
+      jumpTimeS: 1.25
+      attackTimerS: 23.0
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 3.9375
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 155
+      baseAttack: 89
+      baseDefense: 136
+    quickMoves:
+    - POUND_FAST
+    - CONFUSION_FAST
+    cinematicMoves:
+    - PSYBEAM
+    - PSYSHOCK
+    - PSYCHIC
+    animationTime:
+    - 1.8333
+    - 0.6667
+    - 1.6667
+    - 1.7667
+    - 0.0
+    - 2.0
+    - 2.3333
+    - 0.0
+    evolutionIds:
+    - HYPNO
+    evolutionPips: 1
+    pokedexHeightM: 1.0
+    pokedexWeightKg: 32.4
+    heightStdDev: 0.125
+    weightStdDev: 4.05
+    familyId: FAMILY_DROWZEE
+    candyToEvolve: 50
+    kmBuddyDistance: 3.0
+    buddySize: BUDDY_BIG
+    modelHeight: 0.9
+    evolutionBranch:
+    - evolution: HYPNO
+      candyCost: 45
+      form: HYPNO_PURIFIED
+    modelScaleV2: 1.0
+    form: DROWZEE_PURIFIED
+    buddyOffsetMale:
+    - 6.9
+    - 0.0
+    - 55.3
+    buddyOffsetFemale:
+    - 6.9
+    - 0.0
+    - 55.3
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 40000
+      candyToUnlock: 40
+    isTransferable: true
+    isDeployable: true
+- templateId: V0096_POKEMON_DROWZEE_SHADOW
+  pokemonSettings:
+    pokemonId: DROWZEE
+    modelScale: 1.05
+    type: POKEMON_TYPE_PSYCHIC
+    camera:
+      diskRadiusM: 0.63
+      cylinderRadiusM: 0.5
+      cylinderHeightM: 1.05
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.05
+      baseFleeRate: 0.1
+      collisionRadiusM: 0.3675
+      collisionHeightM: 0.63
+      collisionHeadRadiusM: 0.2625
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 8.0
+      jumpTimeS: 1.25
+      attackTimerS: 23.0
+      attackProbability: 0.7
+      dodgeProbability: 0.2
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 3.9375
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 155
+      baseAttack: 89
+      baseDefense: 136
+    quickMoves:
+    - POUND_FAST
+    - CONFUSION_FAST
+    cinematicMoves:
+    - PSYBEAM
+    - PSYSHOCK
+    - PSYCHIC
+    animationTime:
+    - 1.8333
+    - 0.6667
+    - 1.6667
+    - 1.7667
+    - 0.0
+    - 2.0
+    - 2.3333
+    - 0.0
+    evolutionIds:
+    - HYPNO
+    evolutionPips: 1
+    pokedexHeightM: 1.0
+    pokedexWeightKg: 32.4
+    heightStdDev: 0.125
+    weightStdDev: 4.05
+    familyId: FAMILY_DROWZEE
+    candyToEvolve: 50
+    kmBuddyDistance: 3.0
+    buddySize: BUDDY_BIG
+    modelHeight: 0.9
+    evolutionBranch:
+    - evolution: HYPNO
+      candyCost: 50
+      form: HYPNO_SHADOW
+    modelScaleV2: 1.0
+    form: DROWZEE_SHADOW
+    buddyOffsetMale:
+    - 6.9
+    - 0.0
+    - 55.3
+    buddyOffsetFemale:
+    - 6.9
+    - 0.0
+    - 55.3
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 150000
+      candyToUnlock: 150
+    isTransferable: true
+    isDeployable: true
+    shadow:
+      purificationStardustNeeded: 3000
+      purificationCandyNeeded: 3
+      purifiedChargeMove: RETURN
+      shadowChargeMove: FRUSTRATION
 - templateId: V0097_POKEMON_HYPNO
   pokemonSettings:
     pokemonId: HYPNO
@@ -31702,6 +33522,245 @@ itemTemplates:
       candyToUnlock: 50
     isTransferable: true
     isDeployable: true
+- templateId: V0097_POKEMON_HYPNO_NORMAL
+  pokemonSettings:
+    pokemonId: HYPNO
+    modelScale: 0.83
+    type: POKEMON_TYPE_PSYCHIC
+    camera:
+      diskRadiusM: 0.9338
+      cylinderRadiusM: 1.0
+      cylinderHeightM: 1.5
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.2
+      baseFleeRate: 0.06
+      collisionRadiusM: 0.332
+      collisionHeightM: 0.83
+      collisionHeadRadiusM: 0.332
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 11.0
+      jumpTimeS: 0.8
+      attackTimerS: 4.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 4.98
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 198
+      baseAttack: 144
+      baseDefense: 193
+    quickMoves:
+    - ZEN_HEADBUTT_FAST
+    - CONFUSION_FAST
+    cinematicMoves:
+    - FUTURESIGHT
+    - PSYCHIC
+    - FOCUS_BLAST
+    - FIRE_PUNCH
+    - ICE_PUNCH
+    - THUNDER_PUNCH
+    animationTime:
+    - 1.8667
+    - 0.6667
+    - 2.0
+    - 1.4333
+    - 0.0
+    - 2.6667
+    - 1.6
+    - 0.0
+    evolutionPips: 1
+    pokedexHeightM: 1.6
+    pokedexWeightKg: 75.6
+    parentPokemonId: DROWZEE
+    heightStdDev: 0.2
+    weightStdDev: 9.45
+    familyId: FAMILY_DROWZEE
+    kmBuddyDistance: 3.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.55
+    modelScaleV2: 1.0
+    form: HYPNO_NORMAL
+    buddyOffsetMale:
+    - 3.8
+    - 0.0
+    - 31.05
+    buddyOffsetFemale:
+    - 3.8
+    - 0.0
+    - 31.05
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 50000
+      candyToUnlock: 50
+    isTransferable: true
+    isDeployable: true
+- templateId: V0097_POKEMON_HYPNO_PURIFIED
+  pokemonSettings:
+    pokemonId: HYPNO
+    modelScale: 0.83
+    type: POKEMON_TYPE_PSYCHIC
+    camera:
+      diskRadiusM: 0.9338
+      cylinderRadiusM: 1.0
+      cylinderHeightM: 1.5
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.2
+      baseFleeRate: 0.06
+      collisionRadiusM: 0.332
+      collisionHeightM: 0.83
+      collisionHeadRadiusM: 0.332
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 11.0
+      jumpTimeS: 0.8
+      attackTimerS: 4.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 4.98
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 198
+      baseAttack: 144
+      baseDefense: 193
+    quickMoves:
+    - ZEN_HEADBUTT_FAST
+    - CONFUSION_FAST
+    cinematicMoves:
+    - FUTURESIGHT
+    - PSYCHIC
+    - FOCUS_BLAST
+    - FIRE_PUNCH
+    - ICE_PUNCH
+    - THUNDER_PUNCH
+    animationTime:
+    - 1.8667
+    - 0.6667
+    - 2.0
+    - 1.4333
+    - 0.0
+    - 2.6667
+    - 1.6
+    - 0.0
+    evolutionPips: 1
+    pokedexHeightM: 1.6
+    pokedexWeightKg: 75.6
+    parentPokemonId: DROWZEE
+    heightStdDev: 0.2
+    weightStdDev: 9.45
+    familyId: FAMILY_DROWZEE
+    kmBuddyDistance: 3.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.55
+    modelScaleV2: 1.0
+    form: HYPNO_PURIFIED
+    buddyOffsetMale:
+    - 3.8
+    - 0.0
+    - 31.05
+    buddyOffsetFemale:
+    - 3.8
+    - 0.0
+    - 31.05
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 40000
+      candyToUnlock: 40
+    isTransferable: true
+    isDeployable: true
+- templateId: V0097_POKEMON_HYPNO_SHADOW
+  pokemonSettings:
+    pokemonId: HYPNO
+    modelScale: 0.83
+    type: POKEMON_TYPE_PSYCHIC
+    camera:
+      diskRadiusM: 0.9338
+      cylinderRadiusM: 1.0
+      cylinderHeightM: 1.5
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.05
+      baseFleeRate: 0.06
+      collisionRadiusM: 0.332
+      collisionHeightM: 0.83
+      collisionHeadRadiusM: 0.332
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 11.0
+      jumpTimeS: 0.8
+      attackTimerS: 4.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.7
+      dodgeProbability: 0.2
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 4.98
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 198
+      baseAttack: 144
+      baseDefense: 193
+    quickMoves:
+    - ZEN_HEADBUTT_FAST
+    - CONFUSION_FAST
+    cinematicMoves:
+    - FUTURESIGHT
+    - PSYCHIC
+    - FOCUS_BLAST
+    - FIRE_PUNCH
+    - ICE_PUNCH
+    - THUNDER_PUNCH
+    animationTime:
+    - 1.8667
+    - 0.6667
+    - 2.0
+    - 1.4333
+    - 0.0
+    - 2.6667
+    - 1.6
+    - 0.0
+    evolutionPips: 1
+    pokedexHeightM: 1.6
+    pokedexWeightKg: 75.6
+    parentPokemonId: DROWZEE
+    heightStdDev: 0.2
+    weightStdDev: 9.45
+    familyId: FAMILY_DROWZEE
+    kmBuddyDistance: 3.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.55
+    modelScaleV2: 1.0
+    form: HYPNO_SHADOW
+    buddyOffsetMale:
+    - 3.8
+    - 0.0
+    - 31.05
+    buddyOffsetFemale:
+    - 3.8
+    - 0.0
+    - 31.05
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 150000
+      candyToUnlock: 150
+    isTransferable: true
+    isDeployable: true
+    shadow:
+      purificationStardustNeeded: 3000
+      purificationCandyNeeded: 3
+      purifiedChargeMove: RETURN
+      shadowChargeMove: FRUSTRATION
 - templateId: V0098_POKEMON_KRABBY
   pokemonSettings:
     pokemonId: KRABBY
@@ -32484,6 +34543,7 @@ itemTemplates:
     evolutionBranch:
     - evolution: MAROWAK
       candyCost: 50
+      form: MAROWAK_NORMAL
     modelScaleV2: 1.1
     buddyOffsetMale:
     - 0.0
@@ -32499,6 +34559,245 @@ itemTemplates:
       candyToUnlock: 50
     isTransferable: true
     isDeployable: true
+- templateId: V0104_POKEMON_CUBONE_NORMAL
+  pokemonSettings:
+    pokemonId: CUBONE
+    modelScale: 1.48
+    type: POKEMON_TYPE_GROUND
+    camera:
+      diskRadiusM: 0.444
+      cylinderRadiusM: 0.25
+      cylinderHeightM: 0.45
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.4
+      baseFleeRate: 0.1
+      collisionRadiusM: 0.222
+      collisionHeightM: 0.37
+      collisionHeadRadiusM: 0.222
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 8.0
+      jumpTimeS: 1.0
+      attackTimerS: 23.0
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 2.625
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 137
+      baseAttack: 90
+      baseDefense: 144
+    quickMoves:
+    - MUD_SLAP_FAST
+    - ROCK_SMASH_FAST
+    cinematicMoves:
+    - BONE_CLUB
+    - DIG
+    - BULLDOZE
+    animationTime:
+    - 1.7333
+    - 0.6667
+    - 1.6
+    - 1.6
+    - 0.0
+    - 1.8333
+    - 1.6
+    - 0.0
+    evolutionIds:
+    - MAROWAK
+    evolutionPips: 1
+    pokedexHeightM: 0.4
+    pokedexWeightKg: 6.5
+    heightStdDev: 0.05
+    weightStdDev: 0.8125
+    familyId: FAMILY_CUBONE
+    candyToEvolve: 50
+    kmBuddyDistance: 3.0
+    modelHeight: 0.4
+    evolutionBranch:
+    - evolution: MAROWAK
+      candyCost: 50
+      form: MAROWAK_NORMAL
+    modelScaleV2: 1.1
+    form: CUBONE_NORMAL
+    buddyOffsetMale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyOffsetFemale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 50000
+      candyToUnlock: 50
+    isTransferable: true
+    isDeployable: true
+- templateId: V0104_POKEMON_CUBONE_PURIFIED
+  pokemonSettings:
+    pokemonId: CUBONE
+    modelScale: 1.48
+    type: POKEMON_TYPE_GROUND
+    camera:
+      diskRadiusM: 0.444
+      cylinderRadiusM: 0.25
+      cylinderHeightM: 0.45
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.4
+      baseFleeRate: 0.1
+      collisionRadiusM: 0.222
+      collisionHeightM: 0.37
+      collisionHeadRadiusM: 0.222
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 8.0
+      jumpTimeS: 1.0
+      attackTimerS: 23.0
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 2.625
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 137
+      baseAttack: 90
+      baseDefense: 144
+    quickMoves:
+    - MUD_SLAP_FAST
+    - ROCK_SMASH_FAST
+    cinematicMoves:
+    - BONE_CLUB
+    - DIG
+    - BULLDOZE
+    animationTime:
+    - 1.7333
+    - 0.6667
+    - 1.6
+    - 1.6
+    - 0.0
+    - 1.8333
+    - 1.6
+    - 0.0
+    evolutionIds:
+    - MAROWAK
+    evolutionPips: 1
+    pokedexHeightM: 0.4
+    pokedexWeightKg: 6.5
+    heightStdDev: 0.05
+    weightStdDev: 0.8125
+    familyId: FAMILY_CUBONE
+    candyToEvolve: 50
+    kmBuddyDistance: 3.0
+    modelHeight: 0.4
+    evolutionBranch:
+    - evolution: MAROWAK
+      candyCost: 45
+      form: MAROWAK_PURIFIED
+    modelScaleV2: 1.1
+    form: CUBONE_PURIFIED
+    buddyOffsetMale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyOffsetFemale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 40000
+      candyToUnlock: 40
+    isTransferable: true
+    isDeployable: true
+- templateId: V0104_POKEMON_CUBONE_SHADOW
+  pokemonSettings:
+    pokemonId: CUBONE
+    modelScale: 1.48
+    type: POKEMON_TYPE_GROUND
+    camera:
+      diskRadiusM: 0.444
+      cylinderRadiusM: 0.25
+      cylinderHeightM: 0.45
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.05
+      baseFleeRate: 0.1
+      collisionRadiusM: 0.222
+      collisionHeightM: 0.37
+      collisionHeadRadiusM: 0.222
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 8.0
+      jumpTimeS: 1.0
+      attackTimerS: 23.0
+      attackProbability: 0.7
+      dodgeProbability: 0.2
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 2.625
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 137
+      baseAttack: 90
+      baseDefense: 144
+    quickMoves:
+    - MUD_SLAP_FAST
+    - ROCK_SMASH_FAST
+    cinematicMoves:
+    - BONE_CLUB
+    - DIG
+    - BULLDOZE
+    animationTime:
+    - 1.7333
+    - 0.6667
+    - 1.6
+    - 1.6
+    - 0.0
+    - 1.8333
+    - 1.6
+    - 0.0
+    evolutionIds:
+    - MAROWAK
+    evolutionPips: 1
+    pokedexHeightM: 0.4
+    pokedexWeightKg: 6.5
+    heightStdDev: 0.05
+    weightStdDev: 0.8125
+    familyId: FAMILY_CUBONE
+    candyToEvolve: 50
+    kmBuddyDistance: 3.0
+    modelHeight: 0.4
+    evolutionBranch:
+    - evolution: MAROWAK
+      candyCost: 50
+      form: MAROWAK_SHADOW
+    modelScaleV2: 1.1
+    form: CUBONE_SHADOW
+    buddyOffsetMale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyOffsetFemale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 150000
+      candyToUnlock: 150
+    isTransferable: true
+    isDeployable: true
+    shadow:
+      purificationStardustNeeded: 3000
+      purificationCandyNeeded: 3
+      purifiedChargeMove: RETURN
+      shadowChargeMove: FRUSTRATION
 - templateId: V0105_MOVE_WATER_PULSE
   moveSettings:
     movementId: WATER_PULSE
@@ -32737,6 +35036,159 @@ itemTemplates:
       candyToUnlock: 50
     isTransferable: true
     isDeployable: true
+- templateId: V0105_POKEMON_MAROWAK_PURIFIED
+  pokemonSettings:
+    pokemonId: MAROWAK
+    modelScale: 1.0
+    type: POKEMON_TYPE_GROUND
+    camera:
+      diskRadiusM: 0.525
+      cylinderRadiusM: 0.4
+      cylinderHeightM: 1.0
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.15
+      baseFleeRate: 0.06
+      collisionRadiusM: 0.25
+      collisionHeightM: 0.75
+      collisionHeadRadiusM: 0.25
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 14.0
+      jumpTimeS: 0.85
+      attackTimerS: 5.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 3.2
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 155
+      baseAttack: 144
+      baseDefense: 186
+    quickMoves:
+    - MUD_SLAP_FAST
+    - ROCK_SMASH_FAST
+    cinematicMoves:
+    - BONE_CLUB
+    - DIG
+    - EARTHQUAKE
+    animationTime:
+    - 2.0
+    - 0.6667
+    - 1.6667
+    - 1.5
+    - 0.0
+    - 2.0
+    - 1.4
+    - 0.0
+    evolutionPips: 1
+    pokedexHeightM: 1.0
+    pokedexWeightKg: 45.0
+    parentPokemonId: CUBONE
+    heightStdDev: 0.125
+    weightStdDev: 5.625
+    familyId: FAMILY_CUBONE
+    kmBuddyDistance: 3.0
+    modelHeight: 1.0
+    modelScaleV2: 1.0
+    form: MAROWAK_PURIFIED
+    buddyOffsetMale:
+    - 0.0
+    - 0.0
+    - 20.0
+    buddyOffsetFemale:
+    - 0.0
+    - 0.0
+    - 20.0
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 40000
+      candyToUnlock: 40
+    isTransferable: true
+    isDeployable: true
+- templateId: V0105_POKEMON_MAROWAK_SHADOW
+  pokemonSettings:
+    pokemonId: MAROWAK
+    modelScale: 1.0
+    type: POKEMON_TYPE_GROUND
+    camera:
+      diskRadiusM: 0.525
+      cylinderRadiusM: 0.4
+      cylinderHeightM: 1.0
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.05
+      baseFleeRate: 0.06
+      collisionRadiusM: 0.25
+      collisionHeightM: 0.75
+      collisionHeadRadiusM: 0.25
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 14.0
+      jumpTimeS: 0.85
+      attackTimerS: 5.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.7
+      dodgeProbability: 0.2
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 3.2
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 155
+      baseAttack: 144
+      baseDefense: 186
+    quickMoves:
+    - MUD_SLAP_FAST
+    - ROCK_SMASH_FAST
+    cinematicMoves:
+    - BONE_CLUB
+    - DIG
+    - EARTHQUAKE
+    animationTime:
+    - 2.0
+    - 0.6667
+    - 1.6667
+    - 1.5
+    - 0.0
+    - 2.0
+    - 1.4
+    - 0.0
+    evolutionPips: 1
+    pokedexHeightM: 1.0
+    pokedexWeightKg: 45.0
+    parentPokemonId: CUBONE
+    heightStdDev: 0.125
+    weightStdDev: 5.625
+    familyId: FAMILY_CUBONE
+    kmBuddyDistance: 3.0
+    modelHeight: 1.0
+    modelScaleV2: 1.0
+    form: MAROWAK_SHADOW
+    buddyOffsetMale:
+    - 0.0
+    - 0.0
+    - 20.0
+    buddyOffsetFemale:
+    - 0.0
+    - 0.0
+    - 20.0
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 150000
+      candyToUnlock: 150
+    isTransferable: true
+    isDeployable: true
+    shadow:
+      purificationStardustNeeded: 3000
+      purificationCandyNeeded: 3
+      purifiedChargeMove: RETURN
+      shadowChargeMove: FRUSTRATION
 - templateId: V0106_MOVE_SCALD
   moveSettings:
     movementId: SCALD
@@ -34309,6 +36761,7 @@ itemTemplates:
     - evolution: SCIZOR
       evolutionItemRequirement: ITEM_METAL_COAT
       candyCost: 50
+      form: SCIZOR_NORMAL
     modelScaleV2: 0.92
     buddyOffsetMale:
     - 30.0
@@ -34328,6 +36781,260 @@ itemTemplates:
       candyToUnlock: 75
     isTransferable: true
     isDeployable: true
+- templateId: V0123_POKEMON_SCYTHER_NORMAL
+  pokemonSettings:
+    pokemonId: SCYTHER
+    modelScale: 0.8
+    type: POKEMON_TYPE_BUG
+    type2: POKEMON_TYPE_FLYING
+    camera:
+      diskRadiusM: 1.14
+      cylinderRadiusM: 1.0
+      cylinderHeightM: 1.5
+      cylinderGroundM: 0.5
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.3
+      baseFleeRate: 0.09
+      collisionRadiusM: 0.4
+      collisionHeightM: 1.0
+      collisionHeadRadiusM: 0.2
+      movementType: MOVEMENT_HOVERING
+      movementTimerS: 14.0
+      jumpTimeS: 1.0
+      attackTimerS: 5.0
+      attackProbability: 0.2
+      dodgeProbability: 0.2
+      dodgeDurationS: 0.7
+      dodgeDistance: 1.0
+      cameraDistance: 5.7
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 172
+      baseAttack: 218
+      baseDefense: 170
+    quickMoves:
+    - FURY_CUTTER_FAST
+    - AIR_SLASH_FAST
+    cinematicMoves:
+    - NIGHT_SLASH
+    - X_SCISSOR
+    - AERIAL_ACE
+    animationTime:
+    - 1.7333
+    - 0.6667
+    - 1.6667
+    - 0.6667
+    - 0.0
+    - 2.0
+    - 2.0
+    - 0.0
+    evolutionPips: 1
+    pokedexHeightM: 1.5
+    pokedexWeightKg: 56.0
+    heightStdDev: 0.1875
+    weightStdDev: 7.0
+    familyId: FAMILY_SCYTHER
+    kmBuddyDistance: 5.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.5
+    evolutionBranch:
+    - evolution: SCIZOR
+      evolutionItemRequirement: ITEM_METAL_COAT
+      candyCost: 50
+      form: SCIZOR_NORMAL
+    modelScaleV2: 0.92
+    form: SCYTHER_NORMAL
+    buddyOffsetMale:
+    - 30.0
+    - -20.55
+    - 7.1
+    buddyOffsetFemale:
+    - 30.0
+    - -20.55
+    - 7.1
+    buddyScale: 19.0
+    buddyPortraitOffset:
+    - 0.65
+    - 0.07
+    - 1.64
+    thirdMove:
+      stardustToUnlock: 75000
+      candyToUnlock: 75
+    isTransferable: true
+    isDeployable: true
+- templateId: V0123_POKEMON_SCYTHER_PURIFIED
+  pokemonSettings:
+    pokemonId: SCYTHER
+    modelScale: 0.8
+    type: POKEMON_TYPE_BUG
+    type2: POKEMON_TYPE_FLYING
+    camera:
+      diskRadiusM: 1.14
+      cylinderRadiusM: 1.0
+      cylinderHeightM: 1.5
+      cylinderGroundM: 0.5
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.3
+      baseFleeRate: 0.09
+      collisionRadiusM: 0.4
+      collisionHeightM: 1.0
+      collisionHeadRadiusM: 0.2
+      movementType: MOVEMENT_HOVERING
+      movementTimerS: 14.0
+      jumpTimeS: 1.0
+      attackTimerS: 5.0
+      attackProbability: 0.2
+      dodgeProbability: 0.2
+      dodgeDurationS: 0.7
+      dodgeDistance: 1.0
+      cameraDistance: 5.7
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 172
+      baseAttack: 218
+      baseDefense: 170
+    quickMoves:
+    - FURY_CUTTER_FAST
+    - AIR_SLASH_FAST
+    cinematicMoves:
+    - NIGHT_SLASH
+    - X_SCISSOR
+    - AERIAL_ACE
+    animationTime:
+    - 1.7333
+    - 0.6667
+    - 1.6667
+    - 0.6667
+    - 0.0
+    - 2.0
+    - 2.0
+    - 0.0
+    evolutionPips: 1
+    pokedexHeightM: 1.5
+    pokedexWeightKg: 56.0
+    heightStdDev: 0.1875
+    weightStdDev: 7.0
+    familyId: FAMILY_SCYTHER
+    kmBuddyDistance: 5.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.5
+    evolutionBranch:
+    - evolution: SCIZOR
+      evolutionItemRequirement: ITEM_METAL_COAT
+      candyCost: 45
+      form: SCIZOR_PURIFIED
+    modelScaleV2: 0.92
+    form: SCYTHER_PURIFIED
+    buddyOffsetMale:
+    - 30.0
+    - -20.55
+    - 7.1
+    buddyOffsetFemale:
+    - 30.0
+    - -20.55
+    - 7.1
+    buddyScale: 19.0
+    buddyPortraitOffset:
+    - 0.65
+    - 0.07
+    - 1.64
+    thirdMove:
+      stardustToUnlock: 60000
+      candyToUnlock: 60
+    isTransferable: true
+    isDeployable: true
+- templateId: V0123_POKEMON_SCYTHER_SHADOW
+  pokemonSettings:
+    pokemonId: SCYTHER
+    modelScale: 0.8
+    type: POKEMON_TYPE_BUG
+    type2: POKEMON_TYPE_FLYING
+    camera:
+      diskRadiusM: 1.14
+      cylinderRadiusM: 1.0
+      cylinderHeightM: 1.5
+      cylinderGroundM: 0.5
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.05
+      baseFleeRate: 0.09
+      collisionRadiusM: 0.4
+      collisionHeightM: 1.0
+      collisionHeadRadiusM: 0.2
+      movementType: MOVEMENT_HOVERING
+      movementTimerS: 14.0
+      jumpTimeS: 1.0
+      attackTimerS: 5.0
+      attackProbability: 0.7
+      dodgeProbability: 0.2
+      dodgeDurationS: 0.7
+      dodgeDistance: 1.0
+      cameraDistance: 5.7
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 172
+      baseAttack: 218
+      baseDefense: 170
+    quickMoves:
+    - FURY_CUTTER_FAST
+    - AIR_SLASH_FAST
+    cinematicMoves:
+    - NIGHT_SLASH
+    - X_SCISSOR
+    - AERIAL_ACE
+    animationTime:
+    - 1.7333
+    - 0.6667
+    - 1.6667
+    - 0.6667
+    - 0.0
+    - 2.0
+    - 2.0
+    - 0.0
+    evolutionPips: 1
+    pokedexHeightM: 1.5
+    pokedexWeightKg: 56.0
+    heightStdDev: 0.1875
+    weightStdDev: 7.0
+    familyId: FAMILY_SCYTHER
+    kmBuddyDistance: 5.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.5
+    evolutionBranch:
+    - evolution: SCIZOR
+      evolutionItemRequirement: ITEM_METAL_COAT
+      candyCost: 50
+      form: SCIZOR_SHADOW
+    modelScaleV2: 0.92
+    form: SCYTHER_SHADOW
+    buddyOffsetMale:
+    - 30.0
+    - -20.55
+    - 7.1
+    buddyOffsetFemale:
+    - 30.0
+    - -20.55
+    - 7.1
+    buddyScale: 19.0
+    buddyPortraitOffset:
+    - 0.65
+    - 0.07
+    - 1.64
+    thirdMove:
+      stardustToUnlock: 225000
+      candyToUnlock: 225
+    isTransferable: true
+    isDeployable: true
+    shadow:
+      purificationStardustNeeded: 5000
+      purificationCandyNeeded: 5
+      purifiedChargeMove: RETURN
+      shadowChargeMove: FRUSTRATION
 - templateId: V0124_POKEMON_JYNX
   pokemonSettings:
     pokemonId: JYNX
@@ -34825,6 +37532,7 @@ itemTemplates:
     evolutionBranch:
     - evolution: GYARADOS
       candyCost: 400
+      form: GYARADOS_NORMAL
     modelScaleV2: 1.0
     buddyOffsetMale:
     - 1.0
@@ -34840,6 +37548,233 @@ itemTemplates:
       candyToUnlock: 25
     isTransferable: true
     isDeployable: true
+- templateId: V0129_POKEMON_MAGIKARP_NORMAL
+  pokemonSettings:
+    pokemonId: MAGIKARP
+    modelScale: 1.07
+    type: POKEMON_TYPE_WATER
+    camera:
+      diskRadiusM: 0.642
+      cylinderRadiusM: 0.6
+      cylinderHeightM: 0.535
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.7
+      baseFleeRate: 0.15
+      collisionRadiusM: 0.2675
+      collisionHeightM: 0.4815
+      collisionHeadRadiusM: 0.321
+      movementTimerS: 3600.0
+      jumpTimeS: 0.8
+      attackTimerS: 3600.0
+      attackProbability: 0.2
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 3.21
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 85
+      baseAttack: 29
+      baseDefense: 85
+    quickMoves:
+    - SPLASH_FAST
+    cinematicMoves:
+    - STRUGGLE
+    animationTime:
+    - 1.3333
+    - 0.6667
+    - 0.0
+    - 1.5
+    - 0.0
+    - 0.0
+    - 1.0
+    - 0.0
+    evolutionIds:
+    - GYARADOS
+    evolutionPips: 1
+    pokedexHeightM: 0.9
+    pokedexWeightKg: 10.0
+    heightStdDev: 0.1125
+    weightStdDev: 1.25
+    familyId: FAMILY_MAGIKARP
+    candyToEvolve: 400
+    kmBuddyDistance: 1.0
+    modelHeight: 0.85
+    evolutionBranch:
+    - evolution: GYARADOS
+      candyCost: 400
+      form: GYARADOS_NORMAL
+    modelScaleV2: 1.0
+    form: MAGIKARP_NORMAL
+    buddyOffsetMale:
+    - 1.0
+    - 0.0
+    - 13.6
+    buddyOffsetFemale:
+    - 1.0
+    - 0.0
+    - 13.6
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 10000
+      candyToUnlock: 25
+    isTransferable: true
+    isDeployable: true
+- templateId: V0129_POKEMON_MAGIKARP_PURIFIED
+  pokemonSettings:
+    pokemonId: MAGIKARP
+    modelScale: 1.07
+    type: POKEMON_TYPE_WATER
+    camera:
+      diskRadiusM: 0.642
+      cylinderRadiusM: 0.6
+      cylinderHeightM: 0.535
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.7
+      baseFleeRate: 0.15
+      collisionRadiusM: 0.2675
+      collisionHeightM: 0.4815
+      collisionHeadRadiusM: 0.321
+      movementTimerS: 3600.0
+      jumpTimeS: 0.8
+      attackTimerS: 3600.0
+      attackProbability: 0.2
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 3.21
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 85
+      baseAttack: 29
+      baseDefense: 85
+    quickMoves:
+    - SPLASH_FAST
+    cinematicMoves:
+    - STRUGGLE
+    animationTime:
+    - 1.3333
+    - 0.6667
+    - 0.0
+    - 1.5
+    - 0.0
+    - 0.0
+    - 1.0
+    - 0.0
+    evolutionIds:
+    - GYARADOS
+    evolutionPips: 1
+    pokedexHeightM: 0.9
+    pokedexWeightKg: 10.0
+    heightStdDev: 0.1125
+    weightStdDev: 1.25
+    familyId: FAMILY_MAGIKARP
+    candyToEvolve: 400
+    kmBuddyDistance: 1.0
+    modelHeight: 0.85
+    evolutionBranch:
+    - evolution: GYARADOS
+      candyCost: 360
+      form: GYARADOS_PURIFIED
+    modelScaleV2: 1.0
+    form: MAGIKARP_PURIFIED
+    buddyOffsetMale:
+    - 1.0
+    - 0.0
+    - 13.6
+    buddyOffsetFemale:
+    - 1.0
+    - 0.0
+    - 13.6
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 8000
+      candyToUnlock: 20
+    isTransferable: true
+    isDeployable: true
+- templateId: V0129_POKEMON_MAGIKARP_SHADOW
+  pokemonSettings:
+    pokemonId: MAGIKARP
+    modelScale: 1.07
+    type: POKEMON_TYPE_WATER
+    camera:
+      diskRadiusM: 0.642
+      cylinderRadiusM: 0.6
+      cylinderHeightM: 0.535
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.05
+      baseFleeRate: 0.15
+      collisionRadiusM: 0.2675
+      collisionHeightM: 0.4815
+      collisionHeadRadiusM: 0.321
+      movementTimerS: 3600.0
+      jumpTimeS: 0.8
+      attackTimerS: 3600.0
+      attackProbability: 0.7
+      dodgeProbability: 0.2
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 3.21
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 85
+      baseAttack: 29
+      baseDefense: 85
+    quickMoves:
+    - SPLASH_FAST
+    cinematicMoves:
+    - STRUGGLE
+    animationTime:
+    - 1.3333
+    - 0.6667
+    - 0.0
+    - 1.5
+    - 0.0
+    - 0.0
+    - 1.0
+    - 0.0
+    evolutionIds:
+    - GYARADOS
+    evolutionPips: 1
+    pokedexHeightM: 0.9
+    pokedexWeightKg: 10.0
+    heightStdDev: 0.1125
+    weightStdDev: 1.25
+    familyId: FAMILY_MAGIKARP
+    candyToEvolve: 400
+    kmBuddyDistance: 1.0
+    modelHeight: 0.85
+    evolutionBranch:
+    - evolution: GYARADOS
+      candyCost: 400
+      form: GYARADOS_SHADOW
+    modelScaleV2: 1.0
+    form: MAGIKARP_SHADOW
+    buddyOffsetMale:
+    - 1.0
+    - 0.0
+    - 13.6
+    buddyOffsetFemale:
+    - 1.0
+    - 0.0
+    - 13.6
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 30000
+      candyToUnlock: 75
+    isTransferable: true
+    isDeployable: true
+    shadow:
+      purificationStardustNeeded: 1000
+      purificationCandyNeeded: 1
+      purifiedChargeMove: RETURN
+      shadowChargeMove: FRUSTRATION
 - templateId: V0130_POKEMON_GYARADOS
   pokemonSettings:
     pokemonId: GYARADOS
@@ -34916,6 +37851,242 @@ itemTemplates:
       candyToUnlock: 25
     isTransferable: true
     isDeployable: true
+- templateId: V0130_POKEMON_GYARADOS_NORMAL
+  pokemonSettings:
+    pokemonId: GYARADOS
+    modelScale: 0.48
+    type: POKEMON_TYPE_WATER
+    type2: POKEMON_TYPE_FLYING
+    camera:
+      diskRadiusM: 0.72
+      cylinderRadiusM: 2.0
+      cylinderHeightM: 2.5
+      cylinderGroundM: 1.0
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.1
+      baseFleeRate: 0.07
+      collisionRadiusM: 0.24
+      collisionHeightM: 0.48
+      collisionHeadRadiusM: 0.5
+      movementType: MOVEMENT_HOVERING
+      movementTimerS: 8.0
+      jumpTimeS: 1.0
+      attackTimerS: 3.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.4
+      dodgeProbability: 0.05
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 4.5
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 216
+      baseAttack: 237
+      baseDefense: 186
+    quickMoves:
+    - BITE_FAST
+    - WATERFALL_FAST
+    cinematicMoves:
+    - HYDRO_PUMP
+    - CRUNCH
+    - OUTRAGE
+    animationTime:
+    - 2.0
+    - 0.6667
+    - 1.5
+    - 0.6667
+    - 0.0
+    - 2.3333
+    - 2.0
+    - 2.0
+    evolutionPips: 1
+    pokedexHeightM: 6.5
+    pokedexWeightKg: 235.0
+    parentPokemonId: MAGIKARP
+    heightStdDev: 0.8125
+    weightStdDev: 29.375
+    familyId: FAMILY_MAGIKARP
+    kmBuddyDistance: 1.0
+    buddySize: BUDDY_BIG
+    modelHeight: 5.56
+    modelScaleV2: 0.62
+    form: GYARADOS_NORMAL
+    buddyOffsetMale:
+    - 23.8
+    - -31.9
+    - 63.0
+    buddyOffsetFemale:
+    - 23.8
+    - -31.9
+    - 63.0
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 10000
+      candyToUnlock: 25
+    isTransferable: true
+    isDeployable: true
+- templateId: V0130_POKEMON_GYARADOS_PURIFIED
+  pokemonSettings:
+    pokemonId: GYARADOS
+    modelScale: 0.48
+    type: POKEMON_TYPE_WATER
+    type2: POKEMON_TYPE_FLYING
+    camera:
+      diskRadiusM: 0.72
+      cylinderRadiusM: 2.0
+      cylinderHeightM: 2.5
+      cylinderGroundM: 1.0
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.1
+      baseFleeRate: 0.07
+      collisionRadiusM: 0.24
+      collisionHeightM: 0.48
+      collisionHeadRadiusM: 0.5
+      movementType: MOVEMENT_HOVERING
+      movementTimerS: 8.0
+      jumpTimeS: 1.0
+      attackTimerS: 3.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.4
+      dodgeProbability: 0.05
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 4.5
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 216
+      baseAttack: 237
+      baseDefense: 186
+    quickMoves:
+    - BITE_FAST
+    - WATERFALL_FAST
+    cinematicMoves:
+    - HYDRO_PUMP
+    - CRUNCH
+    - OUTRAGE
+    animationTime:
+    - 2.0
+    - 0.6667
+    - 1.5
+    - 0.6667
+    - 0.0
+    - 2.3333
+    - 2.0
+    - 2.0
+    evolutionPips: 1
+    pokedexHeightM: 6.5
+    pokedexWeightKg: 235.0
+    parentPokemonId: MAGIKARP
+    heightStdDev: 0.8125
+    weightStdDev: 29.375
+    familyId: FAMILY_MAGIKARP
+    kmBuddyDistance: 1.0
+    buddySize: BUDDY_BIG
+    modelHeight: 5.56
+    modelScaleV2: 0.62
+    form: GYARADOS_PURIFIED
+    buddyOffsetMale:
+    - 23.8
+    - -31.9
+    - 63.0
+    buddyOffsetFemale:
+    - 23.8
+    - -31.9
+    - 63.0
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 8000
+      candyToUnlock: 20
+    isTransferable: true
+    isDeployable: true
+- templateId: V0130_POKEMON_GYARADOS_SHADOW
+  pokemonSettings:
+    pokemonId: GYARADOS
+    modelScale: 0.48
+    type: POKEMON_TYPE_WATER
+    type2: POKEMON_TYPE_FLYING
+    camera:
+      diskRadiusM: 0.72
+      cylinderRadiusM: 2.0
+      cylinderHeightM: 2.5
+      cylinderGroundM: 1.0
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.05
+      baseFleeRate: 0.07
+      collisionRadiusM: 0.24
+      collisionHeightM: 0.48
+      collisionHeadRadiusM: 0.5
+      movementType: MOVEMENT_HOVERING
+      movementTimerS: 8.0
+      jumpTimeS: 1.0
+      attackTimerS: 3.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.7
+      dodgeProbability: 0.2
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 4.5
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 216
+      baseAttack: 237
+      baseDefense: 186
+    quickMoves:
+    - BITE_FAST
+    - WATERFALL_FAST
+    cinematicMoves:
+    - HYDRO_PUMP
+    - CRUNCH
+    - OUTRAGE
+    animationTime:
+    - 2.0
+    - 0.6667
+    - 1.5
+    - 0.6667
+    - 0.0
+    - 2.3333
+    - 2.0
+    - 2.0
+    evolutionPips: 1
+    pokedexHeightM: 6.5
+    pokedexWeightKg: 235.0
+    parentPokemonId: MAGIKARP
+    heightStdDev: 0.8125
+    weightStdDev: 29.375
+    familyId: FAMILY_MAGIKARP
+    kmBuddyDistance: 1.0
+    buddySize: BUDDY_BIG
+    modelHeight: 5.56
+    modelScaleV2: 0.62
+    form: GYARADOS_SHADOW
+    buddyOffsetMale:
+    - 23.8
+    - -31.9
+    - 63.0
+    buddyOffsetFemale:
+    - 23.8
+    - -31.9
+    - 63.0
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 30000
+      candyToUnlock: 75
+    isTransferable: true
+    isDeployable: true
+    shadow:
+      purificationStardustNeeded: 1000
+      purificationCandyNeeded: 1
+      purifiedChargeMove: RETURN
+      shadowChargeMove: FRUSTRATION
 - templateId: V0131_MOVE_BODY_SLAM
   moveSettings:
     movementId: BODY_SLAM
@@ -36238,8 +39409,8 @@ itemTemplates:
       movementTimerS: 3.0
       jumpTimeS: 1.0
       attackTimerS: 8.0
-      attackProbability: 0.1
-      dodgeProbability: 0.05
+      attackProbability: 0.7
+      dodgeProbability: 0.2
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
       cameraDistance: 5.55
@@ -36306,8 +39477,8 @@ itemTemplates:
     - 2.0
     - 2.0
     shadow:
-      purificationStardustNeeded: 10000
-      purificationCandyNeeded: 10
+      purificationStardustNeeded: 5000
+      purificationCandyNeeded: 5
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
 - templateId: V0144_POKEMON_ARTICUNO
@@ -36776,7 +39947,7 @@ itemTemplates:
       cylinderHeightM: 0.83
       shoulderModeScale: 0.5
     encounter:
-      baseCaptureRate: 0.4
+      baseCaptureRate: 0.05
       baseFleeRate: 0.09
       collisionRadiusM: 0.2775
       collisionHeightM: 0.555
@@ -36785,8 +39956,8 @@ itemTemplates:
       movementTimerS: 10.0
       jumpTimeS: 0.85
       attackTimerS: 29.0
-      attackProbability: 0.1
-      dodgeProbability: 0.15
+      attackProbability: 0.7
+      dodgeProbability: 0.2
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
       cameraDistance: 3.121875
@@ -36844,8 +40015,8 @@ itemTemplates:
     isTransferable: true
     isDeployable: true
     shadow:
-      purificationStardustNeeded: 10000
-      purificationCandyNeeded: 10
+      purificationStardustNeeded: 5000
+      purificationCandyNeeded: 5
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
 - templateId: V0148_POKEMON_DRAGONAIR
@@ -37104,7 +40275,7 @@ itemTemplates:
       cylinderHeightM: 1.75
       shoulderModeScale: 0.5
     encounter:
-      baseCaptureRate: 0.1
+      baseCaptureRate: 0.05
       baseFleeRate: 0.06
       collisionRadiusM: 0.375
       collisionHeightM: 1.125
@@ -37115,8 +40286,8 @@ itemTemplates:
       attackTimerS: 23.0
       bonusCandyCaptureReward: 2
       bonusStardustCaptureReward: 200
-      attackProbability: 0.1
-      dodgeProbability: 0.15
+      attackProbability: 0.7
+      dodgeProbability: 0.2
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
       cameraDistance: 5.625
@@ -37176,8 +40347,8 @@ itemTemplates:
     isTransferable: true
     isDeployable: true
     shadow:
-      purificationStardustNeeded: 10000
-      purificationCandyNeeded: 10
+      purificationStardustNeeded: 5000
+      purificationCandyNeeded: 5
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
 - templateId: V0149_POKEMON_DRAGONITE
@@ -37434,8 +40605,8 @@ itemTemplates:
       attackTimerS: 8.0
       bonusCandyCaptureReward: 7
       bonusStardustCaptureReward: 400
-      attackProbability: 0.1
-      dodgeProbability: 0.15
+      attackProbability: 0.7
+      dodgeProbability: 0.2
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
       cameraDistance: 4.5
@@ -37488,8 +40659,8 @@ itemTemplates:
     isTransferable: true
     isDeployable: true
     shadow:
-      purificationStardustNeeded: 10000
-      purificationCandyNeeded: 10
+      purificationStardustNeeded: 5000
+      purificationCandyNeeded: 5
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
 - templateId: V0150_POKEMON_MEWTWO
@@ -39410,7 +42581,7 @@ itemTemplates:
       cylinderGroundM: 1.1363636
       shoulderModeScale: 0.5
     encounter:
-      baseCaptureRate: 0.1
+      baseCaptureRate: 0.05
       baseFleeRate: 0.05
       collisionRadiusM: 0.364
       collisionHeightM: 1.5
@@ -39421,7 +42592,7 @@ itemTemplates:
       attackTimerS: 20.0
       bonusCandyCaptureReward: 7
       bonusStardustCaptureReward: 400
-      attackProbability: 0.1
+      attackProbability: 0.7
       dodgeProbability: 0.2
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
@@ -39479,8 +42650,8 @@ itemTemplates:
     isTransferable: true
     isDeployable: true
     shadow:
-      purificationStardustNeeded: 2000
-      purificationCandyNeeded: 2
+      purificationStardustNeeded: 1000
+      purificationCandyNeeded: 1
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
 - templateId: V0170_POKEMON_CHINCHOU
@@ -40811,6 +43982,245 @@ itemTemplates:
       candyToUnlock: 50
     isTransferable: true
     isDeployable: true
+- templateId: V0186_POKEMON_POLITOED_NORMAL
+  pokemonSettings:
+    pokemonId: POLITOED
+    modelScale: 0.96
+    type: POKEMON_TYPE_WATER
+    camera:
+      diskRadiusM: 0.555
+      cylinderRadiusM: 0.6
+      cylinderHeightM: 1.2
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.1
+      baseFleeRate: 0.05
+      collisionRadiusM: 0.4
+      collisionHeightM: 0.95
+      collisionHeadRadiusM: 0.28
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 11.0
+      jumpTimeS: 1.0
+      attackTimerS: 20.0
+      bonusCandyCaptureReward: 7
+      bonusStardustCaptureReward: 400
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 4.5
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 207
+      baseAttack: 174
+      baseDefense: 179
+    quickMoves:
+    - MUD_SHOT_FAST
+    - BUBBLE_FAST
+    cinematicMoves:
+    - HYDRO_PUMP
+    - BLIZZARD
+    - SURF
+    animationTime:
+    - 1.3333
+    - 0.6667
+    - 1.6667
+    - 2.0
+    - 0.0
+    - 2.0
+    - 3.0
+    - 3.0
+    evolutionPips: 1
+    pokedexHeightM: 1.09
+    pokedexWeightKg: 33.9
+    parentPokemonId: POLIWHIRL
+    heightStdDev: 0.13625
+    weightStdDev: 4.2375
+    familyId: FAMILY_POLIWAG
+    kmBuddyDistance: 3.0
+    modelHeight: 1.1
+    modelScaleV2: 1.0
+    form: POLITOED_NORMAL
+    buddyOffsetMale:
+    - 5.7
+    - 0.0
+    - -48.41
+    buddyOffsetFemale:
+    - 5.7
+    - 0.0
+    - -48.41
+    buddyScale: 19.0
+    buddyPortraitOffset:
+    - 0.06
+    - -0.09
+    - 0.0
+    thirdMove:
+      stardustToUnlock: 50000
+      candyToUnlock: 50
+    isTransferable: true
+    isDeployable: true
+- templateId: V0186_POKEMON_POLITOED_PURIFIED
+  pokemonSettings:
+    pokemonId: POLITOED
+    modelScale: 0.96
+    type: POKEMON_TYPE_WATER
+    camera:
+      diskRadiusM: 0.555
+      cylinderRadiusM: 0.6
+      cylinderHeightM: 1.2
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.1
+      baseFleeRate: 0.05
+      collisionRadiusM: 0.4
+      collisionHeightM: 0.95
+      collisionHeadRadiusM: 0.28
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 11.0
+      jumpTimeS: 1.0
+      attackTimerS: 20.0
+      bonusCandyCaptureReward: 7
+      bonusStardustCaptureReward: 400
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 4.5
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 207
+      baseAttack: 174
+      baseDefense: 179
+    quickMoves:
+    - MUD_SHOT_FAST
+    - BUBBLE_FAST
+    cinematicMoves:
+    - HYDRO_PUMP
+    - BLIZZARD
+    - SURF
+    animationTime:
+    - 1.3333
+    - 0.6667
+    - 1.6667
+    - 2.0
+    - 0.0
+    - 2.0
+    - 3.0
+    - 3.0
+    evolutionPips: 1
+    pokedexHeightM: 1.09
+    pokedexWeightKg: 33.9
+    parentPokemonId: POLIWHIRL
+    heightStdDev: 0.13625
+    weightStdDev: 4.2375
+    familyId: FAMILY_POLIWAG
+    kmBuddyDistance: 3.0
+    modelHeight: 1.1
+    modelScaleV2: 1.0
+    form: POLITOED_PURIFIED
+    buddyOffsetMale:
+    - 5.7
+    - 0.0
+    - -48.41
+    buddyOffsetFemale:
+    - 5.7
+    - 0.0
+    - -48.41
+    buddyScale: 19.0
+    buddyPortraitOffset:
+    - 0.06
+    - -0.09
+    - 0.0
+    thirdMove:
+      stardustToUnlock: 40000
+      candyToUnlock: 40
+    isTransferable: true
+    isDeployable: true
+- templateId: V0186_POKEMON_POLITOED_SHADOW
+  pokemonSettings:
+    pokemonId: POLITOED
+    modelScale: 0.96
+    type: POKEMON_TYPE_WATER
+    camera:
+      diskRadiusM: 0.555
+      cylinderRadiusM: 0.6
+      cylinderHeightM: 1.2
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.05
+      baseFleeRate: 0.05
+      collisionRadiusM: 0.4
+      collisionHeightM: 0.95
+      collisionHeadRadiusM: 0.28
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 11.0
+      jumpTimeS: 1.0
+      attackTimerS: 20.0
+      bonusCandyCaptureReward: 7
+      bonusStardustCaptureReward: 400
+      attackProbability: 0.7
+      dodgeProbability: 0.2
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 4.5
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 207
+      baseAttack: 174
+      baseDefense: 179
+    quickMoves:
+    - MUD_SHOT_FAST
+    - BUBBLE_FAST
+    cinematicMoves:
+    - HYDRO_PUMP
+    - BLIZZARD
+    - SURF
+    animationTime:
+    - 1.3333
+    - 0.6667
+    - 1.6667
+    - 2.0
+    - 0.0
+    - 2.0
+    - 3.0
+    - 3.0
+    evolutionPips: 1
+    pokedexHeightM: 1.09
+    pokedexWeightKg: 33.9
+    parentPokemonId: POLIWHIRL
+    heightStdDev: 0.13625
+    weightStdDev: 4.2375
+    familyId: FAMILY_POLIWAG
+    kmBuddyDistance: 3.0
+    modelHeight: 1.1
+    modelScaleV2: 1.0
+    form: POLITOED_SHADOW
+    buddyOffsetMale:
+    - 5.7
+    - 0.0
+    - -48.41
+    buddyOffsetFemale:
+    - 5.7
+    - 0.0
+    - -48.41
+    buddyScale: 19.0
+    buddyPortraitOffset:
+    - 0.06
+    - -0.09
+    - 0.0
+    thirdMove:
+      stardustToUnlock: 150000
+      candyToUnlock: 150
+    isTransferable: true
+    isDeployable: true
+    shadow:
+      purificationStardustNeeded: 3000
+      purificationCandyNeeded: 3
+      purifiedChargeMove: RETURN
+      shadowChargeMove: FRUSTRATION
 - templateId: V0187_POKEMON_HOPPIP
   pokemonSettings:
     pokemonId: HOPPIP
@@ -43001,6 +46411,239 @@ itemTemplates:
       candyToUnlock: 75
     isTransferable: true
     isDeployable: true
+- templateId: V0212_POKEMON_SCIZOR_NORMAL
+  pokemonSettings:
+    pokemonId: SCIZOR
+    modelScale: 0.76
+    type: POKEMON_TYPE_BUG
+    type2: POKEMON_TYPE_STEEL
+    camera:
+      diskRadiusM: 0.555
+      cylinderRadiusM: 0.8
+      cylinderHeightM: 1.9
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.05
+      baseFleeRate: 0.05
+      collisionRadiusM: 0.5
+      collisionHeightM: 0.1
+      collisionHeadRadiusM: 0.4
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 11.0
+      jumpTimeS: 1.2
+      attackTimerS: 20.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 4.0
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 172
+      baseAttack: 236
+      baseDefense: 181
+    quickMoves:
+    - BULLET_PUNCH_FAST
+    - FURY_CUTTER_FAST
+    cinematicMoves:
+    - X_SCISSOR
+    - IRON_HEAD
+    - NIGHT_SLASH
+    animationTime:
+    - 1.3333
+    - 0.6667
+    - 1.6667
+    - 2.0
+    - 0.0
+    - 2.0
+    - 3.0
+    - 3.0
+    evolutionPips: 1
+    pokedexHeightM: 2.01
+    pokedexWeightKg: 125.0
+    parentPokemonId: SCYTHER
+    heightStdDev: 0.25125
+    weightStdDev: 15.625
+    familyId: FAMILY_SCYTHER
+    kmBuddyDistance: 5.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.91
+    modelScaleV2: 1.0
+    form: SCIZOR_NORMAL
+    buddyOffsetMale:
+    - 20.0
+    - 0.0
+    - 28.6
+    buddyOffsetFemale:
+    - 20.0
+    - 0.0
+    - 28.6
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 75000
+      candyToUnlock: 75
+    isTransferable: true
+    isDeployable: true
+- templateId: V0212_POKEMON_SCIZOR_PURIFIED
+  pokemonSettings:
+    pokemonId: SCIZOR
+    modelScale: 0.76
+    type: POKEMON_TYPE_BUG
+    type2: POKEMON_TYPE_STEEL
+    camera:
+      diskRadiusM: 0.555
+      cylinderRadiusM: 0.8
+      cylinderHeightM: 1.9
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.05
+      baseFleeRate: 0.05
+      collisionRadiusM: 0.5
+      collisionHeightM: 0.1
+      collisionHeadRadiusM: 0.4
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 11.0
+      jumpTimeS: 1.2
+      attackTimerS: 20.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 4.0
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 172
+      baseAttack: 236
+      baseDefense: 181
+    quickMoves:
+    - BULLET_PUNCH_FAST
+    - FURY_CUTTER_FAST
+    cinematicMoves:
+    - X_SCISSOR
+    - IRON_HEAD
+    - NIGHT_SLASH
+    animationTime:
+    - 1.3333
+    - 0.6667
+    - 1.6667
+    - 2.0
+    - 0.0
+    - 2.0
+    - 3.0
+    - 3.0
+    evolutionPips: 1
+    pokedexHeightM: 2.01
+    pokedexWeightKg: 125.0
+    parentPokemonId: SCYTHER
+    heightStdDev: 0.25125
+    weightStdDev: 15.625
+    familyId: FAMILY_SCYTHER
+    kmBuddyDistance: 5.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.91
+    modelScaleV2: 1.0
+    form: SCIZOR_PURIFIED
+    buddyOffsetMale:
+    - 20.0
+    - 0.0
+    - 28.6
+    buddyOffsetFemale:
+    - 20.0
+    - 0.0
+    - 28.6
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 60000
+      candyToUnlock: 60
+    isTransferable: true
+    isDeployable: true
+- templateId: V0212_POKEMON_SCIZOR_SHADOW
+  pokemonSettings:
+    pokemonId: SCIZOR
+    modelScale: 0.76
+    type: POKEMON_TYPE_BUG
+    type2: POKEMON_TYPE_STEEL
+    camera:
+      diskRadiusM: 0.555
+      cylinderRadiusM: 0.8
+      cylinderHeightM: 1.9
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.05
+      baseFleeRate: 0.05
+      collisionRadiusM: 0.5
+      collisionHeightM: 0.1
+      collisionHeadRadiusM: 0.4
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 11.0
+      jumpTimeS: 1.2
+      attackTimerS: 20.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.7
+      dodgeProbability: 0.2
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 4.0
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 172
+      baseAttack: 236
+      baseDefense: 181
+    quickMoves:
+    - BULLET_PUNCH_FAST
+    - FURY_CUTTER_FAST
+    cinematicMoves:
+    - X_SCISSOR
+    - IRON_HEAD
+    - NIGHT_SLASH
+    animationTime:
+    - 1.3333
+    - 0.6667
+    - 1.6667
+    - 2.0
+    - 0.0
+    - 2.0
+    - 3.0
+    - 3.0
+    evolutionPips: 1
+    pokedexHeightM: 2.01
+    pokedexWeightKg: 125.0
+    parentPokemonId: SCYTHER
+    heightStdDev: 0.25125
+    weightStdDev: 15.625
+    familyId: FAMILY_SCYTHER
+    kmBuddyDistance: 5.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.91
+    modelScaleV2: 1.0
+    form: SCIZOR_SHADOW
+    buddyOffsetMale:
+    - 20.0
+    - 0.0
+    - 28.6
+    buddyOffsetFemale:
+    - 20.0
+    - 0.0
+    - 28.6
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 225000
+      candyToUnlock: 225
+    isTransferable: true
+    isDeployable: true
+    shadow:
+      purificationStardustNeeded: 5000
+      purificationCandyNeeded: 5
+      purifiedChargeMove: RETURN
+      shadowChargeMove: FRUSTRATION
 - templateId: V0213_MOVE_SHADOW_CLAW_FAST
   moveSettings:
     movementId: SHADOW_CLAW_FAST
@@ -44432,6 +48075,7 @@ itemTemplates:
     evolutionBranch:
     - evolution: HOUNDOOM
       candyCost: 50
+      form: HOUNDOOM_NORMAL
     modelScaleV2: 1.0
     buddyOffsetMale:
     - 0.0
@@ -44447,6 +48091,248 @@ itemTemplates:
       candyToUnlock: 50
     isTransferable: true
     isDeployable: true
+- templateId: V0228_POKEMON_HOUNDOUR_NORMAL
+  pokemonSettings:
+    pokemonId: HOUNDOUR
+    modelScale: 1.25
+    type: POKEMON_TYPE_DARK
+    type2: POKEMON_TYPE_FIRE
+    camera:
+      diskRadiusM: 0.555
+      cylinderRadiusM: 0.4
+      cylinderHeightM: 0.65
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.4
+      baseFleeRate: 0.1
+      collisionRadiusM: 0.2
+      collisionHeightM: 0.45
+      collisionHeadRadiusM: 0.2
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 11.0
+      jumpTimeS: 1.0
+      attackTimerS: 20.0
+      attackProbability: 0.2
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 3.0
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 128
+      baseAttack: 152
+      baseDefense: 83
+    quickMoves:
+    - FEINT_ATTACK_FAST
+    - EMBER_FAST
+    cinematicMoves:
+    - CRUNCH
+    - FLAMETHROWER
+    - DARK_PULSE
+    animationTime:
+    - 1.3333
+    - 0.6667
+    - 1.6667
+    - 2.0
+    - 0.0
+    - 2.0
+    - 3.0
+    - 3.0
+    evolutionIds:
+    - HOUNDOOM
+    evolutionPips: 1
+    pokedexHeightM: 0.61
+    pokedexWeightKg: 10.8
+    heightStdDev: 0.07625
+    weightStdDev: 1.35
+    familyId: FAMILY_HOUNDOUR
+    candyToEvolve: 50
+    kmBuddyDistance: 3.0
+    modelHeight: 0.6
+    evolutionBranch:
+    - evolution: HOUNDOOM
+      candyCost: 50
+      form: HOUNDOOM_NORMAL
+    modelScaleV2: 1.0
+    form: HOUNDOUR_NORMAL
+    buddyOffsetMale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyOffsetFemale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 50000
+      candyToUnlock: 50
+    isTransferable: true
+    isDeployable: true
+- templateId: V0228_POKEMON_HOUNDOUR_PURIFIED
+  pokemonSettings:
+    pokemonId: HOUNDOUR
+    modelScale: 1.25
+    type: POKEMON_TYPE_DARK
+    type2: POKEMON_TYPE_FIRE
+    camera:
+      diskRadiusM: 0.555
+      cylinderRadiusM: 0.4
+      cylinderHeightM: 0.65
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.4
+      baseFleeRate: 0.1
+      collisionRadiusM: 0.2
+      collisionHeightM: 0.45
+      collisionHeadRadiusM: 0.2
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 11.0
+      jumpTimeS: 1.0
+      attackTimerS: 20.0
+      attackProbability: 0.2
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 3.0
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 128
+      baseAttack: 152
+      baseDefense: 83
+    quickMoves:
+    - FEINT_ATTACK_FAST
+    - EMBER_FAST
+    cinematicMoves:
+    - CRUNCH
+    - FLAMETHROWER
+    - DARK_PULSE
+    animationTime:
+    - 1.3333
+    - 0.6667
+    - 1.6667
+    - 2.0
+    - 0.0
+    - 2.0
+    - 3.0
+    - 3.0
+    evolutionIds:
+    - HOUNDOOM
+    evolutionPips: 1
+    pokedexHeightM: 0.61
+    pokedexWeightKg: 10.8
+    heightStdDev: 0.07625
+    weightStdDev: 1.35
+    familyId: FAMILY_HOUNDOUR
+    candyToEvolve: 50
+    kmBuddyDistance: 3.0
+    modelHeight: 0.6
+    evolutionBranch:
+    - evolution: HOUNDOOM
+      candyCost: 45
+      form: HOUNDOOM_PURIFIED
+    modelScaleV2: 1.0
+    form: HOUNDOUR_PURIFIED
+    buddyOffsetMale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyOffsetFemale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 40000
+      candyToUnlock: 40
+    isTransferable: true
+    isDeployable: true
+- templateId: V0228_POKEMON_HOUNDOUR_SHADOW
+  pokemonSettings:
+    pokemonId: HOUNDOUR
+    modelScale: 1.25
+    type: POKEMON_TYPE_DARK
+    type2: POKEMON_TYPE_FIRE
+    camera:
+      diskRadiusM: 0.555
+      cylinderRadiusM: 0.4
+      cylinderHeightM: 0.65
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.05
+      baseFleeRate: 0.1
+      collisionRadiusM: 0.2
+      collisionHeightM: 0.45
+      collisionHeadRadiusM: 0.2
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 11.0
+      jumpTimeS: 1.0
+      attackTimerS: 20.0
+      attackProbability: 0.7
+      dodgeProbability: 0.2
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 3.0
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 128
+      baseAttack: 152
+      baseDefense: 83
+    quickMoves:
+    - FEINT_ATTACK_FAST
+    - EMBER_FAST
+    cinematicMoves:
+    - CRUNCH
+    - FLAMETHROWER
+    - DARK_PULSE
+    animationTime:
+    - 1.3333
+    - 0.6667
+    - 1.6667
+    - 2.0
+    - 0.0
+    - 2.0
+    - 3.0
+    - 3.0
+    evolutionIds:
+    - HOUNDOOM
+    evolutionPips: 1
+    pokedexHeightM: 0.61
+    pokedexWeightKg: 10.8
+    heightStdDev: 0.07625
+    weightStdDev: 1.35
+    familyId: FAMILY_HOUNDOUR
+    candyToEvolve: 50
+    kmBuddyDistance: 3.0
+    modelHeight: 0.6
+    evolutionBranch:
+    - evolution: HOUNDOOM
+      candyCost: 50
+      form: HOUNDOOM_SHADOW
+    modelScaleV2: 1.0
+    form: HOUNDOUR_SHADOW
+    buddyOffsetMale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyOffsetFemale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 150000
+      candyToUnlock: 150
+    isTransferable: true
+    isDeployable: true
+    shadow:
+      purificationStardustNeeded: 3000
+      purificationCandyNeeded: 3
+      purifiedChargeMove: RETURN
+      shadowChargeMove: FRUSTRATION
 - templateId: V0229_MOVE_BULLET_PUNCH_FAST
   moveSettings:
     movementId: BULLET_PUNCH_FAST
@@ -44537,6 +48423,239 @@ itemTemplates:
       candyToUnlock: 50
     isTransferable: true
     isDeployable: true
+- templateId: V0229_POKEMON_HOUNDOOM_NORMAL
+  pokemonSettings:
+    pokemonId: HOUNDOOM
+    modelScale: 0.91
+    type: POKEMON_TYPE_DARK
+    type2: POKEMON_TYPE_FIRE
+    camera:
+      diskRadiusM: 0.555
+      cylinderRadiusM: 0.8
+      cylinderHeightM: 1.25
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.15
+      baseFleeRate: 0.06
+      collisionRadiusM: 0.4
+      collisionHeightM: 0.8
+      collisionHeadRadiusM: 0.3185
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 11.0
+      jumpTimeS: 1.1
+      attackTimerS: 20.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.2
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 4.5
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 181
+      baseAttack: 224
+      baseDefense: 144
+    quickMoves:
+    - SNARL_FAST
+    - FIRE_FANG_FAST
+    cinematicMoves:
+    - CRUNCH
+    - FIRE_BLAST
+    - FOUL_PLAY
+    - FLAMETHROWER
+    animationTime:
+    - 1.3333
+    - 0.6667
+    - 1.6667
+    - 2.0
+    - 0.0
+    - 2.0
+    - 3.0
+    - 3.0
+    evolutionPips: 1
+    pokedexHeightM: 1.4
+    pokedexWeightKg: 35.0
+    parentPokemonId: HOUNDOUR
+    heightStdDev: 0.175
+    weightStdDev: 4.375
+    familyId: FAMILY_HOUNDOUR
+    kmBuddyDistance: 3.0
+    modelHeight: 1.25
+    modelScaleV2: 1.0
+    form: HOUNDOOM_NORMAL
+    buddyOffsetMale:
+    - 4.3
+    - 0.0
+    - 0.0
+    buddyOffsetFemale:
+    - 4.3
+    - 0.0
+    - 0.0
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 50000
+      candyToUnlock: 50
+    isTransferable: true
+    isDeployable: true
+- templateId: V0229_POKEMON_HOUNDOOM_PURIFIED
+  pokemonSettings:
+    pokemonId: HOUNDOOM
+    modelScale: 0.91
+    type: POKEMON_TYPE_DARK
+    type2: POKEMON_TYPE_FIRE
+    camera:
+      diskRadiusM: 0.555
+      cylinderRadiusM: 0.8
+      cylinderHeightM: 1.25
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.15
+      baseFleeRate: 0.06
+      collisionRadiusM: 0.4
+      collisionHeightM: 0.8
+      collisionHeadRadiusM: 0.3185
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 11.0
+      jumpTimeS: 1.1
+      attackTimerS: 20.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.2
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 4.5
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 181
+      baseAttack: 224
+      baseDefense: 144
+    quickMoves:
+    - SNARL_FAST
+    - FIRE_FANG_FAST
+    cinematicMoves:
+    - CRUNCH
+    - FIRE_BLAST
+    - FOUL_PLAY
+    - FLAMETHROWER
+    animationTime:
+    - 1.3333
+    - 0.6667
+    - 1.6667
+    - 2.0
+    - 0.0
+    - 2.0
+    - 3.0
+    - 3.0
+    evolutionPips: 1
+    pokedexHeightM: 1.4
+    pokedexWeightKg: 35.0
+    parentPokemonId: HOUNDOUR
+    heightStdDev: 0.175
+    weightStdDev: 4.375
+    familyId: FAMILY_HOUNDOUR
+    kmBuddyDistance: 3.0
+    modelHeight: 1.25
+    modelScaleV2: 1.0
+    form: HOUNDOOM_PURIFIED
+    buddyOffsetMale:
+    - 4.3
+    - 0.0
+    - 0.0
+    buddyOffsetFemale:
+    - 4.3
+    - 0.0
+    - 0.0
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 40000
+      candyToUnlock: 40
+    isTransferable: true
+    isDeployable: true
+- templateId: V0229_POKEMON_HOUNDOOM_SHADOW
+  pokemonSettings:
+    pokemonId: HOUNDOOM
+    modelScale: 0.91
+    type: POKEMON_TYPE_DARK
+    type2: POKEMON_TYPE_FIRE
+    camera:
+      diskRadiusM: 0.555
+      cylinderRadiusM: 0.8
+      cylinderHeightM: 1.25
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.05
+      baseFleeRate: 0.06
+      collisionRadiusM: 0.4
+      collisionHeightM: 0.8
+      collisionHeadRadiusM: 0.3185
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 11.0
+      jumpTimeS: 1.1
+      attackTimerS: 20.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.7
+      dodgeProbability: 0.2
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 4.5
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 181
+      baseAttack: 224
+      baseDefense: 144
+    quickMoves:
+    - SNARL_FAST
+    - FIRE_FANG_FAST
+    cinematicMoves:
+    - CRUNCH
+    - FIRE_BLAST
+    - FOUL_PLAY
+    - FLAMETHROWER
+    animationTime:
+    - 1.3333
+    - 0.6667
+    - 1.6667
+    - 2.0
+    - 0.0
+    - 2.0
+    - 3.0
+    - 3.0
+    evolutionPips: 1
+    pokedexHeightM: 1.4
+    pokedexWeightKg: 35.0
+    parentPokemonId: HOUNDOUR
+    heightStdDev: 0.175
+    weightStdDev: 4.375
+    familyId: FAMILY_HOUNDOUR
+    kmBuddyDistance: 3.0
+    modelHeight: 1.25
+    modelScaleV2: 1.0
+    form: HOUNDOOM_SHADOW
+    buddyOffsetMale:
+    - 4.3
+    - 0.0
+    - 0.0
+    buddyOffsetFemale:
+    - 4.3
+    - 0.0
+    - 0.0
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 150000
+      candyToUnlock: 150
+    isTransferable: true
+    isDeployable: true
+    shadow:
+      purificationStardustNeeded: 3000
+      purificationCandyNeeded: 3
+      purifiedChargeMove: RETURN
+      shadowChargeMove: FRUSTRATION
 - templateId: V0230_MOVE_WATER_GUN_FAST
   moveSettings:
     movementId: WATER_GUN_FAST
@@ -47338,7 +51457,7 @@ itemTemplates:
       cylinderHeightM: 0.2
       shoulderModeScale: 0.5
     encounter:
-      baseCaptureRate: 0.2
+      baseCaptureRate: 0.05
       baseFleeRate: 0.1
       collisionRadiusM: 0.2
       collisionHeightM: 0.6
@@ -47347,8 +51466,8 @@ itemTemplates:
       movementTimerS: 11.0
       jumpTimeS: 1.1
       attackTimerS: 20.0
-      attackProbability: 0.1
-      dodgeProbability: 0.15
+      attackProbability: 0.7
+      dodgeProbability: 0.2
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
       cameraDistance: 3.0
@@ -47407,8 +51526,8 @@ itemTemplates:
     isTransferable: true
     isDeployable: true
     shadow:
-      purificationStardustNeeded: 2000
-      purificationCandyNeeded: 2
+      purificationStardustNeeded: 3000
+      purificationCandyNeeded: 3
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
 - templateId: V0259_MOVE_ROCK_BLAST
@@ -47675,7 +51794,7 @@ itemTemplates:
       cylinderHeightM: 0.8
       shoulderModeScale: 0.5
     encounter:
-      baseCaptureRate: 0.1
+      baseCaptureRate: 0.05
       baseFleeRate: 0.07
       collisionRadiusM: 0.2
       collisionHeightM: 0.4
@@ -47686,8 +51805,8 @@ itemTemplates:
       attackTimerS: 20.0
       bonusCandyCaptureReward: 2
       bonusStardustCaptureReward: 200
-      attackProbability: 0.1
-      dodgeProbability: 0.15
+      attackProbability: 0.7
+      dodgeProbability: 0.2
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
       cameraDistance: 3.0
@@ -47743,8 +51862,8 @@ itemTemplates:
     isTransferable: true
     isDeployable: true
     shadow:
-      purificationStardustNeeded: 5000
-      purificationCandyNeeded: 5
+      purificationStardustNeeded: 3000
+      purificationCandyNeeded: 3
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
 - templateId: V0260_MOVE_INFESTATION_FAST
@@ -48015,8 +52134,8 @@ itemTemplates:
       attackTimerS: 20.0
       bonusCandyCaptureReward: 7
       bonusStardustCaptureReward: 400
-      attackProbability: 0.2
-      dodgeProbability: 0.15
+      attackProbability: 0.7
+      dodgeProbability: 0.2
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
       cameraDistance: 5.0
@@ -48070,8 +52189,8 @@ itemTemplates:
     isTransferable: true
     isDeployable: true
     shadow:
-      purificationStardustNeeded: 5000
-      purificationCandyNeeded: 5
+      purificationStardustNeeded: 3000
+      purificationCandyNeeded: 3
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
 - templateId: V0261_MOVE_STRUGGLE_BUG_FAST
@@ -49906,6 +54025,7 @@ itemTemplates:
     evolutionBranch:
     - evolution: KIRLIA
       candyCost: 25
+      form: KIRLIA_NORMAL
     modelScaleV2: 1.1
     buddyOffsetMale:
     - 0.0
@@ -49921,6 +54041,239 @@ itemTemplates:
       candyToUnlock: 75
     isTransferable: true
     isDeployable: true
+- templateId: V0280_POKEMON_RALTS_NORMAL
+  pokemonSettings:
+    pokemonId: RALTS
+    modelScale: 1.48
+    type: POKEMON_TYPE_PSYCHIC
+    type2: POKEMON_TYPE_FAIRY
+    camera:
+      diskRadiusM: 0.555
+      cylinderRadiusM: 0.3
+      cylinderHeightM: 0.4
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.4
+      baseFleeRate: 0.09
+      collisionRadiusM: 0.15
+      collisionHeightM: 0.6
+      collisionHeadRadiusM: 0.15
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 11.0
+      jumpTimeS: 0.9
+      attackTimerS: 20.0
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 3.0
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 99
+      baseAttack: 79
+      baseDefense: 59
+    quickMoves:
+    - CONFUSION_FAST
+    - CHARGE_BEAM_FAST
+    cinematicMoves:
+    - PSYSHOCK
+    - DISARMING_VOICE
+    - SHADOW_SNEAK
+    animationTime:
+    - 1.3333
+    - 0.6667
+    - 1.6667
+    - 2.0
+    - 0.0
+    - 2.0
+    - 3.0
+    - 3.0
+    evolutionPips: 1
+    pokedexHeightM: 0.41
+    pokedexWeightKg: 6.6
+    heightStdDev: 0.05125
+    weightStdDev: 0.825
+    familyId: FAMILY_RALTS
+    kmBuddyDistance: 5.0
+    modelHeight: 0.4
+    evolutionBranch:
+    - evolution: KIRLIA
+      candyCost: 25
+      form: KIRLIA_NORMAL
+    modelScaleV2: 1.1
+    form: RALTS_NORMAL
+    buddyOffsetMale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyOffsetFemale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 75000
+      candyToUnlock: 75
+    isTransferable: true
+    isDeployable: true
+- templateId: V0280_POKEMON_RALTS_PURIFIED
+  pokemonSettings:
+    pokemonId: RALTS
+    modelScale: 1.48
+    type: POKEMON_TYPE_PSYCHIC
+    type2: POKEMON_TYPE_FAIRY
+    camera:
+      diskRadiusM: 0.555
+      cylinderRadiusM: 0.3
+      cylinderHeightM: 0.4
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.4
+      baseFleeRate: 0.09
+      collisionRadiusM: 0.15
+      collisionHeightM: 0.6
+      collisionHeadRadiusM: 0.15
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 11.0
+      jumpTimeS: 0.9
+      attackTimerS: 20.0
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 3.0
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 99
+      baseAttack: 79
+      baseDefense: 59
+    quickMoves:
+    - CONFUSION_FAST
+    - CHARGE_BEAM_FAST
+    cinematicMoves:
+    - PSYSHOCK
+    - DISARMING_VOICE
+    - SHADOW_SNEAK
+    animationTime:
+    - 1.3333
+    - 0.6667
+    - 1.6667
+    - 2.0
+    - 0.0
+    - 2.0
+    - 3.0
+    - 3.0
+    evolutionPips: 1
+    pokedexHeightM: 0.41
+    pokedexWeightKg: 6.6
+    heightStdDev: 0.05125
+    weightStdDev: 0.825
+    familyId: FAMILY_RALTS
+    kmBuddyDistance: 5.0
+    modelHeight: 0.4
+    evolutionBranch:
+    - evolution: KIRLIA
+      candyCost: 22
+      form: KIRLIA_PURIFIED
+    modelScaleV2: 1.1
+    form: RALTS_PURIFIED
+    buddyOffsetMale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyOffsetFemale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 60000
+      candyToUnlock: 60
+    isTransferable: true
+    isDeployable: true
+- templateId: V0280_POKEMON_RALTS_SHADOW
+  pokemonSettings:
+    pokemonId: RALTS
+    modelScale: 1.48
+    type: POKEMON_TYPE_PSYCHIC
+    type2: POKEMON_TYPE_FAIRY
+    camera:
+      diskRadiusM: 0.555
+      cylinderRadiusM: 0.3
+      cylinderHeightM: 0.4
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.05
+      baseFleeRate: 0.09
+      collisionRadiusM: 0.15
+      collisionHeightM: 0.6
+      collisionHeadRadiusM: 0.15
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 11.0
+      jumpTimeS: 0.9
+      attackTimerS: 20.0
+      attackProbability: 0.7
+      dodgeProbability: 0.2
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 3.0
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 99
+      baseAttack: 79
+      baseDefense: 59
+    quickMoves:
+    - CONFUSION_FAST
+    - CHARGE_BEAM_FAST
+    cinematicMoves:
+    - PSYSHOCK
+    - DISARMING_VOICE
+    - SHADOW_SNEAK
+    animationTime:
+    - 1.3333
+    - 0.6667
+    - 1.6667
+    - 2.0
+    - 0.0
+    - 2.0
+    - 3.0
+    - 3.0
+    evolutionPips: 1
+    pokedexHeightM: 0.41
+    pokedexWeightKg: 6.6
+    heightStdDev: 0.05125
+    weightStdDev: 0.825
+    familyId: FAMILY_RALTS
+    kmBuddyDistance: 5.0
+    modelHeight: 0.4
+    evolutionBranch:
+    - evolution: KIRLIA
+      candyCost: 25
+      form: KIRLIA_SHADOW
+    modelScaleV2: 1.1
+    form: RALTS_SHADOW
+    buddyOffsetMale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyOffsetFemale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 225000
+      candyToUnlock: 225
+    isTransferable: true
+    isDeployable: true
+    shadow:
+      purificationStardustNeeded: 5000
+      purificationCandyNeeded: 5
+      purifiedChargeMove: RETURN
+      shadowChargeMove: FRUSTRATION
 - templateId: V0281_MOVE_HIDDEN_POWER_FAST
   moveSettings:
     movementId: HIDDEN_POWER_FAST
@@ -50000,9 +54353,11 @@ itemTemplates:
     - evolution: GALLADE
       evolutionItemRequirement: ITEM_GEN4_EVOLUTION_STONE
       candyCost: 100
+      form: GALLADE_NORMAL
       genderRequirement: MALE
     - evolution: GARDEVOIR
       candyCost: 100
+      form: GARDEVOIR_NORMAL
     modelScaleV2: 1.0
     buddyOffsetMale:
     - 0.0
@@ -50018,6 +54373,263 @@ itemTemplates:
       candyToUnlock: 75
     isTransferable: true
     isDeployable: true
+- templateId: V0281_POKEMON_KIRLIA_NORMAL
+  pokemonSettings:
+    pokemonId: KIRLIA
+    modelScale: 1.3
+    type: POKEMON_TYPE_PSYCHIC
+    type2: POKEMON_TYPE_FAIRY
+    camera:
+      diskRadiusM: 0.555
+      cylinderRadiusM: 0.4
+      cylinderHeightM: 1.0
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.1
+      baseFleeRate: 0.06
+      collisionRadiusM: 0.25
+      collisionHeightM: 0.6
+      collisionHeadRadiusM: 0.25
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 11.0
+      jumpTimeS: 1.1
+      attackTimerS: 20.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 4.0
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 116
+      baseAttack: 117
+      baseDefense: 90
+    quickMoves:
+    - CONFUSION_FAST
+    - CHARGE_BEAM_FAST
+    cinematicMoves:
+    - PSYCHIC
+    - DISARMING_VOICE
+    - SHADOW_SNEAK
+    animationTime:
+    - 1.3333
+    - 0.6667
+    - 1.6667
+    - 2.0
+    - 0.0
+    - 2.0
+    - 3.0
+    - 3.0
+    evolutionPips: 1
+    pokedexHeightM: 0.79
+    pokedexWeightKg: 20.2
+    parentPokemonId: RALTS
+    heightStdDev: 0.09875
+    weightStdDev: 2.525
+    familyId: FAMILY_RALTS
+    kmBuddyDistance: 5.0
+    modelHeight: 0.94545454
+    evolutionBranch:
+    - evolution: GALLADE
+      evolutionItemRequirement: ITEM_GEN4_EVOLUTION_STONE
+      candyCost: 100
+      form: GALLADE_NORMAL
+      genderRequirement: MALE
+    - evolution: GARDEVOIR
+      candyCost: 100
+      form: GARDEVOIR_NORMAL
+    modelScaleV2: 1.0
+    form: KIRLIA_NORMAL
+    buddyOffsetMale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyOffsetFemale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 75000
+      candyToUnlock: 75
+    isTransferable: true
+    isDeployable: true
+- templateId: V0281_POKEMON_KIRLIA_PURIFIED
+  pokemonSettings:
+    pokemonId: KIRLIA
+    modelScale: 1.3
+    type: POKEMON_TYPE_PSYCHIC
+    type2: POKEMON_TYPE_FAIRY
+    camera:
+      diskRadiusM: 0.555
+      cylinderRadiusM: 0.4
+      cylinderHeightM: 1.0
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.1
+      baseFleeRate: 0.06
+      collisionRadiusM: 0.25
+      collisionHeightM: 0.6
+      collisionHeadRadiusM: 0.25
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 11.0
+      jumpTimeS: 1.1
+      attackTimerS: 20.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 4.0
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 116
+      baseAttack: 117
+      baseDefense: 90
+    quickMoves:
+    - CONFUSION_FAST
+    - CHARGE_BEAM_FAST
+    cinematicMoves:
+    - PSYCHIC
+    - DISARMING_VOICE
+    - SHADOW_SNEAK
+    animationTime:
+    - 1.3333
+    - 0.6667
+    - 1.6667
+    - 2.0
+    - 0.0
+    - 2.0
+    - 3.0
+    - 3.0
+    evolutionPips: 1
+    pokedexHeightM: 0.79
+    pokedexWeightKg: 20.2
+    parentPokemonId: RALTS
+    heightStdDev: 0.09875
+    weightStdDev: 2.525
+    familyId: FAMILY_RALTS
+    kmBuddyDistance: 5.0
+    modelHeight: 0.94545454
+    evolutionBranch:
+    - evolution: GALLADE
+      evolutionItemRequirement: ITEM_GEN4_EVOLUTION_STONE
+      candyCost: 90
+      form: GALLADE_PURIFIED
+      genderRequirement: MALE
+    - evolution: GARDEVOIR
+      candyCost: 90
+      form: GARDEVOIR_PURIFIED
+    modelScaleV2: 1.0
+    form: KIRLIA_PURIFIED
+    buddyOffsetMale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyOffsetFemale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 60000
+      candyToUnlock: 60
+    isTransferable: true
+    isDeployable: true
+- templateId: V0281_POKEMON_KIRLIA_SHADOW
+  pokemonSettings:
+    pokemonId: KIRLIA
+    modelScale: 1.3
+    type: POKEMON_TYPE_PSYCHIC
+    type2: POKEMON_TYPE_FAIRY
+    camera:
+      diskRadiusM: 0.555
+      cylinderRadiusM: 0.4
+      cylinderHeightM: 1.0
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.05
+      baseFleeRate: 0.06
+      collisionRadiusM: 0.25
+      collisionHeightM: 0.6
+      collisionHeadRadiusM: 0.25
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 11.0
+      jumpTimeS: 1.1
+      attackTimerS: 20.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 200
+      attackProbability: 0.7
+      dodgeProbability: 0.2
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 4.0
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 116
+      baseAttack: 117
+      baseDefense: 90
+    quickMoves:
+    - CONFUSION_FAST
+    - CHARGE_BEAM_FAST
+    cinematicMoves:
+    - PSYCHIC
+    - DISARMING_VOICE
+    - SHADOW_SNEAK
+    animationTime:
+    - 1.3333
+    - 0.6667
+    - 1.6667
+    - 2.0
+    - 0.0
+    - 2.0
+    - 3.0
+    - 3.0
+    evolutionPips: 1
+    pokedexHeightM: 0.79
+    pokedexWeightKg: 20.2
+    parentPokemonId: RALTS
+    heightStdDev: 0.09875
+    weightStdDev: 2.525
+    familyId: FAMILY_RALTS
+    kmBuddyDistance: 5.0
+    modelHeight: 0.94545454
+    evolutionBranch:
+    - evolution: GALLADE
+      evolutionItemRequirement: ITEM_GEN4_EVOLUTION_STONE
+      candyCost: 100
+      form: GALLADE_SHADOW
+      genderRequirement: MALE
+    - evolution: GARDEVOIR
+      candyCost: 100
+      form: GARDEVOIR_SHADOW
+    modelScaleV2: 1.0
+    form: KIRLIA_SHADOW
+    buddyOffsetMale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyOffsetFemale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 225000
+      candyToUnlock: 225
+    isTransferable: true
+    isDeployable: true
+    shadow:
+      purificationStardustNeeded: 5000
+      purificationCandyNeeded: 5
+      purifiedChargeMove: RETURN
+      shadowChargeMove: FRUSTRATION
 - templateId: V0282_MOVE_TAKE_DOWN_FAST
   moveSettings:
     movementId: TAKE_DOWN_FAST
@@ -50109,6 +54721,242 @@ itemTemplates:
       candyToUnlock: 75
     isTransferable: true
     isDeployable: true
+- templateId: V0282_POKEMON_GARDEVOIR_NORMAL
+  pokemonSettings:
+    pokemonId: GARDEVOIR
+    modelScale: 0.9
+    type: POKEMON_TYPE_PSYCHIC
+    type2: POKEMON_TYPE_FAIRY
+    camera:
+      diskRadiusM: 0.555
+      cylinderRadiusM: 0.8
+      cylinderHeightM: 1.7
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.05
+      baseFleeRate: 0.05
+      collisionRadiusM: 0.25
+      collisionHeightM: 0.6
+      collisionHeadRadiusM: 0.25
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 11.0
+      jumpTimeS: 1.3
+      attackTimerS: 20.0
+      bonusCandyCaptureReward: 7
+      bonusStardustCaptureReward: 400
+      attackProbability: 0.2
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 5.0
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 169
+      baseAttack: 237
+      baseDefense: 195
+    quickMoves:
+    - CONFUSION_FAST
+    - CHARGE_BEAM_FAST
+    - CHARM_FAST
+    cinematicMoves:
+    - PSYCHIC
+    - DAZZLING_GLEAM
+    - SHADOW_BALL
+    animationTime:
+    - 1.3333
+    - 0.6667
+    - 1.6667
+    - 2.0
+    - 0.0
+    - 2.0
+    - 3.0
+    - 3.0
+    evolutionPips: 1
+    pokedexHeightM: 1.6
+    pokedexWeightKg: 48.4
+    parentPokemonId: KIRLIA
+    heightStdDev: 0.2
+    weightStdDev: 6.05
+    familyId: FAMILY_RALTS
+    kmBuddyDistance: 5.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.7341464
+    modelScaleV2: 1.0
+    form: GARDEVOIR_NORMAL
+    buddyOffsetMale:
+    - 20.0
+    - 0.0
+    - 75.0
+    buddyOffsetFemale:
+    - 20.0
+    - 0.0
+    - 75.0
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 75000
+      candyToUnlock: 75
+    isTransferable: true
+    isDeployable: true
+- templateId: V0282_POKEMON_GARDEVOIR_PURIFIED
+  pokemonSettings:
+    pokemonId: GARDEVOIR
+    modelScale: 0.9
+    type: POKEMON_TYPE_PSYCHIC
+    type2: POKEMON_TYPE_FAIRY
+    camera:
+      diskRadiusM: 0.555
+      cylinderRadiusM: 0.8
+      cylinderHeightM: 1.7
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.05
+      baseFleeRate: 0.05
+      collisionRadiusM: 0.25
+      collisionHeightM: 0.6
+      collisionHeadRadiusM: 0.25
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 11.0
+      jumpTimeS: 1.3
+      attackTimerS: 20.0
+      bonusCandyCaptureReward: 7
+      bonusStardustCaptureReward: 400
+      attackProbability: 0.2
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 5.0
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 169
+      baseAttack: 237
+      baseDefense: 195
+    quickMoves:
+    - CONFUSION_FAST
+    - CHARGE_BEAM_FAST
+    - CHARM_FAST
+    cinematicMoves:
+    - PSYCHIC
+    - DAZZLING_GLEAM
+    - SHADOW_BALL
+    animationTime:
+    - 1.3333
+    - 0.6667
+    - 1.6667
+    - 2.0
+    - 0.0
+    - 2.0
+    - 3.0
+    - 3.0
+    evolutionPips: 1
+    pokedexHeightM: 1.6
+    pokedexWeightKg: 48.4
+    parentPokemonId: KIRLIA
+    heightStdDev: 0.2
+    weightStdDev: 6.05
+    familyId: FAMILY_RALTS
+    kmBuddyDistance: 5.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.7341464
+    modelScaleV2: 1.0
+    form: GARDEVOIR_PURIFIED
+    buddyOffsetMale:
+    - 20.0
+    - 0.0
+    - 75.0
+    buddyOffsetFemale:
+    - 20.0
+    - 0.0
+    - 75.0
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 60000
+      candyToUnlock: 60
+    isTransferable: true
+    isDeployable: true
+- templateId: V0282_POKEMON_GARDEVOIR_SHADOW
+  pokemonSettings:
+    pokemonId: GARDEVOIR
+    modelScale: 0.9
+    type: POKEMON_TYPE_PSYCHIC
+    type2: POKEMON_TYPE_FAIRY
+    camera:
+      diskRadiusM: 0.555
+      cylinderRadiusM: 0.8
+      cylinderHeightM: 1.7
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.05
+      baseFleeRate: 0.05
+      collisionRadiusM: 0.25
+      collisionHeightM: 0.6
+      collisionHeadRadiusM: 0.25
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 11.0
+      jumpTimeS: 1.3
+      attackTimerS: 20.0
+      bonusCandyCaptureReward: 7
+      bonusStardustCaptureReward: 400
+      attackProbability: 0.7
+      dodgeProbability: 0.2
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 5.0
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 169
+      baseAttack: 237
+      baseDefense: 195
+    quickMoves:
+    - CONFUSION_FAST
+    - CHARGE_BEAM_FAST
+    - CHARM_FAST
+    cinematicMoves:
+    - PSYCHIC
+    - DAZZLING_GLEAM
+    - SHADOW_BALL
+    animationTime:
+    - 1.3333
+    - 0.6667
+    - 1.6667
+    - 2.0
+    - 0.0
+    - 2.0
+    - 3.0
+    - 3.0
+    evolutionPips: 1
+    pokedexHeightM: 1.6
+    pokedexWeightKg: 48.4
+    parentPokemonId: KIRLIA
+    heightStdDev: 0.2
+    weightStdDev: 6.05
+    familyId: FAMILY_RALTS
+    kmBuddyDistance: 5.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.7341464
+    modelScaleV2: 1.0
+    form: GARDEVOIR_SHADOW
+    buddyOffsetMale:
+    - 20.0
+    - 0.0
+    - 75.0
+    buddyOffsetFemale:
+    - 20.0
+    - 0.0
+    - 75.0
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 225000
+      candyToUnlock: 225
+    isTransferable: true
+    isDeployable: true
+    shadow:
+      purificationStardustNeeded: 5000
+      purificationCandyNeeded: 5
+      purifiedChargeMove: RETURN
+      shadowChargeMove: FRUSTRATION
 - templateId: V0283_MOVE_WATERFALL_FAST
   moveSettings:
     movementId: WATERFALL_FAST
@@ -53677,6 +58525,21 @@ itemTemplates:
       candyToUnlock: 50
     isTransferable: true
     isDeployable: true
+- templateId: V0324_MOVE_SYNCHRONOISE
+  moveSettings:
+    movementId: SYNCHRONOISE
+    animationId: 5
+    pokemonType: POKEMON_TYPE_PSYCHIC
+    power: 80.0
+    accuracyChance: 1.0
+    staminaLossScalar: 0.01
+    trainerLevelMin: 1
+    trainerLevelMax: 100
+    vfxName: synchronoise
+    durationMs: 2600
+    damageWindowStartMs: 850
+    damageWindowEndMs: 1600
+    energyDelta: -50
 - templateId: V0324_POKEMON_TORKOAL
   pokemonSettings:
     pokemonId: TORKOAL
@@ -66797,6 +71660,242 @@ itemTemplates:
       candyToUnlock: 75
     isTransferable: true
     isDeployable: true
+- templateId: V0475_POKEMON_GALLADE_NORMAL
+  pokemonSettings:
+    pokemonId: GALLADE
+    modelScale: 1.26
+    type: POKEMON_TYPE_PSYCHIC
+    type2: POKEMON_TYPE_FIGHTING
+    camera:
+      diskRadiusM: 0.378
+      cylinderRadiusM: 0.5
+      cylinderHeightM: 1.7
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.5
+      baseFleeRate: 0.05
+      collisionRadiusM: 0.189
+      collisionHeightM: 0.252
+      collisionHeadRadiusM: 0.17
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 10.0
+      jumpTimeS: 0.9
+      attackTimerS: 29.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 400
+      attackProbability: 0.2
+      dodgeProbability: 0.3
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 2.25
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 169
+      baseAttack: 237
+      baseDefense: 195
+    quickMoves:
+    - CONFUSION_FAST
+    - LOW_KICK_FAST
+    - CHARM_FAST
+    cinematicMoves:
+    - CLOSE_COMBAT
+    - PSYCHIC
+    - LEAF_BLADE
+    animationTime:
+    - 1.9
+    - 0.6667
+    - 1.8
+    - 1.7667
+    - 0.0
+    - 2.4
+    - 0.8667
+    - 0.0
+    evolutionPips: 1
+    pokedexHeightM: 1.6
+    pokedexWeightKg: 52.0
+    parentPokemonId: KIRLIA
+    heightStdDev: 0.2
+    weightStdDev: 6.5
+    familyId: FAMILY_RALTS
+    candyToEvolve: 25
+    kmBuddyDistance: 5.0
+    modelHeight: 1.8
+    modelScaleV2: 0.9
+    form: GALLADE_NORMAL
+    buddyOffsetMale:
+    - 1.4
+    - 0.0
+    - -55.3
+    buddyOffsetFemale:
+    - 1.4
+    - 0.0
+    - -55.3
+    buddyScale: 17.0
+    thirdMove:
+      stardustToUnlock: 75000
+      candyToUnlock: 75
+    isTransferable: true
+    isDeployable: true
+- templateId: V0475_POKEMON_GALLADE_PURIFIED
+  pokemonSettings:
+    pokemonId: GALLADE
+    modelScale: 1.26
+    type: POKEMON_TYPE_PSYCHIC
+    type2: POKEMON_TYPE_FIGHTING
+    camera:
+      diskRadiusM: 0.378
+      cylinderRadiusM: 0.5
+      cylinderHeightM: 1.7
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.5
+      baseFleeRate: 0.05
+      collisionRadiusM: 0.189
+      collisionHeightM: 0.252
+      collisionHeadRadiusM: 0.17
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 10.0
+      jumpTimeS: 0.9
+      attackTimerS: 29.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 400
+      attackProbability: 0.2
+      dodgeProbability: 0.3
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 2.25
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 169
+      baseAttack: 237
+      baseDefense: 195
+    quickMoves:
+    - CONFUSION_FAST
+    - LOW_KICK_FAST
+    - CHARM_FAST
+    cinematicMoves:
+    - CLOSE_COMBAT
+    - PSYCHIC
+    - LEAF_BLADE
+    animationTime:
+    - 1.9
+    - 0.6667
+    - 1.8
+    - 1.7667
+    - 0.0
+    - 2.4
+    - 0.8667
+    - 0.0
+    evolutionPips: 1
+    pokedexHeightM: 1.6
+    pokedexWeightKg: 52.0
+    parentPokemonId: KIRLIA
+    heightStdDev: 0.2
+    weightStdDev: 6.5
+    familyId: FAMILY_RALTS
+    candyToEvolve: 25
+    kmBuddyDistance: 5.0
+    modelHeight: 1.8
+    modelScaleV2: 0.9
+    form: GALLADE_PURIFIED
+    buddyOffsetMale:
+    - 1.4
+    - 0.0
+    - -55.3
+    buddyOffsetFemale:
+    - 1.4
+    - 0.0
+    - -55.3
+    buddyScale: 17.0
+    thirdMove:
+      stardustToUnlock: 60000
+      candyToUnlock: 60
+    isTransferable: true
+    isDeployable: true
+- templateId: V0475_POKEMON_GALLADE_SHADOW
+  pokemonSettings:
+    pokemonId: GALLADE
+    modelScale: 1.26
+    type: POKEMON_TYPE_PSYCHIC
+    type2: POKEMON_TYPE_FIGHTING
+    camera:
+      diskRadiusM: 0.378
+      cylinderRadiusM: 0.5
+      cylinderHeightM: 1.7
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.05
+      baseFleeRate: 0.05
+      collisionRadiusM: 0.189
+      collisionHeightM: 0.252
+      collisionHeadRadiusM: 0.17
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 10.0
+      jumpTimeS: 0.9
+      attackTimerS: 29.0
+      bonusCandyCaptureReward: 2
+      bonusStardustCaptureReward: 400
+      attackProbability: 0.7
+      dodgeProbability: 0.2
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 2.25
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 169
+      baseAttack: 237
+      baseDefense: 195
+    quickMoves:
+    - CONFUSION_FAST
+    - LOW_KICK_FAST
+    - CHARM_FAST
+    cinematicMoves:
+    - CLOSE_COMBAT
+    - PSYCHIC
+    - LEAF_BLADE
+    animationTime:
+    - 1.9
+    - 0.6667
+    - 1.8
+    - 1.7667
+    - 0.0
+    - 2.4
+    - 0.8667
+    - 0.0
+    evolutionPips: 1
+    pokedexHeightM: 1.6
+    pokedexWeightKg: 52.0
+    parentPokemonId: KIRLIA
+    heightStdDev: 0.2
+    weightStdDev: 6.5
+    familyId: FAMILY_RALTS
+    candyToEvolve: 25
+    kmBuddyDistance: 5.0
+    modelHeight: 1.8
+    modelScaleV2: 0.9
+    form: GALLADE_SHADOW
+    buddyOffsetMale:
+    - 1.4
+    - 0.0
+    - -55.3
+    buddyOffsetFemale:
+    - 1.4
+    - 0.0
+    - -55.3
+    buddyScale: 17.0
+    thirdMove:
+      stardustToUnlock: 225000
+      candyToUnlock: 225
+    isTransferable: true
+    isDeployable: true
+    shadow:
+      purificationStardustNeeded: 5000
+      purificationCandyNeeded: 5
+      purifiedChargeMove: RETURN
+      shadowChargeMove: FRUSTRATION
 - templateId: V0476_POKEMON_PROBOPASS
   pokemonSettings:
     pokemonId: PROBOPASS
@@ -66983,7 +72082,7 @@ itemTemplates:
       attackProbability: 0.2
       dodgeProbability: 0.3
       dodgeDurationS: 1.0
-      dodgeDistance: 1.0
+      dodgeDistance: 0.5
       cameraDistance: 2.25
       minPokemonActionFrequencyS: 0.2
       maxPokemonActionFrequencyS: 1.6
@@ -86515,6 +91614,16 @@ itemTemplates:
     - wait 2.0
     - sys ui-sync
     - sys complete
+- templateId: sequence_synchronoise
+  moveSequenceSettings:
+    sequence:
+    - anim attacker atk-move
+    - wait 0.5
+    - vfx synchronoise
+    - sfx attacker 485-0_synchronoise
+    - wait 1.5
+    - sys ui-sync
+    - sys complete
 - templateId: sequence_tackle_fast
   moveSequenceSettings:
     sequence:
@@ -86798,4 +91907,4 @@ itemTemplates:
     - wait 0.25
     - sys ui-sync
     - sys complete
-timestampMs: '1565835213221'
+timestampMs: '1566007743287'
