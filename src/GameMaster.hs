@@ -177,7 +177,9 @@ makeGameMaster yamlObject = do
   pokemonBases <-
     makeObjects "pokemonSettings" (getSpeciesForPokemonBase forms)
       (makePokemonBase types moves forms)
-      (filter (hasFormIfRequired forms) itemTemplates)
+      (filter (hasFormIfRequired forms) $
+       filter (not . isShadow) $
+       filter (not . isPurified) itemTemplates)
   cpMultipliers <- do
     playerLevel <- getFirst itemTemplates "playerLevel"
     getObjectValue playerLevel "cpMultiplier"
@@ -436,6 +438,22 @@ hasFormIfRequired forms itemTemplate =
                    -- it is simpler to annotate form but ignore the value like
                    -- this:
                    Right form -> const True (form :: String)
+
+isShadow :: ItemTemplate -> Bool
+isShadow = isForm "SHADOW"
+
+isPurified :: ItemTemplate -> Bool
+isPurified = isForm "PURIFIED"
+
+isForm :: String -> ItemTemplate -> Bool
+isForm form itemTemplate =
+  case getObjectValue itemTemplate "pokemonSettings" of
+    Left _ -> False
+    Right pokemonSettings ->
+      case getObjectValue pokemonSettings "form" of
+        Left _ -> False
+        Right pokemonForm ->
+          ("_" ++ form) `List.isSuffixOf` pokemonForm
 
 -- This seems roundabout, but the good thing is that the type "a" is
 -- inferred from the usage context so the result is error-checked.
