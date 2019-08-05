@@ -418,26 +418,30 @@ getFirst itemTemplates filterKey =
     [head] -> return head
     _ -> Epic.fail $ "Expected exactly one " ++ show filterKey
 
-hasFormIfRequired :: StringMap [String] -> ItemTemplate -> Bool
-hasFormIfRequired forms itemTemplate =
+checkPokemonSettings :: ItemTemplate -> (Yaml.Object -> Bool) -> Bool
+checkPokemonSettings itemTemplate predicate =
   case getObjectValue itemTemplate "pokemonSettings" of
     Left _ -> False
-    Right pokemonSettings ->
-      case getObjectValue pokemonSettings "pokemonId" of
-        Left _ -> False
-        Right species ->
-          case HashMap.lookup species forms of
-            Nothing -> False
-            Just [] -> True
-            _ -> case getObjectValue pokemonSettings "form" of
-                   Left _ -> False
-                   -- I would like to say Right _ -> True but the compiler
-                   -- needs to know the type of _ so it can make/use the
-                   -- correct variant of getObjectValue.  Rather than trying
-                   -- to come up with a complex annotation for getObjectValue,
-                   -- it is simpler to annotate form but ignore the value like
-                   -- this:
-                   Right form -> const True (form :: String)
+    Right pokemonSettings -> predicate pokemonSettings
+
+hasFormIfRequired :: StringMap [String] -> ItemTemplate -> Bool
+hasFormIfRequired forms itemTemplate =
+  checkPokemonSettings itemTemplate $ \ pokemonSettings ->
+    case getObjectValue pokemonSettings "pokemonId" of
+      Left _ -> False
+      Right species ->
+        case HashMap.lookup species forms of
+          Nothing -> False
+          Just [] -> True
+          _ -> case getObjectValue pokemonSettings "form" of
+                 Left _ -> False
+                 -- I would like to say Right _ -> True but the compiler
+                 -- needs to know the type of _ so it can make/use the
+                 -- correct variant of getObjectValue.  Rather than trying
+                 -- to come up with a complex annotation for getObjectValue,
+                 -- it is simpler to annotate form but ignore the value like
+                 -- this:
+                 Right form -> const True (form :: String)
 
 isShadow :: ItemTemplate -> Bool
 isShadow = isForm "SHADOW"
@@ -447,13 +451,11 @@ isPurified = isForm "PURIFIED"
 
 isForm :: String -> ItemTemplate -> Bool
 isForm form itemTemplate =
-  case getObjectValue itemTemplate "pokemonSettings" of
-    Left _ -> False
-    Right pokemonSettings ->
-      case getObjectValue pokemonSettings "form" of
-        Left _ -> False
-        Right pokemonForm ->
-          ("_" ++ form) `List.isSuffixOf` pokemonForm
+  checkPokemonSettings itemTemplate $ \ pokemonSettings ->
+    case getObjectValue pokemonSettings "form" of
+      Left _ -> False
+      Right pokemonForm ->
+        ("_" ++ form) `List.isSuffixOf` pokemonForm
 
 -- This seems roundabout, but the good thing is that the type "a" is
 -- inferred from the usage context so the result is error-checked.
