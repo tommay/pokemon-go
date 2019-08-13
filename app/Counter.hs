@@ -12,7 +12,8 @@ import qualified BattlerUtil
 import           BattlerUtil (Battler, Level (Normal))
 import qualified Breakpoint
 import qualified Epic
-import qualified TweakLevel
+import qualified Friend
+import           Friend (Friend)
 import qualified IVs
 import           IVs (IVs)
 import qualified GameMaster
@@ -29,6 +30,7 @@ import qualified PokemonBase
 import           PokemonBase (PokemonBase)
 import qualified PokeUtil
 import qualified Powerups
+import qualified TweakLevel
 import qualified Type
 import           Type (Type)
 import qualified Weather
@@ -48,6 +50,7 @@ import qualified Text.Regex as Regex
 
 data Options = Options {
   maybeWeather :: Maybe Weather,
+  maybeFriend :: Maybe Friend,
   sortOutputBy :: SortOutputBy,
   dpsFilter :: Maybe Int,
   top      :: Maybe Int,
@@ -86,7 +89,8 @@ defaultAttackerLevel = IVs.level IVs.defaultIVs
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optWeather <*> optSortOutputBy <*> optDpsFilter <*>
+  let opts = Options <$> optWeather <*> optFriend <*>
+        optSortOutputBy <*> optDpsFilter <*>
         optTop <*>
         optTweakLevel <*> optLegendary <*> optAttackerSource <*>
         optShowBreakpoints <*>
@@ -94,6 +98,7 @@ getOptions =
         optRaidGroup <*> optShowMoveset <*>
         optDefender
       optWeather = O.optional Weather.optWeather
+      optFriend = O.optional Friend.optFriend
       optSortOutputBy =
         let optGlass = O.flag' ByDps
               (  O.long "glass"
@@ -257,8 +262,10 @@ main =
 
       let weatherBonus =
             GameMaster.getWeatherBonus gameMaster $ maybeWeather options
+          friendBonus = Friend.damageBonus $ maybeFriend options
           makeBattle attacker defender = Battle.init attacker defender
             `Battle.setWeatherBonus` weatherBonus
+            `Battle.setFriendBonus` friendBonus
             `Battle.setRaidGroup` (raidGroup options)
           doOneBattle attacker defender =
             Battle.doBattleOnly $ makeBattle attacker defender
@@ -320,7 +327,7 @@ main =
                   -- all variants have the same level and IVs.
                   let defender = head defenderVariants
                       breakpoints = Breakpoint.getBreakpoints
-                        gameMaster weatherBonus
+                        gameMaster weatherBonus friendBonus
                         attacker defender
                   in case breakpoints of
                        (_:_:_) ->  -- Only show if there are two or more.

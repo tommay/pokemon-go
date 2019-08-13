@@ -14,14 +14,15 @@ import           WeatherBonus (WeatherBonus)
 
 import qualified Data.List as List
 
-getBreakpoints ::
-  GameMaster -> WeatherBonus -> Pokemon -> Pokemon -> [(Float, Int, Float)]
-getBreakpoints gameMaster weatherBonus attacker defender =
+getBreakpoints :: GameMaster -> WeatherBonus -> Float ->
+  Pokemon -> Pokemon -> [(Float, Int, Float)]
+getBreakpoints gameMaster weatherBonus friendBonus attacker defender =
   let levels = GameMaster.allLevels gameMaster
       quick = Pokemon.quick attacker
       levelAndDamageList = map (\ level ->
         let attacker' = PokeUtil.setLevel gameMaster level attacker
-            damage = Battle.getDamage weatherBonus attacker' quick defender
+            damage = Battle.getDamage weatherBonus friendBonus
+              attacker' quick defender
             dps = fromIntegral damage / Move.duration quick
         in (level, damage, dps)) levels
       filtered = filter (\ (level, _, _) -> level >= Pokemon.level attacker)

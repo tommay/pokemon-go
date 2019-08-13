@@ -2,6 +2,7 @@ module Battle (
   Battle,
   Battle.init,
   setWeatherBonus,
+  setFriendBonus,
   setRaidGroup,
   doBattle,
   doBattleOnly,
@@ -44,6 +45,7 @@ data Battle = Battle {
   attacker :: Attacker,
   defender :: Defender,
   weatherBonus :: WeatherBonus,
+  friendBonus :: Float,
   raidGroup :: Bool,
   timer :: Int,
   initialDefenderHp :: Int
@@ -57,6 +59,7 @@ init attacker defender =
     attacker = Attacker.init attacker,
     defender = Defender.init defender,
     weatherBonus = const 1,
+    friendBonus = 1.0,
     raidGroup = False,
     timer = battleDuration,
     initialDefenderHp = Pokemon.hp defender * 2
@@ -65,6 +68,10 @@ init attacker defender =
 setWeatherBonus :: Battle -> WeatherBonus -> Battle
 setWeatherBonus this weatherBonus =
   this { weatherBonus = weatherBonus }
+
+setFriendBonus :: Battle -> Float -> Battle
+setFriendBonus this friendBonus =
+  this { friendBonus = friendBonus }
 
 setRaidGroup :: Battle -> Bool -> Battle
 setRaidGroup this raidGroup =
@@ -133,7 +140,7 @@ checkAttackerHits this =
   let attacker = Battle.attacker this
       defender = Battle.defender this
       move = Attacker.move attacker
-      damage = getDamage (weatherBonus this)
+      damage = getDamage (weatherBonus this) 1.0
         (Attacker.pokemon attacker) move (Defender.pokemon defender)
       maybeEnergy = getEnergy move
       battle = this
@@ -157,7 +164,7 @@ checkDefenderHits this =
   let defender = Battle.defender this
       attacker = Battle.attacker this
       move = Defender.move defender
-      damage = getDamage (weatherBonus this)
+      damage = getDamage (weatherBonus this) 1.0
         (Defender.pokemon defender) move (Attacker.pokemon attacker)
       maybeEnergy = getEnergy move
       battle = this
@@ -186,15 +193,16 @@ updateDefender this fn = do
   defender <- fn $ Battle.defender this
   return $ this { defender = defender }
 
-getDamage :: WeatherBonus -> Pokemon -> Move -> Pokemon -> Int
-getDamage weatherBonus attacker move defender =
+getDamage :: WeatherBonus -> Float -> Pokemon -> Move -> Pokemon -> Int
+getDamage weatherBonus friendBonus attacker move defender =
   let power = Move.power move
       stab = Move.stabFor move $ Pokemon.types attacker
       weather = weatherBonus $ Move.moveType move
       effectiveness = Move.effectivenessAgainst move $ Pokemon.types defender
       attack = Pokemon.attack attacker
       defense = Pokemon.defense defender
-  in floor $ power * stab * weather * effectiveness * attack / defense / 2 + 1
+  in floor $ power * stab * weather * friendBonus * effectiveness *
+       attack / defense / 2 + 1
 
 getEnergy :: Move -> Maybe Int
 getEnergy move =

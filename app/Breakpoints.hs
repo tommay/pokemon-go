@@ -10,6 +10,8 @@ import qualified BattlerUtil
 import           BattlerUtil (Battler)
 import qualified Breakpoint
 import qualified Epic
+import qualified Friend
+import           Friend (Friend)
 import qualified IVs
 import qualified GameMaster
 import           GameMaster (GameMaster)
@@ -29,6 +31,7 @@ import qualified Text.Printf as Printf
 
 data Options = Options {
   maybeWeather :: Maybe Weather,
+  maybeFriend  :: Maybe Friend,
   maybeFilename :: Maybe String,
   attacker :: Battler,
   defender :: Battler
@@ -36,9 +39,10 @@ data Options = Options {
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optWeather
+  let opts = Options <$> optWeather <*> optFriend
         <*> optFilename <*> optAttacker <*> optDefender
       optWeather = O.optional Weather.optWeather
+      optFriend = O.optional Friend.optFriend
       optFilename = O.optional $ O.strOption
         (  O.long "file"
         <> O.short 'f'
@@ -91,8 +95,9 @@ main =
           _ -> do
             putStrLn $ showPokemon attacker
             return "  "
-        let breakpoints = Breakpoint.getBreakpoints
-              gameMaster weatherBonus attacker defender
+        let friendBonus = Friend.damageBonus $ maybeFriend options
+            breakpoints = Breakpoint.getBreakpoints
+              gameMaster weatherBonus friendBonus attacker defender
         forM_ breakpoints $ \ (level, damage, dps) ->
           putStrLn $ Printf.printf "%s%-4s %d  %.1f"
             (indent :: String) (PokeUtil.levelToString level) damage dps

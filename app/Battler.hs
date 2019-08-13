@@ -17,6 +17,8 @@ import           BattlerUtil (Battler)
 import qualified Defender
 import           Defender (Defender)
 import qualified Epic
+import qualified Friend
+import           Friend (Friend)
 import qualified IVs
 import qualified GameMaster
 import           GameMaster (GameMaster)
@@ -50,14 +52,17 @@ import qualified Debug
 
 data Options = Options {
   maybeWeather :: Maybe Weather,
+  maybeFriend :: Maybe Friend,
   attacker :: Battler,
   defender :: Battler
 } deriving (Show)
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optWeather <*> optAttacker <*> optDefender
+  let opts = Options <$> optWeather <*> optFriend <*>
+        optAttacker <*> optDefender
       optWeather = O.optional Weather.optWeather
+      optFriend = O.optional Friend.optFriend
       optAttacker = O.argument
         (BattlerUtil.optParseBattler IVs.defaultIVs)
         (O.metavar "ATTACKER[:LEVEL]")
@@ -79,6 +84,7 @@ main =
 
       let weatherBonus =
             GameMaster.getWeatherBonus gameMaster $ maybeWeather options
+          friendBonus = Friend.damageBonus $ maybeFriend options
 
       attackerVariants <-
         BattlerUtil.makeBattlerVariants gameMaster (attacker options)
@@ -87,6 +93,7 @@ main =
 
       let makeBattle attacker defender = Battle.init attacker defender
             `Battle.setWeatherBonus` weatherBonus
+            `Battle.setFriendBonus` friendBonus
           battleLoggers =
             [Battle.doBattle $ makeBattle attacker defender |
               attacker <- attackerVariants, defender <- defenderVariants]
