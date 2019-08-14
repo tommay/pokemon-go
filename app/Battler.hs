@@ -82,16 +82,15 @@ main =
 
       gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
 
-      let weatherBonus =
-            GameMaster.getWeatherBonus gameMaster $ maybeWeather options
-          friendBonus = Friend.damageBonus $ maybeFriend options
-
       attackerVariants <-
         BattlerUtil.makeBattlerVariants gameMaster (attacker options)
       defenderVariants <-
         BattlerUtil.makeBattlerVariants gameMaster (defender options)
 
-      let makeBattle attacker defender = Battle.init attacker defender
+      let weatherBonus =
+            GameMaster.getWeatherBonus gameMaster $ maybeWeather options
+          friendBonus = Friend.damageBonus $ maybeFriend options
+          makeBattle attacker defender = Battle.init attacker defender
             `Battle.setWeatherBonus` weatherBonus
             `Battle.setFriendBonus` friendBonus
           battleLoggers =
