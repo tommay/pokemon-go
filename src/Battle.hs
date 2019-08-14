@@ -1,6 +1,8 @@
 module Battle (
   Battle,
   Battle.init,
+  setWeatherBonus,
+  setRaidGroup,
   doBattle,
   doBattleOnly,
   attacker,
@@ -42,23 +44,31 @@ data Battle = Battle {
   attacker :: Attacker,
   defender :: Defender,
   weatherBonus :: WeatherBonus,
+  raidGroup :: Bool,
   timer :: Int,
-  initialDefenderHp :: Int,
-  raidGroup :: Bool
+  initialDefenderHp :: Int
 } deriving Show
 
 battleDuration = 100 * 1000
 
-init :: WeatherBonus -> Bool -> Pokemon -> Pokemon -> Battle
-init weatherBonus raidGroup attacker defender =
+init :: Pokemon -> Pokemon -> Battle
+init attacker defender =
   Battle {
     attacker = Attacker.init attacker,
     defender = Defender.init defender,
-    weatherBonus = weatherBonus,
+    weatherBonus = const 1,
+    raidGroup = False,
     timer = battleDuration,
-    initialDefenderHp = Pokemon.hp defender * 2,
-    raidGroup = raidGroup
+    initialDefenderHp = Pokemon.hp defender * 2
     }
+
+setWeatherBonus :: Battle -> WeatherBonus -> Battle
+setWeatherBonus this weatherBonus =
+  this { weatherBonus = weatherBonus }
+
+setRaidGroup :: Battle -> Bool -> Battle
+setRaidGroup this raidGroup =
+  this { raidGroup = raidGroup }
 
 -- Given an initial Battle state, run the Battle and return the final
 -- state when Battle.attackerFainted is true, in a Logger monad with
@@ -68,16 +78,14 @@ runBattle :: Battle -> Logger (Log Battle) Battle
 runBattle =
   Loops.iterateUntilM Battle.attackerFainted Battle.tick
 
-doBattle :: WeatherBonus -> Bool -> Pokemon -> Pokemon ->
-  Logger (Log Battle) Battle
-doBattle weatherBonus raidGroup attacker defender =
-  Battle.runBattle $ Battle.init weatherBonus raidGroup attacker defender
+doBattle :: Battle -> Logger (Log Battle) Battle
+doBattle battle = Battle.runBattle battle
 
 -- Like doBattle but returns only the final Battle state.
 --
-doBattleOnly :: WeatherBonus -> Bool -> Pokemon -> Pokemon -> Battle
-doBattleOnly weatherBonus raidGroup attacker defender =
-  fst $ Logger.runLogger $ doBattle weatherBonus raidGroup attacker defender
+doBattleOnly :: Battle -> Battle
+doBattleOnly =
+  fst . Logger.runLogger . doBattle
 
 -- XXX This is not quite right because there is some delay before the
 -- attacker's first move, so the dps only starts after the delay.

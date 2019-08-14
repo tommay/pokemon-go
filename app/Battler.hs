@@ -85,8 +85,10 @@ main =
       defenderVariants <-
         BattlerUtil.makeBattlerVariants gameMaster (defender options)
 
-      let battleLoggers =
-            [Battle.doBattle weatherBonus False attacker defender |
+      let makeBattle attacker defender = Battle.init attacker defender
+            `Battle.setWeatherBonus` weatherBonus
+          battleLoggers =
+            [Battle.doBattle $ makeBattle attacker defender |
               attacker <- attackerVariants, defender <- defenderVariants]
           battleResults = map Logger.runLogger battleLoggers
 

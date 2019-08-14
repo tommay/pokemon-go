@@ -291,8 +291,10 @@ getResult gameMaster weatherBonus defenderVariants (candy, stardust, myPokemon) 
 
 getMinDpsTdo :: WeatherBonus -> [Pokemon] -> [Pokemon] -> (Float, Int)
 getMinDpsTdo weatherBonus attackerVariants defenderVariants =
-  let battleLoggers =
-        [Battle.doBattle weatherBonus False attacker defender |
+  let makeBattle attacker defender =
+        Battle.init attacker defender `Battle.setWeatherBonus` weatherBonus
+      battleLoggers =
+        [Battle.doBattle $ makeBattle attacker defender |
           attacker <- attackerVariants, defender <- defenderVariants]
       -- battleResults :: [[Log Battle]], where each [Battle] is the
       -- move-by-move starting from the initial Battle state.

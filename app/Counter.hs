@@ -257,7 +257,11 @@ main =
 
       let weatherBonus =
             GameMaster.getWeatherBonus gameMaster $ maybeWeather options
-          doOneBattle = Battle.doBattleOnly weatherBonus (raidGroup options)
+          makeBattle attacker defender = Battle.init attacker defender
+            `Battle.setWeatherBonus` weatherBonus
+            `Battle.setRaidGroup` (raidGroup options)
+          doOneBattle attacker defender =
+            Battle.doBattleOnly $ makeBattle attacker defender
           results =
             map (counter doOneBattle defenderVariants) attackers
           sortedByDps = List.reverse $ List.sortOn minDps results

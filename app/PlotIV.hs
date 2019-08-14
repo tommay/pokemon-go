@@ -77,8 +77,10 @@ main =
         attacker <- parseBattler b
         attackerVariants <- BattlerUtil.makeBattlerVariants gameMaster attacker
 
-        let battleLoggers =
-              [Battle.doBattle weatherBonus False attacker defender |
+        let makeBattle attacker defender = Battle.init attacker defender
+              `Battle.setWeatherBonus` weatherBonus
+            battleLoggers =
+              [Battle.doBattle $ makeBattle attacker defender |
                 attacker <- attackerVariants, defender <- defenderVariants]
             -- battleResults :: [[Log Battle]], where each [Battle] is the
             -- move-by-move starting from the initial Battle state.
