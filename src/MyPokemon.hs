@@ -14,7 +14,6 @@ module MyPokemon (
   ivs,
   stats,
   level,
-  setName,
   setIVs,
   setStats,
   setLevel,
@@ -103,10 +102,6 @@ level = getIv IVs.level
 getIv :: Num a => (IVs -> a) -> MyPokemon -> a
 getIv getter =
   getter . ivs
-
-setName :: MyPokemon -> String -> MyPokemon
-setName this name =
-  this { name = name }
 
 setIVs :: MyPokemon -> IVs -> MyPokemon
 setIVs this ivs =
