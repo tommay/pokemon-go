@@ -100,7 +100,7 @@ makeMove' :: Attacker -> Logger String Attacker
 makeMove' this = do
   let quick = Attacker.quick this
       charge = Attacker.charge this
-  moveList <- case Attacker.moves this of
+  ~(move':moves') <- case Attacker.moves this of
     [] ->
       if Attacker.energy this >= negate (Move.energy charge)
 {-
@@ -119,7 +119,6 @@ makeMove' this = do
           return [charge]
         else return [quick]
     val -> return val
-  let move':moves' = moveList
   let -- If it's a quick move, its energy is available immediately.
       -- Charge move energy is subtracted at damageWindowStart.
       (okEnergy, wastedEnergy) = if Move.isQuick move'
