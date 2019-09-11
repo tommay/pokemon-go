@@ -100,6 +100,9 @@
 - species: gallade
   moves:
   - SYNCHRONOISE    # Community day 8/3/2019
+- species: torterra
+  moves:
+  - FRENZY_PLANT    # Community day 9/15/2019
 - species: golem_normal
   moves:
   - ANCIENT_POWER
