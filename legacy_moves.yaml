@@ -106,6 +106,9 @@
 - species: flygon
   moves:
   - EARTH_POWER     # Community day 10/12/2019
+- species: infernape
+  moves:
+  - BLAST_BURN      # Community day 11/16/2019
 - species: golem_normal
   moves:
   - ANCIENT_POWER
