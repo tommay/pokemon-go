@@ -116,6 +116,7 @@
   moves:
   - SHADOW_BALL
   - HYPER_BEAM
+  - PSYSTRIKE          # September 2019 ultra-bonus raid boss catch.
 - species: suicune
   moves:
   - HIDDEN_POWER_FAST
