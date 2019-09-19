@@ -28,15 +28,20 @@ pidgey:
 pidgeotto: 
 pidgeot: 
 rattata: 
+rattata_alola: 
 raticate: 
+raticate_alola: 
 spearow: 
 fearow: 
 ekans: 
 arbok: 
 pikachu: 
 raichu: 
+raichu_alola: 
 sandshrew: 
+sandshrew_alola: 
 sandslash: 
+sandslash_alola: 
 nidoran_female: 
 nidorina: 
 nidoqueen: 
@@ -46,7 +51,9 @@ nidoking:
 clefairy: 
 clefable: 
 vulpix: 
+vulpix_alola: 
 ninetales: 
+ninetales_alola: 
 jigglypuff: 
 wigglytuff: 
 zubat: 
@@ -59,9 +66,13 @@ parasect:
 venonat: 
 venomoth: 
 diglett: 
+diglett_alola: 
 dugtrio: 
+dugtrio_alola: 
 meowth: 
+meowth_alola: 
 persian: 
+persian_alola: 
 psyduck: 
 golduck: 
 mankey: 
@@ -83,8 +94,11 @@ victreebel:
 tentacool: 
 tentacruel: 
 geodude: 
+geodude_alola: 
 graveler: 
+graveler_alola: 
 golem: 
+golem_alola: 
 ponyta: 
 rapidash: 
 slowpoke: 
@@ -97,7 +111,9 @@ dodrio:
 seel: 
 dewgong: 
 grimer: 
+grimer_alola: 
 muk: 
+muk_alola: 
 shellder: 
 cloyster: 
 gastly: 
@@ -112,8 +128,10 @@ voltorb:
 electrode: 
 exeggcute: 
 exeggutor: 
+exeggutor_alola: 
 cubone: 
 marowak: 
+marowak_alola: 
 hitmonlee: 
 hitmonchan: 
 lickitung: 
@@ -159,6 +177,7 @@ dratini:
 dragonair: 
 dragonite: 
 mewtwo: legendary
+mewtwo_a: legendary
 mew: legendary
 chikorita: 
 bayleef: 
@@ -260,131 +279,134 @@ tyranitar:
 lugia: legendary
 ho_oh: legendary
 celebi: legendary
-treecko:
-grovyle:
-sceptile:
-torchic:
-combusken:
-blaziken:
-mudkip:
-marshtomp:
-swampert:
-poochyena:
-mightyena:
-zigzagoon:
-linoone:
-wurmple:
-silcoon:
-beautifly:
-cascoon:
-dustox:
-lotad:
-lombre:
-ludicolo:
-seedot:
-nuzleaf:
-shiftry:
-taillow:
-swellow:
-wingull:
-pelipper:
-ralts:
-kirlia:
-gardevoir:
-surskit:
-masquerain:
-shroomish:
-breloom:
-slakoth:
-vigoroth:
-slaking:
+treecko: 
+grovyle: 
+sceptile: 
+torchic: 
+combusken: 
+blaziken: 
+mudkip: 
+marshtomp: 
+swampert: 
+poochyena: 
+mightyena: 
+zigzagoon: 
+linoone: 
+wurmple: 
+silcoon: 
+beautifly: 
+cascoon: 
+dustox: 
+lotad: 
+lombre: 
+ludicolo: 
+seedot: 
+nuzleaf: 
+shiftry: 
+taillow: 
+swellow: 
+wingull: 
+pelipper: 
+ralts: 
+kirlia: 
+gardevoir: 
+surskit: 
+masquerain: 
+shroomish: 
+breloom: 
+slakoth: 
+vigoroth: 
+slaking: 
 nincada: 
 ninjask: 
 shedinja: 
-whismur:
-loudred:
-exploud:
-makuhita:
-hariyama:
-azurill:
-nosepass:
-skitty:
-delcatty:
+whismur: 
+loudred: 
+exploud: 
+makuhita: 
+hariyama: 
+azurill: 
+nosepass: 
+skitty: 
+delcatty: 
 sableye: 
 mawile: 
-aron:
-lairon:
-aggron:
-meditite:
-medicham:
-electrike:
-manectric:
-plusle:
-minun:
-volbeat:  # regional
+aron: 
+lairon: 
+aggron: 
+meditite: 
+medicham: 
+electrike: 
+manectric: 
+plusle: 
+minun: 
+volbeat: # regional
 illumise: # regional
-roselia:
-gulpin:
-swalot:
-carvanha:
-sharpedo:
-wailmer:
-wailord:
-numel:
-camerupt:
-torkoal:  # regional
-spoink:
-grumpig:
-spinda:
-trapinch:
-vibrava:
-flygon:
-cacnea:
-cacturne:
-swablu:
-altaria:
+roselia: 
+gulpin: 
+swalot: 
+carvanha: 
+sharpedo: 
+wailmer: 
+wailord: 
+numel: 
+camerupt: 
+torkoal: # regional
+spoink: 
+grumpig: 
+spinda: 
+trapinch: 
+vibrava: 
+flygon: 
+cacnea: 
+cacturne: 
+swablu: 
+altaria: 
 zangoose: 
-seviper:
-lunatone:  # regional
-solrock:  # regional
-barboach:
-whiscash:
-corphish:
-crawdaunt:
-baltoy:
-claydol:
-lileep:
-cradily:
-anorith:
-armaldo:
-feebas:
-milotic:
-castform:
+seviper: 
+lunatone: # regional
+solrock: # regional
+barboach: 
+whiscash: 
+corphish: 
+crawdaunt: 
+baltoy: 
+claydol: 
+lileep: 
+cradily: 
+anorith: 
+armaldo: 
+feebas: 
+milotic: 
+castform: 
+castform_rainy: 
+castform_snowy: 
+castform_sunny: 
 kecleon: 
 shuppet: 
 banette: 
 duskull: 
 dusclops: 
 tropius: # regional
-chimecho:
-absol:
-wynaut:
-snorunt:
-glalie:
-spheal:
-sealeo:
-walrein:
+chimecho: 
+absol: 
+wynaut: 
+snorunt: 
+glalie: 
+spheal: 
+sealeo: 
+walrein: 
 clamperl: 
 huntail: 
 gorebyss: 
-relicanth:  # regional
-luvdisc:
-bagon:
-shelgon:
-salamence:
-beldum:
-metang:
-metagross:
+relicanth: # regional
+luvdisc: 
+bagon: 
+shelgon: 
+salamence: 
+beldum: 
+metang: 
+metagross: 
 regirock: legendary
 regice: legendary
 registeel: legendary
@@ -395,6 +417,9 @@ groudon: legendary
 rayquaza: legendary
 jirachi: 
 deoxys: legendary
+deoxys_attack: legendary
+deoxys_defense: legendary
+deoxys_speed: legendary
 turtwig: 
 grotle: 
 torterra: 
@@ -414,14 +439,20 @@ kricketune:
 shinx: 
 luxio: 
 luxray: 
-budew:
-roserade:
+budew: 
+roserade: 
 cranidos: 
 rampardos: 
 shieldon: 
 bastiodon: 
 burmy: 
+burmy_plant: 
+burmy_sandy: 
+burmy_trash: 
 wormadam: 
+wormadam_plant: 
+wormadam_sandy: 
+wormadam_trash: 
 mothim: 
 combee: 
 vespiquen: 
@@ -430,15 +461,21 @@ buizel:
 floatzel: 
 cherubi: 
 cherrim: 
+cherrim_overcast: 
+cherrim_sunny: 
 shellos: 
+shellos_east_sea: 
+shellos_west_sea: 
 gastrodon: 
+gastrodon_east_sea: 
+gastrodon_west_sea: 
 ambipom: 
 drifloon: 
 drifblim: 
 buneary: 
 lopunny: 
-mismagius:
-honchkrow:
+mismagius: 
+honchkrow: 
 glameow: 
 purugly: 
 chingling: 
@@ -469,25 +506,30 @@ lumineon:
 mantyke: 
 snover: 
 abomasnow: 
-weavile:
+weavile: 
 magnezone: 
 lickilicky: 
-rhyperior:
+rhyperior: 
 tangrowth: 
-electivire:
-magmortar:
-togekiss:
+electivire: 
+magmortar: 
+togekiss: 
 yanmega: 
 leafeon: 
 glaceon: 
-gliscor:
+gliscor: 
 mamoswine: 
-porygon_z:
+porygon_z: 
 gallade: 
 probopass: 
-dusknoir:
+dusknoir: 
 froslass: 
 rotom: 
+rotom_fan: legendary
+rotom_frost: legendary
+rotom_heat: legendary
+rotom_mow: legendary
+rotom_wash: legendary
 uxie: legendary
 mesprit: legendary
 azelf: legendary
@@ -496,9 +538,218 @@ palkia: legendary
 heatran: legendary
 regigigas: legendary
 giratina: legendary
+giratina_altered: legendary
+giratina_origin: legendary
 cresselia: legendary
 phione: legendary
 manaphy: legendary
 darkrai: legendary
 shaymin: legendary
+shaymin_land: legendary
+shaymin_sky: legendary
 arceus: legendary
+arceus_bug: legendary
+arceus_dark: legendary
+arceus_dragon: legendary
+arceus_electric: legendary
+arceus_fairy: legendary
+arceus_fighting: legendary
+arceus_fire: legendary
+arceus_flying: legendary
+arceus_ghost: legendary
+arceus_grass: legendary
+arceus_ground: legendary
+arceus_ice: legendary
+arceus_poison: legendary
+arceus_psychic: legendary
+arceus_rock: legendary
+arceus_steel: legendary
+arceus_water: legendary
+victini: mythical
+snivy: 
+servine:
+serperior:
+tepig: 
+pignite:
+emboar:
+oshawott: 
+dewott:
+samurott:
+patrat: 
+watchog:
+lillipup: 
+herdier:
+stoutland:
+purrloin: 
+liepard:
+pansage: mythical # regional asia-pacific
+simisage: mythical
+pansear: mythical # regional europe, middle east, africa, india
+simisear: mythical
+panpour: mythical # regional americas and greenland
+simipour: mythical
+munna: mythical
+musharna: mythical
+pidove: 
+tranquill: 
+unfezant:
+blitzle: 
+zebstrika:
+roggenrola: mythical
+boldore: mythical
+gigalith: mythical
+woobat: mythical
+swoobat: mythical
+drilbur: 
+excadrill:
+audino: mythical
+timburr: mythical
+gurdurr: mythical
+conkeldurr: mythical
+tympole: mythical
+palpitoad: mythical
+seismitoad: mythical
+throh: mythical
+sawk: mythical
+sewaddle: mythical
+swadloon: mythical
+leavanny: mythical
+venipede: mythical
+whirlipede: mythical
+scolipede: mythical
+cottonee: mythical
+whimsicott: mythical
+petilil: mythical
+lilligant: mythical
+basculin: mythical
+basculin_blue_striped: mythical
+basculin_red_striped: mythical
+sandile: mythical
+krokorok: mythical
+krookodile: mythical
+darumaka: mythical
+darmanitan: mythical
+darmanitan_standard: mythical
+darmanitan_zen: mythical
+maractus: mythical
+dwebble: mythical
+crustle: mythical
+scraggy: mythical
+scrafty: mythical
+sigilyph: mythical
+yamask: mythical
+cofagrigus: mythical
+tirtouga: mythical
+carracosta: mythical
+archen: mythical
+archeops: mythical
+trubbish: mythical
+garbodor: mythical
+zorua: mythical
+zoroark: mythical
+minccino: mythical
+cinccino: mythical
+gothita: mythical
+gothorita: mythical
+gothitelle: mythical
+solosis: mythical
+duosion: mythical
+reuniclus: mythical
+ducklett: mythical
+swanna: mythical
+vanillite: mythical
+vanillish: mythical
+vanilluxe: mythical
+deerling: mythical
+deerling_autumn: mythical
+deerling_spring: mythical
+deerling_summer: mythical
+deerling_winter: mythical
+sawsbuck: mythical
+sawsbuck_autumn: mythical
+sawsbuck_spring: mythical
+sawsbuck_summer: mythical
+sawsbuck_winter: mythical
+emolga: mythical
+karrablast: mythical
+escavalier: mythical
+foongus: 
+amoonguss:
+frillish: mythical
+jellicent: mythical
+alomomola: mythical
+joltik: mythical
+galvantula: mythical
+ferroseed: 
+ferrothorn:
+klink: 
+klang:
+klinklang:
+tynamo: mythical
+eelektrik: mythical
+eelektross: mythical
+elgyem: mythical
+beheeyem: mythical
+litwick: 
+lampent: 
+chandelure: 
+axew: mythical
+fraxure: mythical
+haxorus: mythical
+cubchoo: mythical
+beartic: mythical
+cryogonal: mythical
+shelmet: mythical
+accelgor: mythical
+stunfisk: mythical
+mienfoo: mythical
+mienshao: mythical
+druddigon: mythical
+golett: 
+golurk:
+pawniard: mythical
+bisharp: mythical
+bouffalant: mythical
+rufflet: mythical
+braviary: mythical
+vullaby: mythical
+mandibuzz: mythical
+heatmor: # regional western hemisphere
+durant: mythical # regional eastern hemisphere
+deino: 
+zweilous:
+hydreigon:
+larvesta: mythical
+volcarona: mythical
+cobalion: mythical
+terrakion: mythical
+virizion: mythical
+tornadus: mythical
+tornadus_incarnate: mythical
+tornadus_therian: mythical
+thundurus: mythical
+thundurus_incarnate: mythical
+thundurus_therian: mythical
+reshiram: mythical
+zekrom: mythical
+landorus: mythical
+landorus_incarnate: mythical
+landorus_therian: mythical
+kyurem: mythical
+kyurem_black: mythical
+kyurem_white: mythical
+keldeo: mythical
+keldeo_ordinary: mythical
+keldeo_resolute: mythical
+meloetta: mythical
+meloetta_aria: mythical
+meloetta_pirouette: mythical
+genesect: mythical
+genesect_burn: mythical
+genesect_chill: mythical
+genesect_douse: mythical
+genesect_shock: mythical
+meltan: 
+melmetal: 
+
+
