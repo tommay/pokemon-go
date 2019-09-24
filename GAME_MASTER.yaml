@@ -8252,6 +8252,62 @@ itemTemplates:
     - 10
     - 100
     - 1000
+- templateId: BADGE_SAFARIZONE_2019_MONTREAL_DAY_00_EARLYACCESS
+  badgeSettings:
+    badgeType: BADGE_SAFARIZONE_2019_MONTREAL_DAY_00_EARLYACCESS
+    badgeRank: 2
+    targets:
+    - 100
+    eventBadge: true
+- templateId: BADGE_SAFARIZONE_2019_MONTREAL_DAY_00_GENERAL
+  badgeSettings:
+    badgeType: BADGE_SAFARIZONE_2019_MONTREAL_DAY_00_GENERAL
+    badgeRank: 2
+    targets:
+    - 100
+    eventBadge: true
+- templateId: BADGE_SAFARIZONE_2019_MONTREAL_DAY_01_EARLYACCESS
+  badgeSettings:
+    badgeType: BADGE_SAFARIZONE_2019_MONTREAL_DAY_01_EARLYACCESS
+    badgeRank: 2
+    targets:
+    - 100
+    eventBadge: true
+- templateId: BADGE_SAFARIZONE_2019_MONTREAL_DAY_01_GENERAL
+  badgeSettings:
+    badgeType: BADGE_SAFARIZONE_2019_MONTREAL_DAY_01_GENERAL
+    badgeRank: 2
+    targets:
+    - 100
+    eventBadge: true
+- templateId: BADGE_SAFARIZONE_2019_MONTREAL_DAY_02_EARLYACCESS
+  badgeSettings:
+    badgeType: BADGE_SAFARIZONE_2019_MONTREAL_DAY_02_EARLYACCESS
+    badgeRank: 2
+    targets:
+    - 100
+    eventBadge: true
+- templateId: BADGE_SAFARIZONE_2019_MONTREAL_DAY_02_GENERAL
+  badgeSettings:
+    badgeType: BADGE_SAFARIZONE_2019_MONTREAL_DAY_02_GENERAL
+    badgeRank: 2
+    targets:
+    - 100
+    eventBadge: true
+- templateId: BADGE_SAFARIZONE_2019_MONTREAL_DAY_03_EARLYACCESS
+  badgeSettings:
+    badgeType: BADGE_SAFARIZONE_2019_MONTREAL_DAY_03_EARLYACCESS
+    badgeRank: 2
+    targets:
+    - 100
+    eventBadge: true
+- templateId: BADGE_SAFARIZONE_2019_MONTREAL_DAY_03_GENERAL
+  badgeSettings:
+    badgeType: BADGE_SAFARIZONE_2019_MONTREAL_DAY_03_GENERAL
+    badgeRank: 2
+    targets:
+    - 100
+    eventBadge: true
 - templateId: BADGE_SAFARI_ZONE_EUROPE_2017
   badgeSettings:
     badgeType: BADGE_SAFARI_ZONE_EUROPE_2017
@@ -8641,6 +8697,20 @@ itemTemplates:
     - DRAGONAIR_NORMAL
     - DRAGONITE_NORMAL
     - MEWTWO_NORMAL
+    - ODDISH_NORMAL
+    - GLOOM_NORMAL
+    - VILEPLUME_NORMAL
+    - VENONAT_NORMAL
+    - VENOMOTH_NORMAL
+    - PSYDUCK_NORMAL
+    - GOLDUCK_NORMAL
+    - GROWLITHE_NORMAL
+    - ARCANINE_NORMAL
+    - ABRA_NORMAL
+    - KADABRA_NORMAL
+    - ALAKAZAM_NORMAL
+    - HITMONCHAN_NORMAL
+    - LAPRAS_NORMAL
     costumesAllowed:
     - COSTUME_UNSET
 - templateId: CHARACTER_BLANCHE
@@ -9773,9 +9843,9 @@ itemTemplates:
   combatMove:
     uniqueId: PSYSTRIKE
     type: POKEMON_TYPE_PSYCHIC
-    power: 100.0
+    power: 90.0
     vfxName: psystrike
-    energyDelta: -55
+    energyDelta: -45
 - templateId: COMBAT_V0111_MOVE_ICY_WIND
   combatMove:
     uniqueId: ICY_WIND
@@ -40911,16 +40981,16 @@ itemTemplates:
     movementId: PSYSTRIKE
     animationId: 5
     pokemonType: POKEMON_TYPE_PSYCHIC
-    power: 100.0
+    power: 90.0
     accuracyChance: 1.0
     criticalChance: 0.05
     staminaLossScalar: 0.1
     trainerLevelMin: 1
     trainerLevelMax: 100
     vfxName: psystrike
-    durationMs: 4400
-    damageWindowStartMs: 3000
-    damageWindowEndMs: 4200
+    durationMs: 2300
+    damageWindowStartMs: 1000
+    damageWindowEndMs: 2000
     energyDelta: -50
 - templateId: V0109_POKEMON_KOFFING
   pokemonSettings:
@@ -82709,7 +82779,6 @@ itemTemplates:
       movementTimerS: 10.0
       jumpTimeS: 0.75
       attackTimerS: 29.0
-      bonusStardustCaptureReward: 200
       attackProbability: 0.1
       dodgeProbability: 0.15
       dodgeDurationS: 1.0
@@ -82789,7 +82858,7 @@ itemTemplates:
       jumpTimeS: 1.0
       attackTimerS: 29.0
       bonusCandyCaptureReward: 2
-      bonusStardustCaptureReward: 400
+      bonusStardustCaptureReward: 200
       attackProbability: 0.1
       dodgeProbability: 0.15
       dodgeDurationS: 1.0
@@ -82861,7 +82930,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.05
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.25
       collisionHeightM: 0.25
       collisionHeadRadiusM: 0.12
@@ -82870,7 +82939,8 @@ itemTemplates:
       jumpTimeS: 0.9
       attackTimerS: 29.0
       bonusCandyCaptureReward: 7
-      attackProbability: 0.1
+      bonusStardustCaptureReward: 400
+      attackProbability: 0.2
       dodgeProbability: 0.15
       dodgeDurationS: 1.0
       dodgeDistance: 0.5
@@ -82947,7 +83017,6 @@ itemTemplates:
       movementTimerS: 10.0
       jumpTimeS: 0.8
       attackTimerS: 29.0
-      bonusStardustCaptureReward: 200
       attackProbability: 0.1
       dodgeProbability: 0.15
       dodgeDurationS: 1.0
@@ -83019,7 +83088,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.1
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.3
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.25
@@ -83028,7 +83097,7 @@ itemTemplates:
       jumpTimeS: 0.9
       attackTimerS: 29.0
       bonusCandyCaptureReward: 2
-      bonusStardustCaptureReward: 400
+      bonusStardustCaptureReward: 200
       attackProbability: 0.1
       dodgeProbability: 0.15
       dodgeDurationS: 1.0
@@ -83101,7 +83170,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.05
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.5
       collisionHeightM: 0.5
       collisionHeadRadiusM: 0.25
@@ -83110,7 +83179,8 @@ itemTemplates:
       jumpTimeS: 1.0
       attackTimerS: 29.0
       bonusCandyCaptureReward: 7
-      attackProbability: 0.1
+      bonusStardustCaptureReward: 400
+      attackProbability: 0.2
       dodgeProbability: 0.15
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
@@ -83257,7 +83327,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.1
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.13
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.13
@@ -83338,7 +83408,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.05
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.5
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.2
@@ -83348,7 +83418,7 @@ itemTemplates:
       attackTimerS: 29.0
       bonusCandyCaptureReward: 7
       bonusStardustCaptureReward: 400
-      attackProbability: 0.1
+      attackProbability: 0.2
       dodgeProbability: 0.15
       dodgeDurationS: 1.0
       dodgeDistance: 0.5
@@ -83416,7 +83486,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.5
-      baseFleeRate: 0.1
+      baseFleeRate: 0.2
       collisionRadiusM: 0.12
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.13
@@ -83424,8 +83494,8 @@ itemTemplates:
       movementTimerS: 10.0
       jumpTimeS: 1.0
       attackTimerS: 29.0
-      attackProbability: 0.1
-      dodgeProbability: 0.15
+      attackProbability: 0.2
+      dodgeProbability: 0.3
       dodgeDurationS: 1.0
       dodgeDistance: 0.6
       cameraDistance: 3.0
@@ -83494,7 +83564,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.2
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.2
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.16
@@ -83504,7 +83574,7 @@ itemTemplates:
       attackTimerS: 29.0
       bonusCandyCaptureReward: 2
       bonusStardustCaptureReward: 200
-      attackProbability: 0.1
+      attackProbability: 0.2
       dodgeProbability: 0.15
       dodgeDurationS: 1.0
       dodgeDistance: 0.5
@@ -83572,7 +83642,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.5
-      baseFleeRate: 0.1
+      baseFleeRate: 0.2
       collisionRadiusM: 0.08
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.12
@@ -83650,7 +83720,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.25
-      baseFleeRate: 0.1
+      baseFleeRate: 0.09
       collisionRadiusM: 0.2
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.15
@@ -83731,7 +83801,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.125
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.4
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.22
@@ -83809,7 +83879,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.5
-      baseFleeRate: 0.1
+      baseFleeRate: 0.2
       collisionRadiusM: 0.05
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.1
@@ -83817,8 +83887,8 @@ itemTemplates:
       movementTimerS: 10.0
       jumpTimeS: 0.8
       attackTimerS: 29.0
-      attackProbability: 0.1
-      dodgeProbability: 0.15
+      attackProbability: 0.2
+      dodgeProbability: 0.3
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
       cameraDistance: 3.0
@@ -83887,7 +83957,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.2
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.15
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.13
@@ -83897,7 +83967,7 @@ itemTemplates:
       attackTimerS: 29.0
       bonusCandyCaptureReward: 2
       bonusStardustCaptureReward: 200
-      attackProbability: 0.1
+      attackProbability: 0.2
       dodgeProbability: 0.15
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
@@ -83965,7 +84035,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.5
-      baseFleeRate: 0.1
+      baseFleeRate: 0.2
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.13
@@ -83973,8 +84043,8 @@ itemTemplates:
       movementTimerS: 10.0
       jumpTimeS: 0.85
       attackTimerS: 29.0
-      attackProbability: 0.1
-      dodgeProbability: 0.15
+      attackProbability: 0.4
+      dodgeProbability: 0.1
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
       cameraDistance: 3.5
@@ -84044,7 +84114,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.5
-      baseFleeRate: 0.1
+      baseFleeRate: 0.2
       collisionRadiusM: 0.2
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.25
@@ -84054,7 +84124,7 @@ itemTemplates:
       attackTimerS: 29.0
       bonusCandyCaptureReward: 2
       bonusStardustCaptureReward: 200
-      attackProbability: 0.1
+      attackProbability: 0.2
       dodgeProbability: 0.15
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
@@ -84122,7 +84192,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.2
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.13
@@ -84130,8 +84200,8 @@ itemTemplates:
       movementTimerS: 10.0
       jumpTimeS: 0.85
       attackTimerS: 29.0
-      attackProbability: 0.1
-      dodgeProbability: 0.15
+      attackProbability: 0.4
+      dodgeProbability: 0.1
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
       cameraDistance: 3.5
@@ -84201,7 +84271,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.5
-      baseFleeRate: 0.1
+      baseFleeRate: 0.2
       collisionRadiusM: 0.21
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.19
@@ -84211,7 +84281,7 @@ itemTemplates:
       attackTimerS: 29.0
       bonusCandyCaptureReward: 2
       bonusStardustCaptureReward: 200
-      attackProbability: 0.1
+      attackProbability: 0.2
       dodgeProbability: 0.15
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
@@ -84279,7 +84349,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.5
-      baseFleeRate: 0.1
+      baseFleeRate: 0.2
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.13
@@ -84287,8 +84357,8 @@ itemTemplates:
       movementTimerS: 10.0
       jumpTimeS: 0.85
       attackTimerS: 29.0
-      attackProbability: 0.1
-      dodgeProbability: 0.15
+      attackProbability: 0.4
+      dodgeProbability: 0.1
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
       cameraDistance: 3.5
@@ -84358,7 +84428,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.2
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.15
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.15
@@ -84368,7 +84438,7 @@ itemTemplates:
       attackTimerS: 29.0
       bonusCandyCaptureReward: 2
       bonusStardustCaptureReward: 200
-      attackProbability: 0.1
+      attackProbability: 0.2
       dodgeProbability: 0.15
       dodgeDurationS: 1.0
       dodgeDistance: 0.8
@@ -84437,7 +84507,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.5
-      baseFleeRate: 0.1
+      baseFleeRate: 0.2
       collisionRadiusM: 0.3
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.25
@@ -84518,7 +84588,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.2
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.5
       collisionHeightM: 0.3
       collisionHeadRadiusM: 0.3
@@ -84528,7 +84598,7 @@ itemTemplates:
       attackTimerS: 29.0
       bonusCandyCaptureReward: 2
       bonusStardustCaptureReward: 200
-      attackProbability: 0.1
+      attackProbability: 0.2
       dodgeProbability: 0.15
       dodgeDurationS: 1.5
       dodgeDistance: 1.0
@@ -84598,7 +84668,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.5
-      baseFleeRate: 0.1
+      baseFleeRate: 0.2
       collisionRadiusM: 0.08
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.08
@@ -84606,7 +84676,7 @@ itemTemplates:
       movementTimerS: 10.0
       jumpTimeS: 0.8
       attackTimerS: 29.0
-      attackProbability: 0.1
+      attackProbability: 0.15
       dodgeProbability: 0.15
       dodgeDurationS: 1.0
       dodgeDistance: 0.6
@@ -84644,7 +84714,7 @@ itemTemplates:
     modelHeight: 0.29
     evolutionBranch:
     - evolution: TRANQUILL
-      candyCost: 25
+      candyCost: 12
     modelScaleV2: 1.28
     buddyOffsetMale:
     - 5.4
@@ -84678,7 +84748,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.25
-      baseFleeRate: 0.1
+      baseFleeRate: 0.09
       collisionRadiusM: 0.12
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.07
@@ -84688,7 +84758,7 @@ itemTemplates:
       attackTimerS: 29.0
       bonusCandyCaptureReward: 2
       bonusStardustCaptureReward: 200
-      attackProbability: 0.1
+      attackProbability: 0.2
       dodgeProbability: 0.15
       dodgeDurationS: 1.5
       dodgeDistance: 1.0
@@ -84728,7 +84798,7 @@ itemTemplates:
     modelHeight: 0.84
     evolutionBranch:
     - evolution: UNFEZANT
-      candyCost: 100
+      candyCost: 50
     modelScaleV2: 1.0
     buddyOffsetMale:
     - 37.2
@@ -84761,7 +84831,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.125
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.2
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.1
@@ -84771,7 +84841,7 @@ itemTemplates:
       attackTimerS: 29.0
       bonusCandyCaptureReward: 7
       bonusStardustCaptureReward: 400
-      attackProbability: 0.1
+      attackProbability: 0.25
       dodgeProbability: 0.15
       dodgeDurationS: 1.75
       dodgeDistance: 1.0
@@ -84848,8 +84918,8 @@ itemTemplates:
       movementTimerS: 10.0
       jumpTimeS: 0.9
       attackTimerS: 29.0
-      attackProbability: 0.1
-      dodgeProbability: 0.15
+      attackProbability: 0.2
+      dodgeProbability: 0.2
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
       cameraDistance: 4.0
@@ -84918,7 +84988,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.1
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.4
       collisionHeightM: 0.5
       collisionHeadRadiusM: 0.18
@@ -84928,8 +84998,8 @@ itemTemplates:
       attackTimerS: 29.0
       bonusCandyCaptureReward: 2
       bonusStardustCaptureReward: 200
-      attackProbability: 0.1
-      dodgeProbability: 0.15
+      attackProbability: 0.2
+      dodgeProbability: 0.2
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
       cameraDistance: 6.5
@@ -84997,7 +85067,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.5
-      baseFleeRate: 0.1
+      baseFleeRate: 0.15
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -85075,7 +85145,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.25
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -85156,7 +85226,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.125
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -85237,7 +85307,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.5
-      baseFleeRate: 0.1
+      baseFleeRate: 0.2
       collisionRadiusM: 0.2
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.2
@@ -85246,7 +85316,7 @@ itemTemplates:
       jumpTimeS: 1.0
       attackTimerS: 29.0
       attackProbability: 0.1
-      dodgeProbability: 0.15
+      dodgeProbability: 0.25
       dodgeDurationS: 1.75
       dodgeDistance: 0.4
       cameraDistance: 3.0
@@ -85318,7 +85388,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.2
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.28
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.2
@@ -85329,7 +85399,7 @@ itemTemplates:
       bonusCandyCaptureReward: 2
       bonusStardustCaptureReward: 200
       attackProbability: 0.1
-      dodgeProbability: 0.15
+      dodgeProbability: 0.2
       dodgeDurationS: 2.25
       dodgeDistance: 0.8
       cameraDistance: 5.5
@@ -85396,7 +85466,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.5
-      baseFleeRate: 0.1
+      baseFleeRate: 0.2
       collisionRadiusM: 0.09
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.05
@@ -85475,7 +85545,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.2
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.17
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.12
@@ -85485,8 +85555,8 @@ itemTemplates:
       attackTimerS: 29.0
       bonusCandyCaptureReward: 2
       bonusStardustCaptureReward: 200
-      attackProbability: 0.1
-      dodgeProbability: 0.15
+      attackProbability: 0.3
+      dodgeProbability: 0.45
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
       cameraDistance: 3.5
@@ -85554,7 +85624,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.05
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.27
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.19
@@ -85629,7 +85699,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.5
-      baseFleeRate: 0.1
+      baseFleeRate: 0.15
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -85707,7 +85777,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.25
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -85788,7 +85858,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.125
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -85866,7 +85936,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.5
-      baseFleeRate: 0.1
+      baseFleeRate: 0.15
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -85945,7 +86015,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.25
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -86027,7 +86097,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.125
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -86105,7 +86175,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.2
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -86180,7 +86250,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.2
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -86256,7 +86326,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.5
-      baseFleeRate: 0.1
+      baseFleeRate: 0.15
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -86335,7 +86405,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.25
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -86417,7 +86487,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.125
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -86575,7 +86645,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.15
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -86657,7 +86727,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.2
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -86782,6 +86852,7 @@ itemTemplates:
     modelHeight: 0.4
     evolutionBranch:
     - evolution: WHIMSICOTT
+      evolutionItemRequirement: ITEM_SUN_STONE
       candyCost: 50
     modelScaleV2: 1.1
     buddyOffsetMale:
@@ -86815,7 +86886,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.15
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -86938,6 +87009,7 @@ itemTemplates:
     modelHeight: 0.4
     evolutionBranch:
     - evolution: LILLIGANT
+      evolutionItemRequirement: ITEM_SUN_STONE
       candyCost: 50
     modelScaleV2: 1.1
     buddyOffsetMale:
@@ -86970,7 +87042,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.15
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -87048,7 +87120,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.2
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -87123,7 +87195,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.2
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -87199,7 +87271,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.2
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -87276,7 +87348,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.5
-      baseFleeRate: 0.1
+      baseFleeRate: 0.15
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -87355,7 +87427,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.25
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -87437,7 +87509,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.125
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -87515,7 +87587,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.3
-      baseFleeRate: 0.1
+      baseFleeRate: 0.09
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -87597,7 +87669,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.1
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -87679,7 +87751,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.1
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -87760,7 +87832,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.1
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -87840,7 +87912,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.2
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -87995,7 +88067,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.1
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -88074,7 +88146,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.3
-      baseFleeRate: 0.1
+      baseFleeRate: 0.09
       collisionRadiusM: 0.09
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.13
@@ -88082,7 +88154,7 @@ itemTemplates:
       movementTimerS: 10.0
       jumpTimeS: 0.8
       attackTimerS: 29.0
-      attackProbability: 0.1
+      attackProbability: 0.25
       dodgeProbability: 0.15
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
@@ -88153,7 +88225,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.1
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.13
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.21
@@ -88163,7 +88235,7 @@ itemTemplates:
       attackTimerS: 29.0
       bonusCandyCaptureReward: 2
       bonusStardustCaptureReward: 200
-      attackProbability: 0.1
+      attackProbability: 0.25
       dodgeProbability: 0.15
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
@@ -88232,7 +88304,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.2
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -88318,7 +88390,7 @@ itemTemplates:
       jumpTimeS: 1.0
       attackTimerS: 29.0
       attackProbability: 0.1
-      dodgeProbability: 0.15
+      dodgeProbability: 0.2
       dodgeDurationS: 1.75
       dodgeDistance: 0.5
       cameraDistance: 3.0
@@ -88388,7 +88460,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.1
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.3
       collisionHeightM: 0.5
       collisionHeadRadiusM: 0.49
@@ -88396,7 +88468,7 @@ itemTemplates:
       movementTimerS: 10.0
       jumpTimeS: 1.0
       attackTimerS: 29.0
-      attackProbability: 0.1
+      attackProbability: 0.2
       dodgeProbability: 0.15
       dodgeDurationS: 2.0
       dodgeDistance: 0.8
@@ -88545,7 +88617,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.1
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -88624,7 +88696,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.3
-      baseFleeRate: 0.1
+      baseFleeRate: 0.09
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -88703,7 +88775,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.1
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -88781,7 +88853,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.3
-      baseFleeRate: 0.1
+      baseFleeRate: 0.09
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -88859,7 +88931,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.1
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -88938,7 +89010,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.3
-      baseFleeRate: 0.1
+      baseFleeRate: 0.09
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -89016,7 +89088,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.1
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -89173,7 +89245,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.1
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -89251,7 +89323,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.5
-      baseFleeRate: 0.1
+      baseFleeRate: 0.15
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -89329,7 +89401,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.25
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -89410,7 +89482,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.125
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -89488,7 +89560,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.5
-      baseFleeRate: 0.1
+      baseFleeRate: 0.15
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -89566,7 +89638,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.25
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -89647,7 +89719,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.125
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -89726,7 +89798,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.5
-      baseFleeRate: 0.1
+      baseFleeRate: 0.15
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -89805,7 +89877,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.4
-      baseFleeRate: 0.1
+      baseFleeRate: 0.12
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -89883,7 +89955,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.1
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -89961,7 +90033,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.05
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -90042,7 +90114,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.125
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -90521,7 +90593,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.15
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -90601,7 +90673,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.15
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -90682,7 +90754,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.15
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -90763,7 +90835,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.15
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -90844,7 +90916,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.2
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -90925,7 +90997,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.2
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -91080,7 +91152,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.125
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -91239,7 +91311,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.125
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.18
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.28
@@ -91318,7 +91390,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.3
-      baseFleeRate: 0.1
+      baseFleeRate: 0.09
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -91397,7 +91469,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.125
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -91475,7 +91547,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.2
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -91630,7 +91702,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.125
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -91710,7 +91782,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.3
-      baseFleeRate: 0.1
+      baseFleeRate: 0.09
       collisionRadiusM: 0.2
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.3
@@ -91772,8 +91844,8 @@ itemTemplates:
     - 0.0
     - -0.01
     thirdMove:
-      stardustToUnlock: 50000
-      candyToUnlock: 50
+      stardustToUnlock: 75000
+      candyToUnlock: 75
     isTransferable: true
     isDeployable: true
 - templateId: V0598_POKEMON_FERROTHORN
@@ -91789,7 +91861,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.125
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.7
       collisionHeightM: 0.5
       collisionHeadRadiusM: 0.7
@@ -91853,8 +91925,8 @@ itemTemplates:
     - 0.1
     - 0.0
     thirdMove:
-      stardustToUnlock: 50000
-      candyToUnlock: 50
+      stardustToUnlock: 75000
+      candyToUnlock: 75
     isTransferable: true
     isDeployable: true
 - templateId: V0599_POKEMON_KLINK
@@ -91878,8 +91950,8 @@ itemTemplates:
       movementTimerS: 10.0
       jumpTimeS: 1.0
       attackTimerS: 29.0
-      attackProbability: 0.1
-      dodgeProbability: 0.15
+      attackProbability: 0.2
+      dodgeProbability: 0.25
       dodgeDurationS: 0.8
       dodgeDistance: 0.5
       cameraDistance: 3.0
@@ -91949,7 +92021,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.1
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.29
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.29
@@ -91959,8 +92031,8 @@ itemTemplates:
       attackTimerS: 29.0
       bonusCandyCaptureReward: 2
       bonusStardustCaptureReward: 200
-      attackProbability: 0.1
-      dodgeProbability: 0.15
+      attackProbability: 0.2
+      dodgeProbability: 0.25
       dodgeDurationS: 0.8
       dodgeDistance: 0.5
       cameraDistance: 3.5
@@ -92031,7 +92103,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.05
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.29
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.29
@@ -92041,8 +92113,8 @@ itemTemplates:
       attackTimerS: 29.0
       bonusCandyCaptureReward: 7
       bonusStardustCaptureReward: 400
-      attackProbability: 0.1
-      dodgeProbability: 0.15
+      attackProbability: 0.2
+      dodgeProbability: 0.25
       dodgeDurationS: 1.0
       dodgeDistance: 0.5
       cameraDistance: 3.5
@@ -92109,7 +92181,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.4
-      baseFleeRate: 0.1
+      baseFleeRate: 0.15
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -92185,7 +92257,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.1
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -92264,7 +92336,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.05
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -92388,7 +92460,7 @@ itemTemplates:
     kmBuddyDistance: 3.0
     modelHeight: 0.4
     evolutionBranch:
-    - evolution: ELGYEM
+    - evolution: BEHEEYEM
       candyCost: 50
     modelScaleV2: 1.1
     buddyOffsetMale:
@@ -92421,7 +92493,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.15
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -92500,7 +92572,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.4
-      baseFleeRate: 0.1
+      baseFleeRate: 0.09
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.13
@@ -92509,7 +92581,7 @@ itemTemplates:
       jumpTimeS: 0.8
       attackTimerS: 29.0
       attackProbability: 0.1
-      dodgeProbability: 0.15
+      dodgeProbability: 0.2
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
       cameraDistance: 2.5
@@ -92580,7 +92652,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.1
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.15
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.2
@@ -92664,7 +92736,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.05
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.3
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.35
@@ -92743,7 +92815,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.4
-      baseFleeRate: 0.1
+      baseFleeRate: 0.09
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -92821,7 +92893,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.1
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -92902,7 +92974,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.05
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -93059,7 +93131,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.15
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -93137,7 +93209,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.2
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -93291,7 +93363,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.15
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -93371,7 +93443,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.2
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -93524,7 +93596,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.15
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -93602,7 +93674,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.2
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -93757,7 +93829,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.15
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.6
       collisionHeightM: 0.3
       collisionHeadRadiusM: 0.25
@@ -93837,7 +93909,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.3
-      baseFleeRate: 0.1
+      baseFleeRate: 0.09
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -93916,7 +93988,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.15
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -93995,7 +94067,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.2
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -94151,7 +94223,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.15
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -94309,7 +94381,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.15
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -94335,7 +94407,7 @@ itemTemplates:
     - AIR_SLASH_FAST
     cinematicMoves:
     - DARK_PULSE
-    - SKY_ATTACK
+    - AERIAL_ACE
     - FOUL_PLAY
     - SHADOW_BALL
     animationTime:
@@ -94388,7 +94460,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.2
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.35
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.35
@@ -94396,8 +94468,8 @@ itemTemplates:
       movementTimerS: 10.0
       jumpTimeS: 1.05
       attackTimerS: 29.0
-      attackProbability: 0.1
-      dodgeProbability: 0.15
+      attackProbability: 0.7
+      dodgeProbability: 0.2
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
       cameraDistance: 5.0
@@ -94464,7 +94536,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.2
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.08
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.08
@@ -94472,8 +94544,8 @@ itemTemplates:
       movementTimerS: 10.0
       jumpTimeS: 0.8
       attackTimerS: 29.0
-      attackProbability: 0.1
-      dodgeProbability: 0.15
+      attackProbability: 0.7
+      dodgeProbability: 0.2
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
       cameraDistance: 2.5
@@ -94540,7 +94612,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.4
-      baseFleeRate: 0.1
+      baseFleeRate: 0.09
       collisionRadiusM: 0.15
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.15
@@ -94619,7 +94691,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.1
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.3
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.3
@@ -94703,7 +94775,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.05
-      baseFleeRate: 0.1
+      baseFleeRate: 0.05
       collisionRadiusM: 0.5
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.2
@@ -94783,7 +94855,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.7
-      baseFleeRate: 0.1
+      baseFleeRate: 0.15
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -94862,7 +94934,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.1
-      baseFleeRate: 0.1
+      baseFleeRate: 0.07
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -94942,7 +95014,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.02
-      baseFleeRate: 0.1
+      baseFleeRate: 0.01
       collisionRadiusM: 0.5
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.31
@@ -95019,7 +95091,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.02
-      baseFleeRate: 0.1
+      baseFleeRate: 0.01
       collisionRadiusM: 0.75
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.5
@@ -95096,7 +95168,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.02
-      baseFleeRate: 0.1
+      baseFleeRate: 0.01
       collisionRadiusM: 0.5
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.25
@@ -95172,7 +95244,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.02
-      baseFleeRate: 0.1
+      baseFleeRate: 0.01
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -95249,7 +95321,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.02
-      baseFleeRate: 0.1
+      baseFleeRate: 0.01
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -95326,7 +95398,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.02
-      baseFleeRate: 0.1
+      baseFleeRate: 0.01
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -95404,7 +95476,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.02
-      baseFleeRate: 0.1
+      baseFleeRate: 0.01
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -95482,7 +95554,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.02
-      baseFleeRate: 0.1
+      baseFleeRate: 0.01
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -95560,7 +95632,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.02
-      baseFleeRate: 0.1
+      baseFleeRate: 0.01
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -95638,7 +95710,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.02
-      baseFleeRate: 0.1
+      baseFleeRate: 0.01
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -95715,7 +95787,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.02
-      baseFleeRate: 0.1
+      baseFleeRate: 0.01
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -95792,7 +95864,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.02
-      baseFleeRate: 0.1
+      baseFleeRate: 0.01
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -95870,7 +95942,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.02
-      baseFleeRate: 0.1
+      baseFleeRate: 0.01
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -95948,7 +96020,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.02
-      baseFleeRate: 0.1
+      baseFleeRate: 0.01
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -96026,7 +96098,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.02
-      baseFleeRate: 0.1
+      baseFleeRate: 0.01
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -96104,7 +96176,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.02
-      baseFleeRate: 0.1
+      baseFleeRate: 0.01
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -96182,7 +96254,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.02
-      baseFleeRate: 0.1
+      baseFleeRate: 0.01
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -96260,7 +96332,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.02
-      baseFleeRate: 0.1
+      baseFleeRate: 0.01
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -96338,7 +96410,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.02
-      baseFleeRate: 0.1
+      baseFleeRate: 0.01
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -96415,7 +96487,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.02
-      baseFleeRate: 0.1
+      baseFleeRate: 0.01
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -96492,7 +96564,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.02
-      baseFleeRate: 0.1
+      baseFleeRate: 0.01
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -96569,7 +96641,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.02
-      baseFleeRate: 0.1
+      baseFleeRate: 0.01
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -96647,7 +96719,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.02
-      baseFleeRate: 0.1
+      baseFleeRate: 0.01
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -96725,7 +96797,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.02
-      baseFleeRate: 0.1
+      baseFleeRate: 0.01
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -96803,7 +96875,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.02
-      baseFleeRate: 0.1
+      baseFleeRate: 0.01
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -96879,7 +96951,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.02
-      baseFleeRate: 0.1
+      baseFleeRate: 0.01
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -96956,7 +97028,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.02
-      baseFleeRate: 0.1
+      baseFleeRate: 0.01
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -97033,7 +97105,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.02
-      baseFleeRate: 0.1
+      baseFleeRate: 0.01
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -97110,7 +97182,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.02
-      baseFleeRate: 0.1
+      baseFleeRate: 0.01
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -97187,7 +97259,7 @@ itemTemplates:
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.02
-      baseFleeRate: 0.1
+      baseFleeRate: 0.01
       collisionRadiusM: 0.1
       collisionHeightM: 0.1
       collisionHeadRadiusM: 0.126
@@ -113119,11 +113191,10 @@ itemTemplates:
   moveSequenceSettings:
     sequence:
     - anim attacker atk-move
-    - vfx attacker psystrike_emit
-    - vfx defender psystrike_hit
-    - vfx defender psystrike_projectile
+    - wait 0.5
+    - vfx psystrike
     - sfx attacker 540-0_psystrike
-    - wait 4.8
+    - wait 1.5
     - sys ui-sync
     - sys complete
 - templateId: sequence_quick_attack_fast
@@ -113926,4 +113997,4 @@ itemTemplates:
     - wait 0.25
     - sys ui-sync
     - sys complete
-timestampMs: '1570469877249'
+timestampMs: '1570842289498'
