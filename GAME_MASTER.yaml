@@ -65970,7 +65970,7 @@ itemTemplates:
     isDeployable: true
 - templateId: V0328_MOVE_HORN_DRILL
   moveSettings:
-    movementId: 328
+    movementId: HORN_DRILL
     animationId: 5
     pokemonType: POKEMON_TYPE_NORMAL
     accuracyChance: 1.0
@@ -66056,7 +66056,7 @@ itemTemplates:
     isDeployable: true
 - templateId: V0329_MOVE_FISSURE
   moveSettings:
-    movementId: 329
+    movementId: FISSURE
     animationId: 5
     pokemonType: POKEMON_TYPE_GROUND
     accuracyChance: 1.0
