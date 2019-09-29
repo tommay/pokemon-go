@@ -99,7 +99,7 @@ main =
       options <- getOptions
 
       allMatchups <- do
-        allMatchups <- join $ Matchup.load $ filename options
+        allMatchups <-join $ Matchup.load $ filename options
         allMatchups <- do
           return $
             filter (not . (`elem` excludes options) . Matchup.attacker)
@@ -159,9 +159,7 @@ getAttackerFromMatchup matchup = Attacker
   (Matchup.quick matchup)
   (Matchup.charge matchup)
 
--- Keep the top ten percentile of Matchups by dps.  This eliminates
--- attackers with low dps even if they do a lot of damage by having
--- high bulk, e.g., snorlax.
+-- Keep the top N matchups by dps.
 --
 keepHighDpsMatchups :: Int -> [Matchup] -> [Matchup]
 keepHighDpsMatchups n matchups =
