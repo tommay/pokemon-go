@@ -46628,7 +46628,7 @@ itemTemplates:
       cylinderHeightM: 2.0
       shoulderModeScale: 0.5
     encounter:
-      baseCaptureRate: 0.02
+      baseCaptureRate: 0.06
       baseFleeRate: 0.1
       collisionRadiusM: 0.37
       collisionHeightM: 1.184
@@ -46705,7 +46705,7 @@ itemTemplates:
       cylinderHeightM: 2.0
       shoulderModeScale: 0.5
     encounter:
-      baseCaptureRate: 0.02
+      baseCaptureRate: 0.06
       baseFleeRate: 0.1
       collisionRadiusM: 0.37
       collisionHeightM: 1.184
@@ -46782,7 +46782,7 @@ itemTemplates:
       cylinderHeightM: 2.0
       shoulderModeScale: 0.5
     encounter:
-      baseCaptureRate: 0.02
+      baseCaptureRate: 0.06
       baseFleeRate: 0.1
       collisionRadiusM: 0.37
       collisionHeightM: 1.184
@@ -65332,7 +65332,7 @@ itemTemplates:
     movementId: GIGA_IMPACT
     animationId: 5
     pokemonType: POKEMON_TYPE_NORMAL
-    power: 9000.0
+    power: 9001.0
     accuracyChance: 1.0
     staminaLossScalar: 0.01
     trainerLevelMin: 1
@@ -97989,8 +97989,7 @@ itemTemplates:
     raidEncounterCpBaseLevelBonus: 5
     raidEncounterGuaranteedIndividualValues: 10
 - templateId: adventure_sync_v2_gmt
-  adventureSyncV2Gmt:
-    featureEnabled: true
+  adventureSyncV2Gmt: {}
 - templateId: bundle.general1.large.1
   iapItemDisplay:
     sku: bundle.general1.large.1
@@ -114614,4 +114613,4 @@ itemTemplates:
     - wait 0.25
     - sys ui-sync
     - sys complete
-timestampMs: '1570530309154'
+timestampMs: '1572062955895'
