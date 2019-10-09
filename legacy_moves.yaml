@@ -103,6 +103,9 @@
 - species: torterra
   moves:
   - FRENZY_PLANT    # Community day 9/15/2019
+- species: flygon
+  moves:
+  - EARTH_POWER     # Community day 10/12/2019
 - species: golem_normal
   moves:
   - ANCIENT_POWER
