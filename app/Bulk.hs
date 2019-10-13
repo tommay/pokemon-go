@@ -19,6 +19,7 @@ import qualified System.Exit as Exit
 import qualified Text.Printf as Printf
 
 data Options = Options {
+  leaguePred :: Int -> Bool,
   species :: String,
   attack  :: Int,
   defense :: Int,
@@ -27,14 +28,29 @@ data Options = Options {
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optSpecies <*> optAttack <*> optDefense <*> optStamina
+  let opts = Options <$> optLeague <*> optSpecies
+        <*> optAttack <*> optDefense <*> optStamina
+      optLeague =
+            O.flag' (<= 1500) (
+              O.short 'g' <>
+              O.long "great" <>
+              O.help "great league")
+        <|> O.flag' (<= 2500) (
+              O.short 'u' <>
+              O.long "ultra" <>
+              O.help "ultra league")
+        <|> O.flag' (const True) (
+              O.short 'm' <>
+              O.long "master" <>
+              O.help "master league")
+        <|> pure (<= 1500)
       optSpecies = O.argument O.str (O.metavar "SPECIES")
       optAttack = O.argument O.auto (O.metavar "ATTTACK")
       optDefense = O.argument O.auto (O.metavar "DEFENSE")
       optStamina = O.argument O.auto (O.metavar "STAMINA")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
-        <> O.progDesc "Calculate bulk for a pokemon.")
+        <> O.progDesc "Calculate level and bulk for a PVP pokemon.")
       prefs = O.prefs O.showHelpOnEmpty
   in O.customExecParser prefs options
 
@@ -48,7 +64,7 @@ main =
           makeIVs level = IVs.new level
             (attack options) (defense options) (stamina options)
           allIVs = map makeIVs allLevels
-          ivs = lastWhere ((<= 1500) . Calc.cp gameMaster base) allIVs
+          ivs = lastWhere (leaguePred options . Calc.cp gameMaster base) allIVs
           level = IVs.level ivs
           bulkForLevel = bulk gameMaster base ivs
       Printf.printf "%s %.2f\n" (PokeUtil.levelToString level) bulkForLevel
