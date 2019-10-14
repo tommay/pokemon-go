@@ -67,7 +67,7 @@ main =
           ivs = lastWhere (leaguePred options . Calc.cp gameMaster base) allIVs
           level = IVs.level ivs
           bulkForLevel = bulk gameMaster base ivs
-      Printf.printf "%s %.2f\n" (PokeUtil.levelToString level) bulkForLevel
+      Printf.printf "%-4s %.2f\n" (PokeUtil.levelToString level) bulkForLevel
     )
     $ Exit.die
 
