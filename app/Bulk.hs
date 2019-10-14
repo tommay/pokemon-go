@@ -14,7 +14,7 @@ import qualified PokemonBase
 import           PokemonBase (PokemonBase)
 import qualified PokeUtil
 
-import           Control.Monad (join, forM_)
+import           Control.Monad (join, forM_, foldM)
 import qualified System.Exit as Exit
 import qualified Text.Printf as Printf
 
@@ -73,12 +73,14 @@ main =
 
 lastWhere :: (a -> Bool) -> [a] -> a
 lastWhere pred list =
-  let lastWhere' last [] = last
-      lastWhere' last (a:as) =
-        if pred a
-          then lastWhere' a as
-          else last
-  in lastWhere' (error "No matching element") list
+  let fold accum element = case pred element of
+        True -> Right element
+        False -> Left accum
+      -- There is Data.Wither.Utils.fromEither in the MissingH package.
+      fromEither either = case either of
+        Left a -> a
+        Right a -> a
+  in fromEither $ foldM fold (error "empty list in lastWhere") list
 
 bulk :: GameMaster -> PokemonBase -> IVs -> Float
 bulk gameMaster base ivs =
