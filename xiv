@@ -16,6 +16,11 @@ if ./iv "$@" >x; then
       ;;
   esac
   diff -u -F "name: " "$1" x | less
-  mv "$1" "$1".0
-  mv x "$1"
+  if [ -L "$1" ]; then
+    cp "$1" "$1".0
+    cp x "$1"
+  else
+    mv "$1" "$1".0
+    mv x "$1"
+  fi
 fi
