@@ -16,26 +16,24 @@ import qualified System.Exit as Exit
 import qualified Text.Printf as Printf
 
 data Options = Options {
-  ivPred  :: Int -> Bool,
   cp      :: Maybe Int,
+  ivFloor :: Maybe Int,
   species :: String
 }
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optIvPred <*> optCp <*> optSpecies
-      optIvPred =
-        let optTwoOrBetter = O.flag' (>= 30)
-              (  O.long "two"
-              <> O.short '2'
-              <> O.help "Show levels for IVs that are at least \"strong\"")
-            optAnyIvs = pure (const True)
-        in optTwoOrBetter <|> optAnyIvs
+  let opts = Options <$> optCp <*> optIvFloor <*> optSpecies
       optCp = O.optional $ O.option O.auto
         (  O.long "cp"
         <> O.short 'c'
         <> O.metavar "CP"
         <> O.help "Print possible levels for the given CP")
+      optIvFloor = O.optional $ O.option O.auto
+        (  O.long "ivFloor"
+        <> O.short 'm'
+        <> O.metavar "N"
+        <> O.help "Set minimum IV, e.g., 10 for raid boss or hatch")
       optSpecies = O.argument O.str (O.metavar "SPECIES")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
@@ -52,7 +50,9 @@ main = Epic.catch (
     pokemonBase <- GameMaster.getPokemonBase gameMaster $
       species options
 
-    let ivPred = Main.ivPred options
+    let ivPred = case Main.ivFloor options of
+          Just ivFloor -> (>= ivFloor)
+          Nothing -> const True
 
     case cp options of
       Nothing -> printAllLevels gameMaster pokemonBase ivPred
@@ -60,7 +60,7 @@ main = Epic.catch (
   )
   $ Exit.die
 
-levels = [1..40]  -- Catches can npw exceed maxEncounterPlayerLevel (30)
+levels = [1..40]  -- Catches can now exceed maxEncounterPlayerLevel (30)
                   -- depending on the weather.
 
 printAllLevels :: GameMaster -> PokemonBase -> (Int -> Bool) -> IO ()
