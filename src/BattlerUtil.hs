@@ -178,9 +178,7 @@ makeRaidBossForMoves gameMaster raidLevel base quickMoves chargeMoves =
         3 -> (0.73, 3600)
         4 -> (0.79, 9000)
         5 -> (0.79, 15000)
-        6 -> (0.79, 18750)  -- XXX It remains to be seen whether "tier 6" has
-                            -- increased, or will be used again, but the 1.2
-                            -- multiplier for tiers 3-5 would make it 22500.
+        6 -> (0.79, 22500) -- "Tier 6" for mewtwo, darkrai, ...
         _ -> error "Raid level must be 1, 2, 3, 4, or 5"
       makeStat baseFunc = (fromIntegral $ baseFunc base + 15) * cpm
       makePokemon quickMove chargeMove =
