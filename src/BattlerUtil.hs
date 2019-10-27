@@ -173,12 +173,14 @@ makeRaidBossForMoves gameMaster raidLevel base quickMoves chargeMoves =
       -- it at level 27.5.
       -- getCpmForLevel = GameMaster.getCpMultiplier gameMaster
       (cpm, hp) = case raidLevel of
-        1 -> (0.61, 600)
-        2 -> (0.67, 1800)
-        3 -> (0.73, 3600)
-        4 -> (0.79, 9000)
-        5 -> (0.79, 15000)
-        6 -> (0.79, 22500) -- "Tier 6" for mewtwo, darkrai, ...
+        1 -> (1.0, 600)
+        2 -> (1.0, 1800)
+        -- This value has to beetween 0.95546657 (maxmin for aggron)
+        -- and 0.95544976 (minmax for absol)
+        3 -> ((0.95546657 + 0.95544976)/2, 3600)
+        4 -> ((0.95546657 + 0.95544976)/2, 3600)
+        5 -> (1.0, 15000)
+        6 -> (1.0, 22500) -- "Tier 6" for mewtwo, darkrai, ...
         _ -> error "Raid level must be 1, 2, 3, 4, or 5"
       makeStat baseFunc = (fromIntegral $ baseFunc base + 15) * cpm
       makePokemon quickMove chargeMove =
