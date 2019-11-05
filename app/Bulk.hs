@@ -19,31 +19,38 @@ import qualified System.Exit as Exit
 import qualified Text.Printf as Printf
 
 data Options = Options {
-  leaguePred :: Int -> Bool,
+  league  :: League,
   species :: String,
   attack  :: Int,
   defense :: Int,
   stamina :: Int
 }
 
+data League = Great | Ultra | Master | Peewee
+  deriving Eq
+
 getOptions :: IO Options
 getOptions =
   let opts = Options <$> optLeague <*> optSpecies
         <*> optAttack <*> optDefense <*> optStamina
       optLeague =
-            O.flag' (<= 1500) (
+            O.flag' Great (
               O.short 'g' <>
               O.long "great" <>
               O.help "great league")
-        <|> O.flag' (<= 2500) (
+        <|> O.flag' Ultra (
               O.short 'u' <>
               O.long "ultra" <>
               O.help "ultra league")
-        <|> O.flag' (const True) (
+        <|> O.flag' Master (
               O.short 'm' <>
               O.long "master" <>
               O.help "master league")
-        <|> pure (<= 1500)
+        <|> O.flag' Peewee (
+              O.short 'p' <>
+              O.long "peewee" <>
+              O.help "peewee league")
+        <|> pure Great
       optSpecies = O.argument O.str (O.metavar "SPECIES")
       optAttack = O.argument O.auto (O.metavar "ATTTACK")
       optDefense = O.argument O.auto (O.metavar "DEFENSE")
@@ -53,6 +60,14 @@ getOptions =
         <> O.progDesc "Calculate level and bulk for a PVP pokemon.")
       prefs = O.prefs O.showHelpOnEmpty
   in O.customExecParser prefs options
+
+leaguePred :: League -> (Int -> Bool)
+leaguePred league =
+  case league of
+    Great -> (<= 1500)
+    Ultra -> (<= 2500)
+    Master -> const True
+    Peewee -> (<= 10)
 
 main =
   Epic.catch (
@@ -64,10 +79,14 @@ main =
           makeIVs level = IVs.new level
             (attack options) (defense options) (stamina options)
           allIVs = map makeIVs allLevels
-          ivs = lastWhere (leaguePred options . Calc.cp gameMaster base) allIVs
+          pred = leaguePred $ league options
+          ivs = lastWhere (pred . Calc.cp gameMaster base) allIVs
           level = IVs.level ivs
           bulkForLevel = bulk gameMaster base ivs
-      Printf.printf "%-4s %.2f\n" (PokeUtil.levelToString level) bulkForLevel
+          totalForLevel = total gameMaster base ivs *
+            if (league options) == Peewee then 1000 else 1
+      Printf.printf "%-4s %.2f %.2f\n" (PokeUtil.levelToString level)
+        bulkForLevel totalForLevel
     )
     $ Exit.die
 
@@ -82,3 +101,13 @@ bulk gameMaster base ivs =
       defense' = fromIntegral $ PokemonBase.defense base + defense
       stamina' = fromIntegral $ PokemonBase.stamina base + stamina
   in cpMultiplier * sqrt (defense' * stamina')
+
+total :: GameMaster -> PokemonBase -> IVs -> Float
+total gameMaster base ivs =
+  let (level, attack, defense, stamina) = IVs.getAll ivs
+      cpMultiplier = GameMaster.getCpMultiplier gameMaster level
+      attack' = fromIntegral $ PokemonBase.attack base + attack
+      defense' = fromIntegral $ PokemonBase.defense base + defense
+      stamina' = fromIntegral $ PokemonBase.stamina base + stamina
+  in (cpMultiplier * attack') * (cpMultiplier * defense') *
+       (cpMultiplier * stamina') / 100000
