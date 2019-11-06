@@ -80,22 +80,26 @@ evolveFully gameMaster maybeTarget myPokemon = do
   (evolvedPokemon, _) <- evolveFullyWithCandy gameMaster maybeTarget myPokemon
   return evolvedPokemon
 
+-- If there is a target, return it from all the evolutions or fail
+-- if it's not an evolution.
+-- Otherwise return the final evolution if there is only one chain.
+--
 evolveFullyWithCandy :: Epic.MonadCatch m =>
   GameMaster -> Maybe String -> MyPokemon -> m (MyPokemon, Int)
 evolveFullyWithCandy gameMaster maybeTarget myPokemon = do
   let species = MyPokemon.species myPokemon
   chains <- evolutionChains gameMaster (species, 0)
-  chain <- case maybeTarget of
+  evolution <- case maybeTarget of
     Just target ->
-      case filter (matchWithNormal (Util.toLower target) .
-               Util.toLower . fst . List.last) chains of
-        [] -> Epic.fail $ species ++ " does not evolve to " ++ target
-        [chain] -> return chain
+      case List.find (matchWithNormal (Util.toLower target) .
+          Util.toLower . fst) (concat chains) of
+        Nothing -> Epic.fail $ species ++ " does not evolve to " ++ target
+        Just evolution -> return evolution
     Nothing ->
       case chains of
-        [chain] -> return chain
-        _ -> Epic.fail $ species ++ " has multiple possible evolutions"
-  let (evolvedSpecies, candy) = List.last chain
+        [chain] -> return $ List.last chain
+        _ -> Epic.fail $ species ++ " has multiple final evolutions"
+  let (evolvedSpecies, candy) = evolution
   return $ (MyPokemon.setSpecies myPokemon evolvedSpecies, candy)
 
 -- If species has a normal form then species will have _NORMAL here.
