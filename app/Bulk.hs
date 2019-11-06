@@ -13,26 +13,32 @@ import           IVs (IVs)
 import qualified PokemonBase
 import           PokemonBase (PokemonBase)
 import qualified PokeUtil
+import qualified Powerups
 
 import           Control.Monad (join)
+import qualified Data.List as List
 import qualified System.Exit as Exit
 import qualified Text.Printf as Printf
+
+import qualified Debug
 
 data Options = Options {
   league  :: League,
   species :: String,
+  maybeEvolution :: Maybe String,
+  cp      :: Int,
   attack  :: Int,
   defense :: Int,
   stamina :: Int
 }
 
 data League = Great | Ultra | Master | Peewee
-  deriving Eq
+  deriving (Eq, Show)
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optLeague <*> optSpecies
-        <*> optAttack <*> optDefense <*> optStamina
+  let opts = Options <$> optLeague <*> optSpecies <*> optEvolution
+        <*> optCp <*> optAttack <*> optDefense <*> optStamina
       optLeague =
             O.flag' Great (
               O.short 'g' <>
@@ -52,6 +58,12 @@ getOptions =
               O.help "peewee league")
         <|> pure Great
       optSpecies = O.argument O.str (O.metavar "SPECIES")
+      optEvolution = O.optional $ O.strOption
+        (  O.long "evolution"
+        <> O.short 'e'
+        <> O.metavar "EVOLUTION"
+        <> O.help "Evolution for PVP")
+      optCp = O.argument O.auto (O.metavar "CP")
       optAttack = O.argument O.auto (O.metavar "ATTTACK")
       optDefense = O.argument O.auto (O.metavar "DEFENSE")
       optStamina = O.argument O.auto (O.metavar "STAMINA")
@@ -69,24 +81,48 @@ leaguePred league =
     Master -> const True
     Peewee -> (<= 10)
 
+-- This is by far the ugliest Haskell code I've ever written.  Maybe I
+-- can make it nicer.
+--
 main =
   Epic.catch (
     do
       options <- getOptions
       gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
-      base <- GameMaster.getPokemonBase gameMaster $ species options
+      let species = Main.species options
+      base <- GameMaster.getPokemonBase gameMaster species
       let allLevels = GameMaster.allLevels gameMaster
           makeIVs level = IVs.new level
             (attack options) (defense options) (stamina options)
           allIVs = map makeIVs allLevels
-          pred = leaguePred $ league options
-          ivs = lastWhere (pred . Calc.cp gameMaster base) allIVs
-          level = IVs.level ivs
-          bulkForLevel = bulk gameMaster base ivs
-          totalForLevel = total gameMaster base ivs *
-            if (league options) == Peewee then 1000 else 1
-      Printf.printf "%-4s %.2f %.2f\n" (PokeUtil.levelToString level)
-        bulkForLevel totalForLevel
+          calcCpForIvs = Calc.cp gameMaster
+      level <- do
+        case List.find ((== cp options) . calcCpForIvs base) allIVs of
+          Just ivs -> return $ IVs.level ivs
+          Nothing -> Epic.fail "no possible level for cp and ivs"
+      (evolvedSpecies, evolveCandy) <- PokeUtil.evolveSpeciesFullyWithCandy
+        gameMaster (maybeEvolution options) species
+      evolvedBase <- GameMaster.getPokemonBase gameMaster evolvedSpecies
+      let pred = leaguePred $ league options
+          powerUpLevel = IVs.level $
+            lastWhere (pred . calcCpForIvs evolvedBase) allIVs
+          levelsAndCosts = filter (\ (lvl, _, _) -> lvl <= powerUpLevel) $
+            Powerups.levelsAndCosts gameMaster level
+          makeOutputString (level, dust, candy) =
+            let ivs = makeIVs level
+                bulkForLevel = bulk gameMaster evolvedBase ivs
+                totalForLevel = total gameMaster evolvedBase ivs *
+                  if (league options) == Peewee then 1000 else 1
+            in Printf.printf "%5d/%-4d: %-4s %.2f %.2f"
+                 dust
+                 (evolveCandy + candy)
+                 (PokeUtil.levelToString level)
+                 bulkForLevel
+                 totalForLevel
+      case levelsAndCosts of
+        [] -> putStrLn $
+          "CP is too high for " ++ show (league options) ++ " league"
+        _ -> mapM_ (putStrLn . makeOutputString) levelsAndCosts
     )
     $ Exit.die
 
