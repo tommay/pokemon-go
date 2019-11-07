@@ -5,6 +5,7 @@ module PokeUtil (
   levelToString,
   evolveFully,
   evolveFullyWithCandy,
+  evolveSpeciesFullyWithCandy,
   evolutionChains
 ) where
 
@@ -80,14 +81,21 @@ evolveFully gameMaster maybeTarget myPokemon = do
   (evolvedPokemon, _) <- evolveFullyWithCandy gameMaster maybeTarget myPokemon
   return evolvedPokemon
 
--- If there is a target, return it from all the evolutions or fail
--- if it's not an evolution.
--- Otherwise return the final evolution if there is only one chain.
---
 evolveFullyWithCandy :: Epic.MonadCatch m =>
   GameMaster -> Maybe String -> MyPokemon -> m (MyPokemon, Int)
 evolveFullyWithCandy gameMaster maybeTarget myPokemon = do
   let species = MyPokemon.species myPokemon
+  (evolvedSpecies, candy) <-
+    evolveSpeciesFullyWithCandy gameMaster maybeTarget species
+  return $ (MyPokemon.setSpecies myPokemon evolvedSpecies, candy)
+
+-- If there is a target, return it from all the evolutions or fail
+-- if it's not an evolution.
+-- Otherwise return the final evolution if there is only one chain.
+--
+evolveSpeciesFullyWithCandy :: Epic.MonadCatch m =>
+  GameMaster -> Maybe String -> String -> m (String, Int)
+evolveSpeciesFullyWithCandy gameMaster maybeTarget species = do
   chains <- evolutionChains gameMaster (species, 0)
   evolution <- case maybeTarget of
     Just target ->
@@ -99,8 +107,7 @@ evolveFullyWithCandy gameMaster maybeTarget myPokemon = do
       case chains of
         [chain] -> return $ List.last chain
         _ -> Epic.fail $ species ++ " has multiple final evolutions"
-  let (evolvedSpecies, candy) = evolution
-  return $ (MyPokemon.setSpecies myPokemon evolvedSpecies, candy)
+  return evolution
 
 -- If species has a normal form then species will have _NORMAL here.
 -- Allow a match with either targete or target_NORMAL so the user can
