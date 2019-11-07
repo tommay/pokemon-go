@@ -7,7 +7,7 @@ import           GameMaster (GameMaster)
 
 import           Data.List as List
 
--- Returns [level, stardustCost, candyCost)]
+-- Returns [(level, stardustCost, candyCost)]
 --
 levelsAndCosts :: GameMaster -> Float -> [(Float, Int, Int)]
 levelsAndCosts gameMaster level =
