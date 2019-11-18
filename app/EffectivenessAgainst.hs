@@ -13,6 +13,7 @@ import qualified Type
 import qualified Util
 
 import           Control.Monad (join, forM_)
+import qualified Data.List as List
 import qualified System.Exit as Exit
 import qualified Text.Printf as Printf
 
@@ -27,7 +28,7 @@ getOptions =
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc
-             "Show how effective (or not) move types are against a pokemon")
+             "Show how effective (or not) move types are against a pokemon or type")
       prefs = O.prefs O.showHelpOnEmpty
   in O.customExecParser prefs options
 
@@ -49,6 +50,7 @@ main =
           longest = maximum $ map (length . Type.name) allTypes
           effectiveness =
             Util.augment (\typ -> Type.effectivenessAgainst typ types) allTypes
+      Printf.printf "type: %s\n" $ List.intercalate ", " $ map Type.name types
       forM_ effectiveness $ \ (typ, effectiveness) ->
         Printf.printf "%-*s :%s\n" longest (Type.name typ)
           (display effectiveness)
