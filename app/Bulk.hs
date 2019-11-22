@@ -24,6 +24,7 @@ import qualified Debug
 
 data Options = Options {
   league  :: League,
+  oneLine :: Bool,
   species :: String,
   maybeEvolution :: Maybe String,
   cp      :: Int,
@@ -37,7 +38,8 @@ data League = Great | Ultra | Master | Peewee
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optLeague <*> optSpecies <*> optEvolution
+  let opts = Options <$> optLeague <*> optOneLine
+        <*> optSpecies <*> optEvolution
         <*> optCp <*> optAttack <*> optDefense <*> optStamina
       optLeague =
             O.flag' Great (
@@ -57,6 +59,10 @@ getOptions =
               O.long "peewee" <>
               O.help "peewee league")
         <|> pure Great
+      optOneLine = O.switch
+        (  O.long "one"
+        <> O.short '1'
+        <> O.help "Output only the final level")
       optSpecies = O.argument O.str (O.metavar "SPECIES")
       optEvolution = O.optional $ O.strOption
         (  O.long "evolution"
@@ -122,7 +128,9 @@ main =
       case levelsAndCosts of
         [] -> putStrLn $
           "CP is too high for " ++ show (league options) ++ " league"
-        _ -> mapM_ (putStrLn . makeOutputString) levelsAndCosts
+        _ -> mapM_ (putStrLn . makeOutputString) $ if oneLine options
+               then [last levelsAndCosts]
+               else levelsAndCosts
     )
     $ Exit.die
 
