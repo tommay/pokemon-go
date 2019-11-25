@@ -25,6 +25,7 @@ import qualified Debug
 data Options = Options {
   league  :: League,
   oneLine :: Bool,
+  isShadow :: Bool,
   species :: String,
   maybeEvolution :: Maybe String,
   cp      :: Int,
@@ -38,7 +39,7 @@ data League = Great | Ultra | Master | Peewee
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optLeague <*> optOneLine
+  let opts = Options <$> optLeague <*> optOneLine <*> optIsShadow
         <*> optSpecies <*> optEvolution
         <*> optCp <*> optAttack <*> optDefense <*> optStamina
       optLeague =
@@ -63,6 +64,10 @@ getOptions =
         (  O.long "one"
         <> O.short '1'
         <> O.help "Output only the final level")
+      optIsShadow = O.switch
+        (  O.long "shadow"
+        <> O.short 's'
+        <> O.help "Compute for shadow pokemon")
       optSpecies = O.argument O.str (O.metavar "SPECIES")
       optEvolution = O.optional $ O.strOption
         (  O.long "evolution"
@@ -106,16 +111,25 @@ main =
         case List.find ((== cp options) . calcCpForIvs base) allIVs of
           Just ivs -> return $ IVs.level ivs
           Nothing -> Epic.fail "no possible level for cp and ivs"
+      level <- do return $ if isShadow options then 25 else level
       (evolvedSpecies, evolveCandy) <- PokeUtil.evolveSpeciesFullyWithCandy
         gameMaster (maybeEvolution options) species
       evolvedBase <- GameMaster.getPokemonBase gameMaster evolvedSpecies
-      let pred = leaguePred $ league options
+      let purifyIv iv = if isShadow options
+            then List.minimum [iv + 2, 15]
+            else iv
+          makePureIVs level = IVs.new level
+            (purifyIv $ attack options)
+            (purifyIv $ defense options)
+            (purifyIv $ stamina options)
+          allPureIVs = map makePureIVs allLevels
+          pred = leaguePred $ league options
           powerUpLevel = IVs.level $
-            lastWhere (pred . calcCpForIvs evolvedBase) allIVs
+            lastWhere (pred . calcCpForIvs evolvedBase) allPureIVs
           levelsAndCosts = filter (\ (lvl, _, _) -> lvl <= powerUpLevel) $
             Powerups.levelsAndCosts gameMaster level
           makeOutputString (level, dust, candy) =
-            let ivs = makeIVs level
+            let ivs = makePureIVs level
                 bulkForLevel = bulk gameMaster evolvedBase ivs
                 totalForLevel = total gameMaster evolvedBase ivs *
                   if (league options) == Peewee then 1000 else 1
