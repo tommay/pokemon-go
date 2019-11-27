@@ -5,6 +5,7 @@ module MakePokemon (
   makeWithAllMovesetsFromBase,
 ) where
 
+import qualified Discounts
 import qualified Epic
 import qualified GameMaster
 import           GameMaster (GameMaster)
@@ -85,6 +86,7 @@ makeForWhatever gameMaster ivs name base quick charge =
        (makeStat PokemonBase.stamina IVs.stamina)
        quick
        charge
+       Discounts.noDiscounts
 
 maybeSetHiddenPowerType :: (Epic.MonadCatch m) =>
     GameMaster -> Move -> String -> m Move

@@ -17,6 +17,7 @@ module BattlerUtil (
 import qualified Options.Applicative as O
 import           Options.Applicative ((<|>), (<**>))
 
+import qualified Discounts
 import qualified Epic
 import qualified GameMaster
 import           GameMaster (GameMaster)
@@ -196,6 +197,7 @@ makeRaidBossForMoves gameMaster raidLevel base quickMoves chargeMoves =
           (hp / 2)
           quickMove
           chargeMove
+          Discounts.noDiscounts
       notLegacy = not . Move.isLegacy   
   in [makePokemon quickMove chargeMove |
        quickMove <- quickMoves, chargeMove <- chargeMoves,

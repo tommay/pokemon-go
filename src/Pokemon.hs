@@ -16,6 +16,8 @@ module Pokemon (
   setName,
 ) where
 
+import qualified Discounts
+import           Discounts (Discounts)
 import qualified IVs
 import           IVs (IVs)
 import           Move (Move)
@@ -31,7 +33,8 @@ data Pokemon = Pokemon {
   defense     :: Float,
   stamina     :: Float,
   quick       :: Move,
-  charge      :: Move
+  charge      :: Move,
+  discounts   :: Discounts
 } deriving (Show)
 
 new = Pokemon
