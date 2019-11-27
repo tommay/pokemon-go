@@ -1,6 +1,8 @@
 module Discounts (
   Discounts (Discounts),
   noDiscounts,
+  powerupStardust,
+  powerupCandy,
   new
 ) where
 
