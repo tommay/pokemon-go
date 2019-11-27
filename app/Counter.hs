@@ -11,6 +11,7 @@ import           Battle (Battle)
 import qualified BattlerUtil
 import           BattlerUtil (Battler, Level (Normal))
 import qualified Breakpoint
+import qualified Discounts
 import qualified Epic
 import qualified Friend
 import           Friend (Friend)
@@ -423,7 +424,7 @@ expandLevels gameMaster maybeMaxCandy maybeMaxDust pokemonList =
           (\ maxCandy (_, candy, _) -> candy <= maxCandy) $
         maybeFilter maybeMaxDust
           (\ maxDust (_, _, dust) -> dust <= maxDust) $
-        Powerups.levelsAndCosts gameMaster pokemonLevel
+        Powerups.levelsAndCosts gameMaster Discounts.noDiscounts pokemonLevel
       powerupLevels = map (\ (lvl, _, _) -> lvl) powerupLevelsAndCosts
       addLevelToName pokemon = Pokemon.setName
         (Printf.printf "%s <%s>"
@@ -440,11 +441,6 @@ maybeFilter maybeA pred list =
   case maybeA of
     Nothing -> list
     Just a -> filter (pred a) list
-
-getPowerUpLevelsAndCosts :: GameMaster -> Float -> [(Float, Int, Int)]
-getPowerUpLevelsAndCosts gameMaster pokemonLevel =
-  filter (\ (lvl, _, _) -> lvl > pokemonLevel) $
-    Powerups.levelsAndCosts gameMaster pokemonLevel
 
 doTweakLevel :: (Float -> Float) -> MyPokemon -> MyPokemon
 doTweakLevel tweakLevel myPokemon =

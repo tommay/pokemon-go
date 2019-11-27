@@ -5,6 +5,7 @@ import           Options.Applicative ((<|>), (<**>))
 import           Data.Semigroup ((<>))
 
 import qualified Calc
+import qualified Discounts
 import qualified Epic
 import qualified GameMaster
 import           GameMaster (GameMaster)
@@ -127,7 +128,7 @@ main =
           powerUpLevel = IVs.level $
             lastWhere (pred . calcCpForIvs evolvedBase) allPureIVs
           levelsAndCosts = filter (\ (lvl, _, _) -> lvl <= powerUpLevel) $
-            Powerups.levelsAndCosts gameMaster level
+            Powerups.levelsAndCosts gameMaster Discounts.noDiscounts level
           makeOutputString (level, dust, candy) =
             let ivs = makePureIVs level
                 bulkForLevel = bulk gameMaster evolvedBase ivs
