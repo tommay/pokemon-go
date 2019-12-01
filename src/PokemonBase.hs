@@ -1,6 +1,7 @@
 module PokemonBase (
   PokemonBase,
   new,
+  pokemonId,
   species,
   types,
   attack,
@@ -21,6 +22,7 @@ import           Move (Move)
 import           Data.Text (Text)
 
 data PokemonBase = PokemonBase {
+  pokemonId    :: String,
   species      :: String,
   types        :: [Type],
   attack       :: Int,

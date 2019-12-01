@@ -302,7 +302,7 @@ getFormNames formSettings =
 -- Note that we'll add both redundant templates to the pokemonBases
 -- hash, but the first one will be overwritten which is fine because
 -- except for the form they are identical.
-
+--
 getSpeciesForPokemonBase :: Epic.MonadCatch m => StringMap [String] -> ItemTemplate -> m String
 getSpeciesForPokemonBase forms itemTemplate = do
   species <- getObjectValue itemTemplate "pokemonId"
@@ -317,6 +317,8 @@ makePokemonBase :: Epic.MonadCatch m => StringMap Type -> StringMap Move -> Stri
 makePokemonBase types moves forms pokemonSettings =
   Epic.catch (do
     let getValue key = getObjectValue pokemonSettings key
+
+    pokemonId <- getValue "pokemonId"
 
     species <- do
       species <- getSpeciesForPokemonBase forms pokemonSettings
@@ -380,7 +382,7 @@ makePokemonBase types moves forms pokemonSettings =
       encounter <- getValue "encounter"
       getObjectValueWithDefault encounter "baseCaptureRate" 0
 
-    return $ PokemonBase.new species ptypes attack defense stamina
+    return $ PokemonBase.new pokemonId species ptypes attack defense stamina
        evolutions quickMoves chargeMoves parent baseCaptureRate)
   (\ex -> Epic.fail $ ex ++ " in " ++ show pokemonSettings)
 
