@@ -10,8 +10,9 @@ import qualified Pokemon
 import           Pokemon (Pokemon)
 import qualified PokeUtil
 import           Type (Type)
-import qualified Util
 import           WeatherBonus (WeatherBonus)
+
+import qualified Data.List.Extra
 
 getBreakpoints :: GameMaster -> WeatherBonus -> Float ->
   Pokemon -> Pokemon -> [(Float, Int, Float)]
@@ -26,5 +27,4 @@ getBreakpoints gameMaster weatherBonus friendBonus attacker defender =
         in (level, damage, dps)) levels
       filtered = filter (\ (level, _, _) -> level >= Pokemon.level attacker)
         levelAndDamageList
-  in Util.nubOn (\ (_, damage, _) -> damage) filtered
-
+  in Data.List.Extra.nubOn (\ (_, damage, _) -> damage) filtered

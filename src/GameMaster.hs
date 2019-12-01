@@ -41,6 +41,7 @@ import           Data.Yaml ((.:), (.:?), (.!=))
 import           Control.Monad (join)
 import           Data.Text.Conversions (convertText)
 import qualified Data.List as List
+import qualified Data.List.Extra
 import qualified Data.Maybe as Maybe
 import           Data.Maybe (mapMaybe)
 import qualified Data.HashMap.Strict as HashMap
@@ -78,8 +79,7 @@ load filename = do
 
 allPokemonBases :: GameMaster -> [PokemonBase]
 allPokemonBases this =
-
-  -- Doing nubBy battleStats filters out pokemon that, for battle, are
+  -- Doing nubOn battleStats filters out pokemon that, for battle, are
   -- identical to pokemon earlier in the list, such as shadow and
   -- purified pokemon which are effectively the same as non-shadow and
   -- non-purified pokemon, and also weird things like the _FALL_2019
@@ -98,7 +98,7 @@ allPokemonBases this =
          PokemonBase.stamina base,
          removeLegacy $ PokemonBase.quickMoves base,
          removeLegacy $ PokemonBase.chargeMoves base)
-  in Util.nubOn battleStats $ List.sortOn PokemonBase.species $
+  in Data.List.Extra.nubOn battleStats $ List.sortOn PokemonBase.species $
        HashMap.elems $ pokemonBases this
 
 getPokemonBase :: Epic.MonadCatch m => GameMaster -> String -> m PokemonBase

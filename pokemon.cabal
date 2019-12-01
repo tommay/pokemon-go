@@ -38,6 +38,7 @@ library
                      , attoparsec
                      , optparse-applicative
                      , bytestring
+                     , extra
   default-language:    Haskell2010
 
 executable effectivenessagainst-exe

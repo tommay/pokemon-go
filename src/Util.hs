@@ -7,8 +7,7 @@ module Util (
   augment,
   augmentM,
   toLower,
-  toUpper,
-  nubOn
+  toUpper
 ) where
 
 import           Control.Monad (forM)
@@ -75,7 +74,3 @@ toLower = map Char.toLower
 
 toUpper :: String -> String
 toUpper = map Char.toUpper
-
-nubOn :: Eq b => (a -> b) -> [a] -> [a]
-nubOn func =
-  List.nubBy (\x y -> func x == func y)
