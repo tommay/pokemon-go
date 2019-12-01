@@ -279,7 +279,7 @@ main =
             ByDamage -> List.reverse $ List.sortOn minDamage results
             ByDps -> sortedByDps
             ByProduct -> List.reverse $
-              List.sortBy (Ord.comparing $ \result ->
+              List.sortOn (\result ->
                   minDps result * fromIntegral (minDamage result + 100))
                 results
             ByDamagePerHp -> List.reverse $
