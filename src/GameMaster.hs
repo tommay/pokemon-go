@@ -78,7 +78,28 @@ load filename = do
 
 allPokemonBases :: GameMaster -> [PokemonBase]
 allPokemonBases this =
-  HashMap.elems $ pokemonBases this
+
+  -- Doing nubBy battleStats filters out pokemon that, for battle, are
+  -- identical to pokemon earlier in the list, such as shadow and
+  -- purified pokemon which are effectively the same as non-shadow and
+  -- non-purified pokemon, and also weird things like the _FALL_2019
+  -- pokemon wearing halloween costumes.  It should robustly filter
+  -- out any further weird things down the line.  Sorting by the
+  -- species name first will put the plain-named pokemon first so
+  -- they will be kept by nub.
+  -- XXX Currently (11/2019) dugtrio_purified has 2 more defense than normal
+  -- so dugtrio_purified makes it through.
+  let removeLegacy = filter (not . Move.isLegacy)
+      battleStats base =
+        (PokemonBase.pokemonId base,
+         PokemonBase.types base,
+         PokemonBase.attack base,
+         PokemonBase.defense base,
+         PokemonBase.stamina base,
+         removeLegacy $ PokemonBase.quickMoves base,
+         removeLegacy $ PokemonBase.chargeMoves base)
+  in Util.nubOn battleStats $ List.sortOn PokemonBase.species $
+       HashMap.elems $ pokemonBases this
 
 getPokemonBase :: Epic.MonadCatch m => GameMaster -> String -> m PokemonBase
 getPokemonBase this speciesName =
