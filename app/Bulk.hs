@@ -142,7 +142,8 @@ main =
                  totalForLevel
       case levelsAndCosts of
         [] -> putStrLn $
-          "CP is too high for " ++ show (league options) ++ " league"
+          Printf.printf "%s CP is too high for %s league"
+          (PokemonBase.species evolvedBase) (show $ league options)
         _ -> mapM_ (putStrLn . makeOutputString) $ if oneLine options
                then [last levelsAndCosts]
                else levelsAndCosts
