@@ -6,7 +6,7 @@
 # but I want to treat it as any other legendary.
 #
 # I just want to be able to distinguish between in-game and not in-game
-# pokemonso "counter -a" only includes in-hame pokemon, and distinguish
+# pokemon so "counter -a" only includes in-game pokemon, and distinguish
 # legendaries so "counter -a -L" can exclude them.
 
 bulbasaur: 
