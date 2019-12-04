@@ -586,8 +586,8 @@ pansage: mythical # regional asia-pacific
 simisage: mythical
 pansear: mythical # regional europe, middle east, africa, india
 simisear: mythical
-panpour: mythical # regional americas and greenland
-simipour: mythical
+panpour: # regional americas and greenland
+simipour: # """
 munna: mythical
 musharna: mythical
 pidove: 
