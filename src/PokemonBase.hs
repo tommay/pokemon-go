@@ -12,6 +12,7 @@ module PokemonBase (
   chargeMoves,
   hasEvolutions,
   baseCaptureRate,
+  thirdMoveCost,
   addMove,
 ) where
 
@@ -32,7 +33,8 @@ data PokemonBase = PokemonBase {
   quickMoves   :: [Move],
   chargeMoves  :: [Move],
   parent       :: Maybe String,
-  baseCaptureRate :: Float
+  baseCaptureRate :: Float,
+  thirdMoveCost :: (Int, Int)  -- (stardust, candy)
 }
 
 instance Show PokemonBase where

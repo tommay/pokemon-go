@@ -401,8 +401,17 @@ makePokemonBase types moves forms pokemonSettings =
       encounter <- getValue "encounter"
       getObjectValueWithDefault encounter "baseCaptureRate" 0
 
+    thirdMoveCost <- do
+      thirdMove <- getValue "thirdMove"
+      -- Smeargle has candyToUnlock but not stardustToUnlock so default it.
+      stardustToUnlock <-
+        getObjectValueWithDefault thirdMove "stardustToUnlock" 0
+      candyToUnlock <-  getObjectValue thirdMove "candyToUnlock"
+      return $ (stardustToUnlock, candyToUnlock)
+
     return $ PokemonBase.new pokemonId species ptypes attack defense stamina
-       evolutions quickMoves chargeMoves parent baseCaptureRate)
+       evolutions quickMoves chargeMoves parent baseCaptureRate thirdMoveCost
+    )
   (\ex -> Epic.fail $ ex ++ " in " ++ show pokemonSettings)
 
 makeWeatherAffinity :: Epic.MonadCatch m => StringMap Type -> ItemTemplate -> m [Type]
