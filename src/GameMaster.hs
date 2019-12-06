@@ -409,8 +409,19 @@ makePokemonBase types moves forms pokemonSettings =
       candyToUnlock <-  getObjectValue thirdMove "candyToUnlock"
       return $ (stardustToUnlock, candyToUnlock)
 
+    purificationCost <- do
+      case getValue "shadow" of
+        Right shadow -> do
+          purificationStardustNeeded <-
+            getObjectValue shadow "purificationStardustNeeded"
+          purificationCandyNeeded <-
+            getObjectValue shadow "purificationCandyNeeded"
+          return $ (purificationStardustNeeded, purificationCandyNeeded)
+        Left _ -> return $ (0, 0)
+
     return $ PokemonBase.new pokemonId species ptypes attack defense stamina
        evolutions quickMoves chargeMoves parent baseCaptureRate thirdMoveCost
+       purificationCost
     )
   (\ex -> Epic.fail $ ex ++ " in " ++ show pokemonSettings)
 
