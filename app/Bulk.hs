@@ -171,13 +171,13 @@ main =
           gameMaster maybeTarget speciesToEvolve
       baseEvolved <- GameMaster.getPokemonBase gameMaster speciesEvolved
       if needsPurification
-        then putStrLn $ Printf.printf "purification: %d/%d"
+        then putStrLn $ Printf.printf "pure:   %d/%d"
           purificationStardustNeeded purificationCandyNeeded
         else return ()
       if evolveCandy /= 0
         then putStrLn $ Printf.printf "evolve: /%d" evolveCandy
         else return ()
-      putStrLn $ Printf.printf "third move: %d/%d"
+      putStrLn $ Printf.printf "move:   %d/%d"
           thirdMoveStardust thirdMoveCandy
       let basePvpStardust = purificationStardustNeeded + thirdMoveStardust
           basePvpCandy = purificationCandyNeeded + evolveCandy + thirdMoveCandy
