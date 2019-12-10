@@ -1,6 +1,7 @@
 module Epic (
   Epic.catch,
   Epic.fail,
+  toEpic,
   E.MonadCatch,
 ) where
 
@@ -19,3 +20,9 @@ fail = E.throwM . EpicException
 catch :: E.MonadCatch m => m a -> (String -> m a) -> m a
 catch expr handler =
   E.catch expr (\ (EpicException ex) -> handler ex)
+
+toEpic :: (Show a, E.MonadCatch m) => Either a b -> m b
+toEpic either =
+  case either of
+    Left err -> Epic.fail $ show err
+    Right val -> return val

@@ -234,7 +234,7 @@ makeGameMaster yamlObject = do
 --
 getItemTemplates :: Epic.MonadCatch m => Yaml.Object -> m [ItemTemplate]
 getItemTemplates yamlObject =
-  toEpic $ Yaml.parseEither (.: "itemTemplates") yamlObject
+  Epic.toEpic $ Yaml.parseEither (.: "itemTemplates") yamlObject
 
 getTypes :: Epic.MonadCatch m => [ItemTemplate] -> m (StringMap Type)
 getTypes itemTemplates = do
@@ -489,11 +489,11 @@ hasFormIfRequired forms itemTemplate =
 --
 getObjectValue :: (Epic.MonadCatch m, Yaml.FromJSON a) => Yaml.Object -> String -> m a
 getObjectValue yamlObject key =
-  toEpic $ Yaml.parseEither (.: convertText key) yamlObject
+  Epic.toEpic $ Yaml.parseEither (.: convertText key) yamlObject
 
 getObjectValueWithDefault :: (Epic.MonadCatch m, Yaml.FromJSON a) => Yaml.Object -> String -> a -> m a
 getObjectValueWithDefault yamlObject key dflt =
-  toEpic $ Yaml.parseEither (\p -> p .:? convertText key .!= dflt) yamlObject
+  Epic.toEpic $ Yaml.parseEither (\p -> p .:? convertText key .!= dflt) yamlObject
 
 get :: Epic.MonadCatch m => StringMap a -> String -> m a
 get map key =
@@ -532,12 +532,6 @@ toWeather string = case string of
   "SNOW" -> Snow
   "WINDY" -> Windy
   _ -> error $ "Unknown weather: " ++ string
-
-toEpic :: (Show a, Epic.MonadCatch m) => Either a b -> m b
-toEpic either =
-  case either of
-    Left err -> Epic.fail $ show err
-    Right val -> return val
 
 costAtLevel :: GameMaster -> (GameMaster -> [(Int, Float)]) -> Float -> Maybe Int
 costAtLevel this func level =

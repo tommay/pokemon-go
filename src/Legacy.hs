@@ -27,15 +27,9 @@ makeLegacyMap yamlObjects = do
   foldr (\ yamlObject mStringMap -> do
       stringMap <- mStringMap
       species <-
-        toEpic $ Yaml.parseEither (.: "species") yamlObject
+        Epic.toEpic $ Yaml.parseEither (.: "species") yamlObject
       moves <-
-        toEpic $ Yaml.parseEither (.: "moves") yamlObject
+        Epic.toEpic $ Yaml.parseEither (.: "moves") yamlObject
       return $ HashMap.insertWith (++) species moves stringMap)
     (pure HashMap.empty)
     yamlObjects
-
-toEpic :: (Show a, Epic.MonadCatch m) => Either a b -> m b
-toEpic either =
-  case either of
-    Left err -> Epic.fail $ show err
-    Right val -> return val
