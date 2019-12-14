@@ -14,7 +14,7 @@ cp :: GameMaster -> PokemonBase -> IVs -> Int
 cp gameMaster pokemonBase ivs =
   let (level, attack, defense, stamina) = IVs.getAll ivs
       cpMultiplier = GameMaster.getCpMultiplier gameMaster level
-  in floor $
+  in maximum $ (:[10]) $ floor $
     fromIntegral (PokemonBase.attack pokemonBase + attack) * cpMultiplier *
     sqrt (fromIntegral (PokemonBase.defense pokemonBase + defense)) *
     sqrt (fromIntegral (PokemonBase.stamina pokemonBase + stamina)) *
