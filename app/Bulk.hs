@@ -196,14 +196,12 @@ main =
             Powerups.levelsAndCosts gameMaster discounts level
           makeOutputString (level, dust, candy) =
             let ivs = makePureIVs level
-                bulkForLevel = bulk gameMaster baseEvolved ivs
                 totalForLevel = total gameMaster baseEvolved ivs *
                   if (league options) == Peewee then 1000 else 1
-            in Printf.printf "%5d/%-4d: %-4s %.2f %.2f"
+            in Printf.printf "%5d/%-4d: %-4s %.2f"
                  (basePvpStardust + dust)
                  (basePvpCandy + candy)
                  (PokeUtil.levelToString level)
-                 bulkForLevel
                  totalForLevel
       case levelsAndCosts of
         [] -> putStrLn $
@@ -218,14 +216,6 @@ main =
 lastWhere :: (a -> Bool) -> [a] -> a
 lastWhere pred =
   last . takeWhile pred
-
-bulk :: GameMaster -> PokemonBase -> IVs -> Float
-bulk gameMaster base ivs =
-  let (level, _, defense, stamina) = IVs.getAll ivs
-      cpMultiplier = GameMaster.getCpMultiplier gameMaster level
-      defense' = fromIntegral $ PokemonBase.defense base + defense
-      stamina' = fromIntegral $ PokemonBase.stamina base + stamina
-  in cpMultiplier * sqrt (defense' * stamina')
 
 total :: GameMaster -> PokemonBase -> IVs -> Float
 total gameMaster base ivs =
