@@ -46,6 +46,7 @@ import qualified Data.Maybe as Maybe
 import           Data.Maybe (mapMaybe)
 import qualified Data.HashMap.Strict as HashMap
 import           Data.HashMap.Strict (HashMap)
+import qualified Data.Vector as Vector
 import           Data.Vector (Vector, (!))
 import qualified Text.Regex as Regex
 
@@ -156,9 +157,13 @@ candyAndLevel :: GameMaster -> [(Int, Float)]
 candyAndLevel this =
   costAndLevel $ candyCost this
 
+-- allLevels returns all levels up through 45 which is the max level
+-- with buddy cp boost.
+--
 allLevels :: GameMaster -> [Float]
 allLevels =
-  map snd . dustAndLevel
+  init . concat . map (\ (level, _) -> [level, level + 0.5])
+    . zip [1..] . Vector.toList . cpMultipliers
 
 nextLevel :: GameMaster -> Float -> Maybe (Int, Int, Float)
 nextLevel this level =
