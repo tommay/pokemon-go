@@ -10,6 +10,7 @@ import qualified IVs
 import qualified GameMaster
 import           GameMaster (GameMaster)
 import           PokemonBase (PokemonBase)
+import qualified PokeUtil
 
 import           Control.Monad (join)
 import qualified Data.Maybe as Maybe
@@ -59,31 +60,30 @@ main = Epic.catch (
   )
   $ Exit.die
 
-levels = [1..40]  -- Catches can now exceed maxEncounterPlayerLevel (30)
-                  -- depending on the weather.
-
 printAllLevels :: GameMaster -> PokemonBase -> Int -> IO ()
 printAllLevels gameMaster pokemonBase ivFloor =
   mapM_ (\level -> do
           let (min, max) = cpMinMax gameMaster pokemonBase ivFloor level
-          putStrLn $ Printf.printf "%2d: %4d %4d" level min max)
-    levels
+          putStrLn $ Printf.printf "%-4s: %4d %4d"
+            (PokeUtil.levelToString level) min max)
+    $ GameMaster.allLevels gameMaster
 
 printLevelsForCp :: GameMaster -> PokemonBase -> Int -> Int -> IO ()
 printLevelsForCp gameMaster pokemonBase ivFloor cp =
-  let levels' = filter (\level ->
+  let levels = filter (\level ->
           let (min, max) = cpMinMax gameMaster pokemonBase ivFloor level
           in min <= cp && cp <= max)
-        levels
-      min = minimum levels'
-      max = maximum levels'
-   in putStrLn $ show min ++ " - " ++ show max
+        $ GameMaster.allLevels gameMaster
+      min = minimum levels
+      max = maximum levels
+   in putStrLn $
+        PokeUtil.levelToString min ++ " - " ++ PokeUtil.levelToString max
 
-cpMinMax :: GameMaster -> PokemonBase -> Int -> Int -> (Int, Int)
+cpMinMax :: GameMaster -> PokemonBase -> Int -> Float -> (Int, Int)
 cpMinMax gameMaster pokemonBase ivFloor level =
   let ivs = possibleIvs ivFloor
       ivs' = map (\ (attack, defense, stamina) ->
-        IVs.new (fromIntegral level) attack defense stamina) ivs
+        IVs.new level attack defense stamina) ivs
       cps = map (Calc.cp gameMaster pokemonBase) ivs'
       min = minimum cps
       max = maximum cps
