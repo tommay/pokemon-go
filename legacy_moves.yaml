@@ -83,8 +83,8 @@
   - BLAST_BURN      # Community day 5/2019
 - species: lapras
   moves:
-  - ICE_SHARD_FAST  # Lapras day 5/25/2019
-  - ICE_BEAM        # Lapras day 5/25/2019
+  - ICE_SHARD_FAST  # Lapras day 5/25/2019, research breakthrough 1/2019
+  - ICE_BEAM        # Lapras day 5/25/2019, research breakthrough 1/2019
 - species: snorlax
   moves:
   - YAWN_FAST       # Snoozing Snorlax event 5/2019.
