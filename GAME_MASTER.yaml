@@ -39817,6 +39817,7 @@ itemTemplates:
     - evolution: ALAKAZAM
       candyCost: 100
       form: ALAKAZAM_NORMAL
+      noCandyCostViaTrade: true
     modelScaleV2: 1.0
     buddyOffsetMale:
     - 20.0
@@ -39899,6 +39900,7 @@ itemTemplates:
     - evolution: ALAKAZAM
       candyCost: 100
       form: ALAKAZAM_NORMAL
+      noCandyCostViaTrade: true
     modelScaleV2: 1.0
     form: KADABRA_NORMAL
     buddyOffsetMale:
@@ -39982,6 +39984,7 @@ itemTemplates:
     - evolution: ALAKAZAM
       candyCost: 90
       form: ALAKAZAM_PURIFIED
+      noCandyCostViaTrade: true
     modelScaleV2: 1.0
     form: KADABRA_PURIFIED
     buddyOffsetMale:
@@ -40589,6 +40592,7 @@ itemTemplates:
     evolutionBranch:
     - evolution: MACHAMP
       candyCost: 100
+      noCandyCostViaTrade: true
     modelScaleV2: 1.1
     buddyOffsetMale:
     - 20.0
@@ -42404,6 +42408,7 @@ itemTemplates:
     - evolution: GOLEM
       candyCost: 100
       form: GOLEM_NORMAL
+      noCandyCostViaTrade: true
     modelScaleV2: 1.0
     buddyOffsetMale:
     - 15.0
@@ -42487,6 +42492,7 @@ itemTemplates:
     - evolution: GOLEM
       candyCost: 100
       form: GOLEM_ALOLA
+      noCandyCostViaTrade: true
     modelScaleV2: 1.0
     form: GRAVELER_ALOLA
     buddyOffsetMale:
@@ -42575,6 +42581,7 @@ itemTemplates:
     - evolution: GOLEM
       candyCost: 100
       form: GOLEM_NORMAL
+      noCandyCostViaTrade: true
     modelScaleV2: 1.0
     form: GRAVELER_NORMAL
     buddyOffsetMale:
@@ -42659,6 +42666,7 @@ itemTemplates:
     - evolution: GOLEM
       candyCost: 90
       form: GOLEM_PURIFIED
+      noCandyCostViaTrade: true
     modelScaleV2: 1.0
     form: GRAVELER_PURIFIED
     buddyOffsetMale:
@@ -46381,6 +46389,7 @@ itemTemplates:
     evolutionBranch:
     - evolution: GENGAR
       candyCost: 100
+      noCandyCostViaTrade: true
     modelScaleV2: 0.81
     buddyOffsetMale:
     - 25.0
@@ -109159,7 +109168,7 @@ itemTemplates:
     - TACKLE_FAST
     - SMACK_DOWN_FAST
     cinematicMoves:
-    - POWER_GEM
+    - BULLDOZE
     - ROCK_BLAST
     - STONE_EDGE
     animationTime:
@@ -109182,7 +109191,7 @@ itemTemplates:
     modelHeight: 0.4
     evolutionBranch:
     - evolution: BOLDORE
-      candyCost: 25
+      candyCost: 50
     modelScaleV2: 1.1
     buddyOffsetMale:
     - 10.6
@@ -109241,7 +109250,7 @@ itemTemplates:
     - SMACK_DOWN_FAST
     cinematicMoves:
     - ROCK_SLIDE
-    - SOLAR_BEAM
+    - BULLDOZE
     - STONE_EDGE
     animationTime:
     - 1.9
@@ -109264,7 +109273,8 @@ itemTemplates:
     modelHeight: 0.83
     evolutionBranch:
     - evolution: GIGALITH
-      candyCost: 100
+      candyCost: 200
+      noCandyCostViaTrade: true
     modelScaleV2: 1.0
     buddyOffsetMale:
     - 12.8
@@ -109709,6 +109719,7 @@ itemTemplates:
       movementTimerS: 10.0
       jumpTimeS: 1.0
       attackTimerS: 29.0
+      bonusStardustCaptureReward: 2000
       attackProbability: 0.1
       dodgeProbability: 0.15
       dodgeDurationS: 1.0
@@ -109823,7 +109834,7 @@ itemTemplates:
     modelHeight: 0.92
     evolutionBranch:
     - evolution: GURDURR
-      candyCost: 25
+      candyCost: 50
     modelScaleV2: 1.0
     buddyOffsetMale:
     - 14.6
@@ -109905,7 +109916,8 @@ itemTemplates:
     modelHeight: 2.05
     evolutionBranch:
     - evolution: CONKELDURR
-      candyCost: 100
+      candyCost: 200
+      noCandyCostViaTrade: true
     modelScaleV2: 1.0
     buddyOffsetMale:
     - 12.5
@@ -115275,7 +115287,8 @@ itemTemplates:
     modelHeight: 0.61
     evolutionBranch:
     - evolution: ESCAVALIER
-      candyCost: 50
+      candyCost: 200
+      noCandyCostViaTrade: true
     modelScaleV2: 1.0
     buddyOffsetMale:
     - 11.5
@@ -115889,12 +115902,12 @@ itemTemplates:
       baseAttack: 201
       baseDefense: 128
     quickMoves:
-    - CHARGE_BEAM_FAST
+    - VOLT_SWITCH_FAST
     - FURY_CUTTER_FAST
     cinematicMoves:
     - CROSS_POISON
     - BUG_BUZZ
-    - THUNDER
+    - DISCHARGE
     - ENERGY_BALL
     animationTime:
     - 1.9
@@ -117522,7 +117535,8 @@ itemTemplates:
     modelHeight: 0.4
     evolutionBranch:
     - evolution: ACCELGOR
-      candyCost: 50
+      candyCost: 200
+      noCandyCostViaTrade: true
     modelScaleV2: 1.1
     buddyOffsetMale:
     - 13.2
@@ -120400,7 +120414,7 @@ itemTemplates:
       stardustToUnlock: 100000
       candyToUnlock: 100
     isTransferable: true
-    buddyGroupNumber: 7
+    buddyGroupNumber: 3
 - templateId: V0646_POKEMON_KYUREM_BLACK
   pokemonSettings:
     pokemonId: KYUREM
@@ -120480,7 +120494,7 @@ itemTemplates:
       stardustToUnlock: 100000
       candyToUnlock: 100
     isTransferable: true
-    buddyGroupNumber: 7
+    buddyGroupNumber: 3
 - templateId: V0646_POKEMON_KYUREM_NORMAL
   pokemonSettings:
     pokemonId: KYUREM
@@ -120560,7 +120574,7 @@ itemTemplates:
       stardustToUnlock: 100000
       candyToUnlock: 100
     isTransferable: true
-    buddyGroupNumber: 7
+    buddyGroupNumber: 3
 - templateId: V0646_POKEMON_KYUREM_WHITE
   pokemonSettings:
     pokemonId: KYUREM
@@ -120640,7 +120654,7 @@ itemTemplates:
       stardustToUnlock: 100000
       candyToUnlock: 100
     isTransferable: true
-    buddyGroupNumber: 7
+    buddyGroupNumber: 3
 - templateId: V0647_POKEMON_KELDEO
   pokemonSettings:
     pokemonId: KELDEO
@@ -121821,7 +121835,6 @@ itemTemplates:
     sku: bundle.general1.tiny.3
     category: IAP_CATEGORY_BUNDLE
     sortOrder: 10
-    hidden: true
     spriteId: bundle.general1.tiny.1
     title: bundle.general1.tiny.2_title
 - templateId: bundle.general1.tiny.4
@@ -121829,6 +121842,7 @@ itemTemplates:
     sku: bundle.general1.tiny.4
     category: IAP_CATEGORY_BUNDLE
     sortOrder: 10
+    hidden: true
     spriteId: bundle.general1.tiny.1
     title: bundle.general1.tiny.4_title
 - templateId: bundle.general3.large.1
@@ -138477,4 +138491,4 @@ itemTemplates:
     - wait 0.25
     - sys ui-sync
     - sys complete
-timestampMs: '1580536554474'
+timestampMs: '1580648997261'
