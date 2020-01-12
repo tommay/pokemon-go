@@ -595,35 +595,35 @@ tranquill:
 unfezant:
 blitzle: 
 zebstrika:
-roggenrola: mythical
-boldore: mythical
-gigalith: mythical
+roggenrola:
+boldore:
+gigalith:
 woobat: mythical
 swoobat: mythical
 drilbur: 
 excadrill:
 audino: mythical
-timburr: mythical
-gurdurr: mythical
-conkeldurr: mythical
-tympole: mythical
-palpitoad: mythical
-seismitoad: mythical
-throh: mythical
-sawk: mythical
+timburr:
+gurdurr:
+conkeldurr:
+tympole:
+palpitoad:
+seismitoad:
+throh: # regional north america, south america, africa
+sawk: # regional europe, asia, australia
 sewaddle: mythical
 swadloon: mythical
 leavanny: mythical
-venipede: mythical
-whirlipede: mythical
-scolipede: mythical
+venipede:
+whirlipede:
+scolipede:
 cottonee: mythical
 whimsicott: mythical
 petilil: mythical
 lilligant: mythical
 basculin: mythical
-basculin_blue_striped: mythical
-basculin_red_striped: mythical
+basculin_blue_striped: # regional western hemispjere
+basculin_red_striped: # regional eastern hemispjere
 sandile: mythical
 krokorok: mythical
 krookodile: mythical
@@ -631,20 +631,20 @@ darumaka: mythical
 darmanitan: mythical
 darmanitan_standard: mythical
 darmanitan_zen: mythical
-maractus: mythical
-dwebble: mythical
-crustle: mythical
+maractus: # regional southern us, mexico, central america, carribean, south america
+dwebble:
+crustle:
 scraggy: mythical
 scrafty: mythical
-sigilyph: mythical
+sigilyph: # regional egypt, greece
 yamask: mythical
 cofagrigus: mythical
-tirtouga: mythical
-carracosta: mythical
-archen: mythical
-archeops: mythical
-trubbish: mythical
-garbodor: mythical
+tirtouga:
+carracosta:
+archen:
+archeops:
+trubbish:
+garbodor:
 zorua: mythical
 zoroark: mythical
 minccino: mythical
@@ -671,15 +671,15 @@ sawsbuck_spring: mythical
 sawsbuck_summer: mythical
 sawsbuck_winter: mythical
 emolga: mythical
-karrablast: mythical
-escavalier: mythical
+karrablast:
+escavalier:
 foongus: 
 amoonguss:
 frillish: mythical
 jellicent: mythical
 alomomola: mythical
-joltik: mythical
-galvantula: mythical
+joltik:
+galvantula:
 ferroseed: 
 ferrothorn:
 klink: 
@@ -693,14 +693,14 @@ beheeyem: mythical
 litwick: 
 lampent: 
 chandelure: 
-axew: mythical
-fraxure: mythical
-haxorus: mythical
-cubchoo: mythical
-beartic: mythical
-cryogonal: mythical
-shelmet: mythical
-accelgor: mythical
+axew:
+fraxure:
+haxorus:
+cubchoo:
+beartic:
+cryogonal:
+shelmet:
+accelgor:
 stunfisk: mythical
 mienfoo: mythical
 mienshao: mythical
