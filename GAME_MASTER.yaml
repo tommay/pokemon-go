@@ -10499,7 +10499,7 @@ itemTemplates:
   combatMove:
     uniqueId: MEGAHORN
     type: POKEMON_TYPE_BUG
-    power: 90.0
+    power: 100.0
     vfxName: megahorn
     energyDelta: -55
 - templateId: COMBAT_V0024_MOVE_FLAMETHROWER
@@ -11531,8 +11531,8 @@ itemTemplates:
     type: POKEMON_TYPE_ELECTRIC
     power: 12.0
     vfxName: volt_switch_fast
-    durationTurns: 4
-    energyDelta: 10
+    durationTurns: 3
+    energyDelta: 16
 - templateId: COMBAT_V0251_MOVE_WILD_CHARGE
   combatMove:
     uniqueId: WILD_CHARGE
@@ -14948,9 +14948,9 @@ itemTemplates:
     forms:
     - form: KYUREM_NORMAL
       assetBundleValue: 11
-    - form: KYUREM_BLACK
-      assetBundleValue: 12
     - form: KYUREM_WHITE
+      assetBundleValue: 12
+    - form: KYUREM_BLACK
       assetBundleValue: 13
 - templateId: FORMS_V0647_POKEMON_KELDEO
   formSettings:
@@ -14972,15 +14972,15 @@ itemTemplates:
   formSettings:
     pokemon: GENESECT
     forms:
-    - form: GENESECT_NORMAL
-      assetBundleValue: 11
     - form: GENESECT_SHOCK
-      assetBundleValue: 12
-    - form: GENESECT_BURN
-      assetBundleValue: 13
-    - form: GENESECT_CHILL
-      assetBundleValue: 14
+      assetBundleValue: 11
     - form: GENESECT_DOUSE
+      assetBundleValue: 12
+    - form: GENESECT_NORMAL
+      assetBundleValue: 13
+    - form: GENESECT_BURN
+      assetBundleValue: 14
+    - form: GENESECT_CHILL
       assetBundleValue: 15
 - templateId: FORMS_V0808_POKEMON_MELTAN
   formSettings:
@@ -29215,7 +29215,7 @@ itemTemplates:
     movementId: MEGAHORN
     animationId: 5
     pokemonType: POKEMON_TYPE_BUG
-    power: 90.0
+    power: 110.0
     accuracyChance: 1.0
     criticalChance: 0.05
     staminaLossScalar: 0.12
@@ -30257,6 +30257,7 @@ itemTemplates:
     - VOLT_SWITCH_FAST
     - SPARK_FAST
     - CHARM_FAST
+    - THUNDER_SHOCK_FAST
     cinematicMoves:
     - BRICK_BREAK
     - THUNDER_PUNCH
@@ -30411,6 +30412,7 @@ itemTemplates:
     - VOLT_SWITCH_FAST
     - SPARK_FAST
     - CHARM_FAST
+    - THUNDER_SHOCK_FAST
     cinematicMoves:
     - BRICK_BREAK
     - THUNDER_PUNCH
@@ -34964,6 +34966,7 @@ itemTemplates:
     - SILVER_WIND
     - PSYCHIC
     - BUG_BUZZ
+    - POISON_FANG
     animationTime:
     - 0.0
     - 0.6
@@ -35041,6 +35044,7 @@ itemTemplates:
     - SILVER_WIND
     - PSYCHIC
     - BUG_BUZZ
+    - POISON_FANG
     animationTime:
     - 0.0
     - 0.6
@@ -35119,6 +35123,7 @@ itemTemplates:
     - SILVER_WIND
     - PSYCHIC
     - BUG_BUZZ
+    - POISON_FANG
     animationTime:
     - 0.0
     - 0.6
@@ -35197,6 +35202,7 @@ itemTemplates:
     - SILVER_WIND
     - PSYCHIC
     - BUG_BUZZ
+    - POISON_FANG
     animationTime:
     - 0.0
     - 0.6
@@ -43925,10 +43931,12 @@ itemTemplates:
     quickMoves:
     - SPARK_FAST
     - CHARGE_BEAM_FAST
+    - THUNDER_SHOCK_FAST
     cinematicMoves:
     - ZAP_CANNON
     - MAGNET_BOMB
     - FLASH_CANNON
+    - DISCHARGE
     animationTime:
     - 1.5
     - 0.6667
@@ -44006,10 +44014,12 @@ itemTemplates:
     quickMoves:
     - SPARK_FAST
     - CHARGE_BEAM_FAST
+    - THUNDER_SHOCK_FAST
     cinematicMoves:
     - ZAP_CANNON
     - MAGNET_BOMB
     - FLASH_CANNON
+    - DISCHARGE
     animationTime:
     - 1.5
     - 0.6667
@@ -44089,10 +44099,12 @@ itemTemplates:
     quickMoves:
     - SPARK_FAST
     - CHARGE_BEAM_FAST
+    - THUNDER_SHOCK_FAST
     cinematicMoves:
     - ZAP_CANNON
     - MAGNET_BOMB
     - FLASH_CANNON
+    - DISCHARGE
     animationTime:
     - 1.5
     - 0.6667
@@ -44172,10 +44184,12 @@ itemTemplates:
     quickMoves:
     - SPARK_FAST
     - CHARGE_BEAM_FAST
+    - THUNDER_SHOCK_FAST
     cinematicMoves:
     - ZAP_CANNON
     - MAGNET_BOMB
     - FLASH_CANNON
+    - DISCHARGE
     animationTime:
     - 1.5
     - 0.6667
@@ -46364,6 +46378,7 @@ itemTemplates:
     - SHADOW_PUNCH
     - DARK_PULSE
     - SLUDGE_BOMB
+    - SHADOW_BALL
     animationTime:
     - 2.1667
     - 0.6667
@@ -47219,6 +47234,7 @@ itemTemplates:
     - FIRE_PUNCH
     - ICE_PUNCH
     - THUNDER_PUNCH
+    - SHADOW_BALL
     animationTime:
     - 1.8667
     - 0.6667
@@ -47297,6 +47313,7 @@ itemTemplates:
     - FIRE_PUNCH
     - ICE_PUNCH
     - THUNDER_PUNCH
+    - SHADOW_BALL
     animationTime:
     - 1.8667
     - 0.6667
@@ -47376,6 +47393,7 @@ itemTemplates:
     - FIRE_PUNCH
     - ICE_PUNCH
     - THUNDER_PUNCH
+    - SHADOW_BALL
     animationTime:
     - 1.8667
     - 0.6667
@@ -47455,6 +47473,7 @@ itemTemplates:
     - FIRE_PUNCH
     - ICE_PUNCH
     - THUNDER_PUNCH
+    - SHADOW_BALL
     animationTime:
     - 1.8667
     - 0.6667
@@ -60597,6 +60616,7 @@ itemTemplates:
     quickMoves:
     - WATER_GUN_FAST
     - CHARGE_BEAM_FAST
+    - SPARK_FAST
     cinematicMoves:
     - HYDRO_PUMP
     - THUNDERBOLT
@@ -61897,6 +61917,7 @@ itemTemplates:
     - FOCUS_BLAST
     - THUNDER
     - POWER_GEM
+    - THUNDER_PUNCH
     animationTime:
     - 1.3333
     - 0.6667
@@ -61977,6 +61998,7 @@ itemTemplates:
     - FOCUS_BLAST
     - THUNDER
     - POWER_GEM
+    - THUNDER_PUNCH
     animationTime:
     - 1.3333
     - 0.6667
@@ -62058,6 +62080,7 @@ itemTemplates:
     - FOCUS_BLAST
     - THUNDER
     - POWER_GEM
+    - THUNDER_PUNCH
     animationTime:
     - 1.3333
     - 0.6667
@@ -62139,6 +62162,7 @@ itemTemplates:
     - FOCUS_BLAST
     - THUNDER
     - POWER_GEM
+    - THUNDER_PUNCH
     animationTime:
     - 1.3333
     - 0.6667
@@ -71781,16 +71805,16 @@ itemTemplates:
     movementId: VOLT_SWITCH_FAST
     animationId: 4
     pokemonType: POKEMON_TYPE_ELECTRIC
-    power: 20.0
+    power: 14.0
     accuracyChance: 1.0
     staminaLossScalar: 0.01
     trainerLevelMin: 1
     trainerLevelMax: 100
     vfxName: volt_switch_fast
-    durationMs: 2300
-    damageWindowStartMs: 1800
-    damageWindowEndMs: 2100
-    energyDelta: 25
+    durationMs: 1600
+    damageWindowStartMs: 700
+    damageWindowEndMs: 900
+    energyDelta: 21
 - templateId: V0250_POKEMON_HO_OH
   pokemonSettings:
     pokemonId: HO_OH
@@ -77531,6 +77555,7 @@ itemTemplates:
     - AIR_CUTTER
     - OMINOUS_WIND
     - SILVER_WIND
+    - BUBBLE_BEAM
     animationTime:
     - 1.3333
     - 0.6667
@@ -80253,6 +80278,7 @@ itemTemplates:
     - THUNDERBOLT
     - DISCHARGE
     - SWIFT
+    - GRASS_KNOT
     animationTime:
     - 1.3333
     - 0.6667
@@ -80344,6 +80370,7 @@ itemTemplates:
     - THUNDERBOLT
     - DISCHARGE
     - SWIFT
+    - GRASS_KNOT
     animationTime:
     - 1.3333
     - 0.6667
@@ -81231,6 +81258,7 @@ itemTemplates:
     damageWindowStartMs: 1000
     damageWindowEndMs: 1800
     energyDelta: -33
+    isLocked: true
 - templateId: V0322_POKEMON_NUMEL
   pokemonSettings:
     pokemonId: NUMEL
@@ -82738,6 +82766,21 @@ itemTemplates:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 5
+- templateId: V0331_MOVE_FLYING_PRESS
+  moveSettings:
+    movementId: FLYING_PRESS
+    animationId: 5
+    pokemonType: POKEMON_TYPE_FIGHTING
+    power: 110.0
+    accuracyChance: 1.0
+    staminaLossScalar: 0.01
+    trainerLevelMin: 1
+    trainerLevelMax: 100
+    vfxName: flying_press
+    durationMs: 2300
+    damageWindowStartMs: 1000
+    damageWindowEndMs: 2000
+    energyDelta: -50
 - templateId: V0331_POKEMON_CACNEA
   pokemonSettings:
     pokemonId: CACNEA
@@ -94249,6 +94292,8 @@ itemTemplates:
     quickMoves:
     - BUG_BITE_FAST
     - POISON_STING_FAST
+    - FURY_CUTTER_FAST
+    - AIR_SLASH_FAST
     cinematicMoves:
     - BUG_BUZZ
     - POWER_GEM
@@ -99323,7 +99368,7 @@ itemTemplates:
       attackProbability: 0.1
       dodgeProbability: 0.1
       dodgeDurationS: 1.0
-      dodgeDistance: 0.4
+      dodgeDistance: 0.2
       cameraDistance: 2.25
       minPokemonActionFrequencyS: 0.2
       maxPokemonActionFrequencyS: 1.6
@@ -99401,7 +99446,7 @@ itemTemplates:
       attackProbability: 0.1
       dodgeProbability: 0.1
       dodgeDurationS: 1.0
-      dodgeDistance: 0.4
+      dodgeDistance: 0.2
       cameraDistance: 4.0
       minPokemonActionFrequencyS: 0.2
       maxPokemonActionFrequencyS: 1.6
@@ -99480,7 +99525,7 @@ itemTemplates:
       attackProbability: 0.1
       dodgeProbability: 0.15
       dodgeDurationS: 1.0
-      dodgeDistance: 0.4
+      dodgeDistance: 0.2
       cameraDistance: 3.0
       minPokemonActionFrequencyS: 0.2
       maxPokemonActionFrequencyS: 1.6
@@ -111698,28 +111743,28 @@ itemTemplates:
 - templateId: V0554_POKEMON_DARUMAKA
   pokemonSettings:
     pokemonId: DARUMAKA
-    modelScale: 1.26
+    modelScale: 1.0
     type: POKEMON_TYPE_FIRE
     camera:
       diskRadiusM: 0.378
-      cylinderRadiusM: 0.25
-      cylinderHeightM: 0.4
+      cylinderRadiusM: 0.7
+      cylinderHeightM: 0.9
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.3
       baseFleeRate: 0.09
-      collisionRadiusM: 0.1
+      collisionRadiusM: 0.35
       collisionHeightM: 0.1
-      collisionHeadRadiusM: 0.126
+      collisionHeadRadiusM: 0.35
       movementType: MOVEMENT_JUMP
       movementTimerS: 10.0
-      jumpTimeS: 0.9
+      jumpTimeS: 0.8
       attackTimerS: 29.0
       attackProbability: 0.1
       dodgeProbability: 0.15
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
-      cameraDistance: 2.25
+      cameraDistance: 3.5
       minPokemonActionFrequencyS: 0.2
       maxPokemonActionFrequencyS: 1.6
     stats:
@@ -111732,7 +111777,6 @@ itemTemplates:
     cinematicMoves:
     - FIRE_PUNCH
     - FLAME_CHARGE
-    - PSYCHIC
     animationTime:
     - 1.9
     - 0.6667
@@ -111750,7 +111794,7 @@ itemTemplates:
     familyId: FAMILY_DARUMAKA
     candyToEvolve: 25
     kmBuddyDistance: 3.0
-    modelHeight: 0.4
+    modelHeight: 0.75
     evolutionBranch:
     - evolution: DARMANITAN
       candyCost: 50
@@ -111762,11 +111806,11 @@ itemTemplates:
     buddyOffsetMale:
     - 0.0
     - 0.0
-    - 0.0
+    - 25.0
     buddyOffsetFemale:
     - 0.0
     - 0.0
-    - 0.0
+    - 25.0
     buddyScale: 19.0
     buddyPortraitOffset:
     - 0.0
@@ -111781,22 +111825,22 @@ itemTemplates:
 - templateId: V0555_POKEMON_DARMANITAN
   pokemonSettings:
     pokemonId: DARMANITAN
-    modelScale: 1.26
+    modelScale: 0.9
     type: POKEMON_TYPE_FIRE
     camera:
       diskRadiusM: 0.378
-      cylinderRadiusM: 0.25
-      cylinderHeightM: 0.4
+      cylinderRadiusM: 1.0
+      cylinderHeightM: 1.4
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.1
       baseFleeRate: 0.07
-      collisionRadiusM: 0.1
+      collisionRadiusM: 0.4
       collisionHeightM: 0.1
-      collisionHeadRadiusM: 0.126
+      collisionHeadRadiusM: 0.4
       movementType: MOVEMENT_JUMP
       movementTimerS: 10.0
-      jumpTimeS: 0.9
+      jumpTimeS: 1.1
       attackTimerS: 29.0
       bonusCandyCaptureReward: 2
       bonusStardustCaptureReward: 200
@@ -111804,7 +111848,7 @@ itemTemplates:
       dodgeProbability: 0.15
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
-      cameraDistance: 2.25
+      cameraDistance: 5.0
       minPokemonActionFrequencyS: 0.2
       maxPokemonActionFrequencyS: 1.6
     stats:
@@ -111837,11 +111881,11 @@ itemTemplates:
     familyId: FAMILY_DARUMAKA
     candyToEvolve: 25
     kmBuddyDistance: 3.0
-    modelHeight: 0.4
+    buddySize: BUDDY_BIG
+    modelHeight: 1.79
     evolutionBranch:
     - candyCost: 50
     modelScaleV2: 1.1
-    form: DARMANITAN_STANDARD
     buddyOffsetMale:
     - 0.0
     - 0.0
@@ -111864,22 +111908,22 @@ itemTemplates:
 - templateId: V0555_POKEMON_DARMANITAN_STANDARD
   pokemonSettings:
     pokemonId: DARMANITAN
-    modelScale: 1.26
+    modelScale: 0.9
     type: POKEMON_TYPE_FIRE
     camera:
       diskRadiusM: 0.378
-      cylinderRadiusM: 0.25
-      cylinderHeightM: 0.4
+      cylinderRadiusM: 1.0
+      cylinderHeightM: 1.4
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.1
       baseFleeRate: 0.07
-      collisionRadiusM: 0.1
+      collisionRadiusM: 0.4
       collisionHeightM: 0.1
-      collisionHeadRadiusM: 0.126
+      collisionHeadRadiusM: 0.4
       movementType: MOVEMENT_JUMP
       movementTimerS: 10.0
-      jumpTimeS: 0.9
+      jumpTimeS: 1.1
       attackTimerS: 29.0
       bonusCandyCaptureReward: 2
       bonusStardustCaptureReward: 200
@@ -111887,7 +111931,7 @@ itemTemplates:
       dodgeProbability: 0.15
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
-      cameraDistance: 2.25
+      cameraDistance: 5.0
       minPokemonActionFrequencyS: 0.2
       maxPokemonActionFrequencyS: 1.6
     stats:
@@ -111920,7 +111964,8 @@ itemTemplates:
     familyId: FAMILY_DARUMAKA
     candyToEvolve: 25
     kmBuddyDistance: 3.0
-    modelHeight: 0.4
+    buddySize: BUDDY_BIG
+    modelHeight: 1.79
     modelScaleV2: 1.1
     form: DARMANITAN_STANDARD
     buddyOffsetMale:
@@ -111945,23 +111990,23 @@ itemTemplates:
 - templateId: V0555_POKEMON_DARMANITAN_ZEN
   pokemonSettings:
     pokemonId: DARMANITAN
-    modelScale: 1.26
+    modelScale: 0.9
     type: POKEMON_TYPE_FIRE
     type2: POKEMON_TYPE_PSYCHIC
     camera:
       diskRadiusM: 0.378
-      cylinderRadiusM: 0.25
-      cylinderHeightM: 0.4
+      cylinderRadiusM: 0.55
+      cylinderHeightM: 0.95
       shoulderModeScale: 0.5
     encounter:
       baseCaptureRate: 0.1
       baseFleeRate: 0.07
-      collisionRadiusM: 0.1
+      collisionRadiusM: 0.5
       collisionHeightM: 0.1
-      collisionHeadRadiusM: 0.126
+      collisionHeadRadiusM: 0.5
       movementType: MOVEMENT_JUMP
       movementTimerS: 10.0
-      jumpTimeS: 0.9
+      jumpTimeS: 1.2
       attackTimerS: 29.0
       bonusCandyCaptureReward: 2
       bonusStardustCaptureReward: 200
@@ -111969,7 +112014,7 @@ itemTemplates:
       dodgeProbability: 0.15
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
-      cameraDistance: 2.25
+      cameraDistance: 4.0
       minPokemonActionFrequencyS: 0.2
       maxPokemonActionFrequencyS: 1.6
     stats:
@@ -112002,7 +112047,7 @@ itemTemplates:
     familyId: FAMILY_DARUMAKA
     candyToEvolve: 25
     kmBuddyDistance: 3.0
-    modelHeight: 0.4
+    modelHeight: 1.31
     modelScaleV2: 1.1
     form: DARMANITAN_ZEN
     buddyOffsetMale:
@@ -121835,6 +121880,7 @@ itemTemplates:
     sku: bundle.general1.tiny.3
     category: IAP_CATEGORY_BUNDLE
     sortOrder: 10
+    hidden: true
     spriteId: bundle.general1.tiny.1
     title: bundle.general1.tiny.2_title
 - templateId: bundle.general1.tiny.4
@@ -121842,7 +121888,6 @@ itemTemplates:
     sku: bundle.general1.tiny.4
     category: IAP_CATEGORY_BUNDLE
     sortOrder: 10
-    hidden: true
     spriteId: bundle.general1.tiny.1
     title: bundle.general1.tiny.4_title
 - templateId: bundle.general3.large.1
@@ -136073,10 +136118,6 @@ itemTemplates:
     sortOrder: 7
     spriteId: leadermap.1
     title: itemleadermap_title
-- templateId: poffin
-  iapItemDisplay:
-    sku: poffin
-    spriteId: poffin
 - templateId: sequence_acid_fast
   moveSequenceSettings:
     sequence:
@@ -138491,4 +138532,4 @@ itemTemplates:
     - wait 0.25
     - sys ui-sync
     - sys complete
-timestampMs: '1580648997261'
+timestampMs: '1580031508446'
