@@ -439,15 +439,25 @@ getNameFromKey :: Epic.MonadCatch m => String -> ItemTemplate -> m String
 getNameFromKey nameKey itemTemplate =
   getObjectValue itemTemplate nameKey
 
-makeObjects :: Epic.MonadCatch m => String -> (ItemTemplate -> m String) -> (ItemTemplate -> m a) -> [ItemTemplate]
+makeObjects :: Epic.MonadCatch m =>
+  String -> (ItemTemplate -> m String) -> (ItemTemplate -> m a)
+  -> [ItemTemplate]
   -> m (StringMap a)
-makeObjects filterKey getName makeObject itemTemplates =
+makeObjects = makeSomeObjects $ const True
+
+makeSomeObjects :: Epic.MonadCatch m =>
+  (ItemTemplate -> Bool)
+  -> String -> (ItemTemplate -> m String) -> (ItemTemplate -> m a)
+  -> [ItemTemplate]
+  -> m (StringMap a)
+makeSomeObjects pred filterKey getName makeObject itemTemplates =
   foldr (\ itemTemplate maybeHash -> do
       hash <- maybeHash
       name <- getName itemTemplate
       obj <- makeObject itemTemplate
       return $ HashMap.insert name obj hash)
     (pure HashMap.empty)
+    $ filter pred
     $ getAll itemTemplates filterKey
 
 getAll :: [ItemTemplate] -> String -> [ItemTemplate]
