@@ -27,6 +27,8 @@ import qualified Move
 import           Move (Move)
 import qualified PokemonBase
 import           PokemonBase (PokemonBase)
+import qualified PvpChargedMove
+import           PvpChargedMove (PvpChargedMove)
 import qualified PvpFastMove
 import           PvpFastMove (PvpFastMove)
 import           StringMap (StringMap)
@@ -58,6 +60,7 @@ data GameMaster = GameMaster {
   types         :: StringMap Type,
   moves         :: StringMap Move,
   pvpFastMoves  :: StringMap PvpFastMove,
+  pvpChargedMoves :: StringMap PvpChargedMove,
   forms         :: StringMap [String],
   pokemonBases  :: StringMap PokemonBase,
   cpMultipliers :: Vector Float,
@@ -203,6 +206,7 @@ makeGameMaster yamlObject = do
   types <- getTypes itemTemplates
   moves <- getMoves types itemTemplates
   pvpFastMoves <- getPvpFastMoves types itemTemplates
+  pvpChargedMoves <- getPvpChargedMoves types itemTemplates
   forms <- getForms itemTemplates
   pokemonBases <-
     makeObjects "pokemonSettings" (getSpeciesForPokemonBase forms)
@@ -234,8 +238,8 @@ makeGameMaster yamlObject = do
         in HashMap.insert weather m map)
       HashMap.empty
       $ HashMap.toList weatherAffinityMap
-  return $ GameMaster.new types moves pvpFastMoves forms pokemonBases
-    cpMultipliers stardustCost candyCost weatherBonusMap
+  return $ GameMaster.new types moves pvpFastMoves pvpChargedMoves
+    forms pokemonBases cpMultipliers stardustCost candyCost weatherBonusMap
 
 -- Here it's nice to use Yaml.Parser because it will error if we don't
 -- get a [ItemTemplate], i.e., it checks that the Yaml.Values are the
@@ -303,13 +307,27 @@ makeMove types itemTemplate =
 isFastMove :: ItemTemplate -> Bool
 isFastMove itemTemplate = case getObjectValue itemTemplate "uniqueId" of
     Left _ -> error $ "Move doesn' have a uniqueId: " ++ show itemTemplate
-    Right uniqueId ->  List.isSuffixOf "_FAST" uniqueId
+    Right uniqueId -> List.isSuffixOf "_FAST" uniqueId
+
+isChargedMove :: ItemTemplate -> Bool
+isChargedMove = not . isFastMove
 
 getPvpFastMoves :: Epic.MonadCatch m =>
   StringMap Type -> [ItemTemplate] -> m (StringMap PvpFastMove)
 getPvpFastMoves types itemTemplates =
-  makeSomeObjects isFastMove  "combatMove" (getNameFromKey "uniqueId")
-    (makePvpFastMove types) itemTemplates
+  getPvpMoves isFastMove (makePvpFastMove types) itemTemplates
+
+getPvpChargedMoves :: Epic.MonadCatch m =>
+  StringMap Type -> [ItemTemplate] -> m (StringMap PvpChargedMove)
+getPvpChargedMoves types itemTemplates =
+  getPvpMoves isChargedMove (makePvpChargedMove types) itemTemplates
+
+getPvpMoves :: Epic.MonadCatch m =>
+  (ItemTemplate -> Bool) -> (ItemTemplate -> m a) -> [ItemTemplate]
+  -> m (StringMap a)
+getPvpMoves pred makePvpMove itemTemplates =
+  makeSomeObjects pred "combatMove" (getNameFromKey "uniqueId")
+    makePvpMove itemTemplates
 
 makePvpFastMove :: Epic.MonadCatch m =>
   StringMap Type -> ItemTemplate -> m PvpFastMove
@@ -324,6 +342,21 @@ makePvpFastMove types itemTemplate =
       get types typeName
     <*> getTemplateValueWithDefault "power" 0.0
     <*> getTemplateValueWithDefault "durationTurns" 0
+    <*> getTemplateValueWithDefault "energyDelta" 0
+    <*> pure False
+
+makePvpChargedMove :: Epic.MonadCatch m =>
+  StringMap Type -> ItemTemplate -> m PvpChargedMove
+makePvpChargedMove types itemTemplate =
+  let getTemplateValue = getObjectValue itemTemplate
+      getTemplateValueWithDefault text =
+        getObjectValueWithDefault itemTemplate text
+  in PvpChargedMove.new
+    <$> getTemplateValue "uniqueId"
+    <*> do
+      typeName <- getTemplateValue "type"
+      get types typeName
+    <*> getTemplateValueWithDefault "power" 0.0
     <*> getTemplateValueWithDefault "energyDelta" 0
     <*> pure False
 
