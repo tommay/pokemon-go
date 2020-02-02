@@ -21,6 +21,7 @@ library
                        Util, Weather, Friend, Logger, BattlerUtil, Yaml,
                        MakePokemon, Stats, PokeUtil, TweakLevel, Breakpoint,
                        Powerups, WeatherBonus, Legacy, Discounts,
+                       PvpFastMove,
                        YamlUtil
   other-modules:       StringMap
   ghc-options:         -O2

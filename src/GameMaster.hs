@@ -27,6 +27,8 @@ import qualified Move
 import           Move (Move)
 import qualified PokemonBase
 import           PokemonBase (PokemonBase)
+import qualified PvpFastMove
+import           PvpFastMove (PvpFastMove)
 import           StringMap (StringMap)
 import qualified Type
 import           Type (Type)
@@ -55,6 +57,7 @@ import qualified Debug as D
 data GameMaster = GameMaster {
   types         :: StringMap Type,
   moves         :: StringMap Move,
+  pvpFastMoves  :: StringMap PvpFastMove,
   forms         :: StringMap [String],
   pokemonBases  :: StringMap PokemonBase,
   cpMultipliers :: Vector Float,
@@ -199,6 +202,7 @@ makeGameMaster yamlObject = do
   itemTemplates <- getItemTemplates yamlObject
   types <- getTypes itemTemplates
   moves <- getMoves types itemTemplates
+  pvpFastMoves <- getPvpFastMoves types itemTemplates
   forms <- getForms itemTemplates
   pokemonBases <-
     makeObjects "pokemonSettings" (getSpeciesForPokemonBase forms)
@@ -230,8 +234,8 @@ makeGameMaster yamlObject = do
         in HashMap.insert weather m map)
       HashMap.empty
       $ HashMap.toList weatherAffinityMap
-  return $ GameMaster.new types moves forms pokemonBases cpMultipliers
-    stardustCost candyCost weatherBonusMap
+  return $ GameMaster.new types moves pvpFastMoves forms pokemonBases
+    cpMultipliers stardustCost candyCost weatherBonusMap
 
 -- Here it's nice to use Yaml.Parser because it will error if we don't
 -- get a [ItemTemplate], i.e., it checks that the Yaml.Values are the
@@ -294,6 +298,33 @@ makeMove types itemTemplate =
     <*> ((/1000) <$> getTemplateValue "durationMs")
     <*> getTemplateValue "damageWindowStartMs"
     <*> getObjectValueWithDefault itemTemplate "energyDelta" 0
+    <*> pure False
+
+isFastMove :: ItemTemplate -> Bool
+isFastMove itemTemplate = case getObjectValue itemTemplate "uniqueId" of
+    Left _ -> error $ "Move doesn' have a uniqueId: " ++ show itemTemplate
+    Right uniqueId ->  List.isSuffixOf "_FAST" uniqueId
+
+getPvpFastMoves :: Epic.MonadCatch m =>
+  StringMap Type -> [ItemTemplate] -> m (StringMap PvpFastMove)
+getPvpFastMoves types itemTemplates =
+  makeSomeObjects isFastMove  "combatMove" (getNameFromKey "uniqueId")
+    (makePvpFastMove types) itemTemplates
+
+makePvpFastMove :: Epic.MonadCatch m =>
+  StringMap Type -> ItemTemplate -> m PvpFastMove
+makePvpFastMove types itemTemplate =
+  let getTemplateValue = getObjectValue itemTemplate
+      getTemplateValueWithDefault text =
+        getObjectValueWithDefault itemTemplate text
+  in PvpFastMove.new
+    <$> getTemplateValue "uniqueId"
+    <*> do
+      typeName <- getTemplateValue "type"
+      get types typeName
+    <*> getTemplateValueWithDefault "power" 0.0
+    <*> getTemplateValueWithDefault "durationTurns" 0
+    <*> getTemplateValueWithDefault "energyDelta" 0
     <*> pure False
 
 -- Return a map of pokemon species to a (possibly empty) list of its forms.
