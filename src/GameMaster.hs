@@ -210,7 +210,7 @@ makeGameMaster yamlObject = do
   forms <- getForms itemTemplates
   pokemonBases <-
     makeObjects "pokemonSettings" (getSpeciesForPokemonBase forms)
-      (makePokemonBase types moves forms)
+      (makePokemonBase types moves pvpFastMoves pvpChargedMoves forms)
       (filter (hasFormIfRequired forms) itemTemplates)
   cpMultipliers <- do
     playerLevel <- getFirst itemTemplates "playerLevel"
@@ -401,8 +401,12 @@ getSpeciesForPokemonBase forms itemTemplate = do
       Right form -> return form
       Left _ -> Epic.fail $ "No form specified for " ++ species      
 
-makePokemonBase :: Epic.MonadCatch m => StringMap Type -> StringMap Move -> StringMap [String] -> ItemTemplate -> m PokemonBase
-makePokemonBase types moves forms pokemonSettings =
+makePokemonBase :: Epic.MonadCatch m =>
+  StringMap Type -> StringMap Move
+  -> StringMap PvpFastMove -> StringMap PvpChargedMove
+  -> StringMap [String] -> ItemTemplate -> m PokemonBase
+makePokemonBase types moves pvpFastMoves pvpChargedMoves
+    forms pokemonSettings =
   Epic.catch (do
     let getValue key = getObjectValue pokemonSettings key
 
@@ -451,15 +455,18 @@ makePokemonBase types moves forms pokemonSettings =
     -- just returned as [] here.  If they start using this scheme for
     -- other pokemon they will break and I can decide what to do then.
     --
-    let getMoves key = if species /= "smeargle"
+    let getMoves key stringMap = if species /= "smeargle"
           then do
             -- Mew has some moves specified multiple times so nub them.
             moveNames <- List.nub <$> getValue key
-            mapM (get moves) moveNames
+            mapM (get stringMap) moveNames
           else return []
 
-    quickMoves <- getMoves "quickMoves"
-    chargeMoves <- getMoves "cinematicMoves"
+    quickMoves <- getMoves "quickMoves" moves
+    chargeMoves <- getMoves "cinematicMoves" moves
+
+    pvpFastMoves <- getMoves "quickMoves" pvpFastMoves
+    pvpChargedMoves <- getMoves "cinematicMoves" pvpChargedMoves
 
     let parent = case getValue "parentPokemonId" of
           Right parent -> Just parent
@@ -489,8 +496,8 @@ makePokemonBase types moves forms pokemonSettings =
         Left _ -> return $ (0, 0)
 
     return $ PokemonBase.new pokemonId species ptypes attack defense stamina
-       evolutions quickMoves chargeMoves parent baseCaptureRate thirdMoveCost
-       purificationCost
+       evolutions quickMoves chargeMoves pvpFastMoves pvpChargedMoves
+       parent baseCaptureRate thirdMoveCost purificationCost
     )
   (\ex -> Epic.fail $ ex ++ " in " ++ show pokemonSettings)
 

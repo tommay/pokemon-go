@@ -10,6 +10,8 @@ module PokemonBase (
   evolutions,
   quickMoves,
   chargeMoves,
+  pvpFastMoves,
+  pvpChargedMoves,
   hasEvolutions,
   baseCaptureRate,
   thirdMoveCost,
@@ -20,6 +22,10 @@ module PokemonBase (
 import           Type (Type)
 import qualified Move
 import           Move (Move)
+import qualified PvpFastMove
+import           PvpFastMove (PvpFastMove)
+import qualified PvpChargedMove
+import           PvpChargedMove (PvpChargedMove)
 
 import           Data.Text (Text)
 
@@ -33,6 +39,8 @@ data PokemonBase = PokemonBase {
   evolutions   :: [(String, Int)],
   quickMoves   :: [Move],
   chargeMoves  :: [Move],
+  pvpFastMoves :: [PvpFastMove],
+  pvpChargedMoves :: [PvpChargedMove],
   parent       :: Maybe String,
   baseCaptureRate :: Float,
   thirdMoveCost :: (Int, Int),  -- (stardust, candy)
