@@ -5,6 +5,7 @@ module PvpChargedMove (
   power,
   setLegacy,
   isLegacy,
+  name,
 ) where
 
 import qualified Type
@@ -28,17 +29,12 @@ instance Show PvpChargedMove where
 
 new = PvpChargedMove
 
-{-
 name :: PvpChargedMove -> String
 name this =
-  let noFast = Regex.subRegex (Regex.mkRegex "_FAST$") (uniqueId this) ""
-      alphaOnly = Regex.subRegex (Regex.mkRegex "[^a-zA-Z]") noFast " "
-      withType = if PvpFastMove.isHiddenPower this
-        then alphaOnly ++ ", " ++ (Type.name $ PvpFastMove.moveType this)
-        else alphaOnly
+  let name = uniqueId this
+      alphaOnly = Regex.subRegex (Regex.mkRegex "[^a-zA-Z]") name " "
       lower = Util.toLower alphaOnly
   in lower
--}
 
 setLegacy :: PvpChargedMove -> PvpChargedMove
 setLegacy this =

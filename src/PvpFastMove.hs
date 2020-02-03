@@ -8,6 +8,7 @@ module PvpFastMove (
   setType,
   setLegacy,
   isLegacy,
+  name,
 ) where
 
 import qualified Type
@@ -32,7 +33,6 @@ instance Show PvpFastMove where
 
 new = PvpFastMove
 
-{-
 name :: PvpFastMove -> String
 name this =
   let noFast = Regex.subRegex (Regex.mkRegex "_FAST$") (uniqueId this) ""
@@ -42,7 +42,6 @@ name this =
         else alphaOnly
       lower = Util.toLower alphaOnly
   in lower
--}
 
 isHiddenPower :: PvpFastMove -> Bool
 isHiddenPower this =
