@@ -3,6 +3,7 @@ module PvpChargedMove (
   new,
   moveType,
   power,
+  energyDelta,
   setLegacy,
   isLegacy,
   name,
