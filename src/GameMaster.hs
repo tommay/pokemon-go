@@ -81,7 +81,7 @@ load filename = do
     Right yamlObject -> do
       gameMaster <- makeGameMaster yamlObject
       legacyMap <- join $ Legacy.load "legacy_moves.yaml"
-      gameMaster <- addLegacyMoves legacyMap gameMaster
+      gameMaster <- addLegacyMoves gameMaster legacyMap
       return $ return $ gameMaster
 
 allPokemonBases :: GameMaster -> [PokemonBase]
@@ -646,8 +646,8 @@ commaSeparated list =
   in commaSeparated' list
 
 addLegacyMoves :: Epic.MonadCatch m =>
-  StringMap [String] -> GameMaster -> m GameMaster
-addLegacyMoves legacyMap this =
+  GameMaster -> StringMap [String] -> m GameMaster
+addLegacyMoves this legacyMap =
   let addMoves :: Epic.MonadCatch m =>
         String -> [String] -> m GameMaster -> m GameMaster
       addMoves species moveNames mGameMaster = do
