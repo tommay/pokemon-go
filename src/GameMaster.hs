@@ -42,7 +42,7 @@ import           WeatherBonus (WeatherBonus)
 import qualified Data.Yaml as Yaml
 import           Data.Yaml ((.:), (.:?), (.!=))
 
-import           Control.Monad (join)
+import           Control.Monad (join, foldM)
 import           Data.Text.Conversions (convertText)
 import qualified Data.List as List
 import qualified Data.List.Extra
@@ -652,15 +652,20 @@ addLegacyMoves this legacyMap =
         String -> [String] -> m GameMaster -> m GameMaster
       addMoves species moveNames mGameMaster = do
         gameMaster <- mGameMaster
-        moves <- mapM (getMove gameMaster) moveNames
-        moves <- return $ map Move.setLegacy moves
         base <- getPokemonBase gameMaster species
-        base <- return $ foldr PokemonBase.addMove base moves
-        let speciesU = Util.toUpper species
+        base <- foldM (addMove gameMaster) base moveNames
+        let speciesU = Util.toUpper $ PokemonBase.species base
             key = if HashMap.member speciesU $ pokemonBases gameMaster
               then speciesU
               else speciesU ++ "_NORMAL"
         return $ gameMaster {
           pokemonBases = HashMap.insert key base $ pokemonBases gameMaster
         }
+
+      addMove :: Epic.MonadCatch m =>
+        GameMaster -> PokemonBase -> String -> m PokemonBase
+      addMove gameMaster base moveName = do
+        move <- getMove gameMaster moveName
+        move <- return $ Move.setLegacy move
+        return $ PokemonBase.addMove move base
   in HashMap.foldrWithKey addMoves (pure this) legacyMap
