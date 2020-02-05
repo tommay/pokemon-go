@@ -17,6 +17,8 @@ module PokemonBase (
   thirdMoveCost,
   purificationCost,
   addMove,
+  addPvpFastMove,
+  addPvpChargedMove,
 ) where
 
 import           Type (Type)
@@ -62,3 +64,11 @@ addMove move this =
   if Move.isQuick move
     then this { quickMoves = move : quickMoves this }
     else this { chargeMoves = move : chargeMoves this }
+
+addPvpFastMove :: PokemonBase -> PvpFastMove -> PokemonBase
+addPvpFastMove this move =
+  this { pvpFastMoves = move : pvpFastMoves this }
+
+addPvpChargedMove :: PokemonBase -> PvpChargedMove -> PokemonBase
+addPvpChargedMove this move =
+  this { pvpChargedMoves = move : pvpChargedMoves this }

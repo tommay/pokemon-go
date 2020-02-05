@@ -139,6 +139,14 @@ getCharge this moveName = do
     True -> return move
     False -> Epic.fail $ moveName ++ " is not a charge move"
 
+getPvpFastMove :: Epic.MonadCatch m => GameMaster -> String -> m PvpFastMove
+getPvpFastMove this moveName  =
+  GameMaster.lookup "pvpFastMove" (pvpFastMoves this) moveName
+
+getPvpChargedMove :: Epic.MonadCatch m => GameMaster -> String -> m PvpChargedMove
+getPvpChargedMove this moveName  =
+  GameMaster.lookup "pvpChargedMove" (pvpChargedMoves this) moveName
+
 getCpMultiplier :: GameMaster -> Float -> Float
 getCpMultiplier this level =
   let cpMultipliers' = GameMaster.cpMultipliers this
@@ -667,5 +675,13 @@ addLegacyMoves this legacyMap =
       addMove gameMaster base moveName = do
         move <- getMove gameMaster moveName
         move <- return $ Move.setLegacy move
-        return $ PokemonBase.addMove move base
+        base <- return $ PokemonBase.addMove move base
+        let addPvpMove getMove addMove = do
+              pvpMove <- getMove gameMaster moveName
+              return $ addMove base pvpMove
+        base <- if Move.isQuick move
+          then addPvpMove GameMaster.getPvpFastMove PokemonBase.addPvpFastMove
+          else addPvpMove GameMaster.getPvpChargedMove
+            PokemonBase.addPvpChargedMove
+        return $ base
   in HashMap.foldrWithKey addMoves (pure this) legacyMap
