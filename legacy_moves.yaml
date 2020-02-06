@@ -19,9 +19,6 @@
 - species: blastoise
   moves:
   - HYDRO_CANNON    # Community day 7/2018
-- species: snorlax
-  moves:
-  - BODY_SLAM       # 7/2018 research reward
 - species: zapdos
   moves:
   - THUNDER_SHOCK_FAST   # Zapdos day 7/21/2018
@@ -60,7 +57,6 @@
   - BLAST_BURN      # Community day 11/2018
 - species: gengar
   moves:
-  - SHADOW_CLAW_FAST
   - LICK_FAST       # Gengar day 11/3/2018
   - PSYCHIC         # Gengar day 11/3/2018
 - species: feraligatr
@@ -83,8 +79,8 @@
   - BLAST_BURN      # Community day 5/2019
 - species: lapras
   moves:
-  - ICE_SHARD_FAST  # Lapras day 5/25/2019, research breakthrough 1/2019
-  - ICE_BEAM        # Lapras day 5/25/2019, research breakthrough 1/2019
+  - ICE_SHARD_FAST  # Lapras day 5/25/2019, research breakthrough 1/2020
+  - ICE_BEAM        # Lapras day 5/25/2019, research breakthrough 1/2020
 - species: snorlax
   moves:
   - YAWN_FAST       # Snoozing Snorlax event 5/2019.
@@ -109,9 +105,6 @@
 - species: infernape
   moves:
   - BLAST_BURN      # Community day 11/16/2019
-- species: golem_normal
-  moves:
-  - ANCIENT_POWER
 - species: seaking
   moves:
   - POISON_JAB_FAST
