@@ -71,10 +71,12 @@ main =
                   cpString = if min == max
                     then Printf.printf "%s: %d" evolutionSpecies min
                     else Printf.printf "%s: %d - %d" evolutionSpecies min max
-                  percentLeague cpCap =
-                    100 * length (filter (<= cpCap) evolvedCps) `div`
-                      length evolvedCps
-                  result = Printf.printf "%s (%d%%, %d%%)" cpString
+                  percent :: Int -> Int -> Float
+                  percent num den = 100 * (fromIntegral num / fromIntegral den)
+                  percentLeague cpCap = percent 
+                    (length $ filter (<= cpCap) evolvedCps)
+                    (length evolvedCps)
+                  result = Printf.printf "%s (%.1f%%, %.1f%%)" cpString
                     (percentLeague 1500) (percentLeague 2500)
               in NestedResult $ result
       putStrLn $ show $ case cpList options of
