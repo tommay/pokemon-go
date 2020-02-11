@@ -42,7 +42,7 @@ getOptions =
       optIvFloor = O.optional $ O.option O.auto
         (  O.long "ivFloor"
         <> O.short 'm'
-        <> O.metavar "N"
+        <> O.metavar "MINIMUM"
         <> O.help "Set minimum IV, e.g., 10 for raid boss or hatch")
       optSpecies = O.strArgument (O.metavar "SPECIES")
       optCpList = O.many $ O.argument O.auto (O.metavar "CP")
@@ -67,9 +67,16 @@ main =
                   evolvedCps = map (Calc.cp gameMaster evolutionBase) ivList
                   min = minimum evolvedCps
                   max = maximum evolvedCps
-              in NestedResult $ if min == max
-                then Printf.printf "%s: %d" evolutionSpecies min
-                else Printf.printf "%s: %d - %d" evolutionSpecies min max
+                  cpString :: String
+                  cpString = if min == max
+                    then Printf.printf "%s: %d" evolutionSpecies min
+                    else Printf.printf "%s: %d - %d" evolutionSpecies min max
+                  percentLeague cpCap =
+                    100 * length (filter (<= cpCap) evolvedCps) `div`
+                      length evolvedCps
+                  result = Printf.printf "%s (%d%%, %d%%)" cpString
+                    (percentLeague 1500) (percentLeague 2500)
+              in NestedResult $ result
       putStrLn $ show $ case cpList options of
         [] ->
           resultsForIvs testIVs
