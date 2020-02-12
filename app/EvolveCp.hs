@@ -4,6 +4,7 @@ module Main where
 
 import qualified Options.Applicative as O
 import           Options.Applicative ((<|>), (<**>))
+import           Data.Ratio as Ratio
 import           Data.Semigroup ((<>))
 
 import qualified Calc
@@ -71,12 +72,18 @@ main =
                   cpString = if min == max
                     then Printf.printf "%s: %d" evolutionSpecies min
                     else Printf.printf "%s: %d - %d" evolutionSpecies min max
-                  percent :: Int -> Int -> Float
-                  percent num den = 100 * (fromIntegral num / fromIntegral den)
-                  percentLeague cpCap = percent 
-                    (length $ filter (<= cpCap) evolvedCps)
+                  showAsPercent :: Ratio Int -> String
+                  showAsPercent n =
+                    let percent = n * 100
+                    in if Ratio.denominator percent == 1
+                         then show $ Ratio.numerator percent
+                         else Printf.printf (if percent < 10
+                           then "%.1f" else "%.0f")
+                           $ (realToFrac percent :: Float)
+                  percentLeague cpCap = showAsPercent $
+                    (length $ filter (<= cpCap) evolvedCps) %
                     (length evolvedCps)
-                  result = Printf.printf "%s (%.1f%%, %.1f%%)" cpString
+                  result = Printf.printf "%s (%s%%, %s%%)" cpString
                     (percentLeague 1500) (percentLeague 2500)
               in NestedResult $ result
       putStrLn $ show $ case cpList options of
