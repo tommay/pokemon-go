@@ -55,18 +55,19 @@ main =
           toName fast charged =
             Printf.printf "%s / %s"
               (PvpFastMove.name fast) (PvpChargedMove.name charged)
-          toStuff :: (PvpFastMove, PvpChargedMove) -> (String, Int, Float)
+          toStuff :: (PvpFastMove, PvpChargedMove) -> (String, Int, Int, Float)
           toStuff (fast, charged) =
             let name = toName fast charged
-                (turnsPerCycle, dpt) = spam fast charged
-            in (name, turnsPerCycle, dpt)
+                (turnsPerCycle, fastMovesPerCycle, dpt) = spam fast charged
+            in (name, turnsPerCycle, fastMovesPerCycle, dpt)
           stuff = map toStuff moveSets
-      forM_ stuff $ \ (name, turnsPerCycle, dpt) ->
-        putStrLn $ Printf.printf "%-30s: %d %.2f" name turnsPerCycle dpt
+      forM_ stuff $ \ (name, turnsPerCycle, fastMovesPerCycle, dpt) ->
+        putStrLn $ Printf.printf "%-30s: %d(%d) %.2f"
+          name turnsPerCycle fastMovesPerCycle dpt
     )
     $ Exit.die
 
-spam :: PvpFastMove -> PvpChargedMove -> (Int, Float)
+spam :: PvpFastMove -> PvpChargedMove -> (Int, Int, Float)
 spam fast charged =
   let chargedEnergy = - PvpChargedMove.energyDelta charged
       fastEnergy = PvpFastMove.energyDelta fast
@@ -76,4 +77,4 @@ spam fast charged =
         (fromIntegral fastMovesPerCycle) * (PvpFastMove.power fast)
         + PvpChargedMove.power charged
       dpt = damagePerCycle / fromIntegral turnsPerCycle
-  in (turnsPerCycle, dpt)
+  in (turnsPerCycle, fastMovesPerCycle, dpt)
