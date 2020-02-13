@@ -57,7 +57,7 @@
   - BLAST_BURN      # Community day 11/2018
 - species: gengar
   moves:
-  - LICK_FAST       # Gengar day 11/3/2018
+  - LICK_FAST       # Gengar day 11/3/2018, 3/1/2020
   - PSYCHIC         # Gengar day 11/3/2018
 - species: feraligatr
   moves:
@@ -116,6 +116,12 @@
   - SHADOW_BALL
   - HYPER_BEAM
   - PSYSTRIKE          # September 2019 ultra-bonus raid boss catch.
+- species: lickitung
+  moves:
+  - BODY_SLAM          # Lickitung day 2/15/2020
+- species: lickilicky
+  moves:
+  - BODY_SLAM          # Lickitung day 2/15/2020
 - species: suicune
   moves:
   - HIDDEN_POWER_FAST
