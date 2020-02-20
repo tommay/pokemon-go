@@ -51,6 +51,15 @@ executable effectivenessagainst-exe
                      , optparse-applicative
   default-language:    Haskell2010
 
+executable whativs-exe
+  hs-source-dirs:      app
+  main-is:             Whativs.hs
+  ghc-options:         -O2 -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base
+                     , pokemon
+                     , optparse-applicative
+  default-language:    Haskell2010
+
 executable attack-exe
   hs-source-dirs:      app
   main-is:             Attack.hs
