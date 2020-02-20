@@ -125,3 +125,6 @@
 - species: suicune
   moves:
   - HIDDEN_POWER_FAST
+- species: rhyperior
+  moves:
+  - ROCK_WRECKER       # Community day 2/22/2020
