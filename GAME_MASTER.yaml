@@ -12482,7 +12482,7 @@ itemTemplates:
     energyDelta: -55
 - templateId: COMBAT_V0334_MOVE_ROCK_WRECKER
   combatMove:
-    uniqueId: 334
+    uniqueId: ROCK_WRECKER
     type: POKEMON_TYPE_ROCK
     power: 110.0
     vfxName: rock_wrecker
@@ -87391,7 +87391,7 @@ itemTemplates:
     buddyGroupNumber: 4
 - templateId: V0334_MOVE_ROCK_WRECKER
   moveSettings:
-    movementId: 334
+    movementId: ROCK_WRECKER
     animationId: 5
     pokemonType: POKEMON_TYPE_ROCK
     power: 110.0
