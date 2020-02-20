@@ -106,7 +106,8 @@ evolveSpeciesFullyWithCandy gameMaster maybeTarget species = do
     Nothing ->
       case chains of
         [chain] -> return $ List.last chain
-        _ -> Epic.fail $ species ++ " has multiple final evolutions"
+        _ -> Epic.fail $ species ++ " has multiple final evolutions: " ++
+         List.intercalate ", " (map (Util.toLower . fst . List.last) chains)
   return evolution
 
 -- If species has a normal form then species will have _NORMAL here.
