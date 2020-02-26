@@ -128,3 +128,6 @@
 - species: rhyperior
   moves:
   - ROCK_WRECKER       # Community day 2/22/2020
+- species: mewtwo_a
+  moves:
+  - PSYSTRIKE          # "Pokemon day" 2/2020
