@@ -212,9 +212,9 @@ makeGameMaster :: Epic.MonadCatch m => Yaml.Object -> m GameMaster
 makeGameMaster yamlObject = do
   itemTemplates <- getItemTemplates yamlObject
   types <- getTypes itemTemplates
-  moves <- getMoves types itemTemplates
   pvpFastMoves <- getPvpFastMoves types itemTemplates
   pvpChargedMoves <- getPvpChargedMoves types itemTemplates
+  moves <- getMoves (makeMove types pvpFastMoves pvpChargedMoves) itemTemplates
   forms <- getForms itemTemplates
   pokemonBases <-
     makeObjects "pokemonSettings" (getSpeciesForPokemonBase forms)
@@ -293,13 +293,15 @@ effectivenessOrder =
      "dark",
      "fairy"]
 
-getMoves :: Epic.MonadCatch m => StringMap Type -> [ItemTemplate] -> m (StringMap Move)
-getMoves types itemTemplates =
+getMoves :: Epic.MonadCatch m => (ItemTemplate -> m Move) -> [ItemTemplate] ->
+  m (StringMap Move)
+getMoves makeMove itemTemplates =
   makeObjects "moveSettings" (getNameFromKey "movementId")
-    (makeMove types) itemTemplates
+    makeMove itemTemplates
 
-makeMove :: Epic.MonadCatch m => StringMap Type -> ItemTemplate -> m Move
-makeMove types itemTemplate =
+makeMove :: Epic.MonadCatch m => StringMap Type -> StringMap PvpFastMove ->
+  StringMap PvpChargedMove -> ItemTemplate -> m Move
+makeMove types pvpFastMoves pvpChargedMoves itemTemplate =
   let getTemplateValue text = getObjectValue itemTemplate text
   in Move.new
     <$> getTemplateValue "movementId"
