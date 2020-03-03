@@ -214,7 +214,8 @@ makeGameMaster yamlObject = do
   types <- getTypes itemTemplates
   pvpFastMoves <- getPvpFastMoves types itemTemplates
   pvpChargedMoves <- getPvpChargedMoves types itemTemplates
-  moves <- getMoves (makeMove types pvpFastMoves pvpChargedMoves) itemTemplates
+  moves <- getMoves (makeMaybeMove types pvpFastMoves pvpChargedMoves)
+    itemTemplates
   forms <- getForms itemTemplates
   pokemonBases <-
     makeObjects "pokemonSettings" (getSpeciesForPokemonBase forms)
@@ -293,26 +294,54 @@ effectivenessOrder =
      "dark",
      "fairy"]
 
-getMoves :: Epic.MonadCatch m => (ItemTemplate -> m Move) -> [ItemTemplate] ->
+-- This is tricky.  Some of the PVE moves don't have a corresponding PVP
+-- move.  In that case makeMaybeMove will return (m Nothing) for the
+-- itemTemplate instead of (m Just Move), then the Nothings will be removed
+-- from the StringMap.
+--
+getMoves :: Epic.MonadCatch m =>
+  (ItemTemplate -> m (Maybe Move)) -> [ItemTemplate] ->
   m (StringMap Move)
-getMoves makeMove itemTemplates =
-  makeObjects "moveSettings" (getNameFromKey "movementId")
-    makeMove itemTemplates
+getMoves makeMaybeMove itemTemplates = do
+  maybeMoveMap <- makeObjects "moveSettings" (getNameFromKey "movementId")
+    makeMaybeMove itemTemplates
+  -- Use (mapMaybe id) to discard any Nothing values, and turn Just Move
+  -- into Move values.
+  return $ HashMap.mapMaybe id maybeMoveMap
 
-makeMove :: Epic.MonadCatch m => StringMap Type -> StringMap PvpFastMove ->
-  StringMap PvpChargedMove -> ItemTemplate -> m Move
-makeMove types pvpFastMoves pvpChargedMoves itemTemplate =
+makeMaybeMove :: Epic.MonadCatch m =>
+  StringMap Type -> StringMap PvpFastMove ->
+  StringMap PvpChargedMove -> ItemTemplate -> m (Maybe Move)
+makeMaybeMove types pvpFastMoves pvpChargedMoves itemTemplate = do
   let getTemplateValue text = getObjectValue itemTemplate text
-  in Move.new
-    <$> getTemplateValue "movementId"
-    <*> do
-      typeName <- getTemplateValue "pokemonType"
-      get types typeName
-    <*> getObjectValueWithDefault itemTemplate "power" 0
-    <*> ((/1000) <$> getTemplateValue "durationMs")
-    <*> getTemplateValue "damageWindowStartMs"
-    <*> getObjectValueWithDefault itemTemplate "energyDelta" 0
-    <*> pure False
+  name <- getTemplateValue "movementId"
+  let maybeMoveStats = if List.isSuffixOf "_FAST" name
+        then case HashMap.lookup name pvpFastMoves of
+          Nothing -> Nothing
+          Just pvpFastMove -> Just (PvpFastMove.power pvpFastMove,
+            PvpFastMove.energyDelta pvpFastMove,
+            PvpFastMove.durationTurns pvpFastMove)
+        else case HashMap.lookup name pvpChargedMoves of
+          Nothing -> Nothing
+          Just pvpChargedMove -> Just (PvpChargedMove.power pvpChargedMove,
+            PvpChargedMove.energyDelta pvpChargedMove,
+            error "Charged moves have no durationTurns")
+  case maybeMoveStats of
+    Nothing -> return Nothing
+    Just (pvpPower, pvpDeltaEnergy, pvpDurationTurns) -> do
+      Just <$> (Move.new
+        <$> pure name
+        <*> do
+          typeName <- getTemplateValue "pokemonType"
+          get types typeName
+        <*> getObjectValueWithDefault itemTemplate "power" 0
+        <*> ((/1000) <$> getTemplateValue "durationMs")
+        <*> getTemplateValue "damageWindowStartMs"
+        <*> getObjectValueWithDefault itemTemplate "energyDelta" 0
+        <*> pure pvpPower
+        <*> pure pvpDeltaEnergy
+        <*> pure pvpDurationTurns
+        <*> pure False)
 
 isFastMove :: ItemTemplate -> Bool
 isFastMove itemTemplate = case getObjectValue itemTemplate "uniqueId" of

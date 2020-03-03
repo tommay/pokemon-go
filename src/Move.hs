@@ -34,6 +34,9 @@ data Move = Move {
   duration :: Float,
   damageWindow :: Int,
   energy   :: Int,
+  pvpPower :: Float,
+  pvpDeltaEnergy :: Int,
+  pvpDurationTurns :: Int,
   isLegacy :: Bool
 }
 
