@@ -59,8 +59,6 @@ import qualified Debug as D
 data GameMaster = GameMaster {
   types         :: StringMap Type,
   moves         :: StringMap Move,
-  pvpFastMoves  :: StringMap PvpFastMove,
-  pvpChargedMoves :: StringMap PvpChargedMove,
   forms         :: StringMap [String],
   pokemonBases  :: StringMap PokemonBase,
   cpMultipliers :: Vector Float,
@@ -139,14 +137,6 @@ getCharge this moveName = do
     True -> return move
     False -> Epic.fail $ moveName ++ " is not a charge move"
 
-getPvpFastMove :: Epic.MonadCatch m => GameMaster -> String -> m PvpFastMove
-getPvpFastMove this moveName  =
-  GameMaster.lookup "pvpFastMove" (pvpFastMoves this) moveName
-
-getPvpChargedMove :: Epic.MonadCatch m => GameMaster -> String -> m PvpChargedMove
-getPvpChargedMove this moveName  =
-  GameMaster.lookup "pvpChargedMove" (pvpChargedMoves this) moveName
-
 getCpMultiplier :: GameMaster -> Float -> Float
 getCpMultiplier this level =
   let cpMultipliers' = GameMaster.cpMultipliers this
@@ -219,7 +209,7 @@ makeGameMaster yamlObject = do
   forms <- getForms itemTemplates
   pokemonBases <-
     makeObjects "pokemonSettings" (getSpeciesForPokemonBase forms)
-      (makePokemonBase types moves pvpFastMoves pvpChargedMoves forms)
+      (makePokemonBase types moves forms)
       (filter (hasFormIfRequired forms) itemTemplates)
   cpMultipliers <- do
     playerLevel <- getFirst itemTemplates "playerLevel"
@@ -247,8 +237,8 @@ makeGameMaster yamlObject = do
         in HashMap.insert weather m map)
       HashMap.empty
       $ HashMap.toList weatherAffinityMap
-  return $ GameMaster.new types moves pvpFastMoves pvpChargedMoves
-    forms pokemonBases cpMultipliers stardustCost candyCost weatherBonusMap
+  return $ GameMaster.new types moves forms pokemonBases cpMultipliers
+    stardustCost candyCost weatherBonusMap
 
 -- Here it's nice to use Yaml.Parser because it will error if we don't
 -- get a [ItemTemplate], i.e., it checks that the Yaml.Values are the
@@ -328,7 +318,7 @@ makeMaybeMove types pvpFastMoves pvpChargedMoves itemTemplate = do
             error "Charged moves have no durationTurns")
   case maybeMoveStats of
     Nothing -> return Nothing
-    Just (pvpPower, pvpDeltaEnergy, pvpDurationTurns) -> do
+    Just (pvpPower, pvpEnergyDelta, pvpDurationTurns) -> do
       Just <$> (Move.new
         <$> pure name
         <*> do
@@ -339,7 +329,7 @@ makeMaybeMove types pvpFastMoves pvpChargedMoves itemTemplate = do
         <*> getTemplateValue "damageWindowStartMs"
         <*> getObjectValueWithDefault itemTemplate "energyDelta" 0
         <*> pure pvpPower
-        <*> pure pvpDeltaEnergy
+        <*> pure pvpEnergyDelta
         <*> pure pvpDurationTurns
         <*> pure False)
 
@@ -442,10 +432,8 @@ getSpeciesForPokemonBase forms itemTemplate = do
 
 makePokemonBase :: Epic.MonadCatch m =>
   StringMap Type -> StringMap Move
-  -> StringMap PvpFastMove -> StringMap PvpChargedMove
   -> StringMap [String] -> ItemTemplate -> m PokemonBase
-makePokemonBase types moves pvpFastMoves pvpChargedMoves
-    forms pokemonSettings =
+makePokemonBase types moves forms pokemonSettings =
   Epic.catch (do
     let getValue key = getObjectValue pokemonSettings key
 
@@ -504,9 +492,6 @@ makePokemonBase types moves pvpFastMoves pvpChargedMoves
     quickMoves <- getMoves "quickMoves" moves
     chargeMoves <- getMoves "cinematicMoves" moves
 
-    pvpFastMoves <- getMoves "quickMoves" pvpFastMoves
-    pvpChargedMoves <- getMoves "cinematicMoves" pvpChargedMoves
-
     let parent = case getValue "parentPokemonId" of
           Right parent -> Just parent
           -- XXX This can swallow parse errors?
@@ -535,8 +520,8 @@ makePokemonBase types moves pvpFastMoves pvpChargedMoves
         Left _ -> return $ (0, 0)
 
     return $ PokemonBase.new pokemonId species ptypes attack defense stamina
-       evolutions quickMoves chargeMoves pvpFastMoves pvpChargedMoves
-       parent baseCaptureRate thirdMoveCost purificationCost
+       evolutions quickMoves chargeMoves parent baseCaptureRate
+       thirdMoveCost purificationCost
     )
   (\ex -> Epic.fail $ ex ++ " in " ++ show pokemonSettings)
 
@@ -706,13 +691,5 @@ addLegacyMoves this legacyMap =
       addMove gameMaster base moveName = do
         move <- getMove gameMaster moveName
         move <- return $ Move.setLegacy move
-        base <- return $ PokemonBase.addMove move base
-        let addPvpMove getMove addMove = do
-              pvpMove <- getMove gameMaster moveName
-              return $ addMove base pvpMove
-        base <- if Move.isQuick move
-          then addPvpMove GameMaster.getPvpFastMove PokemonBase.addPvpFastMove
-          else addPvpMove GameMaster.getPvpChargedMove
-            PokemonBase.addPvpChargedMove
-        return $ base
+        return $ PokemonBase.addMove move base
   in HashMap.foldrWithKey addMoves (pure this) legacyMap

@@ -9,14 +9,12 @@ import           Data.Semigroup ((<>))
 import qualified Epic
 import qualified GameMaster
 import           GameMaster (GameMaster)
+import qualified Move
+import           Move (Move)
 import qualified Pokemon
 import           Pokemon (Pokemon)
 import qualified PokemonBase
 import           PokemonBase (PokemonBase)
-import qualified PvpChargedMove
-import           PvpChargedMove (PvpChargedMove)
-import qualified PvpFastMove
-import           PvpFastMove (PvpFastMove)
 import qualified Type
 import           Type (Type)
 
@@ -49,13 +47,13 @@ main =
       let species = attacker options
       base <- GameMaster.getPokemonBase gameMaster species
       let moveSets = [(fast, charged) |
-            fast <- PokemonBase.pvpFastMoves base,
-            charged <- PokemonBase.pvpChargedMoves base]
-          toName :: PvpFastMove -> PvpChargedMove -> String
+            fast <- PokemonBase.quickMoves base,
+            charged <- PokemonBase.chargeMoves base]
+          toName :: Move -> Move -> String
           toName fast charged =
             Printf.printf "%s / %s"
-              (PvpFastMove.name fast) (PvpChargedMove.name charged)
-          toStuff :: (PvpFastMove, PvpChargedMove) -> (String, Int, Int, Float)
+              (Move.name fast) (Move.name charged)
+          toStuff :: (Move, Move) -> (String, Int, Int, Float)
           toStuff (fast, charged) =
             let name = toName fast charged
                 (turnsPerCycle, fastMovesPerCycle, dpt) = spam fast charged
@@ -67,14 +65,14 @@ main =
     )
     $ Exit.die
 
-spam :: PvpFastMove -> PvpChargedMove -> (Int, Int, Float)
+spam :: Move -> Move -> (Int, Int, Float)
 spam fast charged =
-  let chargedEnergy = - PvpChargedMove.energyDelta charged
-      fastEnergy = PvpFastMove.energyDelta fast
+  let chargedEnergy = - Move.pvpEnergyDelta charged
+      fastEnergy = Move.pvpEnergyDelta fast
       fastMovesPerCycle = (chargedEnergy + fastEnergy - 1) `div` fastEnergy
-      turnsPerCycle = fastMovesPerCycle * (PvpFastMove.durationTurns fast + 1)
+      turnsPerCycle = fastMovesPerCycle * (Move.pvpDurationTurns fast + 1)
       damagePerCycle =
-        (fromIntegral fastMovesPerCycle) * (PvpFastMove.power fast)
-        + PvpChargedMove.power charged
+        (fromIntegral fastMovesPerCycle) * (Move.pvpPower fast)
+        + Move.pvpPower charged
       dpt = damagePerCycle / fromIntegral turnsPerCycle
   in (turnsPerCycle, fastMovesPerCycle, dpt)

@@ -7,6 +7,9 @@ module Move (
   durationMs,
   damageWindow,
   energy,
+  pvpPower,
+  pvpEnergyDelta,
+  pvpDurationTurns,
   isCharge,
   isQuick,
   stabFor,
@@ -35,7 +38,7 @@ data Move = Move {
   damageWindow :: Int,
   energy   :: Int,
   pvpPower :: Float,
-  pvpDeltaEnergy :: Int,
+  pvpEnergyDelta :: Int,
   pvpDurationTurns :: Int,
   isLegacy :: Bool
 }
