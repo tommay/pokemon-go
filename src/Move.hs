@@ -79,7 +79,8 @@ name this =
         then alphaOnly ++ ", " ++ (Type.name $ Move.moveType this)
         else alphaOnly
       lower = Util.toLower alphaOnly
-  in lower
+      withLegacy = lower ++ if isLegacy this then "*" else ""
+  in withLegacy
 
 bars :: Move -> Int
 bars this =
