@@ -49,10 +49,10 @@ getOptions =
         <> O.metavar "FILE"
         <> O.help "File to read my_pokemon from to get the attacker")
       optAttacker = O.argument
-        (BattlerUtil.optParseBattler IVs.defaultIVs)
+        BattlerUtil.optParseBattler
         (O.metavar "ATTACKER[:LEVEL]")
       optDefender = O.argument
-        (BattlerUtil.optParseBattler IVs.defaultIVs)
+        BattlerUtil.optParseBattler
         (O.metavar "DEFENDER[:LEVEL]")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc

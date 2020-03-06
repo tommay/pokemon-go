@@ -106,7 +106,7 @@ getOptions =
               <> O.metavar "N"
               <> O.help "Only plot the first N pokemon")
             optMovesetsFor = MovesetsFor <$>
-              (O.option $ BattlerUtil.optParseBattler IVs.defaultIVs)
+              (O.option BattlerUtil.optParseBattler)
               (  O.long "movesets"
               <> O.short 'M'
               <> O.metavar "ATTACKER[:LEVEL]"
@@ -123,7 +123,7 @@ getOptions =
         <> O.metavar "ATTACKER_MOVESET"
         <> O.help "Override the attacker moveset")
       optDefender = O.argument
-        (BattlerUtil.optParseBattler IVs.defaultIVs)
+        BattlerUtil.optParseBattler
         (O.metavar "DEFENDER[:LEVEL]")
       optWeather = O.optional Weather.optWeather
       options = O.info (opts <**> O.helper)

@@ -31,7 +31,7 @@ getOptions =
       optAttacker = O.argument O.str
         (O.metavar "ATTACKER")
       optDefender = O.argument
-        (BattlerUtil.optParseBattler IVs.defaultIVs)
+        BattlerUtil.optParseBattler
         (O.metavar "DEFENDER[:LEVEL]")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
@@ -48,7 +48,7 @@ replacePercent string value =
 
 parseBattler :: (Epic.MonadCatch m) => String -> m Battler
 parseBattler string =
-  case BattlerUtil.parseBattler IVs.defaultIVs string of
+  case BattlerUtil.parseBattler string of
     Right battler -> return battler
     Left errorString -> Epic.fail errorString
 

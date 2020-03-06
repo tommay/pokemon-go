@@ -51,11 +51,11 @@ data Level = Normal IVs | RaidBoss Int
 
 new = Battler
 
-optParseBattler :: IVs -> O.ReadM Battler
-optParseBattler = O.eitherReader . parseBattler
+optParseBattler :: O.ReadM Battler
+optParseBattler = O.eitherReader parseBattler
 
-parseBattler :: IVs -> String -> Either String Battler
-parseBattler defaultIVs string =
+parseBattler :: String -> Either String Battler
+parseBattler string =
   let attoParseBattler = do
         species <- some $ Atto.satisfy $ Atto.notInClass ":/"
         level <- optional $ do
@@ -70,7 +70,7 @@ parseBattler defaultIVs string =
         Atto.endOfInput
         return $ Battler {
           species = species,
-          level = Maybe.fromMaybe (Normal defaultIVs) level,
+          level = Maybe.fromMaybe (Normal IVs.defaultIVs) level,
           maybeQuickName = maybeQuickName,
           maybeChargeName = maybeChargeName
           }
@@ -92,7 +92,7 @@ parseBattler defaultIVs string =
           Atto.decimal
           optional $ Atto.string ".5"
         let level' = read $ Text.unpack level
-        return $ Normal $ IVs.setLevel defaultIVs level'
+        return $ Normal $ IVs.setLevel IVs.defaultIVs level'
       attoParseRaidBoss = do
         Atto.satisfy $ Atto.inClass "rt"    -- r for raid, t for tier
         (raidLevel, _) <- Atto.match Atto.decimal

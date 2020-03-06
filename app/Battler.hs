@@ -64,10 +64,10 @@ getOptions =
       optWeather = O.optional Weather.optWeather
       optFriend = O.optional Friend.optFriend
       optAttacker = O.argument
-        (BattlerUtil.optParseBattler IVs.defaultIVs)
+        BattlerUtil.optParseBattler
         (O.metavar "ATTACKER[:LEVEL]")
       optDefender = O.argument
-        (BattlerUtil.optParseBattler IVs.defaultIVs)
+        BattlerUtil.optParseBattler
         (O.metavar "DEFENDER[:LEVEL]")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc

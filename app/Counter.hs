@@ -151,8 +151,7 @@ getOptions =
               <> O.short 'a'
               <> O.help "Consider all pokemon, not just the ones in FILE")
             optMovesetFor = MovesetFor <$>
-              (O.some . O.option
-                (BattlerUtil.optParseBattler IVs.defaultIVs))
+              (O.some . O.option BattlerUtil.optParseBattler)
               (  O.long "moveset"
               <> O.short 'm'
               <> O.metavar "ATTACKER[:LEVEL]"
@@ -185,8 +184,8 @@ getOptions =
         (  O.short 'M'
         <> O.help "Show movesets for -a")
       optDefender = O.argument
-        (BattlerUtil.optParseBattler IVs.defaultIVs)
-          (O.metavar "DEFENDER[:LEVEL]")
+        BattlerUtil.optParseBattler
+        (O.metavar "DEFENDER[:LEVEL]")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc "Find good counters for a Pokemon.")
