@@ -57,7 +57,7 @@ optParseBattler = O.eitherReader . parseBattler
 parseBattler :: IVs -> String -> Either String Battler
 parseBattler defaultIVs string =
   let attoParseBattler = do
-        battler <- some $ Atto.satisfy $ Atto.notInClass ":/"
+        species <- some $ Atto.satisfy $ Atto.notInClass ":/"
         level <- optional $ do
           Atto.char ':'
           attoParseIVs <|> attoParseRaidBoss
@@ -69,7 +69,7 @@ parseBattler defaultIVs string =
           many $ Atto.anyChar
         Atto.endOfInput
         return $ Battler {
-          species = battler,
+          species = species,
           level = Maybe.fromMaybe (Normal defaultIVs) level,
           maybeQuickName = maybeQuickName,
           maybeChargeName = maybeChargeName
