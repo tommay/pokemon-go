@@ -9716,6 +9716,9 @@ itemTemplates:
     swapDurationMs: 1000
     dodgeDamageReductionPercent: 0.75
     minimumRaidPlayerLevel: 5
+    shadowPokemonAttackBonusMultiplier: 1.2
+    shadowPokemonDefenseBonusMultiplier: 0.8333333
+    purifiedPokemonAttackMultiplierVsShadow: 1.0
 - templateId: BELUGA_POKEMON_WHITELIST
   belugaPokemonWhitelist:
     maxAllowedPokemonPokedexNumber: 150
@@ -10469,7 +10472,7 @@ itemTemplates:
 - templateId: COMBAT_COMPETITIVE_SEASON_SETTINGS
   combatCompetitiveSeasonSettings:
     seasonEndTimeTimestamp:
-    - '1583096400000'
+    - '1584129600000'
     - '1588366800000'
     - '1593637200000'
     - '1598994000000'
@@ -10803,6 +10806,9 @@ itemTemplates:
     chargeScoreNice: 0.5
     chargeScoreGreat: 0.75
     chargeScoreExcellent: 1.0
+    shadowPokemonAttackBonusMultiplier: 1.2
+    shadowPokemonDefenseBonusMultiplier: 0.8333333
+    purifiedPokemonAttackMultiplierVsShadow: 1.0
 - templateId: COMBAT_STAT_STAGE_SETTINGS
   combatStatStageSettings:
     minimumStatStage: -4
@@ -12523,6 +12529,8 @@ itemTemplates:
     - form: VENUSAUR_NORMAL
     - form: VENUSAUR_SHADOW
     - form: VENUSAUR_PURIFIED
+    - form: VENUSAUR_COPY_2019
+      assetBundleSuffix: pm0003_00_pgo_copy2019
 - templateId: FORMS_V0004_POKEMON_CHARMANDER
   formSettings:
     pokemon: CHARMANDER
@@ -12546,6 +12554,8 @@ itemTemplates:
     - form: CHARIZARD_NORMAL
     - form: CHARIZARD_SHADOW
     - form: CHARIZARD_PURIFIED
+    - form: CHARIZARD_COPY_2019
+      assetBundleSuffix: pm0006_00_pgo_copy2019
 - templateId: FORMS_V0007_POKEMON_SQUIRTLE
   formSettings:
     pokemon: SQUIRTLE
@@ -12569,6 +12579,8 @@ itemTemplates:
     - form: BLASTOISE_NORMAL
     - form: BLASTOISE_SHADOW
     - form: BLASTOISE_PURIFIED
+    - form: BLASTOISE_COPY_2019
+      assetBundleSuffix: pm0009_00_pgo_copy2019
 - templateId: FORMS_V0010_POKEMON_CATERPIE
   formSettings:
     pokemon: CATERPIE
@@ -12653,6 +12665,8 @@ itemTemplates:
     - form: PIKACHU_NORMAL
     - form: PIKACHU_FALL_2019
       assetBundleSuffix: pm0025_00_pgo_fall2019
+    - form: PIKACHU_COPY_2019
+      assetBundleSuffix: pm0025_00_pgo_copy2019
 - templateId: FORMS_V0026_POKEMON_RAICHU
   formSettings:
     pokemon: RAICHU
@@ -15748,12 +15762,16 @@ itemTemplates:
     itemType: ITEM_TYPE_INCENSE
     category: ITEM_CATEGORY_INCENSE
     dropTrainerLevel: 100
+    incense:
+      incenseLifetimeSeconds: 1800
 - templateId: ITEM_INCENSE_ORDINARY
   itemSettings:
     itemId: ITEM_INCENSE_ORDINARY
     itemType: ITEM_TYPE_INCENSE
     category: ITEM_CATEGORY_INCENSE
     dropTrainerLevel: 100
+    incense:
+      incenseLifetimeSeconds: 1800
 - templateId: ITEM_INCUBATOR_BASIC
   itemSettings:
     itemId: ITEM_INCUBATOR_BASIC
@@ -16041,7 +16059,7 @@ itemTemplates:
     itemId: ITEM_TROY_DISK_MOSSY
     itemType: ITEM_TYPE_DISK
     category: ITEM_CATEGORY_DISK
-    dropTrainerLevel: 100
+    dropTrainerLevel: 2
 - templateId: ITEM_ULTRA_BALL
   itemSettings:
     itemId: ITEM_ULTRA_BALL
@@ -16087,7 +16105,7 @@ itemTemplates:
 - templateId: LPSKU_bundle.general1.tiny.2
   limitedPurchaseSkuSettings:
     purchaseLimit: 1
-    version: 1
+    version: 2
 - templateId: LPSKU_bundle.general1.tiny.3
   limitedPurchaseSkuSettings:
     purchaseLimit: 1
@@ -16766,8 +16784,8 @@ itemTemplates:
     - 9000
     - 10000
     - 10000
-    shadowStardustMultiplier: 3.0
-    shadowCandyMultiplier: 3.0
+    shadowStardustMultiplier: 1.2
+    shadowCandyMultiplier: 1.2
     purifiedStardustMultiplier: 0.9
     purifiedCandyMultiplier: 0.9
     maxNormalUpgradeLevel: 40
@@ -17026,6 +17044,12 @@ itemTemplates:
     gender:
       malePercent: 0.875
       femalePercent: 0.125
+- templateId: SPAWN_V0003_POKEMON_VENUSAUR_COPY_2019
+  genderSettings:
+    pokemon: VENUSAUR
+    gender:
+      malePercent: 0.875
+      femalePercent: 0.125
 - templateId: SPAWN_V0003_POKEMON_VENUSAUR_NORMAL
   genderSettings:
     pokemon: VENUSAUR
@@ -17104,6 +17128,12 @@ itemTemplates:
     gender:
       malePercent: 0.875
       femalePercent: 0.125
+- templateId: SPAWN_V0006_POKEMON_CHARIZARD_COPY_2019
+  genderSettings:
+    pokemon: CHARIZARD
+    gender:
+      malePercent: 0.875
+      femalePercent: 0.125
 - templateId: SPAWN_V0006_POKEMON_CHARIZARD_NORMAL
   genderSettings:
     pokemon: CHARIZARD
@@ -17177,6 +17207,12 @@ itemTemplates:
       malePercent: 0.875
       femalePercent: 0.125
 - templateId: SPAWN_V0009_POKEMON_BLASTOISE
+  genderSettings:
+    pokemon: BLASTOISE
+    gender:
+      malePercent: 0.875
+      femalePercent: 0.125
+- templateId: SPAWN_V0009_POKEMON_BLASTOISE_COPY_2019
   genderSettings:
     pokemon: BLASTOISE
     gender:
@@ -17434,6 +17470,11 @@ itemTemplates:
     gender:
       malePercent: 0.5
       femalePercent: 0.5
+- templateId: SPAWN_V0025_POKEMON_PIKACHU_COPY_2019
+  genderSettings:
+    pokemon: PIKACHU
+    gender:
+      malePercent: 1.0
 - templateId: SPAWN_V0025_POKEMON_PIKACHU_FALL_2019
   genderSettings:
     pokemon: PIKACHU
@@ -24779,8 +24820,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 30000
-      candyToUnlock: 75
+      stardustToUnlock: 12000
+      candyToUnlock: 30
     isTransferable: true
     isDeployable: true
     shadow:
@@ -25119,8 +25160,8 @@ itemTemplates:
     - 66.7
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 30000
-      candyToUnlock: 75
+      stardustToUnlock: 12000
+      candyToUnlock: 30
     isTransferable: true
     isDeployable: true
     shadow:
@@ -25190,6 +25231,95 @@ itemTemplates:
     buddySize: BUDDY_BIG
     modelHeight: 1.9
     modelScaleV2: 0.84
+    buddyOffsetMale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyOffsetFemale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 10000
+      candyToUnlock: 25
+    isTransferable: true
+    isDeployable: true
+    combatShoulderCameraAngle:
+    - 2.5
+    - 1.0
+    - 1.5
+    combatDefaultCameraAngle:
+    - 2.0
+    - 2.5
+    - 1.0
+    combatPlayerFocusCameraAngle:
+    - -1.0
+    - -0.7
+    - 0.0
+    buddyGroupNumber: 3
+- templateId: V0003_POKEMON_VENUSAUR_COPY_2019
+  pokemonSettings:
+    pokemonId: VENUSAUR
+    modelScale: 0.69
+    type: POKEMON_TYPE_GRASS
+    type2: POKEMON_TYPE_POISON
+    camera:
+      diskRadiusM: 1.1385
+      cylinderRadiusM: 1.25
+      cylinderHeightM: 1.5
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.05
+      baseFleeRate: 0.05
+      collisionRadiusM: 0.759
+      collisionHeightM: 1.035
+      collisionHeadRadiusM: 0.3795
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 11.0
+      jumpTimeS: 1.25
+      attackTimerS: 4.0
+      bonusCandyCaptureReward: 7
+      bonusStardustCaptureReward: 400
+      attackProbability: 0.2
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 5.6925
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 190
+      baseAttack: 198
+      baseDefense: 189
+    quickMoves:
+    - RAZOR_LEAF_FAST
+    - VINE_WHIP_FAST
+    cinematicMoves:
+    - SLUDGE_BOMB
+    - PETAL_BLIZZARD
+    - SOLAR_BEAM
+    animationTime:
+    - 2.4667
+    - 0.6667
+    - 1.6667
+    - 1.8333
+    - 0.0
+    - 2.1333
+    - 2.0
+    - 2.066667
+    evolutionPips: 1
+    pokedexHeightM: 2.0
+    pokedexWeightKg: 100.0
+    parentPokemonId: IVYSAUR
+    heightStdDev: 0.25
+    weightStdDev: 12.5
+    familyId: FAMILY_BULBASAUR
+    kmBuddyDistance: 3.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.9
+    modelScaleV2: 0.84
+    form: VENUSAUR_COPY_2019
     buddyOffsetMale:
     - 0.0
     - 0.0
@@ -25467,8 +25597,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 30000
-      candyToUnlock: 75
+      stardustToUnlock: 12000
+      candyToUnlock: 30
     isTransferable: true
     isDeployable: true
     combatShoulderCameraAngle:
@@ -25871,8 +26001,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 30000
-      candyToUnlock: 75
+      stardustToUnlock: 12000
+      candyToUnlock: 30
     isTransferable: true
     isDeployable: true
     shadow:
@@ -26203,8 +26333,8 @@ itemTemplates:
     - 0.3
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 30000
-      candyToUnlock: 75
+      stardustToUnlock: 12000
+      candyToUnlock: 30
     isTransferable: true
     isDeployable: true
     shadow:
@@ -26275,6 +26405,84 @@ itemTemplates:
     buddySize: BUDDY_BIG
     modelHeight: 1.91
     modelScaleV2: 1.1
+    buddyOffsetMale:
+    - 1.9
+    - -11.4
+    - 36.04
+    buddyOffsetFemale:
+    - 1.9
+    - -11.4
+    - 36.04
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 10000
+      candyToUnlock: 25
+    isTransferable: true
+    isDeployable: true
+    buddyGroupNumber: 3
+- templateId: V0006_POKEMON_CHARIZARD_COPY_2019
+  pokemonSettings:
+    pokemonId: CHARIZARD
+    modelScale: 0.81
+    type: POKEMON_TYPE_FIRE
+    type2: POKEMON_TYPE_FLYING
+    camera:
+      diskRadiusM: 1.215
+      cylinderRadiusM: 1.25
+      cylinderHeightM: 1.5
+      cylinderGroundM: 0.5
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.05
+      baseFleeRate: 0.05
+      collisionRadiusM: 0.405
+      collisionHeightM: 1.0125
+      collisionHeadRadiusM: 0.2025
+      movementType: MOVEMENT_FLYING
+      movementTimerS: 11.0
+      jumpTimeS: 1.0
+      attackTimerS: 4.0
+      bonusCandyCaptureReward: 7
+      bonusStardustCaptureReward: 400
+      attackProbability: 0.2
+      dodgeProbability: 0.15
+      dodgeDurationS: 0.7
+      dodgeDistance: 1.0
+      cameraDistance: 5.0
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 186
+      baseAttack: 223
+      baseDefense: 173
+    quickMoves:
+    - FIRE_SPIN_FAST
+    - AIR_SLASH_FAST
+    cinematicMoves:
+    - FIRE_BLAST
+    - DRAGON_CLAW
+    - OVERHEAT
+    animationTime:
+    - 2.2
+    - 0.6667
+    - 1.6667
+    - 0.8667
+    - 6.666667
+    - 2.0
+    - 1.6
+    - 2.0
+    evolutionPips: 1
+    pokedexHeightM: 1.7
+    pokedexWeightKg: 90.5
+    parentPokemonId: CHARMELEON
+    heightStdDev: 0.2125
+    weightStdDev: 11.3125
+    familyId: FAMILY_CHARMANDER
+    kmBuddyDistance: 3.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.91
+    modelScaleV2: 1.1
+    form: CHARIZARD_COPY_2019
     buddyOffsetMale:
     - 1.9
     - -11.4
@@ -26519,8 +26727,8 @@ itemTemplates:
     - 36.04
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 30000
-      candyToUnlock: 75
+      stardustToUnlock: 12000
+      candyToUnlock: 30
     isTransferable: true
     isDeployable: true
     shadow:
@@ -26911,8 +27119,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 30000
-      candyToUnlock: 75
+      stardustToUnlock: 12000
+      candyToUnlock: 30
     isTransferable: true
     isDeployable: true
     shadow:
@@ -27243,8 +27451,8 @@ itemTemplates:
     - 0.3
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 30000
-      candyToUnlock: 75
+      stardustToUnlock: 12000
+      candyToUnlock: 30
     isTransferable: true
     isDeployable: true
     shadow:
@@ -27314,6 +27522,83 @@ itemTemplates:
     buddySize: BUDDY_BIG
     modelHeight: 1.39
     modelScaleV2: 1.15
+    buddyOffsetMale:
+    - -1.1
+    - 0.0
+    - 25.6
+    buddyOffsetFemale:
+    - -1.1
+    - 0.0
+    - 25.6
+    buddyScale: 19.0
+    thirdMove:
+      stardustToUnlock: 10000
+      candyToUnlock: 25
+    isTransferable: true
+    isDeployable: true
+    buddyGroupNumber: 3
+- templateId: V0009_POKEMON_BLASTOISE_COPY_2019
+  pokemonSettings:
+    pokemonId: BLASTOISE
+    modelScale: 0.94
+    type: POKEMON_TYPE_WATER
+    camera:
+      diskRadiusM: 0.846
+      cylinderRadiusM: 0.8
+      cylinderHeightM: 1.2925
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.05
+      baseFleeRate: 0.05
+      collisionRadiusM: 0.564
+      collisionHeightM: 1.175
+      collisionHeadRadiusM: 0.282
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 14.0
+      jumpTimeS: 1.25
+      attackTimerS: 5.0
+      bonusCandyCaptureReward: 7
+      bonusStardustCaptureReward: 400
+      attackProbability: 0.2
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 4.846875
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 188
+      baseAttack: 171
+      baseDefense: 207
+    quickMoves:
+    - WATER_GUN_FAST
+    - BITE_FAST
+    cinematicMoves:
+    - FLASH_CANNON
+    - ICE_BEAM
+    - HYDRO_PUMP
+    - SKULL_BASH
+    animationTime:
+    - 2.1333
+    - 0.6667
+    - 1.6667
+    - 1.8333
+    - 0.0
+    - 2.0
+    - 2.6667
+    - 1.333333
+    evolutionPips: 1
+    pokedexHeightM: 1.6
+    pokedexWeightKg: 85.5
+    parentPokemonId: WARTORTLE
+    heightStdDev: 0.2
+    weightStdDev: 10.6875
+    familyId: FAMILY_SQUIRTLE
+    kmBuddyDistance: 3.0
+    buddySize: BUDDY_BIG
+    modelHeight: 1.39
+    modelScaleV2: 1.15
+    form: BLASTOISE_COPY_2019
     buddyOffsetMale:
     - -1.1
     - 0.0
@@ -27555,8 +27840,8 @@ itemTemplates:
     - 25.6
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 30000
-      candyToUnlock: 75
+      stardustToUnlock: 12000
+      candyToUnlock: 30
     isTransferable: true
     isDeployable: true
     shadow:
@@ -28118,8 +28403,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 30000
-      candyToUnlock: 75
+      stardustToUnlock: 12000
+      candyToUnlock: 30
     isTransferable: true
     isDeployable: true
     shadow:
@@ -28466,8 +28751,8 @@ itemTemplates:
     - -0.116
     - 0.047
     thirdMove:
-      stardustToUnlock: 30000
-      candyToUnlock: 75
+      stardustToUnlock: 12000
+      candyToUnlock: 30
     isTransferable: true
     isDeployable: true
     shadow:
@@ -28786,8 +29071,8 @@ itemTemplates:
     - 25.2
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 30000
-      candyToUnlock: 75
+      stardustToUnlock: 12000
+      candyToUnlock: 30
     isTransferable: true
     isDeployable: true
     shadow:
@@ -29457,8 +29742,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 30000
-      candyToUnlock: 75
+      stardustToUnlock: 12000
+      candyToUnlock: 30
     isTransferable: true
     isDeployable: true
     shadow:
@@ -29853,8 +30138,8 @@ itemTemplates:
     - -21.2
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 30000
-      candyToUnlock: 75
+      stardustToUnlock: 12000
+      candyToUnlock: 30
     isTransferable: true
     isDeployable: true
     shadow:
@@ -30365,8 +30650,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -30713,8 +30998,8 @@ itemTemplates:
     - 0.171
     - 0.08
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -30787,6 +31072,80 @@ itemTemplates:
     - evolution: RAICHU
       candyCost: 50
     modelScaleV2: 1.1
+    buddyOffsetMale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyOffsetFemale:
+    - 0.0
+    - 0.0
+    - 0.0
+    buddyScale: 11.0
+    thirdMove:
+      stardustToUnlock: 10000
+      candyToUnlock: 25
+    isTransferable: true
+    isDeployable: true
+    buddyGroupNumber: 1
+- templateId: V0025_POKEMON_PIKACHU_COPY_2019
+  pokemonSettings:
+    pokemonId: PIKACHU
+    modelScale: 1.48
+    type: POKEMON_TYPE_ELECTRIC
+    camera:
+      diskRadiusM: 0.555
+      cylinderRadiusM: 0.37
+      cylinderHeightM: 0.5
+      shoulderModeScale: 0.5
+    encounter:
+      baseCaptureRate: 0.2
+      baseFleeRate: 0.1
+      collisionRadiusM: 0.185
+      collisionHeightM: 0.518
+      collisionHeadRadiusM: 0.185
+      movementType: MOVEMENT_JUMP
+      movementTimerS: 10.0
+      jumpTimeS: 1.0
+      attackTimerS: 29.0
+      attackProbability: 0.1
+      dodgeProbability: 0.15
+      dodgeDurationS: 1.0
+      dodgeDistance: 1.0
+      cameraDistance: 2.775
+      minPokemonActionFrequencyS: 0.2
+      maxPokemonActionFrequencyS: 1.6
+    stats:
+      baseStamina: 111
+      baseAttack: 112
+      baseDefense: 96
+    quickMoves:
+    - THUNDER_SHOCK_FAST
+    - QUICK_ATTACK_FAST
+    cinematicMoves:
+    - DISCHARGE
+    - THUNDERBOLT
+    - WILD_CHARGE
+    animationTime:
+    - 1.8333
+    - 0.6667
+    - 1.6
+    - 1.5667
+    - 0.0
+    - 1.8
+    - 1.1333
+    - 1.066667
+    evolutionPips: 1
+    pokedexHeightM: 0.4
+    pokedexWeightKg: 6.0
+    parentPokemonId: PICHU
+    heightStdDev: 0.05
+    weightStdDev: 0.75
+    familyId: FAMILY_PIKACHU
+    kmBuddyDistance: 1.0
+    buddySize: BUDDY_SHOULDER
+    modelHeight: 0.4
+    modelScaleV2: 1.1
+    form: PIKACHU_COPY_2019
     buddyOffsetMale:
     - 0.0
     - 0.0
@@ -31595,8 +31954,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -31992,8 +32351,8 @@ itemTemplates:
     - -1.4
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -33138,8 +33497,8 @@ itemTemplates:
     - -1.8
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -33545,8 +33904,8 @@ itemTemplates:
     - 68.3
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -34074,8 +34433,8 @@ itemTemplates:
     - 32.8
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 30000
-      candyToUnlock: 75
+      stardustToUnlock: 12000
+      candyToUnlock: 30
     isTransferable: true
     isDeployable: true
     shadow:
@@ -34422,8 +34781,8 @@ itemTemplates:
     - -20.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 30000
-      candyToUnlock: 75
+      stardustToUnlock: 12000
+      candyToUnlock: 30
     isTransferable: true
     isDeployable: true
     shadow:
@@ -34746,8 +35105,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -35098,8 +35457,8 @@ itemTemplates:
     - 1.5
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -35446,8 +35805,8 @@ itemTemplates:
     - 0.2
     - 0.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -35972,8 +36331,8 @@ itemTemplates:
     - -52.23
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -36308,8 +36667,8 @@ itemTemplates:
     - 9.1
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -36709,8 +37068,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -37115,8 +37474,8 @@ itemTemplates:
     - 0.178
     - 0.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -37518,8 +37877,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -37917,8 +38276,8 @@ itemTemplates:
     - -29.9
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -38253,8 +38612,8 @@ itemTemplates:
     - 10.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -38573,8 +38932,8 @@ itemTemplates:
     - 52.3
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -39109,8 +39468,8 @@ itemTemplates:
     - 0.0
     - 0.39
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -39441,8 +39800,8 @@ itemTemplates:
     - 40.4
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -39777,8 +40136,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -40129,8 +40488,8 @@ itemTemplates:
     - 51.8
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -40465,8 +40824,8 @@ itemTemplates:
     - 9.3
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -40805,8 +41164,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -41160,8 +41519,8 @@ itemTemplates:
     - 30.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -41488,8 +41847,8 @@ itemTemplates:
     - 30.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -42096,8 +42455,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 75
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -42472,8 +42831,8 @@ itemTemplates:
     - -0.324
     - 0.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 75
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -42796,8 +43155,8 @@ itemTemplates:
     - 43.5
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 75
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -43394,8 +43753,8 @@ itemTemplates:
     - 16.1
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 30000
-      candyToUnlock: 150
+      stardustToUnlock: 12000
+      candyToUnlock: 30
     isTransferable: true
     isDeployable: true
     shadow:
@@ -43843,8 +44202,8 @@ itemTemplates:
     - 43.9
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 30000
-      candyToUnlock: 150
+      stardustToUnlock: 12000
+      candyToUnlock: 30
     isTransferable: true
     isDeployable: true
     shadow:
@@ -44236,8 +44595,8 @@ itemTemplates:
     - 30.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 30000
-      candyToUnlock: 150
+      stardustToUnlock: 12000
+      candyToUnlock: 30
     isTransferable: true
     isDeployable: true
     shadow:
@@ -44941,8 +45300,8 @@ itemTemplates:
     - 86.88
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -45300,8 +45659,8 @@ itemTemplates:
     - 140.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 225
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -46201,8 +46560,8 @@ itemTemplates:
     - 0.22
     - -0.13
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -46628,8 +46987,8 @@ itemTemplates:
     - 0.0
     - -0.99
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -46964,8 +47323,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -47300,8 +47659,8 @@ itemTemplates:
     - 29.51
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -47915,8 +48274,8 @@ itemTemplates:
     - 27.78
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -48255,8 +48614,8 @@ itemTemplates:
     - 55.3
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -48579,8 +48938,8 @@ itemTemplates:
     - 31.05
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -48915,8 +49274,8 @@ itemTemplates:
     - -0.12
     - 0.45
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -49259,8 +49618,8 @@ itemTemplates:
     - -0.3
     - 0.33
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -49800,8 +50159,8 @@ itemTemplates:
     - -0.12
     - 0.07
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -50217,8 +50576,8 @@ itemTemplates:
     - 23.79
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -50553,8 +50912,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -50951,8 +51310,8 @@ itemTemplates:
     - 20.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -51283,8 +51642,8 @@ itemTemplates:
     - 0.49
     - 0.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 150
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -51607,8 +51966,8 @@ itemTemplates:
     - 57.7
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -52046,8 +52405,8 @@ itemTemplates:
     - 120.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -52441,8 +52800,8 @@ itemTemplates:
     - 58.56
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -52492,7 +52851,7 @@ itemTemplates:
       dodgeProbability: 0.15
       dodgeDurationS: 0.8
       dodgeDistance: 0.8
-      cameraDistance: 5.25
+      cameraDistance: 4.0
       minPokemonActionFrequencyS: 0.2
       maxPokemonActionFrequencyS: 1.6
     stats:
@@ -52572,7 +52931,7 @@ itemTemplates:
       dodgeProbability: 0.15
       dodgeDurationS: 0.8
       dodgeDistance: 0.8
-      cameraDistance: 5.25
+      cameraDistance: 4.0
       minPokemonActionFrequencyS: 0.2
       maxPokemonActionFrequencyS: 1.6
     stats:
@@ -52653,7 +53012,7 @@ itemTemplates:
       dodgeProbability: 0.15
       dodgeDurationS: 0.8
       dodgeDistance: 0.8
-      cameraDistance: 5.25
+      cameraDistance: 4.0
       minPokemonActionFrequencyS: 0.2
       maxPokemonActionFrequencyS: 1.6
     stats:
@@ -52734,7 +53093,7 @@ itemTemplates:
       dodgeProbability: 0.2
       dodgeDurationS: 0.8
       dodgeDistance: 0.8
-      cameraDistance: 5.25
+      cameraDistance: 4.0
       minPokemonActionFrequencyS: 0.2
       maxPokemonActionFrequencyS: 1.6
     stats:
@@ -52785,8 +53144,8 @@ itemTemplates:
     - 58.37
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -52822,7 +53181,7 @@ itemTemplates:
       dodgeProbability: 0.15
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
-      cameraDistance: 5.925
+      cameraDistance: 4.0
       minPokemonActionFrequencyS: 0.2
       maxPokemonActionFrequencyS: 1.6
     stats:
@@ -52907,7 +53266,7 @@ itemTemplates:
       dodgeProbability: 0.15
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
-      cameraDistance: 5.925
+      cameraDistance: 4.0
       minPokemonActionFrequencyS: 0.2
       maxPokemonActionFrequencyS: 1.6
     stats:
@@ -52993,7 +53352,7 @@ itemTemplates:
       dodgeProbability: 0.15
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
-      cameraDistance: 5.925
+      cameraDistance: 4.0
       minPokemonActionFrequencyS: 0.2
       maxPokemonActionFrequencyS: 1.6
     stats:
@@ -53079,7 +53438,7 @@ itemTemplates:
       dodgeProbability: 0.2
       dodgeDurationS: 1.0
       dodgeDistance: 1.0
-      cameraDistance: 5.925
+      cameraDistance: 4.0
       minPokemonActionFrequencyS: 0.2
       maxPokemonActionFrequencyS: 1.6
     stats:
@@ -53133,8 +53492,8 @@ itemTemplates:
     - 0.12
     - 0.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 300
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -53633,8 +53992,8 @@ itemTemplates:
     - 0.0
     - 0.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -54609,8 +54968,8 @@ itemTemplates:
     - 0.07
     - 1.64
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -55024,8 +55383,8 @@ itemTemplates:
     - 40.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -55360,8 +55719,8 @@ itemTemplates:
     - 49.8
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -55692,8 +56051,8 @@ itemTemplates:
     - 43.6
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     combatPlayerFocusCameraAngle:
@@ -56088,8 +56447,8 @@ itemTemplates:
     - 13.6
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 30000
-      candyToUnlock: 75
+      stardustToUnlock: 12000
+      candyToUnlock: 30
     isTransferable: true
     isDeployable: true
     shadow:
@@ -56412,8 +56771,8 @@ itemTemplates:
     - 63.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 30000
-      candyToUnlock: 75
+      stardustToUnlock: 12000
+      candyToUnlock: 30
     isTransferable: true
     isDeployable: true
     shadow:
@@ -56732,8 +57091,8 @@ itemTemplates:
     - 19.7
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -57549,8 +57908,8 @@ itemTemplates:
     - 48.21
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -57872,8 +58231,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -58184,8 +58543,8 @@ itemTemplates:
     - 48.21
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -58776,8 +59135,8 @@ itemTemplates:
     - -0.18
     - 0.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     combatShoulderCameraAngle:
@@ -59093,8 +59452,8 @@ itemTemplates:
     - 28.01
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 300000
-      candyToUnlock: 225
+      stardustToUnlock: 120000
+      candyToUnlock: 120
     isTransferable: true
     shadow:
       purificationStardustNeeded: 20000
@@ -59401,8 +59760,8 @@ itemTemplates:
     - 18.14
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 300000
-      candyToUnlock: 225
+      stardustToUnlock: 120000
+      candyToUnlock: 120
     isTransferable: true
     shadow:
       purificationStardustNeeded: 20000
@@ -59709,8 +60068,8 @@ itemTemplates:
     - 18.14
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 300000
-      candyToUnlock: 225
+      stardustToUnlock: 120000
+      candyToUnlock: 120
     isTransferable: true
     shadow:
       purificationStardustNeeded: 20000
@@ -60028,8 +60387,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -60364,8 +60723,8 @@ itemTemplates:
     - 39.7
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -60688,8 +61047,8 @@ itemTemplates:
     - 51.7
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -62705,8 +63064,8 @@ itemTemplates:
     - -0.25
     - -0.78
     thirdMove:
-      stardustToUnlock: 30000
-      candyToUnlock: 75
+      stardustToUnlock: 12000
+      candyToUnlock: 30
     isTransferable: true
     isDeployable: true
     shadow:
@@ -63750,8 +64109,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -64082,8 +64441,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -64414,8 +64773,8 @@ itemTemplates:
     - -0.15
     - 0.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -64718,8 +65077,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -65270,8 +65629,8 @@ itemTemplates:
     - -0.09
     - 0.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -66465,8 +66824,8 @@ itemTemplates:
     - 0.0
     buddyScale: 16.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -66894,8 +67253,8 @@ itemTemplates:
     - -0.12
     - 0.14
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -67289,8 +67648,8 @@ itemTemplates:
     - 52.2
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -68092,8 +68451,8 @@ itemTemplates:
     - 0.33
     - 0.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 75
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -68692,8 +69051,8 @@ itemTemplates:
     - 28.6
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -69214,8 +69573,8 @@ itemTemplates:
     - -0.09
     - 0.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 75
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -70356,8 +70715,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -70875,8 +71234,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -71202,8 +71561,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -71825,8 +72184,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 75
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -72136,8 +72495,8 @@ itemTemplates:
     - 49.18
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -73185,8 +73544,8 @@ itemTemplates:
     - 30.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 300000
-      candyToUnlock: 300
+      stardustToUnlock: 120000
+      candyToUnlock: 120
     isTransferable: true
     shadow:
       purificationStardustNeeded: 20000
@@ -73500,8 +73859,8 @@ itemTemplates:
     - 30.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 300000
-      candyToUnlock: 300
+      stardustToUnlock: 120000
+      candyToUnlock: 120
     isTransferable: true
     shadow:
       purificationStardustNeeded: 20000
@@ -73820,8 +74179,8 @@ itemTemplates:
     - -20.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 300000
-      candyToUnlock: 300
+      stardustToUnlock: 120000
+      candyToUnlock: 120
     isTransferable: true
     shadow:
       purificationStardustNeeded: 20000
@@ -74159,8 +74518,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -74527,8 +74886,8 @@ itemTemplates:
     - -0.14
     - -1.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -74855,8 +75214,8 @@ itemTemplates:
     - 38.8
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -76021,8 +76380,8 @@ itemTemplates:
     - 0.07
     - 0.77
     thirdMove:
-      stardustToUnlock: 30000
-      candyToUnlock: 75
+      stardustToUnlock: 12000
+      candyToUnlock: 30
     isTransferable: true
     isDeployable: true
     shadow:
@@ -76361,8 +76720,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 30000
-      candyToUnlock: 75
+      stardustToUnlock: 12000
+      candyToUnlock: 30
     isTransferable: true
     isDeployable: true
     shadow:
@@ -76692,8 +77051,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 30000
-      candyToUnlock: 75
+      stardustToUnlock: 12000
+      candyToUnlock: 30
     isTransferable: true
     isDeployable: true
     shadow:
@@ -78475,8 +78834,8 @@ itemTemplates:
     - -0.08
     - 0.1
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -78818,8 +79177,8 @@ itemTemplates:
     - 60.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -79154,8 +79513,8 @@ itemTemplates:
     - 45.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -79857,8 +80216,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -80217,8 +80576,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -80548,8 +80907,8 @@ itemTemplates:
     - 75.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -82637,8 +82996,8 @@ itemTemplates:
     - 0.0
     - 0.5
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -82976,8 +83335,8 @@ itemTemplates:
     - 0.0
     - 1.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -84595,8 +84954,8 @@ itemTemplates:
     - 0.08
     - 0.05
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -84926,8 +85285,8 @@ itemTemplates:
     - 60.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -85988,8 +86347,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -86333,8 +86692,8 @@ itemTemplates:
     - 30.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -86649,8 +87008,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -86976,8 +87335,8 @@ itemTemplates:
     - 70.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -87303,8 +87662,8 @@ itemTemplates:
     - 70.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -89449,8 +89808,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -89773,8 +90132,8 @@ itemTemplates:
     - 0.0
     - 0.39
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -90085,8 +90444,8 @@ itemTemplates:
     - 70.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -90413,8 +90772,8 @@ itemTemplates:
     - 35.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -90854,8 +91213,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -92001,8 +92360,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -92341,8 +92700,8 @@ itemTemplates:
     - 0.0
     - 0.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -92661,8 +93020,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -92964,8 +93323,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -93296,8 +93655,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -93624,8 +93983,8 @@ itemTemplates:
     - 0.13
     - 0.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -94989,8 +95348,8 @@ itemTemplates:
     - 0.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 10000
-      candyToUnlock: 75
+      stardustToUnlock: 12000
+      candyToUnlock: 30
     isTransferable: true
     isDeployable: true
     shadow:
@@ -95317,8 +95676,8 @@ itemTemplates:
     - 76.25
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 10000
-      candyToUnlock: 75
+      stardustToUnlock: 12000
+      candyToUnlock: 30
     isTransferable: true
     isDeployable: true
     shadow:
@@ -95633,8 +95992,8 @@ itemTemplates:
     - 1.0
     buddyScale: 17.0
     thirdMove:
-      stardustToUnlock: 10000
-      candyToUnlock: 75
+      stardustToUnlock: 12000
+      candyToUnlock: 30
     isTransferable: true
     isDeployable: true
     shadow:
@@ -95961,8 +96320,8 @@ itemTemplates:
     - -0.03
     - 0.14
     thirdMove:
-      stardustToUnlock: 30000
-      candyToUnlock: 150
+      stardustToUnlock: 12000
+      candyToUnlock: 30
     isTransferable: true
     isDeployable: true
     shadow:
@@ -96293,8 +96652,8 @@ itemTemplates:
     - 102.0
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 30000
-      candyToUnlock: 225
+      stardustToUnlock: 12000
+      candyToUnlock: 30
     isTransferable: true
     isDeployable: true
     shadow:
@@ -96609,8 +96968,8 @@ itemTemplates:
     - 110.4
     buddyScale: 16.0
     thirdMove:
-      stardustToUnlock: 30000
-      candyToUnlock: 225
+      stardustToUnlock: 12000
+      candyToUnlock: 30
     isTransferable: true
     isDeployable: true
     shadow:
@@ -100713,8 +101072,8 @@ itemTemplates:
     - -0.05
     - 0.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -101033,8 +101392,8 @@ itemTemplates:
     - -46.4
     buddyScale: 15.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 225
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -102293,8 +102652,8 @@ itemTemplates:
     - 0.17
     - -0.24
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 150
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -102621,8 +102980,8 @@ itemTemplates:
     - -61.0
     buddyScale: 17.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 150
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -102937,8 +103296,8 @@ itemTemplates:
     - -67.4
     buddyScale: 15.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 150
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -103492,8 +103851,8 @@ itemTemplates:
     - -0.06
     - -1.26
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -103828,8 +104187,8 @@ itemTemplates:
     - 0.17
     - 0.23
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -104789,8 +105148,8 @@ itemTemplates:
     - 0.0
     - -0.77
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -105097,8 +105456,8 @@ itemTemplates:
     - -57.21
     buddyScale: 17.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -105413,8 +105772,8 @@ itemTemplates:
     - 22.83
     buddyScale: 19.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -105749,8 +106108,8 @@ itemTemplates:
     - -0.16
     - -2.34
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 50
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -106161,8 +106520,8 @@ itemTemplates:
     - 0.0
     buddyScale: 15.0
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 50
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     combatOpponentFocusCameraAngle:
@@ -106558,8 +106917,8 @@ itemTemplates:
     - -56.9
     buddyScale: 16.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -106870,8 +107229,8 @@ itemTemplates:
     - -69.37
     buddyScale: 17.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -107683,8 +108042,8 @@ itemTemplates:
     - -0.11
     - -0.08
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 50
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -107999,8 +108358,8 @@ itemTemplates:
     - -55.3
     buddyScale: 17.0
     thirdMove:
-      stardustToUnlock: 225000
-      candyToUnlock: 225
+      stardustToUnlock: 90000
+      candyToUnlock: 90
     isTransferable: true
     isDeployable: true
     shadow:
@@ -108411,8 +108770,8 @@ itemTemplates:
     - 0.0
     - -1.2
     thirdMove:
-      stardustToUnlock: 150000
-      candyToUnlock: 150
+      stardustToUnlock: 60000
+      candyToUnlock: 60
     isTransferable: true
     isDeployable: true
     shadow:
@@ -127050,7 +127409,7 @@ itemTemplates:
 - templateId: VS_SEEKER_CLIENT_SETTINGS
   vsSeekerClientSettings:
     allowedVsSeekerLeagueTemplateId:
-    - COMBAT_LEAGUE_VS_SEEKER_ULTRA
+    - COMBAT_LEAGUE_VS_SEEKER_MASTER
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_10_FREE
   vsSeekerLootProto:
     rankLevel: 10
@@ -127059,7 +127418,7 @@ itemTemplates:
         count: 750
     - itemLootTable: true
     - item:
-        count: 1
+        count: 2
     - pokemonReward: true
     - item:
         count: 1500
@@ -127080,7 +127439,7 @@ itemTemplates:
     - item:
         count: 5
     - item:
-        count: 7
+        count: 8
     - item:
         count: 4800
     - item:
@@ -127096,7 +127455,7 @@ itemTemplates:
         count: 300
     - itemLootTable: true
     - item:
-        count: 1
+        count: 2
     - pokemonReward: true
     - item:
         count: 600
@@ -127117,7 +127476,7 @@ itemTemplates:
     - item:
         count: 5
     - item:
-        count: 7
+        count: 8
     - item:
         count: 3000
     - item:
@@ -127133,7 +127492,7 @@ itemTemplates:
         count: 350
     - itemLootTable: true
     - item:
-        count: 1
+        count: 2
     - pokemonReward: true
     - item:
         count: 700
@@ -127154,7 +127513,7 @@ itemTemplates:
     - item:
         count: 5
     - item:
-        count: 7
+        count: 8
     - item:
         count: 3200
     - item:
@@ -127170,7 +127529,7 @@ itemTemplates:
         count: 400
     - itemLootTable: true
     - item:
-        count: 1
+        count: 2
     - pokemonReward: true
     - item:
         count: 800
@@ -127191,7 +127550,7 @@ itemTemplates:
     - item:
         count: 5
     - item:
-        count: 7
+        count: 8
     - item:
         count: 3400
     - item:
@@ -127207,7 +127566,7 @@ itemTemplates:
         count: 450
     - itemLootTable: true
     - item:
-        count: 1
+        count: 2
     - pokemonReward: true
     - item:
         count: 900
@@ -127228,7 +127587,7 @@ itemTemplates:
     - item:
         count: 5
     - item:
-        count: 7
+        count: 8
     - item:
         count: 3600
     - item:
@@ -127244,7 +127603,7 @@ itemTemplates:
         count: 500
     - itemLootTable: true
     - item:
-        count: 1
+        count: 2
     - pokemonReward: true
     - item:
         count: 1000
@@ -127265,7 +127624,7 @@ itemTemplates:
     - item:
         count: 5
     - item:
-        count: 7
+        count: 8
     - item:
         count: 3800
     - item:
@@ -127281,7 +127640,7 @@ itemTemplates:
         count: 550
     - itemLootTable: true
     - item:
-        count: 1
+        count: 2
     - pokemonReward: true
     - item:
         count: 1100
@@ -127302,7 +127661,7 @@ itemTemplates:
     - item:
         count: 5
     - item:
-        count: 7
+        count: 8
     - item:
         count: 4000
     - item:
@@ -127318,7 +127677,7 @@ itemTemplates:
         count: 600
     - itemLootTable: true
     - item:
-        count: 1
+        count: 2
     - pokemonReward: true
     - item:
         count: 1200
@@ -127339,7 +127698,7 @@ itemTemplates:
     - item:
         count: 5
     - item:
-        count: 7
+        count: 8
     - item:
         count: 4200
     - item:
@@ -127355,7 +127714,7 @@ itemTemplates:
         count: 650
     - itemLootTable: true
     - item:
-        count: 1
+        count: 2
     - pokemonReward: true
     - item:
         count: 1300
@@ -127376,7 +127735,7 @@ itemTemplates:
     - item:
         count: 5
     - item:
-        count: 7
+        count: 8
     - item:
         count: 4400
     - item:
@@ -127392,7 +127751,7 @@ itemTemplates:
         count: 700
     - itemLootTable: true
     - item:
-        count: 1
+        count: 2
     - pokemonReward: true
     - item:
         count: 1400
@@ -127413,7 +127772,7 @@ itemTemplates:
     - item:
         count: 5
     - item:
-        count: 7
+        count: 8
     - item:
         count: 4600
     - item:
@@ -127974,8 +128333,8 @@ itemTemplates:
     sku: bundle.general1.tiny.2
     category: IAP_CATEGORY_BUNDLE
     sortOrder: 10
-    hidden: true
     spriteId: bundle.general1.tiny.1
+    title: bundle.general1.tiny.3_title
 - templateId: bundle.general1.tiny.3
   iapItemDisplay:
     sku: bundle.general1.tiny.3
@@ -144644,4 +145003,4 @@ itemTemplates:
     - wait 0.25
     - sys ui-sync
     - sys complete
-timestampMs: '1584182655599'
+timestampMs: '1584596779152'
