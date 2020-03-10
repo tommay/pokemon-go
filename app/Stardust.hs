@@ -54,9 +54,9 @@ main =
   Epic.catch (
     do
       options <- getOptions
-      let discounts = Discounts.new
-            (isShadow options) (isPurified options) (isLucky options)
       gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
+      let discounts = Discounts.new gameMaster
+            (isShadow options) (isPurified options) (isLucky options)
       let levelsAndCosts = Powerups.levelsAndCosts gameMaster discounts
             $ level options
       forM_ levelsAndCosts $ \ (level, dust, candy) ->

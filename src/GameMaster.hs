@@ -19,6 +19,11 @@ module GameMaster (
   candyAndLevel,
   allLevels,
   nextLevel,
+  shadowStardustMultiplier,
+  shadowCandyMultiplier,
+  purifiedStardustMultiplier,
+  purifiedCandyMultiplier,
+  luckyPowerUpStardustDiscountPercent,
 ) where
 
 import qualified Epic
@@ -64,6 +69,11 @@ data GameMaster = GameMaster {
   cpMultipliers :: Vector Float,
   stardustCost  :: [Int],
   candyCost     :: [Int],
+  shadowStardustMultiplier   :: Float,
+  shadowCandyMultiplier      :: Float,
+  purifiedStardustMultiplier :: Float,
+  purifiedCandyMultiplier    :: Float,
+  luckyPowerUpStardustDiscountPercent :: Float,
   weatherBonusMap :: HashMap Weather (HashMap Type Float)
 } deriving (Show)
 
@@ -214,12 +224,18 @@ makeGameMaster yamlObject = do
   cpMultipliers <- do
     playerLevel <- getFirst itemTemplates "playerLevel"
     getObjectValue playerLevel "cpMultiplier"
-  stardustCost <- do
-    pokemonUpgrades <- getFirst itemTemplates "pokemonUpgrades"
-    getObjectValue pokemonUpgrades "stardustCost"
-  candyCost <- do
-    pokemonUpgrades <- getFirst itemTemplates "pokemonUpgrades"
-    getObjectValue pokemonUpgrades "candyCost"
+  let getFromPokemonUpgrades name = do
+        pokemonUpgrades <- getFirst itemTemplates "pokemonUpgrades"
+        getObjectValue pokemonUpgrades name
+  stardustCost <- getFromPokemonUpgrades "stardustCost"
+  candyCost <- getFromPokemonUpgrades "candyCost"
+  shadowStardustMultiplier <- getFromPokemonUpgrades "shadowStardustMultiplier"
+  shadowCandyMultiplier <- getFromPokemonUpgrades "shadowCandyMultiplier"
+  purifiedStardustMultiplier <- getFromPokemonUpgrades "purifiedStardustMultiplier"
+  purifiedCandyMultiplier <- getFromPokemonUpgrades "purifiedCandyMultiplier"
+  luckyPowerUpStardustDiscountPercent <- do
+     luckyPokemonSetttings <- getFirst itemTemplates "luckyPokemonSettings"
+     getObjectValue luckyPokemonSetttings "powerUpStardustDiscountPercent"
   weatherBonusMap <- do
     weatherBonusSettings <- getFirst itemTemplates "weatherBonusSettings"
     attackBonusMultiplier <-
@@ -238,7 +254,11 @@ makeGameMaster yamlObject = do
       HashMap.empty
       $ HashMap.toList weatherAffinityMap
   return $ GameMaster.new types moves forms pokemonBases cpMultipliers
-    stardustCost candyCost weatherBonusMap
+    stardustCost candyCost
+    shadowStardustMultiplier shadowCandyMultiplier
+    purifiedStardustMultiplier purifiedCandyMultiplier
+    luckyPowerUpStardustDiscountPercent
+    weatherBonusMap
 
 -- Here it's nice to use Yaml.Parser because it will error if we don't
 -- get a [ItemTemplate], i.e., it checks that the Yaml.Values are the

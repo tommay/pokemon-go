@@ -117,7 +117,7 @@ main =
           isPurified' = isPurified options
           isLucky' = isLucky options
           needsPurification = isShadow' && isPurified'
-          discounts = Discounts.new
+          discounts = Discounts.new gameMaster
             (isShadow' && not isPurified') isPurified' isLucky'
           appendEvolvedSuffix =
             if isPurified'
