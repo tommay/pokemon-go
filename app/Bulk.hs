@@ -31,11 +31,13 @@ data Options = Options {
   isLucky :: Bool,
   species :: String,
   maybeEvolution :: Maybe String,
-  cp      :: Int,
+  levelOrCp :: LevelOrCp,
   attack  :: Int,
   defense :: Int,
   stamina :: Int
 }
+
+data LevelOrCp = Level Float | Cp Int
 
 data League = Great | Ultra | Master | Peewee
   deriving (Eq, Show)
@@ -45,7 +47,7 @@ getOptions =
   let opts = Options <$> optLeague <*> optOneLine
         <*> optIsShadow <*> optIsPurified<*> optIsLucky
         <*> optSpecies <*> optEvolution
-        <*> optCp <*> optAttack <*> optDefense <*> optStamina
+        <*> optLevelOrCp <*> optAttack <*> optDefense <*> optStamina
       optLeague =
             O.flag' Great (
               O.short 'g' <>
@@ -86,7 +88,20 @@ getOptions =
         <> O.short 'e'
         <> O.metavar "EVOLUTION"
         <> O.help "Evolution for PVP")
-      optCp = O.argument O.auto (O.metavar "CP")
+      -- XXX There are two things about this that I don't quite understand:
+      -- 1) Why is "Level <$>" the right thing to use here?
+      -- 2) The "-l" option is only recognized before the ATTACK argument
+      -- is given?  That's not surprising; if "-l LEVEL" is given before
+      -- CP could be then CP is skipped and we move right on to ATTACK,
+      -- but how does the argument parsing actually work?
+      optLevelOrCp =
+        let optLevel = Level <$> (O.option O.auto
+              (  O.long "level"
+              <> O.short 'l'
+              <> O.metavar "LEVEL"
+              <> O.help "Pokemon level"))
+            optCp = Cp <$> (O.argument O.auto (O.metavar "CP"))
+        in optLevel <|> optCp
       optAttack = O.argument O.auto (O.metavar "ATTTACK")
       optDefense = O.argument O.auto (O.metavar "DEFENSE")
       optStamina = O.argument O.auto (O.metavar "STAMINA")
@@ -148,9 +163,12 @@ main =
           allIVs = map makeIVs allLevels
           calcCpForIvs = Calc.cp gameMaster
       level <- do
-        case List.find ((== cp options) . calcCpForIvs baseCurrent) allIVs of
-          Just ivs -> return $ IVs.level ivs
-          Nothing -> Epic.fail "no possible level for cp and ivs"
+        case levelOrCp options of
+          Level level -> return level
+          Cp cp ->
+            case List.find ((== cp) . calcCpForIvs baseCurrent) allIVs of
+              Just ivs -> return $ IVs.level ivs
+              Nothing -> Epic.fail "no possible level for cp and ivs"
       -- If both isShadow and isPurified are true, it means the command line
       -- cp is for a shadow pokemon but the calculations should be for after
       -- it is purified and becomes level 25.
