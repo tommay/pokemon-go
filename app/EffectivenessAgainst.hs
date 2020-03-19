@@ -46,7 +46,7 @@ main =
               Right base -> return $ PokemonBase.types base
               Left _ ->
                 Epic.fail $ "No such species or type: " ++ speciesOrType
-      let allTypes = GameMaster.getAllTypes gameMaster
+      let allTypes = List.sortOn Type.name $ GameMaster.getAllTypes gameMaster
           longest = maximum $ map (length . Type.name) allTypes
           effectiveness =
             Util.augment (\typ -> Type.effectivenessAgainst typ types) allTypes
