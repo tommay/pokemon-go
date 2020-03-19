@@ -131,3 +131,6 @@
 - species: mewtwo_a
   moves:
   - PSYSTRIKE          # "Pokemon day" 2/2020
+- species: cobalion
+  moves:
+  - SACRED_SWORD       # Cobalion raid weekend and GBL reward 3/2020

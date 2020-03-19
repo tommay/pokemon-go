@@ -145417,4 +145417,26 @@ itemTemplates:
     - wait 0.25
     - sys ui-sync
     - sys complete
+- templateId: COMBAT_V0330_MOVE_SACRED_SWORD
+  combatMove:
+    uniqueId: SACRED_SWORD
+    type: POKEMON_TYPE_FIGHTING
+    power: 60.0
+    vfxName: sacred_sword
+    energyDelta: -35
+- template_id: V0330_MOVE_SACRED_SWORD
+  moveSettings:
+    movementId: SACRED_SWORD
+    animationId: 5
+    pokemonType: POKEMON_TYPE_FIGHTING
+    power: 55.0
+    accuracyChance: 1.0
+    staminaLossScalar: 0.0099999998
+    trainerLevelMin: 1
+    trainerLevelMax: 100
+    vfxName: sacred_sword
+    durationMs: 1200
+    damageWindowStartMs: 500
+    damageWindowEnd_ms: 1000
+    energyDelta: -33
 timestampMs: '1585482832347'
