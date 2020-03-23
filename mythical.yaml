@@ -445,11 +445,9 @@ cranidos:
 rampardos: 
 shieldon: 
 bastiodon: 
-burmy: 
 burmy_plant: 
 burmy_sandy: 
 burmy_trash: 
-wormadam: 
 wormadam_plant: 
 wormadam_sandy: 
 wormadam_trash: 
@@ -460,13 +458,10 @@ pachirisu:
 buizel: 
 floatzel: 
 cherubi: 
-cherrim: 
 cherrim_overcast: 
 cherrim_sunny: 
-shellos: 
 shellos_east_sea: 
 shellos_west_sea: 
-gastrodon: 
 gastrodon_east_sea: 
 gastrodon_west_sea: 
 ambipom: 
@@ -537,14 +532,12 @@ dialga: legendary
 palkia: legendary
 heatran: legendary
 regigigas: legendary
-giratina: legendary
 giratina_altered: legendary
 giratina_origin: legendary
 cresselia: legendary
 phione: legendary
 manaphy: legendary
 darkrai: legendary
-shaymin: legendary
 shaymin_land: legendary
 shaymin_sky: legendary
 arceus: legendary
@@ -621,14 +614,12 @@ cottonee: mythical
 whimsicott: mythical
 petilil: mythical
 lilligant: mythical
-basculin: mythical
 basculin_blue_striped: # regional western hemispjere
 basculin_red_striped: # regional eastern hemispjere
 sandile: mythical
 krokorok: mythical
 krookodile: mythical
 darumaka: mythical
-darmanitan: mythical
 darmanitan_standard: mythical
 darmanitan_zen: mythical
 maractus: # regional southern us, mexico, central america, carribean, south america
@@ -660,12 +651,10 @@ swanna: mythical
 vanillite: mythical
 vanillish: mythical
 vanilluxe: mythical
-deerling: mythical
 deerling_autumn: mythical
 deerling_spring: mythical
 deerling_summer: mythical
 deerling_winter: mythical
-sawsbuck: mythical
 sawsbuck_autumn: mythical
 sawsbuck_spring: mythical
 sawsbuck_summer: mythical
@@ -724,31 +713,25 @@ volcarona: mythical
 cobalion: legendary
 terrakion: legendary
 virizion: legendary
-tornadus_incarnate:
+tornadus_incarnate: legendary
 tornadus_therian: mythical
-thundurus:
-thundurus_incarnate:
+thundurus_incarnate: legendary
 thundurus_therian: mythical
 reshiram: mythical
 zekrom: mythical
-landorus: mythical
-landorus_incarnate: mythical
+landorus_incarnate: legendary
 landorus_therian: mythical
 kyurem: mythical
 kyurem_black: mythical
 kyurem_white: mythical
-keldeo: mythical
 keldeo_ordinary: mythical
 keldeo_resolute: mythical
-meloetta: mythical
 meloetta_aria: mythical
 meloetta_pirouette: mythical
-genesect: mythical
-genesect_burn: mythical
-genesect_chill: mythical
-genesect_douse: mythical
-genesect_shock: mythical
+genesect:
+genesect_burn:
+genesect_chill:
+genesect_douse:
+genesect_shock:
 meltan: 
 melmetal: 
-
-
