@@ -19,7 +19,7 @@ import           Attacker (Attacker)
 import qualified Defender
 import           Defender (Defender)
 import qualified Log
-import           Log (Log (Log))
+import           Log (Log)
 import qualified Logger
 import           Logger (Logger)
 import qualified Move
@@ -130,8 +130,8 @@ tick this = do
         }
   battle <- checkAttackerHits battle
   battle <- checkDefenderHits battle
-  battle <- makeLogs $ Battle.updateAttacker battle $ Attacker.makeMove
-  battle <- makeLogs $ Battle.updateDefender battle $
+  battle <- Log.makeLogs $ Battle.updateAttacker battle $ Attacker.makeMove
+  battle <- Log.makeLogs $ Battle.updateDefender battle $
     Defender.makeMove (Battle.raidGroup this)
   return battle
 
@@ -145,14 +145,14 @@ checkAttackerHits this =
       maybeEnergy = getEnergy move
       battle = this
   in if Attacker.damageWindow attacker == 0 then do
-       battle <- makeLogs $
+       battle <- Log.makeLogs $
          case maybeEnergy of
            Just energy -> do
              Logger.log $ Printf.printf "Attacker uses %d for %s"
                energy (Move.name move)
              Battle.updateAttacker battle $ Attacker.useEnergy energy
            Nothing -> return battle
-       battle <- makeLogs $ do
+       battle <- Log.makeLogs $ do
          Logger.log $ Printf.printf "Defender takes %d from %s"
            damage (Move.name move)
          Battle.updateDefender battle $ Defender.takeDamage damage (Move.isQuick move)
@@ -169,14 +169,14 @@ checkDefenderHits this =
       maybeEnergy = getEnergy move
       battle = this
   in if Defender.damageWindow defender == 0 then do
-       battle <- makeLogs $
+       battle <- Log.makeLogs $
          case maybeEnergy of
            Just energy -> do
              Logger.log $ Printf.printf "Defender uses %d for %s"
                energy (Move.name move)
              Battle.updateDefender battle $ Defender.useEnergy energy
            Nothing -> return battle
-       battle <- makeLogs $ do
+       battle <- Log.makeLogs $ do
          Logger.log $ Printf.printf "Attacker takes %d from %s"
            damage (Move.name move)
          Battle.updateAttacker battle $ Attacker.takeDamage damage (Move.isQuick move)
@@ -209,17 +209,3 @@ getEnergy move =
   if Move.isCharge move
     then Just $ negate $ Move.energy move
     else Nothing
-
-makeLogs :: Logger String Battle -> Logger (Log Battle) Battle
-makeLogs battleLogger =
-  let makeLog battle string = Log {
-        Log.state = battle,
-        Log.what = string
-        }
-  in decorateLog makeLog battleLogger
-
-decorateLog :: (a -> w -> u) -> Logger w a -> Logger u a
-decorateLog f m =
-  let (a, ws) = Logger.runLogger m
-      us = map (f a) ws
-  in Logger.logger (a, us)
