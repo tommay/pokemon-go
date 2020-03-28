@@ -105,6 +105,9 @@ main =
 tell :: a -> Logger a ()
 tell = Logger.log
 
+-- Using Logger here is just a "convenient" wat to collect a bunch of
+-- disparate strings into a List.  It might be more clear just to : or
+-- ++ the List together.
 showBattle :: (Battle, [Log Battle]) -> String
 showBattle (battle, logs) = 
   List.intercalate "\n" $
