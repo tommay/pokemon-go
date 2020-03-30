@@ -51,8 +51,11 @@ main =
             charged <- PokemonBase.chargeMoves base]
           toName :: Move -> Move -> String
           toName fast charged =
-            Printf.printf "%s / %s"
-              (Move.name fast) (Move.name charged)
+            Printf.printf "%s(%d) / %s(%d)"
+              (Move.name fast) (Move.pvpEnergyDelta fast)
+              (Move.name charged) (negate $ Move.pvpEnergyDelta charged)
+          maxNameLength = maximum $
+            map (\ (fast, charged) -> length $ toName fast charged) moveSets
           toStuff :: (Move, Move) -> (String, Int, Int, Float)
           toStuff (fast, charged) =
             let name = toName fast charged
@@ -60,8 +63,8 @@ main =
             in (name, turnsPerCycle, fastMovesPerCycle, dpt)
           stuff = map toStuff moveSets
       forM_ stuff $ \ (name, turnsPerCycle, fastMovesPerCycle, dpt) ->
-        putStrLn $ Printf.printf "%-30s: %d(%d) %.2f"
-          name turnsPerCycle fastMovesPerCycle dpt
+        putStrLn $ Printf.printf "%-*s: %d(%d) %.2f"
+          maxNameLength name turnsPerCycle fastMovesPerCycle dpt
     )
     $ Exit.die
 
