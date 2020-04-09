@@ -218,7 +218,7 @@ makeGameMaster yamlObject = do
     itemTemplates
   forms <- getForms itemTemplates
   pokemonBases <-
-    makeObjects "pokemonSettings" (getSpeciesForPokemonBase forms)
+    makeObjects "pokemon" (getSpeciesForPokemonBase forms)
       (makePokemonBase types moves forms)
       (filter (hasFormIfRequired forms) itemTemplates)
   cpMultipliers <- do
@@ -266,7 +266,7 @@ makeGameMaster yamlObject = do
 --
 getItemTemplates :: Epic.MonadCatch m => Yaml.Object -> m [ItemTemplate]
 getItemTemplates yamlObject =
-  Epic.toEpic $ Yaml.parseEither (.: "itemTemplates") yamlObject
+  Epic.toEpic $ Yaml.parseEither (.: "itemTemplate") yamlObject
 
 getTypes :: Epic.MonadCatch m => [ItemTemplate] -> m (StringMap Type)
 getTypes itemTemplates = do
@@ -313,7 +313,7 @@ getMoves :: Epic.MonadCatch m =>
   (ItemTemplate -> m (Maybe Move)) -> [ItemTemplate] ->
   m (StringMap Move)
 getMoves makeMaybeMove itemTemplates = do
-  maybeMoveMap <- makeObjects "moveSettings" (getNameFromKey "movementId")
+  maybeMoveMap <- makeObjects "move" (getNameFromKey "movementId")
     makeMaybeMove itemTemplates
   -- Use (mapMaybe id) to discard any Nothing values, and turn Just Move
   -- into Move values.
@@ -442,7 +442,7 @@ getFormNames formSettings =
 --
 getSpeciesForPokemonBase :: Epic.MonadCatch m => StringMap [String] -> ItemTemplate -> m String
 getSpeciesForPokemonBase forms itemTemplate = do
-  species <- getObjectValue itemTemplate "pokemonId"
+  species <- getObjectValue itemTemplate "uniqueId"
   case HashMap.lookup species forms of
     Nothing -> Epic.fail $ "Can't find forms for " ++ species
     Just [] -> return species
@@ -457,7 +457,7 @@ makePokemonBase types moves forms pokemonSettings =
   Epic.catch (do
     let getValue key = getObjectValue pokemonSettings key
 
-    pokemonId <- getValue "pokemonId"
+    pokemonId <- getValue "uniqueId"
 
     species <- do
       species <- getSpeciesForPokemonBase forms pokemonSettings
@@ -465,7 +465,7 @@ makePokemonBase types moves forms pokemonSettings =
       return $ Regex.subRegex normal (Util.toLower species) ""
 
     ptypes <- do
-      ptype <- getValue "type"
+      ptype <- getValue "type1"
       let ptypes = case getValue "type2" of
             Right ptype2 -> [ptype, ptype2]
             -- XXX This can swallow parse errors?
@@ -512,7 +512,7 @@ makePokemonBase types moves forms pokemonSettings =
     quickMoves <- getMoves "quickMoves" moves
     chargeMoves <- getMoves "cinematicMoves" moves
 
-    let parent = case getValue "parentPokemonId" of
+    let parent = case getValue "parentId" of
           Right parent -> Just parent
           -- XXX This can swallow parse errors?
           Left _ -> Nothing
@@ -591,14 +591,14 @@ getFirst itemTemplates filterKey =
 
 checkPokemonSettings :: ItemTemplate -> (Yaml.Object -> Bool) -> Bool
 checkPokemonSettings itemTemplate predicate =
-  case getObjectValue itemTemplate "pokemonSettings" of
+  case getObjectValue itemTemplate "pokemon" of
     Left _ -> False
     Right pokemonSettings -> predicate pokemonSettings
 
 hasFormIfRequired :: StringMap [String] -> ItemTemplate -> Bool
 hasFormIfRequired forms itemTemplate =
   checkPokemonSettings itemTemplate $ \ pokemonSettings ->
-    case getObjectValue pokemonSettings "pokemonId" of
+    case getObjectValue pokemonSettings "uniqueId" of
       Left _ -> False
       Right species ->
         case HashMap.lookup species forms of
