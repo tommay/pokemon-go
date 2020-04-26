@@ -134,3 +134,7 @@
 - species: cobalion
   moves:
   - SACRED_SWORD       # Cobalion raid weekend and GBL reward 3/2020
+- species: alakazam
+  moves:
+  - COUNTER_FAST       # # Community day 4/2020
+
