@@ -25843,6 +25843,8 @@ itemTemplate:
     - -0.7
     - 0.0
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - FRENZY_PLANT
 - templateId: V0003_POKEMON_VENUSAUR_COPY_2019
   pokemon:
     uniqueId: VENUSAUR
@@ -25932,6 +25934,8 @@ itemTemplate:
     - -0.7
     - 0.0
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - FRENZY_PLANT
 - templateId: V0003_POKEMON_VENUSAUR_NORMAL
   pokemon:
     uniqueId: VENUSAUR
@@ -26021,6 +26025,8 @@ itemTemplate:
     - -0.7
     - 0.0
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - FRENZY_PLANT
 - templateId: V0003_POKEMON_VENUSAUR_PURIFIED
   pokemon:
     uniqueId: VENUSAUR
@@ -26110,6 +26116,8 @@ itemTemplate:
     - -0.7
     - 0.0
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - FRENZY_PLANT
 - templateId: V0003_POKEMON_VENUSAUR_SHADOW
   pokemon:
     uniqueId: VENUSAUR
@@ -26204,6 +26212,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - FRENZY_PLANT
 - templateId: V0004_POKEMON_CHARMANDER
   pokemon:
     uniqueId: CHARMANDER
@@ -26677,6 +26687,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteQuickMove:
+    - SCRATCH_FAST
 - templateId: V0005_POKEMON_CHARMELEON_NORMAL
   pokemon:
     uniqueId: CHARMELEON
@@ -26759,6 +26771,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteQuickMove:
+    - SCRATCH_FAST
 - templateId: V0005_POKEMON_CHARMELEON_PURIFIED
   pokemon:
     uniqueId: CHARMELEON
@@ -26841,6 +26855,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteQuickMove:
+    - SCRATCH_FAST
 - templateId: V0005_POKEMON_CHARMELEON_SHADOW
   pokemon:
     uniqueId: CHARMELEON
@@ -26928,6 +26944,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 2
+    eliteQuickMove:
+    - SCRATCH_FAST
 - templateId: V0006_POKEMON_CHARIZARD
   pokemon:
     uniqueId: CHARIZARD
@@ -27005,6 +27023,12 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - EMBER_FAST
+    - WING_ATTACK_FAST
+    eliteCinematicMove:
+    - BLAST_BURN
+    - FLAMETHROWER
 - templateId: V0006_POKEMON_CHARIZARD_COPY_2019
   pokemon:
     uniqueId: CHARIZARD
@@ -27083,6 +27107,12 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - EMBER_FAST
+    - WING_ATTACK_FAST
+    eliteCinematicMove:
+    - BLAST_BURN
+    - FLAMETHROWER
 - templateId: V0006_POKEMON_CHARIZARD_NORMAL
   pokemon:
     uniqueId: CHARIZARD
@@ -27161,6 +27191,12 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - EMBER_FAST
+    - WING_ATTACK_FAST
+    eliteCinematicMove:
+    - BLAST_BURN
+    - FLAMETHROWER
 - templateId: V0006_POKEMON_CHARIZARD_PURIFIED
   pokemon:
     uniqueId: CHARIZARD
@@ -27239,6 +27275,12 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - EMBER_FAST
+    - WING_ATTACK_FAST
+    eliteCinematicMove:
+    - BLAST_BURN
+    - FLAMETHROWER
 - templateId: V0006_POKEMON_CHARIZARD_SHADOW
   pokemon:
     uniqueId: CHARIZARD
@@ -27322,6 +27364,12 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - EMBER_FAST
+    - WING_ATTACK_FAST
+    eliteCinematicMove:
+    - BLAST_BURN
+    - FLAMETHROWER
 - templateId: V0007_POKEMON_SQUIRTLE
   pokemon:
     uniqueId: SQUIRTLE
@@ -28122,6 +28170,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - HYDRO_CANNON
 - templateId: V0009_POKEMON_BLASTOISE_COPY_2019
   pokemon:
     uniqueId: BLASTOISE
@@ -28199,6 +28249,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - HYDRO_CANNON
 - templateId: V0009_POKEMON_BLASTOISE_NORMAL
   pokemon:
     uniqueId: BLASTOISE
@@ -28276,6 +28328,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - HYDRO_CANNON
 - templateId: V0009_POKEMON_BLASTOISE_PURIFIED
   pokemon:
     uniqueId: BLASTOISE
@@ -28353,6 +28407,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - HYDRO_CANNON
 - templateId: V0009_POKEMON_BLASTOISE_SHADOW
   pokemon:
     uniqueId: BLASTOISE
@@ -28435,6 +28491,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - HYDRO_CANNON
 - templateId: V0010_POKEMON_CATERPIE
   pokemon:
     uniqueId: CATERPIE
@@ -28662,6 +28720,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 4
+    eliteQuickMove:
+    - BUG_BITE_FAST
 - templateId: V0013_MOVE_WRAP
   move:
     movementId: WRAP
@@ -29424,6 +29484,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 4
+    eliteQuickMove:
+    - BUG_BITE_FAST
 - templateId: V0015_POKEMON_BEEDRILL_NORMAL
   pokemon:
     uniqueId: BEEDRILL
@@ -29503,6 +29565,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 4
+    eliteQuickMove:
+    - BUG_BITE_FAST
 - templateId: V0015_POKEMON_BEEDRILL_PURIFIED
   pokemon:
     uniqueId: BEEDRILL
@@ -29582,6 +29646,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 4
+    eliteQuickMove:
+    - BUG_BITE_FAST
 - templateId: V0015_POKEMON_BEEDRILL_SHADOW
   pokemon:
     uniqueId: BEEDRILL
@@ -29666,6 +29732,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 4
+    eliteQuickMove:
+    - BUG_BITE_FAST
 - templateId: V0016_MOVE_DARK_PULSE
   move:
     movementId: DARK_PULSE
@@ -29937,6 +30005,10 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 5
+    eliteQuickMove:
+    - WING_ATTACK_FAST
+    eliteCinematicMove:
+    - AIR_CUTTER
 - templateId: V0019_POKEMON_RATTATA
   pokemon:
     uniqueId: RATTATA
@@ -30832,6 +30904,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 4
+    eliteCinematicMove:
+    - TWISTER
 - templateId: V0022_MOVE_MEGAHORN
   move:
     movementId: MEGAHORN
@@ -30925,6 +30999,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 5
+    eliteCinematicMove:
+    - TWISTER
 - templateId: V0023_POKEMON_EKANS
   pokemon:
     uniqueId: EKANS
@@ -31003,6 +31079,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - GUNK_SHOT
 - templateId: V0023_POKEMON_EKANS_NORMAL
   pokemon:
     uniqueId: EKANS
@@ -31082,6 +31160,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - GUNK_SHOT
 - templateId: V0023_POKEMON_EKANS_PURIFIED
   pokemon:
     uniqueId: EKANS
@@ -31161,6 +31241,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - GUNK_SHOT
 - templateId: V0023_POKEMON_EKANS_SHADOW
   pokemon:
     uniqueId: EKANS
@@ -31245,6 +31327,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - GUNK_SHOT
 - templateId: V0024_MOVE_FLAMETHROWER
   move:
     movementId: FLAMETHROWER
@@ -31672,6 +31756,11 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 1
+    eliteQuickMove:
+    - PRESENT_FAST
+    eliteCinematicMove:
+    - SURF
+    - THUNDER
 - templateId: V0025_POKEMON_PIKACHU_COPY_2019
   pokemon:
     uniqueId: PIKACHU
@@ -31746,6 +31835,11 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 1
+    eliteQuickMove:
+    - PRESENT_FAST
+    eliteCinematicMove:
+    - SURF
+    - THUNDER
 - templateId: V0025_POKEMON_PIKACHU_FALL_2019
   pokemon:
     uniqueId: PIKACHU
@@ -31820,6 +31914,11 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 1
+    eliteQuickMove:
+    - PRESENT_FAST
+    eliteCinematicMove:
+    - SURF
+    - THUNDER
 - templateId: V0025_POKEMON_PIKACHU_NORMAL
   pokemon:
     uniqueId: PIKACHU
@@ -31900,6 +31999,11 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 1
+    eliteQuickMove:
+    - PRESENT_FAST
+    eliteCinematicMove:
+    - SURF
+    - THUNDER
 - templateId: V0025_POKEMON_PIKACHU_VS_2019
   pokemon:
     uniqueId: PIKACHU
@@ -32067,6 +32171,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - THUNDER
 - templateId: V0026_POKEMON_RAICHU_ALOLA
   pokemon:
     uniqueId: RAICHU
@@ -32223,6 +32329,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - THUNDER
 - templateId: V0027_POKEMON_SANDSHREW
   pokemon:
     uniqueId: SANDSHREW
@@ -32301,6 +32409,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - ROCK_TOMB
 - templateId: V0027_POKEMON_SANDSHREW_ALOLA
   pokemon:
     uniqueId: SANDSHREW
@@ -32460,6 +32570,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - ROCK_TOMB
 - templateId: V0027_POKEMON_SANDSHREW_PURIFIED
   pokemon:
     uniqueId: SANDSHREW
@@ -32539,6 +32651,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - ROCK_TOMB
 - templateId: V0027_POKEMON_SANDSHREW_SHADOW
   pokemon:
     uniqueId: SANDSHREW
@@ -32623,6 +32737,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - ROCK_TOMB
 - templateId: V0028_MOVE_CROSS_CHOP
   move:
     movementId: CROSS_CHOP
@@ -33572,6 +33688,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - FURY_CUTTER_FAST
 - templateId: V0035_MOVE_DISCHARGE
   move:
     movementId: DISCHARGE
@@ -33767,6 +33885,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - POUND_FAST
 - templateId: V0037_POKEMON_VULPIX
   pokemon:
     uniqueId: VULPIX
@@ -34258,6 +34378,11 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - EMBER_FAST
+    eliteCinematicMove:
+    - FIRE_BLAST
+    - FLAMETHROWER
 - templateId: V0038_POKEMON_NINETALES_ALOLA
   pokemon:
     uniqueId: NINETALES
@@ -34414,6 +34539,11 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - EMBER_FAST
+    eliteCinematicMove:
+    - FIRE_BLAST
+    - FLAMETHROWER
 - templateId: V0038_POKEMON_NINETALES_PURIFIED
   pokemon:
     uniqueId: NINETALES
@@ -34491,6 +34621,11 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - EMBER_FAST
+    eliteCinematicMove:
+    - FIRE_BLAST
+    - FLAMETHROWER
 - templateId: V0038_POKEMON_NINETALES_SHADOW
   pokemon:
     uniqueId: NINETALES
@@ -34573,6 +34708,11 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - EMBER_FAST
+    eliteCinematicMove:
+    - FIRE_BLAST
+    - FLAMETHROWER
 - templateId: V0039_MOVE_ICE_BEAM
   move:
     movementId: ICE_BEAM
@@ -34672,6 +34812,9 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - PLAY_ROUGH
+    - BODY_SLAM
 - templateId: V0040_MOVE_BLIZZARD
   move:
     movementId: BLIZZARD
@@ -34851,6 +34994,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 4
+    eliteCinematicMove:
+    - SLUDGE_BOMB
 - templateId: V0041_POKEMON_ZUBAT_NORMAL
   pokemon:
     uniqueId: ZUBAT
@@ -34933,6 +35078,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 4
+    eliteCinematicMove:
+    - SLUDGE_BOMB
 - templateId: V0041_POKEMON_ZUBAT_PURIFIED
   pokemon:
     uniqueId: ZUBAT
@@ -35015,6 +35162,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 4
+    eliteCinematicMove:
+    - SLUDGE_BOMB
 - templateId: V0041_POKEMON_ZUBAT_SHADOW
   pokemon:
     uniqueId: ZUBAT
@@ -35102,6 +35251,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 4
+    eliteCinematicMove:
+    - SLUDGE_BOMB
 - templateId: V0042_MOVE_HEAT_WAVE
   move:
     movementId: HEAT_WAVE
@@ -35199,6 +35350,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 5
+    eliteCinematicMove:
+    - OMINOUS_WIND
 - templateId: V0042_POKEMON_GOLBAT_NORMAL
   pokemon:
     uniqueId: GOLBAT
@@ -35281,6 +35434,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 5
+    eliteCinematicMove:
+    - OMINOUS_WIND
 - templateId: V0042_POKEMON_GOLBAT_PURIFIED
   pokemon:
     uniqueId: GOLBAT
@@ -35363,6 +35518,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 5
+    eliteCinematicMove:
+    - OMINOUS_WIND
 - templateId: V0042_POKEMON_GOLBAT_SHADOW
   pokemon:
     uniqueId: GOLBAT
@@ -35450,6 +35607,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 5
+    eliteCinematicMove:
+    - OMINOUS_WIND
 - templateId: V0043_POKEMON_ODDISH
   pokemon:
     uniqueId: ODDISH
@@ -36659,6 +36818,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteQuickMove:
+    - BUG_BITE_FAST
 - templateId: V0048_MOVE_MEGA_DRAIN
   move:
     movementId: MEGA_DRAIN
@@ -37094,6 +37255,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 5
+    eliteQuickMove:
+    - BUG_BITE_FAST
 - templateId: V0049_POKEMON_VENOMOTH_NORMAL
   pokemon:
     uniqueId: VENOMOTH
@@ -37173,6 +37336,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 5
+    eliteQuickMove:
+    - BUG_BITE_FAST
 - templateId: V0049_POKEMON_VENOMOTH_PURIFIED
   pokemon:
     uniqueId: VENOMOTH
@@ -37252,6 +37417,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 5
+    eliteQuickMove:
+    - BUG_BITE_FAST
 - templateId: V0049_POKEMON_VENOMOTH_SHADOW
   pokemon:
     uniqueId: VENOMOTH
@@ -37336,6 +37503,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 5
+    eliteQuickMove:
+    - BUG_BITE_FAST
 - templateId: V0050_MOVE_POISON_FANG
   move:
     movementId: POISON_FANG
@@ -38221,6 +38390,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - BODY_SLAM
 - templateId: V0052_POKEMON_MEOWTH_ALOLA
   pokemon:
     uniqueId: MEOWTH
@@ -38383,6 +38554,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - BODY_SLAM
 - templateId: V0052_POKEMON_MEOWTH_PURIFIED
   pokemon:
     uniqueId: MEOWTH
@@ -38462,6 +38635,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - BODY_SLAM
 - templateId: V0052_POKEMON_MEOWTH_SHADOW
   pokemon:
     uniqueId: MEOWTH
@@ -38546,6 +38721,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - BODY_SLAM
 - templateId: V0053_MOVE_BUBBLE_BEAM
   move:
     movementId: BUBBLE_BEAM
@@ -38636,6 +38813,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - NIGHT_SLASH
 - templateId: V0053_POKEMON_PERSIAN_ALOLA
   pokemon:
     uniqueId: PERSIAN
@@ -38790,6 +38969,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - NIGHT_SLASH
 - templateId: V0053_POKEMON_PERSIAN_PURIFIED
   pokemon:
     uniqueId: PERSIAN
@@ -38865,6 +39046,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - NIGHT_SLASH
 - templateId: V0053_POKEMON_PERSIAN_SHADOW
   pokemon:
     uniqueId: PERSIAN
@@ -38945,6 +39128,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - NIGHT_SLASH
 - templateId: V0054_MOVE_SUBMISSION
   move:
     movementId: SUBMISSION
@@ -39785,6 +39970,10 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - KARATE_CHOP_FAST
+    eliteCinematicMove:
+    - CROSS_CHOP
 - templateId: V0058_MOVE_AQUA_TAIL
   move:
     movementId: AQUA_TAIL
@@ -40230,6 +40419,10 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - BITE_FAST
+    eliteCinematicMove:
+    - BULLDOZE
 - templateId: V0059_POKEMON_ARCANINE_NORMAL
   pokemon:
     uniqueId: ARCANINE
@@ -40308,6 +40501,10 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - BITE_FAST
+    eliteCinematicMove:
+    - BULLDOZE
 - templateId: V0059_POKEMON_ARCANINE_PURIFIED
   pokemon:
     uniqueId: ARCANINE
@@ -40386,6 +40583,10 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - BITE_FAST
+    eliteCinematicMove:
+    - BULLDOZE
 - templateId: V0059_POKEMON_ARCANINE_SHADOW
   pokemon:
     uniqueId: ARCANINE
@@ -40469,6 +40670,10 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - BITE_FAST
+    eliteCinematicMove:
+    - BULLDOZE
 - templateId: V0060_MOVE_PSYSHOCK
   move:
     movementId: PSYSHOCK
@@ -40891,6 +41096,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - SCALD
 - templateId: V0061_POKEMON_POLIWHIRL_NORMAL
   pokemon:
     uniqueId: POLIWHIRL
@@ -40978,6 +41185,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - SCALD
 - templateId: V0061_POKEMON_POLIWHIRL_PURIFIED
   pokemon:
     uniqueId: POLIWHIRL
@@ -41065,6 +41274,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - SCALD
 - templateId: V0061_POKEMON_POLIWHIRL_SHADOW
   pokemon:
     uniqueId: POLIWHIRL
@@ -41157,6 +41368,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - SCALD
 - templateId: V0062_MOVE_ANCIENT_POWER
   move:
     movementId: ANCIENT_POWER
@@ -41251,6 +41464,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - SUBMISSION
 - templateId: V0062_POKEMON_POLIWRATH_NORMAL
   pokemon:
     uniqueId: POLIWRATH
@@ -41330,6 +41545,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - SUBMISSION
 - templateId: V0062_POKEMON_POLIWRATH_PURIFIED
   pokemon:
     uniqueId: POLIWRATH
@@ -41409,6 +41626,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - SUBMISSION
 - templateId: V0062_POKEMON_POLIWRATH_SHADOW
   pokemon:
     uniqueId: POLIWRATH
@@ -41493,6 +41712,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - SUBMISSION
 - templateId: V0063_MOVE_ROCK_TOMB
   move:
     movementId: ROCK_TOMB
@@ -42280,6 +42501,11 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - COUNTER_FAST
+    eliteCinematicMove:
+    - DAZZLING_GLEAM
+    - PSYCHIC
 - templateId: V0065_POKEMON_ALAKAZAM_NORMAL
   pokemon:
     uniqueId: ALAKAZAM
@@ -42357,6 +42583,11 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - COUNTER_FAST
+    eliteCinematicMove:
+    - DAZZLING_GLEAM
+    - PSYCHIC
 - templateId: V0065_POKEMON_ALAKAZAM_PURIFIED
   pokemon:
     uniqueId: ALAKAZAM
@@ -42434,6 +42665,11 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - COUNTER_FAST
+    eliteCinematicMove:
+    - DAZZLING_GLEAM
+    - PSYCHIC
 - templateId: V0065_POKEMON_ALAKAZAM_SHADOW
   pokemon:
     uniqueId: ALAKAZAM
@@ -42516,6 +42752,11 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - COUNTER_FAST
+    eliteCinematicMove:
+    - DAZZLING_GLEAM
+    - PSYCHIC
 - templateId: V0066_MOVE_SHADOW_SNEAK
   move:
     movementId: SHADOW_SNEAK
@@ -42609,6 +42850,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteQuickMove:
+    - LOW_KICK_FAST
 - templateId: V0067_MOVE_SHADOW_PUNCH
   move:
     movementId: SHADOW_PUNCH
@@ -42707,6 +42950,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - CROSS_CHOP
 - templateId: V0068_POKEMON_MACHAMP
   pokemon:
     uniqueId: MACHAMP
@@ -42784,6 +43029,11 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - KARATE_CHOP_FAST
+    eliteCinematicMove:
+    - STONE_EDGE
+    - SUBMISSION
 - templateId: V0069_MOVE_OMINOUS_WIND
   move:
     movementId: OMINOUS_WIND
@@ -43228,6 +43478,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - RAZOR_LEAF_FAST
 - templateId: V0070_POKEMON_WEEPINBELL_NORMAL
   pokemon:
     uniqueId: WEEPINBELL
@@ -43317,6 +43569,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - RAZOR_LEAF_FAST
 - templateId: V0070_POKEMON_WEEPINBELL_PURIFIED
   pokemon:
     uniqueId: WEEPINBELL
@@ -43406,6 +43660,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - RAZOR_LEAF_FAST
 - templateId: V0070_POKEMON_WEEPINBELL_SHADOW
   pokemon:
     uniqueId: WEEPINBELL
@@ -43500,6 +43756,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - RAZOR_LEAF_FAST
 - templateId: V0071_POKEMON_VICTREEBEL
   pokemon:
     uniqueId: VICTREEBEL
@@ -44523,6 +44781,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - ROCK_SLIDE
 - templateId: V0075_POKEMON_GRAVELER_ALOLA
   pokemon:
     uniqueId: GRAVELER
@@ -44697,6 +44957,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - ROCK_SLIDE
 - templateId: V0075_POKEMON_GRAVELER_PURIFIED
   pokemon:
     uniqueId: GRAVELER
@@ -44782,6 +45044,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - ROCK_SLIDE
 - templateId: V0075_POKEMON_GRAVELER_SHADOW
   pokemon:
     uniqueId: GRAVELER
@@ -44871,6 +45135,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - ROCK_SLIDE
 - templateId: V0076_POKEMON_GOLEM
   pokemon:
     uniqueId: GOLEM
@@ -45357,6 +45623,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - FIRE_BLAST
 - templateId: V0078_MOVE_THUNDER
   move:
     movementId: THUNDER
@@ -45448,6 +45716,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - EMBER_FAST
 - templateId: V0079_MOVE_THUNDERBOLT
   move:
     movementId: THUNDERBOLT
@@ -46416,6 +46686,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteQuickMove:
+    - CUT_FAST
 - templateId: V0084_MOVE_DISARMING_VOICE
   move:
     movementId: DISARMING_VOICE
@@ -46514,6 +46786,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - SWIFT
 - templateId: V0085_MOVE_DRAINING_KISS
   move:
     movementId: DRAINING_KISS
@@ -46607,6 +46881,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - AIR_CUTTER
 - templateId: V0086_MOVE_DAZZLING_GLEAM
   move:
     movementId: DAZZLING_GLEAM
@@ -46700,6 +46976,10 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteQuickMove:
+    - WATER_GUN_FAST
+    eliteCinematicMove:
+    - AQUA_JET
 - templateId: V0087_MOVE_MOONBLAST
   move:
     movementId: MOONBLAST
@@ -46792,6 +47072,11 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteQuickMove:
+    - ICE_SHARD_FAST
+    eliteCinematicMove:
+    - AQUA_JET
+    - ICY_WIND
 - templateId: V0088_MOVE_PLAY_ROUGH
   move:
     movementId: PLAY_ROUGH
@@ -47322,6 +47607,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - LICK_FAST
 - templateId: V0089_POKEMON_MUK_ALOLA
   pokemon:
     uniqueId: MUK
@@ -47487,6 +47774,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - LICK_FAST
 - templateId: V0089_POKEMON_MUK_PURIFIED
   pokemon:
     uniqueId: MUK
@@ -47569,6 +47858,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - LICK_FAST
 - templateId: V0089_POKEMON_MUK_SHADOW
   pokemon:
     uniqueId: MUK
@@ -47656,6 +47947,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - LICK_FAST
 - templateId: V0090_MOVE_SLUDGE_BOMB
   move:
     movementId: SLUDGE_BOMB
@@ -48086,6 +48379,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - BLIZZARD
 - templateId: V0091_POKEMON_CLOYSTER_NORMAL
   pokemon:
     uniqueId: CLOYSTER
@@ -48165,6 +48460,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - BLIZZARD
 - templateId: V0091_POKEMON_CLOYSTER_PURIFIED
   pokemon:
     uniqueId: CLOYSTER
@@ -48244,6 +48541,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - BLIZZARD
 - templateId: V0091_POKEMON_CLOYSTER_SHADOW
   pokemon:
     uniqueId: CLOYSTER
@@ -48328,6 +48627,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - BLIZZARD
 - templateId: V0092_MOVE_GUNK_SHOT
   move:
     movementId: GUNK_SHOT
@@ -48428,6 +48729,10 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 5
+    eliteQuickMove:
+    - SUCKER_PUNCH_FAST
+    eliteCinematicMove:
+    - OMINOUS_WIND
 - templateId: V0093_POKEMON_HAUNTER
   pokemon:
     uniqueId: HAUNTER
@@ -48513,6 +48818,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 5
+    eliteQuickMove:
+    - LICK_FAST
 - templateId: V0094_MOVE_BONE_CLUB
   move:
     movementId: BONE_CLUB
@@ -48614,6 +48921,12 @@ itemTemplate:
     - -0.7
     - 0.1
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - LICK_FAST
+    eliteCinematicMove:
+    - SLUDGE_WAVE
+    - DARK_PULSE
+    - PSYCHIC
 - templateId: V0095_MOVE_BULLDOZE
   move:
     movementId: BULLDOZE
@@ -48706,6 +49019,9 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - IRON_HEAD
+    - ROCK_SLIDE
 - templateId: V0095_POKEMON_ONIX_NORMAL
   pokemon:
     uniqueId: ONIX
@@ -48783,6 +49099,9 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - IRON_HEAD
+    - ROCK_SLIDE
 - templateId: V0095_POKEMON_ONIX_PURIFIED
   pokemon:
     uniqueId: ONIX
@@ -48860,6 +49179,9 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - IRON_HEAD
+    - ROCK_SLIDE
 - templateId: V0095_POKEMON_ONIX_SHADOW
   pokemon:
     uniqueId: ONIX
@@ -48943,6 +49265,9 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - IRON_HEAD
+    - ROCK_SLIDE
 - templateId: V0096_MOVE_MUD_BOMB
   move:
     movementId: MUD_BOMB
@@ -49362,6 +49687,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - PSYSHOCK
 - templateId: V0097_POKEMON_HYPNO_NORMAL
   pokemon:
     uniqueId: HYPNO
@@ -49442,6 +49769,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - PSYSHOCK
 - templateId: V0097_POKEMON_HYPNO_PURIFIED
   pokemon:
     uniqueId: HYPNO
@@ -49522,6 +49851,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - PSYSHOCK
 - templateId: V0097_POKEMON_HYPNO_SHADOW
   pokemon:
     uniqueId: HYPNO
@@ -49607,6 +49938,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - PSYSHOCK
 - templateId: V0098_POKEMON_KRABBY
   pokemon:
     uniqueId: KRABBY
@@ -50039,6 +50372,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - MUD_SHOT_FAST
 - templateId: V0099_POKEMON_KINGLER_NORMAL
   pokemon:
     uniqueId: KINGLER
@@ -50120,6 +50455,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - MUD_SHOT_FAST
 - templateId: V0099_POKEMON_KINGLER_PURIFIED
   pokemon:
     uniqueId: KINGLER
@@ -50201,6 +50538,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - MUD_SHOT_FAST
 - templateId: V0099_POKEMON_KINGLER_SHADOW
   pokemon:
     uniqueId: KINGLER
@@ -50287,6 +50626,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - MUD_SHOT_FAST
 - templateId: V0100_MOVE_X_SCISSOR
   move:
     movementId: X_SCISSOR
@@ -50380,6 +50721,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - SIGNAL_BEAM
 - templateId: V0101_MOVE_FLAME_CHARGE
   move:
     movementId: FLAME_CHARGE
@@ -50472,6 +50815,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - TACKLE_FAST
 - templateId: V0102_MOVE_FLAME_BURST
   move:
     movementId: FLAME_BURST
@@ -50921,6 +51266,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - ZEN_HEADBUTT_FAST
 - templateId: V0103_POKEMON_EXEGGUTOR_ALOLA
   pokemon:
     uniqueId: EXEGGUTOR
@@ -51084,6 +51431,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - ZEN_HEADBUTT_FAST
 - templateId: V0103_POKEMON_EXEGGUTOR_PURIFIED
   pokemon:
     uniqueId: EXEGGUTOR
@@ -51162,6 +51511,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - ZEN_HEADBUTT_FAST
 - templateId: V0103_POKEMON_EXEGGUTOR_SHADOW
   pokemon:
     uniqueId: EXEGGUTOR
@@ -51245,6 +51596,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - ZEN_HEADBUTT_FAST
 - templateId: V0104_MOVE_BRINE
   move:
     movementId: BRINE
@@ -52072,6 +52425,9 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - STOMP
+    - BRICK_BREAK
 - templateId: V0106_POKEMON_HITMONLEE_NORMAL
   pokemon:
     uniqueId: HITMONLEE
@@ -52150,6 +52506,9 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - STOMP
+    - BRICK_BREAK
 - templateId: V0106_POKEMON_HITMONLEE_PURIFIED
   pokemon:
     uniqueId: HITMONLEE
@@ -52228,6 +52587,9 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - STOMP
+    - BRICK_BREAK
 - templateId: V0106_POKEMON_HITMONLEE_SHADOW
   pokemon:
     uniqueId: HITMONLEE
@@ -52311,6 +52673,9 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - STOMP
+    - BRICK_BREAK
 - templateId: V0107_MOVE_HYDRO_PUMP
   move:
     movementId: HYDRO_PUMP
@@ -52402,6 +52767,10 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - ROCK_SMASH_FAST
+    eliteCinematicMove:
+    - BRICK_BREAK
 - templateId: V0107_POKEMON_HITMONCHAN_NORMAL
   pokemon:
     uniqueId: HITMONCHAN
@@ -52478,6 +52847,10 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - ROCK_SMASH_FAST
+    eliteCinematicMove:
+    - BRICK_BREAK
 - templateId: V0107_POKEMON_HITMONCHAN_PURIFIED
   pokemon:
     uniqueId: HITMONCHAN
@@ -52554,6 +52927,10 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - ROCK_SMASH_FAST
+    eliteCinematicMove:
+    - BRICK_BREAK
 - templateId: V0107_POKEMON_HITMONCHAN_SHADOW
   pokemon:
     uniqueId: HITMONCHAN
@@ -52635,6 +53012,10 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - ROCK_SMASH_FAST
+    eliteCinematicMove:
+    - BRICK_BREAK
 - templateId: V0108_MOVE_PSYCHIC
   move:
     movementId: PSYCHIC
@@ -52730,6 +53111,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - BODY_SLAM
 - templateId: V0109_MOVE_PSYSTRIKE
   move:
     movementId: PSYSTRIKE
@@ -53898,6 +54281,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - MEGAHORN
 - templateId: V0112_POKEMON_RHYDON_NORMAL
   pokemon:
     uniqueId: RHYDON
@@ -53984,6 +54369,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - MEGAHORN
 - templateId: V0112_POKEMON_RHYDON_PURIFIED
   pokemon:
     uniqueId: RHYDON
@@ -54070,6 +54457,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - MEGAHORN
 - templateId: V0112_POKEMON_RHYDON_SHADOW
   pokemon:
     uniqueId: RHYDON
@@ -54161,6 +54550,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - MEGAHORN
 - templateId: V0113_POKEMON_CHANSEY
   pokemon:
     uniqueId: CHANSEY
@@ -54329,6 +54720,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - POWER_WHIP
 - templateId: V0115_MOVE_FIRE_PUNCH
   move:
     movementId: FIRE_PUNCH
@@ -54422,6 +54815,9 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - BRICK_BREAK
+    - STOMP
 - templateId: V0115_POKEMON_KANGASKHAN_NORMAL
   pokemon:
     uniqueId: KANGASKHAN
@@ -54500,6 +54896,9 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - BRICK_BREAK
+    - STOMP
 - templateId: V0115_POKEMON_KANGASKHAN_PURIFIED
   pokemon:
     uniqueId: KANGASKHAN
@@ -54578,6 +54977,9 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - BRICK_BREAK
+    - STOMP
 - templateId: V0115_POKEMON_KANGASKHAN_SHADOW
   pokemon:
     uniqueId: KANGASKHAN
@@ -54661,6 +55063,9 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - BRICK_BREAK
+    - STOMP
 - templateId: V0116_MOVE_SOLAR_BEAM
   move:
     movementId: SOLAR_BEAM
@@ -54851,6 +55256,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - BLIZZARD
 - templateId: V0118_MOVE_POWER_WHIP
   move:
     movementId: POWER_WHIP
@@ -55020,6 +55427,11 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteQuickMove:
+    - POISON_JAB_FAST
+    eliteCinematicMove:
+    - ICY_WIND
+    - DRILL_RUN
 - templateId: V0120_POKEMON_STARYU
   pokemon:
     uniqueId: STARYU
@@ -55192,6 +55604,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - TACKLE_FAST
 - templateId: V0122_MOVE_HURRICANE
   move:
     movementId: HURRICANE
@@ -55380,6 +55794,10 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteQuickMove:
+    - STEEL_WING_FAST
+    eliteCinematicMove:
+    - BUG_BUZZ
 - templateId: V0123_POKEMON_SCYTHER_NORMAL
   pokemon:
     uniqueId: SCYTHER
@@ -55464,6 +55882,10 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - STEEL_WING_FAST
+    eliteCinematicMove:
+    - BUG_BUZZ
 - templateId: V0123_POKEMON_SCYTHER_PURIFIED
   pokemon:
     uniqueId: SCYTHER
@@ -55548,6 +55970,10 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - STEEL_WING_FAST
+    eliteCinematicMove:
+    - BUG_BUZZ
 - templateId: V0123_POKEMON_SCYTHER_SHADOW
   pokemon:
     uniqueId: SCYTHER
@@ -55637,6 +56063,10 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - STEEL_WING_FAST
+    eliteCinematicMove:
+    - BUG_BUZZ
 - templateId: V0124_POKEMON_JYNX
   pokemon:
     uniqueId: JYNX
@@ -55716,6 +56146,10 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - POUND_FAST
+    eliteCinematicMove:
+    - ICE_PUNCH
 - templateId: V0125_MOVE_SWIFT
   move:
     movementId: SWIFT
@@ -56482,6 +56916,8 @@ itemTemplate:
     - -0.7
     - 0.0
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - SUBMISSION
 - templateId: V0127_POKEMON_PINSIR_NORMAL
   pokemon:
     uniqueId: PINSIR
@@ -56561,6 +56997,8 @@ itemTemplate:
     - -0.7
     - 0.0
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - SUBMISSION
 - templateId: V0127_POKEMON_PINSIR_PURIFIED
   pokemon:
     uniqueId: PINSIR
@@ -56640,6 +57078,8 @@ itemTemplate:
     - -0.7
     - 0.0
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - SUBMISSION
 - templateId: V0127_POKEMON_PINSIR_SHADOW
   pokemon:
     uniqueId: PINSIR
@@ -56724,6 +57164,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - SUBMISSION
 - templateId: V0128_POKEMON_TAUROS
   pokemon:
     uniqueId: TAUROS
@@ -57195,6 +57637,10 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteQuickMove:
+    - DRAGON_TAIL_FAST
+    eliteCinematicMove:
+    - DRAGON_PULSE
 - templateId: V0130_POKEMON_GYARADOS_NORMAL
   pokemon:
     uniqueId: GYARADOS
@@ -57275,6 +57721,10 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - DRAGON_TAIL_FAST
+    eliteCinematicMove:
+    - DRAGON_PULSE
 - templateId: V0130_POKEMON_GYARADOS_PURIFIED
   pokemon:
     uniqueId: GYARADOS
@@ -57355,6 +57805,10 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - DRAGON_TAIL_FAST
+    eliteCinematicMove:
+    - DRAGON_PULSE
 - templateId: V0130_POKEMON_GYARADOS_SHADOW
   pokemon:
     uniqueId: GYARADOS
@@ -57440,6 +57894,10 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - DRAGON_TAIL_FAST
+    eliteCinematicMove:
+    - DRAGON_PULSE
 - templateId: V0131_MOVE_BODY_SLAM
   move:
     movementId: BODY_SLAM
@@ -57530,6 +57988,11 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - ICE_SHARD_FAST
+    eliteCinematicMove:
+    - DRAGON_PULSE
+    - ICE_BEAM
 - templateId: V0131_POKEMON_LAPRAS_NORMAL
   pokemon:
     uniqueId: LAPRAS
@@ -57605,6 +58068,11 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - ICE_SHARD_FAST
+    eliteCinematicMove:
+    - DRAGON_PULSE
+    - ICE_BEAM
 - templateId: V0131_POKEMON_LAPRAS_PURIFIED
   pokemon:
     uniqueId: LAPRAS
@@ -57680,6 +58148,11 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - ICE_SHARD_FAST
+    eliteCinematicMove:
+    - DRAGON_PULSE
+    - ICE_BEAM
 - templateId: V0131_POKEMON_LAPRAS_SHADOW
   pokemon:
     uniqueId: LAPRAS
@@ -57760,6 +58233,11 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - ICE_SHARD_FAST
+    eliteCinematicMove:
+    - DRAGON_PULSE
+    - ICE_BEAM
 - templateId: V0132_MOVE_REST
   move:
     movementId: REST
@@ -57960,6 +58438,9 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - LAST_RESORT
+    - BODY_SLAM
 - templateId: V0134_MOVE_SCALD_BLASTOISE
   move:
     movementId: SCALD_BLASTOISE
@@ -58053,6 +58534,8 @@ itemTemplate:
     - -0.4
     - 0.0
     buddyGroupNumber: 1
+    eliteCinematicMove:
+    - LAST_RESORT
 - templateId: V0135_MOVE_HYDRO_PUMP_BLASTOISE
   move:
     movementId: HYDRO_PUMP_BLASTOISE
@@ -58147,6 +58630,8 @@ itemTemplate:
     - -0.4
     - 0.0
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - LAST_RESORT
 - templateId: V0136_MOVE_WRAP_GREEN
   move:
     movementId: WRAP_GREEN
@@ -58241,6 +58726,9 @@ itemTemplate:
     - -0.4
     - 0.0
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - LAST_RESORT
+    - HEAT_WAVE
 - templateId: V0137_MOVE_WRAP_PINK
   move:
     movementId: WRAP_PINK
@@ -58335,6 +58823,13 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteQuickMove:
+    - TACKLE_FAST
+    - ZEN_HEADBUTT_FAST
+    eliteCinematicMove:
+    - SIGNAL_BEAM
+    - PSYBEAM
+    - DISCHARGE
 - templateId: V0137_POKEMON_PORYGON_NORMAL
   pokemon:
     uniqueId: PORYGON
@@ -58414,6 +58909,13 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteQuickMove:
+    - TACKLE_FAST
+    - ZEN_HEADBUTT_FAST
+    eliteCinematicMove:
+    - SIGNAL_BEAM
+    - PSYBEAM
+    - DISCHARGE
 - templateId: V0137_POKEMON_PORYGON_PURIFIED
   pokemon:
     uniqueId: PORYGON
@@ -58493,6 +58995,13 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteQuickMove:
+    - TACKLE_FAST
+    - ZEN_HEADBUTT_FAST
+    eliteCinematicMove:
+    - SIGNAL_BEAM
+    - PSYBEAM
+    - DISCHARGE
 - templateId: V0137_POKEMON_PORYGON_SHADOW
   pokemon:
     uniqueId: PORYGON
@@ -58577,6 +59086,13 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 2
+    eliteQuickMove:
+    - TACKLE_FAST
+    - ZEN_HEADBUTT_FAST
+    eliteCinematicMove:
+    - SIGNAL_BEAM
+    - PSYBEAM
+    - DISCHARGE
 - templateId: V0138_POKEMON_OMANYTE
   pokemon:
     uniqueId: OMANYTE
@@ -58655,6 +59171,9 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - ROCK_TOMB
+    - BRINE
 - templateId: V0138_POKEMON_OMANYTE_NORMAL
   pokemon:
     uniqueId: OMANYTE
@@ -58735,6 +59254,9 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - ROCK_TOMB
+    - BRINE
 - templateId: V0138_POKEMON_OMANYTE_PURIFIED
   pokemon:
     uniqueId: OMANYTE
@@ -58815,6 +59337,9 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - ROCK_TOMB
+    - BRINE
 - templateId: V0138_POKEMON_OMANYTE_SHADOW
   pokemon:
     uniqueId: OMANYTE
@@ -58900,6 +59425,9 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - ROCK_TOMB
+    - BRINE
 - templateId: V0139_POKEMON_OMASTAR
   pokemon:
     uniqueId: OMASTAR
@@ -58976,6 +59504,10 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - ROCK_THROW_FAST
+    eliteCinematicMove:
+    - ROCK_SLIDE
 - templateId: V0139_POKEMON_OMASTAR_NORMAL
   pokemon:
     uniqueId: OMASTAR
@@ -59053,6 +59585,10 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - ROCK_THROW_FAST
+    eliteCinematicMove:
+    - ROCK_SLIDE
 - templateId: V0139_POKEMON_OMASTAR_PURIFIED
   pokemon:
     uniqueId: OMASTAR
@@ -59130,6 +59666,10 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - ROCK_THROW_FAST
+    eliteCinematicMove:
+    - ROCK_SLIDE
 - templateId: V0139_POKEMON_OMASTAR_SHADOW
   pokemon:
     uniqueId: OMASTAR
@@ -59212,6 +59752,10 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - ROCK_THROW_FAST
+    eliteCinematicMove:
+    - ROCK_SLIDE
 - templateId: V0140_POKEMON_KABUTO
   pokemon:
     uniqueId: KABUTO
@@ -59367,6 +59911,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - FURY_CUTTER_FAST
 - templateId: V0142_POKEMON_AERODACTYL
   pokemon:
     uniqueId: AERODACTYL
@@ -59537,6 +60083,8 @@ itemTemplate:
     - 2.0
     - 2.0
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - YAWN_FAST
 - templateId: V0143_POKEMON_SNORLAX_NORMAL
   pokemon:
     uniqueId: SNORLAX
@@ -59627,6 +60175,8 @@ itemTemplate:
     - 2.0
     - 2.0
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - YAWN_FAST
 - templateId: V0143_POKEMON_SNORLAX_PURIFIED
   pokemon:
     uniqueId: SNORLAX
@@ -59717,6 +60267,8 @@ itemTemplate:
     - 2.0
     - 2.0
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - YAWN_FAST
 - templateId: V0143_POKEMON_SNORLAX_SHADOW
   pokemon:
     uniqueId: SNORLAX
@@ -59812,6 +60364,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - YAWN_FAST
 - templateId: V0144_POKEMON_ARTICUNO
   pokemon:
     uniqueId: ARTICUNO
@@ -59887,6 +60441,8 @@ itemTemplate:
       candyToUnlock: 100
     isTransferable: true
     buddyGroupNumber: 7
+    eliteCinematicMove:
+    - HURRICANE
 - templateId: V0144_POKEMON_ARTICUNO_NORMAL
   pokemon:
     uniqueId: ARTICUNO
@@ -59963,6 +60519,8 @@ itemTemplate:
       candyToUnlock: 100
     isTransferable: true
     buddyGroupNumber: 7
+    eliteCinematicMove:
+    - HURRICANE
 - templateId: V0144_POKEMON_ARTICUNO_PURIFIED
   pokemon:
     uniqueId: ARTICUNO
@@ -60039,6 +60597,8 @@ itemTemplate:
       candyToUnlock: 80
     isTransferable: true
     buddyGroupNumber: 7
+    eliteCinematicMove:
+    - HURRICANE
 - templateId: V0144_POKEMON_ARTICUNO_SHADOW
   pokemon:
     uniqueId: ARTICUNO
@@ -60120,6 +60680,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 7
+    eliteCinematicMove:
+    - HURRICANE
 - templateId: V0145_POKEMON_ZAPDOS
   pokemon:
     uniqueId: ZAPDOS
@@ -60195,6 +60757,8 @@ itemTemplate:
       candyToUnlock: 100
     isTransferable: true
     buddyGroupNumber: 7
+    eliteQuickMove:
+    - THUNDER_SHOCK_FAST
 - templateId: V0145_POKEMON_ZAPDOS_NORMAL
   pokemon:
     uniqueId: ZAPDOS
@@ -60271,6 +60835,8 @@ itemTemplate:
       candyToUnlock: 100
     isTransferable: true
     buddyGroupNumber: 7
+    eliteQuickMove:
+    - THUNDER_SHOCK_FAST
 - templateId: V0145_POKEMON_ZAPDOS_PURIFIED
   pokemon:
     uniqueId: ZAPDOS
@@ -60347,6 +60913,8 @@ itemTemplate:
       candyToUnlock: 80
     isTransferable: true
     buddyGroupNumber: 7
+    eliteQuickMove:
+    - THUNDER_SHOCK_FAST
 - templateId: V0145_POKEMON_ZAPDOS_SHADOW
   pokemon:
     uniqueId: ZAPDOS
@@ -60428,6 +60996,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 7
+    eliteQuickMove:
+    - THUNDER_SHOCK_FAST
 - templateId: V0146_POKEMON_MOLTRES
   pokemon:
     uniqueId: MOLTRES
@@ -60503,6 +61073,8 @@ itemTemplate:
       candyToUnlock: 100
     isTransferable: true
     buddyGroupNumber: 7
+    eliteCinematicMove:
+    - SKY_ATTACK
 - templateId: V0146_POKEMON_MOLTRES_NORMAL
   pokemon:
     uniqueId: MOLTRES
@@ -60579,6 +61151,8 @@ itemTemplate:
       candyToUnlock: 100
     isTransferable: true
     buddyGroupNumber: 7
+    eliteCinematicMove:
+    - SKY_ATTACK
 - templateId: V0146_POKEMON_MOLTRES_PURIFIED
   pokemon:
     uniqueId: MOLTRES
@@ -60655,6 +61229,8 @@ itemTemplate:
       candyToUnlock: 80
     isTransferable: true
     buddyGroupNumber: 7
+    eliteCinematicMove:
+    - SKY_ATTACK
 - templateId: V0146_POKEMON_MOLTRES_SHADOW
   pokemon:
     uniqueId: MOLTRES
@@ -60736,6 +61312,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 7
+    eliteCinematicMove:
+    - SKY_ATTACK
 - templateId: V0147_POKEMON_DRATINI
   pokemon:
     uniqueId: DRATINI
@@ -61475,6 +62053,9 @@ itemTemplate:
     - 3.5
     - 2.0
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - DRACO_METEOR
+    - DRAGON_PULSE
 - templateId: V0149_POKEMON_DRAGONITE_NORMAL
   pokemon:
     uniqueId: DRAGONITE
@@ -61559,6 +62140,9 @@ itemTemplate:
     - 3.5
     - 2.0
     buddyGroupNumber: 6
+    eliteCinematicMove:
+    - DRACO_METEOR
+    - DRAGON_PULSE
 - templateId: V0149_POKEMON_DRAGONITE_PURIFIED
   pokemon:
     uniqueId: DRAGONITE
@@ -61643,6 +62227,9 @@ itemTemplate:
     - 3.5
     - 2.0
     buddyGroupNumber: 6
+    eliteCinematicMove:
+    - DRACO_METEOR
+    - DRAGON_PULSE
 - templateId: V0149_POKEMON_DRAGONITE_SHADOW
   pokemon:
     uniqueId: DRAGONITE
@@ -61732,6 +62319,9 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 6
+    eliteCinematicMove:
+    - DRACO_METEOR
+    - DRAGON_PULSE
 - templateId: V0150_POKEMON_MEWTWO
   pokemon:
     uniqueId: MEWTWO
@@ -61810,6 +62400,10 @@ itemTemplate:
       candyToUnlock: 100
     isTransferable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - PSYSTRIKE
+    - SHADOW_BALL
+    - HYPER_BEAM
 - templateId: V0150_POKEMON_MEWTWO_A
   pokemon:
     uniqueId: MEWTWO
@@ -61888,6 +62482,8 @@ itemTemplate:
       candyToUnlock: 100
     isTransferable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - PSYSTRIKE
 - templateId: V0150_POKEMON_MEWTWO_NORMAL
   pokemon:
     uniqueId: MEWTWO
@@ -61967,6 +62563,10 @@ itemTemplate:
       candyToUnlock: 100
     isTransferable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - PSYSTRIKE
+    - SHADOW_BALL
+    - HYPER_BEAM
 - templateId: V0151_POKEMON_MEW
   pokemon:
     uniqueId: MEW
@@ -62312,6 +62912,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - FRENZY_PLANT
 - templateId: V0155_POKEMON_CYNDAQUIL
   pokemon:
     uniqueId: CYNDAQUIL
@@ -62548,6 +63150,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - BLAST_BURN
 - templateId: V0158_POKEMON_TOTODILE
   pokemon:
     uniqueId: TOTODILE
@@ -62781,6 +63385,10 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - WATER_GUN_FAST
+    eliteCinematicMove:
+    - HYDRO_CANNON
 - templateId: V0161_POKEMON_SENTRET
   pokemon:
     uniqueId: SENTRET
@@ -64067,6 +64675,9 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 1
+    eliteCinematicMove:
+    - PSYCHIC
+    - BODY_SLAM
 - templateId: V0174_POKEMON_IGGLYBUFF
   pokemon:
     uniqueId: IGGLYBUFF
@@ -64149,6 +64760,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - BODY_SLAM
 - templateId: V0175_POKEMON_TOGEPI
   pokemon:
     uniqueId: TOGEPI
@@ -64230,6 +64843,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 1
+    eliteQuickMove:
+    - ZEN_HEADBUTT_FAST
 - templateId: V0176_POKEMON_TOGETIC
   pokemon:
     uniqueId: TOGETIC
@@ -64310,6 +64925,9 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteQuickMove:
+    - STEEL_WING_FAST
+    - ZEN_HEADBUTT_FAST
 - templateId: V0177_POKEMON_NATU
   pokemon:
     uniqueId: NATU
@@ -65207,6 +65825,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - DRAGON_PULSE
 - templateId: V0181_POKEMON_AMPHAROS_NORMAL
   pokemon:
     uniqueId: AMPHAROS
@@ -65289,6 +65909,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - DRAGON_PULSE
 - templateId: V0181_POKEMON_AMPHAROS_PURIFIED
   pokemon:
     uniqueId: AMPHAROS
@@ -65371,6 +65993,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - DRAGON_PULSE
 - templateId: V0181_POKEMON_AMPHAROS_SHADOW
   pokemon:
     uniqueId: AMPHAROS
@@ -65458,6 +66082,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - DRAGON_PULSE
 - templateId: V0182_POKEMON_BELLOSSOM
   pokemon:
     uniqueId: BELLOSSOM
@@ -66076,6 +66702,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - EARTHQUAKE
 - templateId: V0186_POKEMON_POLITOED_NORMAL
   pokemon:
     uniqueId: POLITOED
@@ -66155,6 +66783,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - EARTHQUAKE
 - templateId: V0186_POKEMON_POLITOED_PURIFIED
   pokemon:
     uniqueId: POLITOED
@@ -66234,6 +66864,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - EARTHQUAKE
 - templateId: V0186_POKEMON_POLITOED_SHADOW
   pokemon:
     uniqueId: POLITOED
@@ -66318,6 +66950,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - EARTHQUAKE
 - templateId: V0187_POKEMON_HOPPIP
   pokemon:
     uniqueId: HOPPIP
@@ -67121,6 +67755,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - LAST_RESORT
 - templateId: V0197_POKEMON_UMBREON
   pokemon:
     uniqueId: UMBREON
@@ -67194,6 +67830,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - LAST_RESORT
 - templateId: V0198_POKEMON_MURKROW
   pokemon:
     uniqueId: MURKROW
@@ -72345,6 +72983,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - WATER_GUN_FAST
 - templateId: V0231_MOVE_SPLASH_FAST
   move:
     movementId: SPLASH_FAST
@@ -73554,6 +74194,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 1
+    eliteQuickMove:
+    - FROST_BREATH_FAST
 - templateId: V0239_MOVE_STEEL_WING_FAST
   move:
     movementId: STEEL_WING_FAST
@@ -73646,6 +74288,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 1
+    eliteCinematicMove:
+    - THUNDERBOLT
 - templateId: V0240_MOVE_FIRE_FANG_FAST
   move:
     movementId: FIRE_FANG_FAST
@@ -73742,6 +74386,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 1
+    eliteCinematicMove:
+    - FLAMETHROWER
 - templateId: V0241_MOVE_ROCK_SMASH_FAST
   move:
     movementId: ROCK_SMASH_FAST
@@ -74639,6 +75285,8 @@ itemTemplate:
       candyToUnlock: 100
     isTransferable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - HIDDEN_POWER_FAST
 - templateId: V0245_POKEMON_SUICUNE_NORMAL
   pokemon:
     uniqueId: SUICUNE
@@ -74714,6 +75362,8 @@ itemTemplate:
       candyToUnlock: 100
     isTransferable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - HIDDEN_POWER_FAST
 - templateId: V0245_POKEMON_SUICUNE_PURIFIED
   pokemon:
     uniqueId: SUICUNE
@@ -74789,6 +75439,8 @@ itemTemplate:
       candyToUnlock: 80
     isTransferable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - HIDDEN_POWER_FAST
 - templateId: V0245_POKEMON_SUICUNE_SHADOW
   pokemon:
     uniqueId: SUICUNE
@@ -74869,6 +75521,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - HIDDEN_POWER_FAST
 - templateId: V0246_MOVE_DYNAMIC_PUNCH
   move:
     movementId: DYNAMIC_PUNCH
@@ -75669,6 +76323,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - SMACK_DOWN_FAST
 - templateId: V0248_POKEMON_TYRANITAR_NORMAL
   pokemon:
     uniqueId: TYRANITAR
@@ -75746,6 +76402,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - SMACK_DOWN_FAST
 - templateId: V0248_POKEMON_TYRANITAR_PURIFIED
   pokemon:
     uniqueId: TYRANITAR
@@ -75823,6 +76481,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - SMACK_DOWN_FAST
 - templateId: V0248_POKEMON_TYRANITAR_SHADOW
   pokemon:
     uniqueId: TYRANITAR
@@ -75905,6 +76565,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteQuickMove:
+    - SMACK_DOWN_FAST
 - templateId: V0249_MOVE_CHARGE_BEAM_FAST
   move:
     movementId: CHARGE_BEAM_FAST
@@ -76450,6 +77112,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - FRENZY_PLANT
 - templateId: V0255_MOVE_AIR_SLASH_FAST
   move:
     movementId: AIR_SLASH_FAST
@@ -76731,6 +77395,9 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - BLAST_BURN
+    - STONE_EDGE
 - templateId: V0258_MOVE_SAND_TOMB
   move:
     movementId: SAND_TOMB
@@ -77503,6 +78170,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - HYDRO_CANNON
 - templateId: V0260_POKEMON_SWAMPERT_NORMAL
   pokemon:
     uniqueId: SWAMPERT
@@ -77581,6 +78250,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - HYDRO_CANNON
 - templateId: V0260_POKEMON_SWAMPERT_PURIFIED
   pokemon:
     uniqueId: SWAMPERT
@@ -77659,6 +78330,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - HYDRO_CANNON
 - templateId: V0260_POKEMON_SWAMPERT_SHADOW
   pokemon:
     uniqueId: SWAMPERT
@@ -77742,6 +78415,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - HYDRO_CANNON
 - templateId: V0261_MOVE_STRUGGLE_BUG_FAST
   move:
     movementId: STRUGGLE_BUG_FAST
@@ -81360,6 +82035,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - SYNCHRONOISE
 - templateId: V0282_POKEMON_GARDEVOIR_NORMAL
   pokemon:
     uniqueId: GARDEVOIR
@@ -81438,6 +82115,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - SYNCHRONOISE
 - templateId: V0282_POKEMON_GARDEVOIR_PURIFIED
   pokemon:
     uniqueId: GARDEVOIR
@@ -81516,6 +82195,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - SYNCHRONOISE
 - templateId: V0282_POKEMON_GARDEVOIR_SHADOW
   pokemon:
     uniqueId: GARDEVOIR
@@ -81599,6 +82280,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - SYNCHRONOISE
 - templateId: V0283_MOVE_WATERFALL_FAST
   move:
     movementId: WATERFALL_FAST
@@ -81974,6 +82657,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - GRASS_KNOT
 - templateId: V0287_MOVE_YAWN_FAST
   move:
     movementId: YAWN_FAST
@@ -82246,6 +82931,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - BODY_SLAM
 - templateId: V0290_MOVE_PRECIPICE_BLADES
   move:
     movementId: PRECIPICE_BLADES
@@ -82528,6 +83215,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 4
+    eliteQuickMove:
+    - STRUGGLE_BUG_FAST
 - templateId: V0293_MOVE_WEATHER_BALL_ICE
   move:
     movementId: WEATHER_BALL_ICE
@@ -87476,6 +88165,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 5
+    eliteCinematicMove:
+    - EARTH_POWER
 - templateId: V0330_POKEMON_FLYGON_NORMAL
   pokemon:
     uniqueId: FLYGON
@@ -87554,6 +88245,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 5
+    eliteCinematicMove:
+    - EARTH_POWER
 - templateId: V0330_POKEMON_FLYGON_PURIFIED
   pokemon:
     uniqueId: FLYGON
@@ -87632,6 +88325,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 5
+    eliteCinematicMove:
+    - EARTH_POWER
 - templateId: V0330_POKEMON_FLYGON_SHADOW
   pokemon:
     uniqueId: FLYGON
@@ -87715,6 +88410,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 5
+    eliteCinematicMove:
+    - EARTH_POWER
 - templateId: V0331_MOVE_FLYING_PRESS
   move:
     movementId: FLYING_PRESS
@@ -93486,6 +94183,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - OUTRAGE
 - templateId: V0373_POKEMON_SALAMENCE_NORMAL
   pokemon:
     uniqueId: SALAMENCE
@@ -93565,6 +94264,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - OUTRAGE
 - templateId: V0373_POKEMON_SALAMENCE_PURIFIED
   pokemon:
     uniqueId: SALAMENCE
@@ -93644,6 +94345,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - OUTRAGE
 - templateId: V0373_POKEMON_SALAMENCE_SHADOW
   pokemon:
     uniqueId: SALAMENCE
@@ -93728,6 +94431,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - OUTRAGE
 - templateId: V0374_POKEMON_BELDUM
   pokemon:
     uniqueId: BELDUM
@@ -94443,6 +95148,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - METEOR_MASH
 - templateId: V0376_POKEMON_METAGROSS_NORMAL
   pokemon:
     uniqueId: METAGROSS
@@ -94524,6 +95231,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - METEOR_MASH
 - templateId: V0376_POKEMON_METAGROSS_PURIFIED
   pokemon:
     uniqueId: METAGROSS
@@ -94605,6 +95314,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - METEOR_MASH
 - templateId: V0376_POKEMON_METAGROSS_SHADOW
   pokemon:
     uniqueId: METAGROSS
@@ -94691,6 +95402,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - METEOR_MASH
 - templateId: V0377_POKEMON_REGIROCK
   pokemon:
     uniqueId: REGIROCK
@@ -96461,6 +97174,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - FRENZY_PLANT
 - templateId: V0389_POKEMON_TORTERRA_NORMAL
   pokemon:
     uniqueId: TORTERRA
@@ -96539,6 +97254,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - FRENZY_PLANT
 - templateId: V0389_POKEMON_TORTERRA_PURIFIED
   pokemon:
     uniqueId: TORTERRA
@@ -96617,6 +97334,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - FRENZY_PLANT
 - templateId: V0389_POKEMON_TORTERRA_SHADOW
   pokemon:
     uniqueId: TORTERRA
@@ -96700,6 +97419,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - FRENZY_PLANT
 - templateId: V0390_POKEMON_CHIMCHAR
   pokemon:
     uniqueId: CHIMCHAR
@@ -97437,6 +98158,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - BLAST_BURN
 - templateId: V0392_POKEMON_INFERNAPE_NORMAL
   pokemon:
     uniqueId: INFERNAPE
@@ -97515,6 +98238,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - BLAST_BURN
 - templateId: V0392_POKEMON_INFERNAPE_PURIFIED
   pokemon:
     uniqueId: INFERNAPE
@@ -97593,6 +98318,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - BLAST_BURN
 - templateId: V0392_POKEMON_INFERNAPE_SHADOW
   pokemon:
     uniqueId: INFERNAPE
@@ -97676,6 +98403,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - BLAST_BURN
 - templateId: V0393_POKEMON_PIPLUP
   pokemon:
     uniqueId: PIPLUP
@@ -97915,6 +98644,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - HYDRO_CANNON
 - templateId: V0396_POKEMON_STARLY
   pokemon:
     uniqueId: STARLY
@@ -106893,6 +107624,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - BODY_SLAM
 - templateId: V0464_POKEMON_RHYPERIOR
   pokemon:
     uniqueId: RHYPERIOR
@@ -106980,6 +107713,8 @@ itemTemplate:
     - 0.0
     - 0.0
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - ROCK_WRECKER
 - templateId: V0464_POKEMON_RHYPERIOR_NORMAL
   pokemon:
     uniqueId: RHYPERIOR
@@ -107068,6 +107803,8 @@ itemTemplate:
     - 0.0
     - 0.0
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - ROCK_WRECKER
 - templateId: V0464_POKEMON_RHYPERIOR_PURIFIED
   pokemon:
     uniqueId: RHYPERIOR
@@ -107156,6 +107893,8 @@ itemTemplate:
     - 0.0
     - 0.0
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - ROCK_WRECKER
 - templateId: V0464_POKEMON_RHYPERIOR_SHADOW
   pokemon:
     uniqueId: RHYPERIOR
@@ -107249,6 +107988,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - ROCK_WRECKER
 - templateId: V0465_POKEMON_TANGROWTH
   pokemon:
     uniqueId: TANGROWTH
@@ -108194,6 +108935,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - LAST_RESORT
 - templateId: V0471_POKEMON_GLACEON
   pokemon:
     uniqueId: GLACEON
@@ -108273,6 +109016,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - LAST_RESORT
 - templateId: V0472_POKEMON_GLISCOR
   pokemon:
     uniqueId: GLISCOR
@@ -108432,6 +109177,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - ANCIENT_POWER
 - templateId: V0474_POKEMON_PORYGON_Z
   pokemon:
     uniqueId: PORYGON_Z
@@ -108845,6 +109592,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - SYNCHRONOISE
 - templateId: V0475_POKEMON_GALLADE_NORMAL
   pokemon:
     uniqueId: GALLADE
@@ -108923,6 +109672,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - SYNCHRONOISE
 - templateId: V0475_POKEMON_GALLADE_PURIFIED
   pokemon:
     uniqueId: GALLADE
@@ -109001,6 +109752,8 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - SYNCHRONOISE
 - templateId: V0475_POKEMON_GALLADE_SHADOW
   pokemon:
     uniqueId: GALLADE
@@ -109084,6 +109837,8 @@ itemTemplate:
       purifiedChargeMove: RETURN
       shadowChargeMove: FRUSTRATION
     buddyGroupNumber: 2
+    eliteCinematicMove:
+    - SYNCHRONOISE
 - templateId: V0476_POKEMON_PROBOPASS
   pokemon:
     uniqueId: PROBOPASS
@@ -125679,6 +126434,8 @@ itemTemplate:
       candyToUnlock: 100
     isTransferable: true
     buddyGroupNumber: 3
+    eliteCinematicMove:
+    - SACRED_SWORD
 - templateId: V0639_POKEMON_TERRAKION
   pokemon:
     uniqueId: TERRAKION
@@ -128133,6 +128890,8 @@ itemTemplate:
 - templateId: VS_SEEKER_CLIENT_SETTINGS
   vsSeekerClientSettings:
     allowedVsSeekerLeagueTemplateId:
+    - COMBAT_LEAGUE_VS_SEEKER_GREAT
+    - COMBAT_LEAGUE_VS_SEEKER_ULTRA
     - COMBAT_LEAGUE_VS_SEEKER_MASTER
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_10_FREE
   vsSeekerLootProto:
@@ -143515,10 +144274,11 @@ itemTemplate:
   iapItemDisplay:
     sku: general1.ticket.2
     category: IAP_CATEGORY_GLOBAL_EVENT_TICKET
-    skuEnableTime: '2020-04-17T13:00:00'
-    skuDisableTime: '2020-04-25T17:00:00'
-    skuEnableTimeUtcMs: '1587128400000'
-    skuDisableTimeUtcMs: '1587834000000'
+    hidden: true
+    skuEnableTime: '2019-03-14T08:00:00'
+    skuDisableTime: '2019-03-15T17:00:00'
+    skuEnableTimeUtcMs: '1552550400000'
+    skuDisableTimeUtcMs: '1552669200000'
 - templateId: incenseordinary.8
   iapItemDisplay:
     sku: incenseordinary.8
@@ -145965,4 +146725,4 @@ itemTemplate:
     - wait 0.25
     - sys ui-sync
     - sys complete
-timestampMs: '1587581189967'
+timestampMs: '1587848845186'
