@@ -344,10 +344,10 @@ makeMaybeMove types pvpFastMoves pvpChargedMoves itemTemplate = do
         <*> do
           typeName <- getTemplateValue "pokemonType"
           get types typeName
-        <*> getObjectValueWithDefault itemTemplate "power" 0
+        <*> getObjectValueWithDefault 0 itemTemplate "power"
         <*> ((/1000) <$> getTemplateValue "durationMs")
         <*> getTemplateValue "damageWindowStartMs"
-        <*> getObjectValueWithDefault itemTemplate "energyDelta" 0
+        <*> getObjectValueWithDefault 0 itemTemplate "energyDelta"
         <*> pure pvpPower
         <*> pure pvpEnergyDelta
         <*> pure pvpDurationTurns
@@ -382,31 +382,31 @@ makePvpFastMove :: Epic.MonadCatch m =>
   StringMap Type -> ItemTemplate -> m PvpFastMove
 makePvpFastMove types itemTemplate =
   let getTemplateValue = getObjectValue itemTemplate
-      getTemplateValueWithDefault text =
-        getObjectValueWithDefault itemTemplate text
+      getTemplateValueWithDefault dflt text =
+        getObjectValueWithDefault dflt itemTemplate text
   in PvpFastMove.new
     <$> getTemplateValue "uniqueId"
     <*> do
       typeName <- getTemplateValue "type"
       get types typeName
-    <*> getTemplateValueWithDefault "power" 0.0
-    <*> getTemplateValueWithDefault "durationTurns" 0
-    <*> getTemplateValueWithDefault "energyDelta" 0
+    <*> getTemplateValueWithDefault 0.0 "power"
+    <*> getTemplateValueWithDefault 0 "durationTurns"
+    <*> getTemplateValueWithDefault 0 "energyDelta"
     <*> pure False
 
 makePvpChargedMove :: Epic.MonadCatch m =>
   StringMap Type -> ItemTemplate -> m PvpChargedMove
 makePvpChargedMove types itemTemplate =
   let getTemplateValue = getObjectValue itemTemplate
-      getTemplateValueWithDefault text =
-        getObjectValueWithDefault itemTemplate text
+      getTemplateValueWithDefault dflt text =
+        getObjectValueWithDefault dflt itemTemplate text
   in PvpChargedMove.new
     <$> getTemplateValue "uniqueId"
     <*> do
       typeName <- getTemplateValue "type"
       get types typeName
-    <*> getTemplateValueWithDefault "power" 0.0
-    <*> getTemplateValueWithDefault "energyDelta" 0
+    <*> getTemplateValueWithDefault 0.0 "power"
+    <*> getTemplateValueWithDefault 0 "energyDelta"
     <*> pure False
 
 -- Return a map of pokemon species to a (possibly empty) list of its forms.
@@ -519,13 +519,13 @@ makePokemonBase types moves forms pokemonSettings =
 
     baseCaptureRate <- do
       encounter <- getValue "encounter"
-      getObjectValueWithDefault encounter "baseCaptureRate" 0
+      getObjectValueWithDefault 0 encounter "baseCaptureRate"
 
     thirdMoveCost <- do
       thirdMove <- getValue "thirdMove"
       -- Smeargle has candyToUnlock but not stardustToUnlock so default it.
       stardustToUnlock <-
-        getObjectValueWithDefault thirdMove "stardustToUnlock" 0
+        getObjectValueWithDefault 0 thirdMove "stardustToUnlock"
       candyToUnlock <-  getObjectValue thirdMove "candyToUnlock"
       return $ (stardustToUnlock, candyToUnlock)
 
@@ -621,8 +621,8 @@ getObjectValue :: (Epic.MonadCatch m, Yaml.FromJSON a) => Yaml.Object -> String 
 getObjectValue yamlObject key =
   Epic.toEpic $ Yaml.parseEither (.: convertText key) yamlObject
 
-getObjectValueWithDefault :: (Epic.MonadCatch m, Yaml.FromJSON a) => Yaml.Object -> String -> a -> m a
-getObjectValueWithDefault yamlObject key dflt =
+getObjectValueWithDefault :: (Epic.MonadCatch m, Yaml.FromJSON a) => a -> Yaml.Object -> String -> m a
+getObjectValueWithDefault dflt yamlObject key =
   Epic.toEpic $ Yaml.parseEither (\p -> p .:? convertText key .!= dflt) yamlObject
 
 get :: Epic.MonadCatch m => StringMap a -> String -> m a
