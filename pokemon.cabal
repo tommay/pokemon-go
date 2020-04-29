@@ -20,7 +20,7 @@ library
                        Battle, Attacker, Defender, Debug, Log, Matchup,
                        Util, Weather, Friend, Logger, BattlerUtil, Yaml,
                        MakePokemon, Stats, PokeUtil, TweakLevel, Breakpoint,
-                       Powerups, WeatherBonus, Legacy, Discounts,
+                       Powerups, WeatherBonus, Discounts,
                        PvpFastMove, PvpChargedMove,
                        YamlUtil
   other-modules:       StringMap

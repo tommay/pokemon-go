@@ -14,7 +14,6 @@ module PokemonBase (
   baseCaptureRate,
   thirdMoveCost,
   purificationCost,
-  addMove,
 ) where
 
 import           Type (Type)
@@ -46,11 +45,3 @@ new = PokemonBase
 
 hasEvolutions :: PokemonBase -> Bool
 hasEvolutions this = (not . null) $ PokemonBase.evolutions this
-
--- add*Move are for adding legacy moves.
-
-addMove :: Move -> PokemonBase -> PokemonBase
-addMove move this =
-  if Move.isQuick move
-    then this { quickMoves = move : quickMoves this }
-    else this { chargeMoves = move : chargeMoves this }

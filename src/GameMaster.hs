@@ -27,7 +27,6 @@ module GameMaster (
 ) where
 
 import qualified Epic
-import qualified Legacy
 import qualified Move
 import           Move (Move)
 import qualified PokemonBase
@@ -47,7 +46,7 @@ import           WeatherBonus (WeatherBonus)
 import qualified Data.Yaml as Yaml
 import           Data.Yaml ((.:), (.:?), (.!=))
 
-import           Control.Monad (join, foldM)
+import           Control.Monad (join, foldM, liftM)
 import           Data.Text.Conversions (convertText)
 import qualified Data.List as List
 import qualified Data.List.Extra
@@ -87,10 +86,7 @@ load filename = do
   case either of
     Left yamlParseException -> Epic.fail $ show yamlParseException
     Right yamlObject -> do
-      gameMaster <- makeGameMaster yamlObject
-      legacyMap <- join $ Legacy.load "legacy_moves.yaml"
-      gameMaster <- addLegacyMoves gameMaster legacyMap
-      return $ return $ gameMaster
+      return $ makeGameMaster yamlObject
 
 allPokemonBases :: GameMaster -> [PokemonBase]
 allPokemonBases this =
@@ -456,6 +452,8 @@ makePokemonBase :: Epic.MonadCatch m =>
 makePokemonBase types moves forms pokemonSettings =
   Epic.catch (do
     let getValue key = getObjectValue pokemonSettings key
+        getValueWithDefault dflt key =
+          getObjectValueWithDefault dflt pokemonSettings key
 
     pokemonId <- getValue "uniqueId"
 
@@ -495,6 +493,12 @@ makePokemonBase types moves forms pokemonSettings =
         -- XXX This can swallow parse errors?
         Left _ -> return []
 
+    let getLegacyMoves key = do
+          moveNames <- getValueWithDefault [] key
+          mapM (liftM Move.setLegacy . get moves) moveNames
+    legacyQuickMoves <- getLegacyMoves "eliteQuickMove"
+    legacyChargeMoves <- getLegacyMoves "eliteCinematicMove"
+
     -- XXX Smeargle's doesn't have keys for "quickMoves" and
     -- "cinematicMoves".  Instead, those keys are in the template
     -- "SMEARGLE_MOVE_SETTINGS".  Smeargle is the only pokemon like
@@ -509,8 +513,12 @@ makePokemonBase types moves forms pokemonSettings =
             mapM (get moves) moveNames
           else return []
 
-    quickMoves <- getMoves "quickMoves"
-    chargeMoves <- getMoves "cinematicMoves"
+    quickMoves <- do
+      moves <- getMoves "quickMoves"
+      return $ moves ++ legacyQuickMoves
+    chargeMoves <- do
+      moves <- getMoves "cinematicMoves"
+      return $ moves ++ legacyChargeMoves
 
     let parent = case getValue "parentId" of
           Right parent -> Just parent
@@ -688,28 +696,3 @@ commaSeparated list =
   let commaSeparated' [a, b] = a ++ ", or " ++ b
       commaSeparated' (h:t) = h ++ ", " ++ commaSeparated' t
   in commaSeparated' list
-
-addLegacyMoves :: Epic.MonadCatch m =>
-  GameMaster -> StringMap [String] -> m GameMaster
-addLegacyMoves this legacyMap =
-  let addMoves :: Epic.MonadCatch m =>
-        String -> [String] -> m GameMaster -> m GameMaster
-      addMoves species moveNames mGameMaster = do
-        gameMaster <- mGameMaster
-        base <- getPokemonBase gameMaster species
-        base <- foldM (addMove gameMaster) base moveNames
-        let speciesU = Util.toUpper $ PokemonBase.species base
-            key = if HashMap.member speciesU $ pokemonBases gameMaster
-              then speciesU
-              else speciesU ++ "_NORMAL"
-        return $ gameMaster {
-          pokemonBases = HashMap.insert key base $ pokemonBases gameMaster
-        }
-
-      addMove :: Epic.MonadCatch m =>
-        GameMaster -> PokemonBase -> String -> m PokemonBase
-      addMove gameMaster base moveName = do
-        move <- getMove gameMaster moveName
-        move <- return $ Move.setLegacy move
-        return $ PokemonBase.addMove move base
-  in HashMap.foldrWithKey addMoves (pure this) legacyMap
