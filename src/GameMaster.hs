@@ -502,15 +502,15 @@ makePokemonBase types moves forms pokemonSettings =
     -- just returned as [] here.  If they start using this scheme for
     -- other pokemon they will break and I can decide what to do then.
     --
-    let getMoves key stringMap = if species /= "smeargle"
+    let getMoves key = if species /= "smeargle"
           then do
             -- Mew has some moves specified multiple times so nub them.
             moveNames <- List.nub <$> getValue key
-            mapM (get stringMap) moveNames
+            mapM (get moves) moveNames
           else return []
 
-    quickMoves <- getMoves "quickMoves" moves
-    chargeMoves <- getMoves "cinematicMoves" moves
+    quickMoves <- getMoves "quickMoves"
+    chargeMoves <- getMoves "cinematicMoves"
 
     let parent = case getValue "parentId" of
           Right parent -> Just parent
