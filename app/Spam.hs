@@ -46,7 +46,8 @@ main =
       gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
       let species = attacker options
       base <- GameMaster.getPokemonBase gameMaster species
-      let moveSets = [(fast, charged) |
+      let types = PokemonBase.types base
+          moveSets = [(fast, charged) |
             fast <- PokemonBase.quickMoves base,
             charged <- PokemonBase.chargeMoves base]
           toName :: Move -> Move -> String
@@ -56,26 +57,30 @@ main =
               (Move.name charged) (negate $ Move.pvpEnergyDelta charged)
           maxNameLength = maximum $
             map (\ (fast, charged) -> length $ toName fast charged) moveSets
-          toStuff :: (Move, Move) -> (String, Int, Int, Float)
+          toStuff :: (Move, Move) -> (String, Int, Int, Float, Float)
           toStuff (fast, charged) =
             let name = toName fast charged
-                (turnsPerCycle, fastMovesPerCycle, dpt) = spam fast charged
-            in (name, turnsPerCycle, fastMovesPerCycle, dpt)
+                (turnsPerCycle, fastMovesPerCycle, dpt, dpe) =
+                  spam types fast charged
+            in (name, turnsPerCycle, fastMovesPerCycle, dpt, dpe)
           stuff = map toStuff moveSets
-      forM_ stuff $ \ (name, turnsPerCycle, fastMovesPerCycle, dpt) ->
-        putStrLn $ Printf.printf "%-*s: %d(%d) %.2f"
-          maxNameLength name turnsPerCycle fastMovesPerCycle dpt
+      forM_ stuff $ \ (name, turnsPerCycle, fastMovesPerCycle, dpt, dpe) ->
+        putStrLn $ Printf.printf "%-*s: %d(%d) %.2f %.2f"
+          maxNameLength name turnsPerCycle fastMovesPerCycle dpt dpe
     )
     $ Exit.die
 
-spam :: Move -> Move -> (Int, Int, Float)
-spam fast charged =
+spam :: [Type] -> Move -> Move -> (Int, Int, Float, Float)
+spam types fast charged =
   let chargedEnergy = - Move.pvpEnergyDelta charged
       fastEnergy = Move.pvpEnergyDelta fast
       fastMovesPerCycle = (chargedEnergy + fastEnergy - 1) `div` fastEnergy
       turnsPerCycle = fastMovesPerCycle * (Move.pvpDurationTurns fast + 1)
+      stabFast = Move.stabFor fast types
+      stabCharged = Move.stabFor charged types
       damagePerCycle =
-        (fromIntegral fastMovesPerCycle) * (Move.pvpPower fast)
-        + Move.pvpPower charged
+        (fromIntegral fastMovesPerCycle) * (Move.pvpPower fast) * stabFast
+        + (Move.pvpPower charged * stabCharged)
       dpt = damagePerCycle / fromIntegral turnsPerCycle
-  in (turnsPerCycle, fastMovesPerCycle, dpt)
+      dpe = (Move.pvpPower charged) * stabCharged / fromIntegral chargedEnergy
+  in (turnsPerCycle, fastMovesPerCycle, dpt, dpe)
