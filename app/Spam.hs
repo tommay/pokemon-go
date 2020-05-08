@@ -26,13 +26,15 @@ import qualified System.Exit as Exit
 import qualified Text.Printf as Printf
 
 data Options = Options {
-  attacker :: String
+  attacker :: String,
+  defender :: Maybe String
 }
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optAttacker
-      optAttacker = O.strArgument (O.metavar "POKEMON")
+  let opts = Options <$> optAttacker <*> optDefender
+      optAttacker = O.strArgument (O.metavar "ATTACKER")
+      optDefender = O.optional $ O.strArgument (O.metavar "DEFENDER")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc "Rate movesets by spamminess.")
