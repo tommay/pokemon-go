@@ -49,11 +49,12 @@ main =
       base <- GameMaster.getPokemonBase gameMaster $ attacker options
       maybeDefenderBase <- do
         case defender options of
-          Just species -> (return . Just) <$>
-             GameMaster.getPokemonBase gameMaster species
-          Nothing -> return $ Nothing
-      let z = GameMaster.getPokemonBase gameMaster <$> defender options
+          Just species -> Just <$> GameMaster.getPokemonBase gameMaster species
+          Nothing -> return Nothing
       let types = PokemonBase.types base
+          defenderTypes = case maybeDefenderBase of
+            Just defenderBase -> PokemonBase.types defenderBase
+            Nothing -> []
           moveSets = [(fast, charged) |
             fast <- PokemonBase.quickMoves base,
             charged <- PokemonBase.chargeMoves base]
@@ -68,7 +69,7 @@ main =
           toStuff (fast, charged) =
             let name = toName fast charged
                 (turnsPerCycle, fastMovesPerCycle, dpt, dpe) =
-                  spam types fast charged
+                  spam types defenderTypes fast charged
             in (name, turnsPerCycle, fastMovesPerCycle, dpt, dpe)
           stuff = map toStuff moveSets
       forM_ stuff $ \ (name, turnsPerCycle, fastMovesPerCycle, dpt, dpe) ->
@@ -77,17 +78,21 @@ main =
     )
     $ Exit.die
 
-spam :: [Type] -> Move -> Move -> (Int, Int, Float, Float)
-spam types fast charged =
+spam :: [Type] -> [Type] -> Move -> Move -> (Int, Int, Float, Float)
+spam types defenderTypes fast charged =
   let chargedEnergy = - Move.pvpEnergyDelta charged
       fastEnergy = Move.pvpEnergyDelta fast
       fastMovesPerCycle = (chargedEnergy + fastEnergy - 1) `div` fastEnergy
       turnsPerCycle = fastMovesPerCycle * (Move.pvpDurationTurns fast + 1)
-      stabFast = Move.stabFor fast types
-      stabCharged = Move.stabFor charged types
+      multiplier move =
+        Move.stabFor move types * Move.effectivenessAgainst move defenderTypes
+      multiplierFast = multiplier fast
+      multiplierCharged = multiplier charged
       damagePerCycle =
-        (fromIntegral fastMovesPerCycle) * (Move.pvpPower fast) * stabFast
-        + (Move.pvpPower charged * stabCharged)
+        (fromIntegral fastMovesPerCycle) * (Move.pvpPower fast) *
+          multiplierFast
+        + (Move.pvpPower charged * multiplierCharged)
       dpt = damagePerCycle / fromIntegral turnsPerCycle
-      dpe = (Move.pvpPower charged) * stabCharged / fromIntegral chargedEnergy
+      dpe = (Move.pvpPower charged) * multiplierCharged /
+        fromIntegral chargedEnergy
   in (turnsPerCycle, fastMovesPerCycle, dpt, dpe)
