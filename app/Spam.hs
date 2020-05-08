@@ -46,8 +46,13 @@ main =
     do
       options <- getOptions
       gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
-      let species = attacker options
-      base <- GameMaster.getPokemonBase gameMaster species
+      base <- GameMaster.getPokemonBase gameMaster $ attacker options
+      maybeDefenderBase <- do
+        case defender options of
+          Just species -> (return . Just) <$>
+             GameMaster.getPokemonBase gameMaster species
+          Nothing -> return $ Nothing
+      let z = GameMaster.getPokemonBase gameMaster <$> defender options
       let types = PokemonBase.types base
           moveSets = [(fast, charged) |
             fast <- PokemonBase.quickMoves base,
