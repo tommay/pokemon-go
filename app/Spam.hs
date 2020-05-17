@@ -58,11 +58,16 @@ main =
           moveSets = [(fast, charged) |
             fast <- PokemonBase.quickMoves base,
             charged <- PokemonBase.chargeMoves base]
+          multiplier move =
+            Move.stabFor move types *
+            Move.effectivenessAgainst move defenderTypes
+          damage move = Move.pvpPower move * multiplier move
           toName :: Move -> Move -> String
           toName fast charged =
-            Printf.printf "%s(%d) / %s(%d)"
-              (Move.name fast) (Move.pvpEnergyDelta fast)
+            Printf.printf "%s(%d/%.1f) / %s(%d/%.0f)"
+              (Move.name fast) (Move.pvpEnergyDelta fast) (damage fast)
               (Move.name charged) (negate $ Move.pvpEnergyDelta charged)
+              (damage charged)
           maxNameLength = maximum $
             map (\ (fast, charged) -> length $ toName fast charged) moveSets
           toStuff :: (Move, Move) -> (String, Int, Int, Float, Float)
