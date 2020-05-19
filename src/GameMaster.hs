@@ -1,6 +1,18 @@
 -- So .: works with literal Strings.
 {-# LANGUAGE OverloadedStrings #-}
 
+-- This will eventually use a serialization library to cache a binary
+-- version of GameMaster because reading GAME_MASTER.yaml has gotten
+-- pretty slow as the file gets larger and larger.  To do this,
+-- GameMaster and the types it uses need to be instances of the
+-- library's serializable typeclass.  The easiest way to do that is to
+-- use GHC.Generics and make the types instances of Generic and then
+-- they can be made instances of the appropriate type with some kind
+-- of Generic magic
+
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DeriveAnyClass #-}
+
 module GameMaster (
   GameMaster,
   load,
@@ -45,6 +57,7 @@ import           WeatherBonus (WeatherBonus)
 
 import qualified Data.Yaml as Yaml
 import           Data.Yaml ((.:), (.:?), (.!=))
+import           GHC.Generics (Generic)
 
 import           Control.Monad (join, foldM, liftM)
 import           Data.Text.Conversions (convertText)
@@ -77,7 +90,7 @@ data GameMaster = GameMaster {
   purifiedCandyMultiplier    :: Float,
   luckyPowerUpStardustDiscountPercent :: Float,
   weatherBonusMap :: HashMap Weather (HashMap Type Float)
-} deriving (Show)
+} deriving (Show, Generic)
 
 type ItemTemplate = Yaml.Object
 

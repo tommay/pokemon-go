@@ -1,3 +1,8 @@
+-- Need to make Move an instance of Generic so it can be made an
+-- instance of the appropriate serializable typeclass in
+-- GameMaster.hs.
+{-# LANGUAGE DeriveGeneric #-}
+
 module Move (
   Move,
   new,
@@ -26,6 +31,8 @@ import qualified Type
 import           Type (Type)
 import qualified Util
 
+import           GHC.Generics (Generic)
+
 import qualified Data.HashMap.Strict as HashMap
 import qualified Data.List as List
 import qualified Text.Regex as Regex
@@ -41,7 +48,7 @@ data Move = Move {
   pvpEnergyDelta :: Int,
   pvpDurationTurns :: Int,
   isLegacy :: Bool
-}
+} deriving (Generic)
 
 instance Eq Move where
   left == right = (movementId left) == (movementId right)

@@ -1,5 +1,6 @@
 -- Generic has something to do with making Weather an instance of Hashable.
-{-# LANGUAGE DeriveGeneric #-} -- For deriving Hashable instance.
+{-# LANGUAGE DeriveGeneric #-} -- For deriving Hashable instance.  Also
+  -- for deriving Store.Store (see GameMaster.hs).
 
 module Weather (
   Weather (..),

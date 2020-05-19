@@ -1,3 +1,8 @@
+-- Need to make Type an instance of Generic so it can be made an
+-- instance of the appropriate serializable typeclass in
+-- GameMaster.hs.
+{-# LANGUAGE DeriveGeneric #-}
+
 module Type (
   Type,
   new,
@@ -10,6 +15,8 @@ module Type (
 import           StringMap (StringMap)
 import qualified Util
 
+import           GHC.Generics (Generic)
+
 import qualified Data.Hashable as Hashable
 import           Data.Hashable (Hashable)
 import qualified Data.HashMap.Strict as HashMap
@@ -19,7 +26,7 @@ data Type = Type {
   typeId        :: String,
   effectiveness :: StringMap Float,
   stab          :: Float
-}
+} deriving (Generic)
 
 instance Eq Type where
   left == right = (typeId left) == (typeId right)

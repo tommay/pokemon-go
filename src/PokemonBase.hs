@@ -1,3 +1,8 @@
+-- Need to make PokemonBase an instance of Generic so it can be made
+-- an instance of the appropriate serializable typeclass in
+-- GameMaster.hs.
+{-# LANGUAGE DeriveGeneric #-}
+
 module PokemonBase (
   PokemonBase,
   new,
@@ -20,6 +25,8 @@ import           Type (Type)
 import qualified Move
 import           Move (Move)
 
+import           GHC.Generics (Generic)
+
 import           Data.Text (Text)
 
 data PokemonBase = PokemonBase {
@@ -36,7 +43,7 @@ data PokemonBase = PokemonBase {
   baseCaptureRate :: Float,
   thirdMoveCost :: (Int, Int),  -- (stardust, candy)
   purificationCost :: (Int, Int)  -- (stardust, candy)
-}
+} deriving (Generic)
 
 instance Show PokemonBase where
   show = species
