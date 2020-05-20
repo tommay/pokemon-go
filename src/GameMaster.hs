@@ -1,7 +1,7 @@
 -- So .: works with literal Strings.
 {-# LANGUAGE OverloadedStrings #-}
 
--- This will eventually use a serialization library to cache a binary
+-- This uses the Data.Store serialization library to cache a binary
 -- version of GameMaster because reading GAME_MASTER.yaml has gotten
 -- pretty slow as the file gets larger and larger.  To do this,
 -- GameMaster and the types it uses need to be instances of the
@@ -9,6 +9,11 @@
 -- use GHC.Generics and make the types instances of Generic and then
 -- they can be made instances of the appropriate type with some kind
 -- of Generic magic
+--
+-- Note that the cache file is about three times bigger than the yaml
+-- file because all the Types and Moves get written for every
+-- PokemonBase, and all the string are ucs-32 or something instead of
+-- utf-8.
 
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DeriveAnyClass #-}
@@ -55,6 +60,7 @@ import qualified Weather
 import           Weather (Weather (..))
 import           WeatherBonus (WeatherBonus)
 
+import qualified Data.ByteString as B
 import qualified Data.Yaml as Yaml
 import           Data.Yaml ((.:), (.:?), (.!=))
 import qualified Data.Store as Store
@@ -129,7 +135,8 @@ loadFromYaml filename = do
     Right yamlObject -> return $ makeGameMaster yamlObject
 
 writeCache :: FilePath -> GameMaster -> IO ()
-writeCache filename gameMaster = return ()  -- XXX
+writeCache filename gameMaster =
+  B.writeFile filename $ Store.encode gameMaster  
 
 maybeLoadFromCache :: FilePath -> IO (Maybe GameMaster)
 maybeLoadFromCache fiename =
