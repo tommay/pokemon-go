@@ -57,6 +57,7 @@ import           WeatherBonus (WeatherBonus)
 
 import qualified Data.Yaml as Yaml
 import           Data.Yaml ((.:), (.:?), (.!=))
+import qualified Data.Store as Store
 import           GHC.Generics (Generic)
 
 import           Control.Monad (join, foldM, liftM)
@@ -91,6 +92,12 @@ data GameMaster = GameMaster {
   luckyPowerUpStardustDiscountPercent :: Float,
   weatherBonusMap :: HashMap Weather (HashMap Type Float)
 } deriving (Show, Generic)
+
+instance Store.Store GameMaster
+instance Store.Store Type
+instance Store.Store Move
+instance Store.Store PokemonBase
+instance Store.Store Weather
 
 type ItemTemplate = Yaml.Object
 
