@@ -54,8 +54,11 @@ import qualified Data.Maybe as Maybe
 import           Data.Maybe (mapMaybe)
 import qualified Data.HashMap.Strict as HashMap
 import           Data.HashMap.Strict (HashMap)
+import           Data.Time.Clock (UTCTime)
 import qualified Data.Vector as Vector
 import           Data.Vector (Vector, (!))
+import qualified System.Directory
+import           System.IO.Error (tryIOError)
 import qualified Text.Regex as Regex
 
 import qualified Debug as D
@@ -82,6 +85,56 @@ new = GameMaster
 
 load :: Epic.MonadCatch m => FilePath -> IO (m GameMaster)
 load filename = do
+  let cacheFileName = "/tmp/" ++ filename ++ ".cache"
+  maybeGameMaster <- do
+    cacheIsNewer <- cacheFileName `isNewerThan` filename
+    if cacheIsNewer
+      then maybeLoadFromCache cacheFileName
+      else return $ Nothing
+  case maybeGameMaster of
+    Just gameMaster -> return $ pure gameMaster
+    Nothing -> do
+      mGameMaster <- loadFromYaml filename
+      case mGameMaster of
+         Left exception -> Epic.fail $ show exception
+         Right gameMaster -> do
+           writeCache cacheFileName gameMaster
+           return $ pure gameMaster
+
+loadFromYaml :: Epic.MonadCatch m => FilePath -> IO (m GameMaster)
+loadFromYaml filename = do
+  either <- Yaml.decodeFileEither filename
+  case either of
+    Left yamlParseException -> Epic.fail $ show yamlParseException
+    Right yamlObject -> return $ makeGameMaster yamlObject
+
+writeCache :: FilePath -> GameMaster -> IO ()
+writeCache filename gameMaster = return ()  -- XXX
+
+maybeLoadFromCache :: FilePath -> IO (Maybe GameMaster)
+maybeLoadFromCache fiename =
+  return Nothing -- XXX
+
+isNewerThan :: FilePath -> FilePath -> IO Bool
+name1 `isNewerThan` name2 = do
+  maybeTime1 <- getMaybeModificationTime name1
+  maybeTime2 <- getMaybeModificationTime name2
+  let Just time1 >> Just time2 = time1 > time2
+      _ >> _ = False
+  return $ maybeTime1 >> maybeTime2
+
+-- Returns a file's modification time if the file exists and we can get
+-- its modification time, or Nothing.
+--
+getMaybeModificationTime :: FilePath -> IO (Maybe UTCTime)
+getMaybeModificationTime filename = do
+  either <- tryIOError $ System.Directory.getModificationTime filename
+  return $ case either of
+    Left ioError -> Nothing
+    Right time -> Just time
+
+readYaml :: Epic.MonadCatch m => FilePath -> IO (m GameMaster)
+readYaml filename = do
   either <- Yaml.decodeFileEither filename
   case either of
     Left yamlParseException -> Epic.fail $ show yamlParseException
