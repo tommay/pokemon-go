@@ -14,6 +14,9 @@
 -- file because all the Types and Moves get written for every
 -- PokemonBase, and all the string are ucs-32 or something instead of
 -- utf-8.
+--
+-- Reading it back in seems to take half the time of reading the yaml
+-- file which isn't as good as I'd hoped.
 
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DeriveAnyClass #-}
@@ -139,8 +142,13 @@ writeCache filename gameMaster =
   B.writeFile filename $ Store.encode gameMaster  
 
 maybeLoadFromCache :: FilePath -> IO (Maybe GameMaster)
-maybeLoadFromCache fiename =
-  return Nothing -- XXX
+maybeLoadFromCache filename = do
+  either <- tryIOError $ B.readFile filename
+  return $ case either of
+    Left ioError -> Nothing
+    Right byteString -> case Store.decode byteString of
+      Left peekException -> Nothing
+      Right gameMaster -> Just gameMaster
 
 isNewerThan :: FilePath -> FilePath -> IO Bool
 name1 `isNewerThan` name2 = do
