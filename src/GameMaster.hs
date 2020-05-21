@@ -409,9 +409,13 @@ makeMaybeMove types pvpFastMoves pvpChargedMoves itemTemplate = do
             PvpFastMove.durationTurns pvpFastMove)
         else case HashMap.lookup name pvpChargedMoves of
           Nothing -> Nothing
+          -- Charged moves used to get a durationTurns of 'error "Charged
+          -- moves have no durationTurns"' which was clever but broke
+          -- the GAME_MASTER cache because it had to be evaluated to write
+          -- it to the cache and it just threw the error.  So just use 0.
           Just pvpChargedMove -> Just (PvpChargedMove.power pvpChargedMove,
             PvpChargedMove.energyDelta pvpChargedMove,
-            error "Charged moves have no durationTurns")
+            0)
   case maybeMoveStats of
     Nothing -> return Nothing
     Just (pvpPower, pvpEnergyDelta, pvpDurationTurns) -> do
