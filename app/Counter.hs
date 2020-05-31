@@ -58,6 +58,7 @@ data Options = Options {
   tweakLevel :: Float -> Float,
   legendary :: Bool,
   attackerSource :: AttackerSource,
+  onlyAttacker :: Maybe String,
   showBreakpoints :: Bool,
   showPowerups :: Bool,
   maybeMaxCandy :: Maybe Int,
@@ -94,6 +95,7 @@ getOptions =
         optSortOutputBy <*> optDpsFilter <*>
         optTop <*>
         optTweakLevel <*> optLegendary <*> optAttackerSource <*>
+        optOnlyAttacker <*>
         optShowBreakpoints <*>
         optShowPowerups <*> optMaxCandy <*> optMaxDust <*>
         optRaidGroup <*> optShowMoveset <*>
@@ -158,6 +160,11 @@ getOptions =
               <> O.help "Rate the movesets for ATTACKER against DEFENDER")
         in optFilenames <|> optMovesetFor <|> optAll
              <|> (pure $ FromFiles [defaultFilename])
+      optOnlyAttacker = O.optional $ O.strOption
+        (  O.long "only"
+        <> O.short 'o'
+        <> O.metavar "SPECIES"
+        <> O.help "Show only the specified attacker species")
       optShowBreakpoints = O.switch
         (  O.long "breakpoints"
         <> O.short 'B'
@@ -259,6 +266,10 @@ main =
           in case errors of
                [] -> return $ map (:[]) $ concat attackerLists
                _ -> Epic.fail $ List.intercalate "\n" $ map show errors
+      attackers <- return $ case onlyAttacker options of
+        Nothing -> attackers
+        Just species -> filter (not . List.null) $
+          map (filter ((== species) . Pokemon.species)) attackers
 
       let weatherBonus =
             GameMaster.getWeatherBonus gameMaster $ maybeWeather options
