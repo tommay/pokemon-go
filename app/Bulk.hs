@@ -26,6 +26,7 @@ import qualified Debug
 data Options = Options {
   league  :: League,
   oneLine :: Bool,
+  summary :: Bool,
   isShadow :: Bool,
   isPurified :: Bool,
   isLucky :: Bool,
@@ -45,6 +46,7 @@ data League = Great | Ultra | Master | Peewee
 getOptions :: IO Options
 getOptions =
   let opts = Options <$> optLeague <*> optOneLine
+        <*> optSummary
         <*> optIsShadow <*> optIsPurified<*> optIsLucky
         <*> optSpecies <*> optEvolution
         <*> optLevelOrCp <*> optAttack <*> optDefense <*> optStamina
@@ -70,6 +72,10 @@ getOptions =
         (  O.long "one"
         <> O.short '1'
         <> O.help "Output only the final level")
+      optSummary = O.switch
+        (  O.long "summary"
+        <> O.short 's'
+        <> O.help "Show a single summary line")
       optIsShadow = O.switch
         (  O.long "shadow"
         <> O.short 'S'
@@ -188,15 +194,18 @@ main =
         PokeUtil.evolveSpeciesFullyWithCandy
           gameMaster maybeTarget speciesToEvolve
       baseEvolved <- GameMaster.getPokemonBase gameMaster speciesEvolved
-      if needsPurification
-        then putStrLn $ Printf.printf "pure:   %d/%d"
-          purificationStardustNeeded purificationCandyNeeded
-        else return ()
-      if evolveCandy /= 0
-        then putStrLn $ Printf.printf "evolve: /%d" evolveCandy
-        else return ()
-      putStrLn $ Printf.printf "move:   %d/%d"
-          thirdMoveStardust thirdMoveCandy
+      if not $ summary options
+        then do
+          if needsPurification
+            then putStrLn $ Printf.printf "pure:   %d/%d"
+              purificationStardustNeeded purificationCandyNeeded
+            else pure ()
+          if evolveCandy /= 0
+            then putStrLn $ Printf.printf "evolve: /%d" evolveCandy
+            else pure ()
+          putStrLn $ Printf.printf "move:   %d/%d"
+              thirdMoveStardust thirdMoveCandy
+        else pure ()
       let basePvpStardust = purificationStardustNeeded + thirdMoveStardust
           basePvpCandy = purificationCandyNeeded + evolveCandy + thirdMoveCandy
           purifyIv iv = if needsPurification
@@ -227,9 +236,19 @@ main =
         [] -> putStrLn $
           Printf.printf "%s CP is too high for %s league"
           (PokemonBase.species baseEvolved) (show $ league options)
-        _ -> mapM_ (putStrLn . makeOutputString) $ if oneLine options
-               then [last levelsAndCosts]
-               else levelsAndCosts
+        _ -> if summary options
+          then
+            let levelOrCpString = case levelOrCp options of
+                  Level level -> "-l " ++ (PokeUtil.levelToString level)
+                  Cp cp -> show cp
+                inputString = Printf.printf "%s %d %d %d" levelOrCpString
+                  (attack options) (defense options) (stamina options)
+                outputString = makeOutputString $ last levelsAndCosts
+             in Printf.printf "%-14s %s\n" (inputString ++ ":")
+               (outputString :: String)
+          else mapM_ (putStrLn . makeOutputString) $ if oneLine options
+            then [last levelsAndCosts]
+            else levelsAndCosts
     )
     $ Exit.die
 
