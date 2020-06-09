@@ -149,6 +149,17 @@ executable spam-exe
                      , yaml
   default-language:    Haskell2010
 
+executable best-exe
+  hs-source-dirs:      app
+  main-is:             Best.hs
+  ghc-options:         -O2 -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base
+                     , pokemon
+                     , optparse-applicative
+                     , text
+                     , attoparsec
+  default-language:    Haskell2010
+
 executable iv-exe
   hs-source-dirs:      app
   main-is:             IV.hs
