@@ -8,6 +8,7 @@ import           Data.Semigroup ((<>))
 
 import qualified Debug
 
+import           Control.Monad (forM_)
 import qualified Data.List as List
 import qualified Data.Ord as Ord
 import qualified Data.Text as Text
@@ -15,7 +16,7 @@ import qualified Data.Attoparsec.Text as Atto
 import qualified System.Exit as Exit
 
 data Options = Options {
-  filename :: FilePath,
+  filenames :: [FilePath],
   showSorted :: Bool,
   showKeep :: Bool,
   showDiscard :: Bool
@@ -32,9 +33,9 @@ data Stuff = Stuff {
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optFilepath
+  let opts = Options <$> optFilenames
         <*> optShowSorted <*> optShowKeep <*> optShowDiscard
-      optFilepath = O.strArgument
+      optFilenames = O.some $ O.strArgument
         (O.metavar "FILENAME"
         <> O.help "file with output from \"bulk\"")
       optShowSorted = O.switch
@@ -60,33 +61,56 @@ main =
     options <- getOptions
     let showDefault =
           not $ (showSorted options || showKeep options || showDiscard options)
-    lines <- readLines $ filename options
-    case mapM parseStuff lines of
+        filenames = Main.filenames options
+    -- contents :: [[String]]
+    contents <- mapM readLines filenames
+    case mapM (mapM parseStuff) contents of
       Left error -> putStrLn error
+      -- stuffs :: [[Stuff]]
       Right stuffs -> do
-        let sorted = List.sortBy compareStardust stuffs
-            keep = runningBestBy (Ord.comparing statProduct) sorted
-            discard = discardedBy (Ord.comparing description) sorted keep
+        -- examineds :: [([Stuff], [Stuff], [Stuff])]
+        let examineds = map examineStuff stuffs
             showLines = mapM_ (putStrLn . text)
-        if showSorted options || showDefault
+        forM_ (zip filenames examineds) $
+          \(filename, (sorted, keep, discard)) -> do
+            let showIf pred string =
+                  if pred then putStrLn string else return ()
+            showIf (length filenames > 1) $ "--- " ++ filename ++ ":"
+            if showSorted options || showDefault
+              then do
+                showIf (showKeep options || showDiscard options || showDefault) "sorted:"
+                showLines sorted
+              else pure ()
+            if showKeep options || showDefault
+              then do
+                showIf (showSorted options || showDiscard options || showDefault) "keep:"
+                showLines keep
+              else pure ()
+            if showDiscard options || showDefault
+              then do
+                showIf (showSorted options || showKeep options || showDefault) "discard:"
+                showLines discard
+              else pure ()
+        if (showDefault || showDiscard options) && length filenames > 1
           then do
-            showIf (showKeep options || showDiscard options || showDefault) "sorted:"
-            showLines sorted
-          else pure ()
-        if showKeep options || showDefault
-          then do
-            showIf (showSorted options || showDiscard options || showDefault) "keep:"
-            showLines keep
-          else pure ()
-        if showDiscard options || showDefault
-          then do
-            showIf (showSorted options || showKeep options || showDefault) "discard:"
-            showLines discard
+            let discards = map (\(_, _, d) -> d) examineds
+                isSame a b = description a == description b
+                discardFromAll = foldr1 (List.intersectBy isSame) discards
+            if length discardFromAll > 0
+              then do
+                putStrLn "discard from all:"
+                showLines discardFromAll
+              else pure ()
           else pure ()
 
-showIf :: Bool -> String -> IO ()
-showIf pred string =
-  if pred then putStrLn string else return ()
+-- -> ([sorted], [keep], [discard])
+--
+examineStuff :: [Stuff] -> ([Stuff], [Stuff], [Stuff])
+examineStuff stuffs =
+  let sorted = List.sortBy compareStardust stuffs
+      keep = runningBestBy (Ord.comparing statProduct) sorted
+      discard = discardedBy (Ord.comparing description) sorted keep
+  in (sorted, keep, discard)
 
 readLines :: FilePath -> IO [String]
 readLines = fmap lines . readFile
@@ -150,3 +174,7 @@ discardedBy compareTo (a:as) (b:bs) =
    case a `compareTo` b of
      EQ -> discardedBy compareTo as bs
      _ -> a : discardedBy compareTo as (b:bs)
+
+intersectOn :: Eq k => (a -> k) -> [a] -> [a] -> [a]
+intersectOn fn one two =
+  filter ((`elem` (map fn two)) . fn) one
