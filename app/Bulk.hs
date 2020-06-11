@@ -264,6 +264,6 @@ total gameMaster base ivs =
       defense' = fromIntegral $ PokemonBase.defense base + defense
       stamina' = fromIntegral $ PokemonBase.stamina base + stamina
       attackForLevel = attack' * cpMultiplier
-      statProduct = attackForLevel * (defense' * cpMultiplier) *
-        (stamina' * cpMultiplier)
+      hpForLevel = fromIntegral $ floor $ stamina' * cpMultiplier
+      statProduct = attackForLevel * (defense' * cpMultiplier) * hpForLevel
   in (attackForLevel, statProduct / 100000)
