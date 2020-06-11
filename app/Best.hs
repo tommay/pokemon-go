@@ -17,6 +17,7 @@ import qualified System.Exit as Exit
 
 data Options = Options {
   filenames :: [FilePath],
+  evalByAttack :: Bool,
   showSorted :: Bool,
   showKeep :: Bool,
   showDiscard :: Bool
@@ -33,11 +34,15 @@ data Stuff = Stuff {
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optFilenames
+  let opts = Options <$> optFilenames <*> optEvalByAttack
         <*> optShowSorted <*> optShowKeep <*> optShowDiscard
       optFilenames = O.some $ O.strArgument
         (O.metavar "FILENAME"
         <> O.help "file with output from \"bulk\"")
+      optEvalByAttack = O.switch
+        (  O.long "attack"
+        <> O.short 'a'
+        <> O.help "Evaluate by attack instead of stat product")
       optShowSorted = O.switch
         (  O.long "sorted"
         <> O.short 's'
@@ -69,7 +74,8 @@ main =
       -- stuffs :: [[Stuff]]
       Right stuffs -> do
         -- examineds :: [([Stuff], [Stuff], [Stuff])]
-        let examineds = map examineStuff stuffs
+        let evalField = if evalByAttack options then attack else statProduct
+            examineds = map (examineStuff evalField) stuffs
             showLines = mapM_ (putStrLn . text)
         forM_ (zip filenames examineds) $
           \(filename, (sorted, keep, discard)) -> do
@@ -105,10 +111,10 @@ main =
 
 -- -> ([sorted], [keep], [discard])
 --
-examineStuff :: [Stuff] -> ([Stuff], [Stuff], [Stuff])
-examineStuff stuffs =
+examineStuff :: Ord a => (Stuff -> a) -> [Stuff] -> ([Stuff], [Stuff], [Stuff])
+examineStuff evalField stuffs =
   let sorted = List.sortBy compareStardust stuffs
-      keep = runningBestBy (Ord.comparing statProduct) sorted
+      keep = runningBestBy (Ord.comparing evalField) sorted
       discard = discardedBy (Ord.comparing description) sorted keep
   in (sorted, keep, discard)
 
