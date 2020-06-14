@@ -180,7 +180,3 @@ discardedBy compareTo (a:as) (b:bs) =
    case a `compareTo` b of
      EQ -> discardedBy compareTo as bs
      _ -> a : discardedBy compareTo as (b:bs)
-
-intersectOn :: Eq k => (a -> k) -> [a] -> [a] -> [a]
-intersectOn fn one two =
-  filter ((`elem` (map fn two)) . fn) one
