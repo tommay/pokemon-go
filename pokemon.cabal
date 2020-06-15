@@ -158,6 +158,7 @@ executable best-exe
                      , optparse-applicative
                      , text
                      , attoparsec
+                     , data-ordlist
   default-language:    Haskell2010
 
 executable iv-exe

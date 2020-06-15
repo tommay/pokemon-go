@@ -9,6 +9,7 @@ import           Data.Semigroup ((<>))
 import qualified Debug
 
 import           Control.Monad (forM_)
+import qualified Data.List.Ordered as Ordered
 import qualified Data.List as List
 import qualified Data.Ord as Ord
 import qualified Data.Text as Text
@@ -114,9 +115,15 @@ main =
 examineStuff :: Ord a => (Stuff -> a) -> [Stuff] -> ([Stuff], [Stuff], [Stuff])
 examineStuff evalField stuffs =
   let sorted = List.sortBy compareStardust stuffs
-      keep = runningBestBy (Ord.comparing evalField) sorted
+      -- nubBy will keep only the elements with increasing evalField.
+      -- I.e., as we go through the list towards more expensive pokemon
+      -- we only keep them if they are better.
+      keep = Ordered.nubBy (lt evalField) sorted
       discard = discardedBy (Ord.comparing description) sorted keep
   in (sorted, keep, discard)
+
+lt :: Ord k => (a -> k) -> a -> a -> Bool
+lt fn a b = fn a < fn b
 
 readLines :: FilePath -> IO [String]
 readLines = fmap lines . readFile
@@ -160,15 +167,6 @@ compareStardust a b =
     GT -> GT
     EQ -> candy a `Ord.compare` candy b
     LT -> LT
-
--- Keep the items that are the best seen so far.
---
-runningBestBy :: (a -> a -> Ordering) -> [a] -> [a]
-runningBestBy _ [] = []
-runningBestBy _ [a] = [a]
-runningBestBy compareTo (a:b:as) = case a `compareTo` b of
-  LT -> a : runningBestBy compareTo (b:as)  -- keep a as the former best and move on
-  _ -> runningBestBy compareTo (a:as)       -- a is better, keep it and discard b
 
 -- Given an old list and a new list with some elements discarded, return
 -- the elements that were discarded.
