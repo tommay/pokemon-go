@@ -172,9 +172,11 @@ compareStardust a b =
 -- the elements that were discarded.
 --
 discardedBy :: (a -> a -> Ordering) -> [a] -> [a] -> [a]
-discardedBy _ old [] = old
-discardedBy _ [] _ = error "old list emptied before new list"
-discardedBy compareTo (a:as) (b:bs) =
-   case a `compareTo` b of
-     EQ -> discardedBy compareTo as bs
-     _ -> a : discardedBy compareTo as (b:bs)
+discardedBy compareTo old new =
+  let loop old [] = old
+      loop [] _ = error "discardedBy: old list emptied before new list"
+      loop (a:as) (b:bs) =
+        case a `compareTo` b of
+          EQ -> loop as bs
+          _ -> a : loop as (b:bs)
+  in loop old new
