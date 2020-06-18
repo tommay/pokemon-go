@@ -47,7 +47,7 @@ getOptions :: IO Options
 getOptions =
   let opts = Options <$> optLeague <*> optOneLine
         <*> optSummary
-        <*> optIsShadow <*> optIsPurified<*> optIsLucky
+        <*> optIsShadow <*> optIsPurified <*> optIsLucky
         <*> optSpecies <*> optEvolution
         <*> optLevelOrCp <*> optAttack <*> optDefense <*> optStamina
       optLeague =
@@ -134,16 +134,16 @@ main =
       options <- getOptions
       gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
       let species = Main.species options
-          isShadow' = isShadow options
-          isPurified' = isPurified options
-          isLucky' = isLucky options
-          needsPurification = isShadow' && isPurified'
+          isShadow = Main.isShadow options
+          isPurified = Main.isPurified options
+          isLucky = Main.isLucky options
+          needsPurification = isShadow && isPurified
           discounts = Discounts.new gameMaster
-            (isShadow' && not isPurified') isPurified' isLucky'
+            (isShadow && not isPurified) isPurified isLucky
           appendEvolvedSuffix =
-            if isPurified'
+            if isPurified
               then (++ "_PURIFIED")
-              else if isShadow'
+              else if isShadow
                 then (++ "_SHADOW")
                 else id
 
@@ -151,9 +151,9 @@ main =
       -- purification cost.
       baseCurrent <- do
         let speciesCurrent =
-              if isShadow'
+              if isShadow
                 then species ++ "_SHADOW"
-                else if isPurified'
+                else if isPurified
                   then species ++ "_PURIFIED"
                   else species
         GameMaster.getPokemonBase gameMaster speciesCurrent
