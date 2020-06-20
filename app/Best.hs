@@ -175,8 +175,8 @@ discardedBy :: (a -> a -> Ordering) -> [a] -> [a] -> [a]
 discardedBy compareTo old new =
   let loop old [] = old
       loop [] _ = error "discardedBy: old list emptied before new list"
-      loop (a:as) (b:bs) =
+      loop (a:as) old@(b:bs) =
         case a `compareTo` b of
           EQ -> loop as bs
-          _ -> a : loop as (b:bs)
+          _ -> a : loop as old
   in loop old new
