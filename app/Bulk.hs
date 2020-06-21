@@ -167,12 +167,12 @@ main =
           makeIVs level = IVs.new level
             (attack options) (defense options) (stamina options)
           allIVs = map makeIVs allLevels
-          calcCpForIvs = Calc.cp gameMaster
+          calcCpForIVs = Calc.cp gameMaster
       level <- do
         case levelOrCp options of
           Level level -> return level
           Cp cp ->
-            case List.find ((== cp) . calcCpForIvs baseCurrent) allIVs of
+            case List.find ((== cp) . calcCpForIVs baseCurrent) allIVs of
               Just ivs -> return $ IVs.level ivs
               Nothing -> Epic.fail "no possible level for cp and ivs"
       -- If both isShadow and isPurified are true, it means the command line
@@ -217,21 +217,33 @@ main =
             (purifyIv $ stamina options)
           allPureIVs = map makePureIVs allLevels
           pred = leaguePred $ league options
-          powerUpLevel = IVs.level $
-            firstWhere (pred . calcCpForIvs baseEvolved) allPureIVs
+          powerUpIVs = firstWhere (pred . calcCpForIVs baseEvolved) allPureIVs
+          powerUpLevel = IVs.level powerUpIVs
           levelsAndCosts = filter (\ (lvl, _, _) -> lvl <= powerUpLevel) $
             Powerups.levelsAndCosts gameMaster discounts level
+          getRank' = getRank gameMaster (pred . calcCpForIVs baseEvolved)
+            powerUpIVs
+          (statProductRank, statProductPercentile) = getRank'
+            (getStatProduct gameMaster baseEvolved)
+          (attackRank, attackPercentile) = getRank'
+            (getAttack gameMaster baseEvolved)
           makeOutputString (level, dust, candy) =
             let ivs = makePureIVs level
                 (attackForLevel, totalForLevel) =
                   total gameMaster baseEvolved ivs
-            in Printf.printf "%5d/%-4d: %-4s %.2f   %.2f"
+            in Printf.printf "%5d/%-4d: %-4s %.2f  %.2f"
                  (basePvpStardust + dust)
                  (basePvpCandy + candy)
                  (PokeUtil.levelToString level)
                  (totalForLevel *
                    if (league options) == Peewee then 1000 else 1)
                  attackForLevel
+      if not $ summary options
+        then do
+          Printf.printf "statProduct rank %d, >%.2f%%\n"
+            statProductRank statProductPercentile
+          Printf.printf "attack rank %d, >%.2f%%\n" attackRank attackPercentile
+            else pure ()
       case levelsAndCosts of
         [] -> putStrLn $
           Printf.printf "%s CP is too high for %s league"
@@ -244,8 +256,11 @@ main =
                 inputString = Printf.printf "%s %d %d %d" levelOrCpString
                   (attack options) (defense options) (stamina options)
                 outputString = makeOutputString $ last levelsAndCosts
-             in Printf.printf "%-14s %s\n" (inputString ++ ":")
-               (outputString :: String)
+                rankString = Printf.printf "sp %d >%.2f%%, atk %d >%.2f%%"
+                  statProductRank statProductPercentile
+                  attackRank attackPercentile
+             in Printf.printf "%-14s %s, %s\n" (inputString ++ ":")
+               (outputString :: String) (rankString :: String)
           else mapM_ (putStrLn . makeOutputString) $ if oneLine options
             then [last levelsAndCosts]
             else levelsAndCosts
@@ -267,3 +282,36 @@ total gameMaster base ivs =
       hpForLevel = fromIntegral $ floor $ stamina' * cpMultiplier
       statProduct = attackForLevel * (defense' * cpMultiplier) * hpForLevel
   in (attackForLevel, statProduct / 100000)
+
+getStatProduct :: GameMaster -> PokemonBase -> IVs -> Float
+getStatProduct gameMaster pokemonBase ivs =
+  snd $ total gameMaster pokemonBase ivs
+
+getAttack :: GameMaster -> PokemonBase -> IVs -> Float
+getAttack gameMaster pokemonBase ivs =
+  fst $ total gameMaster pokemonBase ivs
+
+-- The rank this determines matches the rank given by PokeGenie.  Which
+-- is good for PokeGenie.
+--
+getRank :: GameMaster -> (IVs -> Bool) -> IVs -> (IVs -> Float) ->
+  (Int, Float)
+getRank gameMaster areIVsOkForLeague ivs getMetricForIVs =
+  let allIVs = [(attack, defense, stamina) |
+        let ivs = [0..15],
+        attack <- ivs, defense <- ivs, stamina <- ivs]
+      powerupIVs = map (getPowerupIVs gameMaster areIVsOkForLeague) allIVs
+      allMetrics = map getMetricForIVs powerupIVs
+      metric = getMetricForIVs ivs
+      numberBetter = length $ filter (> metric) allMetrics
+      rank = numberBetter + 1
+      numberWorse = length $ filter (< metric) allMetrics
+      percentile =  fromIntegral numberWorse / fromIntegral (length allIVs)
+        * 100
+  in (rank, percentile)
+
+getPowerupIVs :: GameMaster -> (IVs -> Bool) -> (Int, Int, Int) -> IVs
+getPowerupIVs gameMaster areIVsOkForLeague (attack, defense, stamina) =
+  let allLevels = reverse $ GameMaster.powerUpLevels gameMaster
+      allIVs = map (\ level -> IVs.new level attack defense stamina) allLevels
+  in firstWhere areIVsOkForLeague allIVs
