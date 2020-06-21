@@ -163,7 +163,7 @@ main =
       baseToEvolve <- do
         GameMaster.getPokemonBase gameMaster speciesToEvolve
 
-      let allLevels = reverse $ GameMaster.allLevels gameMaster
+      let allLevels = reverse $ GameMaster.powerUpLevels gameMaster
           makeIVs level = IVs.new level
             (attack options) (defense options) (stamina options)
           allIVs = map makeIVs allLevels

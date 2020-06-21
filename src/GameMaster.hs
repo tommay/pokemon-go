@@ -38,6 +38,7 @@ module GameMaster (
   dustAndLevel,
   candyAndLevel,
   allLevels,
+  powerUpLevels,
   nextLevel,
   shadowStardustMultiplier,
   shadowCandyMultiplier,
@@ -256,12 +257,19 @@ candyAndLevel this =
   costAndLevel $ candyCost this
 
 -- allLevels returns all levels up through 45 which is the max level
--- with buddy cp boost.
+-- that team leaders and Team Rocket have.  Normal players can power
+-- up to 40 then get one more level with best buddy oost.
 --
 allLevels :: GameMaster -> [Float]
 allLevels =
   init . concat . map (\ (level, _) -> [level, level + 0.5])
     . zip [1..] . Vector.toList . cpMultipliers
+
+-- powerUpLevels returns the levels that pokemon can be powered up to.
+--
+powerUpLevels :: GameMaster -> [Float]
+powerUpLevels =
+  map snd . dustAndLevel
 
 nextLevel :: GameMaster -> Float -> Maybe (Int, Int, Float)
 nextLevel this level =
