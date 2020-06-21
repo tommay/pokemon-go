@@ -1,3 +1,7 @@
+# This file is no longer used now that GAME_MASTER.yaml has the legacy
+# moves as elite moves.  But it serves as a history of legacy/elite
+# moves.
+
 - species: pikachu
   moves:
   - SURF            # Community day 1/2018
@@ -116,6 +120,9 @@
   - SHADOW_BALL
   - HYPER_BEAM
   - PSYSTRIKE          # September 2019 ultra-bonus raid boss catch.
+- species: empoleon
+  moves:
+  - HYDRO_CANNON       # Community day 1/19/2020
 - species: lickitung
   moves:
   - BODY_SLAM          # Lickitung day 2/15/2020
@@ -134,7 +141,22 @@
 - species: cobalion
   moves:
   - SACRED_SWORD       # Cobalion raid weekend and GBL reward 3/2020
+# No community day 3/2020.
 - species: alakazam
   moves:
-  - COUNTER_FAST       # # Community day 4/2020
-
+  - COUNTER_FAST       # Community day 4/25/2020
+- species: ho-oh
+  moves:
+  - EARTHQUAKE         # Throwback Challenge timed research 5/2020
+- species: groudon
+  moves:
+  - FIRE_PUNCH         # Throwback Challenge timed research 5/2020
+- species: cresselia
+  moves:
+  - GRASS_KNOT         # Throwback Challenge timed research 5/2020
+- species: shiftry
+  moves:
+  - BULLET_SEED_FAST   # Community day 5/24/2020
+- species: beedrill
+  moves:
+  - DRILL_RUN          # Community day 6/20/2020
