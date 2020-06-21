@@ -119,7 +119,8 @@
   moves:
   - SHADOW_BALL
   - HYPER_BEAM
-  - PSYSTRIKE          # September 2019 ultra-bonus raid boss catch.
+  - PSYSTRIKE          # September 2019 ultra-bonus raid boss catch,
+                       # Throwback Challenge timed research 5/2020.
 - species: empoleon
   moves:
   - HYDRO_CANNON       # Community day 1/19/2020
