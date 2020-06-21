@@ -163,7 +163,7 @@ main =
       baseToEvolve <- do
         GameMaster.getPokemonBase gameMaster speciesToEvolve
 
-      let allLevels = GameMaster.allLevels gameMaster
+      let allLevels = reverse $ GameMaster.allLevels gameMaster
           makeIVs level = IVs.new level
             (attack options) (defense options) (stamina options)
           allIVs = map makeIVs allLevels
@@ -218,7 +218,7 @@ main =
           allPureIVs = map makePureIVs allLevels
           pred = leaguePred $ league options
           powerUpLevel = IVs.level $
-            lastWhere (pred . calcCpForIvs baseEvolved) allPureIVs
+            firstWhere (pred . calcCpForIvs baseEvolved) allPureIVs
           levelsAndCosts = filter (\ (lvl, _, _) -> lvl <= powerUpLevel) $
             Powerups.levelsAndCosts gameMaster discounts level
           makeOutputString (level, dust, candy) =
@@ -252,9 +252,9 @@ main =
     )
     $ Exit.die
 
-lastWhere :: (a -> Bool) -> [a] -> a
-lastWhere pred =
-  last . takeWhile pred
+firstWhere :: (a -> Bool) -> [a] -> a
+firstWhere pred =
+  head . filter pred
 
 total :: GameMaster -> PokemonBase -> IVs -> (Float, Float)
 total gameMaster base ivs =
