@@ -52,6 +52,10 @@ noDiscounts = Discounts {
 }
 
 shadowDiscounts gameMaster = noDiscounts {
+  -- XXX The stardust costs are weird and inconsistent.  For some values in
+  -- game_master the shadow cost is *1.2, for ssome it is *1.2 + 1, sometimes
+  -- it is based in the value for the previous or next level, and it isn't
+  -- consistent when comparing a level 1 zubat and a level 8 zubat.
   -- Not sure if this is rounded or what.  The candy cost for a level
   -- 13 pokemon is 2, for a shadow pokemon it is 3.  The multiplier is
   -- 1.2.
