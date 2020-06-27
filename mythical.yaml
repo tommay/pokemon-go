@@ -591,11 +591,11 @@ zebstrika:
 roggenrola:
 boldore:
 gigalith:
-woobat: mythical
-swoobat: mythical
+woobat:
+swoobat:
 drilbur: 
 excadrill:
-audino: mythical
+audino:
 timburr:
 gurdurr:
 conkeldurr:
@@ -625,11 +625,11 @@ darmanitan_zen: mythical
 maractus: # regional southern us, mexico, central america, carribean, south america
 dwebble:
 crustle:
-scraggy: mythical
-scrafty: mythical
+scraggy:
+scrafty:
 sigilyph: # regional egypt, greece
-yamask: mythical
-cofagrigus: mythical
+yamask:
+cofagrigus:
 tirtouga:
 carracosta:
 archen:
@@ -638,16 +638,16 @@ trubbish:
 garbodor:
 zorua: mythical
 zoroark: mythical
-minccino: mythical
-cinccino: mythical
-gothita: mythical
-gothorita: mythical
-gothitelle: mythical
-solosis: mythical
-duosion: mythical
-reuniclus: mythical
-ducklett: mythical
-swanna: mythical
+minccino:
+cinccino:
+gothita:
+gothorita:
+gothitelle:
+solosis:
+duosion:
+reuniclus:
+ducklett:
+swanna:
 vanillite: mythical
 vanillish: mythical
 vanilluxe: mythical
@@ -666,7 +666,7 @@ foongus:
 amoonguss:
 frillish: mythical
 jellicent: mythical
-alomomola: mythical
+alomomola:
 joltik:
 galvantula:
 ferroseed: 
@@ -704,7 +704,7 @@ braviary:
 vullaby: mythical
 mandibuzz: mythical
 heatmor: # regional western hemisphere
-durant: mythical # regional eastern hemisphere
+durant: # regional eastern hemisphere
 deino: 
 zweilous:
 hydreigon:
