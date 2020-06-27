@@ -148,7 +148,7 @@ parseStuff string =
         statProduct <- Atto.double
         Atto.skipSpace
         attack <- Atto.double
-        Atto.endOfInput
+        -- We've parsed what we need, just ignore the rest.
         return $ Stuff {
           text = string,
           description = description,
