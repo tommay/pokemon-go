@@ -31,6 +31,7 @@ module GameMaster (
   getLevelsForStardust,
   getStardustForLevel,
   allPokemonBases,
+  allSpecies,
   getType,
   getAllTypes,
   getWeatherBonus,
@@ -200,6 +201,9 @@ allPokemonBases this =
          removeLegacy $ PokemonBase.chargeMoves base)
   in Data.List.Extra.nubOn battleStats $ List.sortOn PokemonBase.species $
        HashMap.elems $ pokemonBases this
+
+allSpecies :: GameMaster -> [String]
+allSpecies = map PokemonBase.species . GameMaster.allPokemonBases
 
 getPokemonBase :: Epic.MonadCatch m => GameMaster -> String -> m PokemonBase
 getPokemonBase this speciesName =
