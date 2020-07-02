@@ -30,11 +30,16 @@ data Options = Options {
   defender :: Maybe String
 }
 
-getOptions :: IO Options
-getOptions =
+getOptions :: GameMaster -> IO Options
+getOptions gameMaster =
   let opts = Options <$> optAttacker <*> optDefender
-      optAttacker = O.strArgument (O.metavar "ATTACKER")
-      optDefender = O.optional $ O.strArgument (O.metavar "DEFENDER")
+      allSpecies = GameMaster.allSpecies gameMaster
+      optAttacker = O.strArgument
+        (  (O.metavar "ATTACKER")
+        <> O.completeWith allSpecies)
+      optDefender = O.optional $ O.strArgument
+        (  (O.metavar "DEFENDER")
+        <> O.completeWith allSpecies)
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc "Rate movesets by spamminess.")
@@ -44,8 +49,8 @@ getOptions =
 main =
   Epic.catch (
     do
-      options <- getOptions
       gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
+      options <- getOptions gameMaster
       base <- GameMaster.getPokemonBase gameMaster $ attacker options
       maybeDefenderBase <- do
         case defender options of
