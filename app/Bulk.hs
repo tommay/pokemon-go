@@ -256,9 +256,8 @@ main =
                 inputString = Printf.printf "%s %d %d %d" levelOrCpString
                   (attack options) (defense options) (stamina options)
                 outputString = makeOutputString $ last levelsAndCosts
-                rankString = Printf.printf "sp %d >%.2f%%, atk %d >%.2f%%"
-                  statProductRank statProductPercentile
-                  attackRank attackPercentile
+                rankString = Printf.printf "sp >%.2f%%, atk >%.2f%%"
+                  statProductPercentile attackPercentile
              in Printf.printf "%-14s %s, %s\n" (inputString ++ ":")
                (outputString :: String) (rankString :: String)
           else mapM_ (putStrLn . makeOutputString) $ if oneLine options
