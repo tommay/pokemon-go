@@ -114,7 +114,7 @@ main =
 --
 examineStuff :: Ord a => (Stuff -> a) -> [Stuff] -> ([Stuff], [Stuff], [Stuff])
 examineStuff evalField stuffs =
-  let sorted = List.sortBy compareStardust stuffs
+  let sorted = List.sortBy (compareStardust evalField) stuffs
       -- nubBy will keep only the elements with increasing evalField.
       -- I.e., as we go through the list towards more expensive pokemon
       -- we only keep them if they are better.
@@ -161,11 +161,14 @@ parseStuff string =
     Left error -> Left $ "Error parsing '" ++ string ++ "':\n" ++ error
     Right stuff -> Right stuff
 
-compareStardust :: Stuff -> Stuff -> Ordering
-compareStardust a b =
+compareStardust :: Ord a => (Stuff -> a) -> Stuff -> Stuff -> Ordering
+compareStardust evalField a b =
   case stardust a `Ord.compare` stardust b of
     GT -> GT
-    EQ -> candy a `Ord.compare` candy b
+    EQ -> case candy a `Ord.compare` candy b of
+      GT -> GT
+      EQ -> evalField b `Ord.compare` evalField a
+      LT -> LT
     LT -> LT
 
 -- Given an old list and a new list with some elements discarded, return
