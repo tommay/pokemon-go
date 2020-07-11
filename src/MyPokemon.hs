@@ -11,6 +11,7 @@ module MyPokemon (
   stardust,
   quickName,
   chargeName,
+  maybeChargeName2,
   ivs,
   stats,
   level,
@@ -50,6 +51,7 @@ data MyPokemon = MyPokemon {
   stardust    :: Int,
   quickName   :: String,
   chargeName  :: String,
+  maybeChargeName2 :: Maybe String,
   ivs         :: IVs,
   stats       :: Maybe Stats
 } deriving (Show)
@@ -67,6 +69,7 @@ instance Yaml.FromJSON MyPokemon where
           y .: "dust" <*>
           y .: "quick" <*>
           y .: "charge" <*>
+          y .:? "charge2" <*>
           y .: "ivs" <*>
           y .:? "stats"
 
@@ -80,6 +83,7 @@ instance Builder.ToYaml MyPokemon where
       "dust" .== stardust this,
       "quick" .== (Text.pack $ quickName this),
       "charge" .== (Text.pack $ chargeName this),
+      "charge2" .=? (Text.pack <$> maybeChargeName2 this),
       "ivs" .== ivs this,
       "stats" .=? stats this
     ]
