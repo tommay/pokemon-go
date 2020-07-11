@@ -18,6 +18,7 @@ while read stats; do
   if [[ "$stats" != [a-z]* ]]; then
     stats="$species $stats"
   fi
+  echo $stats >&2
   ./bulk -s -g $stats
 done <$1 | egrep -v "too high" >$1.great
 
@@ -25,6 +26,7 @@ while read stats; do
   if [[ "$stats" != [a-z]* ]]; then
     stats="$species $stats"
   fi
+  echo $stats >&2
   ./bulk -s -u $stats
 done <$1 | egrep -v "too high" >$1.ultra
 
