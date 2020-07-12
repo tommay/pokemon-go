@@ -12,6 +12,7 @@ module MyPokemon (
   quickName,
   chargeName,
   maybeChargeName2,
+  chargeNames,
   ivs,
   stats,
   level,
@@ -99,6 +100,10 @@ load maybeFilepath = do
     Right myPokemon -> return $ pure myPokemon
     Left yamlParseException ->
       Epic.fail $ Yaml.prettyPrintParseException yamlParseException
+
+chargeNames :: MyPokemon -> [String]
+chargeNames this =
+  Maybe.catMaybes [Just $ chargeName this, maybeChargeName2 this]
 
 level :: MyPokemon -> Float
 level = getIv IVs.level
