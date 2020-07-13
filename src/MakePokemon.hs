@@ -33,24 +33,24 @@ makePokemon gameMaster myPokemon = do
 
   let ivs = MyPokemon.ivs myPokemon
 
-  let getMove moveType moveListFunc getFunc keyFunc = do
-        move <- fromGameMaster getFunc keyFunc
+  let getMove moveType moveListFunc getFunc name = do
+        move <- fromGameMaster getFunc (const name)
         let moveList = moveListFunc base
         if move `elem` moveList
           then return move
           else Epic.fail $ species ++ " can't do " ++ moveType ++ " move " ++
-                 keyFunc myPokemon
+                 name
 
   quick <- do
     let split = Regex.mkRegex "([^,]*)(, *(.*))?"
         Just [quickName, _, extra] =
           Regex.matchRegex split $ MyPokemon.quickName myPokemon
     quick <- getMove "quick" PokemonBase.quickMoves
-      GameMaster.getQuick (const quickName)
+      GameMaster.getQuick quickName
     maybeSetHiddenPowerType gameMaster quick extra
 
   charge <- getMove "charge" PokemonBase.chargeMoves
-    GameMaster.getCharge MyPokemon.chargeName
+    GameMaster.getCharge (MyPokemon.chargeName myPokemon)
 
   return $ makeForWhatevers gameMaster ivs name base [quick] [charge]
 
