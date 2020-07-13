@@ -22,6 +22,8 @@ import           PokemonBase (PokemonBase)
 
 import qualified Text.Regex as Regex
 
+import qualified Debug as D
+
 makePokemon :: Epic.MonadCatch m => GameMaster -> MyPokemon -> m [Pokemon]
 makePokemon gameMaster myPokemon = do
   let name = MyPokemon.name myPokemon
@@ -49,10 +51,10 @@ makePokemon gameMaster myPokemon = do
       GameMaster.getQuick quickName
     maybeSetHiddenPowerType gameMaster quick extra
 
-  charge <- getMove "charge" PokemonBase.chargeMoves
-    GameMaster.getCharge (MyPokemon.chargeName myPokemon)
+  chargeMoves <- mapM (getMove "charge" PokemonBase.chargeMoves
+    GameMaster.getCharge) $ MyPokemon.chargeNames myPokemon
 
-  return $ makeForWhatevers gameMaster ivs name base [quick] [charge]
+  return $ makeForWhatevers gameMaster ivs name base [quick] chargeMoves
 
 makeWithAllMovesetsFromBase :: GameMaster -> IVs -> PokemonBase -> [Pokemon]
 makeWithAllMovesetsFromBase gameMaster ivs base =
