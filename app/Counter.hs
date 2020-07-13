@@ -219,9 +219,10 @@ main =
                 myPokemon <- join $ MyPokemon.load filename
                 let myPokemon' =
                       map (doTweakLevel $ tweakLevel options) myPokemon
-                -- makePokemon expands each MyPokemon into a [Pokemon] with
-                -- one Pokemon per possible IV, so the result of the mapM
-                -- (and of loadPokemon) is m [[Pokemon]].
+                -- makePokemon expands each MyPokemon into a [Pokemon]
+                -- with one Pokemon for each of the MyPokemon's charge
+                -- moves, so the result of the mapM (and of
+                -- loadPokemon) is m [[Pokemon]].
                 mapM (MakePokemon.makePokemon gameMaster) myPokemon'
           -- Load all the files and concat them into one [[Pokemon]].
           pokemonLists <- fmap concat $ mapM (loadPokemon . Just) filenames
