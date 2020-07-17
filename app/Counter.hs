@@ -80,7 +80,6 @@ data AttackerSource =
 
 data Result = Result {
   pokemon   :: Pokemon,
-  pokemonVariants :: [Pokemon],
   minDps    :: Float,
   minDamage :: Int,
   timeToFaint :: Float
@@ -212,36 +211,36 @@ main =
       -- attackers :: [[Pokemon]]
       attackers <- case attackerSource options of
         FromFiles filenames -> do
-          let loadPokemon filename = do
+          let loadPokemon :: Maybe FilePath -> IO [[Pokemon]]
+              loadPokemon filename = do
                 -- myPokemon is a [MyPokemon] with one MyPokemon for
                 -- each entry in the file.  Each MyPokemon may have
                 -- multiple possible IV sets.
                 myPokemon <- join $ MyPokemon.load filename
-                let myPokemon' =
-                      map (doTweakLevel $ tweakLevel options) myPokemon
-                -- makePokemon expands each MyPokemon into a [Pokemon]
-                -- with one Pokemon for each of the MyPokemon's charge
-                -- moves, so the result of the mapM (and of
-                -- loadPokemon) is m [[Pokemon]].
-                mapM (MakePokemon.makePokemon gameMaster) myPokemon'
+                myPokemon <-
+                  return $ map (doTweakLevel $ tweakLevel options) myPokemon
+                -- makePokemon expands each MyPokemon from the file
+                -- into m [Pokemon] with one Pokemon for each of the
+                -- MyPokemon's charge moves.  So the mapM and
+                -- loadPokemon return type m [[Pokemon]].
+                mapM (MakePokemon.makePokemon gameMaster) myPokemon
           -- Load all the files and concat them into one [[Pokemon]].
           pokemonLists <- fmap concat $ mapM (loadPokemon . Just) filenames
---          [[A1, A2], [B1]]
---          [[A1/1, A2/1], [A1/2, A1/2], [B1/1], [B1/2]]
-          let pokemonLists' = if showAllMovesets options
-                then concat $ map (expandMoves gameMaster) pokemonLists
+          pokemonLists <- return $ if showAllMovesets options
+                then map (expandMoves gameMaster) pokemonLists
                 else pokemonLists
+          -- Concatenate from [[Pokemon]] to [Pokemon].
+          pokemon <- return $ concat pokemonLists
           let maybeMaxCandy = Main.maybeMaxCandy options
               maybeMaxDust = Main.maybeMaxDust options
           if showPowerups options || Maybe.isJust maybeMaxCandy ||
               Maybe.isJust maybeMaxDust
             then return $
-              -- Turn each [Pokemon] into multiple lists of powered-up
-              -- Pokemon by turning each Pokemon into a list of
-              -- powered up Pokmon and concatenating the lists.
+              -- Turn each Pokemon into a list of powered-up
+              -- Pokemon then concat them into a single list.
               concat $ map (expandLevels gameMaster maybeMaxCandy maybeMaxDust)
-                pokemonLists'
-            else return pokemonLists'
+                pokemon
+            else return pokemon
         AllAttackers -> do
           mythicalMap <- join $ Mythical.load "mythical.yaml"
           let notMythical = not . Mythical.isMythical mythicalMap . PokemonBase.species
@@ -251,26 +250,18 @@ main =
                 then nonMythical
                 else filter notLegendary nonMythical
               ivs = IVs.tweakLevel (tweakLevel options) IVs.defaultIVs
-              allAttackers = map
+              allAttackers = concat $ map
                 (MakePokemon.makeWithAllMovesetsFromBase gameMaster ivs) bases
-          -- map (:[]) $ concat
-          -- turns [[attacker1a, attacker1b], [attacker2a, attacker2b]]
-          -- into [[attacker1a], [attacker1b], [attacker2a], [attacker2b]]
-          -- so a Result will be computed for each attack variant
-          -- individuallly.
-          if showAllMovesets options
-            then return $ map (:[]) $ concat allAttackers
-            else return $ allAttackers
+          return $ allAttackers
         MovesetFor battlers ->
           let (errors, attackerLists) = Either.partitionEithers $
                 map (makeWithAllMovesetsFromBattler gameMaster) battlers
           in case errors of
-               [] -> return $ map (:[]) $ concat attackerLists
+               [] -> return $ concat attackerLists
                _ -> Epic.fail $ List.intercalate "\n" $ map show errors
       attackers <- return $ case onlyAttacker options of
         Nothing -> attackers
-        Just species -> filter (not . List.null) $
-          map (filter ((== species) . Pokemon.species)) attackers
+        Just species -> filter ((== species) . Pokemon.species) attackers
 
       let weatherBonus =
             GameMaster.getWeatherBonus gameMaster $ maybeWeather options
@@ -333,53 +324,47 @@ main =
           putStrLn $ showResult nameFunc result
           if showBreakpoints options
             then
-              case pokemonVariants result of
-                [attacker] ->
-                  -- The defender moveset doesn't matter, so here we assume
-                  -- all variants have the same level and IVs.
-                  let defender = head defenderVariants
-                      breakpoints = Breakpoint.getBreakpoints
-                        gameMaster weatherBonus friendBonus
-                        attacker defender
-                  in case breakpoints of
-                       (_:_:_) ->  -- Only show if there are two or more.
-                         forM_ breakpoints $ \ (level, damage, dps) ->
-                           putStrLn $ Printf.printf "  %-4s %d  %.1f"
-                            (PokeUtil.levelToString level) damage dps
-                       _ -> return ()
-                _ -> putStrLn "  multiple attacker variants"
+              -- The defender moveset doesn't matter, so here we assume
+              -- all variants have the same level and IVs.
+              let attacker = pokemon result
+                  defender = head defenderVariants
+                  breakpoints = Breakpoint.getBreakpoints
+                    gameMaster weatherBonus friendBonus
+                    attacker defender
+              in case breakpoints of
+                (_:_:_) ->  -- Only show if there are two or more.
+                  forM_ breakpoints $ \ (level, damage, dps) ->
+                    putStrLn $ Printf.printf "  %-4s %d  %.1f"
+                     (PokeUtil.levelToString level) damage dps
+                _ -> return ()
             else return ()
     )
     $ Exit.die
 
--- pokemonList represents a single pokemon with multiple possible IVs,
--- e.g., [P/iv1, P/iv2, P/iv3].  Each element is mapped to P/ivN for
--- each moveset so we end up with [[P/iv1/m1, [P/iv1/m2], [P/iv2/m1,
--- P/iv2/m2]].
+-- pokemonList represents a single pokemon with one element for each
+-- charge move it has.  expandMoves creates an element for each
+-- possible moveset.  XXX It may be nicer to have MakePokemon take a
+-- flag that tells it to create all movesets, or to pass it the
+-- movesets to create, rather than hacking up the list it does create.
 --
-expandMoves :: GameMaster -> [Pokemon] -> [[Pokemon]]
+expandMoves :: GameMaster -> [Pokemon] -> [Pokemon]
 expandMoves gameMaster pokemonList =
   let typicalPokemon = head pokemonList
       base = Pokemon.base typicalPokemon
-      existingQuickMove = Pokemon.quick typicalPokemon
-      existingChargeMove = Pokemon.charge typicalPokemon
       allMovesets = [(quick, charge) |
         quick <- PokemonBase.quickMoves base,
         charge <- PokemonBase.chargeMoves base]
       isExistingMoveset quick charge =
-        quick == existingQuickMove &&
-        charge == existingChargeMove
-      notLegacyMove = not . Move.isLegacy
-      -- We only want to show the existing moves and any moves we can TM to.
-      movesetsToShow = filter (\ (quick, charge) ->
-          (notLegacyMove quick || quick == existingQuickMove) &&
-          (notLegacyMove charge || charge == existingChargeMove))
-        allMovesets
-      setMovesAndName quick charge pokemon =
-        let marker =
-              if isExistingMoveset quick charge
-                then "*-" :: String
-                else "  "
+        any (\p -> Pokemon.quick p == quick && Pokemon.charge p == charge)
+          pokemonList
+      -- In the past we only showed the existing moves and any moves
+      -- we can TM to.  But now elite TMs allow TMing to any move so
+      -- show everything.  Flag moves that require an elite TM.
+      setMovesAndName pokemon (quick, charge) =
+        let marker = case () of
+              _ | isExistingMoveset quick charge -> "*-" :: String
+              _ | Move.isLegacy quick || Move.isLegacy charge -> "$-"
+              _ -> "  "
             name = Printf.printf "%s%s [%s/%s]"
               marker
               (Pokemon.pname pokemon)
@@ -387,9 +372,7 @@ expandMoves gameMaster pokemonList =
               (Move.name charge)
         in Pokemon.setName name $
              PokeUtil.setMoves gameMaster quick charge pokemon
-  in map (\ (quick, charge) ->
-       map (setMovesAndName quick charge) pokemonList)
-       movesetsToShow
+  in map (setMovesAndName typicalPokemon) allMovesets
 
 showResult :: (Pokemon -> String) -> Result -> String
 showResult nameFunc result =
@@ -427,9 +410,9 @@ nameSpeciesAndLevelAndMoveset pokemon =
 
 -- [A:iva:0, A:ivb:0] -> [[A:iva:0, A:ivb:0], [A<1>:iva:1, A<1>:ivb:1]]
 --
-expandLevels :: GameMaster -> Maybe Int -> Maybe Int -> [Pokemon] -> [[Pokemon]]
-expandLevels gameMaster maybeMaxCandy maybeMaxDust pokemonList =
-  let pokemonLevel = Pokemon.level $ head pokemonList
+expandLevels :: GameMaster -> Maybe Int -> Maybe Int -> Pokemon -> [Pokemon]
+expandLevels gameMaster maybeMaxCandy maybeMaxDust pokemon =
+  let pokemonLevel = Pokemon.level pokemon
       powerupLevelsAndCosts =
         maybeFilter maybeMaxCandy
           (\ maxCandy (_, candy, _) -> candy <= maxCandy) $
@@ -442,10 +425,9 @@ expandLevels gameMaster maybeMaxCandy maybeMaxDust pokemonList =
           (Pokemon.pname pokemon)
           (PokeUtil.levelToString $ Pokemon.level pokemon))
         pokemon
-      setLevelAndName level pokemon =
+      setLevelAndName level =
         addLevelToName $ PokeUtil.setLevel gameMaster level pokemon
-  in pokemonList :
-       [map (setLevelAndName level) pokemonList | level <- powerupLevels]
+  in pokemon : map setLevelAndName powerupLevels
 
 maybeFilter :: Maybe a -> (a -> b -> Bool) -> [b] -> [b]
 maybeFilter maybeA pred list =
@@ -458,17 +440,14 @@ doTweakLevel tweakLevel myPokemon =
   MyPokemon.setIVs myPokemon $ IVs.tweakLevel tweakLevel $
     MyPokemon.ivs myPokemon
 
-counter :: (Pokemon -> Pokemon -> Battle) -> [Pokemon] -> [Pokemon] -> Result
-counter doOneBattle defenderVariants attackerVariants =
-  let battles = [doOneBattle attacker defender |
-        attacker <- attackerVariants,
-        defender <- defenderVariants]
+counter :: (Pokemon -> Pokemon -> Battle) -> [Pokemon] -> Pokemon -> Result
+counter doOneBattle defenderVariants attacker =
+  let battles = [doOneBattle attacker defender | defender <- defenderVariants]
       getMinValue fn = fn . List.minimumBy (Ord.comparing fn)
       minDamage = getMinValue Battle.damageInflicted battles
       minDps = getMinValue Battle.dps battles
       timeToFaint = getMinValue Battle.secondsElapsed battles
-  in Result (head attackerVariants) attackerVariants minDps minDamage
-       timeToFaint
+  in Result attacker minDps minDamage timeToFaint
 
 allAttackers :: GameMaster -> IVs -> [[Pokemon]]
 allAttackers gameMaster ivs =

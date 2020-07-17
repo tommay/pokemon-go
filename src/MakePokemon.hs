@@ -24,6 +24,9 @@ import qualified Text.Regex as Regex
 
 import qualified Debug as D
 
+-- Turn each MyPokemon into a list of Pokemon, one for each of the
+-- MyPokemon's charge moves.
+--
 makePokemon :: Epic.MonadCatch m => GameMaster -> MyPokemon -> m [Pokemon]
 makePokemon gameMaster myPokemon = do
   let name = MyPokemon.name myPokemon
