@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# rate.sh species.team
+# rate.sh [-e evolved_species] species.team
 #
 # Used to help decide which pokemon to keep go pvp.
 #
@@ -8,6 +8,11 @@
 # and species.team.ultra.  Then use "best [-a] species.team.great" or
 # "best [-a] species.team.*" to sort by stat product or attack and
 # decide which pokemon to keep.
+
+if [[ "$1" == "-e" ]]; then
+  evolved="-e $2"
+  shift; shift
+fi
 
 species=${1%%.*}           # Extract just the species from species.team.
 species=${species##*/}     # Remove any directory.
@@ -19,7 +24,7 @@ while read stats; do
     stats="$species $stats"
   fi
   echo $stats >&2
-  ./bulk -s -g $stats
+  ./bulk -s $evolved -g $stats
 done <$1 | egrep -v "too high" >$1.great
 
 while read stats; do
@@ -27,7 +32,7 @@ while read stats; do
     stats="$species $stats"
   fi
   echo $stats >&2
-  ./bulk -s -u $stats
+  ./bulk -s $evolved -u $stats
 done <$1 | egrep -v "too high" >$1.ultra
 
 
