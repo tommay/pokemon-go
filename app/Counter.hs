@@ -228,7 +228,7 @@ main =
           pokemonLists <- fmap concat $ mapM (loadPokemon . Just) filenames
           pokemonLists <- return $ if showAllMovesets options
                 then map (expandMoves gameMaster) pokemonLists
-                else pokemonLists
+                else map (flagNamesForMultipleMoves) pokemonLists
           -- Concatenate from [[Pokemon]] to [Pokemon].
           pokemon <- return $ concat pokemonLists
           let maybeMaxCandy = Main.maybeMaxCandy options
@@ -373,6 +373,17 @@ expandMoves gameMaster pokemonList =
         in Pokemon.setName name $
              PokeUtil.setMoves gameMaster quick charge pokemon
   in map (setMovesAndName typicalPokemon) allMovesets
+
+-- As a heads up that a pokemon has multiple charge moves so I should
+-- be careful to use the correct one, flag pokemon with multiple moves
+-- by adding "<" or ">" to indicate which charge move to use.
+--
+flagNamesForMultipleMoves :: [Pokemon] -> [Pokemon]
+flagNamesForMultipleMoves pokemonList = case pokemonList of
+  [left, right] ->
+    let appendToName string p = Pokemon.setName (Pokemon.pname p ++ string) p
+    in [appendToName " <" left, appendToName " >" right]
+  _ -> pokemonList
 
 showResult :: (Pokemon -> String) -> Result -> String
 showResult nameFunc result =
