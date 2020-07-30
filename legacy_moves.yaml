@@ -161,3 +161,9 @@
 - species: beedrill
   moves:
   - DRILL_RUN          # Community day 6/20/2020
+- species: gengar
+  moves:
+  - SHADOW_PUNCH       # Community day 7/2020
+- species: gyarados
+  moves:
+  - AQUA_TAIL          # Community day 8/8/2020
