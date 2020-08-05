@@ -10,12 +10,18 @@
 # decide which pokemon to keep.
 
 if [[ "$1" == "-e" ]]; then
-  evolved="-e $2"
+  evolved_species="$2"
+  evolved="-e $evolved_species"
   shift; shift
+else
+  evolved_species=$(./evolvecp $species | tail -n 1 | sed "s/:.*//")
 fi
 
-species=${1%%.*}           # Extract just the species from species.team.
-species=${species##*/}     # Remove any directory.
+dir=${1%/*}                 # Remove filename, keep directory.
+file=${1##*/}               # Remove directory, keep filename.
+
+species=${file%.*}          # Remove team, keep species from species.team.
+team=${file#*.}             # Remove species, keep team from species.team.
 
 rate() {
   league="$1"
@@ -30,6 +36,7 @@ rate() {
   done | egrep -v "too high"
 }
 
-rate -g <$1 >$1.great
-rate -u <$1 >$1.ultra
-rate -m <$1 >$1.master
+out=$dir/$evolved_species.$team
+rate -g <$1 >$out.great
+rate -u <$1 >$out.ultra
+rate -m <$1 >$out.master
