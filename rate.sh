@@ -17,22 +17,19 @@ fi
 species=${1%%.*}           # Extract just the species from species.team.
 species=${species##*/}     # Remove any directory.
 
-while read stats; do
-  # If the stats line starts with a letter then it already includes
-  # the species, else prepend the species.
-  if [[ "$stats" != [a-z]* ]]; then
-    stats="$species $stats"
-  fi
-  echo $stats >&2
-  ./bulk -s $evolved -g $stats
-done <$1 | egrep -v "too high" >$1.great
+rate() {
+  league="$1"
+  while read stats; do
+    # If the stats line starts with a letter then it already includes
+    # the species, else prepend the species.
+    if [[ "$stats" != [a-z]* ]]; then
+      stats="$species $stats"
+    fi
+    echo $stats >&2
+    ./bulk -s $evolved $league $stats
+  done | egrep -v "too high"
+}
 
-while read stats; do
-  if [[ "$stats" != [a-z]* ]]; then
-    stats="$species $stats"
-  fi
-  echo $stats >&2
-  ./bulk -s $evolved -u $stats
-done <$1 | egrep -v "too high" >$1.ultra
-
-
+rate -g <$1 >$1.great
+rate -u <$1 >$1.ultra
+rate -m <$1 >$1.master
