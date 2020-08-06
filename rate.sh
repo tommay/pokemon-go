@@ -13,8 +13,6 @@ if [[ "$1" == "-e" ]]; then
   evolved_species="$2"
   evolved="-e $evolved_species"
   shift; shift
-else
-  evolved_species=$(./evolvecp $species | tail -n 1 | sed "s/:.*//")
 fi
 
 dir=${1%/*}                 # Remove filename, keep directory.
@@ -22,6 +20,10 @@ file=${1##*/}               # Remove directory, keep filename.
 
 species=${file%.*}          # Remove team, keep species from species.team.
 team=${file#*.}             # Remove species, keep team from species.team.
+
+if [[ "$evolved_species" == "" ]]; then
+  evolved_species=$(./evolvecp $species | tail -n 1 | sed "s/:.*//")
+fi
 
 rate() {
   league="$1"
