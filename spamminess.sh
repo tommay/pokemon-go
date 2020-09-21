@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Sorts all pokemon+moveset first by spamminess (how many turns if
+# Sorts all pokemon+moveset first by spamminess (how many turns it
 # takes for them to do a change move, lowest first) and secondarily by
 # how much damage they do adjusted for the moves' STAB.
 #
