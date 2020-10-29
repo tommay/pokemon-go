@@ -28,13 +28,16 @@ fi
 rate() {
   league="$1"
   while read stats; do
-    # If the stats line starts with a letter then it already includes
-    # the species, else prepend the species.
-    if [[ "$stats" != [a-z]* ]]; then
-      stats="$species $stats"
+    # If the line is a comment then ignore it.
+    if [[ "$stats" != \#* ]]; then
+      # If the stats line starts with a letter then it already includes
+      # the species, else prepend the species.
+      if [[ "$stats" != [a-z]* ]]; then
+        stats="$species $stats"
+      fi
+      echo $stats >&2
+      ./bulk -s $evolved $league $stats
     fi
-    echo $stats >&2
-    ./bulk -s $evolved $league $stats
   done | egrep -v "too high"
 }
 
