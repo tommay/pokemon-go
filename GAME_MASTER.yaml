@@ -50473,6 +50473,10 @@ itemTemplate:
     isTransferable: true
     isDeployable: true
     buddyGroupNumber: 2
+    evolutionBranch:
+    - evolution: SIRFETCHD
+      candyCost: 100
+      form: SIRFETCHD_NORMAL
 - templateId: V0083_POKEMON_FARFETCHD_NORMAL
   pokemon:
     uniqueId: FARFETCHD
