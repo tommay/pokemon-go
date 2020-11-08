@@ -14,10 +14,12 @@
 # for great league.
 
 all_pokemon=$(./tankiness | awk '{ print $1 }')
-
 for p in $all_pokemon; do
-  ./spam $p |
-    awk -F: '{ print $2, $1 }' |
-    sed -e "s/^ *//" -e "s/ *$/ $p/"
-done | sort -k 1n -k 2nr
+  # XXX Should have a switch to filter types for various cups.
+  if true || ./effectivenessagainst $p | egrep -q "type: .*flying"; then
+    ./spam $p |
+      awk -F: '{ print $2, $1 }' |
+      sed -e "s/^ *//" -e "s/ *$/ $p/"
+  fi
+done #| sort -k 1n -k 2nr
 
