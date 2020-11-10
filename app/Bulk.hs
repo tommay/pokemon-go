@@ -40,7 +40,7 @@ data Options = Options {
 
 data LevelOrCp = Level Float | Cp Int
 
-data League = Great | Ultra | Master | Peewee
+data League = Little | Great | Ultra | Master | Peewee
   deriving (Eq, Show)
 
 getOptions :: IO Options
@@ -51,7 +51,11 @@ getOptions =
         <*> optSpecies <*> optEvolution
         <*> optLevelOrCp <*> optAttack <*> optDefense <*> optStamina
       optLeague =
-            O.flag' Great (
+            O.flag' Little (
+              O.short 'l' <>
+              O.long "little" <>
+              O.help "little league")
+        <|> O.flag' Great (
               O.short 'g' <>
               O.long "great" <>
               O.help "great league")
@@ -120,6 +124,7 @@ getOptions =
 leaguePred :: League -> (Int -> Bool)
 leaguePred league =
   case league of
+    Little -> (<= 500)
     Great -> (<= 1500)
     Ultra -> (<= 2500)
     Master -> const True
