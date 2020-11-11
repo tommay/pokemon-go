@@ -194,10 +194,15 @@ main =
           (thirdMoveStardust, thirdMoveCandy) =
             PokemonBase.thirdMoveCost baseToEvolve
 
-      (speciesEvolved, evolveCandy) <- do
-        let maybeTarget = appendEvolvedSuffix <$> maybeEvolution options
-        PokeUtil.evolveSpeciesFullyWithCandy
-          gameMaster maybeTarget speciesToEvolve
+      -- Little league pokemon must be unevolved so just use the species
+      -- as given.
+      (speciesEvolved, evolveCandy) <- if league options == Little
+            then return $ (speciesToEvolve, 0)
+            else do
+              let maybeTarget = appendEvolvedSuffix <$> maybeEvolution options
+              PokeUtil.evolveSpeciesFullyWithCandy
+                gameMaster maybeTarget speciesToEvolve
+
       baseEvolved <- GameMaster.getPokemonBase gameMaster speciesEvolved
       if not $ summary options
         then do
