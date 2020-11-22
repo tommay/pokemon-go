@@ -170,14 +170,6 @@ getMaybeModificationTime filename = do
     Left ioError -> Nothing
     Right time -> Just time
 
-readYaml :: Epic.MonadCatch m => FilePath -> IO (m GameMaster)
-readYaml filename = do
-  either <- Yaml.decodeFileEither filename
-  case either of
-    Left yamlParseException -> Epic.fail $ show yamlParseException
-    Right yamlObject -> do
-      return $ makeGameMaster yamlObject
-
 allPokemonBases :: GameMaster -> [PokemonBase]
 allPokemonBases this =
   -- Doing nubOn battleStats filters out pokemon that, for battle, are
