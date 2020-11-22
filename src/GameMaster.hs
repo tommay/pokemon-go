@@ -2,7 +2,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 -- This uses the Data.Store serialization library to cache a binary
--- version of GameMaster because reading GAME_MASTER.yaml has gotten
+-- version of GameMaster because reading V2_GAME_MASTER.yaml has gotten
 -- pretty slow as the file gets larger and larger.  To do this,
 -- GameMaster and the types it uses need to be instances of the
 -- library's serializable typeclass.  The easiest way to do that is to
@@ -116,7 +116,7 @@ new = GameMaster
 
 load :: Epic.MonadCatch m => IO (m GameMaster)
 load = do
-  let filename = "GAME_MASTER.yaml"
+  let filename = "V2_GAME_MASTER.yaml"
   let cacheFileName = "/tmp/" ++ filename ++ ".cache"
   maybeGameMaster <- do
     cacheIsNewer <- cacheFileName `isNewerThan` filename
@@ -349,13 +349,22 @@ makeGameMaster yamlObject = do
     luckyPowerUpStardustDiscountPercent
     weatherBonusMap
 
+-- The yaml file is mostly one big array called "template":
+-- template:
+-- - templateId: AR_TELEMETRY_SETTINGS
+--   data:
+--     templateId: AR_TELEMETRY_SETTINGS
+-- What we really want is the "data" hash from each "template" element.
+-- So get the template array when map over it to extract the data.
+--
 -- Here it's nice to use Yaml.Parser because it will error if we don't
 -- get a [ItemTemplate], i.e., it checks that the Yaml.Values are the
 -- correct type thanks to type inference.
 --
 getItemTemplates :: Epic.MonadCatch m => Yaml.Object -> m [ItemTemplate]
-getItemTemplates yamlObject =
-  Epic.toEpic $ Yaml.parseEither (.: "itemTemplate") yamlObject
+getItemTemplates yamlObject = do
+  templates <- Epic.toEpic $ Yaml.parseEither (.: "template") yamlObject
+  Epic.toEpic $ mapM (Yaml.parseEither (.: "data")) templates
 
 getTypes :: Epic.MonadCatch m => [ItemTemplate] -> m (StringMap Type)
 getTypes itemTemplates = do
@@ -402,7 +411,7 @@ getMoves :: Epic.MonadCatch m =>
   (ItemTemplate -> m (Maybe Move)) -> [ItemTemplate] ->
   m (StringMap Move)
 getMoves makeMaybeMove itemTemplates = do
-  maybeMoveMap <- makeObjects "move" (getNameFromKey "movementId")
+  maybeMoveMap <- makeObjects "move" (getNameFromKey "uniqueId")
     makeMaybeMove itemTemplates
   -- Use (mapMaybe id) to discard any Nothing values, and turn Just Move
   -- into Move values.
@@ -413,7 +422,7 @@ makeMaybeMove :: Epic.MonadCatch m =>
   StringMap PvpChargedMove -> ItemTemplate -> m (Maybe Move)
 makeMaybeMove types pvpFastMoves pvpChargedMoves itemTemplate = do
   let getTemplateValue text = getObjectValue itemTemplate text
-  name <- getTemplateValue "movementId"
+  name <- getTemplateValue "uniqueId"
   let maybeMoveStats = if List.isSuffixOf "_FAST" name
         then case HashMap.lookup name pvpFastMoves of
           Nothing -> Nothing
@@ -435,7 +444,7 @@ makeMaybeMove types pvpFastMoves pvpChargedMoves itemTemplate = do
       Just <$> (Move.new
         <$> pure name
         <*> do
-          typeName <- getTemplateValue "pokemonType"
+          typeName <- getTemplateValue "type"
           get types typeName
         <*> getObjectValueWithDefault 0 itemTemplate "power"
         <*> ((/1000) <$> getTemplateValue "durationMs")
