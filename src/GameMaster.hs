@@ -114,8 +114,9 @@ type ItemTemplate = Yaml.Object
 
 new = GameMaster
 
-load :: Epic.MonadCatch m => FilePath -> IO (m GameMaster)
-load filename = do
+load :: Epic.MonadCatch m => IO (m GameMaster)
+load = do
+  let filename = "GAME_MASTER.yaml"
   let cacheFileName = "/tmp/" ++ filename ++ ".cache"
   maybeGameMaster <- do
     cacheIsNewer <- cacheFileName `isNewerThan` filename

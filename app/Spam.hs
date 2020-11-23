@@ -49,7 +49,7 @@ getOptions gameMaster =
 main =
   Epic.catch (
     do
-      gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
+      gameMaster <- join $ GameMaster.load
       options <- getOptions gameMaster
       base <- GameMaster.getPokemonBase gameMaster $ attacker options
       maybeDefenderBase <- do

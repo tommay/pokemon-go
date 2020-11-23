@@ -80,7 +80,7 @@ main =
     do
       options <- getOptions
 
-      gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
+      gameMaster <- join $ GameMaster.load
 
       attackerVariants <-
         BattlerUtil.makeBattlerVariants gameMaster (attacker options)

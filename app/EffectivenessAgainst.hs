@@ -36,7 +36,7 @@ main =
   Epic.catch (
     do
       options <- getOptions
-      gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
+      gameMaster <- join $ GameMaster.load
       let speciesOrType = Main.speciesOrType options
       types <- do
         case GameMaster.getType gameMaster speciesOrType of

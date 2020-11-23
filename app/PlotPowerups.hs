@@ -153,7 +153,7 @@ main =
     do
       options <- getOptions
 
-      gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
+      gameMaster <- join $ GameMaster.load
 
       let weatherBonus =
             GameMaster.getWeatherBonus gameMaster $ maybeWeather options

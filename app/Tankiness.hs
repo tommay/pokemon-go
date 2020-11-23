@@ -26,7 +26,7 @@ import qualified Text.Printf as Printf
 main =
   Epic.catch (
     do
-      gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
+      gameMaster <- join $ GameMaster.load
       let allBases = GameMaster.allPokemonBases gameMaster
           pvpCapable = filter ((>= 1430) . maxCp gameMaster) allBases
           augmented = Util.augment tankiness pvpCapable

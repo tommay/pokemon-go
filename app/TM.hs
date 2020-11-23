@@ -42,7 +42,7 @@ main =
     do
       options <- getOptions
 
-      gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
+      gameMaster <- join $ GameMaster.load
 
       matchups <- join $ Matchup.load "matchups.out"
 

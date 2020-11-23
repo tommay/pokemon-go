@@ -36,7 +36,7 @@ main =
     do
       options <- getOptions
 
-      gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
+      gameMaster <- join $ GameMaster.load
       base <- GameMaster.getPokemonBase gameMaster $ Main.species options
 
       let attack level atkIv =

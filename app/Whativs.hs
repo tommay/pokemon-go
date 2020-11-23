@@ -46,7 +46,7 @@ main =
   Epic.catch (
     do
       options <- getOptions
-      gameMaster <- join $ GameMaster.load "GAME_MASTER.yaml"
+      gameMaster <- join $ GameMaster.load
       let species = Main.species options
           cp = Main.cp options
       base <- GameMaster.getPokemonBase gameMaster species
