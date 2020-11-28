@@ -604,23 +604,23 @@ palpitoad:
 seismitoad:
 throh: # regional north america, south america, africa
 sawk: # regional europe, asia, australia
-sewaddle: mythical
-swadloon: mythical
-leavanny: mythical
+sewaddle:
+swadloon:
+leavanny:
 venipede:
 whirlipede:
 scolipede:
-cottonee: mythical
-whimsicott: mythical
-petilil: mythical
-lilligant: mythical
+cottonee:
+whimsicott:
+petilil:
+lilligant:
 basculin_blue_striped: # regional western hemispjere
 basculin_red_striped: # regional eastern hemispjere
 sandile: mythical
 krokorok: mythical
 krookodile: mythical
-darumaka: mythical
-darmanitan_standard: mythical
+darumaka:
+darmanitan_standard:
 darmanitan_zen: mythical
 maractus: # regional southern us, mexico, central america, carribean, south america
 dwebble:
@@ -651,15 +651,15 @@ swanna:
 vanillite: mythical
 vanillish: mythical
 vanilluxe: mythical
-deerling_autumn: mythical
+deerling_autumn:
 deerling_spring: mythical
 deerling_summer: mythical
 deerling_winter: mythical
-sawsbuck_autumn: mythical
+sawsbuck_autumn:
 sawsbuck_spring: mythical
 sawsbuck_summer: mythical
 sawsbuck_winter: mythical
-emolga: mythical
+emolga:
 karrablast:
 escavalier:
 foongus: 
@@ -677,8 +677,8 @@ klinklang:
 tynamo: mythical
 eelektrik: mythical
 eelektross: mythical
-elgyem: mythical
-beheeyem: mythical
+elgyem:
+beheeyem:
 litwick: 
 lampent: 
 chandelure: 
@@ -696,9 +696,9 @@ mienshao: mythical
 druddigon: mythical
 golett: 
 golurk:
-pawniard: mythical
-bisharp: mythical
-bouffalant: mythical
+pawniard:
+bisharp:
+bouffalant: # regional, new york
 rufflet:
 braviary:
 vullaby: mythical
