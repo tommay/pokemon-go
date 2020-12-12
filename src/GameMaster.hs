@@ -100,6 +100,7 @@ data GameMaster = GameMaster {
   shadowCandyMultiplier      :: Float,
   purifiedStardustMultiplier :: Float,
   purifiedCandyMultiplier    :: Float,
+  xlCandyCost   :: [Int],
   luckyPowerUpStardustDiscountPercent :: Float,
   weatherBonusMap :: HashMap Weather (HashMap Type Float)
 } deriving (Show, Generic)
@@ -323,6 +324,7 @@ makeGameMaster yamlObjects = do
   shadowCandyMultiplier <- getFromPokemonUpgrades "shadowCandyMultiplier"
   purifiedStardustMultiplier <- getFromPokemonUpgrades "purifiedStardustMultiplier"
   purifiedCandyMultiplier <- getFromPokemonUpgrades "purifiedCandyMultiplier"
+  xlCandyCost <- getFromPokemonUpgrades "xlCandyCost"
   luckyPowerUpStardustDiscountPercent <- do
      luckyPokemonSetttings <- getFirst itemTemplates "luckyPokemonSettings"
      getObjectValue luckyPokemonSetttings "powerUpStardustDiscountPercent"
@@ -347,6 +349,7 @@ makeGameMaster yamlObjects = do
     stardustCost candyCost
     shadowStardustMultiplier shadowCandyMultiplier
     purifiedStardustMultiplier purifiedCandyMultiplier
+    xlCandyCost
     luckyPowerUpStardustDiscountPercent
     weatherBonusMap
 
