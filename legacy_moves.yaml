@@ -167,3 +167,15 @@
 - species: gyarados
   moves:
   - AQUA_TAIL          # Community day 8/8/2020
+- species: porygon_z
+  moves:
+  - TRI_ATTACK         # Community day 9/20/2020
+- species: charizard
+  moves:
+  - DRAGON_BREATH      # Community day 10/17/2020
+- species: electivire
+  moves:
+  - flamethrower       # Community day 11/15/2020
+- species: magmortar
+  moves:
+  - thunderbolt        # Community day 11/21/2020
