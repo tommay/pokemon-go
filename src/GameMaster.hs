@@ -592,7 +592,9 @@ makePokemonBase types moves forms pokemonSettings =
             candyCost <- case getObjectValue branch "candyCost" of
               Right candyCost -> return candyCost
               Left _ -> getValue "candyToEvolve"
-            return (evolution, candyCost))
+            noCandyCostViaTrade <- getObjectValueWithDefault False
+              branch "noCandyCostViaTrade"
+            return (evolution, candyCost, noCandyCostViaTrade))
             -- Parts of GAME_MASTER seem to be in shambles as gen 4 is
             -- being released.  Filter out seemingly malformed elements
             -- that don't have an evolution.

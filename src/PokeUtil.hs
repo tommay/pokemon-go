@@ -124,7 +124,7 @@ evolutionChains gameMaster (species, candy) = do
   case PokemonBase.evolutions base of
     [] -> return [[(species, candy)]]
     evolutions -> do
-      concat <$> (mapM (\ (evolution, candy') -> do
+      concat <$> (mapM (\ (evolution, candy', _) -> do
           rest <- evolutionChains gameMaster (evolution, candy + candy')
           return $ map ((species, candy):) rest))
         evolutions

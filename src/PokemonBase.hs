@@ -36,7 +36,7 @@ data PokemonBase = PokemonBase {
   attack       :: Int,
   defense      :: Int,
   stamina      :: Int,
-  evolutions   :: [(String, Int)],
+  evolutions   :: [(String, Int, Bool)],
   quickMoves   :: [Move],
   chargeMoves  :: [Move],
   parent       :: Maybe String,
