@@ -263,10 +263,11 @@ allLevels =
     . zip [1..] . Vector.toList . cpMultipliers
 
 -- powerUpLevels returns the levels that pokemon can be powered up to.
+-- XXX for now I'm excluding levels that require candyXL.
 --
 powerUpLevels :: GameMaster -> [Float]
 powerUpLevels =
-  map snd . dustAndLevel
+  take 79 . map snd . dustAndLevel
 
 nextLevel :: GameMaster -> Float -> Maybe (Int, Int, Float)
 nextLevel this level =
