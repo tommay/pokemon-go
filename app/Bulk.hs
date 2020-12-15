@@ -30,6 +30,7 @@ data Options = Options {
   isShadow :: Bool,
   isPurified :: Bool,
   isLucky :: Bool,
+  isTraded :: Bool,
   species :: String,
   maybeEvolution :: Maybe String,
   levelOrCp :: LevelOrCp,
@@ -47,7 +48,7 @@ getOptions :: IO Options
 getOptions =
   let opts = Options <$> optLeague <*> optOneLine
         <*> optSummary
-        <*> optIsShadow <*> optIsPurified <*> optIsLucky
+        <*> optIsShadow <*> optIsPurified <*> optIsLucky <*> optIsTraded
         <*> optSpecies <*> optEvolution
         <*> optLevelOrCp <*> optAttack <*> optDefense <*> optStamina
       optLeague =
@@ -92,6 +93,10 @@ getOptions =
         (  O.long "lucky"
         <> O.short 'L'
         <> O.help "Compute for lucky pokemon")
+      optIsTraded = O.switch
+        (  O.long "traded"
+        <> O.short 'T'
+        <> O.help "Pokemon has been traded, evolution may be free")
       optSpecies = O.argument O.str (O.metavar "SPECIES")
       optEvolution = O.optional $ O.strOption
         (  O.long "evolution"
@@ -201,7 +206,7 @@ main =
             else do
               let maybeTarget = appendEvolvedSuffix <$> maybeEvolution options
               PokeUtil.evolveSpeciesFullyWithCandy
-                gameMaster maybeTarget speciesToEvolve
+                gameMaster (isTraded options) maybeTarget speciesToEvolve
 
       baseEvolved <- GameMaster.getPokemonBase gameMaster speciesEvolved
       if not $ summary options

@@ -86,7 +86,7 @@ evolveFullyWithCandy :: Epic.MonadCatch m =>
 evolveFullyWithCandy gameMaster maybeTarget myPokemon = do
   let species = MyPokemon.species myPokemon
   (evolvedSpecies, candy) <-
-    evolveSpeciesFullyWithCandy gameMaster maybeTarget species
+    evolveSpeciesFullyWithCandy gameMaster False maybeTarget species
   return $ (MyPokemon.setSpecies myPokemon evolvedSpecies, candy)
 
 -- If there is a target, return it from all the evolutions or fail
@@ -94,9 +94,9 @@ evolveFullyWithCandy gameMaster maybeTarget myPokemon = do
 -- Otherwise return the final evolution if there is only one chain.
 --
 evolveSpeciesFullyWithCandy :: Epic.MonadCatch m =>
-  GameMaster -> Maybe String -> String -> m (String, Int)
-evolveSpeciesFullyWithCandy gameMaster maybeTarget species = do
-  chains <- evolutionChains gameMaster False (species, 0)
+  GameMaster -> Bool -> Maybe String -> String -> m (String, Int)
+evolveSpeciesFullyWithCandy gameMaster traded maybeTarget species = do
+  chains <- evolutionChains gameMaster traded (species, 0)
   evolution <- case maybeTarget of
     Just target ->
       case List.find (matchWithNormal (Util.toLower target) .
