@@ -101,7 +101,7 @@ for = flip map
 getEvolutions :: Epic.MonadCatch m => GameMaster -> String -> m [String]
 getEvolutions gameMaster species = do
   -- [[(String, Int)]]
-  evolutionChains <- PokeUtil.evolutionChains gameMaster (species, 0)
+  evolutionChains <- PokeUtil.evolutionChains gameMaster False (species, 0)
   return $ List.nub $ map fst $ concat evolutionChains
 
 getIVsToTest :: GameMaster -> Maybe Float -> Maybe Int -> [IVs]

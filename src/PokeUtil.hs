@@ -96,7 +96,7 @@ evolveFullyWithCandy gameMaster maybeTarget myPokemon = do
 evolveSpeciesFullyWithCandy :: Epic.MonadCatch m =>
   GameMaster -> Maybe String -> String -> m (String, Int)
 evolveSpeciesFullyWithCandy gameMaster maybeTarget species = do
-  chains <- evolutionChains gameMaster (species, 0)
+  chains <- evolutionChains gameMaster False (species, 0)
   evolution <- case maybeTarget of
     Just target ->
       case List.find (matchWithNormal (Util.toLower target) .
@@ -118,13 +118,15 @@ matchWithNormal target species =
   species `elem` [target, target ++ "_normal"]
 
 evolutionChains ::
-  Epic.MonadCatch m => GameMaster -> (String, Int) -> m [[(String, Int)]]
-evolutionChains gameMaster (species, candy) = do
+  Epic.MonadCatch m => GameMaster -> Bool -> (String, Int) ->
+    m [[(String, Int)]]
+evolutionChains gameMaster traded (species, candy) = do
   base <- GameMaster.getPokemonBase gameMaster species
   case PokemonBase.evolutions base of
     [] -> return [[(species, candy)]]
     evolutions -> do
-      concat <$> (mapM (\ (evolution, candy', _) -> do
-          rest <- evolutionChains gameMaster (evolution, candy + candy')
+      concat <$> (mapM (\ (evolution, candy', noCandyCostViaTrade) -> do
+          rest <- evolutionChains gameMaster traded (evolution, candy +
+            if noCandyCostViaTrade && traded then 0 else candy')
           return $ map ((species, candy):) rest))
         evolutions
