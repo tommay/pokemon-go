@@ -19,6 +19,7 @@ import qualified System.Exit as Exit
 data Options = Options {
   filenames :: [FilePath],
   evalByAttack :: Bool,
+  cheapestByCandy :: Bool,
   showSorted :: Bool,
   showKeep :: Bool,
   showDiscard :: Bool
@@ -36,6 +37,7 @@ data Stuff = Stuff {
 getOptions :: IO Options
 getOptions =
   let opts = Options <$> optFilenames <*> optEvalByAttack
+        <*> optCheapestByCandy
         <*> optShowSorted <*> optShowKeep <*> optShowDiscard
       optFilenames = O.some $ O.strArgument
         (O.metavar "FILENAME"
@@ -44,6 +46,10 @@ getOptions =
         (  O.long "attack"
         <> O.short 'a'
         <> O.help "Evaluate by attack instead of stat product")
+      optCheapestByCandy = O.switch
+        (  O.long "candy"
+        <> O.short 'c'
+        <> O.help "Determine cheapest by candy instead of stardust")
       optShowSorted = O.switch
         (  O.long "sorted"
         <> O.short 's'
@@ -76,7 +82,18 @@ main =
       Right stuffs -> do
         -- examineds :: [([Stuff], [Stuff], [Stuff])]
         let evalField = if evalByAttack options then attack else statProduct
-            examineds = map (examineStuff evalField) stuffs
+            compareGoodness a b =
+              evalField a `Ord.compare` evalField b
+            compareCost a b =
+              let (primary, secondary) = if cheapestByCandy options
+                    then (candy, stardust)
+                    else (stardust, candy)
+              in case primary a `Ord.compare` primary b of
+                EQ -> case secondary a `Ord.compare` secondary b of
+                  EQ -> evalField b `Ord.compare` evalField a
+                  x -> x
+                x -> x
+            examineds = map (examineStuff compareCost compareGoodness) stuffs
             showLines = mapM_ (putStrLn . text)
         forM_ (zip filenames examineds) $
           \(filename, (sorted, keep, discard)) -> do
@@ -112,18 +129,16 @@ main =
 
 -- -> ([sorted], [keep], [discard])
 --
-examineStuff :: Ord a => (Stuff -> a) -> [Stuff] -> ([Stuff], [Stuff], [Stuff])
-examineStuff evalField stuffs =
-  let sorted = List.sortBy (compareStardust evalField) stuffs
-      -- nubBy will keep only the elements with increasing evalField.
+examineStuff :: (Stuff -> Stuff -> Ordering) -> (Stuff -> Stuff -> Ordering) ->
+  [Stuff] -> ([Stuff], [Stuff], [Stuff])
+examineStuff compareCost compareGoodness stuffs =
+  let sorted = List.sortBy compareCost stuffs
+      -- nubBy will keep only the elements with increasing goodness,
       -- I.e., as we go through the list towards more expensive pokemon
       -- we only keep them if they are better.
-      keep = Ordered.nubBy (lt evalField) sorted
+      keep = Ordered.nubBy (\ a b -> compareGoodness a b == LT) sorted
       discard = discardedBy (Ord.comparing description) sorted keep
   in (sorted, keep, discard)
-
-lt :: Ord k => (a -> k) -> a -> a -> Bool
-lt fn a b = fn a < fn b
 
 readLines :: FilePath -> IO [String]
 readLines = fmap lines . readFile
