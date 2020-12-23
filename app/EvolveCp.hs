@@ -108,7 +108,7 @@ getIVsToTest :: GameMaster -> Maybe Float -> Maybe Int -> [IVs]
 getIVsToTest gameMaster maybeLevel maybeIvFloor =
   -- Assume that if a pokemon hasn't been evolved it also hasn't been
   -- powered up so we're only concerned with whole levels.
-  let wholeLevels = filter isWholeNumber $ GameMaster.powerUpLevels gameMaster
+  let wholeLevels = filter isWholeNumber $ GameMaster.powerupLevels gameMaster
       levels = case maybeLevel of
         Nothing -> wholeLevels
         Just level -> [level]

@@ -16,9 +16,9 @@ import           Data.List as List
 --
 levelsAndCosts :: GameMaster -> Discounts -> Float -> [(Float, Cost)]
 levelsAndCosts gameMaster discounts level =
-  let filteredLevelAndCost = filter ((>= level) . fst) $
-        GameMaster.allLevelAndCost gameMaster
-      (levels, costs) = unzip filteredLevelAndCost
+  let (levels, costs) = unzip $
+        filter ((>= level) . fst) $ GameMaster.allLevelAndCost gameMaster
       discountedCosts = map (Discounts.apply discounts) costs
       runningTotal = List.scanl' (<>) mempty discountedCosts
-  in zip levels runningTotal
+      poweredUpLevels = head levels : map (+ 0.5) levels
+  in zip poweredUpLevels runningTotal

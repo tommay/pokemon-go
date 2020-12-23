@@ -179,10 +179,10 @@ main =
       baseToEvolve <- do
         GameMaster.getPokemonBase gameMaster speciesToEvolve
 
-      let allLevels = reverse $ GameMaster.powerUpLevels gameMaster
+      let powerupLevels = reverse $ GameMaster.powerupLevels gameMaster
           makeIVs level = IVs.new level
             (attack options) (defense options) (stamina options)
-          allIVs = map makeIVs allLevels
+          allIVs = map makeIVs powerupLevels
           calcCpForIVs = Calc.cp gameMaster
       level <- do
         case levelOrCp options of
@@ -236,8 +236,9 @@ main =
             (purifyIv $ attack options)
             (purifyIv $ defense options)
             (purifyIv $ stamina options)
-          allPureIVs = map makePureIVs allLevels
+          allPureIVs = map makePureIVs powerupLevels
           pred = leaguePred $ league options
+
           powerUpIVs = firstWhere (pred . calcCpForIVs baseEvolved) allPureIVs
           powerUpLevel = IVs.level powerUpIVs
           levelsAndCosts = filter ((<= powerUpLevel) . fst) $
@@ -333,6 +334,7 @@ getRank gameMaster areIVsOkForLeague ivs getMetricForIVs =
 
 getPowerupIVs :: GameMaster -> (IVs -> Bool) -> (Int, Int, Int) -> IVs
 getPowerupIVs gameMaster areIVsOkForLeague (attack, defense, stamina) =
-  let allLevels = reverse $ GameMaster.powerUpLevels gameMaster
-      allIVs = map (\ level -> IVs.new level attack defense stamina) allLevels
+  let powerupLevels = reverse $ GameMaster.powerupLevels gameMaster
+      allIVs = map (\ level -> IVs.new level attack defense stamina)
+        powerupLevels
   in firstWhere areIVsOkForLeague allIVs

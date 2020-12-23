@@ -36,10 +36,8 @@ module GameMaster (
   getAllTypes,
   getWeatherBonus,
   defaultWeatherBonus,
-  dustAndLevel,
-  candyAndLevel,
   allLevels,
-  powerUpLevels,
+  powerupLevels,
   nextLevel,
   allLevelAndCost,
   shadowStardustMultiplier,
@@ -68,7 +66,6 @@ import qualified Weather
 import           Weather (Weather (..))
 import           WeatherBonus (WeatherBonus)
 
-import qualified Data.List
 import qualified Data.ByteString as B
 import qualified Data.Yaml as Yaml
 import           Data.Yaml ((.:), (.:?), (.!=))
@@ -251,42 +248,57 @@ costAndLevel costs =
   init $ concat $ map (\ (cost, level) -> [(cost, level), (cost, level + 0.5)])
     $ zip costs [1..]
 
-levelAndCost :: [a] -> [(Float, a)]
-levelAndCost costs =
-  init $ concat $ map (\ (level, cost) -> [(level, cost), (level + 0.5, cost)])
-    $ zip [1..] costs
+-- Each cost is used both for the level and for a half level up.
+-- x2 duplicates each item in a list.
+x2 :: [a] -> [a]
+x2 [] = []
+x2 (a:as) = a : a : x2 as
+
+levelsFrom :: Float -> [Float]
+levelsFrom first =
+  let levels = first : map (+0.5) levels
+  in levels
+
+levels :: [Float]
+levels = levelsFrom 1
 
 allLevelAndCost :: GameMaster -> [(Float, Cost)]
 allLevelAndCost this =
-  let zeroXlCandy = map (const 0) $ takeWhile (/= 0) $ candyCost this
-      allXlCandyCost = zeroXlCandy ++ xlCandyCost this
-      allCosts = zip3 (stardustCost this) (candyCost this) allXlCandyCost
+  -- candyCost has the candy cost for levels 1 - 39 then zeros for the
+  -- XL levels.  xlCandyCost has values for only the XL levels.
+  -- Create a complete list of xlCandy for all levels by replacing the
+  -- non-zero costs in candyCost with zero until they become zero,
+  -- then use the xlCandyCosts.
+  let makeXlCandy (0:_) xlCandys = xlCandys
+      makeXlCandy (_:candys) xlCandys = 0 : makeXlCandy candys xlCandys
+      candy = candyCost this
+      xlCandy = makeXlCandy candy $ xlCandyCost this
       toCost (dust, candy, xlCandy) = Cost.new dust candy xlCandy
-  in levelAndCost $ map toCost allCosts
+      allCosts = map toCost $ zip3 (stardustCost this) candy xlCandy
+  in zip levels $ x2 allCosts
 
-dustAndLevel :: GameMaster -> [(Int, Float)]
-dustAndLevel this =
-  costAndLevel $ stardustCost this
+costAtLevel :: GameMaster -> Float -> Maybe Cost
+costAtLevel this level =
+  List.lookup level (allLevelAndCost this)
 
-candyAndLevel :: GameMaster -> [(Int, Float)]
-candyAndLevel this =
-  costAndLevel $ candyCost this
-
--- allLevels returns all levels up through 45 which is the max level
--- that team leaders and Team Rocket have.  Normal players can power
--- up to 40 then get one more level with best buddy oost.
+-- allLevels returns all levels up through 55 which is what there are
+-- cpMultipliers for.  Rocket leaders have level 45.  Normal players
+-- can power up to "maxNormalUpgradeLevel" which is 50, and one more
+-- full level with best buddy boost.
 --
 allLevels :: GameMaster -> [Float]
 allLevels =
-  init . concat . map (\ (level, _) -> [level, level + 0.5])
-    . zip [1..] . Vector.toList . cpMultipliers
+  map fst . zip levels . init . x2 . Vector.toList . cpMultipliers
 
--- powerUpLevels returns the levels that pokemon can be powered up to.
--- XXX for now I'm excluding levels that require candyXL.
+-- powerupLevels returns the levels that pokemon can be powered up to.
 --
-powerUpLevels :: GameMaster -> [Float]
-powerUpLevels =
-  take 79 . map fst . allLevelAndCost
+powerupLevels :: GameMaster -> [Float]
+powerupLevels this =
+  let powerupFromLevels = map fst $ allLevelAndCost this
+  in head powerupFromLevels : map (+ 0.5) powerupFromLevels
+
+----   XX Should this be:
+----   map ((+0.5) . fst) $ allLevelAndCost this
 
 nextLevel :: GameMaster -> Float -> Maybe (Int, Int, Float)
 nextLevel this level =
@@ -297,14 +309,17 @@ nextLevel this level =
        list -> Just (candy, stardust, minimum list)
 
 getLevelsForStardust :: (Epic.MonadCatch m) => GameMaster -> Int -> m [Float]
-getLevelsForStardust this starDust =
-  case map snd $ filter (\(dust, _) -> dust == starDust) $ dustAndLevel this of
-    [] -> Epic.fail $ "Bad dust amount: " ++ show starDust
+getLevelsForStardust this stardust =
+--  case map fst $ filter (\ (_, Cost dust _ _) -> dust == stardust) $
+--      allLevelAndCost this of
+  case [level | (level, cost) <-
+      allLevelAndCost this, Cost.dust cost == stardust] of
+    [] -> Epic.fail $ "Bad dust amount: " ++ show stardust
     levels -> return levels
 
 getCostForLevel :: GameMaster -> Float -> Cost
 getCostForLevel this level =
-  Maybe.fromJust $ Data.List.lookup level $ allLevelAndCost this
+  Maybe.fromJust $ List.lookup level $ allLevelAndCost this
 
 getStardustForLevel :: GameMaster -> Float -> Int
 getStardustForLevel this level =
@@ -805,22 +820,22 @@ toWeather string = case string of
   "WINDY" -> Windy
   _ -> error $ "Unknown weather: " ++ string
 
-costAtLevel :: GameMaster -> (GameMaster -> [(Int, Float)]) -> Float -> Maybe Int
-costAtLevel this func level =
-  case nextLevel this level of
-    Nothing -> Nothing
-    Just _ ->
-      case List.find ((== level) . snd) $ func this of
-        Just (cost, _) -> Just cost
-        Nothing -> Nothing
-
 dustAtLevel :: GameMaster -> Float -> Maybe Int
-dustAtLevel this =
-  costAtLevel this GameMaster.dustAndLevel
+dustAtLevel this level =
+  Cost.dust <$> costAtLevel this level
 
 candyAtLevel :: GameMaster -> Float -> Maybe Int
-candyAtLevel this =
-  costAtLevel this GameMaster.candyAndLevel
+candyAtLevel this level =
+  Cost.candy <$> costAtLevel this level
+
+---- costAtLevel :: GameMaster -> (GameMaster -> [(Int, Float)]) -> Float -> Maybe Int
+---- costAtLevel this func level =
+----   case nextLevel this level of
+----     Nothing -> Nothing
+----     Just _ ->
+----       case List.find ((== level) . snd) $ func this of
+----         Just (cost, _) -> Just cost
+----         Nothing -> Nothing
 
 commaSeparated :: [String] -> String
 commaSeparated [] = ""
