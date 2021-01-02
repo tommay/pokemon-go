@@ -41,6 +41,7 @@ module GameMaster (
   allLevels,
   powerUpLevels,
   nextLevel,
+  allLevelAndCost,
   shadowStardustMultiplier,
   shadowCandyMultiplier,
   purifiedStardustMultiplier,
@@ -48,6 +49,8 @@ module GameMaster (
   luckyPowerUpStardustDiscountPercent,
 ) where
 
+import qualified Cost
+import           Cost (Cost)
 import qualified Epic
 import qualified Move
 import           Move (Move)
@@ -65,6 +68,7 @@ import qualified Weather
 import           Weather (Weather (..))
 import           WeatherBonus (WeatherBonus)
 
+import qualified Data.List
 import qualified Data.ByteString as B
 import qualified Data.Yaml as Yaml
 import           Data.Yaml ((.:), (.:?), (.!=))
@@ -72,13 +76,14 @@ import qualified Data.Store as Store
 import           GHC.Generics (Generic)
 
 import           Control.Monad (join, foldM, liftM)
-import           Data.Text.Conversions (convertText)
+import qualified Data.HashMap.Strict as HashMap
+import           Data.HashMap.Strict (HashMap)
 import qualified Data.List as List
 import qualified Data.List.Extra
 import qualified Data.Maybe as Maybe
 import           Data.Maybe (mapMaybe)
-import qualified Data.HashMap.Strict as HashMap
-import           Data.HashMap.Strict (HashMap)
+import           Data.Semigroup ((<>))
+import           Data.Text.Conversions (convertText)
 import           Data.Time.Clock (UTCTime)
 import qualified Data.Vector as Vector
 import           Data.Vector (Vector, (!))
@@ -246,6 +251,23 @@ costAndLevel costs =
   init $ concat $ map (\ (cost, level) -> [(cost, level), (cost, level + 0.5)])
     $ zip costs [1..]
 
+levelAndCost :: [a] -> [(Float, a)]
+levelAndCost costs =
+  init $ concat $ map (\ (level, cost) -> [(level, cost), (level + 0.5, cost)])
+    $ zip [1..] costs
+
+allLevelAndCost :: GameMaster -> [(Float, Cost)]
+allLevelAndCost this =
+  let zeroXlCandy = map (const 0) $ takeWhile (/= 0) $ candyCost this
+      allXlCandyCost = zeroXlCandy ++ xlCandyCost this
+      allCosts = zip3 (stardustCost this) (candyCost this) allXlCandyCost
+      toCost (dust, candy, xlCandy) = Cost.new dust candy xlCandy
+  in levelAndCost $ map toCost allCosts
+
+powerupCost :: GameMaster -> Float -> Maybe Cost
+powerupCost this level =
+  Data.List.lookup level (allLevelAndCost this)
+
 dustAndLevel :: GameMaster -> [(Int, Float)]
 dustAndLevel this =
   costAndLevel $ stardustCost this
@@ -268,7 +290,7 @@ allLevels =
 --
 powerUpLevels :: GameMaster -> [Float]
 powerUpLevels =
-  take 79 . map snd . dustAndLevel
+  take 79 . map fst . allLevelAndCost
 
 nextLevel :: GameMaster -> Float -> Maybe (Int, Int, Float)
 nextLevel this level =
@@ -284,9 +306,13 @@ getLevelsForStardust this starDust =
     [] -> Epic.fail $ "Bad dust amount: " ++ show starDust
     levels -> return levels
 
+getCostForLevel :: GameMaster -> Float -> Cost
+getCostForLevel this level =
+  Maybe.fromJust $ Data.List.lookup level $ allLevelAndCost this
+
 getStardustForLevel :: GameMaster -> Float -> Int
 getStardustForLevel this level =
-  fst $ head $ filter (\(_, lvl) -> lvl == level) $ dustAndLevel this
+  Cost.dust $ getCostForLevel this level
 
 lookup :: Epic.MonadCatch m => String -> StringMap a -> String -> m a
 lookup what hash key =

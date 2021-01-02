@@ -2,6 +2,8 @@ module Powerups (
   levelsAndCosts,
 ) where
 
+import qualified Cost
+import           Cost (Cost)
 import qualified Discounts
 import           Discounts (Discounts)
 import qualified GameMaster
@@ -9,20 +11,14 @@ import           GameMaster (GameMaster)
 
 import           Data.List as List
 
--- Returns [(level, stardustCost, candyCost)]
+-- Returns [(level, Cost)] starting at the given level, which is zero cost
+-- to power up to since it's the current level.
 --
-levelsAndCosts :: GameMaster -> Discounts -> Float -> [(Float, Int, Int)]
+levelsAndCosts :: GameMaster -> Discounts -> Float -> [(Float, Cost)]
 levelsAndCosts gameMaster discounts level =
-  let makeRunningCostAndLevels discount costsAndLevel =
-        let filteredCostAndLevel =
-              filter (\ (_, lvl) -> lvl >= level) costsAndLevel
-            (costs, levels) = unzip filteredCostAndLevel
-            runningTotal = List.scanl' (+) 0 $ map discount costs
-        in (runningTotal, levels)
-      (stardustCosts, levels) =
-        makeRunningCostAndLevels (Discounts.powerupStardust discounts)
-          $ GameMaster.dustAndLevel gameMaster
-      (candyCosts, _) =
-        makeRunningCostAndLevels (Discounts.powerupCandy discounts)
-          $ GameMaster.candyAndLevel gameMaster
-  in zip3 levels stardustCosts candyCosts
+  let filteredLevelAndCost = filter ((>= level) . fst) $
+        GameMaster.allLevelAndCost gameMaster
+      (levels, costs) = unzip filteredLevelAndCost
+      discountedCosts = map (Discounts.apply discounts) costs
+      runningTotal = List.scanl' (<>) mempty discountedCosts
+  in zip levels runningTotal

@@ -11,6 +11,8 @@ import           Battle (Battle)
 import qualified BattlerUtil
 import           BattlerUtil (Battler, Level (Normal))
 import qualified Breakpoint
+import qualified Cost
+import           Cost (Cost)
 import qualified Discounts
 import qualified Epic
 import qualified Friend
@@ -419,18 +421,20 @@ nameSpeciesAndLevelAndMoveset pokemon =
     (Move.name $ Pokemon.quick pokemon)
     (Move.name $ Pokemon.charge pokemon)
 
+leMaybe :: Ord a => Maybe a -> a -> Bool
+leMaybe =
+  Maybe.maybe (const True) (>=) 
+
 -- [A:iva:0, A:ivb:0] -> [[A:iva:0, A:ivb:0], [A<1>:iva:1, A<1>:ivb:1]]
 --
 expandLevels :: GameMaster -> Maybe Int -> Maybe Int -> Pokemon -> [Pokemon]
 expandLevels gameMaster maybeMaxCandy maybeMaxDust pokemon =
   let pokemonLevel = Pokemon.level pokemon
       powerupLevelsAndCosts =
-        maybeFilter maybeMaxCandy
-          (\ maxCandy (_, candy, _) -> candy <= maxCandy) $
-        maybeFilter maybeMaxDust
-          (\ maxDust (_, _, dust) -> dust <= maxDust) $
+        filter ((leMaybe maybeMaxCandy) . Cost.candy . snd) $
+        filter ((leMaybe maybeMaxDust) . Cost.dust . snd) $
         Powerups.levelsAndCosts gameMaster Discounts.noDiscounts pokemonLevel
-      powerupLevels = map (\ (lvl, _, _) -> lvl) powerupLevelsAndCosts
+      powerupLevels = map fst powerupLevelsAndCosts
       addLevelToName pokemon = Pokemon.setName
         (Printf.printf "%s <%s>"
           (Pokemon.pname pokemon)

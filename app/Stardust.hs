@@ -4,6 +4,8 @@ import qualified Options.Applicative as O
 import           Options.Applicative ((<|>), (<**>))
 import           Data.Semigroup ((<>))
 
+import qualified Cost
+import           Cost (Cost)
 import qualified Discounts
 import qualified Epic
 import qualified GameMaster
@@ -59,7 +61,10 @@ main =
             (isShadow options) (isPurified options) (isLucky options)
       let levelsAndCosts = Powerups.levelsAndCosts gameMaster discounts
             $ level options
-      forM_ levelsAndCosts $ \ (level, dust, candy) ->
-        putStrLn $ show level ++ ": " ++ show dust ++ " " ++ show candy
+      forM_ levelsAndCosts $ \ (level, cost) ->
+        putStrLn $ show level ++ ": " ++ (show $ Cost.dust cost) ++ " " ++               (show $ Cost.candy cost) ++
+          if Cost.needsXlCandy cost
+            then " " ++ (show $ Cost.xlCandy cost) 
+            else ""
     )
     $ Exit.die
