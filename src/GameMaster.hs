@@ -578,9 +578,11 @@ makePokemonBase types moves forms pokemonSettings =
       mapM (get types) ptypes
   
     statsObject <- getValue "stats"
-    attack <- getObjectValue statsObject "baseAttack"
-    defense <- getObjectValue statsObject "baseDefense"
-    stamina <- getObjectValue statsObject "baseStamina"
+    -- Sometimes new pokemon have an empty stats object for a while
+    -- so just default to zero instead of choking.
+    attack <- getObjectValueWithDefault 0 statsObject "baseAttack"
+    defense <- getObjectValueWithDefault 0 statsObject "baseDefense"
+    stamina <- getObjectValueWithDefault 0 statsObject "baseStamina"
 
     evolutions <- do
       case getValue "evolutionBranch" of
