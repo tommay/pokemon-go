@@ -6,6 +6,6 @@ else
   branch="$1"
 fi
 
-curl -O https://raw.githubusercontent.com/pokemongo-dev-contrib/pokemongo-game-master/$branch/versions/latest/V2_GAME_MASTER.json
+curl -O https://raw.githubusercontent.com/PokeMiners/game_masters/$branch/latest/latest.json
 
-json2yaml.rb V2_GAME_MASTER.json >V2_GAME_MASTER.yaml && rm V2_GAME_MASTER.json
+json2yaml.rb latest.json >V2_GAME_MASTER.yaml && rm latest.json
