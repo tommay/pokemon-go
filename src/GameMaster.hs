@@ -308,7 +308,7 @@ makeGameMaster yamlObjects = do
     itemTemplates
   forms <- getForms itemTemplates
   pokemonBases <-
-    makeObjects "pokemon" (getSpeciesForPokemonBase forms)
+    makeObjects "pokemonSettings" (getSpeciesForPokemonBase forms)
       (makePokemonBase types moves forms)
       (filter (hasFormIfRequired forms) itemTemplates)
   cpMultipliers <- do
@@ -410,7 +410,7 @@ getMoves :: Epic.MonadCatch m =>
   (ItemTemplate -> m (Maybe Move)) -> [ItemTemplate] ->
   m (StringMap Move)
 getMoves makeMaybeMove itemTemplates = do
-  maybeMoveMap <- makeObjects "move" (getNameFromKey "uniqueId")
+  maybeMoveMap <- makeObjects "moveSettings" (getNameFromKey "movementId")
     makeMaybeMove itemTemplates
   -- Use (mapMaybe id) to discard any Nothing values, and turn Just Move
   -- into Move values.
@@ -421,7 +421,7 @@ makeMaybeMove :: Epic.MonadCatch m =>
   StringMap PvpChargedMove -> ItemTemplate -> m (Maybe Move)
 makeMaybeMove types pvpFastMoves pvpChargedMoves itemTemplate = do
   let getTemplateValue text = getObjectValue itemTemplate text
-  name <- getTemplateValue "uniqueId"
+  name <- getTemplateValue "movementId"
   let maybeMoveStats = if List.isSuffixOf "_FAST" name
         then case HashMap.lookup name pvpFastMoves of
           Nothing -> Nothing
@@ -443,7 +443,7 @@ makeMaybeMove types pvpFastMoves pvpChargedMoves itemTemplate = do
       Just <$> (Move.new
         <$> pure name
         <*> do
-          typeName <- getTemplateValue "type"
+          typeName <- getTemplateValue "pokemonType"
           get types typeName
         <*> getObjectValueWithDefault 0 itemTemplate "power"
         <*> ((/1000) <$> getTemplateValue "durationMs")
@@ -456,7 +456,7 @@ makeMaybeMove types pvpFastMoves pvpChargedMoves itemTemplate = do
 
 isFastMove :: ItemTemplate -> Bool
 isFastMove itemTemplate = case getObjectValue itemTemplate "uniqueId" of
-    Left _ -> error $ "Move doesn' have a uniqueId: " ++ show itemTemplate
+    Left _ -> error $ "Move doesn't have a uniqueId: " ++ show itemTemplate
     Right uniqueId -> List.isSuffixOf "_FAST" uniqueId
 
 isChargedMove :: ItemTemplate -> Bool
@@ -543,7 +543,7 @@ getFormNames formSettings =
 --
 getSpeciesForPokemonBase :: Epic.MonadCatch m => StringMap [String] -> ItemTemplate -> m String
 getSpeciesForPokemonBase forms itemTemplate = do
-  species <- getObjectValue itemTemplate "uniqueId"
+  species <- getObjectValue itemTemplate "pokemonId"
   case HashMap.lookup species forms of
     Nothing -> Epic.fail $ "Can't find forms for " ++ species
     Just [] -> return species
@@ -560,7 +560,7 @@ makePokemonBase types moves forms pokemonSettings =
         getValueWithDefault dflt key =
           getObjectValueWithDefault dflt pokemonSettings key
 
-    pokemonId <- getValue "uniqueId"
+    pokemonId <- getValue "pokemonId"
 
     species <- do
       species <- getSpeciesForPokemonBase forms pokemonSettings
@@ -568,7 +568,7 @@ makePokemonBase types moves forms pokemonSettings =
       return $ Regex.subRegex normal (Util.toLower species) ""
 
     ptypes <- do
-      ptype <- getValue "type1"
+      ptype <- getValue "type"
       let ptypes = case getValue "type2" of
             Right ptype2 -> [ptype, ptype2]
             -- XXX This can swallow parse errors?
@@ -629,7 +629,7 @@ makePokemonBase types moves forms pokemonSettings =
       moves <- getMoves "cinematicMoves"
       return $ moves ++ legacyChargeMoves
 
-    let parent = case getValue "parentId" of
+    let parent = case getValue "parentPokemonId" of
           Right parent -> Just parent
           -- XXX This can swallow parse errors?
           Left _ -> Nothing
@@ -708,14 +708,14 @@ getFirst itemTemplates filterKey =
 
 checkPokemonSettings :: ItemTemplate -> (Yaml.Object -> Bool) -> Bool
 checkPokemonSettings itemTemplate predicate =
-  case getObjectValue itemTemplate "pokemon" of
+  case getObjectValue itemTemplate "pokemonSettings" of
     Left _ -> False
     Right pokemonSettings -> predicate pokemonSettings
 
 hasFormIfRequired :: StringMap [String] -> ItemTemplate -> Bool
 hasFormIfRequired forms itemTemplate =
   checkPokemonSettings itemTemplate $ \ pokemonSettings ->
-    case getObjectValue pokemonSettings "uniqueId" of
+    case getObjectValue pokemonSettings "pokemonId" of
       Left _ -> False
       Right species ->
         case HashMap.lookup species forms of
