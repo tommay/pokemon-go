@@ -138,7 +138,7 @@ loadFromYaml filename = do
   either <- Yaml.decodeFileEither filename
   case either of
     Left yamlParseException -> Epic.fail $ show yamlParseException
-    Right yamlObject -> return $ makeGameMaster yamlObject
+    Right yamlObjects -> return $ makeGameMaster yamlObjects
 
 writeCache :: FilePath -> GameMaster -> IO ()
 writeCache filename gameMaster =
@@ -298,9 +298,9 @@ sanitize string =
   let nonWordChars = Regex.mkRegex "\\W"
   in Util.toUpper $ Regex.subRegex nonWordChars string "_"
 
-makeGameMaster :: Epic.MonadCatch m => Yaml.Object -> m GameMaster
-makeGameMaster yamlObject = do
-  itemTemplates <- getItemTemplates yamlObject
+makeGameMaster :: Epic.MonadCatch m => [Yaml.Object] -> m GameMaster
+makeGameMaster yamlObjects = do
+  itemTemplates <- getItemTemplates yamlObjects
   types <- getTypes itemTemplates
   pvpFastMoves <- getPvpFastMoves types itemTemplates
   pvpChargedMoves <- getPvpChargedMoves types itemTemplates
@@ -350,22 +350,20 @@ makeGameMaster yamlObject = do
     luckyPowerUpStardustDiscountPercent
     weatherBonusMap
 
--- The yaml file is mostly one big array called "template":
--- template:
+-- The yaml file is one big array of "templates":
 -- - templateId: AR_TELEMETRY_SETTINGS
 --   data:
 --     templateId: AR_TELEMETRY_SETTINGS
 -- What we really want is the "data" hash from each "template" element.
--- So get the template array when map over it to extract the data.
+-- So get the template array then map over it to extract the data.
 --
 -- Here it's nice to use Yaml.Parser because it will error if we don't
 -- get a [ItemTemplate], i.e., it checks that the Yaml.Values are the
 -- correct type thanks to type inference.
 --
-getItemTemplates :: Epic.MonadCatch m => Yaml.Object -> m [ItemTemplate]
-getItemTemplates yamlObject = do
-  templates <- Epic.toEpic $ Yaml.parseEither (.: "template") yamlObject
-  Epic.toEpic $ mapM (Yaml.parseEither (.: "data")) templates
+getItemTemplates :: Epic.MonadCatch m => [Yaml.Object] -> m [ItemTemplate]
+getItemTemplates yamlObjects =
+  Epic.toEpic $ mapM (Yaml.parseEither (.: "data")) yamlObjects
 
 getTypes :: Epic.MonadCatch m => [ItemTemplate] -> m (StringMap Type)
 getTypes itemTemplates = do
