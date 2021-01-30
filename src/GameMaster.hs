@@ -264,10 +264,6 @@ allLevelAndCost this =
       toCost (dust, candy, xlCandy) = Cost.new dust candy xlCandy
   in levelAndCost $ map toCost allCosts
 
-powerupCost :: GameMaster -> Float -> Maybe Cost
-powerupCost this level =
-  Data.List.lookup level (allLevelAndCost this)
-
 dustAndLevel :: GameMaster -> [(Int, Float)]
 dustAndLevel this =
   costAndLevel $ stardustCost this
