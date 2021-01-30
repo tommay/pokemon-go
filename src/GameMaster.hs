@@ -2,7 +2,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 -- This uses the Data.Store serialization library to cache a binary
--- version of GameMaster because reading V2_GAME_MASTER.yaml has gotten
+-- version of GameMaster because reading GAME_MASTER.yaml has gotten
 -- pretty slow as the file gets larger and larger.  To do this,
 -- GameMaster and the types it uses need to be instances of the
 -- library's serializable typeclass.  The easiest way to do that is to
@@ -116,7 +116,7 @@ new = GameMaster
 
 load :: Epic.MonadCatch m => IO (m GameMaster)
 load = do
-  let filename = "V2_GAME_MASTER.yaml"
+  let filename = "GAME_MASTER.yaml"
   let cacheFileName = "/tmp/" ++ filename ++ ".cache"
   maybeGameMaster <- do
     cacheIsNewer <- cacheFileName `isNewerThan` filename
