@@ -36,6 +36,7 @@ data PokemonBase = PokemonBase {
   attack       :: Int,
   defense      :: Int,
   stamina      :: Int,
+    -- (species, candy, noCandyCostViaTrade):
   evolutions   :: [(String, Int, Bool)],
   quickMoves   :: [Move],
   chargeMoves  :: [Move],
