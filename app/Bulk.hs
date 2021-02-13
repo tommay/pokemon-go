@@ -262,7 +262,7 @@ main =
           Printf.printf "statProduct rank %d, >%.2f%%\n"
             statProductRank statProductPercentile
           Printf.printf "attack rank %d, >%.2f%%\n" attackRank attackPercentile
-            else pure ()
+        else pure ()
       case levelsAndCosts of
         [] -> putStrLn $
           Printf.printf "%s CP is too high for %s league"
