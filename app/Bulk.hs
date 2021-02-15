@@ -105,6 +105,8 @@ getOptions =
         <> O.help "Evolution for PVP")
       -- XXX There are two things about this that I don't quite understand:
       -- 1) Why is "Level <$>" the right thing to use here?
+      --   A: O.option returns Parser a.  <$>/fmap will "reach into" the Parser
+      --   and turn the "a" into a LevelOrCp.
       -- 2) The "-l" option is only recognized before the ATTACK argument
       -- is given?  That's not surprising; if "-l LEVEL" is given before
       -- CP could be then CP is skipped and we move right on to ATTACK,
