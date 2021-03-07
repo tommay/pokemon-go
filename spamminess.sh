@@ -21,5 +21,4 @@ for p in $all_pokemon; do
       awk -F: '{ print $2, $1 }' |
       sed -e "s/^ *//" -e "s/ *$/ $p/"
   fi
-done #| sort -k 1n -k 2nr
-
+done | sort -k 1n -k 2nr
