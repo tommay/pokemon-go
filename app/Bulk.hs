@@ -40,6 +40,7 @@ data Options = Options {
 }
 
 data LevelOrCp = Level Float | Cp Int
+  deriving (Show)
 
 data League = Little | Great | Ultra | Master | Peewee
   deriving (Eq, Show)
@@ -53,7 +54,8 @@ getOptions =
         <*> optLevelOrCp <*> optAttack <*> optDefense <*> optStamina
       optLeague =
             O.flag' Little (
-              O.short 'l' <>
+              -- There is no short option because the obvious "-l" conflicts
+              -- with the short option for "--level".
               O.long "little" <>
               O.help "little league")
         <|> O.flag' Great (
