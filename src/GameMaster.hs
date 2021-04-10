@@ -28,6 +28,7 @@ module GameMaster (
   getQuick,
   getCharge,
   getCpMultiplier,
+  allLevelAndCost,
   getLevelsForStardust,
   getStardustForLevel,
   allPokemonBases,
@@ -48,6 +49,8 @@ module GameMaster (
   luckyPowerUpStardustDiscountPercent,
 ) where
 
+import qualified Cost
+import           Cost (Cost)
 import qualified Epic
 import qualified Move
 import           Move (Move)
@@ -240,6 +243,27 @@ getCpMultiplier this level =
       let cp0 = cpMultipliers' ! (intLevel - 1)
           cp1 = cpMultipliers' ! intLevel
       in sqrt $ (cp0*cp0 + cp1*cp1) / 2
+
+-- Each cost is used both for the level and for a half level up.
+-- x2 duplicates each item in a list.
+--
+x2 :: [a] -> [a]
+x2 [] = []
+x2 (a:as) = a : a : x2 as
+
+levelsFrom :: Float -> [Float]
+levelsFrom first =
+  let levels = first : map (+0.5) levels
+  in levels
+
+levels :: [Float]
+levels = levelsFrom 1
+
+allLevelAndCost :: GameMaster -> [(Float, Cost)]
+allLevelAndCost this =
+  let allCosts = zip (stardustCost this) (candyCost this)
+      toCost (dust, candy) = Cost.new dust candy
+  in zip levels (x2 $ map toCost allCosts)
 
 costAndLevel :: [Int] -> [(Int, Float)]
 costAndLevel costs =

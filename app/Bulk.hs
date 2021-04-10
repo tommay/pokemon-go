@@ -5,6 +5,8 @@ import           Options.Applicative ((<|>), (<**>))
 import           Data.Semigroup ((<>))
 
 import qualified Calc
+import qualified Cost
+import           Cost (Cost)
 import qualified Discounts
 import qualified Epic
 import qualified GameMaster
@@ -238,7 +240,7 @@ main =
           pred = leaguePred $ league options
           powerUpIVs = firstWhere (pred . calcCpForIVs baseEvolved) allPureIVs
           powerUpLevel = IVs.level powerUpIVs
-          levelsAndCosts = filter (\ (lvl, _, _) -> lvl <= powerUpLevel) $
+          levelsAndCosts = filter ((<= powerUpLevel) . fst) $
             Powerups.levelsAndCosts gameMaster discounts level
           getRank' = getRank gameMaster (pred . calcCpForIVs baseEvolved)
             powerUpIVs
@@ -246,13 +248,13 @@ main =
             (getStatProduct gameMaster baseEvolved)
           (attackRank, attackPercentile) = getRank'
             (getAttack gameMaster baseEvolved)
-          makeOutputString (level, dust, candy) =
+          makeOutputString (level, cost) =
             let ivs = makePureIVs level
                 (attackForLevel, totalForLevel) =
                   total gameMaster baseEvolved ivs
             in Printf.printf "%5d/%-4d: %-4s %.2f  %.2f"
-                 (basePvpStardust + dust)
-                 (basePvpCandy + candy)
+                 (basePvpStardust + Cost.dust cost)
+                 (basePvpCandy + Cost.candy cost)
                  (PokeUtil.levelToString level)
                  (totalForLevel *
                    if (league options) == Peewee then 1000 else 1)
