@@ -145,6 +145,7 @@ readLines = fmap lines . readFile
 
 -- The string looks like
 -- 1315 10 1 12:   97000/93  : 26   21.10   104.90
+-- 804 14 13 14:  387000/298+118: 45   20.28  110.07, sp >86.33%, atk >68.16%
 --
 parseStuff :: String -> Either String Stuff
 parseStuff string =
@@ -155,6 +156,9 @@ parseStuff string =
         stardust <- Atto.decimal
         Atto.char '/'
         candy <- Atto.decimal
+        xlCandy <- Atto.option 0 $ do
+          Atto.char '+'
+          Atto.decimal
         Atto.skipSpace
         Atto.char ':'
         Atto.skipSpace
@@ -168,7 +172,7 @@ parseStuff string =
           text = string,
           description = description,
           stardust = stardust,
-          candy = candy,
+          candy = candy + xlCandy,
           statProduct = statProduct,
           attack = attack
           }
