@@ -1,20 +1,24 @@
 module Cost (
   Cost,
+  new,
   dust,
   candy,
-  new,
+  xlCandy,
 ) where
+
+import qualified Data.Ord as Ord
 
 data Cost = Cost {
   dust :: Int,
-  candy :: Int
+  candy :: Int,
+  xlCandy :: Int
 } deriving (Show)
 
 instance Semigroup Cost where
-  Cost dust candy <> Cost dust' candy' =
-    Cost (dust + dust') (candy + candy')
+  Cost dust candy xlCandy <> Cost dust' candy' xlCandy' =
+    Cost (dust + dust') (candy + candy') (xlCandy + xlCandy')
 
 instance Monoid Cost where
-  mempty = Cost 0 0
+  mempty = Cost 0 0 0
 
 new = Cost

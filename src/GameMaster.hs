@@ -261,9 +261,18 @@ levels = levelsFrom 1
 
 allLevelAndCost :: GameMaster -> [(Float, Cost)]
 allLevelAndCost this =
-  let allCosts = zip (stardustCost this) (candyCost this)
-      toCost (dust, candy) = Cost.new dust candy
-  in zip levels (x2 $ map toCost allCosts)
+  -- candyCost has the candy cost for levels 1 - 39 then zeros for the
+  -- XL levels.  xlCandyCost has values for only the XL levels.
+  -- Create a complete list of xlCandy for all levels by replacing the
+  -- non-zero costs in candyCost with zero until they become zero,
+  -- then use the xlCandyCosts.
+  let makeXlCandy (0:_) xlCandys = xlCandys
+      makeXlCandy (_:candys) xlCandys = 0 : makeXlCandy candys xlCandys
+      candy = candyCost this
+      xlCandy = makeXlCandy candy $ xlCandyCost this
+      toCost (dust, candy, xlCandy) = Cost.new dust candy xlCandy
+      allCosts = map toCost $ zip3 (stardustCost this) candy xlCandy
+  in zip levels $ x2 allCosts
 
 costAndLevel :: [Int] -> [(Int, Float)]
 costAndLevel costs =

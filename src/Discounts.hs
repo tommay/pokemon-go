@@ -94,3 +94,4 @@ apply :: Discounts -> Cost -> Cost
 apply this cost =
   Cost.new (stardustDiscount this $ Cost.dust cost)
     (candyDiscount this $ Cost.candy cost)
+    (Cost.xlCandy cost)
