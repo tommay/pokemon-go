@@ -264,11 +264,11 @@ allLevels =
     . zip [1..] . Vector.toList . cpMultipliers
 
 -- powerUpLevels returns the levels that pokemon can be powered up to.
--- XXX for now I'm excluding levels that require candyXL.
 --
 powerUpLevels :: GameMaster -> [Float]
-powerUpLevels =
-  take 79 . map snd . dustAndLevel
+powerUpLevels this =
+  let powerupFromLevels = map fst $ allLevelAndCost this
+  in head powerupFromLevels : map (+ 0.5) powerupFromLevels
 
 nextLevel :: GameMaster -> Float -> Maybe (Int, Int, Float)
 nextLevel this level =
