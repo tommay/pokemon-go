@@ -252,9 +252,10 @@ main =
             let ivs = makePureIVs level
                 (attackForLevel, totalForLevel) =
                   total gameMaster baseEvolved ivs
-            in Printf.printf "%5d/%-4d: %-4s %.2f  %.2f"
+            in Printf.printf "%5d/%-7s: %-4s %.2f  %.2f"
                  (basePvpStardust + Cost.dust cost)
-                 (basePvpCandy + Cost.candy cost)
+                 (candyToString (basePvpCandy + Cost.candy cost)
+                   (Cost.xlCandy cost))
                  (PokeUtil.levelToString level)
                  (totalForLevel *
                    if (league options) == Peewee then 1000 else 1)
@@ -286,6 +287,13 @@ main =
             else levelsAndCosts
     )
     $ Exit.die
+
+candyToString :: Int -> Int  -> String
+candyToString candy xlCandy =
+  Printf.printf "%d%s" candy
+    (if xlCandy == 0
+      then ""
+      else Printf.printf "+%d" xlCandy)
 
 firstWhere :: (a -> Bool) -> [a] -> a
 firstWhere pred =
