@@ -62,7 +62,9 @@ main =
       let levelsAndCosts = Powerups.levelsAndCosts gameMaster discounts
             $ level options
       forM_ levelsAndCosts $ \ (level, cost) ->
-        putStrLn $ show level ++ ": " ++ show (Cost.dust cost) ++ " " ++
-          show (Cost.candy cost)
+        putStrLn $ show level ++ ": " ++ (show $ Cost.dust cost) ++ " " ++               (show $ Cost.candy cost) ++
+          if Cost.needsXlCandy cost
+            then " " ++ (show $ Cost.xlCandy cost) 
+            else ""
     )
     $ Exit.die

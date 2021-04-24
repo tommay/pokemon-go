@@ -4,6 +4,7 @@ module Cost (
   dust,
   candy,
   xlCandy,
+  needsXlCandy,
 ) where
 
 import qualified Data.Ord as Ord
@@ -22,3 +23,6 @@ instance Monoid Cost where
   mempty = Cost 0 0 0
 
 new = Cost
+
+needsXlCandy :: Cost -> Bool
+needsXlCandy = (> 0) . xlCandy
