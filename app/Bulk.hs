@@ -20,6 +20,8 @@ import qualified Powerups
 
 import           Control.Monad (join)
 import qualified Data.List as List
+import qualified Data.Maybe as Maybe
+import qualified Data.Ord as Ord
 import qualified System.Exit as Exit
 import qualified Text.Printf as Printf
 
@@ -33,6 +35,7 @@ data Options = Options {
   isPurified :: Bool,
   isLucky :: Bool,
   isTraded :: Bool,
+  maybeMaxXlCandy :: Maybe Int,
   species :: String,
   maybeEvolution :: Maybe String,
   levelOrCp :: LevelOrCp,
@@ -52,6 +55,7 @@ getOptions =
   let opts = Options <$> optLeague <*> optOneLine
         <*> optSummary
         <*> optIsShadow <*> optIsPurified <*> optIsLucky <*> optIsTraded
+        <*> optMaxXlCandy
         <*> optSpecies <*> optEvolution
         <*> optLevelOrCp <*> optAttack <*> optDefense <*> optStamina
       optLeague =
@@ -101,6 +105,11 @@ getOptions =
         (  O.long "traded"
         <> O.short 'T'
         <> O.help "Pokemon has been traded, evolution may be free")
+      optMaxXlCandy = O.optional $ O.option O.auto
+        (  O.long "xlcandy"
+        <> O.short 'x'
+        <> O.metavar "XLCANDY"
+        <> O.help "Use up to XLCANDY xlCandy to power up the pokemon")
       optSpecies = O.argument O.str (O.metavar "SPECIES")
       optEvolution = O.optional $ O.strOption
         (  O.long "evolution"
@@ -240,7 +249,9 @@ main =
           pred = leaguePred $ league options
           powerUpIVs = firstWhere (pred . calcCpForIVs baseEvolved) allPureIVs
           powerUpLevel = IVs.level powerUpIVs
-          levelsAndCosts = filter ((<= powerUpLevel) . fst) $
+          levelsAndCosts =
+            filter (leMaybe (maybeMaxXlCandy options) . Cost.xlCandy . snd) $
+            filter ((<= powerUpLevel) . fst) $
             Powerups.levelsAndCosts gameMaster discounts level
           getRank' = getRank gameMaster (pred . calcCpForIVs baseEvolved)
             powerUpIVs
@@ -294,6 +305,10 @@ candyToString candy xlCandy =
     (if xlCandy == 0
       then ""
       else Printf.printf "+%d" xlCandy)
+
+leMaybe :: Ord a => Maybe a -> a -> Bool
+leMaybe =
+  Maybe.maybe (const True) (>=) 
 
 firstWhere :: (a -> Bool) -> [a] -> a
 firstWhere pred =
