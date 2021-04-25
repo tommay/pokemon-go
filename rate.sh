@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# rate.sh [-e evolved_species] species.team
+# rate.sh [-e evolved_species] [-x max_xl_candy] species.team
 #
 # Used to help decide which pokemon to keep go pvp.
 #
@@ -9,11 +9,23 @@
 # "best [-a] species.team.*" to sort by stat product or attack and
 # decide which pokemon to keep.
 
-if [[ "$1" == "-e" ]]; then
-  evolved_species="$2"
-  evolved="-e $evolved_species"
-  shift; shift
-fi
+while getopts ":e:x:" opt; do
+  case ${opt} in
+    e) 
+      evolved_species="$OPTARG"
+      evolved="-e $evolved_species"
+      ;;
+    x)
+      max_xl_candy="-x $OPTARG"
+      ;;
+    \?)
+      echo "Usage: $0 [-e evolved_species] [-x max_xl_candy]"
+      exit 2
+      ;;
+  esac
+done
+
+shift $((OPTIND-1))
 
 dir=${1%/*}                 # Remove filename, keep directory.
 file=${1##*/}               # Remove directory, keep filename.
@@ -36,7 +48,7 @@ rate() {
         stats="$species $stats"
       fi
       echo $stats >&2
-      ./bulk -s $evolved $league $stats
+      ./bulk -s $max_xl_candy $evolved $league $stats
     fi
   done | egrep -v "too high"
 }
