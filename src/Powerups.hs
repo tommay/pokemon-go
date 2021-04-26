@@ -21,5 +21,7 @@ levelsAndCosts gameMaster discounts level =
       (levels, costs) = unzip filteredLevelAndCost
       discountedCosts = map (Discounts.apply discounts) costs
       runningTotal = List.scanl' (<>) mempty discountedCosts
-      poweredUpLevels = head levels : map (+ 0.5) levels
+      poweredUpLevels = case levels of
+        [] -> []
+        (head:_) -> head : map (+ 0.5) levels
   in zip poweredUpLevels runningTotal

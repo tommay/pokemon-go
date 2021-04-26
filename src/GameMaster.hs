@@ -300,7 +300,9 @@ allLevels =
 powerUpLevels :: GameMaster -> [Float]
 powerUpLevels this =
   let powerupFromLevels = map fst $ allLevelAndCost this
-  in head powerupFromLevels : map (+ 0.5) powerupFromLevels
+  in case powerupFromLevels of
+       [] -> []
+       (head:_) -> head : map (+ 0.5) powerupFromLevels
 
 nextLevel :: GameMaster -> Float -> Maybe (Int, Int, Float)
 nextLevel this level =
