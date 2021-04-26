@@ -312,13 +312,13 @@ nextLevel this level =
 
 getLevelsForStardust :: (Epic.MonadCatch m) => GameMaster -> Int -> m [Float]
 getLevelsForStardust this starDust =
-  case map snd $ filter (\(dust, _) -> dust == starDust) $ dustAndLevel this of
+  case map snd $ filter ((== starDust) . fst) $ dustAndLevel this of
     [] -> Epic.fail $ "Bad dust amount: " ++ show starDust
     levels -> return levels
 
 getStardustForLevel :: GameMaster -> Float -> Int
 getStardustForLevel this level =
-  fst $ head $ filter (\(_, lvl) -> lvl == level) $ dustAndLevel this
+  fst $ head $ filter ((== level) . snd) $ dustAndLevel this
 
 lookup :: Epic.MonadCatch m => String -> StringMap a -> String -> m a
 lookup what hash key =
