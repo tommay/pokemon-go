@@ -293,8 +293,7 @@ candyAndLevel this =
 --
 allLevels :: GameMaster -> [Float]
 allLevels =
-  init . concat . map (\ (level, _) -> [level, level + 0.5])
-    . zip [1..] . Vector.toList . cpMultipliers
+  map fst . zip levels . init . x2 . Vector.toList . cpMultipliers
 
 -- powerUpLevels returns the levels that pokemon can be powered up to.
 --
