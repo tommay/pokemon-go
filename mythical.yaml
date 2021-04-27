@@ -9,7 +9,7 @@
 # pokemon so "counter -a" only includes in-game pokemon, and distinguish
 # legendaries so "counter -a -L" can exclude them.
 
-# egrep -e "- templateId: V[0-9]+_POKEMON_.*" V2_GAME_MASTER.yaml | tr "[A-Z]" "[a-z]" | egrep -v "_(normal|purified|shadow|20|reversion)" | sed -e "s/^.*pokemon_//" -e 's/$/: /'
+# egrep -e "- templateId: V[0-9]+_POKEMON_.*" _GAME_MASTER.yaml | tr "[A-Z]" "[a-z]" | egrep -v "_(normal|purified|shadow|20|reversion)" | sed -e "s/^.*pokemon_//" -e 's/$/: /'
 
 bulbasaur: 
 ivysaur: 
@@ -73,6 +73,7 @@ dugtrio:
 dugtrio_alola: 
 meowth: 
 meowth_alola: 
+meowth_galarian: 
 persian: 
 persian_alola: 
 psyduck: 
@@ -102,12 +103,15 @@ graveler_alola:
 golem: 
 golem_alola: 
 ponyta: 
+ponyta_galarian: 
 rapidash: 
+rapidash_galarian: 
 slowpoke: 
 slowbro: 
 magnemite: 
 magneton: 
 farfetchd: 
+farfetchd_galarian: 
 doduo: 
 dodrio: 
 seel: 
@@ -139,6 +143,7 @@ hitmonchan:
 lickitung: 
 koffing: 
 weezing: 
+weezing_galarian: 
 rhyhorn: 
 rhydon: 
 chansey: 
@@ -151,6 +156,7 @@ seaking:
 staryu: 
 starmie: 
 mr_mime: # regional europe
+mr_mime_galarian: 
 scyther: 
 jynx: 
 electabuzz: 
@@ -293,7 +299,9 @@ swampert:
 poochyena: 
 mightyena: 
 zigzagoon: 
+zigzagoon_galarian: 
 linoone: 
+linoone_galarian: 
 wurmple: 
 silcoon: 
 beautifly: 
@@ -560,156 +568,161 @@ arceus_psychic: legendary
 arceus_rock: legendary
 arceus_steel: legendary
 arceus_water: legendary
-victini:
+victini: 
 snivy: 
-servine:
-serperior:
+servine: 
+serperior: 
 tepig: 
-pignite:
-emboar:
+pignite: 
+emboar: 
 oshawott: 
-dewott:
-samurott:
+dewott: 
+samurott: 
 patrat: 
-watchog:
+watchog: 
 lillipup: 
-herdier:
-stoutland:
+herdier: 
+stoutland: 
 purrloin: 
-liepard:
-pansage: mythical # regional asia-pacific
-simisage: mythical
-pansear: mythical # regional europe, middle east, africa, india
-simisear: mythical
+liepard: 
+pansage: # regional asia-pacific
+simisage:
+pansear: # regional europe, middle east, africa, india
+simisear: 
 panpour: # regional americas and greenland
 simipour: # """
-munna: mythical
-musharna: mythical
+munna: 
+musharna: 
 pidove: 
 tranquill: 
-unfezant:
+unfezant: 
 blitzle: 
-zebstrika:
-roggenrola:
-boldore:
-gigalith:
-woobat:
-swoobat:
+zebstrika: 
+roggenrola: 
+boldore: 
+gigalith: 
+woobat: 
+swoobat: 
 drilbur: 
-excadrill:
-audino:
-timburr:
-gurdurr:
-conkeldurr:
-tympole:
-palpitoad:
-seismitoad:
+excadrill: 
+audino: 
+timburr: 
+gurdurr: 
+conkeldurr: 
+tympole: 
+palpitoad: 
+seismitoad: 
 throh: # regional north america, south america, africa
 sawk: # regional europe, asia, australia
-sewaddle:
-swadloon:
-leavanny:
-venipede:
-whirlipede:
-scolipede:
-cottonee:
-whimsicott:
-petilil:
-lilligant:
+sewaddle: 
+swadloon: 
+leavanny: 
+venipede: 
+whirlipede: 
+scolipede: 
+cottonee: 
+whimsicott: 
+petilil: 
+lilligant: 
 basculin_blue_striped: # regional western hemispjere
 basculin_red_striped: # regional eastern hemispjere
 sandile: mythical
 krokorok: mythical
 krookodile: mythical
-darumaka:
-darmanitan_standard:
+darumaka: 
+darumaka_galarian: 
+darmanitan_galarian_standard: 
+darmanitan_galarian_zen: 
+darmanitan_standard: 
 darmanitan_zen: mythical
 maractus: # regional southern us, mexico, central america, carribean, south america
-dwebble:
-crustle:
-scraggy:
-scrafty:
+dwebble: 
+crustle: 
+scraggy: 
+scrafty: 
 sigilyph: # regional egypt, greece
-yamask:
-cofagrigus:
-tirtouga:
-carracosta:
-archen:
-archeops:
-trubbish:
-garbodor:
+yamask: 
+cofagrigus: 
+tirtouga: 
+carracosta: 
+archen: 
+archeops: 
+trubbish: 
+garbodor: 
 zorua: mythical
 zoroark: mythical
-minccino:
-cinccino:
-gothita:
-gothorita:
-gothitelle:
-solosis:
-duosion:
-reuniclus:
-ducklett:
-swanna:
-vanillite: mythical
-vanillish: mythical
-vanilluxe: mythical
-deerling_autumn:
-deerling_spring: mythical
+minccino: 
+cinccino: 
+gothita: 
+gothorita: 
+gothitelle: 
+solosis: 
+duosion: 
+reuniclus: 
+ducklett: 
+swanna: 
+vanillite: 
+vanillish: 
+vanilluxe: 
+deerling_autumn: 
+deerling_spring: 
 deerling_summer: mythical
 deerling_winter: mythical
-sawsbuck_autumn:
-sawsbuck_spring: mythical
+sawsbuck_autumn: 
+sawsbuck_spring: 
 sawsbuck_summer: mythical
 sawsbuck_winter: mythical
-emolga:
-karrablast:
-escavalier:
+emolga: 
+karrablast: 
+escavalier: 
 foongus: 
-amoonguss:
-frillish: mythical
-jellicent: mythical
-alomomola:
-joltik:
-galvantula:
+amoonguss: 
+frillish: 
+jellicent: 
+jellicent_female: 
+alomomola: 
+joltik: 
+galvantula: 
 ferroseed: 
-ferrothorn:
+ferrothorn: 
 klink: 
-klang:
-klinklang:
-tynamo: mythical
-eelektrik: mythical
-eelektross: mythical
-elgyem:
-beheeyem:
+klang: 
+klinklang: 
+tynamo: 
+eelektrik: 
+eelektross: 
+elgyem: 
+beheeyem: 
 litwick: 
 lampent: 
 chandelure: 
-axew:
-fraxure:
-haxorus:
-cubchoo:
-beartic:
-cryogonal:
-shelmet:
-accelgor:
-stunfisk:
+axew: 
+fraxure: 
+haxorus: 
+cubchoo: 
+beartic: 
+cryogonal: 
+shelmet: 
+accelgor: 
+stunfisk: 
+stunfisk_galarian: 
 mienfoo: mythical
 mienshao: mythical
 druddigon: mythical
 golett: 
-golurk:
-pawniard:
-bisharp:
+golurk: 
+pawniard: 
+bisharp: 
 bouffalant: # regional, new york
-rufflet:
-braviary:
-vullaby: mythical
-mandibuzz: mythical
+rufflet: 
+braviary: 
+vullaby: 
+mandibuzz: 
 heatmor: # regional western hemisphere
 durant: # regional eastern hemisphere
 deino: 
-zweilous:
-hydreigon:
+zweilous: 
+hydreigon: 
 larvesta: mythical
 volcarona: mythical
 cobalion: legendary
@@ -723,17 +736,93 @@ reshiram: legendary
 zekrom: legendary
 landorus_incarnate: legendary
 landorus_therian: legendary
-kyurem:
+kyurem: 
 kyurem_black: mythical
 kyurem_white: mythical
 keldeo_ordinary: mythical
 keldeo_resolute: mythical
 meloetta_aria: mythical
 meloetta_pirouette: mythical
-genesect:
-genesect_burn:
-genesect_chill:
-genesect_douse:
-genesect_shock:
+genesect: 
+genesect_burn: 
+genesect_chill: 
+genesect_douse: 
+genesect_shock: 
+chespin: 
+quilladin: 
+chesnaught: 
+fennekin: 
+braixen: 
+delphox: 
+froakie: 
+frogadier: 
+greninja: 
+bunnelby: 
+diggersby: 
+fletchling: 
+fletchinder: 
+talonflame: 
+scatterbug: mythical
+spewpa: mythical
+vivillon: mythical
+litleo: 
+pyroar: 
+pyroar_female: 
+flabebe: mythical
+floette: mythical
+florges: mythical
+skiddo: mythical
+gogoat: mythical
+pancham: mythical
+pangoro: mythical
+furfrou: mythical
+espurr: mythical
+meowstic: mythical
+meowstic_female: mythical
+honedge: mythical
+doublade: mythical
+aegislash: mythical
+spritzee: mythical
+aromatisse: mythical
+swirlix: 
+slurpuff: 
+inkay: mythical
+malamar: mythical
+binacle: 
+barbaracle: 
+skrelp: 
+dragalge: 
+clauncher: 
+clawitzer: 
+helioptile: mythical
+heliolisk: mythical
+tyrunt: mythical
+tyrantrum: mythical
+amaura: mythical
+aurorus: mythical
+sylveon: 
+hawlucha: mythical
+ededenne: mythical
+carbink: mythical
+goomy: 
+sliggoo: 
+goodra: 
+klefki: mythical
+phantump: mythical
+trevenant: mythical
+pumpkaboo: mythical
+gourgeist: mythical
+bergmite: mythical
+avalugg: mythical
+noibat: 
+noivern: 
+xerneas: 
+yveltal: 
+zygarde: 
 meltan: 
 melmetal: 
+obstagoon: 
+perrserker: 
+sirfetchd: 
+mr_rime: 
+runerigus: 
