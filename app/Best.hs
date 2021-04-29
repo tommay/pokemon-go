@@ -30,6 +30,7 @@ data Stuff = Stuff {
   description :: String,
   stardust    :: Int,
   candy       :: Int,
+  xlCandy     :: Int,
   statProduct :: Double,
   attack      :: Double
 } deriving (Show)
@@ -86,8 +87,8 @@ main =
               evalField a `Ord.compare` evalField b
             compareCost a b =
               let (primary, secondary) = if cheapestByCandy options
-                    then (candy, stardust)
-                    else (stardust, candy)
+                    then (totalCandy, stardust)
+                    else (stardust, totalCandy)
               in case primary a `Ord.compare` primary b of
                 EQ -> case secondary a `Ord.compare` secondary b of
                   EQ -> evalField b `Ord.compare` evalField a
@@ -126,6 +127,13 @@ main =
                 showLines discardFromAll
               else pure ()
           else pure ()
+
+-- This is kind of a hack that bundles candy and xlCandy into a single
+-- Int that's easy to compare, such that if xlCandy is non-zero then
+-- it compares greater than anything eithout xlCandy.
+--
+totalCandy :: Stuff -> Int
+totalCandy stuff = (xlCandy stuff * 1000) + candy stuff
 
 -- -> ([sorted], [keep], [discard])
 --
@@ -172,7 +180,8 @@ parseStuff string =
           text = string,
           description = description,
           stardust = stardust,
-          candy = candy + xlCandy,
+          candy = candy,
+          xlCandy = xlCandy,
           statProduct = statProduct,
           attack = attack
           }
