@@ -83,17 +83,17 @@ main =
       Right stuffs -> do
         -- examineds :: [([Stuff], [Stuff], [Stuff])]
         let evalField = if evalByAttack options then attack else statProduct
-            compareGoodness a b =
-              evalField a `Ord.compare` evalField b
-            compareCost a b =
-              let (primary, secondary) = if cheapestByCandy options
-                    then (totalCandy, stardust)
-                    else (stardust, totalCandy)
-              in case primary a `Ord.compare` primary b of
-                EQ -> case secondary a `Ord.compare` secondary b of
-                  EQ -> evalField b `Ord.compare` evalField a
-                  x -> x
-                x -> x
+            compareGoodness = Ord.comparing evalField
+            a `compareCost` b =
+              let (comparePrimary, compareSecondary) =
+                    if cheapestByCandy options
+                      then (compareCandy, compareStardust)
+                      else (compareStardust, compareCandy)
+              in case a `comparePrimary` b of
+                EQ -> case a `compareSecondary` b of
+                  EQ -> b `compareGoodness` a
+                  ordering -> ordering
+                ordering -> ordering
             examineds = map (examineStuff compareCost compareGoodness) stuffs
             showLines = mapM_ (putStrLn . text)
         forM_ (zip filenames examineds) $
@@ -128,12 +128,14 @@ main =
               else pure ()
           else pure ()
 
--- This is kind of a hack that bundles candy and xlCandy into a single
--- Int that's easy to compare, such that if xlCandy is non-zero then
--- it compares greater than anything eithout xlCandy.
---
-totalCandy :: Stuff -> Int
-totalCandy stuff = (xlCandy stuff * 1000) + candy stuff
+compareStardust :: Stuff -> Stuff -> Ordering
+compareStardust = Ord.comparing stardust
+
+compareCandy :: Stuff -> Stuff -> Ordering
+compareCandy a b =
+ case Ord.comparing xlCandy a b of
+    EQ -> Ord.comparing candy a b
+    ordering -> ordering
 
 -- -> ([sorted], [keep], [discard])
 --
@@ -144,7 +146,7 @@ examineStuff compareCost compareGoodness stuffs =
       -- nubBy will keep only the elements with increasing goodness,
       -- I.e., as we go through the list towards more expensive pokemon
       -- we only keep them if they are better.
-      keep = Ordered.nubBy (\ a b -> compareGoodness a b == LT) sorted
+      keep = Ordered.nubBy (\ a b -> a `compareGoodness` b == LT) sorted
       discard = discardedBy (Ord.comparing description) sorted keep
   in (sorted, keep, discard)
 
@@ -188,16 +190,6 @@ parseStuff string =
   in case Atto.parseOnly attoParseStuff (Text.pack string) of
     Left error -> Left $ "Error parsing '" ++ string ++ "':\n" ++ error
     Right stuff -> Right stuff
-
-compareStardust :: Ord a => (Stuff -> a) -> Stuff -> Stuff -> Ordering
-compareStardust evalField a b =
-  case stardust a `Ord.compare` stardust b of
-    GT -> GT
-    EQ -> case candy a `Ord.compare` candy b of
-      GT -> GT
-      EQ -> evalField b `Ord.compare` evalField a
-      LT -> LT
-    LT -> LT
 
 -- Given an old list and a new list with some elements discarded, return
 -- the elements that were discarded.
