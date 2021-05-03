@@ -9,7 +9,13 @@
 # "best [-a] species.team.*" to sort by stat product or attack and
 # decide which pokemon to keep.
 
-while getopts ":e:x:" opt; do
+# Default is to rate for al three leagues.
+
+great=t
+ultra=t
+master=t
+
+while getopts ":e:x:gum" opt; do
   case ${opt} in
     e) 
       evolved_species="$OPTARG"
@@ -18,8 +24,17 @@ while getopts ":e:x:" opt; do
     x)
       max_xl_candy="-x $OPTARG"
       ;;
+    g)
+      great=t; ultra=; master=
+      ;;
+    u)
+      great=; ultra=t; master=
+      ;;
+    m)
+      great=; ultra=; master=t
+      ;;
     \?)
-      echo "Usage: $0 [-e evolved_species] [-x max_xl_candy]"
+      echo "Usage: $0 [-e evolved_species] [-x max_xl_candy] [-g] [-u] [-m]"
       exit 2
       ;;
   esac
@@ -54,6 +69,6 @@ rate() {
 }
 
 out=$dir/$evolved_species.$team
-rate -g <$1 >$out.great
-rate -u <$1 >$out.ultra
-rate -m <$1 >$out.master
+[ "$great" ] && rate -g <$1 >$out.great
+[ "$ultra" ] && rate -u <$1 >$out.ultra
+[ "$master" ] && rate -m <$1 >$out.master
