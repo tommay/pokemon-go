@@ -29,12 +29,14 @@ data Options = Options {
   level :: Maybe Float,
   ivFloor :: Maybe Int,
   species :: String,
+  maxXlCandy :: Int,
   cpList :: [Int]   -- Possibly empty.
 }
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optLevel <*> optIvFloor <*> optSpecies <*> optCpList
+  let opts = Options <$> optLevel <*> optIvFloor <*> optSpecies
+        <*> optMaxXlCandy <*> optCpList
       optLevel = O.optional $ O.option O.auto
         (  O.long "level"
         <> O.short 'l'
@@ -46,6 +48,13 @@ getOptions =
         <> O.metavar "MINIMUM"
         <> O.help "Set minimum IV, e.g., 10 for raid boss or hatch")
       optSpecies = O.strArgument (O.metavar "SPECIES")
+      optMaxXlCandy = O.option O.auto
+        (  O.long "xlcandy"
+        <> O.short 'x'
+        <> O.value 0
+        <> O.showDefault
+        <> O.metavar "XLCANDY"
+        <> O.help "Max XL candy for powerups")
       optCpList = O.many $ O.argument O.auto (O.metavar "CP")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
