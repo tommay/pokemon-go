@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Sorts all pokemon+moveset first by spamminess (how many turns it
-# takes for them to do a change move, lowest first) and secondarily by
+# takes for them to do a charge move, lowest first) and secondarily by
 # how much damage they do adjusted for the moves' STAB.
 #
 # The idea is that spammy moves are good because it's not a big deal
