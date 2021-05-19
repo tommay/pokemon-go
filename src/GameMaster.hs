@@ -60,6 +60,8 @@ import qualified PvpChargedMove
 import           PvpChargedMove (PvpChargedMove)
 import qualified PvpFastMove
 import           PvpFastMove (PvpFastMove)
+import qualified Rarity (Rarity (..))
+import           Rarity (Rarity)
 import           StringMap (StringMap)
 import qualified Type
 import           Type (Type)
@@ -113,6 +115,7 @@ instance Store.Store Type
 instance Store.Store Move
 instance Store.Store PokemonBase
 instance Store.Store Weather
+instance Store.Store Rarity
 
 type ItemTemplate = Yaml.Object
 
@@ -693,11 +696,19 @@ makePokemonBase types moves forms pokemonSettings =
           return $ (purificationStardustNeeded, purificationCandyNeeded)
         Left _ -> return $ (0, 0)
 
+    rarity <- getObjectValueWithDefault Rarity.Normal pokemonSettings "rarity"
+
     return $ PokemonBase.new pokemonId species ptypes attack defense stamina
        evolutions quickMoves chargeMoves parent baseCaptureRate
-       thirdMoveCost purificationCost
+       thirdMoveCost purificationCost rarity
     )
   (\ex -> Epic.fail $ ex ++ " in " ++ show pokemonSettings)
+
+instance Yaml.FromJSON Rarity where
+  parseJSON (Yaml.String "POKEMON_RARITY_LEGENDARY") = pure Rarity.Legendary
+  parseJSON (Yaml.String "POKEMON_RARITY_MYTHIC") = pure Rarity.Mythic
+  parseJSON oops = fail $
+    "Expected rarity to be legendary or mythic, got " ++ show oops
 
 makeWeatherAffinity :: Epic.MonadCatch m => StringMap Type -> ItemTemplate -> m [Type]
 makeWeatherAffinity types weatherAffinity = do

@@ -24,6 +24,7 @@ module PokemonBase (
 import           Type (Type)
 import qualified Move
 import           Move (Move)
+import           Rarity (Rarity)
 
 import           GHC.Generics (Generic)
 
@@ -43,7 +44,8 @@ data PokemonBase = PokemonBase {
   parent       :: Maybe String,
   baseCaptureRate :: Float,
   thirdMoveCost :: (Int, Int),  -- (stardust, candy)
-  purificationCost :: (Int, Int)  -- (stardust, candy)
+  purificationCost :: (Int, Int),  -- (stardust, candy)
+  rarity       :: Rarity
 } deriving (Generic)
 
 instance Show PokemonBase where
