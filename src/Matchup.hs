@@ -15,7 +15,7 @@ module Matchup (
 import Epic
 
 import qualified Data.Yaml as Yaml
-import           Data.Yaml ((.:), (.:?))
+import           Data.Yaml ((.:))
 
 data Matchup = Matchup {
   defender :: String,
