@@ -55,7 +55,10 @@ import qualified System.Exit as Exit
 
 import qualified Debug
 
-defaultIvs = IVs.defaultIVs
+-- Since I use thie for fiding the best rais attackers, use decent
+-- raid attacker IVs instead of IVs.defaultIvs.
+--
+defaultIvs = IVs.new 35 15 13 13
 
 data Options = Options {
   level :: Float,
