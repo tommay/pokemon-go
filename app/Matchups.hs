@@ -1,8 +1,8 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 -- Simulates matchups between all attackers and defenders where attackers
--- are at the top of their evolution chain and defenders are all tier 3
--- raid bosses.
+-- are at the top of their evolution chain and defenders are tier 3
+-- raid bosses or tier 5 if they're legendary pr mythical.
 -- Alternatively a file of attackers can be given and they will be
 -- simulated against all defenders.
 --
@@ -11,6 +11,8 @@
 --
 -- The output can be used by "elites" to figure which pokemon are the
 -- best attackers.
+--
+-- As of 5/2021 this takes about an hour to run.
 
 module Main where
 
@@ -36,6 +38,7 @@ import qualified Pokemon
 import           Pokemon (Pokemon)
 import qualified PokemonBase
 import           PokemonBase (PokemonBase)
+import qualified Rarity (Rarity (..))
 
 import qualified Data.Yaml.Builder as Builder
 import           Data.Yaml.Builder ((.=))
@@ -111,8 +114,17 @@ main =
       let defenderBases =
             filter ((/= "smeargle") . PokemonBase.species) allBases
 
-          defenderSets =
-            map (BattlerUtil.makeRaidBossForTier gameMaster 3) defenderBases
+          -- Battle legendary and mythic as tier 5 bosses, everything
+          -- else as tier 3.
+          tier base = case PokemonBase.rarity base of
+            Rarity.Legendary -> 5
+            Rarity.Mythic -> 5
+            _ -> 3
+
+          makeDefenderSets base =
+            BattlerUtil.makeRaidBossForTier gameMaster (tier base) base
+
+          defenderSets = map makeDefenderSets defenderBases
 
           attackerResults = [getAttackerResult defenders attacker |
             defenders <- defenderSets, attacker <- attackers]

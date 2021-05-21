@@ -19,6 +19,7 @@ module PokemonBase (
   baseCaptureRate,
   thirdMoveCost,
   purificationCost,
+  rarity,
 ) where
 
 import           Type (Type)
