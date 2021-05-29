@@ -2,6 +2,9 @@
 # moves as elite moves.  But it serves as a history of legacy/elite
 # moves.
 
+# It turns out there are legacy moves that aren't "elite" moves, for example
+# TECHNO_BLAST_BURN, which is known by GENESECT_BURN.
+
 - species: pikachu
   moves:
   - SURF            # Community day 1/2018
@@ -42,6 +45,15 @@
   moves:
   - LAST_RESORT     # Community day 8/2018
 - species: umbreon
+  moves:
+  - LAST_RESORT     # Community day 8/2018
+- species: glaceon
+  moves:
+  - LAST_RESORT     # Community day 8/2018
+- species: leafeon
+  moves:
+  - LAST_RESORT     # Community day 8/2018
+- species: sylveon
   moves:
   - LAST_RESORT     # Community day 8/2018
 - species: articuno
@@ -179,3 +191,26 @@
 - species: magmortar
   moves:
   - thunderbolt        # Community day 11/21/2020
+- species: machamp
+  moves:
+  - payback            # Community day 1/2021
+- species: genesect_burn
+  moves:
+  - techno_blast_burn  # Raids 1/2021
+- species: roserade
+  moves:
+  - bullet_seed_fast   # Community day 2/2021
+  - weather_ball_fire  # Community day 2/2021
+- species: talonflame
+  moves:
+  - incinerate_fast    # Community day 3/2021
+- species: serperior
+  moves:
+  - frenzy_plant       # Community day 4/2021
+- species: altaria
+  moves:
+  - moon_blast         # Community day 5/2021
+- species: garchomp
+  moves:
+  - earth_power        # Community day 6/2021
+
