@@ -18,7 +18,7 @@ if ./iv "$@" >x; then
   diff -u -F "name: " "$1" x | less
   if [ -L "$1" ]; then
     cp "$1" "$1".0
-    cp x "$1"
+    cp x "$1" && rm x
   else
     mv "$1" "$1".0
     mv x "$1"
