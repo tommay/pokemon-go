@@ -184,7 +184,7 @@
   - TRI_ATTACK         # Community day 9/20/2020
 - species: charizard
   moves:
-  - DRAGON_BREATH      # Community day 10/17/2020
+  - DRAGON_BREATH_FAST # Community day 10/17/2020
 - species: electivire
   moves:
   - flamethrower       # Community day 11/15/2020
@@ -209,8 +209,7 @@
   - frenzy_plant       # Community day 4/2021
 - species: altaria
   moves:
-  - moon_blast         # Community day 5/2021
+  - moonblast          # Community day 5/2021
 - species: garchomp
   moves:
   - earth_power        # Community day 6/2021
-

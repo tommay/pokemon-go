@@ -52,6 +52,7 @@ module GameMaster (
 import qualified Cost
 import           Cost (Cost)
 import qualified Epic
+import qualified Legacy
 import qualified Move
 import           Move (Move)
 import qualified PokemonBase
@@ -145,7 +146,10 @@ loadFromYaml filename = do
   either <- Yaml.decodeFileEither filename
   case either of
     Left yamlParseException -> Epic.fail $ show yamlParseException
-    Right yamlObjects -> return $ makeGameMaster yamlObjects
+    Right yamlObjects -> do
+      -- Have to load Legacy here while we're in the IO monad.
+      legacyMap <- join $ Legacy.load "legacy_moves.yaml"
+      return $ makeGameMaster yamlObjects legacyMap
 
 writeCache :: FilePath -> GameMaster -> IO ()
 writeCache filename gameMaster =
@@ -336,8 +340,9 @@ sanitize string =
   let nonWordChars = Regex.mkRegex "\\W"
   in Util.toUpper $ Regex.subRegex nonWordChars string "_"
 
-makeGameMaster :: Epic.MonadCatch m => [Yaml.Object] -> m GameMaster
-makeGameMaster yamlObjects = do
+makeGameMaster :: Epic.MonadCatch m =>
+  [Yaml.Object] -> StringMap ([String], [String]) -> m GameMaster
+makeGameMaster yamlObjects legacyMap = do
   itemTemplates <- getItemTemplates yamlObjects
   types <- getTypes itemTemplates
   pvpFastMoves <- getPvpFastMoves types itemTemplates
@@ -347,7 +352,7 @@ makeGameMaster yamlObjects = do
   forms <- getForms itemTemplates
   pokemonBases <-
     makeObjects "pokemonSettings" (getSpeciesForPokemonBase forms)
-      (makePokemonBase types moves forms)
+      (makePokemonBase types moves forms legacyMap)
       (filter (hasFormIfRequired forms) itemTemplates)
   cpMultipliers <- do
     playerLevel <- getFirst itemTemplates "playerLevel"
@@ -592,9 +597,9 @@ getSpeciesForPokemonBase forms itemTemplate = do
       Left _ -> Epic.fail $ "No form specified for " ++ species      
 
 makePokemonBase :: Epic.MonadCatch m =>
-  StringMap Type -> StringMap Move
-  -> StringMap [String] -> ItemTemplate -> m PokemonBase
-makePokemonBase types moves forms pokemonSettings =
+  StringMap Type -> StringMap Move -> StringMap [String] ->
+  StringMap ([String], [String]) -> ItemTemplate -> m PokemonBase
+makePokemonBase types moves forms legacyMap pokemonSettings =
   Epic.catch (do
     let getValue key = getObjectValue pokemonSettings key
         getValueWithDefault dflt key =
@@ -642,11 +647,23 @@ makePokemonBase types moves forms pokemonSettings =
         -- XXX This can swallow parse errors?
         Left _ -> return []
 
-    let getLegacyMoves key = do
+    let (legacyFastMoveNames, legacyChargedMoveNames) =
+          -- XXX This should be HashMap.findWithDefault which doesn't
+          -- seem to exist.
+          case HashMap.lookup species legacyMap of
+            Just val -> val
+            Nothing -> ([], [])
+
+    -- legacyNames are the names from legacy_moves.yaml.  They get
+    -- appended to the lists of elite moves in GAME_MASTER.yaml.
+    --
+    let getEliteMoves key legacyMoveNames = do
           moveNames <- getValueWithDefault [] key
-          mapM (liftM Move.setLegacy . get moves) moveNames
-    legacyQuickMoves <- getLegacyMoves "eliteQuickMove"
-    legacyChargeMoves <- getLegacyMoves "eliteCinematicMove"
+          mapM (liftM Move.setLegacy . get moves) $
+            map (++ "_SPUD") $
+            moveNames ++ legacyMoveNames
+    eliteQuickMoves <- getEliteMoves "eliteQuickMove" legacyFastMoveNames
+    eliteChargeMoves <- getEliteMoves "eliteCinematicMove" legacyChargedMoveNames
 
     -- XXX Smeargle's doesn't have keys for "quickMoves" and
     -- "cinematicMoves".  Instead, those keys are in the template
@@ -657,17 +674,16 @@ makePokemonBase types moves forms pokemonSettings =
     --
     let getMoves key = if species /= "smeargle"
           then do
-            -- Mew has some moves specified multiple times so nub them.
-            moveNames <- List.nub <$> getValue key
+            moveNames <- getValue key
             mapM (get moves) moveNames
           else return []
 
     quickMoves <- do
       moves <- getMoves "quickMoves"
-      return $ moves ++ legacyQuickMoves
+      return $ List.nub $ moves ++ eliteQuickMoves
     chargeMoves <- do
       moves <- getMoves "cinematicMoves"
-      return $ moves ++ legacyChargeMoves
+      return $ List.nub $ moves ++ eliteChargeMoves
 
     let parent = case getValue "parentPokemonId" of
           Right parent -> Just parent
