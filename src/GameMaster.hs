@@ -77,7 +77,8 @@ import           Data.Yaml ((.:), (.:?), (.!=))
 import qualified Data.Store as Store
 import           GHC.Generics (Generic)
 
-import           Control.Monad (join, foldM, liftM)
+import           Control.Applicative.HT (lift2)
+import           Control.Monad (join, liftM)
 import           Data.Text.Conversions (convertText)
 import qualified Data.List as List
 import qualified Data.List.Extra
@@ -89,7 +90,7 @@ import           Data.Time.Clock (UTCTime)
 import qualified Data.Vector as Vector
 import           Data.Vector (Vector, (!))
 import qualified System.Directory
-import           System.IO.Error (tryIOError)
+import qualified System.IO.Error
 import qualified Text.Regex as Regex
 
 import qualified Debug as D
@@ -125,13 +126,23 @@ new = GameMaster
 load :: Epic.MonadCatch m => IO (m GameMaster)
 load = do
   let filename = "GAME_MASTER.yaml"
-  let cacheFileName = "/tmp/" ++ filename ++ ".cache"
-  maybeGameMaster <- do
-    cacheIsNewer <- cacheFileName `isNewerThan` filename
-    if cacheIsNewer
+      legacyMovesFilesname = "legacy_moves.yaml"
+      cacheFileName = "/tmp/" ++ filename ++ ".cache"
+  maybeCachedGameMaster <- do
+    maybeCacheTime <- getMaybeModificationTime cacheFileName
+    maybeGameMasterModificationTime <- getMaybeModificationTime filename
+    maybeLegacyMovesModificationTime <-
+      getMaybeModificationTime legacyMovesFilesname
+    -- If both are Just then return a > b else True, i.e., if either file
+    -- is missing consider the cache to be out of date.
+    let isNewerThan :: Ord a => Maybe a -> Maybe a -> Bool
+        isNewerThan a b = Maybe.fromMaybe True $ lift2 (>) a b
+        anyNewer = any (`isNewerThan` maybeCacheTime)
+          [maybeGameMasterModificationTime, maybeLegacyMovesModificationTime]
+    if not anyNewer
       then maybeLoadFromCache cacheFileName
       else return $ Nothing
-  case maybeGameMaster of
+  case maybeCachedGameMaster of
     Just gameMaster -> return $ pure gameMaster
     Nothing -> do
       mGameMaster <- loadFromYaml filename
@@ -157,27 +168,20 @@ writeCache filename gameMaster =
 
 maybeLoadFromCache :: FilePath -> IO (Maybe GameMaster)
 maybeLoadFromCache filename = do
-  either <- tryIOError $ B.readFile filename
+  either <- System.IO.Error.tryIOError $ B.readFile filename
   return $ case either of
     Left ioError -> Nothing
     Right byteString -> case Store.decode byteString of
       Left peekException -> Nothing
       Right gameMaster -> Just gameMaster
 
-isNewerThan :: FilePath -> FilePath -> IO Bool
-name1 `isNewerThan` name2 = do
-  maybeTime1 <- getMaybeModificationTime name1
-  maybeTime2 <- getMaybeModificationTime name2
-  let Just time1 >> Just time2 = time1 > time2
-      _ >> _ = False
-  return $ maybeTime1 >> maybeTime2
-
 -- Returns a file's modification time if the file exists and we can get
 -- its modification time, or Nothing.
 --
 getMaybeModificationTime :: FilePath -> IO (Maybe UTCTime)
 getMaybeModificationTime filename = do
-  either <- tryIOError $ System.Directory.getModificationTime filename
+  either <- System.IO.Error.tryIOError $
+    System.Directory.getModificationTime filename
   return $ case either of
     Left ioError -> Nothing
     Right time -> Just time
@@ -660,7 +664,6 @@ makePokemonBase types moves forms legacyMap pokemonSettings =
     let getEliteMoves key legacyMoveNames = do
           moveNames <- getValueWithDefault [] key
           mapM (liftM Move.setLegacy . get moves) $
-            map (++ "_SPUD") $
             moveNames ++ legacyMoveNames
     eliteQuickMoves <- getEliteMoves "eliteQuickMove" legacyFastMoveNames
     eliteChargeMoves <- getEliteMoves "eliteCinematicMove" legacyChargedMoveNames
