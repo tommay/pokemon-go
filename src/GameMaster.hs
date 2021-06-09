@@ -79,6 +79,7 @@ import           GHC.Generics (Generic)
 
 import           Control.Applicative.HT (lift2)
 import           Control.Monad (join, liftM)
+import           Control.Monad.Extra (anyM)
 import           Data.Text.Conversions (convertText)
 import qualified Data.List as List
 import qualified Data.List.Extra
@@ -129,16 +130,8 @@ load = do
       legacyMovesFilesname = "legacy_moves.yaml"
       cacheFileName = "/tmp/" ++ filename ++ ".cache"
   maybeCachedGameMaster <- do
-    maybeCacheTime <- getMaybeModificationTime cacheFileName
-    maybeGameMasterModificationTime <- getMaybeModificationTime filename
-    maybeLegacyMovesModificationTime <-
-      getMaybeModificationTime legacyMovesFilesname
-    -- If both are Just then return a > b else True, i.e., if either file
-    -- is missing consider the cache to be out of date.
-    let isNewerThan :: Ord a => Maybe a -> Maybe a -> Bool
-        isNewerThan a b = Maybe.fromMaybe True $ lift2 (>) a b
-        anyNewer = any (`isNewerThan` maybeCacheTime)
-          [maybeGameMasterModificationTime, maybeLegacyMovesModificationTime]
+    anyNewer <- anyM (`isFileNewerThan` cacheFileName)
+      [filename, legacyMovesFilesname]
     if not anyNewer
       then maybeLoadFromCache cacheFileName
       else return $ Nothing
@@ -151,6 +144,14 @@ load = do
          Right gameMaster -> do
            writeCache cacheFileName gameMaster
            return $ pure gameMaster
+
+isFileNewerThan :: FilePath -> FilePath -> IO Bool
+a `isFileNewerThan` b = do
+  maybeTimeA <- getMaybeModificationTime a
+  maybeTimeB <- getMaybeModificationTime b
+  -- If both are Just then return a > b else True, i.e., if either file
+  -- is missing consider the cache to be out of date.
+  return $ Maybe.fromMaybe True $ lift2 (>) maybeTimeA maybeTimeB
 
 loadFromYaml :: Epic.MonadCatch m => FilePath -> IO (m GameMaster)
 loadFromYaml filename = do
