@@ -78,7 +78,7 @@ import qualified Data.Store as Store
 import           GHC.Generics (Generic)
 
 import           Control.Applicative.HT (lift2)
-import           Control.Monad (join, liftM)
+import           Control.Monad (join, liftM, liftM2)
 import           Control.Monad.Extra (anyM)
 import           Data.Text.Conversions (convertText)
 import qualified Data.List as List
@@ -147,11 +147,11 @@ load = do
 
 isFileNewerThan :: FilePath -> FilePath -> IO Bool
 a `isFileNewerThan` b = do
-  maybeTimeA <- getMaybeModificationTime a
-  maybeTimeB <- getMaybeModificationTime b
   -- If both are Just then return a > b else True, i.e., if either file
   -- is missing consider the cache to be out of date.
-  return $ Maybe.fromMaybe True $ lift2 (>) maybeTimeA maybeTimeB
+  let maybeGT :: Ord a => Maybe a -> Maybe a -> Bool
+      maybeGT a b = Maybe.fromMaybe True $ lift2 (>) a b
+  liftM2 maybeGT (getMaybeModificationTime a) (getMaybeModificationTime b)
 
 loadFromYaml :: Epic.MonadCatch m => FilePath -> IO (m GameMaster)
 loadFromYaml filename = do
