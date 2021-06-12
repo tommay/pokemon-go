@@ -153,6 +153,17 @@ a `isFileNewerThan` b = do
       maybeGT a b = Maybe.fromMaybe True $ lift2 (>) a b
   liftM2 maybeGT (getMaybeModificationTime a) (getMaybeModificationTime b)
 
+-- Returns a file's modification time if the file exists and we can get
+-- its modification time, or Nothing.
+--
+getMaybeModificationTime :: FilePath -> IO (Maybe UTCTime)
+getMaybeModificationTime filename = do
+  either <- System.IO.Error.tryIOError $
+    System.Directory.getModificationTime filename
+  return $ case either of
+    Left ioError -> Nothing
+    Right time -> Just time
+
 loadFromYaml :: Epic.MonadCatch m => FilePath -> IO (m GameMaster)
 loadFromYaml filename = do
   either <- Yaml.decodeFileEither filename
@@ -175,17 +186,6 @@ maybeLoadFromCache filename = do
     Right byteString -> case Store.decode byteString of
       Left peekException -> Nothing
       Right gameMaster -> Just gameMaster
-
--- Returns a file's modification time if the file exists and we can get
--- its modification time, or Nothing.
---
-getMaybeModificationTime :: FilePath -> IO (Maybe UTCTime)
-getMaybeModificationTime filename = do
-  either <- System.IO.Error.tryIOError $
-    System.Directory.getModificationTime filename
-  return $ case either of
-    Left ioError -> Nothing
-    Right time -> Just time
 
 allPokemonBases :: GameMaster -> [PokemonBase]
 allPokemonBases this =
