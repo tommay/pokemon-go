@@ -174,8 +174,12 @@ main =
 
       -- baseCurrent can be used for all CP calculations and to get the
       -- purification cost.
+ 
       baseCurrent <- do
         let speciesCurrent =
+              -- This is different from appendEvolvedSuffix because
+              -- that uses the suffix before purification and this
+              -- uses the suffix after purification.
               if isShadow
                 then species ++ "_SHADOW"
                 else if isPurified
@@ -188,7 +192,7 @@ main =
       baseToEvolve <- do
         GameMaster.getPokemonBase gameMaster speciesToEvolve
 
-      let allLevels = reverse $ GameMaster.powerUpLevels gameMaster
+      let allLevels = GameMaster.powerUpLevels gameMaster
           makeIVs level = IVs.new level
             (attack options) (defense options) (stamina options)
           allIVs = map makeIVs allLevels
@@ -247,7 +251,7 @@ main =
             (purifyIv $ stamina options)
           allPureIVs = map makePureIVs allLevels
           pred = leaguePred $ league options
-          powerUpIVs = firstWhere (pred . calcCpForIVs baseEvolved) allPureIVs
+          powerUpIVs = lastWhere (pred . calcCpForIVs baseEvolved) allPureIVs
           powerUpLevel = IVs.level powerUpIVs
           levelsAndCosts =
             filter (leMaybe (maybeMaxXlCandy options) . Cost.xlCandy . snd) $
@@ -310,9 +314,9 @@ leMaybe :: Ord a => Maybe a -> a -> Bool
 leMaybe =
   Maybe.maybe (const True) (>=) 
 
-firstWhere :: (a -> Bool) -> [a] -> a
-firstWhere pred =
-  head . filter pred
+lastWhere :: (a -> Bool) -> [a] -> a
+lastWhere pred =
+  last . filter pred
 
 total :: GameMaster -> PokemonBase -> IVs -> (Float, Float)
 total gameMaster base ivs =
@@ -355,6 +359,6 @@ getRank gameMaster areIVsOkForLeague ivs getMetricForIVs =
 
 getPowerupIVs :: GameMaster -> (IVs -> Bool) -> (Int, Int, Int) -> IVs
 getPowerupIVs gameMaster areIVsOkForLeague (attack, defense, stamina) =
-  let allLevels = reverse $ GameMaster.powerUpLevels gameMaster
+  let allLevels = GameMaster.powerUpLevels gameMaster
       allIVs = map (\ level -> IVs.new level attack defense stamina) allLevels
-  in firstWhere areIVsOkForLeague allIVs
+  in last $ filter areIVsOkForLeague allIVs
