@@ -31,6 +31,7 @@ data Options = Options {
   league  :: League,
   oneLine :: Bool,
   summary :: Bool,
+  allPowerups :: Bool,
   isShadow :: Bool,
   isPurified :: Bool,
   isLucky :: Bool,
@@ -52,8 +53,8 @@ data League = Little | Great | Ultra | Master | Peewee
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optLeague <*> optOneLine
-        <*> optSummary
+  let opts = Options <$> optLeague
+        <*> optOneLine <*> optSummary <*> optAllPowerups
         <*> optIsShadow <*> optIsPurified <*> optIsLucky <*> optIsTraded
         <*> optMaxXlCandy
         <*> optSpecies <*> optEvolution
@@ -89,6 +90,10 @@ getOptions =
         (  O.long "summary"
         <> O.short 's'
         <> O.help "Show a single summary line")
+      optAllPowerups = O.switch
+        (  O.long "all"
+        <> O.short 'a'
+        <> O.help "Show all powerups below the league cap")
       optIsShadow = O.switch
         (  O.long "shadow"
         <> O.short 'S'
