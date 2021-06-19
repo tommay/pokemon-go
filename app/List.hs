@@ -27,16 +27,22 @@ import qualified System.Exit as Exit
 import qualified Text.Printf as Printf
 
 data Options = Options {
-  little :: Bool
+  little :: Bool,
+  allowedTypes :: [String]
 }
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optLittle
+  let opts = Options <$> optLittle <*> optAllowedTypes
       optLittle = O.switch
         (  O.long "little"
         <> O.short 'l'
         <> O.help "Show pokemon eligible for Little Cup and similar")
+      optAllowedTypes = (O.many . O.strOption)
+        (  O.long "type"
+        <> O.short 't'
+        <> O.metavar "TYPE"
+        <> O.help "Include only the specified types.")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc "List some or all pokemon.")
@@ -51,9 +57,13 @@ main =
       let isLittle littleRequired = if littleRequired
             then PokeUtil.isFirstEvolution gameMaster
             else const True
+          hasAllowedType allowedTypes = case allowedTypes of
+            [] -> const True
+            _ -> any ((`elem` allowedTypes) . Type.name) . PokemonBase.types
       mapM_ putStrLn $
         map PokemonBase.species $
         filter (isLittle $ little options) $
+        filter (hasAllowedType $ allowedTypes options) $
         GameMaster.allPokemonBases gameMaster
     )
     $ Exit.die
