@@ -17,6 +17,7 @@ import qualified PokemonBase
 import           PokemonBase (PokemonBase)
 import qualified Type
 import           Type (Type)
+import qualified PokeUtil
 
 import qualified Debug
 
@@ -25,33 +26,34 @@ import qualified Data.List as List
 import qualified System.Exit as Exit
 import qualified Text.Printf as Printf
 
---data Options = Options {
---  attacker :: String,
---  defender :: Maybe String
---}
+data Options = Options {
+  little :: Bool
+}
 
---getOptions :: GameMaster -> IO Options
---getOptions gameMaster =
---  let opts = Options <$> optAttacker <*> optDefender
---      allSpecies = GameMaster.allSpecies gameMaster
---      optAttacker = O.strArgument
---        (  (O.metavar "ATTACKER")
---        <> O.completeWith allSpecies)
---      optDefender = O.optional $ O.strArgument
---        (  (O.metavar "DEFENDER")
---        <> O.completeWith allSpecies)
---      options = O.info (opts <**> O.helper)
---        (  O.fullDesc
---        <> O.progDesc "Rate movesets by spamminess.")
---      prefs = O.prefs O.showHelpOnEmpty
---  in O.customExecParser prefs options
+getOptions :: IO Options
+getOptions =
+  let opts = Options <$> optLittle
+      optLittle = O.switch
+        (  O.long "little"
+        <> O.short 'l'
+        <> O.help "Show pokemon eligible for Little Cup and similar")
+      options = O.info (opts <**> O.helper)
+        (  O.fullDesc
+        <> O.progDesc "List some or all pokemon.")
+      prefs = O.prefs O.showHelpOnEmpty
+  in O.customExecParser prefs options
 
 main =
   Epic.catch (
     do
       gameMaster <- join $ GameMaster.load
---      options <- getOptions gameMaster
-      mapM_ (putStrLn . PokemonBase.species) $
+      options <- getOptions
+      let isLittle littleRequired = if littleRequired
+            then PokeUtil.isFirstEvolution gameMaster
+            else const True
+      mapM_ putStrLn $
+        map PokemonBase.species $
+        filter (isLittle $ little options) $
         GameMaster.allPokemonBases gameMaster
     )
     $ Exit.die
