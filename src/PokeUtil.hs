@@ -6,7 +6,8 @@ module PokeUtil (
   evolveFully,
   evolveFullyWithCandy,
   evolveSpeciesFullyWithCandy,
-  evolutionChains
+  evolutionChains,
+  isFirstEvolution,
 ) where
 
 import qualified Epic
@@ -27,6 +28,7 @@ import           Stats (Stats)
 import qualified Util
 
 import qualified Data.List as List
+import qualified Data.List.Extra
 import qualified Text.Printf as Printf
 
 import qualified Debug
@@ -109,6 +111,27 @@ evolveSpeciesFullyWithCandy gameMaster traded maybeTarget species = do
         _ -> Epic.fail $ species ++ " has multiple final evolutions: " ++
          List.intercalate ", " (map (Util.toLower . fst . List.last) chains)
   return evolution
+
+-- This tests eligibility for things like Little Cup where the species
+-- must have an evolution but must not be an evolution itself.
+--
+isFirstEvolution :: GameMaster -> PokemonBase  -> Bool
+isFirstEvolution gameMaster base =
+  PokemonBase.hasEvolutions base &&
+    (not $ isEvolution gameMaster base)
+
+isEvolution :: GameMaster -> PokemonBase -> Bool
+isEvolution gameMaster base =
+  let allBases = GameMaster.allPokemonBases gameMaster
+      getSpecies (species, _, _) = species
+      stripNormal string = case Data.List.Extra.stripSuffix "_normal" string of
+        Just newString -> newString
+        Nothing -> string
+      allEvolvedSpecies =
+        -- XXX it's a bit of a mess what's upper and what's lower.
+        map (stripNormal . Util.toLower . getSpecies) $
+          concat $ map PokemonBase.evolutions allBases
+  in PokemonBase.species base `elem` allEvolvedSpecies
 
 -- If species has a normal form then species will have _NORMAL here.
 -- Allow a match with either targete or target_NORMAL so the user can
