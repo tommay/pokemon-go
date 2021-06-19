@@ -6,9 +6,11 @@ import qualified Options.Applicative as O
 import           Options.Applicative ((<|>), (<**>))
 import           Data.Semigroup ((<>))
 
+import qualified Calc
 import qualified Epic
 import qualified GameMaster
 import           GameMaster (GameMaster)
+import qualified IVs
 import qualified Move
 import           Move (Move)
 import qualified Pokemon
@@ -28,16 +30,21 @@ import qualified Text.Printf as Printf
 
 data Options = Options {
   little :: Bool,
+  great :: Bool,
   allowedTypes :: [String]
 }
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optLittle <*> optAllowedTypes
+  let opts = Options <$> optLittle <*> optGreat <*> optAllowedTypes
       optLittle = O.switch
         (  O.long "little"
         <> O.short 'l'
         <> O.help "Show pokemon eligible for Little Cup and similar")
+      optGreat = O.switch
+        (  O.long "great"
+        <> O.short 'g'
+        <> O.help "Show pokemon with enough cp for great league")
       optAllowedTypes = (O.many . O.strOption)
         (  O.long "type"
         <> O.short 't'
@@ -60,10 +67,19 @@ main =
           hasAllowedType allowedTypes = case allowedTypes of
             [] -> const True
             _ -> any ((`elem` allowedTypes) . Type.name) . PokemonBase.types
+          hasEnoughCp great = if great
+            then (>= 1430) . maxCp gameMaster
+            else const True
       mapM_ putStrLn $
         map PokemonBase.species $
+        filter (hasEnoughCp $ great options) $
         filter (isLittle $ little options) $
         filter (hasAllowedType $ allowedTypes options) $
         GameMaster.allPokemonBases gameMaster
     )
     $ Exit.die
+
+maxCp :: GameMaster -> PokemonBase -> Int
+maxCp gameMaster base =
+  let maxIVs = IVs.new 40 15 15 15
+  in Calc.cp gameMaster base maxIVs
