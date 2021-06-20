@@ -10,12 +10,9 @@
 #
 # This script currently takes about 6 minutes to run.
 
-all_pokemon=$(./list)
+all_pokemon=$(./list -g)
 for p in $all_pokemon; do
-  # XXX Should have a switch to filter types for various cups.
-  if true || ./effectivenessagainst $p | egrep -q "type: .*flying"; then
-    ./spam $p |
-      awk -F: '{ print $2, $1 }' |
-      sed -e "s/^ *//" -e "s/ *$/ $p/"
-  fi
+  ./spam $p |
+    awk -F: '{ print $2, $1 }' |
+    sed -e "s/^ *//" -e "s/ *$/ $p/"
 done | sort -k 1n -k 2nr
