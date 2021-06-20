@@ -10,7 +10,7 @@
 #
 # This script currently takes about 6 minutes to run.
 
-all_pokemon=$(./list -g)
+all_pokemon=$(./list "$@")
 for p in $all_pokemon; do
   ./spam $p |
     awk -F: '{ print $2, $1 }' |
