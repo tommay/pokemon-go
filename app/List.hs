@@ -30,21 +30,36 @@ import qualified Text.Printf as Printf
 
 data Options = Options {
   little :: Bool,
-  great :: Bool,
+  minCp :: Int,
   allowedTypes :: [String]
 }
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optLittle <*> optGreat <*> optAllowedTypes
+  let opts = Options <$> optLittle <*> optMinCp <*> optAllowedTypes
       optLittle = O.switch
         (  O.long "little"
         <> O.short 'l'
         <> O.help "Show pokemon eligible for Little Cup and similar")
-      optGreat = O.switch
-        (  O.long "great"
-        <> O.short 'g'
-        <> O.help "Show pokemon with enough cp for great league")
+      optMinCp =
+            O.flag' 1400 (
+              O.short 'g' <>
+              O.long "great" <>
+              O.help "great league")
+        <|> O.flag' 2300 (
+              O.short 'u' <>
+              O.long "ultra" <>
+              O.help "ultra league")
+        <|> O.flag' 2700 (
+              O.short 'm' <>
+              O.long "master" <>
+              O.help "master league")
+        <|> O.option O.auto (
+              O.long "mincp" <>
+              O.short 'c' <>
+              O.metavar "N" <>
+              O.help "Minimum cp")
+        <|> pure 0
       optAllowedTypes = (O.many . O.strOption)
         (  O.long "type"
         <> O.short 't'
@@ -67,12 +82,13 @@ main =
           hasAllowedType allowedTypes = case allowedTypes of
             [] -> const True
             _ -> any ((`elem` allowedTypes) . Type.name) . PokemonBase.types
-          hasEnoughCp great = if great
-            then (>= 1430) . maxCp gameMaster
-            else const True
+          minCp' = if little options
+            then 400
+            else minCp options
+          hasEnoughCp = (>= minCp') . maxCp gameMaster
       mapM_ putStrLn $
         map PokemonBase.species $
-        filter (hasEnoughCp $ great options) $
+        filter hasEnoughCp $
         filter (isLittle $ little options) $
         filter (hasAllowedType $ allowedTypes options) $
         GameMaster.allPokemonBases gameMaster
