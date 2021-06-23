@@ -81,7 +81,7 @@ main =
             else const True
           hasAllowedType allowedTypes = case allowedTypes of
             [] -> const True
-            _ -> any ((`elem` allowedTypes) . Type.name) . PokemonBase.types
+            _ -> any (`elem` allowedTypes) . map Type.name . PokemonBase.types
           minCp' = if little options
             then 400
             else minCp options
