@@ -14,8 +14,9 @@
 great=t
 ultra=t
 master=t
+little=
 
-while getopts ":e:x:gum" opt; do
+while getopts ":e:x:lgum" opt; do
   case ${opt} in
     e) 
       evolved_species="$OPTARG"
@@ -25,13 +26,16 @@ while getopts ":e:x:gum" opt; do
       max_xl_candy="-x $OPTARG"
       ;;
     g)
-      great=t; ultra=; master=
+      great=t; ultra=; master=; little=
       ;;
     u)
-      great=; ultra=t; master=
+      great=; ultra=t; master=; little=
       ;;
     m)
-      great=; ultra=; master=t
+      great=; ultra=; master=t; little=
+      ;;
+    l)
+      great=; ultra=; master=; little=t
       ;;
     \?)
       echo "Usage: $0 [-e evolved_species] [-x max_xl_candy] [-g] [-u] [-m]"
@@ -49,7 +53,11 @@ species=${file%.*}          # Remove team, keep species from species.team.
 team=${file#*.}             # Remove species, keep team from species.team.
 
 if [[ "$evolved_species" == "" ]]; then
-  evolved_species=$(./evolvecp $species | tail -n 1 | sed "s/:.*//")
+  if [[ "$little" ]]; then
+    evolved_species="$species"
+  else
+    evolved_species=$(./evolvecp $species | tail -n 1 | sed "s/:.*//")
+  fi
 fi
 
 rate() {
@@ -72,3 +80,4 @@ out=$dir/$evolved_species.$team
 [ "$great" ] && rate -g <$1 >$out.great
 [ "$ultra" ] && rate -u <$1 >$out.ultra
 [ "$master" ] && rate -m <$1 >$out.master
+[ "$little" ] && rate --little <$1 >$out.little
