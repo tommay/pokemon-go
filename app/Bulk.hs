@@ -265,8 +265,8 @@ main =
           powerUpIVs = lastWhere (pred . calcCpForIVs baseEvolved) allPureIVs
           powerUpLevel = IVs.level powerUpIVs
           levelsAndCosts =
-            filter (leMaybe (maybeMaxCandy options) . Cost.candy . snd) $
-            filter (leMaybe (maybeMaxXlCandy options) . Cost.xlCandy . snd) $
+            filter ((`leMaybe` (maybeMaxCandy options)) . Cost.candy . snd) $
+            filter ((`leMaybe` (maybeMaxXlCandy options)) . Cost.xlCandy . snd) $
             filter ((<= powerUpLevel) . fst) $
             Powerups.levelsAndCosts gameMaster discounts level
           getRank' = getRank gameMaster (pred . calcCpForIVs baseEvolved)
@@ -322,18 +322,11 @@ candyToString candy xlCandy =
       then ""
       else Printf.printf "+%d" xlCandy)
 
--- Given a Maybe Int, return a function that compares its argument <=
--- Just Int or const True if it's a Nothing, i.e., consider the
--- comparison with Nothing to always be True.
--- This is easier to understand like this:
--- leMaybe maybeA =
---   case maybeA of
---     Nothing -> const True
---     Just a -> (a >=)   i.e., (<= a)
---
-leMaybe :: Ord a => Maybe a -> (a -> Bool)
-leMaybe =
-  Maybe.maybe (const True) (>=) 
+leMaybe :: Ord a => a -> Maybe a -> Bool
+leMaybe a maybeA =
+  case maybeA of
+    Nothing -> True
+    Just ma -> a <= ma
 
 lastWhere :: (a -> Bool) -> [a] -> a
 lastWhere pred =
