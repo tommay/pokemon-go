@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# rate.sh [-e evolved_species] [-x max_xl_candy] species.team
+# rate.sh [-e evolved_species] [-c max_candy] [-x max_xl_candy] species.team
 #
 # Used to help decide which pokemon to keep go pvp.
 #
@@ -16,11 +16,14 @@ ultra=t
 master=t
 little=
 
-while getopts ":e:x:lgum" opt; do
+while getopts ":e:c:x:lgum" opt; do
   case ${opt} in
     e) 
       evolved_species="$OPTARG"
       evolved="-e $evolved_species"
+      ;;
+    c)
+      max_candy="-c $OPTARG"
       ;;
     x)
       max_xl_candy="-x $OPTARG"
@@ -38,7 +41,7 @@ while getopts ":e:x:lgum" opt; do
       great=; ultra=; master=; little=t
       ;;
     \?)
-      echo "Usage: $0 [-e evolved_species] [-x max_xl_candy] [-g] [-u] [-m]"
+      echo "Usage: $0 [-e evolved_species] [-c max_candy] [-x max_xl_candy] [-g] [-u] [-m]"
       exit 2
       ;;
   esac
@@ -71,7 +74,7 @@ rate() {
         stats="$species $stats"
       fi
       echo $stats >&2
-      ./bulk -s $max_xl_candy $evolved $league $stats
+      ./bulk -s $max_candy $max_xl_candy $evolved $league $stats
     fi
   done | egrep -v "too high"
 }

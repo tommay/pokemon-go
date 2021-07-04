@@ -36,6 +36,7 @@ data Options = Options {
   isPurified :: Bool,
   isLucky :: Bool,
   isTraded :: Bool,
+  maybeMaxCandy :: Maybe Int,
   maybeMaxXlCandy :: Maybe Int,
   species :: String,
   maybeEvolution :: Maybe String,
@@ -56,7 +57,7 @@ getOptions =
   let opts = Options <$> optLeague
         <*> optOneLine <*> optSummary <*> optAllPowerups
         <*> optIsShadow <*> optIsPurified <*> optIsLucky <*> optIsTraded
-        <*> optMaxXlCandy
+        <*> optMaxCandy <*> optMaxXlCandy
         <*> optSpecies <*> optEvolution
         <*> optLevelOrCp <*> optAttack <*> optDefense <*> optStamina
       optLeague =
@@ -110,6 +111,11 @@ getOptions =
         (  O.long "traded"
         <> O.short 'T'
         <> O.help "Pokemon has been traded, evolution may be free")
+      optMaxCandy = O.optional $ O.option O.auto
+        (  O.long "candy"
+        <> O.short 'c'
+        <> O.metavar "CANDY"
+        <> O.help "Use up to CANDY candy to power up the pokemon")
       optMaxXlCandy = O.optional $ O.option O.auto
         (  O.long "xlcandy"
         <> O.short 'x'
@@ -259,6 +265,7 @@ main =
           powerUpIVs = lastWhere (pred . calcCpForIVs baseEvolved) allPureIVs
           powerUpLevel = IVs.level powerUpIVs
           levelsAndCosts =
+            filter (leMaybe (maybeMaxCandy options) . Cost.candy . snd) $
             filter (leMaybe (maybeMaxXlCandy options) . Cost.xlCandy . snd) $
             filter ((<= powerUpLevel) . fst) $
             Powerups.levelsAndCosts gameMaster discounts level
@@ -315,7 +322,16 @@ candyToString candy xlCandy =
       then ""
       else Printf.printf "+%d" xlCandy)
 
-leMaybe :: Ord a => Maybe a -> a -> Bool
+-- Given a Maybe Int, return a function that compares its argument <=
+-- Just Int or const True if it's a Nothing, i.e., consider the
+-- comparison with Nothing to always be True.
+-- This is easier to understand like this:
+-- leMaybe maybeA =
+--   case maybeA of
+--     Nothing -> const True
+--     Just a -> (a >=)   i.e., (<= a)
+--
+leMaybe :: Ord a => Maybe a -> (a -> Bool)
 leMaybe =
   Maybe.maybe (const True) (>=) 
 
