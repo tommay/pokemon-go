@@ -323,10 +323,8 @@ candyToString candy xlCandy =
       else Printf.printf "+%d" xlCandy)
 
 leMaybe :: Ord a => a -> Maybe a -> Bool
-leMaybe a maybeA =
-  case maybeA of
-    Nothing -> True
-    Just ma -> a <= ma
+leMaybe a =
+  Maybe.maybe True (a <=)
 
 lastWhere _ [] = error "empty list in lastWhere"
 lastWhere pred (a:as) =
