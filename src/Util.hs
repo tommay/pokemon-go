@@ -7,7 +7,8 @@ module Util (
   augment,
   augmentM,
   toLower,
-  toUpper
+  toUpper,
+  lastWhere,
 ) where
 
 import           Control.Monad (forM)
@@ -74,3 +75,14 @@ toLower = map Char.toLower
 
 toUpper :: String -> String
 toUpper = map Char.toUpper
+
+lastWhere _ [] = error "empty list in lastWhere"
+lastWhere pred (a:as) =
+  let lastWhere' ok [] = ok
+      lastWhere' ok (a:as) =
+        if pred a
+          then lastWhere' a as
+          else ok
+  in if pred a
+    then lastWhere' a as
+    else error "initial value doesn't satisfy the predicate in lastWhere"

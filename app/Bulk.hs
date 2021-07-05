@@ -17,6 +17,7 @@ import qualified PokemonBase
 import           PokemonBase (PokemonBase)
 import qualified PokeUtil
 import qualified Powerups
+import qualified Util
 
 import           Control.Monad (join)
 import qualified Data.List as List
@@ -262,7 +263,8 @@ main =
             (purifyIv $ stamina options)
           allPureIVs = map makePureIVs allLevels
           pred = leaguePred $ league options
-          powerUpIVs = lastWhere (pred . calcCpForIVs baseEvolved) allPureIVs
+          powerUpIVs = Util.lastWhere (pred . calcCpForIVs baseEvolved)
+            allPureIVs
           powerUpLevel = IVs.level powerUpIVs
           levelsAndCosts =
             filter ((`leMaybe` (maybeMaxCandy options)) . Cost.candy . snd) $
@@ -325,17 +327,6 @@ candyToString candy xlCandy =
 leMaybe :: Ord a => a -> Maybe a -> Bool
 leMaybe a =
   Maybe.maybe True (a <=)
-
-lastWhere _ [] = error "empty list in lastWhere"
-lastWhere pred (a:as) =
-  let lastWhere' ok [] = ok
-      lastWhere' ok (a:as) =
-        if pred a
-          then lastWhere' a as
-          else ok
-  in if pred a
-    then lastWhere' a as
-    else error "initial value doesn't satisfy the predicate in lastWhere"
 
 total :: GameMaster -> PokemonBase -> IVs -> (Float, Float)
 total gameMaster base ivs =
