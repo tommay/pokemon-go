@@ -149,6 +149,8 @@ executable spam-exe
                      , pokemon
                      , optparse-applicative
                      , yaml
+                     , attoparsec
+                     , text
   default-language:    Haskell2010
 
 executable best-exe
