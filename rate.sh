@@ -9,7 +9,7 @@
 # "best [-a] species.team.*" to sort by stat product or attack and
 # decide which pokemon to keep.
 
-# Default is to rate for al three leagues.
+# Default is to rate for all three leagues.
 
 great=t
 ultra=t
