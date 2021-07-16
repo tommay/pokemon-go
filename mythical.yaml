@@ -666,12 +666,12 @@ vanillish:
 vanilluxe: 
 deerling_autumn: 
 deerling_spring: 
-deerling_summer: mythical
-deerling_winter: mythical
+deerling_summer:
+deerling_winter:
 sawsbuck_autumn: 
 sawsbuck_spring: 
-sawsbuck_summer: mythical
-sawsbuck_winter: mythical
+sawsbuck_summer:
+sawsbuck_winter:
 emolga: 
 karrablast: 
 escavalier: 
@@ -706,8 +706,8 @@ shelmet:
 accelgor: 
 stunfisk: 
 stunfisk_galarian: 
-mienfoo: mythical
-mienshao: mythical
+mienfoo:
+mienshao:
 druddigon: mythical
 golett: 
 golurk: 
@@ -741,8 +741,8 @@ kyurem_black: mythical
 kyurem_white: mythical
 keldeo_ordinary: mythical
 keldeo_resolute: mythical
-meloetta_aria: mythical
-meloetta_pirouette: mythical
+meloetta_aria:
+meloetta_pirouette:
 genesect: 
 genesect_burn: 
 genesect_chill: 
@@ -776,9 +776,9 @@ gogoat: mythical
 pancham:
 pangoro:
 furfrou: mythical
-espurr: mythical
-meowstic: mythical
-meowstic_female: mythical
+espurr:
+meowstic:
+meowstic_female:
 honedge: mythical
 doublade: mythical
 aegislash: mythical
