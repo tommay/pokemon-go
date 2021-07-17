@@ -11,7 +11,7 @@ module Battle (
   dps,
   damageInflicted,
   secondsElapsed,
-  getDamage
+  getDamage,
 ) where
 
 import qualified Attacker
@@ -140,7 +140,7 @@ checkAttackerHits this =
   let attacker = Battle.attacker this
       defender = Battle.defender this
       move = Attacker.move attacker
-      damage = getDamage (weatherBonus this) 1.0
+      damage = getDamage (weatherBonus this) (friendBonus this)
         (Attacker.pokemon attacker) move (Defender.pokemon defender)
       maybeEnergy = getEnergy move
       battle = this
@@ -164,7 +164,7 @@ checkDefenderHits this =
   let defender = Battle.defender this
       attacker = Battle.attacker this
       move = Defender.move defender
-      damage = getDamage (weatherBonus this) 1.0
+      damage = getDamage (weatherBonus this) (friendBonus this)
         (Defender.pokemon defender) move (Attacker.pokemon attacker)
       maybeEnergy = getEnergy move
       battle = this
