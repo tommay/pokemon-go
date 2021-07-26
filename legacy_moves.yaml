@@ -31,31 +31,39 @@
   - THUNDER_SHOCK_FAST   # Zapdos day 7/21/2018
 - species: eevee
   moves:
-  - LAST_RESORT     # Community day 8/2018
+  - LAST_RESORT     # Community day 8/2018, 8/2021
 - species: vaporeon
   moves:
   - LAST_RESORT     # Community day 8/2018
+  - SCALD           # Community day 8/2021
 - species: flareon
   moves:
   - LAST_RESORT     # Community day 8/2018
+  - SUPER_POWER     # Community day 8/2018
 - species: jolteon
   moves:
   - LAST_RESORT     # Community day 8/2018
+  - ZAP_CANNON      # Community day 8/2021
 - species: espeon
   moves:
   - LAST_RESORT     # Community day 8/2018
+  - SHADOW_BALL     # Community day 8/2021
 - species: umbreon
   moves:
   - LAST_RESORT     # Community day 8/2018
+  - PSYCHIC         # Community day 8/2021
 - species: glaceon
   moves:
   - LAST_RESORT     # Community day 8/2018
+  - WATER_PULSE     # Community day 8/2021
 - species: leafeon
   moves:
   - LAST_RESORT     # Community day 8/2018
+  - BULLET_SEED_FAST # Community day 8/2021
 - species: sylveon
   moves:
   - LAST_RESORT     # Community day 8/2018
+  - PSYSHOCK        # Community day 8/2021
 - species: articuno
   moves:
   - HURRICANE       # Articuno day 9/2018
