@@ -9,7 +9,7 @@
 # pokemon so "counter -a" only includes in-game pokemon, and distinguish
 # legendaries so "counter -a -L" can exclude them.
 
-# egrep -e "- templateId: V[0-9]+_POKEMON_.*" _GAME_MASTER.yaml | tr "[A-Z]" "[a-z]" | egrep -v "_(normal|purified|shadow|20|reversion)" | sed -e "s/^.*pokemon_//" -e 's/$/: /'
+# egrep -e "- templateId: V[0-9]+_POKEMON_.*" GAME_MASTER.yaml | tr "[A-Z]" "[a-z]" | egrep -v "_(normal|purified|shadow|20|reversion)" | sed -e "s/^.*pokemon_//" -e 's/$/: /'
 
 bulbasaur: 
 ivysaur: 
