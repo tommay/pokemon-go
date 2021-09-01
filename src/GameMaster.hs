@@ -214,6 +214,8 @@ allPokemonBases this =
 allSpecies :: GameMaster -> [String]
 allSpecies = map PokemonBase.species . GameMaster.allPokemonBases
 
+-- See the comment in makeGameMaster about Unown.
+--
 getPokemonBase :: Epic.MonadCatch m => GameMaster -> String -> m PokemonBase
 getPokemonBase this speciesName =
   let getPokemonBase' = GameMaster.lookup "species" (pokemonBases this)
@@ -358,6 +360,12 @@ makeGameMaster yamlObjects legacyMap = do
   pokemonBases <-
     makeObjects "pokemonSettings" (getSpeciesForPokemonBase forms)
       (makePokemonBase types moves forms legacyMap)
+      -- Unown doesn't have a form, so it gets filtered here.  That's
+      -- ok because Unown isn't a meta pokemon so it can be ignored.
+      -- But it's kind of awkward when "./counter unown" fails with
+      -- "unown has no normal form.  Specify one of unown_f, unown_a,
+      -- ..." and "./counter unown_f" fails with "No such species:
+      -- unown_f".
       (filter (hasFormIfRequired forms) itemTemplates)
   cpMultipliers <- do
     playerLevel <- getFirst itemTemplates "playerLevel"
