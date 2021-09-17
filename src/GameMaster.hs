@@ -199,15 +199,14 @@ allPokemonBases this =
   -- they will be kept by nub.
   -- XXX Currently (11/2019) dugtrio_purified has 2 more defense than normal
   -- so dugtrio_purified makes it through.
-  let removeLegacy = filter (not . Move.isLegacy)
-      battleStats base =
+  let battleStats base =
         (PokemonBase.pokemonId base,
          PokemonBase.types base,
          PokemonBase.attack base,
          PokemonBase.defense base,
          PokemonBase.stamina base,
-         removeLegacy $ PokemonBase.quickMoves base,
-         removeLegacy $ PokemonBase.chargeMoves base)
+         PokemonBase.quickMoves base,
+         PokemonBase.chargeMoves base)
   in Data.List.Extra.nubOn battleStats $ List.sortOn PokemonBase.species $
        HashMap.elems $ pokemonBases this
 
