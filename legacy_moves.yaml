@@ -230,3 +230,33 @@
 - species: emboar
   moves:
   - blast_burn         # Community day 7/2021
+- species: vaporeon
+  moves:
+  - scald              # Community day 8/2021
+- species: jolteon
+  moves:
+  - zap_cannon          # Community day 8/2021
+- species: flareon
+  moves:
+  - super_power         # Community day 8/2021
+- species: espeon
+  moves:
+  - shadow_ball         # Community day 8/2021
+- species: umbreon
+  moves:
+  - psychic             # Community day 8/2021
+- species: leafeon
+  moves:
+  - bullet_seed_fast    # Community day 8/2021
+- species: glaceon
+  moves:
+  - water_pulse         # Community day 8/2021
+- species: sylveon
+  moves:
+  - psyshock            # Community day 8/2021
+- species: samurott
+  moves:
+  - hydro_cannon        # Community day 9/2021
+- species: dusknoir
+  moves:
+  - shadow_ball         # Community day 9/2021
