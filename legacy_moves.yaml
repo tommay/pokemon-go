@@ -260,3 +260,6 @@
 - species: dusknoir
   moves:
   - shadow_ball         # Community day 9/2021
+- species: genesect_douse
+  moves:
+  - techno_blast_water  # Raids 10/2021
