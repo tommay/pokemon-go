@@ -204,7 +204,7 @@
   - payback            # Community day 1/2021
 - species: genesect_burn
   moves:
-  - techno_blast_burn  # Raids 1/2021
+  - techno_blast_burn  # Raids, gbl reward 1/2021
 - species: roserade
   moves:
   - bullet_seed_fast   # Community day 2/2021
@@ -259,7 +259,7 @@
   - hydro_cannon        # Community day 9/2021
 - species: dusknoir
   moves:
-  - shadow_ball         # Community day 9/2021
+  - shadow_ball         # Community day 10/2021
 - species: genesect_douse
   moves:
-  - techno_blast_water  # Raids 10/2021
+  - techno_blast_water  # Raids, gbl reward 10/2021
