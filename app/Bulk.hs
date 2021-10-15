@@ -39,6 +39,7 @@ data Options = Options {
   isTraded :: Bool,
   maybeMaxCandy :: Maybe Int,
   maybeMaxXlCandy :: Maybe Int,
+  useBestBuddyBoost :: Bool,
   species :: String,
   maybeEvolution :: Maybe String,
   levelOrCp :: LevelOrCp,
@@ -58,7 +59,7 @@ getOptions =
   let opts = Options <$> optLeague
         <*> optOneLine <*> optSummary <*> optAllPowerups
         <*> optIsShadow <*> optIsPurified <*> optIsLucky <*> optIsTraded
-        <*> optMaxCandy <*> optMaxXlCandy
+        <*> optMaxCandy <*> optMaxXlCandy <*> optUseBestBuddyBoost
         <*> optSpecies <*> optEvolution
         <*> optLevelOrCp <*> optAttack <*> optDefense <*> optStamina
       optLeague =
@@ -122,6 +123,10 @@ getOptions =
         <> O.short 'x'
         <> O.metavar "XLCANDY"
         <> O.help "Use up to XLCANDY xlCandy to power up the pokemon")
+      optUseBestBuddyBoost = O.switch
+        (  O.long "buddy"
+        <> O.short 'b'
+        <> O.help "Use best buddy boost")
       optSpecies = O.argument O.str (O.metavar "SPECIES")
       optEvolution = O.optional $ O.strOption
         (  O.long "evolution"
