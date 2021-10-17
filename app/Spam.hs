@@ -41,13 +41,14 @@ data Options = Options {
   attacker :: Battler,
   defender :: Maybe String,
   league :: League,
+  useReturn :: Bool,
   useStatProduct :: Bool
 }
 
 getOptions :: GameMaster -> IO Options
 getOptions gameMaster =
-  let opts = Options <$> optAttacker <*> optDefender <*> optLeague <*>
-        optUseStatProduct
+  let opts = Options <$> optAttacker <*> optDefender <*> optLeague
+        <*> optUseReturn <*> optUseStatProduct
       allSpecies = GameMaster.allSpecies gameMaster
       optAttacker = O.argument
         optParseBattler
@@ -78,6 +79,10 @@ getOptions gameMaster =
               O.long "peewee" <>
               O.help "peewee league")
         <|> pure Great
+      optUseReturn = O.switch (
+        O.short 'r' <>
+        O.long "return" <>
+        O.help "add the move Return to the movepool")
       optUseStatProduct = O.switch (
         O.short 's' <>
         O.long "statproduct" <>
@@ -99,11 +104,11 @@ leaguePred league =
 
 defaultIVs = (4, 13, 13)
 
-main =
-  Epic.catch (
+main = Epic.catch (
     do
       gameMaster <- join $ GameMaster.load
       options <- getOptions gameMaster
+      moveReturn <- GameMaster.getCharge gameMaster "return"
       let (attacker, ivs) = Main.attacker options
       base <- GameMaster.getPokemonBase gameMaster $ attacker
       let statProduct = if useStatProduct options
@@ -120,7 +125,8 @@ main =
             Nothing -> []
           moveSets = [(fast, charged) |
             fast <- PokemonBase.quickMoves base,
-            charged <- PokemonBase.chargeMoves base]
+            charged <- PokemonBase.chargeMoves base ++
+              if useReturn options then [moveReturn] else []]
           multiplier move =
             Move.stabFor move types *
             Move.effectivenessAgainst move defenderTypes
