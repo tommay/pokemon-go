@@ -263,3 +263,6 @@
 - species: genesect_douse
   moves:
   - techno_blast_water  # Raids, gbl reward 10/2021
+- species: darkrai
+  moves:
+  - sludge_bomb         # Raids, gbl reward 10/2021
