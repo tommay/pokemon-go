@@ -161,8 +161,11 @@
   - PSYSTRIKE          # "Pokemon day" 2/2020
 - species: cobalion
   moves:
-  - SACRED_SWORD       # Cobalion raid weekend and GBL reward 3/2020
+  - SACRED_SWORD       # Cobalion raid weekend, GBL reward 3/2020,
+                       # raids and GBL reward 11/2021.
+
 # No community day 3/2020.
+
 - species: alakazam
   moves:
   - COUNTER_FAST       # Community day 4/25/2020
@@ -272,3 +275,6 @@
 - species: virizion
   moves:
   - SACRED_SWORD        # Raids, gbl rewards 11/2021
+- species: luxray
+  moves:
+  - PSYCHIC_FANGS       # Community day 11/2021.
