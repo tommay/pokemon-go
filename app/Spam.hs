@@ -41,6 +41,7 @@ data Options = Options {
   attacker :: Battler,
   defender :: Maybe String,
   league :: League,
+  classic :: Bool,
   useReturn :: Bool,
   useStatProduct :: Bool
 }
@@ -48,7 +49,7 @@ data Options = Options {
 getOptions :: GameMaster -> IO Options
 getOptions gameMaster =
   let opts = Options <$> optAttacker <*> optDefender <*> optLeague
-        <*> optUseReturn <*> optUseStatProduct
+        <*> optClassic <*> optUseReturn <*> optUseStatProduct
       allSpecies = GameMaster.allSpecies gameMaster
       optAttacker = O.argument
         optParseBattler
@@ -79,6 +80,10 @@ getOptions gameMaster =
               O.long "peewee" <>
               O.help "peewee league")
         <|> pure Great
+      optClassic = O.switch (
+        O.short 'c' <>
+        O.long "classic" <>
+        O.help "classsic league (max level 40)")
       optUseReturn = O.switch (
         O.short 'r' <>
         O.long "return" <>
@@ -102,6 +107,14 @@ leaguePred league =
     Master -> const True
     Peewee -> (<= 10)
 
+levelPred :: Bool -> (Float -> Bool)
+levelPred classic =
+  if classic
+    then (<= 40)
+    else const True
+
+-- XXX this might not be good when higher IVs are better, e.g., master league.
+--
 defaultIVs = (4, 13, 13)
 
 main = Epic.catch (
@@ -113,7 +126,8 @@ main = Epic.catch (
       base <- GameMaster.getPokemonBase gameMaster $ attacker
       let statProduct = if useStatProduct options
             then getPoweredUpStatProduct gameMaster base
-              (leaguePred $ league options) ivs / 1000000
+              (leaguePred $ league options) (levelPred $ classic options)
+              ivs / 1000000
             else 1
       maybeDefenderBase <- do
         case defender options of
@@ -157,16 +171,21 @@ allIvs =
   in [(attack, defense, stamina) |
        attack <- ivs, defense <- ivs, stamina <- ivs]
 
-getPoweredUpStatProduct :: GameMaster -> PokemonBase -> (Int -> Bool) -> (Int, Int, Int) -> Float
-getPoweredUpStatProduct gameMaster base leaguePred (attack, defense, stamina) =
+getPoweredUpStatProduct :: GameMaster -> PokemonBase -> (Int -> Bool) ->
+  (Float -> Bool) -> (Int, Int, Int) -> Float
+getPoweredUpStatProduct gameMaster base leaguePred levelPred
+    (attack, defense, stamina) =
   getStatProduct gameMaster base $
-    getPoweredUpIVs gameMaster base leaguePred (attack, defense, stamina)
+    getPoweredUpIVs gameMaster base leaguePred levelPred
+      (attack, defense, stamina)
 
-getPoweredUpIVs :: GameMaster -> PokemonBase -> (Int -> Bool) -> (Int, Int, Int) -> IVs
-getPoweredUpIVs gameMaster base leaguePred (attack, defense, stamina) =
+getPoweredUpIVs :: GameMaster -> PokemonBase -> (Int -> Bool)
+  -> (Float -> Bool) -> (Int, Int, Int) -> IVs
+getPoweredUpIVs gameMaster base leaguePred levelPred
+    (attack, defense, stamina) =
   Util.lastWhere (leaguePred . Calc.cp gameMaster base) $
     map (\ level -> IVs.new level attack defense stamina) $
-    GameMaster.powerUpLevels gameMaster
+      filter levelPred $ GameMaster.powerUpLevels gameMaster
 
 getStatProduct :: GameMaster -> PokemonBase -> IVs -> Float
 getStatProduct gameMaster base ivs =
