@@ -278,3 +278,7 @@
 - species: luxray
   moves:
   - PSYCHIC_FANGS       # Community day 11/2021.
+- species: walrein
+  moves:
+  - POWDER_SNOW_FAST    # Community day 1/2022.
+  - ICICLE_SPEAR        # Community day 1/2022.
