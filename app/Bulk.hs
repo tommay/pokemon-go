@@ -289,9 +289,9 @@ main =
             (getAttack gameMaster baseEvolved)
           makeOutputString (level, cost) =
             let ivs = makePureIVs level
-                (attackForLevel, totalForLevel) =
+                (attackForLevel, defenseForLevel, totalForLevel) =
                   total gameMaster baseEvolved ivs
-            in Printf.printf "%5d/%-7s: %-4s %.2f  %.2f"
+            in Printf.printf "%5d/%-7s: %-4s %.2f  %.2f %.2f"
                  (basePvpStardust + Cost.dust cost)
                  (candyToString (basePvpCandy + Cost.candy cost)
                    (Cost.xlCandy cost))
@@ -299,6 +299,7 @@ main =
                  (totalForLevel *
                    if (league options) == Peewee then 1000 else 1)
                  attackForLevel
+                 defenseForLevel
       if not $ summary options
         then do
           Printf.printf "statProduct rank %d, >%.2f%%\n"
@@ -338,7 +339,7 @@ leMaybe :: Ord a => a -> Maybe a -> Bool
 leMaybe a =
   Maybe.maybe True (a <=)
 
-total :: GameMaster -> PokemonBase -> IVs -> (Float, Float)
+total :: GameMaster -> PokemonBase -> IVs -> (Float, Float, Float)
 total gameMaster base ivs =
   let (level, attack, defense, stamina) = IVs.getAll ivs
       cpMultiplier = GameMaster.getCpMultiplier gameMaster level
@@ -346,17 +347,20 @@ total gameMaster base ivs =
       defense' = fromIntegral $ PokemonBase.defense base + defense
       stamina' = fromIntegral $ PokemonBase.stamina base + stamina
       attackForLevel = attack' * cpMultiplier
+      defenseForLevel = defense' * cpMultiplier
       hpForLevel = fromIntegral $ floor $ stamina' * cpMultiplier
-      statProduct = attackForLevel * (defense' * cpMultiplier) * hpForLevel
-  in (attackForLevel, statProduct / 100000)
+      statProduct = attackForLevel * defenseForLevel * hpForLevel
+  in (attackForLevel, defenseForLevel, statProduct / 100000)
 
 getStatProduct :: GameMaster -> PokemonBase -> IVs -> Float
 getStatProduct gameMaster pokemonBase ivs =
-  snd $ total gameMaster pokemonBase ivs
+  let (_, _, sp) = total gameMaster pokemonBase ivs
+  in sp
 
 getAttack :: GameMaster -> PokemonBase -> IVs -> Float
 getAttack gameMaster pokemonBase ivs =
-  fst $ total gameMaster pokemonBase ivs
+  let (a, _, _) = total gameMaster pokemonBase ivs
+  in a
 
 -- The rank this determines matches the rank given by PokeGenie.  Which
 -- is good for PokeGenie.
