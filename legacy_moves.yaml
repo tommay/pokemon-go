@@ -282,3 +282,12 @@
   moves:
   - POWDER_SNOW_FAST    # Community day 1/2022.
   - ICICLE_SPEAR        # Community day 1/2022.
+- species: regice
+  moves:
+  - THUNDER             # January 2022 raids and gbl rewards.
+- species: regirock
+  moves:
+  - EARTHQUAKE          # February 2022 raids and gbl rewards.
+- species: registeel
+  moves:
+  - ZAP_CANNON          # February 2022 raids and gbl rewards.
