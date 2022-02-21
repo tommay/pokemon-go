@@ -291,3 +291,6 @@
 - species: registeel
   moves:
   - ZAP_CANNON          # February 2022 raids and gbl rewards.
+- species: jumpluff
+  moves:
+  - ACROBATICS          # Community day 2/12/2022
