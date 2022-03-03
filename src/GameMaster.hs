@@ -80,6 +80,7 @@ import           GHC.Generics (Generic)
 import           Control.Applicative.HT (lift2)
 import           Control.Monad (join, liftM, liftM2)
 import           Control.Monad.Extra (anyM)
+import qualified Data.Either as Either
 import           Data.Text.Conversions (convertText)
 import qualified Data.List as List
 import qualified Data.List.Extra
@@ -578,7 +579,8 @@ getFormNames :: Epic.MonadCatch m => ItemTemplate -> m [String]
 getFormNames formSettings =
   case getObjectValue formSettings "forms" of
     Left _ -> return []
-    Right forms -> mapM (\ form -> getObjectValue form "form") forms
+    Right forms -> return $
+      Either.rights $ map (\ form -> getObjectValue form "form") forms
 
 -- This is a little goofy because GAME_MASTER is a little goofy.  There are
 -- three templates for the two exeggutor forms.  The first and third are
