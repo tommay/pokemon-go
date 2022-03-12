@@ -1,25 +1,43 @@
 -- Generic has something to do with making Attacker an instance of Hashable.
 {-# LANGUAGE DeriveGeneric #-} -- For deriving Hashable instance.
+{-# LANGUAGE OverloadedStrings #-}
+
+-- Simulates matchups between all attackers and defenders where attackers
+-- are at the top of their evolution chain and defenders are tier 3
+-- raid bosses or tier 5 if they're legendary or mythical.
+-- Alternatively a file of attackers can be given and they will be
+-- simulated against all defenders.
+--
+-- For each defender, all movesets are considered.
+--
+-- The attackers, including moveset, with the highest dps against the
+-- defender are kept, and the high dps attacker/moveset combinations
+-- are output with a list of the defenders they are high dps against.
 
 module Main where
-
--- Read matchups.out and output the elite attackers + moveset and their
--- victims.
---
--- To be an alite against a particular defender an attacker needs to
--- in the top 10 percentile in dps and must have tdo >= 90% of the
--- best tdo.
---
--- XXX Perhaps this should just be about dps since that's what mostly
--- matters for raids.
 
 import qualified Options.Applicative as O
 import           Options.Applicative ((<|>), (<**>))
 import           Data.Semigroup ((<>))
 
+import qualified Battle
+import           Battle (Battle)
+import qualified BattlerUtil
 import qualified Epic
-import qualified Matchup
-import           Matchup (Matchup)
+import qualified IVs
+import           IVs (IVs)
+import qualified GameMaster
+import           GameMaster (GameMaster)
+import qualified Move
+import           Move (Move)
+import qualified MakePokemon
+import qualified MyPokemon
+import           MyPokemon (MyPokemon)
+import qualified Pokemon
+import           Pokemon (Pokemon)
+import qualified PokemonBase
+import           PokemonBase (PokemonBase)
+import qualified Rarity (Rarity (..))
 import qualified Util
 
 import           GHC.Generics (Generic)
@@ -29,21 +47,50 @@ import           Control.Monad (join)
 import qualified Data.HashMap.Strict as HashMap
 import           Data.HashMap.Strict (HashMap)
 import qualified Data.List as List
-import qualified Data.Maybe as Maybe
+import qualified System.IO as IO
 import qualified System.Exit as Exit
 import qualified Text.Printf as Printf
-import qualified Text.Regex as Regex
 
 import qualified Debug as D
 
 data Options = Options {
-  elitesOnly :: Bool,
-  topNByDps :: Int,
-  filterRedundant :: Bool,
-  filterNames :: Bool,
-  filename   :: String,
-  excludes :: [String]
-}
+  level :: Float,
+  attackersFile :: Maybe FilePath,
+  topNByDps :: Int
+  }
+
+getOptions :: IO Options
+getOptions =
+  let opts = Options <$> optLevel <*> optAttackers <*> optN
+      optLevel = O.option O.auto
+        (  O.long "level"
+        <> O.short 'l'
+        <> O.metavar "LEVEL"
+        <> O.value (IVs.level defaultIvs)
+        <> O.showDefault
+        <> O.help "Set the level of the attackers")
+      optAttackers = O.optional $ O.strOption
+        (  O.long "attackers"
+        <> O.short 'a'
+        <> O.metavar "ATTACKERS-FILE"
+        <> O.help "File with attacking pokemon, default all")
+      optN = O.option O.auto
+        (  O.long "top"
+        <> O.short 'n'
+        <> O.metavar "N"
+        <> O.value 10
+        <> O.help "Select the top N pokemon by dps for each defender")
+      options = O.info (opts <**> O.helper)
+        (  O.fullDesc
+        <> O.progDesc
+          "Simulate matchups between all pokemon against tier 3 raid bosses")
+      prefs = O.prefs O.showHelpOnEmpty
+  in O.customExecParser prefs options
+
+-- Since I use this for fining the best raid attackers, use decent
+-- raid attacker IVs instead of IVs.defaultIvs.
+--
+defaultIvs = IVs.new 35 15 13 13
 
 -- Attacker is name, quickName, chargeName.
 
@@ -52,140 +99,128 @@ data Attacker = Attacker String String String
 
 instance Hashable Attacker
 
-getOptions :: IO Options
-getOptions =
-  let opts = Options <$> optElitesOnly <*> optN <*> optFilterRedundant
-        <*> optHypothetical <*> optFilename <*> optExcludes
-      optElitesOnly = O.switch
-        (  O.long "elites"
-        <> O.short 'e'
-        <> O.help "Filter non-elites from all output")
-      optN = O.option O.auto
-        (  O.long "top"
-        <> O.short 'n'
-        <> O.metavar "N"
-        <> O.value 10
-        <> O.help "Select the top N pokemon by dps for each defender")
-      optFilterRedundant = O.switch
-        (  O.long "noredundant"
-        <> O.short 'r'
-        <> O.help "Filter redundant attackers")
-      optHypothetical = O.switch
-        (  O.long "hypothetical"
-        <> O.short 'h'
-        <> O.help "Filter out hypothetical pokemon (with [.+] in their name)")
-      optFilename = O.strOption
-        (  O.long "file"
-        <> O.short 'f'
-        <> O.metavar "FILE"
-        <> O.value "matchups.out"
-        <> O.showDefault
-        <> O.help "File to read matchup data from")
-      optExcludes = (O.many . O.strOption)
-        (  O.long "exclude"
-        <> O.short 'x'
-        <> O.metavar "POKEMON"
-        <> O.help "Pokemon to exclude from elite consideration")
-      options = O.info (opts <**> O.helper)
-        (  O.fullDesc
-        <> O.progDesc ("Use matchups.out to find elite pokemon and their" ++
-             "victims"))
-      prefs = O.prefs O.showHelpOnEmpty
-  in O.customExecParser prefs options
+-- Result of a particular attacker/moveset against all defender
+-- movesets.  The pokemon is expected to score at least minDamage no
+-- matter what the defender's moveset is.
+--
+-- The fields all use "!" to force strict evaluation so the computed battle
+-- values are evaluated whtn the AttackerResult is created and the large trees
+-- of thunks can be incrementally garbage collected, without running out of
+-- memory.
+--
+data AttackerResult = AttackerResult {
+  attacker  :: !Attacker,
+  minDamage :: !Int,
+  maxDamage :: !Int,
+  dps       :: !Float
+  }
 
 main =
   Epic.catch (
     do
       options <- getOptions
 
-      allMatchups <- do
-        allMatchups <-join $ Matchup.load $ filename options
-        allMatchups <- do
-          return $
-            filter (not . (`elem` excludes options) . Matchup.attacker)
-              allMatchups
-        return $ case filterNames options of
-          False -> allMatchups
-          True -> filter
-            (Maybe.isNothing .
-             Regex.matchRegex (Regex.mkRegex "\\[.+\\]") .
-             Matchup.attacker)
-            allMatchups
+      gameMaster <- join $ GameMaster.load
 
-      -- matchupsByDefender maps a defender to a list of its Matchups.
+      let ivs = IVs.setLevel defaultIvs $ level options
 
-      let matchupsByDefender :: HashMap String [Matchup]
-          matchupsByDefender = Util.groupBy Matchup.defender allMatchups
+          allBases = GameMaster.allPokemonBases gameMaster
 
-          -- Keep Matchups against a defender with best dps and decent
-          -- damage.
+      attackers <- case attackersFile options of
+        Just filename -> do
+          myPokemon <- join $ MyPokemon.load $ Just filename
+          mapM (fmap head . MakePokemon.makePokemon gameMaster) myPokemon
+        Nothing -> do
+          let attackerBases = filter (not . PokemonBase.hasEvolutions) allBases
+          return $ concat $ map
+            (MakePokemon.makeWithAllMovesetsFromBase gameMaster ivs)
+            attackerBases
 
-          eliteMatchups :: [Matchup]
-          eliteMatchups = concat
-            $ map (keepHighDpsMatchups $ topNByDps options)
-            $ HashMap.elems matchupsByDefender  -- [[Matchup]]
+      -- Smeargle's moves are handled strangely in GAME_MASTER.yaml and
+      -- it currently ends up with an empty move list which causes head to
+      -- fail.  For now, filter it out here.
 
-          -- HashMap Attacker [Matchup]
-          eliteMatchupsByAttacker =
-            Util.groupBy getAttackerFromMatchup eliteMatchups
+      let defenderBases =
+            filter ((/= "smeargle") . PokemonBase.species) allBases
 
-          -- HashMap Attacker [String]
-          victimsByAttacker =
-            HashMap.map (map Matchup.defender) eliteMatchupsByAttacker
+          -- Add to each defender a list of all attackers with their
+          -- worst-caseAttackerResult vs. the defender.
+          --
+          defendersWithBestAttackerResults =
+            Util.augment (keepHighDpsResults (topNByDps options) .
+              getAttackerResults gameMaster attackers)
+              defenderBases
 
-          filterRedundant = Main.filterRedundant options
+          byAttacker = collectByAttacker defendersWithBestAttackerResults
 
-      victimsByAttacker <- do
-        return $
-          HashMap.filter
-            (not . (filterRedundant &&) . isRedundant victimsByAttacker)
-            victimsByAttacker
-
-      let sorted = List.sortOn (\ (Attacker attacker _ _, _) -> attacker)
-            $ HashMap.toList victimsByAttacker
-
-      mapM_ (putStrLn . showElite) $ sorted
+      mapM_ putStrLn $ map (\ (attacker, victims) ->
+        (showAttacker attacker) ++ " => " ++
+          (List.intercalate ", " $
+            List.sort $ map PokemonBase.species victims))
+        byAttacker
     )
     $ Exit.die
 
-showElite :: (Attacker, [String]) -> String
-showElite (Attacker attacker quick charge, victims) =
-  let sortedVictims = List.intercalate ", " $ List.sort victims
-  in Printf.printf "%s %s / %s => %s" attacker quick charge sortedVictims
+showAttacker :: Attacker -> String
+showAttacker (Attacker species fast charged) =
+  Printf.printf "%s %s / %s" species fast charged
 
-getAttackerFromMatchup :: Matchup -> Attacker
-getAttackerFromMatchup matchup = Attacker
-  (Matchup.attacker matchup)
-  (Matchup.quick matchup)
-  (Matchup.charge matchup)
+getAttackerResults :: GameMaster -> [Pokemon] -> PokemonBase ->
+  [AttackerResult]
+getAttackerResults gameMaster attackers defenderBase =
+  let tier = case PokemonBase.rarity defenderBase of
+        -- Battle legendary and mythic as tier 5 bosses, everything
+        -- else as tier 3.
+        Rarity.Legendary -> 5
+        Rarity.Mythic -> 5
+        _ -> 3
+      defenderAllMoves = 
+        BattlerUtil.makeRaidBossForTier gameMaster tier defenderBase
+  in map (getAttackerResult tier defenderAllMoves) attackers
 
--- Keep the top N matchups by dps.
+getAttackerResult :: Int -> [Pokemon] -> Pokemon -> AttackerResult
+getAttackerResult tier defenderAllMoves attacker =
+  let battles =
+        map (Battle.doBattleOnly . Battle.init attacker) defenderAllMoves
+  in AttackerResult {
+       attacker = makeAttacker attacker,
+       minDamage = minimum $ map Battle.damageInflicted battles,
+       maxDamage = maximum $ map Battle.damageInflicted battles,
+       dps = minimum $ map Battle.dps battles
+       }
+
+-- Keep the top N AttackerResults by dps.
 --
-keepHighDpsMatchups :: Int -> [Matchup] -> [Matchup]
-keepHighDpsMatchups n matchups =
-  let sortedByDps = reverse $ List.sortOn Matchup.dps matchups
+keepHighDpsResults :: Int -> [AttackerResult] -> [AttackerResult]
+keepHighDpsResults n attackerResults =
+  let sortedByDps = reverse $ List.sortOn dps attackerResults
   in take n sortedByDps
 
--- Keep Matchups with damage >= 90% of the maximum damage.  This may
--- keep only one Matchup if no other attacker even comes close to the
--- maximum.
+-- Keep AttackerResults with damage >= 90% of the maximum damage.
+-- This may keep only one AttackerResult if no other attacker even
+-- comes close to the maximum.
 --
-keepTopDamageMatchups :: [Matchup] -> [Matchup]
-keepTopDamageMatchups matchups =
+keepTopDamageResults :: [AttackerResult] -> [AttackerResult]
+keepTopDamageResults attackerResults =
   let damageCutOff =
-        (List.maximum $ map Matchup.minDamage matchups) * 9 `div` 10
-  in filter ((>= damageCutOff) . Matchup.minDamage) matchups
+        (List.maximum $ map minDamage attackerResults) * 9 `div` 10
+  in filter ((>= damageCutOff) . minDamage) attackerResults
 
--- An attacker is outclassed if there another attacker whose victim
--- list is a strict superset of the given attacker's victim list.  It
--- dodesn't matter what a given attacker is outclassed by, just that
--- it is strictly outclassed.
---
-isRedundant :: HashMap Attacker [String] -> [String] -> Bool
-isRedundant victimsByAttacker victims =
-  List.any (`isStrictSupersetOf` victims)
-    $ HashMap.elems victimsByAttacker
+collectByAttacker :: [(PokemonBase, [AttackerResult])] ->
+  [(Attacker, [PokemonBase])]
+collectByAttacker defendersWithAttackerResults =
+  HashMap.toList $ foldr (\ (defender, attackerResults) attackerMap ->
+      foldr (\ attackerResult attackerMap'->
+          let attacker' = attacker attackerResult
+          in HashMap.insertWith (++) attacker' [defender] attackerMap')
+        attackerMap
+        attackerResults)
+    HashMap.empty
+    defendersWithAttackerResults
 
-isStrictSupersetOf :: Eq a => [a] -> [a] -> Bool
-superset `isStrictSupersetOf` subset =
-  length superset > length subset && List.all (`elem` superset) subset
+makeAttacker :: Pokemon -> Attacker
+makeAttacker pokemon =
+  Attacker
+    (Pokemon.species pokemon)
+    (Move.name $ Pokemon.quick pokemon)
+    (Move.name $ Pokemon.charge pokemon)
