@@ -294,3 +294,9 @@
 - species: jumpluff
   moves:
   - ACROBATICS          # Community day 2/12/2022
+- species: sandslash
+  moves:
+  - NIGHT_SLASH         # Community day 3/13/2022
+- species: sandslash_alola
+  moves:
+  - SHADOW_CLAW_FAST    # Community day 3/13/2022
