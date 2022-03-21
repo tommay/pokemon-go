@@ -39,24 +39,30 @@ import qualified Util
 import           GHC.Generics (Generic)
 import           Data.Hashable (Hashable)
 
+import           Control.Applicative (optional, many)
 import           Control.Monad (join)
+import qualified Data.Attoparsec.Text as Atto
 import qualified Data.HashMap.Strict as HashMap
 import qualified Data.List as List
+import qualified Data.Text as Text
 import qualified System.IO as IO
 import qualified System.Exit as Exit
 import qualified Text.Printf as Printf
 
 import qualified Debug as D
 
+data OutputSpec = OutputSpec Int (Maybe FilePath)
+  deriving (Show)
+
 data Options = Options {
   level :: Float,
   attackersFile :: Maybe FilePath,
-  topNByDps :: Int
+  outputs :: [OutputSpec]
   }
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optLevel <*> optAttackers <*> optN
+  let opts = Options <$> optLevel <*> optAttackers <*> optOutputs
       optLevel = O.option O.auto
         (  O.long "level"
         <> O.short 'l'
@@ -69,12 +75,16 @@ getOptions =
         <> O.short 'a'
         <> O.metavar "ATTACKERS-FILE"
         <> O.help "File with attacking pokemon, default all")
-      optN = O.option O.auto
-        (  O.long "top"
-        <> O.short 'n'
-        <> O.metavar "N"
-        <> O.value 10
-        <> O.help "Select the top N pokemon by dps for each defender")
+      optOutputs =
+        let deflt value [] = value
+            deflt _ lst = lst
+        in (deflt [OutputSpec 10 Nothing]) <$>
+          (O.many . O.option optParseOutputSpec)
+          (  O.long "output"
+          <> O.short 'o'
+          <> O.metavar "N:FILENAME"
+          <> O.help
+               "Output the top N pokemon by dps for each defender to the file")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc
@@ -82,7 +92,24 @@ getOptions =
       prefs = O.prefs O.showHelpOnEmpty
   in O.customExecParser prefs options
 
--- Since I use this for fining the best raid attackers, use decent
+optParseOutputSpec :: O.ReadM OutputSpec
+optParseOutputSpec = O.eitherReader parseOutputSpec
+
+parseOutputSpec :: String -> Either String OutputSpec
+parseOutputSpec string =
+  let attoParseOutputSpec = do
+        n <- Atto.decimal
+        maybeFilename <- optional $ do
+          Atto.char ':'
+          many $ Atto.anyChar
+        Atto.endOfInput
+        return $ OutputSpec n maybeFilename
+  in case Atto.parseOnly attoParseOutputSpec (Text.pack string) of
+    Left _ ->
+      Left $ "`" ++ string ++ "' should look like N[:FILENAME]"
+    Right outputSpec -> Right outputSpec
+
+-- Since I use this for finding the best raid attackers, use decent
 -- raid attacker IVs instead of IVs.defaultIvs.
 --
 defaultIvs = IVs.new 35 15 13 13
@@ -99,7 +126,7 @@ instance Hashable Attacker
 -- matter what the defender's moveset is.
 --
 -- The fields all use "!" to force strict evaluation so the computed battle
--- values are evaluated whtn the AttackerResult is created and the large trees
+-- values are evaluated when the AttackerResult is created and the large trees
 -- of thunks can be incrementally garbage collected, without running out of
 -- memory.
 --
@@ -138,23 +165,45 @@ main =
       let defenderBases =
             filter ((/= "smeargle") . PokemonBase.species) allBases
 
-          -- Add to each defender a list of all attackers with their
-          -- worst-caseAttackerResult vs. the defender.
+          -- Add to each defender a list of all attackers.
           --
-          defendersWithBestAttackerResults =
-            Util.augment (keepHighDpsResults (topNByDps options) .
-              getAttackerResults gameMaster attackers)
+          defendersWithAttackers =
+            Util.augment (getAttackerResults gameMaster attackers)
               defenderBases
 
-          byAttacker = collectByAttacker defendersWithBestAttackerResults
-
-      mapM_ putStrLn $ map (\ (attacker, victims) ->
-        (showAttacker attacker) ++ " => " ++
-          (List.intercalate ", " $
-            List.sort $ map PokemonBase.species victims))
-        byAttacker
+      mapM_ (makeAndPrintOutputs defendersWithAttackers) $ outputs options
     )
     $ Exit.die
+
+makeAndPrintOutputs :: [(PokemonBase, [AttackerResult])] ->
+  OutputSpec -> IO ()
+makeAndPrintOutputs defendersWithAttackers (OutputSpec n maybeFilename) =
+  let defendersWithEliteAttackers =
+        mapSnd (keepEliteAttackerResults n) defendersWithAttackers
+
+      eliteLists = collectByAttacker defendersWithEliteAttackers
+
+      outputStrings = map makeOutputString eliteLists
+
+      outputString = concat $ map (++ "\n") outputStrings
+
+      writeTheString = case maybeFilename of
+        Nothing -> putStr
+        Just filename -> writeFile filename
+
+  in writeTheString outputString
+
+liftSnd :: (b -> c) -> (a, b) -> (a, c)
+liftSnd fn (a, b) = (a, fn b)
+
+mapSnd :: (b -> c) -> [(a, b)] -> [(a, c)]
+mapSnd = map . liftSnd
+
+makeOutputString :: (Attacker, [PokemonBase]) -> String
+makeOutputString (attacker, victims) =
+  (showAttacker attacker) ++ " => " ++
+    (List.intercalate ", " $
+      List.sort $ map PokemonBase.species victims)
 
 showAttacker :: Attacker -> String
 showAttacker (Attacker species fast charged) =
@@ -186,10 +235,9 @@ getAttackerResult tier defenderAllMoves attacker =
 
 -- Keep the top N AttackerResults by dps.
 --
-keepHighDpsResults :: Int -> [AttackerResult] -> [AttackerResult]
-keepHighDpsResults n attackerResults =
-  let sortedByDps = reverse $ List.sortOn dps attackerResults
-  in take n sortedByDps
+keepEliteAttackerResults :: Int -> [AttackerResult] -> [AttackerResult]
+keepEliteAttackerResults n =
+  take n . reverse . List.sortOn dps
 
 -- Keep AttackerResults with damage >= 90% of the maximum damage.
 -- This may keep only one AttackerResult if no other attacker even
