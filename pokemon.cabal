@@ -216,19 +216,6 @@ executable battler-exe
                      , text
   default-language:    Haskell2010
 
-executable matchups-exe
-  hs-source-dirs:      app
-  main-is:             Matchups.hs
-  ghc-options:         -O2 -threaded -rtsopts -with-rtsopts=-N
-  build-depends:       base
-                     , pokemon
-                     , optparse-applicative
-                     , yaml
-                     , text
-                     , bytestring
-                     , scientific
-  default-language:    Haskell2010
-
 executable elites-exe
   hs-source-dirs:      app
   main-is:             Elites.hs
