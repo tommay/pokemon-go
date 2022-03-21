@@ -237,7 +237,6 @@ executable elites-exe
                      , pokemon
                      , unordered-containers
                      , optparse-applicative
-                     , regex-compat
                      , hashable
   default-language:    Haskell2010
 

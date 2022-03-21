@@ -18,21 +18,17 @@ module Main where
 
 import qualified Options.Applicative as O
 import           Options.Applicative ((<|>), (<**>))
-import           Data.Semigroup ((<>))
 
 import qualified Battle
 import           Battle (Battle)
 import qualified BattlerUtil
 import qualified Epic
 import qualified IVs
-import           IVs (IVs)
 import qualified GameMaster
 import           GameMaster (GameMaster)
 import qualified Move
-import           Move (Move)
 import qualified MakePokemon
 import qualified MyPokemon
-import           MyPokemon (MyPokemon)
 import qualified Pokemon
 import           Pokemon (Pokemon)
 import qualified PokemonBase
@@ -45,7 +41,6 @@ import           Data.Hashable (Hashable)
 
 import           Control.Monad (join)
 import qualified Data.HashMap.Strict as HashMap
-import           Data.HashMap.Strict (HashMap)
 import qualified Data.List as List
 import qualified System.IO as IO
 import qualified System.Exit as Exit
