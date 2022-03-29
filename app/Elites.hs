@@ -171,7 +171,17 @@ main =
             Util.augment (getAttackerResults gameMaster attackers)
               defenderBases
 
-      mapM_ (makeAndPrintOutputs defendersWithAttackers) $ outputs options
+      mapM_ (makeAndPrintOutputs defendersWithAttackers) $
+-- works:
+        [OutputSpec 1 (Just "/tmp/elites-1.out")]
+-- But blows up if a second one is added:
+--      mapM_ (makeAndPrintOutputs defendersWithAttackers) $
+--        [OutputSpec 1 (Just "/tmp/elites-1.out")]
+-- blows up:
+--        [OutputSpec 1 (Just "/tmp/elites-1.out"),
+--         OutputSpec 1 (Just "/tmp/elites-1.out")]
+-- blows up:
+--        outputs options
     )
     $ Exit.die
 
