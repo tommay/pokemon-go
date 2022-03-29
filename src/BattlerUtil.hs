@@ -63,10 +63,10 @@ parseBattler string =
           attoParseIVs <|> attoParseRaidBoss
         maybeQuickName <- optional $ do
           Atto.char ':'
-          many $ Atto.notChar '/'
+          some $ Atto.notChar '/'
         maybeChargeName <- optional $ do
           Atto.char '/'
-          many $ Atto.anyChar
+          some $ Atto.anyChar
         Atto.endOfInput
         return $ Battler {
           species = species,

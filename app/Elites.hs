@@ -39,7 +39,7 @@ import qualified Util
 import           GHC.Generics (Generic)
 import           Data.Hashable (Hashable)
 
-import           Control.Applicative (optional, many)
+import           Control.Applicative (optional, some, many)
 import           Control.Monad (join)
 import qualified Data.Attoparsec.Text as Atto
 import qualified Data.HashMap.Strict as HashMap
@@ -101,7 +101,7 @@ parseOutputSpec string =
         n <- Atto.decimal
         maybeFilename <- optional $ do
           Atto.char ':'
-          many $ Atto.anyChar
+          some $ Atto.anyChar
         Atto.endOfInput
         return $ OutputSpec n maybeFilename
   in case Atto.parseOnly attoParseOutputSpec (Text.pack string) of

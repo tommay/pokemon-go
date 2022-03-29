@@ -139,9 +139,9 @@ optParseMoveset = O.eitherReader parseMoveset
 parseMoveset :: String -> Either String Moveset
 parseMoveset string =
   let attoParseMoveset = do
-        quickName <- many $ Atto.notChar '/'
+        quickName <- some $ Atto.notChar '/'
         Atto.char '/'
-        chargeName <- many $ Atto.anyChar
+        chargeName <- some $ Atto.anyChar
         Atto.endOfInput
         return (quickName, chargeName)
   in case Atto.parseOnly attoParseMoveset (Text.pack string) of
