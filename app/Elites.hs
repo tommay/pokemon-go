@@ -117,7 +117,7 @@ defaultIvs = IVs.new 35 15 13 13
 -- Attacker is name, quickName, chargeName.
 
 data Attacker = Attacker String String String
-  deriving (Eq, Generic)
+  deriving (Show, Eq, Generic)
 
 instance Hashable Attacker
 
@@ -135,7 +135,12 @@ data AttackerResult = AttackerResult {
   minDamage :: !Int,
   maxDamage :: !Int,
   dps       :: !Float
-  }
+  } deriving (Show)
+
+data DefenderResult = DefenderResult {
+  defender :: PokemonBase,
+  attackerResults :: [AttackerResult]
+  } deriving (Show)
 
 main =
   Epic.catch (
@@ -168,7 +173,7 @@ main =
           -- Add to each defender a list of all attackers.
           --
           defendersWithAttackers =
-            Util.augment (getAttackerResults gameMaster attackers)
+            map (getAttackerResults gameMaster attackers)
               defenderBases
 
       mapM_ (makeAndPrintOutputs defendersWithAttackers) $
@@ -185,11 +190,12 @@ main =
     )
     $ Exit.die
 
-makeAndPrintOutputs :: [(PokemonBase, [AttackerResult])] ->
-  OutputSpec -> IO ()
-makeAndPrintOutputs defendersWithAttackers (OutputSpec n maybeFilename) =
+makeAndPrintOutputs :: [DefenderResult] -> OutputSpec -> IO ()
+makeAndPrintOutputs defenderResults (OutputSpec n maybeFilename) =
   let defendersWithEliteAttackers =
-        mapSnd (keepEliteAttackerResults n) defendersWithAttackers
+        map (\ a -> a {
+          attackerResults = keepEliteAttackerResults n $ attackerResults a
+          }) defenderResults
 
       eliteLists = collectByAttacker defendersWithEliteAttackers
 
@@ -203,12 +209,6 @@ makeAndPrintOutputs defendersWithAttackers (OutputSpec n maybeFilename) =
 
   in writeTheString outputString
 
-liftSnd :: (b -> c) -> (a, b) -> (a, c)
-liftSnd fn (a, b) = (a, fn b)
-
-mapSnd :: (b -> c) -> [(a, b)] -> [(a, c)]
-mapSnd = map . liftSnd
-
 makeOutputString :: (Attacker, [PokemonBase]) -> String
 makeOutputString (attacker, victims) =
   (showAttacker attacker) ++ " => " ++
@@ -219,8 +219,7 @@ showAttacker :: Attacker -> String
 showAttacker (Attacker species fast charged) =
   Printf.printf "%s %s / %s" species fast charged
 
-getAttackerResults :: GameMaster -> [Pokemon] -> PokemonBase ->
-  [AttackerResult]
+getAttackerResults :: GameMaster -> [Pokemon] -> PokemonBase -> DefenderResult
 getAttackerResults gameMaster attackers defenderBase =
   let tier = case PokemonBase.rarity defenderBase of
         -- Battle legendary and mythic as tier 5 bosses, everything
@@ -230,7 +229,11 @@ getAttackerResults gameMaster attackers defenderBase =
         _ -> 3
       defenderAllMoves = 
         BattlerUtil.makeRaidBossForTier gameMaster tier defenderBase
-  in map (getAttackerResult tier defenderAllMoves) attackers
+      attackerResults = map (getAttackerResult tier defenderAllMoves) attackers
+  in DefenderResult {
+       defender = defenderBase,
+       attackerResults = attackerResults
+       }
 
 getAttackerResult :: Int -> [Pokemon] -> Pokemon -> AttackerResult
 getAttackerResult tier defenderAllMoves attacker =
@@ -259,17 +262,17 @@ keepTopDamageResults attackerResults =
         (List.maximum $ map minDamage attackerResults) * 9 `div` 10
   in filter ((>= damageCutOff) . minDamage) attackerResults
 
-collectByAttacker :: [(PokemonBase, [AttackerResult])] ->
-  [(Attacker, [PokemonBase])]
-collectByAttacker defendersWithAttackerResults =
-  HashMap.toList $ foldr (\ (defender, attackerResults) attackerMap ->
+collectByAttacker :: [DefenderResult] -> [(Attacker, [PokemonBase])]
+collectByAttacker defenderResults =
+  HashMap.toList $ foldr (\ defenderResult attackerMap ->
       foldr (\ attackerResult attackerMap'->
-          let attacker' = attacker attackerResult
-          in HashMap.insertWith (++) attacker' [defender] attackerMap')
+          let defender' = defender defenderResult
+              attacker' = attacker attackerResult
+          in HashMap.insertWith (++) attacker' [defender'] attackerMap')
         attackerMap
-        attackerResults)
+        (attackerResults defenderResult))
     HashMap.empty
-    defendersWithAttackerResults
+    defenderResults
 
 makeAttacker :: Pokemon -> Attacker
 makeAttacker pokemon =
