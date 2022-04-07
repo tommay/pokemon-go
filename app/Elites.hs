@@ -194,7 +194,7 @@ makeAndPrintOutputs :: [DefenderResult] -> OutputSpec -> IO ()
 makeAndPrintOutputs defenderResults (OutputSpec n maybeFilename) =
   let defendersWithEliteAttackers =
         map (\ a -> a {
-          attackerResults = keepEliteAttackerResults n $ attackerResults a
+          attackerResults = take n $ attackerResults a
           }) defenderResults
 
       eliteLists = collectByAttacker defendersWithEliteAttackers
@@ -229,7 +229,8 @@ getAttackerResults gameMaster attackers defenderBase =
         _ -> 3
       defenderAllMoves = 
         BattlerUtil.makeRaidBossForTier gameMaster tier defenderBase
-      attackerResults = map (getAttackerResult tier defenderAllMoves) attackers
+      attackerResults = reverse $ List.sortOn dps $
+        map (getAttackerResult tier defenderAllMoves) attackers
   in DefenderResult {
        defender = defenderBase,
        attackerResults = attackerResults
@@ -245,12 +246,6 @@ getAttackerResult tier defenderAllMoves attacker =
        maxDamage = maximum $ map Battle.damageInflicted battles,
        dps = minimum $ map Battle.dps battles
        }
-
--- Keep the top N AttackerResults by dps.
---
-keepEliteAttackerResults :: Int -> [AttackerResult] -> [AttackerResult]
-keepEliteAttackerResults n =
-  take n . reverse . List.sortOn dps
 
 -- Keep AttackerResults with damage >= 90% of the maximum damage.
 -- This may keep only one AttackerResult if no other attacker even
