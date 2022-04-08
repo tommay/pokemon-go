@@ -1,6 +1,7 @@
 -- Generic has something to do with making Attacker an instance of Hashable.
 {-# LANGUAGE DeriveGeneric #-} -- For deriving Hashable instance.
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE BangPatterns #-}
 
 -- Simulates matchups between all attackers and defenders where attackers
 -- are at the top of their evolution chain and defenders are tier 3
@@ -43,6 +44,7 @@ import           Control.Applicative (optional, some, many)
 import           Control.Monad (join)
 import qualified Data.Attoparsec.Text as Atto
 import qualified Data.HashMap.Strict as HashMap
+import           Data.HashMap.Strict (HashMap)
 import qualified Data.List as List
 import qualified Data.Text as Text
 import qualified System.IO as IO
@@ -50,6 +52,8 @@ import qualified System.Exit as Exit
 import qualified Text.Printf as Printf
 
 import qualified Debug as D
+
+type EliteMap = HashMap Attacker [PokemonBase]
 
 data OutputSpec = OutputSpec Int (Maybe FilePath)
   deriving (Show)
@@ -172,41 +176,44 @@ main =
 
           -- Add to each defender a list of all attackers.
           --
-          defendersWithAttackers =
-            map (getAttackerResults gameMaster attackers)
-              defenderBases
+          defenderResults =
+            map (getAttackerResults gameMaster attackers) defenderBases
 
-      mapM_ (makeAndPrintOutputs defendersWithAttackers) $
--- works:
-        [OutputSpec 1 (Just "/tmp/elites-1.out")]
--- But blows up if a second one is added:
---      mapM_ (makeAndPrintOutputs defendersWithAttackers) $
---        [OutputSpec 1 (Just "/tmp/elites-1.out")]
--- blows up:
---        [OutputSpec 1 (Just "/tmp/elites-1.out"),
---         OutputSpec 1 (Just "/tmp/elites-1.out")]
--- blows up:
---        outputs options
+          eliteMaps = List.foldl' foldDefenderResult
+            (addEliteMaps $ outputs options) defenderResults
+
+      mapM_ printEliteAtackers eliteMaps
     )
     $ Exit.die
 
-makeAndPrintOutputs :: [DefenderResult] -> OutputSpec -> IO ()
-makeAndPrintOutputs defenderResults (OutputSpec n maybeFilename) =
-  let defendersWithEliteAttackers =
-        map (\ a -> a {
-          attackerResults = take n $ attackerResults a
-          }) defenderResults
+addEliteMaps :: [OutputSpec] -> [(OutputSpec, EliteMap)]
+addEliteMaps =
+  Util.augment (const HashMap.empty)
 
-      eliteLists = collectByAttacker defendersWithEliteAttackers
+foldDefenderResult :: [(OutputSpec, EliteMap)] -> DefenderResult ->
+  [(OutputSpec, EliteMap)]
+foldDefenderResult attackerMaps defenderResult =
+  map (foldDefenderResultIntoEliteMap defenderResult) attackerMaps
 
-      outputStrings = map makeOutputString eliteLists
+foldDefenderResultIntoEliteMap :: DefenderResult ->
+  (OutputSpec, EliteMap) -> (OutputSpec, EliteMap)
+foldDefenderResultIntoEliteMap defenderResult
+    (outputSpec@(OutputSpec n _), attackerMap) =
+  (outputSpec,
+    List.foldl' (foldAttackerResult $ defender defenderResult) attackerMap $
+      take n $ attackerResults defenderResult)
 
-      outputString = concat $ map (++ "\n") outputStrings
+foldAttackerResult :: PokemonBase -> EliteMap -> AttackerResult ->
+  EliteMap
+foldAttackerResult defender attackerMap attackerResult =
+  HashMap.insertWith (++) (attacker attackerResult) [defender] attackerMap
 
+printEliteAtackers :: (OutputSpec, EliteMap) -> IO ()
+printEliteAtackers (OutputSpec _ maybeFilename, eliteMap) =
+  let outputString = unlines $ map makeOutputString $ HashMap.toList eliteMap
       writeTheString = case maybeFilename of
         Nothing -> putStr
         Just filename -> writeFile filename
-
   in writeTheString outputString
 
 makeOutputString :: (Attacker, [PokemonBase]) -> String
@@ -256,18 +263,6 @@ keepTopDamageResults attackerResults =
   let damageCutOff =
         (List.maximum $ map minDamage attackerResults) * 9 `div` 10
   in filter ((>= damageCutOff) . minDamage) attackerResults
-
-collectByAttacker :: [DefenderResult] -> [(Attacker, [PokemonBase])]
-collectByAttacker defenderResults =
-  HashMap.toList $ foldr (\ defenderResult attackerMap ->
-      foldr (\ attackerResult attackerMap'->
-          let defender' = defender defenderResult
-              attacker' = attacker attackerResult
-          in HashMap.insertWith (++) attacker' [defender'] attackerMap')
-        attackerMap
-        (attackerResults defenderResult))
-    HashMap.empty
-    defenderResults
 
 makeAttacker :: Pokemon -> Attacker
 makeAttacker pokemon =
