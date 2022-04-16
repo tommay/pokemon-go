@@ -300,3 +300,6 @@
 - species: sandslash_alola
   moves:
   - SHADOW_CLAW_FAST    # Community day 3/13/2022
+- species: exeggutor_alola
+  moves:
+  - DRACO_METEOR        # Spring into spring 4/16/2022
