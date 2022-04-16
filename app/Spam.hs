@@ -34,7 +34,7 @@ import qualified Text.Printf as Printf
 
 type Battler = (String, (Int, Int, Int))
 
-data League = Little | Great | Ultra | Master | Peewee
+data League = Little | Great | Ultra | Master | Peewee | FixedCp Int
   deriving (Eq, Show)
 
 data Options = Options {
@@ -79,6 +79,10 @@ getOptions gameMaster =
               O.short 'p' <>
               O.long "peewee" <>
               O.help "peewee league")
+        <|> FixedCp <$> O.option O.auto
+              (  O.long "cp"
+              <> O.metavar "N"
+              <> O.help "CP is specifies as N")
         <|> pure Great
       optClassic = O.switch (
         O.short 'c' <>
@@ -106,6 +110,7 @@ leaguePred league =
     Ultra -> (<= 2500)
     Master -> const True
     Peewee -> (<= 10)
+    FixedCp n -> (<= n)
 
 levelPred :: Bool -> (Float -> Bool)
 levelPred classic =
