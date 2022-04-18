@@ -2,6 +2,7 @@
 {-# LANGUAGE DeriveGeneric #-} -- For deriving Hashable instance.
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE BangPatterns #-}
+{-# LANGUAGE DeriveAnyClass #-}  -- For deriving NFData.
 
 -- Simulates matchups between all attackers and defenders where attackers
 -- are at the top of their evolution chain and defenders are tier 3
@@ -14,6 +15,24 @@
 -- The attackers, including moveset, with the highest dps against the
 -- defender are kept, and the high dps attacker/moveset combinations
 -- are output with a list of the defenders they are high dps against.
+
+-- A NOTE ON MEMORY USAGE: This should be able to run in limited
+-- memory.  As each DefenderResult is calculated, it can be folded
+-- into the HashMaps mapping each elite attacker to its victims and
+-- can then be garbage collected along with associated thunks.  This
+-- works fine as long as the list of (OutputSpec, EliteMap) passed to
+-- (foldl' defenderResult) is hardcoded to a single element.  If it's
+-- a list of arbitray length then the EliteMaps are only computed as
+-- they're needed, so first the EliteMap for the first OutputSpec is
+-- reduced and output and its thunks can be garbage collected.  But
+-- the data and thunks for the subsequent OutputSpecs needs to
+-- accumulate and stick around until it's needed when the data is
+-- printed.  We'd really like everything to be reduced as the
+-- DefenderResults are folded into the EliteMaps, whenever that is.
+-- We don't easily have control over that.  So I use DeepSeq.force
+-- before returning the result from foldDefenderResult adding to the
+-- EliteMaps in the hope that it will cause all EliteMaps to be
+-- resolved (so far) when the first one is required.
 
 module Main where
 
@@ -40,6 +59,8 @@ import qualified Util
 import           GHC.Generics (Generic)
 import           Data.Hashable (Hashable)
 
+import           Control.DeepSeq (NFData, force)
+
 import           Control.Applicative (optional, some, many)
 import           Control.Monad (join)
 import qualified Data.Attoparsec.Text as Atto
@@ -58,7 +79,7 @@ type Defender = String
 type EliteMap = HashMap Attacker [Defender]
 
 data OutputSpec = OutputSpec Int (Maybe FilePath)
-  deriving (Show)
+  deriving (Show, Generic, NFData)
 
 data Options = Options {
   level :: Float,
@@ -123,7 +144,7 @@ defaultIvs = IVs.new 35 15 13 13
 -- Attacker is name, quickName, chargeName.
 
 data Attacker = Attacker String String String
-  deriving (Show, Eq, Generic)
+  deriving (Show, Eq, Generic, NFData)
 
 instance Hashable Attacker
 
@@ -195,7 +216,7 @@ addEliteMaps =
 foldDefenderResult :: [(OutputSpec, EliteMap)] -> DefenderResult ->
   [(OutputSpec, EliteMap)]
 foldDefenderResult attackerMaps defenderResult =
-  map (foldDefenderResultIntoEliteMap defenderResult) attackerMaps
+  force $ map (foldDefenderResultIntoEliteMap defenderResult) attackerMaps
 
 foldDefenderResultIntoEliteMap :: DefenderResult ->
   (OutputSpec, EliteMap) -> (OutputSpec, EliteMap)
