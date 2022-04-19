@@ -53,7 +53,9 @@ import qualified Text.Printf as Printf
 
 import qualified Debug as D
 
-type EliteMap = HashMap Attacker [PokemonBase]
+type Defender = String
+
+type EliteMap = HashMap Attacker [Defender]
 
 data OutputSpec = OutputSpec Int (Maybe FilePath)
   deriving (Show)
@@ -142,7 +144,7 @@ data AttackerResult = AttackerResult {
   } deriving (Show)
 
 data DefenderResult = DefenderResult {
-  defender :: PokemonBase,
+  defender :: Defender,
   attackerResults :: [AttackerResult]
   } deriving (Show)
 
@@ -203,7 +205,7 @@ foldDefenderResultIntoEliteMap defenderResult
     List.foldl' (foldAttackerResult $ defender defenderResult) attackerMap $
       take n $ attackerResults defenderResult)
 
-foldAttackerResult :: PokemonBase -> EliteMap -> AttackerResult ->
+foldAttackerResult :: Defender -> EliteMap -> AttackerResult ->
   EliteMap
 foldAttackerResult defender attackerMap attackerResult =
   HashMap.insertWith (++) (attacker attackerResult) [defender] attackerMap
@@ -216,11 +218,10 @@ printEliteAtackers (OutputSpec _ maybeFilename, eliteMap) =
         Just filename -> writeFile filename
   in writeTheString outputString
 
-makeOutputString :: (Attacker, [PokemonBase]) -> String
-makeOutputString (attacker, victims) =
+makeOutputString :: (Attacker, [Defender]) -> String
+makeOutputString (attacker, defenders) =
   (showAttacker attacker) ++ " => " ++
-    (List.intercalate ", " $
-      List.sort $ map PokemonBase.species victims)
+    (List.intercalate ", " $ List.sort defenders)
 
 showAttacker :: Attacker -> String
 showAttacker (Attacker species fast charged) =
@@ -239,7 +240,7 @@ getAttackerResults gameMaster attackers defenderBase =
       attackerResults = reverse $ List.sortOn dps $
         map (getAttackerResult tier defenderAllMoves) attackers
   in DefenderResult {
-       defender = defenderBase,
+       defender = PokemonBase.species defenderBase,
        attackerResults = attackerResults
        }
 
