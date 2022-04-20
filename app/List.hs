@@ -31,12 +31,13 @@ import qualified Text.Printf as Printf
 data Options = Options {
   little :: Bool,
   minCp :: Int,
-  allowedTypes :: [String]
+  allowedTypes :: [String],
+  excludedTypes :: [String]
 }
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optLittle <*> optMinCp <*> optAllowedTypes
+  let opts = Options <$> optLittle <*> optMinCp <*> optAllowedTypes <*> optExcludedTypes
       optLittle = O.switch
         (  O.long "little"
         <> O.short 'l'
@@ -64,7 +65,12 @@ getOptions =
         (  O.long "type"
         <> O.short 't'
         <> O.metavar "TYPE"
-        <> O.help "Include only the specified types.")
+        <> O.help "Include only the specified type(s).")
+      optExcludedTypes = (O.many . O.strOption)
+        (  O.long "not"
+        <> O.short 'n'
+        <> O.metavar "NOT-TYPE"
+        <> O.help "Exclude the specified type(s).")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc "List some or all pokemon.")
@@ -79,9 +85,13 @@ main =
       let isLittle littleRequired = if littleRequired
             then PokeUtil.isFirstEvolution gameMaster
             else const True
+          typeIn types = any (`elem` types) . map Type.name . PokemonBase.types
           hasAllowedType allowedTypes = case allowedTypes of
             [] -> const True
-            _ -> any (`elem` allowedTypes) . map Type.name . PokemonBase.types
+            _ -> typeIn allowedTypes
+          hasExcludedType excludedTypes = case excludedTypes of
+            [] -> const False
+            _ -> typeIn excludedTypes
           minCp' = if little options
             then 400
             else minCp options
@@ -91,6 +101,7 @@ main =
         filter hasEnoughCp $
         filter (isLittle $ little options) $
         filter (hasAllowedType $ allowedTypes options) $
+        filter (not . (hasExcludedType $ excludedTypes options)) $
         GameMaster.allPokemonBases gameMaster
     )
     $ Exit.die
