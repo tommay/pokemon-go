@@ -1,7 +1,6 @@
 -- Generic has something to do with making Attacker an instance of Hashable.
 {-# LANGUAGE DeriveGeneric #-} -- For deriving Hashable instance.
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE BangPatterns #-}
 {-# LANGUAGE DeriveAnyClass #-}  -- For deriving NFData.
 
 -- Simulates matchups between all attackers and defenders where attackers
