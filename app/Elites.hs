@@ -66,6 +66,7 @@ import qualified Data.Attoparsec.Text as Atto
 import qualified Data.HashMap.Strict as HashMap
 import           Data.HashMap.Strict (HashMap)
 import qualified Data.List as List
+import qualified Data.Maybe as Maybe
 import qualified Data.Text as Text
 import qualified System.IO as IO
 import qualified System.Exit as Exit
@@ -77,7 +78,7 @@ type Defender = String
 
 type EliteMap = HashMap Attacker [Defender]
 
-data OutputSpec = OutputSpec Int (Maybe FilePath)
+data OutputSpec = OutputSpec Int Bool (Maybe FilePath)
   deriving (Show, Generic, NFData)
 
 data Options = Options {
@@ -104,7 +105,7 @@ getOptions =
       optOutputs =
         let deflt value [] = value
             deflt _ lst = lst
-        in (deflt [OutputSpec 10 Nothing]) <$>
+        in (deflt [OutputSpec 10 False Nothing]) <$>
           (O.many . O.option optParseOutputSpec)
           (  O.long "output"
           <> O.short 'o'
@@ -125,11 +126,12 @@ parseOutputSpec :: String -> Either String OutputSpec
 parseOutputSpec string =
   let attoParseOutputSpec = do
         n <- Atto.decimal
+        noRedundant <- Maybe.isJust <$> (optional $ Atto.char 'n')
         maybeFilename <- optional $ do
           Atto.char ':'
           some $ Atto.anyChar
         Atto.endOfInput
-        return $ OutputSpec n maybeFilename
+        return $ OutputSpec n noRedundant maybeFilename
   in case Atto.parseOnly attoParseOutputSpec (Text.pack string) of
     Left _ ->
       Left $ "`" ++ string ++ "' should look like N[:FILENAME]"
@@ -220,7 +222,7 @@ foldDefenderResult attackerMaps defenderResult =
 foldDefenderResultIntoEliteMap :: DefenderResult ->
   (OutputSpec, EliteMap) -> (OutputSpec, EliteMap)
 foldDefenderResultIntoEliteMap defenderResult
-    (outputSpec@(OutputSpec n _), attackerMap) =
+    (outputSpec@(OutputSpec n noRedundant _), attackerMap) =
   (outputSpec,
     List.foldl' (foldAttackerResult $ defender defenderResult) attackerMap $
       take n $ attackerResults defenderResult)
@@ -231,12 +233,30 @@ foldAttackerResult defender attackerMap attackerResult =
   HashMap.insertWith (++) (attacker attackerResult) [defender] attackerMap
 
 printEliteAtackers :: (OutputSpec, EliteMap) -> IO ()
-printEliteAtackers (OutputSpec _ maybeFilename, eliteMap) =
-  let outputString = unlines $ map makeOutputString $ HashMap.toList eliteMap
+printEliteAtackers (OutputSpec _ noRedundant maybeFilename, eliteMap) =
+  let eliteMap' = (if noRedundant then filterRedundant else id) eliteMap
+      outputString = unlines $ map makeOutputString $ HashMap.toList eliteMap'
       writeTheString = case maybeFilename of
         Nothing -> putStr
         Just filename -> writeFile filename
   in writeTheString outputString
+
+filterRedundant :: EliteMap -> EliteMap
+filterRedundant eliteMap  =
+  HashMap.filter (not . isRedundant eliteMap) eliteMap
+
+-- An attacker is outclassed if there is another attacker whose victim
+-- list is a strict superset of the given attacker's victim list.  It
+-- doesn't matter what a given attacker is outclassed by, just that it
+-- is strictly outclassed.
+--
+isRedundant :: EliteMap -> [Defender] -> Bool
+isRedundant eliteMap defenders =
+  List.any (defenders `isProperSubset`) $ HashMap.elems eliteMap
+
+isProperSubset :: Eq a => [a] -> [a] -> Bool
+subset `isProperSubset` superset =
+  length subset < length superset && List.all (`elem` superset) subset
 
 makeOutputString :: (Attacker, [Defender]) -> String
 makeOutputString (attacker, defenders) =
