@@ -84,12 +84,14 @@ data OutputSpec = OutputSpec Int Bool (Maybe FilePath)
 data Options = Options {
   level :: Float,
   attackersFile :: Maybe FilePath,
+  excludes :: [String],
   outputs :: [OutputSpec]
   }
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optLevel <*> optAttackers <*> optOutputs
+  let opts = Options <$> optLevel <*> optAttackers <*> optExcludes <*>
+        optOutputs
       optLevel = O.option O.auto
         (  O.long "level"
         <> O.short 'l'
@@ -102,6 +104,11 @@ getOptions =
         <> O.short 'a'
         <> O.metavar "ATTACKERS-FILE"
         <> O.help "File with attacking pokemon, default all")
+      optExcludes = (O.many . O.strOption)
+        (  O.long "exclude"
+        <> O.short 'x'
+        <> O.metavar "POKEMON"
+        <> O.help "Pokemon to exclude from elite consideration")
       optOutputs =
         let deflt value [] = value
             deflt _ lst = lst
@@ -190,6 +197,8 @@ main =
           return $ concat $ map
             (MakePokemon.makeWithAllMovesetsFromBase gameMaster ivs)
             attackerBases
+      attackers <- return $
+        filter (not . (`elem` excludes options) . Pokemon.species) attackers
 
       -- Smeargle's moves are handled strangely in GAME_MASTER.yaml and
       -- it currently ends up with an empty move list which causes head to
