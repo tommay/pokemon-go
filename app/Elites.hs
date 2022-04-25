@@ -231,7 +231,7 @@ foldDefenderResult attackerMaps defenderResult =
 foldDefenderResultIntoEliteMap :: DefenderResult ->
   (OutputSpec, EliteMap) -> (OutputSpec, EliteMap)
 foldDefenderResultIntoEliteMap defenderResult
-    (outputSpec@(OutputSpec n noRedundant _), attackerMap) =
+    (outputSpec@(OutputSpec n _ _), attackerMap) =
   (outputSpec,
     List.foldl' (foldAttackerResult $ defender defenderResult) attackerMap $
       take n $ attackerResults defenderResult)
