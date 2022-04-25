@@ -303,3 +303,6 @@
 - species: exeggutor_alola
   moves:
   - DRACO_METEOR        # Spring into spring 4/16/2022
+- species: bewear
+  moves:
+  - DRAIN_PUNCH         # Community day 4/23/2022
