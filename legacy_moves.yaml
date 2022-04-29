@@ -306,3 +306,9 @@
 - species: bewear
   moves:
   - DRAIN_PUNCH         # Community day 4/23/2022
+- species: latias
+  moves:
+  - MIST_BALL           # Air Adventire event 5/2022
+- species: latios
+  moves:
+  - LUSTER_PURGE        # Air Adventire event 5/2022
