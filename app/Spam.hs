@@ -171,11 +171,6 @@ main = Epic.catch (
     )
     $ Exit.die
 
-allIvs =
-  let ivs = [0..15]
-  in [(attack, defense, stamina) |
-       attack <- ivs, defense <- ivs, stamina <- ivs]
-
 getPoweredUpStatProduct :: GameMaster -> PokemonBase -> (Int -> Bool) ->
   (Float -> Bool) -> (Int, Int, Int) -> Float
 getPoweredUpStatProduct gameMaster base leaguePred levelPred
