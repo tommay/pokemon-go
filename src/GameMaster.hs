@@ -622,9 +622,10 @@ makePokemonBase types moves forms legacyMap pokemonSettings =
     pokemonId <- getValue "pokemonId"
 
     species <- do
-      species <- getSpeciesForPokemonBase forms pokemonSettings
+      species <-
+        Util.toLower <$> getSpeciesForPokemonBase forms pokemonSettings
       let normal = Regex.mkRegex "_normal$"
-      return $ Regex.subRegex normal (Util.toLower species) ""
+      return $ Regex.subRegex normal species ""
 
     ptypes <- do
       ptype <- getValue "type"
