@@ -15,8 +15,10 @@ cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
-  exposed-modules:     MyPokemon, GameMaster, PokemonBase, Epic, Move, Type, Pokemon,
+  exposed-modules:     MyPokemon, GameMaster, PokemonBase, TempEvoOverride,
+                       Move, Type, Pokemon,
                        Cost, IVs, Calc, Mythical,
+                       Epic,
                        Battle, Attacker, Defender, Debug, Log, Matchup,
                        Util, Weather, Friend, Logger, BattlerUtil, Yaml,
                        MakePokemon, Stats, PokeUtil, TweakLevel, Breakpoint,

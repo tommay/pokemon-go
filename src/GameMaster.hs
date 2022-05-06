@@ -64,6 +64,8 @@ import           PvpFastMove (PvpFastMove)
 import qualified Rarity (Rarity (..))
 import           Rarity (Rarity)
 import           StringMap (StringMap)
+import qualified TempEvoOverride
+import           TempEvoOverride (TempEvoOverride (TempEvoOverride))
 import qualified Type
 import           Type (Type)
 import qualified Util
@@ -120,6 +122,7 @@ instance Store.Store Move
 instance Store.Store PokemonBase
 instance Store.Store Weather
 instance Store.Store Rarity
+instance Store.Store TempEvoOverride
 
 type ItemTemplate = Yaml.Object
 
@@ -367,6 +370,7 @@ makeGameMaster yamlObjects legacyMap = do
       -- ..." and "./counter unown_f" fails with "No such species:
       -- unown_f".
       (filter (hasFormIfRequired forms) itemTemplates)
+  pokemonBases <- return $ insertTempEvos pokemonBases
   cpMultipliers <- do
     playerLevel <- getFirst itemTemplates "playerLevel"
     getObjectValue playerLevel "cpMultiplier"
@@ -407,6 +411,21 @@ makeGameMaster yamlObjects legacyMap = do
     xlCandyCost
     luckyPowerUpStardustDiscountPercent
     weatherBonusMap
+
+insertTempEvos :: StringMap PokemonBase -> StringMap PokemonBase
+insertTempEvos basesMap =
+  List.foldr insertPokemonBases basesMap $
+    map PokemonBase.makeTempEvos $ HashMap.elems basesMap
+
+insertPokemonBases :: [PokemonBase] -> StringMap PokemonBase ->
+  StringMap PokemonBase
+insertPokemonBases pokemonBases basesMap =
+  List.foldr insertPokemonBase basesMap pokemonBases
+
+insertPokemonBase :: PokemonBase -> StringMap PokemonBase ->
+  StringMap PokemonBase
+insertPokemonBase pokemonBase basesMap =
+   HashMap.insert (Util.toUpper $ PokemonBase.species pokemonBase) pokemonBase basesMap
 
 -- The yaml file is one big array of "templates":
 -- - templateId: AR_TELEMETRY_SETTINGS
@@ -728,11 +747,45 @@ makePokemonBase types moves forms legacyMap pokemonSettings =
 
     rarity <- getObjectValueWithDefault Rarity.Normal pokemonSettings "rarity"
 
+    tempEvoOverrides <- getTempEvoOverrides types pokemonSettings
+
     return $ PokemonBase.new pokemonId species ptypes attack defense stamina
        evolutions quickMoves chargeMoves parent baseCaptureRate
        thirdMoveCost purificationCost rarity
+       tempEvoOverrides
     )
   (\ex -> Epic.fail $ ex ++ " in " ++ show pokemonSettings)
+
+getTempEvoOverrides :: Epic.MonadCatch m =>
+  StringMap Type -> ItemTemplate -> m [TempEvoOverride]
+getTempEvoOverrides types pokemonSettings = do
+  case getObjectValue pokemonSettings "tempEvoOverrides" of
+    Right yamlObjects -> mapM (getTempEvoOverride types) yamlObjects
+    -- XXX This can swallow parse errors?
+    Left _ -> return $ []
+
+getTempEvoOverride :: Epic.MonadCatch m =>
+  StringMap Type -> Yaml.Object -> m TempEvoOverride
+getTempEvoOverride types yamlObject = do
+  tempEvoId <- getObjectValue yamlObject "tempEvoId"
+  ptypes <- do
+    ptype <- getObjectValue yamlObject "typeOverride1"
+    let ptypes = case getObjectValue yamlObject "typeOverride2" of
+          Right ptype2 -> [ptype, ptype2]
+          -- XXX This can swallow parse errors?
+          Left _ -> [ptype]
+    mapM (get types) ptypes
+  statsObject <- getObjectValue yamlObject "stats"
+  attack <- getObjectValue statsObject "baseAttack"
+  defense <- getObjectValue statsObject "baseDefense"
+  stamina <- getObjectValue statsObject "baseStamina"
+  return $ TempEvoOverride {
+    TempEvoOverride.tempEvoId = tempEvoId,
+    TempEvoOverride.typeOverrides  = ptypes,
+    TempEvoOverride.attack = attack,
+    TempEvoOverride.defense = defense,
+    TempEvoOverride.stamina = stamina
+    }
 
 instance Yaml.FromJSON Rarity where
   parseJSON (Yaml.String "POKEMON_RARITY_LEGENDARY") = pure Rarity.Legendary

@@ -20,16 +20,21 @@ module PokemonBase (
   thirdMoveCost,
   purificationCost,
   rarity,
+  makeTempEvos,
 ) where
 
 import           Type (Type)
-import qualified Move
 import           Move (Move)
 import           Rarity (Rarity)
+import qualified TempEvoOverride
+import           TempEvoOverride (TempEvoOverride)
+import qualified Util
+
+import qualified Debug as D
+
+import qualified Text.Regex as Regex
 
 import           GHC.Generics (Generic)
-
-import           Data.Text (Text)
 
 data PokemonBase = PokemonBase {
   pokemonId    :: String,
@@ -46,7 +51,8 @@ data PokemonBase = PokemonBase {
   baseCaptureRate :: Float,
   thirdMoveCost :: (Int, Int),  -- (stardust, candy)
   purificationCost :: (Int, Int),  -- (stardust, candy)
-  rarity       :: Rarity
+  rarity       :: Rarity,
+  tempEvoOverrides :: [TempEvoOverride]
 } deriving (Generic)
 
 instance Show PokemonBase where
@@ -56,3 +62,27 @@ new = PokemonBase
 
 hasEvolutions :: PokemonBase -> Bool
 hasEvolutions this = (not . null) $ PokemonBase.evolutions this
+
+makeTempEvos :: PokemonBase -> [PokemonBase]
+makeTempEvos this =
+  map (applyTempEvoOverride this) $ tempEvoOverrides this
+
+applyTempEvoOverride :: PokemonBase -> TempEvoOverride -> PokemonBase
+applyTempEvoOverride this tempEvoOverride =
+  this {
+    species = makeTempEvoSpecies
+      (species this) (TempEvoOverride.tempEvoId tempEvoOverride),
+    types = TempEvoOverride.typeOverrides tempEvoOverride,
+    attack = TempEvoOverride.attack tempEvoOverride,
+    defense = TempEvoOverride.defense tempEvoOverride,
+    stamina = TempEvoOverride.stamina tempEvoOverride
+  }
+
+makeTempEvoSpecies :: String -> String -> String
+makeTempEvoSpecies baseSpecies tempEvoId =
+  let regex = Regex.mkRegex "^TEMP_EVOLUTION_MEGA(_([A-Z]+))?$"
+  in case Regex.matchRegex regex tempEvoId of
+       Just [_, suffix] ->
+         Util.toLower $ "mega_" ++ baseSpecies ++
+           (if null suffix then "" else "_" ++ suffix)
+       _ -> error $ "Unknown tempEvoId format: " ++ tempEvoId
