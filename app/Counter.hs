@@ -65,6 +65,7 @@ data Options = Options {
   showPowerups :: Bool,
   maybeMaxCandy :: Maybe Int,
   maybeMaxDust  :: Maybe Int,
+  showMegas :: Bool,
   raidGroup :: Bool,
   showAllMovesets :: Bool,
   defender :: Battler
@@ -99,6 +100,7 @@ getOptions =
         optOnlyAttacker <*>
         optShowBreakpoints <*>
         optShowPowerups <*> optMaxCandy <*> optMaxDust <*>
+        optShowMegas <*>
         optRaidGroup <*> optShowMoveset <*>
         optDefender
       optWeather = O.optional Weather.optWeather
@@ -184,6 +186,10 @@ getOptions =
         <> O.short 'S'
         <> O.metavar "STARDUST"
         <> O.help "Use up to STARDUST starust to power up the pokemon")
+      optShowMegas = O.switch
+        (  O.long "mega"
+        <> O.short 'G'
+        <> O.help "Show mega evolutions")
       optRaidGroup = O.switch
         (  O.long "raidgroup"
         <> O.short 'R'
@@ -232,7 +238,17 @@ main =
                 then map (expandMoves gameMaster) pokemonLists
                 else map (flagNamesForMultipleMoves) pokemonLists
           -- Concatenate from [[Pokemon]] to [Pokemon].
-          pokemon <- return $ concat pokemonLists
+          let pokemon = concat pokemonLists
+          pokemon <- return $
+            if showMegas options
+              then
+                let megas = concat $ map (expandMegas gameMaster) pokemon
+                    prefixNameWith prefix pokemon =
+                      Pokemon.setName (prefix ++ Pokemon.pname pokemon) pokemon
+                    prefixedPokemon = map (prefixNameWith "  ") pokemon
+                    prefixedMegas = map (prefixNameWith "#-") megas
+                in prefixedPokemon ++ prefixedMegas
+              else pokemon
           let maybeMaxCandy = Main.maybeMaxCandy options
               maybeMaxDust = Main.maybeMaxDust options
           if showPowerups options || Maybe.isJust maybeMaxCandy ||
@@ -342,6 +358,25 @@ main =
             else return ()
     )
     $ Exit.die
+
+expandMegas :: GameMaster -> Pokemon -> [Pokemon]
+expandMegas gameMaster pokemon =
+  map (tempEvolve gameMaster pokemon) $
+    PokemonBase.makeTempEvos $ Pokemon.base pokemon
+
+tempEvolve :: GameMaster -> Pokemon -> PokemonBase -> Pokemon
+tempEvolve gameMaster pokemon pokemonBase =
+  let ivs = Pokemon.ivs pokemon
+      level = IVs.level ivs
+      cpMultiplier = GameMaster.getCpMultiplier gameMaster level
+      makeStat baseFunc ivFunc =
+        (fromIntegral $ baseFunc pokemonBase + ivFunc ivs) * cpMultiplier
+  in pokemon {
+       Pokemon.base = pokemonBase,
+       Pokemon.attack = (makeStat PokemonBase.attack IVs.attack),
+       Pokemon.defense = (makeStat PokemonBase.defense IVs.defense),
+       Pokemon.stamina = (makeStat PokemonBase.stamina IVs.stamina)
+     }
 
 -- pokemonList represents a single pokemon with one element for each
 -- charge move it has.  expandMoves creates an element for each
