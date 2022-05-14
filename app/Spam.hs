@@ -25,10 +25,11 @@ import qualified Type
 import           Type (Type)
 import qualified Util
 
-import qualified Debug
+import qualified Debug as D
 
 import           Control.Monad (join, forM, forM_)
 import qualified Data.List as List
+import qualified Data.Maybe as Maybe
 import qualified System.Exit as Exit
 import qualified Text.Printf as Printf
 
@@ -158,13 +159,14 @@ main = Epic.catch (
               (damage charged)
           maxNameLength = maximum $
             map (\ (fast, charged) -> length $ toName fast charged) moveSets
-          toStuff :: (Move, Move) -> (String, Int, Int, Float, Float)
-          toStuff (fast, charged) =
+          toStuff :: (Move, Move) -> Maybe (String, Int, Int, Float, Float)
+          toStuff (fast, charged) = do
             let name = toName fast charged
-                (turnsPerCycle, fastMovesPerCycle, dpt, dpe) =
-                  spam types defenderTypes fast charged
-            in (name, turnsPerCycle, fastMovesPerCycle, dpt * statProduct, dpe)
-          stuff = map toStuff moveSets
+            (turnsPerCycle, fastMovesPerCycle, dpt, dpe) <-
+              maybeSpam types defenderTypes fast charged
+            Just $
+              (name, turnsPerCycle, fastMovesPerCycle, dpt * statProduct, dpe)
+          stuff = Maybe.mapMaybe toStuff moveSets
       forM_ stuff $ \ (name, turnsPerCycle, fastMovesPerCycle, dpt, dpe) ->
         putStrLn $ Printf.printf "%-*s: %d(%d) %.2f %.2f"
           maxNameLength name turnsPerCycle fastMovesPerCycle dpt dpe
@@ -198,12 +200,17 @@ getStatProduct gameMaster base ivs =
           (PokemonBase.defense, IVs.defense),
           (PokemonBase.stamina, IVs.stamina)]
 
-spam :: [Type] -> [Type] -> Move -> Move -> (Int, Int, Float, Float)
-spam types defenderTypes fast charged =
+-- Sometimes new Pokemon appear in GAME_MASTER with moves that cause
+-- dpt to be Infinity.  Check for that and return Nothing instead.
+--
+maybeSpam :: [Type] -> [Type] -> Move -> Move -> Maybe (Int, Int, Float, Float)
+maybeSpam types defenderTypes fast charged = do
   let chargedEnergy = - Move.pvpEnergyDelta charged
       fastEnergy = Move.pvpEnergyDelta fast
-      fastMovesPerCycle = (chargedEnergy + fastEnergy - 1) `div` fastEnergy
-      turnsPerCycle = fastMovesPerCycle * (Move.pvpDurationTurns fast + 1)
+  fastMovesPerCycle <- case fastEnergy of
+    0 -> Nothing
+    _ -> Just $ (chargedEnergy + fastEnergy - 1) `div` fastEnergy
+  let turnsPerCycle = fastMovesPerCycle * (Move.pvpDurationTurns fast + 1)
       multiplier move =
         Move.stabFor move types * Move.effectivenessAgainst move defenderTypes
       multiplierFast = multiplier fast
@@ -212,10 +219,12 @@ spam types defenderTypes fast charged =
         (fromIntegral fastMovesPerCycle) * (Move.pvpPower fast) *
           multiplierFast
         + (Move.pvpPower charged * multiplierCharged)
-      dpt = damagePerCycle / fromIntegral turnsPerCycle
-      dpe = (Move.pvpPower charged) * multiplierCharged /
+  dpt <- case turnsPerCycle of
+    0 -> Nothing
+    _ -> Just $ damagePerCycle / fromIntegral turnsPerCycle
+  let dpe = (Move.pvpPower charged) * multiplierCharged /
         fromIntegral chargedEnergy
-  in (turnsPerCycle, fastMovesPerCycle, dpt, dpe)
+  Just $ (turnsPerCycle, fastMovesPerCycle, dpt, dpe)
 
 optParseBattler :: O.ReadM Battler
 optParseBattler = O.eitherReader parseBattler
