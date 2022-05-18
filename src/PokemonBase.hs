@@ -20,6 +20,7 @@ module PokemonBase (
   thirdMoveCost,
   purificationCost,
   rarity,
+  isMega,
   makeTempEvos,
 ) where
 
@@ -52,7 +53,8 @@ data PokemonBase = PokemonBase {
   thirdMoveCost :: (Int, Int),  -- (stardust, candy)
   purificationCost :: (Int, Int),  -- (stardust, candy)
   rarity       :: Rarity,
-  tempEvoOverrides :: [TempEvoOverride]
+  tempEvoOverrides :: [TempEvoOverride],
+  isMega       :: Bool
 } deriving (Generic)
 
 instance Show PokemonBase where
@@ -75,7 +77,8 @@ applyTempEvoOverride this tempEvoOverride =
     types = TempEvoOverride.typeOverrides tempEvoOverride,
     attack = TempEvoOverride.attack tempEvoOverride,
     defense = TempEvoOverride.defense tempEvoOverride,
-    stamina = TempEvoOverride.stamina tempEvoOverride
+    stamina = TempEvoOverride.stamina tempEvoOverride,
+    isMega = True
   }
 
 makeTempEvoSpecies :: String -> String -> String
