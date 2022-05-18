@@ -278,12 +278,19 @@ showAttacker (Attacker species fast charged) =
 
 getAttackerResults :: GameMaster -> [Pokemon] -> PokemonBase -> DefenderResult
 getAttackerResults gameMaster attackers defenderBase =
-  let tier = case PokemonBase.rarity defenderBase of
-        -- Battle legendary and mythic as tier 5 bosses, everything
-        -- else as tier 3.
-        Rarity.Legendary -> 5
-        Rarity.Mythic -> 5
-        _ -> 3
+  let tier = if PokemonBase.isMega defenderBase
+         then
+           case PokemonBase.rarity defenderBase of
+             Rarity.Legendary -> 6
+             Rarity.Mythic -> 6
+             _ -> 4
+         else
+           case PokemonBase.rarity defenderBase of
+             -- Battle legendary and mythic as tier 5 bosses, everything
+             -- else as tier 3.
+             Rarity.Legendary -> 5
+             Rarity.Mythic -> 5
+             _ -> 3
       defenderAllMoves = 
         BattlerUtil.makeRaidBossForTier gameMaster tier defenderBase
       attackerResults = reverse $ List.sortOn dps $
