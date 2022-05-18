@@ -186,7 +186,9 @@ main =
 
       let ivs = IVs.setLevel defaultIvs $ level options
 
-          allBases = GameMaster.allPokemonBases gameMaster
+          -- For now exclude megas.
+          allBases = filter (not . PokemonBase.isMega) $
+            GameMaster.allPokemonBases gameMaster
 
       attackers <- case attackersFile options of
         Just filename -> do
