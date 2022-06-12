@@ -28,7 +28,7 @@ library
                        YamlUtil
   other-modules:       StringMap
   ghc-options:         -O2
-  build-depends:       base >= 4.7 && < 5, yaml, vector, text,
+  build-depends:       base >= 4.7 && < 5, ghc, yaml, vector, text,
                        unordered-containers, exceptions, hashable
                      , text-conversions
                      , regex-compat

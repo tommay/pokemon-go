@@ -15,6 +15,8 @@ import           Data.Yaml ((.:))
 import qualified Data.HashMap.Strict as HashMap
 import qualified Data.List as List
 
+import qualified Exception
+
 import qualified Debug as D
 
 -- Returns a map from species String to ([fast move name], [charged move name])
@@ -23,7 +25,8 @@ load :: Epic.MonadCatch m => FilePath -> IO (m (StringMap ([String], [String])))
 load filename = do
   either <- Yaml.decodeFileEither filename
   case either of
-    Left yamlParseException -> Epic.fail $ show yamlParseException
+    Left yamlParseException -> Epic.fail $ "Error in " ++ filename ++ ":\n" ++
+      (Exception.displayException yamlParseException)
     Right yamlObjects -> return $ makeLegacyMap yamlObjects
 
 makeLegacyMap :: Epic.MonadCatch m =>
