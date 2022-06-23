@@ -315,3 +315,9 @@
 - species: golem_alola
   moves:
   - ROLLOUT_FAST        # Community day 5/21/2022
+- species: primeape
+  moves:
+  - CROSS_CHOP          # GBL day 6/18/2022
+- species: hydreigon
+  moves:
+  - BRUTAL_SWING        # Communityday 6/25/2022
