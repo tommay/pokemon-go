@@ -162,28 +162,19 @@ makeRaidBossForTier gameMaster raidLevel base =
 -- match the real stats:
 -- https://www.reddit.com/r/pokebattler/comments/6jvzqm/motivation_for_flat_600150030007500_hp/
 -- XXX The stamina/hp works for the (fictitious) CP formula but may be
--- slightly too high, at least for r3.
+-- slightly too high, at least for t3.
 
 makeRaidBossForMoves :: GameMaster -> Int -> PokemonBase -> [Move] -> [Move] -> [Pokemon]
 makeRaidBossForMoves gameMaster raidLevel base quickMoves chargeMoves =
-  let -- These cpm were apparently sniffed off the wire and are the same
-      -- ones used by https://pokemongo.gamepress.gg/breakpoint-calculator#/.
-      -- With these values ./breakpoint gyarados:30/13/14/10:wf machamp:r3
-      -- matches that site, but using getCpmForLevel gives the jump to
-      -- 14 at level 28 whereas the site and the hardcoded numbers put
-      -- it at level 27.5.
-      -- getCpmForLevel = GameMaster.getCpMultiplier gameMaster
-      (cpm, hp) = case raidLevel of
-        1 -> (1.0, 600)
-        2 -> (1.0, 1800)
-        -- This value has to beetween 0.95546657 (maxmin for aggron)
-        -- and 0.95544976 (minmax for absol)
-        3 -> ((0.95546657 + 0.95544976)/2, 3600)
-        4 -> ((0.95546657 + 0.95544976)/2, 3600)
-        5 -> (1.0, 15000)
-        6 -> (1.0, 22500) -- "Tier 6" for mewtwo, darkrai, ...
-        _ -> error "Raid level must be 1, 2, 3, 4, or 5"
-      makeStat baseFunc = (fromIntegral $ baseFunc base + 15) * cpm
+  let hp = case raidLevel of
+        1 -> 600
+        2 -> 1800
+        3 -> 3600
+        4 -> 9000
+        5 -> 15000
+        6 -> 22500 -- "Tier 6" for mewtwo, darkrai, mega legendaries.
+        _ -> error "Raid level must be 1, 2, 3, 4, 5, or 6"
+      makeStat baseFunc = fromIntegral $ baseFunc base + 15
       makePokemon quickMove chargeMove =
         Pokemon.new
           (PokemonBase.species base)
