@@ -320,4 +320,7 @@
   - CROSS_CHOP          # GBL day 6/18/2022
 - species: hydreigon
   moves:
-  - BRUTAL_SWING        # Communityday 6/25/2022
+  - BRUTAL_SWING        # Community day 6/25/2022
+- species: staraptor
+  moves:
+  - GUST_FAST           # Community day 7/17/2022
