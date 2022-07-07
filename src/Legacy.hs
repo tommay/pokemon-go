@@ -29,6 +29,8 @@ load filename = do
       (Exception.displayException yamlParseException)
     Right yamlObjects -> return $ makeLegacyMap yamlObjects
 
+-- Map species to ([fast name], [charged name])
+--
 makeLegacyMap :: Epic.MonadCatch m =>
   [Yaml.Object] -> m (StringMap ([String], [String]))
 makeLegacyMap yamlObjects = do
