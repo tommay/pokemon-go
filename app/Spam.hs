@@ -150,11 +150,15 @@ main = Epic.catch (
           multiplier move =
             Move.stabFor move types *
             Move.effectivenessAgainst move defenderTypes
+          turns = fromIntegral . (+1) . Move.pvpDurationTurns
           damage move = Move.pvpPower move * multiplier move
+          energyGainPerTurn move =
+            (fromIntegral $ Move.pvpEnergyDelta move) / turns move
+          damagePerTurn move = damage move / turns move * statProduct
           toName :: Move -> Move -> String
           toName fast charged =
-            Printf.printf "%s(%d/%.1f) / %s(%d/%.0f)"
-              (Move.name fast) (Move.pvpEnergyDelta fast) (damage fast)
+            Printf.printf "%s(%.1f/%.1f) / %s(%d/%.0f)"
+              (Move.name fast) (energyGainPerTurn fast) (damagePerTurn fast)
               (Move.name charged) (negate $ Move.pvpEnergyDelta charged)
               (damage charged)
           maxNameLength = maximum $
