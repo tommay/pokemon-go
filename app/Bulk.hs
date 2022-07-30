@@ -265,7 +265,7 @@ main =
       let basePvpStardust = purificationStardustNeeded + thirdMoveStardust
           basePvpCandy = purificationCandyNeeded + evolveCandy + thirdMoveCandy
           purifyIv iv = if needsPurification
-            then List.minimum [iv + 2, 15]
+            then min (iv + 2) 15
             else iv
           makePureIVs level = IVs.new level
             (purifyIv $ attack options)
