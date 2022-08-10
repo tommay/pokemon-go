@@ -182,32 +182,8 @@ main =
           needsPurification = isShadow && isPurified
           discounts = Discounts.new gameMaster
             (isShadow && not isPurified) isPurified isLucky
-          appendEvolvedSuffix =
-            if isPurified
-              then (++ "_PURIFIED")
-              else if isShadow
-                then (++ "_SHADOW")
-                else id
-
-      -- baseCurrent can be used for all CP calculations and to get the
-      -- purification cost.
  
-      baseCurrent <- do
-        let speciesCurrent =
-              -- This is different from appendEvolvedSuffix because
-              -- that uses the suffix before purification and this
-              -- uses the suffix after purification.
-              if isShadow
-                then species ++ "_SHADOW"
-                else if isPurified
-                  then species ++ "_PURIFIED"
-                  else species
-        GameMaster.getPokemonBase gameMaster speciesCurrent
-
-      let speciesToEvolve = appendEvolvedSuffix species
-      -- baseToEvolve can be used to get the evolution and third move costs.
-      baseToEvolve <- do
-        GameMaster.getPokemonBase gameMaster speciesToEvolve
+      base <- GameMaster.getPokemonBase gameMaster species
 
       let allLevels = GameMaster.powerUpLevels gameMaster
           makeIVs level = IVs.new level
@@ -218,7 +194,7 @@ main =
         case levelOrCp options of
           Level level -> return level
           Cp cp ->
-            case List.find ((== cp) . calcCpForIVs baseCurrent) allIVs of
+            case List.find ((== cp) . calcCpForIVs base) allIVs of
               Just ivs -> return $ IVs.level ivs
               Nothing -> Epic.fail "no possible level for cp and ivs"
       -- If both isShadow and isPurified are true, it means the command line
@@ -230,25 +206,33 @@ main =
           else level
       let (purificationStardustNeeded, purificationCandyNeeded) =
             if needsPurification
-              then PokemonBase.purificationCost baseCurrent
+              then PokemonBase.purificationCost base
               else (0, 0)
           (thirdMoveStardust, thirdMoveCandy) =
-            PokemonBase.thirdMoveCost baseToEvolve
+            -- The third move is always added after purification if applicable.
+            let scale num dem = (`div` dem) . (* num)
+                both func (a, b) = (func a, func b)
+            in (both $ if isPurified
+                 then scale 4 5
+                 else if isShadow
+                   then scale 6 5
+                   else id) $
+                 PokemonBase.thirdMoveCost base
 
       -- If an evolution target was given then evolve to it, else for
       -- Little league assume the pokemon will not be evoled, else use
       -- Nothing to evolve fully.
 
-      let maybeTarget = appendEvolvedSuffix <$> maybeEvolution options
-          maybeTarget' = case maybeTarget of
+      let maybeTarget = case maybeEvolution options of
             Just target -> Just target
             Nothing -> if league options == Little
-              then Just speciesToEvolve
+              then Just species
               else Nothing
       (speciesEvolved, evolveCandy) <-
         PokeUtil.evolveSpeciesFullyWithCandy
-          gameMaster (isTraded options) maybeTarget' speciesToEvolve
+          gameMaster (isTraded options) maybeTarget species
 
+      -- XXX this could formerly be shadow or purified.
       baseEvolved <- GameMaster.getPokemonBase gameMaster speciesEvolved
       if not $ summary options
         then do
