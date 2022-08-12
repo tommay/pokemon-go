@@ -282,6 +282,9 @@
   moves:
   - POWDER_SNOW_FAST    # Community day 1/2022.
   - ICICLE_SPEAR        # Community day 1/2022.
+- species: genesect_shock
+  moves:
+  - techno_blast_shock  # Raids, gbl reward 1/2022
 - species: regice
   moves:
   - THUNDER             # January 2022 raids and gbl rewards.
@@ -324,3 +327,6 @@
 - species: staraptor
   moves:
   - GUST_FAST           # Community day 7/17/2022
+- species: genesect_chill
+  moves:
+  - techno_blast_chill  # Raids, gbl reward 8/2022
