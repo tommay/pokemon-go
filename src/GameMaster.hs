@@ -760,32 +760,36 @@ getTempEvoOverrides :: Epic.MonadCatch m =>
   StringMap Type -> ItemTemplate -> m [TempEvoOverride]
 getTempEvoOverrides types pokemonSettings = do
   case getObjectValue pokemonSettings "tempEvoOverrides" of
-    Right yamlObjects -> mapM (getTempEvoOverride types) yamlObjects
+    Right yamlObjects ->
+      Maybe.catMaybes <$> mapM (getTempEvoOverride types) yamlObjects
     -- XXX This can swallow parse errors?
     Left _ -> return $ []
 
 getTempEvoOverride :: Epic.MonadCatch m =>
-  StringMap Type -> Yaml.Object -> m TempEvoOverride
-getTempEvoOverride types yamlObject = do
-  tempEvoId <- getObjectValue yamlObject "tempEvoId"
-  ptypes <- do
-    ptype <- getObjectValue yamlObject "typeOverride1"
-    let ptypes = case getObjectValue yamlObject "typeOverride2" of
-          Right ptype2 -> [ptype, ptype2]
-          -- XXX This can swallow parse errors?
-          Left _ -> [ptype]
-    mapM (get types) ptypes
-  statsObject <- getObjectValue yamlObject "stats"
-  attack <- getObjectValue statsObject "baseAttack"
-  defense <- getObjectValue statsObject "baseDefense"
-  stamina <- getObjectValue statsObject "baseStamina"
-  return $ TempEvoOverride {
-    TempEvoOverride.tempEvoId = tempEvoId,
-    TempEvoOverride.typeOverrides  = ptypes,
-    TempEvoOverride.attack = attack,
-    TempEvoOverride.defense = defense,
-    TempEvoOverride.stamina = stamina
-    }
+  StringMap Type -> Yaml.Object -> m (Maybe TempEvoOverride)
+getTempEvoOverride types yamlObject =
+  case getObjectValue yamlObject "tempEvoId" of
+    Right tempEvoId -> do
+      ptypes <- do
+        ptype <- getObjectValue yamlObject "typeOverride1"
+        let ptypes = case getObjectValue yamlObject "typeOverride2" of
+              Right ptype2 -> [ptype, ptype2]
+              -- XXX This can swallow parse errors?
+              Left _ -> [ptype]
+        mapM (get types) ptypes
+      statsObject <- getObjectValue yamlObject "stats"
+      attack <- getObjectValue statsObject "baseAttack"
+      defense <- getObjectValue statsObject "baseDefense"
+      stamina <- getObjectValue statsObject "baseStamina"
+      return $ Just TempEvoOverride {
+        TempEvoOverride.tempEvoId = tempEvoId,
+        TempEvoOverride.typeOverrides  = ptypes,
+        TempEvoOverride.attack = attack,
+        TempEvoOverride.defense = defense,
+        TempEvoOverride.stamina = stamina
+        }
+    -- XXX This can swallow parse errors?
+    Left _ -> return $ Nothing
 
 instance Yaml.FromJSON Rarity where
   parseJSON (Yaml.String "POKEMON_RARITY_LEGENDARY") = pure Rarity.Legendary
