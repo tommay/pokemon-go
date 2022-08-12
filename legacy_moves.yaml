@@ -330,3 +330,6 @@
 - species: genesect_chill
   moves:
   - techno_blast_chill  # Raids, gbl reward 8/2022
+- species: obstagoon
+  moves:
+  - OBSTRUCT            # Community day 8/13/2022
