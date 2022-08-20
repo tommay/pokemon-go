@@ -333,3 +333,6 @@
 - species: obstagoon
   moves:
   - OBSTRUCT            # Community day 8/13/2022
+- species: genesect
+  moves:
+  - techno_blast_normal # Randomly added, 8/2022
