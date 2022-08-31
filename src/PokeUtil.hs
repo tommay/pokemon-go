@@ -8,6 +8,7 @@ module PokeUtil (
   evolveSpeciesFullyWithCandy,
   evolutionChains,
   isFirstEvolution,
+  isMiddleEvolution,
 ) where
 
 import qualified Epic
@@ -119,6 +120,13 @@ isFirstEvolution :: GameMaster -> PokemonBase  -> Bool
 isFirstEvolution gameMaster base =
   PokemonBase.hasEvolutions base &&
     (not $ isEvolution gameMaster base)
+
+-- This tests eligibility for the Evolution cup.
+--
+isMiddleEvolution :: GameMaster -> PokemonBase  -> Bool
+isMiddleEvolution gameMaster base =
+  PokemonBase.hasEvolutions base &&
+    isEvolution gameMaster base
 
 isEvolution :: GameMaster -> PokemonBase -> Bool
 isEvolution gameMaster base =

@@ -30,6 +30,7 @@ import qualified Text.Printf as Printf
 
 data Options = Options {
   little :: Bool,
+  evolve :: Bool,
   minCp :: Int,
   allowedTypes :: [String],
   excludedTypes :: [String]
@@ -37,11 +38,16 @@ data Options = Options {
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optLittle <*> optMinCp <*> optAllowedTypes <*> optExcludedTypes
+  let opts = Options <$> optLittle <*> optEvolve <*> optMinCp <*>
+        optAllowedTypes <*> optExcludedTypes
       optLittle = O.switch
         (  O.long "little"
         <> O.short 'l'
         <> O.help "Show pokemon eligible for Little Cup and similar")
+      optEvolve = O.switch
+        (  O.long "evolve"
+        <> O.short 'e'
+        <> O.help "Show pokemon which have evolved and can evolve again")
       optMinCp =
             O.flag' 1400 (
               O.short 'g' <>
@@ -85,6 +91,9 @@ main =
       let isLittle littleRequired = if littleRequired
             then PokeUtil.isFirstEvolution gameMaster
             else const True
+          isMiddle middleRequired = if middleRequired
+            then PokeUtil.isMiddleEvolution gameMaster
+            else const True
           typeIn types = any (`elem` types) . map Type.name . PokemonBase.types
           hasAllowedType allowedTypes = case allowedTypes of
             [] -> const True
@@ -100,6 +109,7 @@ main =
         map PokemonBase.species $
         filter hasEnoughCp $
         filter (isLittle $ little options) $
+        filter (isMiddle $ evolve options) $
         filter (hasAllowedType $ allowedTypes options) $
         filter (not . (hasExcludedType $ excludedTypes options)) $
         GameMaster.allPokemonBases gameMaster
