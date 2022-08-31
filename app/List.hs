@@ -17,9 +17,10 @@ import qualified Pokemon
 import           Pokemon (Pokemon)
 import qualified PokemonBase
 import           PokemonBase (PokemonBase)
+import qualified PokeUtil
 import qualified Type
 import           Type (Type)
-import qualified PokeUtil
+import qualified Util
 
 import qualified Debug
 
@@ -33,13 +34,14 @@ data Options = Options {
   evolve :: Bool,
   minCp :: Int,
   allowedTypes :: [String],
-  excludedTypes :: [String]
+  excludedTypes :: [String],
+  bannedPokemon :: [String]
 }
 
 getOptions :: IO Options
 getOptions =
   let opts = Options <$> optLittle <*> optEvolve <*> optMinCp <*>
-        optAllowedTypes <*> optExcludedTypes
+        optAllowedTypes <*> optExcludedTypes <*> optBannedPokemon
       optLittle = O.switch
         (  O.long "little"
         <> O.short 'l'
@@ -77,6 +79,11 @@ getOptions =
         <> O.short 'n'
         <> O.metavar "NOT-TYPE"
         <> O.help "Exclude the specified type(s).")
+      optBannedPokemon = (O.many . O.strOption)
+        (  O.long "banned"
+        <> O.short 'b'
+        <> O.metavar "POKEMON"
+        <> O.help "Banned pokemon to exclude.")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc "List some or all pokemon.")
@@ -101,6 +108,8 @@ main =
           hasExcludedType excludedTypes = case excludedTypes of
             [] -> const False
             _ -> typeIn excludedTypes
+          isBanned bannedPokemon pokemon =
+            Util.toLower pokemon `elem` map Util.toLower bannedPokemon
           minCp' = if little options
             then 400
             else minCp options
@@ -112,6 +121,7 @@ main =
         filter (isMiddle $ evolve options) $
         filter (hasAllowedType $ allowedTypes options) $
         filter (not . (hasExcludedType $ excludedTypes options)) $
+        filter (not . isBanned (bannedPokemon options) . PokemonBase.species) $
         GameMaster.allPokemonBases gameMaster
     )
     $ Exit.die
