@@ -17,12 +17,13 @@ import qualified Pokemon
 import           Pokemon (Pokemon)
 import qualified PokemonBase
 import           PokemonBase (PokemonBase)
+import qualified PokemonClass (PokemonClass(..))
 import qualified PokeUtil
 import qualified Type
 import           Type (Type)
 import qualified Util
 
-import qualified Debug
+import qualified Debug as D
 
 import           Control.Monad (join, forM, forM_)
 import qualified Data.List as List
@@ -35,13 +36,15 @@ data Options = Options {
   minCp :: Int,
   allowedTypes :: [String],
   excludedTypes :: [String],
-  bannedPokemon :: [String]
+  bannedPokemon :: [String],
+  premier :: Bool
 }
 
 getOptions :: IO Options
 getOptions =
   let opts = Options <$> optLittle <*> optEvolve <*> optMinCp <*>
-        optAllowedTypes <*> optExcludedTypes <*> optBannedPokemon
+        optAllowedTypes <*> optExcludedTypes <*> optBannedPokemon <*>
+        optPremier
       optLittle = O.switch
         (  O.long "little"
         <> O.short 'l'
@@ -84,6 +87,10 @@ getOptions =
         <> O.short 'b'
         <> O.metavar "POKEMON"
         <> O.help "Banned pokemon to exclude.")
+      optPremier = O.switch
+        (  O.long "premier"
+        <> O.short 'p'
+        <> O.help "Show pokemon eligible for premier cups")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc "List some or all pokemon.")
@@ -110,6 +117,10 @@ main =
             _ -> typeIn excludedTypes
           isBanned bannedPokemon pokemon =
             Util.toLower pokemon `elem` map Util.toLower bannedPokemon
+          isPremier premierRequired =
+            if premierRequired
+              then (`notElem` [PokemonClass.Legendary, PokemonClass.Mythic]) . PokemonBase.pokemonClass
+              else const True
           minCp' = if little options
             then 400
             else minCp options
@@ -122,6 +133,7 @@ main =
         filter (hasAllowedType $ allowedTypes options) $
         filter (not . (hasExcludedType $ excludedTypes options)) $
         filter (not . isBanned (bannedPokemon options) . PokemonBase.species) $
+        filter (isPremier $ premier options) $
         GameMaster.allPokemonBases gameMaster
     )
     $ Exit.die

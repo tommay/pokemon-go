@@ -13,4 +13,4 @@ import           GHC.Generics (Generic)
 -- I add Normal to make parsing and using the file easier.
 
 data PokemonClass = Normal | Legendary | Mythic | UltraBeast
-  deriving (Show, Generic)
+  deriving (Eq, Show, Generic)
