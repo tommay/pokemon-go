@@ -57,12 +57,12 @@ import qualified Move
 import           Move (Move)
 import qualified PokemonBase
 import           PokemonBase (PokemonBase)
+import qualified PokemonClass (PokemonClass (..))
+import           PokemonClass (PokemonClass)
 import qualified PvpChargedMove
 import           PvpChargedMove (PvpChargedMove)
 import qualified PvpFastMove
 import           PvpFastMove (PvpFastMove)
-import qualified Rarity (Rarity (..))
-import           Rarity (Rarity)
 import           StringMap (StringMap)
 import qualified TempEvoOverride
 import           TempEvoOverride (TempEvoOverride (TempEvoOverride))
@@ -121,7 +121,7 @@ instance Store.Store Type
 instance Store.Store Move
 instance Store.Store PokemonBase
 instance Store.Store Weather
-instance Store.Store Rarity
+instance Store.Store PokemonClass
 instance Store.Store TempEvoOverride
 
 type ItemTemplate = Yaml.Object
@@ -746,13 +746,14 @@ makePokemonBase types moves forms legacyMap pokemonSettings =
           return $ (purificationStardustNeeded, purificationCandyNeeded)
         Left _ -> return $ (0, 0)
 
-    rarity <- getObjectValueWithDefault Rarity.Normal pokemonSettings "rarity"
+    pokemonClass <- getObjectValueWithDefault PokemonClass.Normal
+      pokemonSettings "pokemonClass"
 
     tempEvoOverrides <- getTempEvoOverrides types pokemonSettings
 
     return $ PokemonBase.new pokemonId species ptypes attack defense stamina
        evolutions quickMoves chargeMoves parent baseCaptureRate
-       thirdMoveCost purificationCost rarity
+       thirdMoveCost purificationCost pokemonClass
        tempEvoOverrides False
     )
   (\ex -> Epic.fail $ ex ++ " in " ++ show pokemonSettings)
@@ -792,11 +793,14 @@ getTempEvoOverride types yamlObject =
     -- XXX This can swallow parse errors?
     Left _ -> return $ Nothing
 
-instance Yaml.FromJSON Rarity where
-  parseJSON (Yaml.String "POKEMON_RARITY_LEGENDARY") = pure Rarity.Legendary
-  parseJSON (Yaml.String "POKEMON_RARITY_MYTHIC") = pure Rarity.Mythic
+instance Yaml.FromJSON PokemonClass where
+  parseJSON (Yaml.String "POKEMON_CLASS_LEGENDARY") = pure PokemonClass.Legendary
+  parseJSON (Yaml.String "POKEMON_CLASS_MYTHIC") = pure PokemonClass.Mythic
+  parseJSON (Yaml.String "POKEMON_CLASS_ULTRA_BEAST") =
+    pure PokemonClass.UltraBeast
   parseJSON oops = fail $
-    "Expected rarity to be legendary or mythic, got " ++ show oops
+    "Expected pokemonClass to be legendary, mythic, or ultrabeast, got " ++
+      show oops
 
 makeWeatherAffinity :: Epic.MonadCatch m => StringMap Type -> ItemTemplate -> m [Type]
 makeWeatherAffinity types weatherAffinity = do

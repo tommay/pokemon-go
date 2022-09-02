@@ -19,14 +19,14 @@ module PokemonBase (
   baseCaptureRate,
   thirdMoveCost,
   purificationCost,
-  rarity,
+  pokemonClass,
   isMega,
   makeTempEvos,
 ) where
 
 import           Type (Type)
 import           Move (Move)
-import           Rarity (Rarity)
+import           PokemonClass (PokemonClass)
 import qualified TempEvoOverride
 import           TempEvoOverride (TempEvoOverride)
 import qualified Util
@@ -52,7 +52,7 @@ data PokemonBase = PokemonBase {
   baseCaptureRate :: Float,
   thirdMoveCost :: (Int, Int),  -- (stardust, candy)
   purificationCost :: (Int, Int),  -- (stardust, candy)
-  rarity       :: Rarity,
+  pokemonClass     :: PokemonClass,
   tempEvoOverrides :: [TempEvoOverride],
   isMega       :: Bool
 } deriving (Generic)

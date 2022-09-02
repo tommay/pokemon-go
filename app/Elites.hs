@@ -52,7 +52,7 @@ import qualified Pokemon
 import           Pokemon (Pokemon)
 import qualified PokemonBase
 import           PokemonBase (PokemonBase)
-import qualified Rarity (Rarity (..))
+import qualified PokemonClass (PokemonClass (..))
 import qualified Util
 
 import           GHC.Generics (Generic)
@@ -282,16 +282,17 @@ getAttackerResults :: GameMaster -> [Pokemon] -> PokemonBase -> DefenderResult
 getAttackerResults gameMaster attackers defenderBase =
   let tier = if PokemonBase.isMega defenderBase
          then
-           case PokemonBase.rarity defenderBase of
-             Rarity.Legendary -> 6
-             Rarity.Mythic -> 6
+           case PokemonBase.pokemonClass defenderBase of
+             PokemonClass.Legendary -> 6
+             PokemonClass.Mythic -> 6
              _ -> 4
          else
-           case PokemonBase.rarity defenderBase of
+           case PokemonBase.pokemonClass defenderBase of
              -- Battle legendary and mythic as tier 5 bosses, everything
              -- else as tier 3.
-             Rarity.Legendary -> 5
-             Rarity.Mythic -> 5
+             PokemonClass.Legendary -> 5
+             PokemonClass.Mythic -> 5
+             PokemonClass.UltraBeast -> 5
              _ -> 3
       defenderAllMoves = 
         BattlerUtil.makeRaidBossForTier gameMaster tier defenderBase

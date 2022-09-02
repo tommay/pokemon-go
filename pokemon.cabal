@@ -24,7 +24,7 @@ library
                        MakePokemon, Stats, PokeUtil, TweakLevel, Breakpoint,
                        Powerups, WeatherBonus, Legacy, Discounts,
                        PvpFastMove, PvpChargedMove,
-                       Rarity,
+                       PokemonClass,
                        YamlUtil
   other-modules:       StringMap
   ghc-options:         -O2
