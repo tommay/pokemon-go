@@ -827,7 +827,7 @@ makeSomeObjects pred filterKey getName makeObject itemTemplates =
       hash <- maybeHash
       name <- getName itemTemplate
       obj <- makeObject itemTemplate
-      return $ HashMap.insert name obj hash)
+      pure $ HashMap.insert name obj hash)
     (pure HashMap.empty)
     $ filter pred
     $ getAll itemTemplates filterKey
