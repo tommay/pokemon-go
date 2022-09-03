@@ -26,13 +26,11 @@ import qualified Util
 import qualified Debug as D
 
 import           Control.Monad (join, forM, forM_)
-import qualified Data.HashMap.Strict as HashMap
-import           Data.HashMap.Strict (HashMap)
+import qualified Data.List as List
 import qualified System.Exit as Exit
 import qualified Text.Printf as Printf
 
 data Options = Options {
-  maybeCup :: Maybe String,
   little :: Bool,
   evolve :: Bool,
   minCp :: Int,
@@ -42,60 +40,11 @@ data Options = Options {
   premier :: Bool
 }
 
-type Cup = Options
-
-defaultCup = Options {
-  maybeCup = Nothing,
-  little = False,
-  evolve = False,
-  minCp = 0,
-  allowedTypes = [],
-  excludedTypes = [],
-  bannedPokemon = [],
-  premier = False
-  }
-
-cupMap :: HashMap String Options
-cupMap = HashMap.fromList [
-  ("fighting", defaultCup {
-    allowedTypes = ["fighting"],
-    excludedTypes = ["psychic"]
-    }),
-  ("little-jungle-remix", defaultCup {
-    allowedTypes = ["normal", "grass", "electric", "poison", "ground",
-      "flying", "bug", "dark"],
-    bannedPokemon = ["skorupi", "cottonee", "ducklett",
-      "shuckle", "smeargle", "salandit"]
-    }),
-  ("evolution", defaultCup { evolve = True }),
-  ("psychic", defaultCup {
-    allowedTypes = ["psychic"],
-    bannedPokemon = ["mew"] }),
-  ("weather", defaultCup { allowedTypes = ["fire", "water", "ice", "rock"] }),
-  ("halloween", defaultCup {
-    allowedTypes = ["poison", "dark", "ghost", "bug", "fairy"] }),
-  ("willpower", defaultCup {
-    allowedTypes = ["fighting", "psychic", "dark"],
-    bannedPokemon = ["gardevoir"] })
-  ]
-
-getCup :: Epic.MonadCatch m => Options -> m Cup
-getCup options = case maybeCup options of
-  Nothing -> return options
-  Just cupName -> case HashMap.lookup cupName cupMap of
-    Nothing -> Epic.fail "oops"
-    Just cup -> return cup
-
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optCup <*> optLittle <*> optEvolve <*> optMinCp <*>
+  let opts = Options <$> optLittle <*> optEvolve <*> optMinCp <*>
         optAllowedTypes <*> optExcludedTypes <*> optBannedPokemon <*>
         optPremier
-      optCup = O.optional $ O.strOption
-        (  O.long "cup"
-        <> O.short 'c'
-        <> O.metavar "CUP"
-        <> O.help "Include pokemon eligible for the given cup.")
       optLittle = O.switch
         (  O.long "little"
         <> O.short 'l'
@@ -153,7 +102,6 @@ main =
     do
       gameMaster <- join $ GameMaster.load
       options <- getOptions
-      options <- getCup options
       let isLittle littleRequired = if littleRequired
             then PokeUtil.isFirstEvolution gameMaster
             else const True
