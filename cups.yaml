@@ -1,0 +1,52 @@
+- name: little-jungle-remix
+  allowed:
+  - normal
+  - grass
+  - electric
+  - poison
+  - ground
+  - flying
+  - bug
+  - dark
+  banned:
+  - skorupi
+  - cottonee
+  - ducklett
+  - shuckle
+  - smeargle
+  - salandit
+- name: psychic
+  allowed:
+  - psychic
+  banned:
+  - mew
+- name: weather
+  allowed:
+  - fire
+  - water
+  - ice
+  - rock
+- name: halloween
+  allowed:
+  - poison
+  - bug
+  - ghost
+  - dark
+  - fairy
+- name: willpower
+  allowed:
+  - fighting
+  - psychic
+  - dark
+  banned:
+  - gardevoir
+- name: element-remix
+  allowed:
+  - fire
+  - water
+  - grass
+  banned:
+  - chinchou
+  - cottonee
+  - ducklett
+  - salandit

@@ -7,6 +7,8 @@ import           Options.Applicative ((<|>), (<**>))
 import           Data.Semigroup ((<>))
 
 import qualified Calc
+import qualified Cup
+import           Cup (Cup)
 import qualified Epic
 import qualified GameMaster
 import           GameMaster (GameMaster)
@@ -27,10 +29,12 @@ import qualified Debug as D
 
 import           Control.Monad (join, forM, forM_)
 import qualified Data.List as List
+import qualified Data.HashMap.Strict as HashMap
 import qualified System.Exit as Exit
 import qualified Text.Printf as Printf
 
 data Options = Options {
+  maybeCupName :: Maybe String,
   little :: Bool,
   evolve :: Bool,
   minCp :: Int,
@@ -42,9 +46,15 @@ data Options = Options {
 
 getOptions :: IO Options
 getOptions =
-  let opts = Options <$> optLittle <*> optEvolve <*> optMinCp <*>
+  let opts = Options <$> optMaybeCupName <*> optLittle <*> optEvolve <*>
+        optMinCp <*>
         optAllowedTypes <*> optExcludedTypes <*> optBannedPokemon <*>
         optPremier
+      optMaybeCupName = (O.optional . O.strOption)
+        (  O.long "cup"
+        <> O.short 'c'
+        <> O.metavar "CUP"
+        <> O.help "Include only pokemon eligible for the specified cup.")
       optLittle = O.switch
         (  O.long "little"
         <> O.short 'l'
@@ -102,6 +112,23 @@ main =
     do
       gameMaster <- join $ GameMaster.load
       options <- getOptions
+      cupMap <- join $ Cup.load "cups.yaml"
+      options <- case maybeCupName options of
+        Nothing -> return $ options
+        Just cupName ->
+          case HashMap.lookup cupName cupMap of
+            Nothing ->
+              let cupNames = List.intercalate ", " $ HashMap.keys cupMap
+              in Epic.fail $ "Unknown cup, use one of " ++ cupNames
+            Just cup ->
+              return $ options {
+                little = Cup.little cup,
+                evolve = Cup.evolve cup,
+                allowedTypes = Cup.allowed cup,
+                excludedTypes = Cup.excluded cup,
+                bannedPokemon = Cup.banned cup,
+                premier = Cup.premier cup
+                }
       let isLittle littleRequired = if littleRequired
             then PokeUtil.isFirstEvolution gameMaster
             else const True

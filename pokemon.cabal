@@ -25,7 +25,8 @@ library
                        Powerups, WeatherBonus, Legacy, Discounts,
                        PvpFastMove, PvpChargedMove,
                        PokemonClass,
-                       YamlUtil
+                       YamlUtil,
+                       Cup
   other-modules:       StringMap
   ghc-options:         -O2
   build-depends:       base >= 4.7 && < 5, ghc, yaml, vector, text,
@@ -257,6 +258,7 @@ executable list-exe
   build-depends:       base
                      , pokemon
                      , optparse-applicative
+                     , unordered-containers
   default-language:    Haskell2010
 
 executable boss-exe
