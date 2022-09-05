@@ -26,6 +26,10 @@
   - water
   - ice
   - rock
+- name: premier
+  premier: true
+- name: evolutions
+  evolve: true
 - name: halloween
   allowed:
   - poison
@@ -50,3 +54,4 @@
   - cottonee
   - ducklett
   - salandit
+- name: catch
