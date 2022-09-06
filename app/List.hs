@@ -41,7 +41,9 @@ data Options = Options {
   allowedTypes :: [String],
   excludedTypes :: [String],
   bannedPokemon :: [String],
-  premier :: Bool
+  premier :: Bool,
+  maybeFastType :: Maybe String,
+  maybeChargedType :: Maybe String
 }
 
 getOptions :: IO Options
@@ -49,7 +51,7 @@ getOptions =
   let opts = Options <$> optMaybeCupName <*> optLittle <*> optEvolve <*>
         optMinCp <*>
         optAllowedTypes <*> optExcludedTypes <*> optBannedPokemon <*>
-        optPremier
+        optPremier <*> optMaybeFastType <*> optMaybeChargedType
       optMaybeCupName = (O.optional . O.strOption)
         (  O.long "cup"
         <> O.short 'c'
@@ -101,6 +103,15 @@ getOptions =
         (  O.long "premier"
         <> O.short 'p'
         <> O.help "Show pokemon eligible for premier cups")
+      optMaybeFastType = (O.optional . O.strOption)
+        (  O.long "fast"
+        <> O.short 'f'
+        <> O.metavar "TYPE"
+        <> O.help "Include only pokemon with fast moves of TYPE.")
+      optMaybeChargedType = (O.optional . O.strOption)
+        (  O.long "charged"
+        <> O.metavar "TYPE"
+        <> O.help "Include only pokemon with charged moves of TYPE.")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc "List some or all pokemon.")
@@ -152,6 +163,10 @@ main =
             then 400
             else minCp options
           hasEnoughCp = (>= minCp') . maxCp gameMaster
+          hasMoveType getMoves maybeType = case maybeType of
+            Nothing -> const True
+            Just typeName -> any (== typeName) .
+              map (Type.name . Move.moveType) . getMoves
       mapM_ putStrLn $
         map PokemonBase.species $
         filter hasEnoughCp $
@@ -161,6 +176,8 @@ main =
         filter (not . (hasExcludedType $ excludedTypes options)) $
         filter (not . isBanned (bannedPokemon options) . PokemonBase.species) $
         filter (isPremier $ premier options) $
+        filter (hasMoveType PokemonBase.quickMoves $ maybeFastType options) $
+        filter (hasMoveType PokemonBase.chargeMoves $ maybeChargedType options) $
         GameMaster.allPokemonBases gameMaster
     )
     $ Exit.die
