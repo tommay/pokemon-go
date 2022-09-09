@@ -68,8 +68,11 @@ import           Data.HashMap.Strict (HashMap)
 import qualified Data.List as List
 import qualified Data.Maybe as Maybe
 import qualified Data.Text as Text
-import qualified System.IO as IO
+import qualified System.Directory
 import qualified System.Exit as Exit
+import qualified System.IO as IO
+import qualified System.IO.Error
+
 import qualified Text.Printf as Printf
 
 import qualified Debug as D
@@ -85,13 +88,14 @@ data Options = Options {
   level :: Float,
   attackersFile :: Maybe FilePath,
   excludes :: [String],
+  maybeDirectory :: Maybe String,
   outputs :: [OutputSpec]
   }
 
 getOptions :: IO Options
 getOptions =
   let opts = Options <$> optLevel <*> optAttackers <*> optExcludes <*>
-        optOutputs
+        optMaybeDirectory <*> optOutputs
       optLevel = O.option O.auto
         (  O.long "level"
         <> O.short 'l'
@@ -109,6 +113,12 @@ getOptions =
         <> O.short 'x'
         <> O.metavar "POKEMON"
         <> O.help "Pokemon to exclude from elite consideration")
+      optMaybeDirectory = O.optional $ O.strOption
+        (  O.long "dir"
+        <> O.short 'd'
+        <> O.metavar "DIRECTORY"
+        <> O.value ""
+        <> O.help "Specify the output directory")
       optOutputs =
         let deflt value [] = value
             deflt _ lst = lst
@@ -184,6 +194,11 @@ main =
 
       gameMaster <- join $ GameMaster.load
 
+      let maybeDirectory = Main.maybeDirectory options
+      case maybeDirectory of
+        Nothing -> return ()
+        Just directory -> ensureDirectoryExists directory
+
       let ivs = IVs.setLevel defaultIvs $ level options
 
           -- For now exclude megas.
@@ -215,11 +230,29 @@ main =
             map (getAttackerResults gameMaster attackers) defenderBases
 
           eliteMaps = List.foldl' foldDefenderResult
-            (addEliteMaps $ outputs options) defenderResults
+            (addEliteMaps $ (case maybeDirectory of
+              Nothing -> id
+              Just directory -> map $ addDirectory directory) $
+              outputs options) defenderResults
 
       mapM_ printEliteAtackers eliteMaps
     )
     $ Exit.die
+
+ensureDirectoryExists :: String -> IO ()
+ensureDirectoryExists directory = do
+  either <- System.IO.Error.tryIOError $
+    System.Directory.createDirectory directory
+  case either of
+    Left ioError ->
+      if System.IO.Error.isAlreadyExistsError ioError
+        then return ()
+        else Epic.fail $ show ioError
+    _ -> return ()
+
+addDirectory :: String -> OutputSpec -> OutputSpec
+addDirectory directory outputSpec@(OutputSpec n noRedundant filePath) =
+  OutputSpec n noRedundant (((directory ++ "/") ++) <$> filePath)
 
 addEliteMaps :: [OutputSpec] -> [(OutputSpec, EliteMap)]
 addEliteMaps =

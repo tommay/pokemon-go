@@ -230,6 +230,7 @@ executable elites-exe
                      , hashable
                      , attoparsec
                      , text
+                     , directory
                      , deepseq
   default-language:    Haskell2010
 
