@@ -239,16 +239,18 @@ main =
     )
     $ Exit.die
 
+-- Give a decent error message.  Without this, the system gives the
+-- same message but prefixed with the executable name which is ugly
+-- and confusing because I invoke it through a symlink with a
+-- different name.
+--
 ensureDirectoryExists :: String -> IO ()
 ensureDirectoryExists directory = do
   either <- System.IO.Error.tryIOError $
-    System.Directory.createDirectory directory
+    System.Directory.createDirectoryIfMissing False directory
   case either of
-    Left ioError ->
-      if System.IO.Error.isAlreadyExistsError ioError
-        then return ()
-        else Epic.fail $ show ioError
-    _ -> return ()
+    Left ioError -> Epic.fail $ show ioError
+    Right _ -> return ()
 
 addDirectory :: String -> OutputSpec -> OutputSpec
 addDirectory directory outputSpec@(OutputSpec n noRedundant filePath) =
