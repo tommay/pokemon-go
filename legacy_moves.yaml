@@ -336,3 +336,6 @@
 - species: genesect
   moves:
   - techno_blast_normal # Randomly added, 8/2022
+- species: gigalith
+  moves:
+  - METEOR_BEAM         # Community day 9/18/2022
