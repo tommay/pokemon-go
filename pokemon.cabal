@@ -260,6 +260,7 @@ executable list-exe
                      , pokemon
                      , optparse-applicative
                      , unordered-containers
+                     , regex-compat
   default-language:    Haskell2010
 
 executable boss-exe

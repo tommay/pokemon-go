@@ -31,7 +31,7 @@ import           Control.Monad (join, forM, forM_)
 import qualified Data.List as List
 import qualified Data.HashMap.Strict as HashMap
 import qualified System.Exit as Exit
-import qualified Text.Printf as Printf
+import qualified Text.Regex as Regex
 
 data Options = Options {
   maybeCupName :: Maybe String,
@@ -166,7 +166,8 @@ main =
           hasMoveType getMoves maybeType = case maybeType of
             Nothing -> const True
             Just typeName -> any (== typeName) .
-              concatMap (sequence [Move.name, Type.name . Move.moveType]) .
+              concatMap (sequence
+                [removeAsterisk . Move.name, Type.name . Move.moveType]) .
               getMoves
       mapM_ putStrLn $
         map PokemonBase.species $
@@ -187,3 +188,8 @@ maxCp :: GameMaster -> PokemonBase -> Int
 maxCp gameMaster base =
   let maxIVs = IVs.new 40 15 15 15
   in Calc.cp gameMaster base maxIVs
+
+removeAsterisk :: String -> String
+removeAsterisk moveName =
+  let regex = Regex.mkRegex "\\*$"
+  in Regex.subRegex regex moveName ""
