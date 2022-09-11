@@ -166,7 +166,8 @@ main =
           hasMoveType getMoves maybeType = case maybeType of
             Nothing -> const True
             Just typeName -> any (== typeName) .
-              map (Type.name . Move.moveType) . getMoves
+              concatMap (sequence [Move.name, Type.name . Move.moveType]) .
+              getMoves
       mapM_ putStrLn $
         map PokemonBase.species $
         filter hasEnoughCp $
