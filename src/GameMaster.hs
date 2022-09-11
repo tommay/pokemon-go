@@ -131,11 +131,11 @@ new = GameMaster
 load :: Epic.MonadCatch m => IO (m GameMaster)
 load = do
   let filename = "GAME_MASTER.yaml"
-      legacyMovesFilesname = "legacy_moves.yaml"
+      legacyMovesFilename = "legacy_moves.yaml"
       cacheFileName = "/tmp/" ++ filename ++ ".cache"
   maybeCachedGameMaster <- do
     anyNewer <- anyM (`isFileNewerThan` cacheFileName)
-      [filename, legacyMovesFilesname]
+      [filename, legacyMovesFilename]
     if not anyNewer
       then maybeLoadFromCache cacheFileName
       else return $ Nothing
