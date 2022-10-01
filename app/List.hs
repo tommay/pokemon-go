@@ -106,12 +106,12 @@ getOptions =
       optMaybeFastType = (O.optional . O.strOption)
         (  O.long "fast"
         <> O.short 'f'
-        <> O.metavar "TYPE"
-        <> O.help "Include only pokemon with fast moves of TYPE.")
+        <> O.metavar "TYPE|NAME"
+        <> O.help "Include only pokemon with fast moves of TYPE or NAME.")
       optMaybeChargedType = (O.optional . O.strOption)
         (  O.long "charged"
-        <> O.metavar "TYPE"
-        <> O.help "Include only pokemon with charged moves of TYPE.")
+        <> O.metavar "TYPE|NAME"
+        <> O.help "Include only pokemon with charged moves of TYPE or NAME.")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc "List some or all pokemon.")
