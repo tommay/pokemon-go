@@ -81,11 +81,17 @@ data AttackerSource =
   | MovesetFor [Battler]
   deriving (Show)
 
+-- The fields all use "!" to force strict evaluation so the computed
+-- battle values are evaluated when the Result is created and the
+-- large trees of thunks can be incrementally garbage collected,
+-- without running out of memory when computing large numbers of
+-- Results, e.g., counyter -g -a -M gyarados.
+--
 data Result = Result {
-  pokemon   :: Pokemon,
-  minDps    :: Float,
-  minDamage :: Int,
-  timeToFaint :: Float
+  pokemon   :: !Pokemon,
+  minDps    :: !Float,
+  minDamage :: !Int,
+  timeToFaint :: !Float
 } deriving (Show)
 
 defaultFilename = "my_pokemon.yaml"
