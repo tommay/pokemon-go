@@ -2,6 +2,7 @@
 {-# LANGUAGE DeriveGeneric #-} -- For deriving Hashable instance.
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE DeriveAnyClass #-}  -- For deriving NFData.
+{-# LANGUAGE TupleSections #-}
 
 -- Simulates matchups between all attackers and defenders where attackers
 -- are at the top of their evolution chain and defenders are tier 3
@@ -230,7 +231,7 @@ main =
             map (getAttackerResults gameMaster attackers) defenderBases
 
           eliteMaps = List.foldl' foldDefenderResult
-            (addEliteMaps $ (case maybeDirectory of
+            (map (, HashMap.empty) $ (case maybeDirectory of
               Nothing -> id
               Just directory -> map $ addDirectory directory) $
               outputs options) defenderResults
@@ -255,10 +256,6 @@ ensureDirectoryExists directory = do
 addDirectory :: String -> OutputSpec -> OutputSpec
 addDirectory directory outputSpec@(OutputSpec n noRedundant filePath) =
   OutputSpec n noRedundant (((directory ++ "/") ++) <$> filePath)
-
-addEliteMaps :: [OutputSpec] -> [(OutputSpec, EliteMap)]
-addEliteMaps =
-  Util.augment (const HashMap.empty)
 
 foldDefenderResult :: [(OutputSpec, EliteMap)] -> DefenderResult ->
   [(OutputSpec, EliteMap)]
