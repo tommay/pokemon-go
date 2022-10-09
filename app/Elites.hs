@@ -82,8 +82,11 @@ type Defender = String
 
 type EliteMap = HashMap Attacker [Defender]
 
-data OutputSpec = OutputSpec Int Bool (Maybe FilePath)
-  deriving (Show, Generic, NFData)
+data OutputSpec = OutputSpec {
+  n :: Int,
+  noRedundant :: Bool,
+  maybeFilePath :: Maybe FilePath
+  } deriving (Show, Generic, NFData)
 
 data Options = Options {
   level :: Float,
@@ -123,7 +126,10 @@ getOptions =
       optOutputs =
         let deflt value [] = value
             deflt _ lst = lst
-        in (deflt [OutputSpec 10 False Nothing]) <$>
+            defaultOutputSpec = OutputSpec {
+              n = 10, noRedundant = False, maybeFilePath = Nothing
+              }
+        in deflt [defaultOutputSpec] <$>
           (O.many . O.option optParseOutputSpec)
           (  O.long "output"
           <> O.short 'o'
@@ -145,11 +151,15 @@ parseOutputSpec string =
   let attoParseOutputSpec = do
         n <- Atto.decimal
         noRedundant <- Maybe.isJust <$> (optional $ Atto.char 'n')
-        maybeFilename <- optional $ do
+        maybeFilePath <- optional $ do
           Atto.char ':'
           some $ Atto.anyChar
         Atto.endOfInput
-        return $ OutputSpec n noRedundant maybeFilename
+        return $ OutputSpec {
+          n = n,
+          noRedundant = noRedundant,
+          maybeFilePath = maybeFilePath
+          }
   in case Atto.parseOnly attoParseOutputSpec (Text.pack string) of
     Left _ ->
       Left $ "`" ++ string ++ "' should look like N[n][:FILENAME]"
@@ -254,8 +264,10 @@ ensureDirectoryExists directory = do
     Right _ -> return ()
 
 addDirectory :: String -> OutputSpec -> OutputSpec
-addDirectory directory outputSpec@(OutputSpec n noRedundant filePath) =
-  OutputSpec n noRedundant (((directory ++ "/") ++) <$> filePath)
+addDirectory directory outputSpec =
+  outputSpec {
+    maybeFilePath = ((directory ++ "/") ++) <$> maybeFilePath outputSpec
+    }
 
 foldDefenderResult :: [(OutputSpec, EliteMap)] -> DefenderResult ->
   [(OutputSpec, EliteMap)]
@@ -264,11 +276,10 @@ foldDefenderResult attackerMaps defenderResult =
 
 foldDefenderResultIntoEliteMap :: DefenderResult ->
   (OutputSpec, EliteMap) -> (OutputSpec, EliteMap)
-foldDefenderResultIntoEliteMap defenderResult
-    (outputSpec@(OutputSpec n _ _), attackerMap) =
+foldDefenderResultIntoEliteMap defenderResult (outputSpec, attackerMap) =
   (outputSpec,
     List.foldl' (foldAttackerResult $ defender defenderResult) attackerMap $
-      take n $ attackerResults defenderResult)
+      take (n outputSpec) $ attackerResults defenderResult)
 
 foldAttackerResult :: Defender -> EliteMap -> AttackerResult ->
   EliteMap
@@ -276,10 +287,11 @@ foldAttackerResult defender attackerMap attackerResult =
   HashMap.insertWith (++) (attacker attackerResult) [defender] attackerMap
 
 printEliteAtackers :: (OutputSpec, EliteMap) -> IO ()
-printEliteAtackers (OutputSpec _ noRedundant maybeFilename, eliteMap) =
-  let eliteMap' = (if noRedundant then filterRedundant else id) eliteMap
+printEliteAtackers (outputSpec, eliteMap) =
+  let eliteMap' = (if noRedundant outputSpec then filterRedundant else id)
+        eliteMap
       outputString = unlines $ map makeOutputString $ HashMap.toList eliteMap'
-      writeTheString = case maybeFilename of
+      writeTheString = case maybeFilePath outputSpec of
         Nothing -> putStr
         Just filename -> writeFile filename
   in writeTheString outputString
