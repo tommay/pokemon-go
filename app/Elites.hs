@@ -152,7 +152,7 @@ parseOutputSpec string =
         return $ OutputSpec n noRedundant maybeFilename
   in case Atto.parseOnly attoParseOutputSpec (Text.pack string) of
     Left _ ->
-      Left $ "`" ++ string ++ "' should look like N[:FILENAME]"
+      Left $ "`" ++ string ++ "' should look like N[n][:FILENAME]"
     Right outputSpec -> Right outputSpec
 
 -- Since I use this for finding the best raid attackers, use decent
