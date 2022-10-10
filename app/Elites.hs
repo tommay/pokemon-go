@@ -85,6 +85,7 @@ type EliteMap = HashMap Attacker [Defender]
 data OutputSpec = OutputSpec {
   n :: Int,
   noRedundant :: Bool,
+  includeMegas :: Bool,
   maybeFilePath :: Maybe FilePath
   } deriving (Show, Generic, NFData)
 
@@ -127,7 +128,10 @@ getOptions =
         let deflt value [] = value
             deflt _ lst = lst
             defaultOutputSpec = OutputSpec {
-              n = 10, noRedundant = False, maybeFilePath = Nothing
+              n = 10,
+              noRedundant = False,
+              includeMegas = False,
+              maybeFilePath = Nothing
               }
         in deflt [defaultOutputSpec] <$>
           (O.many . O.option optParseOutputSpec)
@@ -151,6 +155,7 @@ parseOutputSpec string =
   let attoParseOutputSpec = do
         n <- Atto.decimal
         noRedundant <- Maybe.isJust <$> (optional $ Atto.char 'n')
+        includeMegas <- Maybe.isJust <$> (optional $ Atto.char 'm')
         maybeFilePath <- optional $ do
           Atto.char ':'
           some $ Atto.anyChar
@@ -158,6 +163,7 @@ parseOutputSpec string =
         return $ OutputSpec {
           n = n,
           noRedundant = noRedundant,
+          includeMegas = includeMegas,
           maybeFilePath = maybeFilePath
           }
   in case Atto.parseOnly attoParseOutputSpec (Text.pack string) of
@@ -211,10 +217,7 @@ main =
         Just directory -> ensureDirectoryExists directory
 
       let ivs = IVs.setLevel defaultIvs $ level options
-
-          -- For now exclude megas.
-          allBases = filter (not . PokemonBase.isMega) $
-            GameMaster.allPokemonBases gameMaster
+          allBases = GameMaster.allPokemonBases gameMaster
 
       attackers <- case attackersFile options of
         Just filename -> do
@@ -291,7 +294,9 @@ applyWhen bool f a = if bool then f a else a
 
 printEliteAtackers :: (OutputSpec, EliteMap) -> IO ()
 printEliteAtackers (outputSpec, eliteMap) =
-  let eliteMap' = applyWhen (noRedundant outputSpec) filterRedundant eliteMap
+  let eliteMap' = applyWhen (noRedundant outputSpec) filterRedundant $
+        applyWhen (not $ includeMegas outputSpec) filterMegas $
+        eliteMap
       outputString = unlines $ map makeOutputString $ HashMap.toList eliteMap'
       writeTheString = case maybeFilePath outputSpec of
         Nothing -> putStr
@@ -301,6 +306,16 @@ printEliteAtackers (outputSpec, eliteMap) =
 filterRedundant :: EliteMap -> EliteMap
 filterRedundant eliteMap  =
   HashMap.filter (not . isRedundant eliteMap) eliteMap
+
+filterMegas :: EliteMap -> EliteMap
+filterMegas eliteMap  =
+  -- XXX This is pretty terrible checking the species name for "mega_"
+  -- instead of using PokemonBase.isMega, but it doesn't seem easy or
+  -- make sense to pass the PokemonBase through to here in Attacker
+  -- and keep Atttacker Hashable.  The mega-ness could be made a field
+  -- of Attacker but that seems almost as bad.
+  HashMap.filterWithKey (\ (Attacker species _ _) _ ->
+    not $ ("mega_" `List.isPrefixOf` species)) eliteMap
 
 -- An attacker is outclassed if there is another attacker whose victim
 -- list is a strict superset of the given attacker's victim list.  It
