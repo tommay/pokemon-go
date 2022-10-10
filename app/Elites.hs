@@ -314,8 +314,11 @@ filterMegas eliteMap  =
   -- make sense to pass the PokemonBase through to here in Attacker
   -- and keep Atttacker Hashable.  The mega-ness could be made a field
   -- of Attacker but that seems almost as bad.
-  HashMap.filterWithKey (\ (Attacker species _ _) _ ->
-    not $ ("mega_" `List.isPrefixOf` species)) eliteMap
+  HashMap.filterWithKey (\ (Attacker species _ _) _ -> not $ isMega species)
+    eliteMap
+
+isMega :: String -> Bool
+isMega species = "mega_" `List.isPrefixOf` species
 
 -- An attacker is outclassed if there is another attacker whose victim
 -- list is a strict superset of the given attacker's victim list.  It
@@ -333,7 +336,12 @@ subset `isProperSubset` superset =
 makeOutputString :: (Attacker, [Defender]) -> String
 makeOutputString (attacker, defenders) =
   (showAttacker attacker) ++ " => " ++
-    (List.intercalate ", " $ List.sort defenders)
+    (List.intercalate ", " $ sortDefenders defenders)
+
+sortDefenders :: [Defender] -> [Defender]
+sortDefenders defenders =
+  let (mega, regular) = List.partition isMega defenders
+  in List.sort regular ++ List.sort mega
 
 showAttacker :: Attacker -> String
 showAttacker (Attacker species fast charged) =
