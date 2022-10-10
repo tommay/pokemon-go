@@ -286,10 +286,12 @@ foldAttackerResult :: Defender -> EliteMap -> AttackerResult ->
 foldAttackerResult defender attackerMap attackerResult =
   HashMap.insertWith (++) (attacker attackerResult) [defender] attackerMap
 
+applyWhen :: Bool -> (a -> a) -> a -> a
+applyWhen bool f a = if bool then f a else a
+
 printEliteAtackers :: (OutputSpec, EliteMap) -> IO ()
 printEliteAtackers (outputSpec, eliteMap) =
-  let eliteMap' = (if noRedundant outputSpec then filterRedundant else id)
-        eliteMap
+  let eliteMap' = applyWhen (noRedundant outputSpec) filterRedundant eliteMap
       outputString = unlines $ map makeOutputString $ HashMap.toList eliteMap'
       writeTheString = case maybeFilePath outputSpec of
         Nothing -> putStr
