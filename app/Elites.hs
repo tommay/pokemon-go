@@ -171,7 +171,7 @@ parseOutputSpec string =
 defaultIvs = IVs.new 35 15 13 13
 
 -- Attacker is name, quickName, chargeName.
-
+--
 data Attacker = Attacker String String String
   deriving (Show, Eq, Generic, NFData)
 
