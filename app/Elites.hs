@@ -137,7 +137,7 @@ getOptions =
           (O.many . O.option optParseOutputSpec)
           (  O.long "output"
           <> O.short 'o'
-          <> O.metavar "N:FILENAME"
+          <> O.metavar "N[mn]:FILENAME"
           <> O.help
                "Output the top N pokemon by dps for each defender to the file")
       options = O.info (opts <**> O.helper)
@@ -154,8 +154,9 @@ parseOutputSpec :: String -> Either String OutputSpec
 parseOutputSpec string =
   let attoParseOutputSpec = do
         n <- Atto.decimal
-        noRedundant <- Maybe.isJust <$> (optional $ Atto.char 'n')
-        includeMegas <- Maybe.isJust <$> (optional $ Atto.char 'm')
+        flags <- Atto.many' $ Atto.satisfy $ Atto.inClass "mn"
+        let noRedundant = 'n' `elem` flags
+            includeMegas = 'm' `elem` flags
         maybeFilePath <- optional $ do
           Atto.char ':'
           some $ Atto.anyChar
