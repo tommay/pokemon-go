@@ -85,7 +85,7 @@ type EliteMap = HashMap Attacker [Defender]
 data OutputSpec = OutputSpec {
   n :: Int,
   noRedundant :: Bool,
-  includeMegas :: Bool,
+  includeMegaAttackers :: Bool,
   maybeFilePath :: Maybe FilePath
   } deriving (Show, Generic, NFData)
 
@@ -130,7 +130,7 @@ getOptions =
             defaultOutputSpec = OutputSpec {
               n = 10,
               noRedundant = False,
-              includeMegas = False,
+              includeMegaAttackers = False,
               maybeFilePath = Nothing
               }
         in deflt [defaultOutputSpec] <$>
@@ -156,7 +156,7 @@ parseOutputSpec string =
         n <- Atto.decimal
         flags <- Atto.many' $ Atto.satisfy $ Atto.inClass "mn"
         let noRedundant = 'n' `elem` flags
-            includeMegas = 'm' `elem` flags
+            includeMegaAttackers = 'm' `elem` flags
         maybeFilePath <- optional $ do
           Atto.char ':'
           some $ Atto.anyChar
@@ -164,7 +164,7 @@ parseOutputSpec string =
         return $ OutputSpec {
           n = n,
           noRedundant = noRedundant,
-          includeMegas = includeMegas,
+          includeMegaAttackers = includeMegaAttackers,
           maybeFilePath = maybeFilePath
           }
   in case Atto.parseOnly attoParseOutputSpec (Text.pack string) of
@@ -296,7 +296,7 @@ applyWhen bool f a = if bool then f a else a
 printEliteAtackers :: (OutputSpec, EliteMap) -> IO ()
 printEliteAtackers (outputSpec, eliteMap) =
   let eliteMap' = applyWhen (noRedundant outputSpec) filterRedundant $
-        applyWhen (not $ includeMegas outputSpec) filterMegas $
+        applyWhen (not $ includeMegaAttackers outputSpec) filterMegas $
         eliteMap
       outputString = unlines $ map makeOutputString $ HashMap.toList eliteMap'
       writeTheString = case maybeFilePath outputSpec of
