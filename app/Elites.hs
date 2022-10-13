@@ -275,20 +275,20 @@ addDirectory directory outputSpec =
 
 foldDefenderResult :: [(OutputSpec, EliteMap)] -> DefenderResult ->
   [(OutputSpec, EliteMap)]
-foldDefenderResult attackerMaps defenderResult =
-  force $ map (foldDefenderResultIntoEliteMap defenderResult) attackerMaps
+foldDefenderResult eliteMaps defenderResult =
+  force $ map (foldDefenderResultIntoEliteMap defenderResult) eliteMaps
 
 foldDefenderResultIntoEliteMap :: DefenderResult ->
   (OutputSpec, EliteMap) -> (OutputSpec, EliteMap)
-foldDefenderResultIntoEliteMap defenderResult (outputSpec, attackerMap) =
+foldDefenderResultIntoEliteMap defenderResult (outputSpec, eliteMap) =
   (outputSpec,
-    List.foldl' (foldAttackerResult $ defender defenderResult) attackerMap $
+    List.foldl' (foldAttackerResult $ defender defenderResult) eliteMap $
       take (n outputSpec) $ attackerResults defenderResult)
 
 foldAttackerResult :: Defender -> EliteMap -> AttackerResult ->
   EliteMap
-foldAttackerResult defender attackerMap attackerResult =
-  HashMap.insertWith (++) (attacker attackerResult) [defender] attackerMap
+foldAttackerResult defender eliteMap attackerResult =
+  HashMap.insertWith (++) (attacker attackerResult) [defender] eliteMap
 
 applyWhen :: Bool -> (a -> a) -> a -> a
 applyWhen bool f a = if bool then f a else a
