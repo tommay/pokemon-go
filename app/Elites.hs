@@ -283,21 +283,29 @@ foldDefenderResultIntoEliteMap :: DefenderResult ->
 foldDefenderResultIntoEliteMap defenderResult (outputSpec, eliteMap) =
   (outputSpec,
     List.foldl' (foldAttackerResult $ defender defenderResult) eliteMap $
-      take (n outputSpec) $ attackerResults defenderResult)
+      take (n outputSpec) $
+      applyWhen (not $ includeMegaAttackers $ outputSpec)
+        (filter $ not . isMegaAttacker . attacker) $
+      attackerResults defenderResult)
 
 foldAttackerResult :: Defender -> EliteMap -> AttackerResult ->
   EliteMap
 foldAttackerResult defender eliteMap attackerResult =
   HashMap.insertWith (++) (attacker attackerResult) [defender] eliteMap
 
+isMegaAttacker :: Attacker -> Bool
+isMegaAttacker (Attacker species _ _) =
+  isMega species
+
+isMega :: String -> Bool
+isMega species = "mega_" `List.isPrefixOf` species
+
 applyWhen :: Bool -> (a -> a) -> a -> a
 applyWhen bool f a = if bool then f a else a
 
 printEliteAtackers :: (OutputSpec, EliteMap) -> IO ()
 printEliteAtackers (outputSpec, eliteMap) =
-  let eliteMap' = applyWhen (noRedundant outputSpec) filterRedundant $
-        applyWhen (not $ includeMegaAttackers outputSpec) filterMegas $
-        eliteMap
+  let eliteMap' = applyWhen (noRedundant outputSpec) filterRedundant $ eliteMap
       outputString = unlines $ map makeOutputString $ HashMap.toList eliteMap'
       writeTheString = case maybeFilePath outputSpec of
         Nothing -> putStr
@@ -307,19 +315,6 @@ printEliteAtackers (outputSpec, eliteMap) =
 filterRedundant :: EliteMap -> EliteMap
 filterRedundant eliteMap  =
   HashMap.filter (not . isRedundant eliteMap) eliteMap
-
-filterMegas :: EliteMap -> EliteMap
-filterMegas eliteMap  =
-  -- XXX This is pretty terrible checking the species name for "mega_"
-  -- instead of using PokemonBase.isMega, but it doesn't seem easy or
-  -- make sense to pass the PokemonBase through to here in Attacker
-  -- and keep Atttacker Hashable.  The mega-ness could be made a field
-  -- of Attacker but that seems almost as bad.
-  HashMap.filterWithKey (\ (Attacker species _ _) _ -> not $ isMega species)
-    eliteMap
-
-isMega :: String -> Bool
-isMega species = "mega_" `List.isPrefixOf` species
 
 -- An attacker is outclassed if there is another attacker whose victim
 -- list is a strict superset of the given attacker's victim list.  It
