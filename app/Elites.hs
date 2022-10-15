@@ -64,15 +64,15 @@ import           Control.DeepSeq (NFData, force)
 import           Control.Applicative (optional, some, many)
 import           Control.Monad (join)
 import qualified Data.Attoparsec.Text as Atto
+import qualified Data.Either as Either
 import qualified Data.HashMap.Strict as HashMap
 import           Data.HashMap.Strict (HashMap)
 import qualified Data.List as List
+import qualified Data.List.Split as Split
 import qualified Data.Maybe as Maybe
 import qualified Data.Text as Text
-import qualified System.Directory
 import qualified System.Exit as Exit
 import qualified System.IO as IO
-import qualified System.IO.Error
 
 import qualified Text.Printf as Printf
 
@@ -85,22 +85,35 @@ type EliteMap = HashMap Attacker [Defender]
 data OutputSpec = OutputSpec {
   n :: Int,
   noRedundant :: Bool,
-  includeMegaAttackers :: Bool,
-  maybeFilePath :: Maybe FilePath
+  includeMegaAttackers :: Bool
   } deriving (Show, Generic, NFData)
+
+defaultOutputSpecs = [OutputSpec {
+  n = 10,
+  noRedundant = False,
+  includeMegaAttackers = True
+  }]
+
+toString :: OutputSpec -> String
+toString outputSpec =
+  show (n outputSpec) ++
+    if noRedundant outputSpec then "n" else "" ++
+    if includeMegaAttackers outputSpec then "m" else ""
 
 data Options = Options {
   level :: Float,
   attackersFile :: Maybe FilePath,
   excludes :: [String],
-  maybeDirectory :: Maybe String,
-  outputs :: [OutputSpec]
+  -- An optionsl comma-separated list.
+  maybeOutputSpecStrings :: Maybe String,
+  -- Nothing to write to stdout.
+  maybeFileTemplate :: Maybe String
   }
 
 getOptions :: IO Options
 getOptions =
   let opts = Options <$> optLevel <*> optAttackers <*> optExcludes <*>
-        optMaybeDirectory <*> optOutputs
+        optMaybeOutputSpecStrings <*> optMaybeFileTemplate
       optLevel = O.option O.auto
         (  O.long "level"
         <> O.short 'l'
@@ -118,37 +131,25 @@ getOptions =
         <> O.short 'x'
         <> O.metavar "POKEMON"
         <> O.help "Pokemon to exclude from elite consideration")
-      optMaybeDirectory = O.optional $ O.strOption
-        (  O.long "dir"
-        <> O.short 'd'
-        <> O.metavar "DIRECTORY"
-        <> O.value ""
-        <> O.help "Specify the output directory")
-      optOutputs =
-        let deflt value [] = value
-            deflt _ lst = lst
-            defaultOutputSpec = OutputSpec {
-              n = 10,
-              noRedundant = False,
-              includeMegaAttackers = False,
-              maybeFilePath = Nothing
-              }
-        in deflt [defaultOutputSpec] <$>
-          (O.many . O.option optParseOutputSpec)
-          (  O.long "output"
-          <> O.short 'o'
-          <> O.metavar "N[mn]:FILENAME"
-          <> O.help
-               "Output the top N pokemon by dps for each defender to the file")
+      optMaybeOutputSpecStrings =
+        (O.optional . O.strOption) $
+        (  O.long "output"
+        <> O.short 'o'
+        <> O.metavar "N[mn],..."
+        <> O.help
+             "Output the top N pokemon by dps for each defender")
+      optMaybeFileTemplate =
+        (O.optional . O.strOption )
+        (  O.long "file"
+        <> O.short 'f'
+        <> O.metavar "FILETEMPLATE"
+        <> O.help "Output filename, % will be replaced by each outputspec")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc
           "Simulate matchups between all pokemon against tier 3 raid bosses")
       prefs = O.prefs O.showHelpOnEmpty
   in O.customExecParser prefs options
-
-optParseOutputSpec :: O.ReadM OutputSpec
-optParseOutputSpec = O.eitherReader parseOutputSpec
 
 parseOutputSpec :: String -> Either String OutputSpec
 parseOutputSpec string =
@@ -157,19 +158,16 @@ parseOutputSpec string =
         flags <- Atto.many' $ Atto.satisfy $ Atto.inClass "mn"
         let noRedundant = 'n' `elem` flags
             includeMegaAttackers = 'm' `elem` flags
-        maybeFilePath <- optional $ do
-          Atto.char ':'
-          some $ Atto.anyChar
         Atto.endOfInput
         return $ OutputSpec {
           n = n,
           noRedundant = noRedundant,
-          includeMegaAttackers = includeMegaAttackers,
-          maybeFilePath = maybeFilePath
+          includeMegaAttackers = includeMegaAttackers
           }
   in case Atto.parseOnly attoParseOutputSpec (Text.pack string) of
-    Left _ ->
-      Left $ "`" ++ string ++ "' should look like N[n][:FILENAME]"
+    -- The error message isn't useful, just return the unparseable
+    -- String to indicate failure.
+    Left _ -> Left string
     Right outputSpec -> Right outputSpec
 
 -- Since I use this for finding the best raid attackers, use decent
@@ -212,10 +210,13 @@ main =
 
       gameMaster <- join $ GameMaster.load
 
-      let maybeDirectory = Main.maybeDirectory options
-      case maybeDirectory of
-        Nothing -> return ()
-        Just directory -> ensureDirectoryExists directory
+      outputSpecs <- case maybeOutputSpecStrings options of
+        Nothing -> return defaultOutputSpecs
+        Just outputSpecStrings ->
+          let strings = Split.splitOn "," $ outputSpecStrings
+          in case parseOutputSpecs strings of
+               Left error -> Epic.fail error
+               Right outputSpecs -> return outputSpecs
 
       let ivs = IVs.setLevel defaultIvs $ level options
           allBases = GameMaster.allPokemonBases gameMaster
@@ -245,33 +246,26 @@ main =
             map (getAttackerResults gameMaster attackers) defenderBases
 
           eliteMaps = List.foldl' foldDefenderResult
-            (map (, HashMap.empty) $ (case maybeDirectory of
-              Nothing -> id
-              Just directory -> map $ addDirectory directory) $
-              outputs options) defenderResults
+            (map (, HashMap.empty) outputSpecs)
+            defenderResults
 
-      mapM_ printEliteAtackers eliteMaps
+      mapM_ (printEliteAtackers $ maybeFileTemplate options) eliteMaps
     )
     $ Exit.die
 
--- Give a decent error message.  Without this, the system gives the
--- same message but prefixed with the executable name which is ugly
--- and confusing because I invoke it through a symlink with a
--- different name.
---
-ensureDirectoryExists :: String -> IO ()
-ensureDirectoryExists directory = do
-  either <- System.IO.Error.tryIOError $
-    System.Directory.createDirectoryIfMissing False directory
-  case either of
-    Left ioError -> Epic.fail $ show ioError
-    Right _ -> return ()
+parseOutputSpecs :: [String] -> Either String [OutputSpec]
+parseOutputSpecs strings =
+  let (malformedStrings, outputSpecs) = Either.partitionEithers $
+        map parseOutputSpec strings
+  in case malformedStrings of
+       [] -> Right outputSpecs
+       _ -> Left $
+         pluralize (List.length malformedStrings) "OutputSpec" ++ " " ++
+         (List.intercalate ", " malformedStrings) ++ " should look like N[nm]."
 
-addDirectory :: String -> OutputSpec -> OutputSpec
-addDirectory directory outputSpec =
-  outputSpec {
-    maybeFilePath = ((directory ++ "/") ++) <$> maybeFilePath outputSpec
-    }
+pluralize :: Int -> String -> String
+pluralize n =
+  applyWhen (n > 1) (++ "s")
 
 foldDefenderResult :: [(OutputSpec, EliteMap)] -> DefenderResult ->
   [(OutputSpec, EliteMap)]
@@ -303,14 +297,26 @@ isMega species = "mega_" `List.isPrefixOf` species
 applyWhen :: Bool -> (a -> a) -> a -> a
 applyWhen bool f a = if bool then f a else a
 
-printEliteAtackers :: (OutputSpec, EliteMap) -> IO ()
-printEliteAtackers (outputSpec, eliteMap) =
+printEliteAtackers :: Maybe String -> (OutputSpec, EliteMap) -> IO ()
+printEliteAtackers maybeFileTemplate (outputSpec, eliteMap) =
   let eliteMap' = applyWhen (noRedundant outputSpec) filterRedundant $ eliteMap
       outputString = unlines $ map makeOutputString $ HashMap.toList eliteMap'
-      writeTheString = case maybeFilePath outputSpec of
+      writeTheString = case maybeFileTemplate of
         Nothing -> putStr
-        Just filename -> writeFile filename
+        Just fileTemplate ->
+          let filename = replace '%' (toString outputSpec) fileTemplate
+          in writeFile filename
   in writeTheString outputString
+
+-- XXX I can't be bothered to figure out how to use Text.replace with
+-- pack and unpack.  It's easier just to do it the hard way:
+--
+replace :: Char -> String -> String -> String
+replace _ _ [] = []
+replace char replacement (first:rest) =
+  if first == char
+    then replacement ++ rest
+    else first : replace char replacement rest
 
 filterRedundant :: EliteMap -> EliteMap
 filterRedundant eliteMap  =

@@ -230,8 +230,8 @@ executable elites-exe
                      , hashable
                      , attoparsec
                      , text
-                     , directory
                      , deepseq
+                     , split
   default-language:    Haskell2010
 
 executable evolvecp-exe
