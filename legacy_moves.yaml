@@ -339,3 +339,6 @@
 - species: gigalith
   moves:
   - METEOR_BEAM         # Community day 9/18/2022
+- species: chandelure
+  moves:
+  - POLTERGEIST         # Community day 10/15/2022
