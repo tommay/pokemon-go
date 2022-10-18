@@ -128,9 +128,8 @@ main =
         Nothing -> return $ options
         Just cupName ->
           case HashMap.lookup cupName cupMap of
-            Nothing ->
-              let cupNames = List.intercalate ", " $ HashMap.keys cupMap
-              in Epic.fail $ "Unknown cup, use one of " ++ cupNames
+            Nothing -> Epic.fail $ "Unknown cup, use one of " ++
+              (Util.commaSeparated "or" $ HashMap.keys cupMap)
             Just cup ->
               return $ options {
                 little = Cup.little cup,

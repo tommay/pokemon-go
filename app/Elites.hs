@@ -261,7 +261,8 @@ parseOutputSpecs strings =
        [] -> Right outputSpecs
        _ -> Left $
          pluralize (List.length malformedStrings) "OutputSpec" ++ " " ++
-         (List.intercalate ", " malformedStrings) ++ " should look like N[nm]."
+         (Util.commaSeparated "and" malformedStrings) ++
+         " should look like N[nm]."
 
 pluralize :: Int -> String -> String
 pluralize n =
