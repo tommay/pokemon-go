@@ -9,6 +9,7 @@ module Util (
   toLower,
   toUpper,
   lastWhere,
+  commaSeparated,
 ) where
 
 import           Control.Monad (forM)
@@ -86,3 +87,12 @@ lastWhere pred (a:as) =
   in if pred a
     then lastWhere' a as
     else error "initial value doesn't satisfy the predicate in lastWhere"
+
+commaSeparated :: String -> [String] -> String
+commaSeparated _ [] = ""
+commaSeparated _ [a] = a
+commaSeparated join [a, b] = a ++ " " ++ join ++ " " ++ b
+commaSeparated join list =
+  let commaSeparated' [a, b] = a ++ ", " ++ join ++ " " ++ b
+      commaSeparated' (h:t) = h ++ ", " ++ commaSeparated' t
+  in commaSeparated' list

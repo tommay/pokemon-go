@@ -230,7 +230,7 @@ getPokemonBase this speciesName =
            forms <- GameMaster.lookup "species" (forms this) speciesName
            Epic.fail $
              speciesName ++ " has no normal form.  Specify one of " ++
-             Util.toLower (commaSeparated forms) ++ "."
+             Util.toLower (Util.commaSeparated "or" forms) ++ "."
 
 getMove :: Epic.MonadCatch m => GameMaster -> String -> m Move
 getMove this moveName  =
@@ -936,12 +936,3 @@ dustAtLevel this =
 candyAtLevel :: GameMaster -> Float -> Maybe Int
 candyAtLevel this =
   costAtLevel this GameMaster.candyAndLevel
-
-commaSeparated :: [String] -> String
-commaSeparated [] = ""
-commaSeparated [a] = a
-commaSeparated [a, b] = a ++ " or " ++ b
-commaSeparated list =
-  let commaSeparated' [a, b] = a ++ ", or " ++ b
-      commaSeparated' (h:t) = h ++ ", " ++ commaSeparated' t
-  in commaSeparated' list
