@@ -58,9 +58,9 @@ toByteString maybeFilePath =
     Nothing -> ByteString.hGetContents IO.stdin
 
 -- Useful for creating a list augmented with a sort key.
-
+--
 augment :: (a -> b) -> [a] -> [(a, b)]
-augment fn list = zip list (map fn list)
+augment fn list = map (\a -> (a, fn a)) list
 
 augmentM :: Monad m => (a -> m b) -> [a] -> m [(b, a)]
 augmentM fn list = forM list $ \a -> (,a) <$> fn a
