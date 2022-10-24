@@ -305,19 +305,14 @@ printEliteAtackers maybeFileTemplate (outputSpec, eliteMap) =
       writeTheString = case maybeFileTemplate of
         Nothing -> putStr
         Just fileTemplate ->
-          let filename = replace '%' (toString outputSpec) fileTemplate
+          let filename = replace "%" (toString outputSpec) fileTemplate
           in writeFile filename
   in writeTheString outputString
 
--- XXX I can't be bothered to figure out how to use Text.replace with
--- pack and unpack.  It's easier just to do it the hard way:
---
-replace :: Char -> String -> String -> String
-replace _ _ [] = []
-replace char replacement (first:rest) =
-  if first == char
-    then replacement ++ rest
-    else first : replace char replacement rest
+replace :: String -> String -> String -> String
+replace from to = Text.unpack .
+  Text.replace (Text.pack from) (Text.pack to) .
+  Text.pack
 
 filterRedundant :: EliteMap -> EliteMap
 filterRedundant eliteMap  =
