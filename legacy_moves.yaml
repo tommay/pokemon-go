@@ -342,3 +342,9 @@
 - species: chandelure
   moves:
   - POLTERGEIST         # Community day 10/15/2022
+- species: giratina_altered
+  moves:
+  - SHADOW_FORCE        # Raids 11/2022
+- species: giratina_origin
+  moves:
+  - SHADOW_FORCE        # Raids 11/2022
