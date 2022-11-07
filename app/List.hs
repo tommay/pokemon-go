@@ -156,7 +156,7 @@ main =
             Util.toLower pokemon `elem` map Util.toLower bannedPokemon
           isPremier premierRequired =
             if premierRequired
-              then (`notElem` [PokemonClass.Legendary, PokemonClass.Mythic]) . PokemonBase.pokemonClass
+              then (== PokemonClass.Normal) . PokemonBase.pokemonClass
               else const True
           minCp' = if little options
             then 400
