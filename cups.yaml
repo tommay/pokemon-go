@@ -55,3 +55,8 @@
   - ducklett
   - salandit
 - name: catch
+- name: willpower
+  allowed:
+  - fighting
+  - dark
+  - psychic
