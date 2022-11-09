@@ -2,9 +2,6 @@
 # moves as elite moves.  But it serves as a history of legacy/elite
 # moves.
 
-# It turns out there are legacy moves that aren't "elite" moves, for example
-# TECHNO_BLAST_BURN, which is known by GENESECT_BURN.
-
 - species: pikachu
   moves:
   - SURF            # Community day 1/2018
@@ -348,3 +345,6 @@
 - species: giratina_origin
   moves:
   - SHADOW_FORCE        # Raids 11/2022
+- species: ursaluna
+  moves:
+  - HIGH_HORSEPOWER     # Community day  11/12/2022
