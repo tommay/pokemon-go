@@ -172,7 +172,7 @@ main = Epic.catch (
               (name, turnsPerCycle, fastMovesPerCycle, dpt * statProduct, dpe)
           stuff = Maybe.mapMaybe toStuff moveSets
       forM_ stuff $ \ (name, turnsPerCycle, fastMovesPerCycle, dpt, dpe) ->
-        putStrLn $ Printf.printf "%-*s: %d(%d) %.2f %.2f"
+        putStrLn $ Printf.printf "%-*s: %2d(%d) %5.2f %.2f"
           maxNameLength name turnsPerCycle fastMovesPerCycle dpt dpe
     )
     $ Exit.die
