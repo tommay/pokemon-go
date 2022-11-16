@@ -11,9 +11,17 @@
 #
 # This script currently takes about 6 minutes to run.
 
+# Select league here.
+#league=--little
+#league=-g
+league=-u
+
+# Uncomment for classic (no XL allowed).
+#league="$league -c"
+
 all_pokemon=$(./list "$@")
 for p in $all_pokemon; do
-  ./spam $p -g -s |
+  ./spam $p $league -s |
     awk -F: '{ print $2, $1 }' |
     sed -e "s/^ *//" -e "s/ *$/ $p/"
 done | sort -k 1n -k 2nr
