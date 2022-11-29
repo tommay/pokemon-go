@@ -18,6 +18,7 @@ import           StringMap (StringMap)
 
 import qualified Data.Yaml as Yaml
 import           Data.Yaml ((.:), (.:?), (.!=))
+import qualified Data.Yaml.Include
 
 import qualified Data.HashMap.Strict as HashMap
 import           Data.Text.Conversions (convertText)
@@ -41,7 +42,7 @@ data Cup = Cup {
 --
 load :: Epic.MonadCatch m => FilePath -> IO (m (StringMap Cup))
 load filename = do
-  either <- Yaml.decodeFileEither filename
+  either <- Data.Yaml.Include.decodeFileEither filename
   case either of
     Left yamlParseException -> Epic.fail $ "Error in " ++ filename ++ ":\n" ++
       (Exception.displayException yamlParseException)
