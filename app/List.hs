@@ -40,6 +40,7 @@ data Options = Options {
   minCp :: Int,
   allowedTypes :: [String],
   excludedTypes :: [String],
+  allowedPokemon :: [String],
   bannedPokemon :: [String],
   premier :: Bool,
   maybeFastType :: Maybe String,
@@ -50,7 +51,8 @@ getOptions :: IO Options
 getOptions =
   let opts = Options <$> optMaybeCupName <*> optLittle <*> optEvolve <*>
         optMinCp <*>
-        optAllowedTypes <*> optExcludedTypes <*> optBannedPokemon <*>
+        optAllowedTypes <*> optExcludedTypes <*>
+        optAllowedPokemon <*> optBannedPokemon <*>
         optPremier <*> optMaybeFastType <*> optMaybeChargedType
       optMaybeCupName = (O.optional . O.strOption)
         (  O.long "cup"
@@ -94,6 +96,7 @@ getOptions =
         <> O.short 'n'
         <> O.metavar "NOT-TYPE"
         <> O.help "Exclude the specified type(s).")
+      optAllowedPokemon = pure []
       optBannedPokemon = (O.many . O.strOption)
         (  O.long "banned"
         <> O.short 'b'
@@ -136,6 +139,7 @@ main =
                 evolve = Cup.evolve cup,
                 allowedTypes = Cup.allowed cup,
                 excludedTypes = Cup.excluded cup,
+                allowedPokemon = Cup.pokemon cup,
                 bannedPokemon = Cup.banned cup,
                 premier = Cup.premier cup
                 }
@@ -152,8 +156,12 @@ main =
           hasExcludedType excludedTypes = case excludedTypes of
             [] -> const False
             _ -> typeIn excludedTypes
-          isBanned bannedPokemon pokemon =
-            Util.toLower pokemon `elem` map Util.toLower bannedPokemon
+          speciesIn list =
+            (`elem` map Util.toLower list) . Util.toLower . PokemonBase.species
+          isAllowed allowedPokemon = case allowedPokemon of
+            [] -> const True
+            _ -> speciesIn allowedPokemon
+          isBanned bannedPokemon = speciesIn bannedPokemon
           isPremier premierRequired =
             if premierRequired
               then (== PokemonClass.Normal) . PokemonBase.pokemonClass
@@ -175,10 +183,12 @@ main =
         filter (isMiddle $ evolve options) $
         filter (hasAllowedType $ allowedTypes options) $
         filter (not . (hasExcludedType $ excludedTypes options)) $
-        filter (not . isBanned (bannedPokemon options) . PokemonBase.species) $
+        filter (isAllowed $ allowedPokemon options) $
+        filter (not . (isBanned $ bannedPokemon options)) $
         filter (isPremier $ premier options) $
         filter (hasMoveType PokemonBase.quickMoves $ maybeFastType options) $
         filter (hasMoveType PokemonBase.chargeMoves $ maybeChargedType options) $
+        
         GameMaster.allPokemonBases gameMaster
     )
     $ Exit.die
