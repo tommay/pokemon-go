@@ -8,6 +8,7 @@ module Cup (
   evolve,
   allowed,
   excluded,
+  pokemon,
   banned,
   premier,
 ) where
@@ -31,6 +32,7 @@ data Cup = Cup {
   evolve   :: Bool,
   allowed  :: [String],
   excluded :: [String],
+  pokemon  :: [String],
   banned   :: [String],
   premier  :: Bool
 }
@@ -67,6 +69,7 @@ makeCup yamlObject = do
   evolve <- getObjectValueWithDefault False yamlObject "evolve"
   allowed <- getObjectValueWithDefault [] yamlObject "allowed"
   excluded <- getObjectValueWithDefault [] yamlObject "excluded"
+  pokemon <- getObjectValueWithDefault [] yamlObject "pokemon"
   banned <- getObjectValueWithDefault [] yamlObject "banned"
   premier <- getObjectValueWithDefault False yamlObject "premier"
   return $ Cup {
@@ -75,6 +78,7 @@ makeCup yamlObject = do
     evolve = evolve,
     allowed = allowed,
     excluded = excluded,
+    pokemon = pokemon,
     banned = banned,
     premier = premier
     }
