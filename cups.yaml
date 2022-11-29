@@ -28,7 +28,7 @@
   - rock
 - name: premier
   premier: true
-- name: evolutions
+- name: evolution
   evolve: true
 - name: halloween
   allowed:
@@ -60,3 +60,49 @@
   - fighting
   - dark
   - psychic
+- name: great-league-remix
+  banned:
+  - venusaur
+  - nidoqueen
+  - ninetales_alola
+  - lickitung
+  - lanturn
+  - azumarill
+  - umbreon
+  - skarmory
+  - swampert
+  - sableye
+  - medicham
+  - altaria
+  - walrein
+  - registeel
+  - deoxys_defense
+  - bastiodon
+  - scrafty
+  - stunfisk_galarian
+- name: fighting-remix
+  allowed:
+  - fighting
+  excluded:
+  - psychic
+  banned:
+  - hakamo_o
+  - kommo_o
+  - buzzwole
+  - sneasler
+- name: holiday
+  allowed:
+  - normal
+  - grass
+  - electric
+  - ice
+  - flying
+  - ghost
+- name: electric
+  allowed:
+  - electric
+  banned:
+  - stunfisk
+  - charjabug
+- name: love
+  pokemon: !include love.yaml
