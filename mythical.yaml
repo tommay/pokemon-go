@@ -649,8 +649,8 @@ archen:
 archeops: 
 trubbish: 
 garbodor: 
-zorua: mythical
-zoroark: mythical
+zorua:
+zoroark:
 minccino: 
 cinccino: 
 gothita: 
@@ -708,7 +708,7 @@ stunfisk:
 stunfisk_galarian: 
 mienfoo:
 mienshao:
-druddigon: mythical
+druddigon: 
 golett: 
 golurk: 
 pawniard: 
@@ -768,38 +768,38 @@ vivillon: mythical
 litleo: 
 pyroar: 
 pyroar_female: 
-flabebe: mythical
-floette: mythical
-florges: mythical
+flabebe:
+floette:
+florges:
 skiddo: mythical
 gogoat: mythical
 pancham:
 pangoro:
-furfrou: mythical
+furfrou: 
 espurr:
 meowstic:
 meowstic_female:
 honedge: mythical
 doublade: mythical
 aegislash: mythical
-spritzee: mythical
-aromatisse: mythical
+spritzee: 
+aromatisse: 
 swirlix: 
 slurpuff: 
-inkay: mythical
-malamar: mythical
+inkay: 
+malamar: 
 binacle: 
 barbaracle: 
 skrelp: 
 dragalge: 
 clauncher: 
 clawitzer: 
-helioptile: mythical
-heliolisk: mythical
-tyrunt: mythical
-tyrantrum: mythical
+helioptile: 
+heliolisk: 
+tyrunt: 
+tyrantrum: 
 amaura: mythical
-aurorus: mythical
+aurorus: 
 sylveon: 
 hawlucha: mythical
 ededenne: mythical
@@ -808,21 +808,21 @@ goomy:
 sliggoo: 
 goodra: 
 klefki: mythical
-phantump: mythical
-trevenant: mythical
-pumpkaboo: mythical
-gourgeist: mythical
-bergmite: mythical
-avalugg: mythical
+phantump: 
+trevenant:
+pumpkaboo: 
+gourgeist: 
+bergmite: 
+avalugg: 
 noibat: 
 noivern: 
 xerneas: 
 yveltal: 
 zygarde: 
 diancie: mythical
-hoopa: mythical
-hoopa_confined: mythical
-hoopa_unbound: mythical
+hoopa: 
+hoopa_confined: 
+hoopa_unbound: 
 volcanion: mythical
 meltan:
 melmetal:
@@ -889,7 +889,7 @@ perrserker:
 cursola: mythical
 sirfetchd:
 mr_rime:
-runerigus: mythical
+runerigus: 
 milcery: mythical
 alcremie: mythical
 falinks:
@@ -919,16 +919,16 @@ dragapult: mythical
 zacian: legendary
 zacian_crowned_sword: mythical
 zacian_hero: legendary
-zamazenta: mythical
+zamazenta: legendary
 zamazenta_crowned_shield: mythical
 zamazenta_hero: mythical
 eternatus: mythical
 eternatus_eternamax: mythical
 kubfu: mythical
 urshifu: mythical
-urshifu_rapid_strike: mythical
+aurshifu_rapid_strike: mythical
 urshifu_single_strike: mythical
-zarude: mythical
+zarude: 
 regieleki: mythical
 regidrago: mythical
 glastrier: mythical
