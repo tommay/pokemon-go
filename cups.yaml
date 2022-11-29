@@ -1,3 +1,5 @@
+# It may be possible to get this info directly from GAME_MASTER by looking
+# at things like COMBAT_LEAGUE_VS_SEEKER_GREAT_REMIX.
 - name: little-jungle-remix
   allowed:
   - normal
