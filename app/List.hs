@@ -176,20 +176,24 @@ main =
               concatMap (sequence
                 [removeAsterisk . Move.name, Type.name . Move.moveType]) .
               getMoves
-      mapM_ putStrLn $
-        map PokemonBase.species $
-        filter hasEnoughCp $
-        filter (isLittle $ little options) $
-        filter (isMiddle $ evolve options) $
-        filter (hasAllowedType $ allowedTypes options) $
-        filter (not . (hasExcludedType $ excludedTypes options)) $
-        filter (isAllowed $ allowedPokemon options) $
-        filter (not . (isBanned $ bannedPokemon options)) $
-        filter (isPremier $ premier options) $
-        filter (hasMoveType PokemonBase.quickMoves $ maybeFastType options) $
-        filter (hasMoveType PokemonBase.chargeMoves $ maybeChargedType options) $
-        
-        GameMaster.allPokemonBases gameMaster
+          pokemonToList =
+            map PokemonBase.species $
+            filter hasEnoughCp $
+            filter (isLittle $ little options) $
+            filter (isMiddle $ evolve options) $
+            filter (hasAllowedType $ allowedTypes options) $
+            filter (not . (hasExcludedType $ excludedTypes options)) $
+            filter (isAllowed $ allowedPokemon options) $
+            filter (not . (isBanned $ bannedPokemon options)) $
+            filter (isPremier $ premier options) $
+            filter (hasMoveType PokemonBase.quickMoves $
+              maybeFastType options) $
+            filter (hasMoveType PokemonBase.chargeMoves $
+              maybeChargedType options) $
+            GameMaster.allPokemonBases gameMaster
+          (mega, normal) =
+            List.partition ("mega_" `List.isPrefixOf`) pokemonToList
+      mapM_ putStrLn $ normal ++ mega
     )
     $ Exit.die
 
