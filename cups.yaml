@@ -1,5 +1,6 @@
 # It may be possible to get this info directly from GAME_MASTER by looking
 # at things like COMBAT_LEAGUE_VS_SEEKER_GREAT_REMIX.
+
 - name: little-jungle-remix
   allowed:
   - normal
@@ -67,21 +68,23 @@
   - venusaur
   - nidoqueen
   - ninetales_alola
-  - lickitung
-  - lanturn
   - azumarill
   - umbreon
   - skarmory
   - swampert
+  - walrein
   - sableye
   - medicham
   - altaria
-  - walrein
-  - registeel
   - deoxys_defense
   - bastiodon
   - scrafty
+  - lanturn
+  - trevenant
   - stunfisk_galarian
+  - registeel
+  - talonflame
+  - lickitung
 - name: fighting-remix
   allowed:
   - fighting
