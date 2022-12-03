@@ -91,13 +91,13 @@
   - ANCIENT_POWER   # Community day 2/2019
 - species: sceptile
   moves:
-  - FRENZY_PLANT    # Community day 3/2019
+  - FRENZY_PLANT    # Community day 3/2019, Hoenn mega raids 12/3/2022
 - species: salamence
   moves:
   - OUTRAGE         # Community day 4/2019
 - species: blaziken
   moves:
-  - BLAST_BURN      # Community day 5/2019
+  - BLAST_BURN      # Community day 5/2019,  Hoenn mega raids 12/3/2022
 - species: lapras
   moves:
   - ICE_SHARD_FAST  # Lapras day 5/25/2019, research breakthrough 1/2020
@@ -110,7 +110,7 @@
   - BODY_SLAM       # Community day 6/8/2019
 - species: swampert
   moves:
-  - HYDRO_CANNON    # Community day 7/21/2019
+  - HYDRO_CANNON    # Community day 7/21/2019, Hoenn mega raids 12/3/2022
 - species: gardevoir
   moves:
   - SYNCHRONOISE    # Community day 8/3/2019
