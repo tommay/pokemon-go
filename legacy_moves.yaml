@@ -347,4 +347,7 @@
   - SHADOW_FORCE        # Raids 11/2022
 - species: ursaluna
   moves:
-  - HIGH_HORSEPOWER     # Community day  11/12/2022
+  - HIGH_HORSEPOWER     # Community day 11/12/2022
+- species: chesnaught
+  moves:
+  - FRENZY_PLANT        # Community day 1/7/2023
