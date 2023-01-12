@@ -39,6 +39,8 @@ import qualified Data.Maybe as Maybe
 import qualified Data.Text as Text
 import qualified Text.Printf as Printf
 
+import qualified Debug as D
+
 data Battler = Battler {
   species :: String,
   level :: Level,
@@ -143,14 +145,23 @@ getMatchingMoves abbrev moves =
 
 getMatchingMove :: Epic.MonadCatch m => String -> [Move] -> String -> String -> m Move
 getMatchingMove abbrev moves moveType species =
-  case getMatchingMoves abbrev moves of
-    [move] -> return move
-    matchingMoves ->
-      let howMany = if null matchingMoves then "no" else "multiple" :: String
-      in Epic.fail $ Printf.printf ("%s has %s %s moves matching `%s'\n" ++
-           "Available %s moves:\n%s")
-           species howMany moveType abbrev moveType
-           (List.intercalate "\n" $ map (("  " ++) . Move.name) moves)
+  let (legacyMoves, normalMoves) = (List.partition Move.isLegacy) moves
+      makeMovesString moves = List.intercalate "\n" $
+        map (("  " ++) . Move.name) moves
+      allMoves = "Available moves:\n" ++ makeMovesString normalMoves ++
+        "\nLegacy moves:\n" ++ makeMovesString legacyMoves
+  in case getMatchingMoves abbrev moves of
+       [move] ->
+         if not $ Move.isLegacy move
+           then return move
+           else Epic.fail $
+             Printf.printf "%s is a legacy move\n" (Move.name move) ++ allMoves
+       matchingMoves ->
+         let howMany =
+               if null matchingMoves then "no" else "multiple" :: String
+         in Epic.fail $
+              Printf.printf "%s has %s %s moves matching `%s'\n"
+                species howMany moveType abbrev ++ allMoves
 
 makeRaidBossForTier :: GameMaster -> Int -> PokemonBase -> [Pokemon]
 makeRaidBossForTier gameMaster raidLevel base =
