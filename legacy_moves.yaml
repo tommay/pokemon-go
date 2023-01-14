@@ -354,6 +354,9 @@
 - species: reshiram
   moves:
   - FUSION_FLARE        # Raids 1/2023
+- species: zekrom
+  moves:
+  - FUSION_BOLT         # Raids 1/2023
 - species: chesnaught
   moves:
   - FRENZY_PLANT        # Community day 1/7/2023
