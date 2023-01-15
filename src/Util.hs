@@ -40,16 +40,17 @@ matchesAbbrevInsensitive abbrev string =
 matchesAbbrev :: String -> String -> Bool
 matchesAbbrev [] _ = True
 matchesAbbrev _ [] = False
-matchesAbbrev (a0:aa) (s0:ss) =
-  a0 == s0 && matchesAbbrev' aa ss
+matchesAbbrev abbrev@(a:as) target@(t:ts) =
+  if a == t
+    then matchesAbbrev as ts
+    else matchesAbbrev abbrev (nextWord target)
 
-matchesAbbrev' :: String -> String -> Bool
-matchesAbbrev' [] _ = True
-matchesAbbrev' _ [] = False
-matchesAbbrev' a@(a0:aa) (s0:ss) =
-  if a0 == s0
-    then matchesAbbrev' aa ss
-    else matchesAbbrev' a ss
+nextWord :: String -> String
+nextWord [] = []
+nextWord (a:as) =
+  if a == ' '
+    then as
+    else nextWord as
 
 toByteString :: Maybe FilePath -> IO ByteString
 toByteString maybeFilePath =
