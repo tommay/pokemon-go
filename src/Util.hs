@@ -22,6 +22,8 @@ import qualified Data.HashMap.Strict as HashMap
 import           Data.HashMap.Strict (HashMap)
 import qualified System.IO as IO
 
+import qualified Debug as D
+
 -- There are a number of ways to implement something like this on
 -- https://stackoverflow.com/questions/15412027/haskell-equivalent-to-scalas-groupby
 -- Seems like there should be in a library somewhere.  It sure took a lot
@@ -46,11 +48,8 @@ matchesAbbrev abbrev@(a:as) target@(t:ts) =
     else matchesAbbrev abbrev (nextWord target)
 
 nextWord :: String -> String
-nextWord [] = []
-nextWord (a:as) =
-  if a == ' '
-    then as
-    else nextWord as
+nextWord =
+  dropWhile (== ' ') . dropWhile (/= ' ')
 
 toByteString :: Maybe FilePath -> IO ByteString
 toByteString maybeFilePath =
