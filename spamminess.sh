@@ -13,8 +13,8 @@
 
 # Select league here.
 #league=--little
-#league=-g
-league=-u
+league=-g
+#league=-u
 
 # Uncomment for classic (no XL allowed).
 #league="$league -c"
