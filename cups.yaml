@@ -109,5 +109,7 @@
   banned:
   - stunfisk
   - charjabug
+  - vikavolt
+  - heliolisk
 - name: love
   pokemon: !include love.yaml
