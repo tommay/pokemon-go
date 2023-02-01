@@ -754,7 +754,7 @@ makePokemonBase types moves forms legacyMap pokemonSettings =
     return $ PokemonBase.new pokemonId species ptypes attack defense stamina
        evolutions quickMoves chargeMoves parent baseCaptureRate
        thirdMoveCost purificationCost pokemonClass
-       tempEvoOverrides False
+       tempEvoOverrides False False
     )
   (\ex -> Epic.fail $ ex ++ " in " ++ show pokemonSettings)
 

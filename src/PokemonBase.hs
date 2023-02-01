@@ -54,7 +54,8 @@ data PokemonBase = PokemonBase {
   purificationCost :: (Int, Int),  -- (stardust, candy)
   pokemonClass     :: PokemonClass,
   tempEvoOverrides :: [TempEvoOverride],
-  isMega       :: Bool
+  isMega       :: Bool,
+  isShadowAvailable :: Bool
 } deriving (Generic)
 
 instance Show PokemonBase where
@@ -78,7 +79,8 @@ applyTempEvoOverride this tempEvoOverride =
     attack = TempEvoOverride.attack tempEvoOverride,
     defense = TempEvoOverride.defense tempEvoOverride,
     stamina = TempEvoOverride.stamina tempEvoOverride,
-    isMega = True
+    isMega = True,
+    isShadowAvailable = False
   }
 
 makeTempEvoSpecies :: String -> String -> String
