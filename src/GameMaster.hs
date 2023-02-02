@@ -736,15 +736,17 @@ makePokemonBase types moves forms legacyMap pokemonSettings =
       candyToUnlock <-  getObjectValue thirdMove "candyToUnlock"
       return $ (stardustToUnlock, candyToUnlock)
 
-    purificationCost <- do
-      case getValue "shadow" of
-        Right shadow -> do
+    let maybeShadow = rightToMaybe $ getValue "shadow"
+        isShadowAvailable = Maybe.isJust maybeShadow
+    purificationCost <-
+      case maybeShadow of
+        Just shadow -> do
           purificationStardustNeeded <-
             getObjectValue shadow "purificationStardustNeeded"
           purificationCandyNeeded <-
             getObjectValue shadow "purificationCandyNeeded"
           return $ (purificationStardustNeeded, purificationCandyNeeded)
-        Left _ -> return $ (0, 0)
+        Nothing -> return $ (0, 0)
 
     pokemonClass <- getObjectValueWithDefault PokemonClass.Normal
       pokemonSettings "pokemonClass"
@@ -754,9 +756,16 @@ makePokemonBase types moves forms legacyMap pokemonSettings =
     return $ PokemonBase.new pokemonId species ptypes attack defense stamina
        evolutions quickMoves chargeMoves parent baseCaptureRate
        thirdMoveCost purificationCost pokemonClass
-       tempEvoOverrides False False
+       tempEvoOverrides False isShadowAvailable
     )
   (\ex -> Epic.fail $ ex ++ " in " ++ show pokemonSettings)
+
+-- There is supposed to be Maybe.rightToMaybe.
+-- XXX Using this swallows errors?
+--
+rightToMaybe :: Either a b -> Maybe b
+rightToMaybe (Right b) = Just b
+rightToMaybe (Left _) = Nothing
 
 getTempEvoOverrides :: Epic.MonadCatch m =>
   StringMap Type -> ItemTemplate -> m [TempEvoOverride]
