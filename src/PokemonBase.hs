@@ -85,9 +85,8 @@ applyTempEvoOverride this tempEvoOverride =
 
 makeTempEvoSpecies :: String -> String -> String
 makeTempEvoSpecies baseSpecies tempEvoId =
-  let regex = Regex.mkRegex "^TEMP_EVOLUTION_MEGA(_([A-Z]+))?$"
+  let regex = Regex.mkRegex "^TEMP_EVOLUTION_([A-Z]+)(_[A-Z]+)?$"
   in case Regex.matchRegex regex tempEvoId of
-       Just [_, suffix] ->
-         Util.toLower $ "mega_" ++ baseSpecies ++
-           (if null suffix then "" else "_" ++ suffix)
+       Just [prefix, suffix] ->
+         Util.toLower $ prefix ++ "_" ++ baseSpecies ++ suffix
        _ -> error $ "Unknown tempEvoId format: " ++ tempEvoId
