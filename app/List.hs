@@ -176,7 +176,9 @@ main =
               concatMap (sequence
                 [removeAsterisk . Move.name, Type.name . Move.moveType]) .
               getMoves
-          pokemonToList =
+          (mega, normal) = List.partition PokemonBase.isMega $
+            GameMaster.allPokemonBases gameMaster
+          pokemonToList pokemonBases =
             map PokemonBase.species $
             filter hasEnoughCp $
             filter (isLittle $ little options) $
@@ -190,10 +192,8 @@ main =
               maybeFastType options) $
             filter (hasMoveType PokemonBase.chargeMoves $
               maybeChargedType options) $
-            GameMaster.allPokemonBases gameMaster
-          (mega, normal) =
-            List.partition ("mega_" `List.isPrefixOf`) pokemonToList
-      mapM_ putStrLn $ normal ++ mega
+            pokemonBases
+      mapM_ putStrLn $ pokemonToList $ normal ++ mega
     )
     $ Exit.die
 
