@@ -78,7 +78,10 @@ import qualified Text.Printf as Printf
 
 import qualified Debug as D
 
-type Defender = String
+-- Defender is species, isMega.
+--
+data Defender = Defender String Bool
+  deriving (Show, Eq, Generic, NFData)
 
 type EliteMap = HashMap Attacker [Defender]
 
@@ -288,12 +291,6 @@ foldAttackerResult :: Defender -> EliteMap -> AttackerResult ->
 foldAttackerResult defender eliteMap attackerResult =
   HashMap.insertWith (++) (attacker attackerResult) [defender] eliteMap
 
-isMegaAttacker :: Attacker -> Bool
-isMegaAttacker (Attacker _ _ _ isMega) = isMega
-
-isMega :: String -> Bool
-isMega species = "mega_" `List.isPrefixOf` species
-
 applyWhen :: Bool -> (a -> a) -> a -> a
 applyWhen bool f a = if bool then f a else a
 
@@ -332,17 +329,26 @@ subset `isProperSubset` superset =
 
 makeOutputString :: (Attacker, [Defender]) -> String
 makeOutputString (attacker, defenders) =
-  (showAttacker attacker) ++ " => " ++
-    (List.intercalate ", " $ sortDefenders defenders)
+  (showAttacker attacker) ++ " => " ++ makeDefendersString defenders
 
-sortDefenders :: [Defender] -> [Defender]
-sortDefenders defenders =
-  let (mega, regular) = List.partition isMega defenders
-  in List.sort regular ++ List.sort mega
+makeDefendersString :: [Defender] -> String
+makeDefendersString defenders =
+  let (mega, regular) = List.partition isMegaDefender defenders
+      sortDefenders = List.sort . map showDefender
+  in List.intercalate ", " $ sortDefenders regular ++ sortDefenders mega
+
+showDefender :: Defender -> String
+showDefender (Defender species _) = species
+
+isMegaDefender :: Defender -> Bool
+isMegaDefender (Defender _ isMega) = isMega
 
 showAttacker :: Attacker -> String
 showAttacker (Attacker species fast charged _) =
   Printf.printf "%s %s / %s" species fast charged
+
+isMegaAttacker :: Attacker -> Bool
+isMegaAttacker (Attacker _ _ _ isMega) = isMega
 
 getAttackerResults :: GameMaster -> [Pokemon] -> PokemonBase -> DefenderResult
 getAttackerResults gameMaster attackers defenderBase =
@@ -365,7 +371,8 @@ getAttackerResults gameMaster attackers defenderBase =
       attackerResults = reverse $ List.sortOn dps $
         map (getAttackerResult tier defenderAllMoves) attackers
   in DefenderResult {
-       defender = PokemonBase.species defenderBase,
+       defender = Defender (PokemonBase.species defenderBase)
+         (PokemonBase.isMega defenderBase),
        attackerResults = attackerResults
        }
 
