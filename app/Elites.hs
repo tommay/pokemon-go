@@ -175,9 +175,9 @@ parseOutputSpec string =
 --
 defaultIvs = IVs.new 35 15 13 13
 
--- Attacker is name, quickName, chargeName.
+-- Attacker is name, quickName, chargeName, isMega.
 --
-data Attacker = Attacker String String String
+data Attacker = Attacker String String String Bool
   deriving (Show, Eq, Generic, NFData)
 
 instance Hashable Attacker
@@ -289,8 +289,7 @@ foldAttackerResult defender eliteMap attackerResult =
   HashMap.insertWith (++) (attacker attackerResult) [defender] eliteMap
 
 isMegaAttacker :: Attacker -> Bool
-isMegaAttacker (Attacker species _ _) =
-  isMega species
+isMegaAttacker (Attacker _ _ _ isMega) = isMega
 
 isMega :: String -> Bool
 isMega species = "mega_" `List.isPrefixOf` species
@@ -342,7 +341,7 @@ sortDefenders defenders =
   in List.sort regular ++ List.sort mega
 
 showAttacker :: Attacker -> String
-showAttacker (Attacker species fast charged) =
+showAttacker (Attacker species fast charged _) =
   Printf.printf "%s %s / %s" species fast charged
 
 getAttackerResults :: GameMaster -> [Pokemon] -> PokemonBase -> DefenderResult
@@ -397,3 +396,4 @@ makeAttacker pokemon =
     (Pokemon.species pokemon)
     (Move.name $ Pokemon.quick pokemon)
     (Move.name $ Pokemon.charge pokemon)
+    (PokemonBase.isMega $ Pokemon.base $ pokemon)
