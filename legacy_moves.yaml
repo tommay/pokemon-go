@@ -360,3 +360,6 @@
 - species: chesnaught
   moves:
   - FRENZY_PLANT        # Community day 1/7/2023
+- species: noivern
+  moves:
+  - BOOMBURST           # Community day 2/5/2023
