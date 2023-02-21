@@ -363,3 +363,9 @@
 - species: noivern
   moves:
   - BOOMBURST           # Community day 2/5/2023
+- species: kyogre
+  moves:
+  - ORIGIN_PULSE        # 2/2023 primal raids
+- species: groudon
+  moves:
+  - PRECIPICE_BLADES    # 2/2023 primal raids
