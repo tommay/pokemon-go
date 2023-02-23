@@ -369,3 +369,6 @@
 - species: groudon
   moves:
   - PRECIPICE_BLADES    # 2/2023 primal raids
+- species: rayquaza
+  moves:
+  - BREAKING_SWIPE      # 2/2023 raids
