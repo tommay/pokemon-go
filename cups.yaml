@@ -113,3 +113,5 @@
   - heliolisk
 - name: love
   pokemon: !include love.yaml
+- name: hoenn
+  pokemon: !include hoenn.yaml
