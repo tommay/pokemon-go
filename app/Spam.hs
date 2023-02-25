@@ -44,13 +44,15 @@ data Options = Options {
   league :: League,
   classic :: Bool,
   useReturn :: Bool,
+  useReturnIfAvailable :: Bool,
   useStatProduct :: Bool
 }
 
 getOptions :: GameMaster -> IO Options
 getOptions gameMaster =
   let opts = Options <$> optAttacker <*> optDefender <*> optLeague
-        <*> optClassic <*> optUseReturn <*> optUseStatProduct
+        <*> optClassic <*> optUseReturn <*> optUseReturnIfAvailable
+        <*> optUseStatProduct
       allSpecies = GameMaster.allSpecies gameMaster
       optAttacker = O.argument
         optParseBattler
@@ -90,9 +92,12 @@ getOptions gameMaster =
         O.long "classic" <>
         O.help "classsic league (max level 40)")
       optUseReturn = O.switch (
+        O.short 'R' <>
+        O.help "add the move Return to the movepool")
+      optUseReturnIfAvailable = O.switch (
         O.short 'r' <>
         O.long "return" <>
-        O.help "add the move Return to the movepool")
+        O.help "add the move Return to the movepool if shadow is available")
       optUseStatProduct = O.switch (
         O.short 's' <>
         O.long "statproduct" <>
@@ -143,10 +148,14 @@ main = Epic.catch (
           defenderTypes = case maybeDefenderBase of
             Just defenderBase -> PokemonBase.types defenderBase
             Nothing -> []
+          addReturn =
+            (useReturnIfAvailable options &&
+              PokemonBase.isShadowAvailable base) ||
+            useReturn options
           moveSets = [(fast, charged) |
             fast <- PokemonBase.quickMoves base,
             charged <- PokemonBase.chargeMoves base ++
-              if useReturn options then [moveReturn] else []]
+              if addReturn then [moveReturn] else []]
           multiplier move =
             Move.stabFor move types *
             Move.effectivenessAgainst move defenderTypes

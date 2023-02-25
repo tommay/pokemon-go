@@ -22,6 +22,7 @@ module PokemonBase (
   pokemonClass,
   isMega,
   makeTempEvos,
+  isShadowAvailable
 ) where
 
 import           Type (Type)
