@@ -670,7 +670,9 @@ makePokemonBase types moves forms legacyMap pokemonSettings =
               Left _ -> getObjectValue branch "evolution"
             candyCost <- case getObjectValue branch "candyCost" of
               Right candyCost -> return candyCost
-              Left _ -> getValue "candyToEvolve"
+              -- Gimmighoul doesn't evolve with candy so consider that to
+              -- be zero candy.
+              Left _ -> getValueWithDefault 0 "candyToEvolve"
             noCandyCostViaTrade <- getObjectValueWithDefault False
               branch "noCandyCostViaTrade"
             return (evolution, candyCost, noCandyCostViaTrade))
