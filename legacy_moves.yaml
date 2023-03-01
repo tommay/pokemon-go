@@ -372,3 +372,6 @@
 - species: rayquaza
   moves:
   - BREAKING_SWIPE      # 2/2023 raids
+- species: melmetal
+  moves:
+  - DOUBLE_IRON_BASH    # 3/2023
