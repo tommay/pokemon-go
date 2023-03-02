@@ -113,5 +113,11 @@
   - heliolisk
 - name: love
   pokemon: !include love.yaml
-- name: hoenn
-  pokemon: !include hoenn.yaml
+- name: fantasy
+  allowed:
+  - steel
+  - fairy
+  - dragon
+  banned:
+  - stunfisk_galarian
+  - cobalion
