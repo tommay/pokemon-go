@@ -375,3 +375,15 @@
 - species: melmetal
   moves:
   - DOUBLE_IRON_BASH    # 3/2023
+- species: slowbro
+  moves:
+  - SURF                # Community day 3/18/2023
+- species: slowbro_galarian
+  moves:
+  - SURF                # Community day 3/18/2023
+- species: slowking
+  moves:
+  - SURF                # Community day 3/18/2023
+- species: slowking_galarian
+  moves:
+  - SURF                # Community day 3/18/2023
