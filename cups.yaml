@@ -121,3 +121,37 @@
   banned:
   - stunfisk_galarian
   - cobalion
+- name: color
+  allowed:
+  - fire
+  - water
+  - grass
+  - electric
+- name: mountain
+  allowed:
+  - ice
+  - ground
+  - rock
+  - steel
+  banned:
+  - swampert
+- name: little
+  little: true
+- name: spring
+  allowed:
+  - water
+  - grass
+  - fairy
+  banned:
+  - toxapex
+- name: sunshine
+  allowed:
+  - normal
+  - fire
+  - grass
+  - ground
+- name: element
+  allowed:
+  - fire
+  - water
+  - grass
