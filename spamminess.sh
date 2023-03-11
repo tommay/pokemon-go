@@ -21,7 +21,7 @@ league=-g
 
 all_pokemon=$(./list "$@")
 for p in $all_pokemon; do
-  ./spam $p $league -s |
+  ./spam $p $league -s -r |
     awk -F: '{ print $2, $1 }' |
     sed -e "s/^ *//" -e "s/ *$/ $p/"
 done | sort -k 1n -k 2nr
