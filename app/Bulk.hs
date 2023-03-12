@@ -275,7 +275,7 @@ main =
             let ivs = makePureIVs level
                 (attackForLevel, defenseForLevel, totalForLevel) =
                   total gameMaster baseEvolved ivs
-            in Printf.printf "%5d/%-7s: %-4s %.2f  %.2f %.2f"
+            in Printf.printf "%6d/%-7s: %-4s %.2f  %.2f %.2f"
                  (basePvpStardust + Cost.dust cost)
                  (candyToString (basePvpCandy + Cost.candy cost)
                    (Cost.xlCandy cost))
