@@ -1,6 +1,9 @@
-# This file is no longer used now that GAME_MASTER.yaml has the legacy
-# moves as elite moves.  But it serves as a history of legacy/elite
-# moves.
+# This file is no longer needed now that GAME_MASTER.yaml has the
+# legacy moves as elite moves.  But it serves as a history of
+# legacy/elite moves.
+#
+# And it lets community day and other moves be added to move pools
+# before they are added as elite moves.
 
 - species: pikachu
   moves:
@@ -387,3 +390,6 @@
 - species: slowking_galarian
   moves:
   - SURF                # Community day 3/18/2023
+- species: togekiss
+  moves:
+  - AURA_SPHERE         # Community day 4/15/2023
