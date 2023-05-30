@@ -303,6 +303,10 @@
 - species: sandslash_alola
   moves:
   - SHADOW_CLAW_FAST    # Community day 3/13/2022
+- species: dewgong
+  moves:
+  - ICE_SHARD_FAST      # evolve window 3/5/2022
+  - ICY_WIND            # evolve window 3/5/2022
 - species: exeggutor_alola
   moves:
   - DRACO_METEOR        # Spring into spring 4/16/2022
@@ -393,3 +397,6 @@
 - species: togekiss
   moves:
   - AURA_SPHERE         # Community day 4/15/2023
+- species: delphox
+  moves:
+  - BLAST_BURN          # Community day 5/21/2023
