@@ -150,7 +150,15 @@
   - fire
   - grass
   - ground
+  banned:
+  - charizard
 - name: element
+  allowed:
+  - fire
+  - water
+  - grass
+- name: little-element
+  little: true
   allowed:
   - fire
   - water
