@@ -66,25 +66,25 @@
 - name: great-league-remix
   banned:
   - venusaur
-  - nidoqueen
   - ninetales_alola
+  - noctowl
+  - lanturn
   - azumarill
   - umbreon
   - skarmory
   - swampert
-  - walrein
+  - pelipper
   - sableye
   - medicham
   - altaria
+  - walrein
+  - registeel
   - deoxys_defense
   - bastiodon
-  - scrafty
-  - lanturn
-  - trevenant
+  - froslass
   - stunfisk_galarian
-  - registeel
-  - talonflame
-  - lickitung
+  - trevenant
+  - obstagoon
 - name: fighting-remix
   allowed:
   - fighting
@@ -163,3 +163,26 @@
   - fire
   - water
   - grass
+- name: summer
+  allowed:
+  - normal
+  - fire
+  - water
+  - grass
+  - electric
+  - bug
+- name: single-type
+  single-type: true
+  banned:
+  - cresselia
+  - deoxys_defense
+- name: retro
+  excluded:
+  - dark
+  - steel
+  - fairy
+- name: fossil
+  allowed:
+  - water
+  - rock
+  - steel
