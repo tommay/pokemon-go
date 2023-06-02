@@ -37,6 +37,7 @@ data Options = Options {
   maybeCupName :: Maybe String,
   little :: Bool,
   evolve :: Bool,
+  singleType :: Bool,
   minCp :: Int,
   allowedTypes :: [String],
   excludedTypes :: [String],
@@ -50,6 +51,7 @@ data Options = Options {
 getOptions :: IO Options
 getOptions =
   let opts = Options <$> optMaybeCupName <*> optLittle <*> optEvolve <*>
+        optSingleType <*>
         optMinCp <*>
         optAllowedTypes <*> optExcludedTypes <*>
         optAllowedPokemon <*> optBannedPokemon <*>
@@ -67,6 +69,10 @@ getOptions =
         (  O.long "evolve"
         <> O.short 'e'
         <> O.help "Show pokemon which have evolved and can evolve again")
+      optSingleType = O.switch
+        (  O.long "single-type"
+        <> O.short 's'
+        <> O.help "Show pokemon with only a single type")
       optMinCp =
             O.flag' 1400 (
               O.short 'g' <>
@@ -137,6 +143,7 @@ main =
               return $ options {
                 little = Cup.little cup,
                 evolve = Cup.evolve cup,
+                singleType = Cup.singleType cup,
                 allowedTypes = Cup.allowed cup,
                 excludedTypes = Cup.excluded cup,
                 allowedPokemon = Cup.pokemon cup,
@@ -148,6 +155,9 @@ main =
             else const True
           isMiddle middleRequired = if middleRequired
             then PokeUtil.isMiddleEvolution gameMaster
+            else const True
+          hasSingleType singleTypeRequired = if singleTypeRequired
+            then (== 1) . length . PokemonBase.types
             else const True
           typeIn types = any (`elem` types) . map Type.name . PokemonBase.types
           hasAllowedType allowedTypes = case allowedTypes of
@@ -183,6 +193,7 @@ main =
             filter hasEnoughCp $
             filter (isLittle $ little options) $
             filter (isMiddle $ evolve options) $
+            filter (hasSingleType $ singleType options) $
             filter (hasAllowedType $ allowedTypes options) $
             filter (not . (hasExcludedType $ excludedTypes options)) $
             filter (isAllowed $ allowedPokemon options) $

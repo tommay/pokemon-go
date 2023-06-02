@@ -6,6 +6,7 @@ module Cup (
   load,
   little,
   evolve,
+  singleType,
   allowed,
   excluded,
   pokemon,
@@ -31,6 +32,7 @@ data Cup = Cup {
   name     :: String,
   little   :: Bool,
   evolve   :: Bool,
+  singleType  :: Bool,
   allowed  :: [String],
   excluded :: [String],
   pokemon  :: [String],
@@ -68,6 +70,7 @@ makeCup yamlObject = do
   name <- getObjectValue yamlObject "name"
   little <- getObjectValueWithDefault False yamlObject "little"
   evolve <- getObjectValueWithDefault False yamlObject "evolve"
+  singleType <- getObjectValueWithDefault False yamlObject "single-type"
   allowed <- getObjectValueWithDefault [] yamlObject "allowed"
   excluded <- getObjectValueWithDefault [] yamlObject "excluded"
   pokemon <- getObjectValueWithDefault [] yamlObject "pokemon"
@@ -77,6 +80,7 @@ makeCup yamlObject = do
     name = name,
     little = little,
     evolve = evolve,
+    singleType = singleType,
     allowed = allowed,
     excluded = excluded,
     pokemon = pokemon,
