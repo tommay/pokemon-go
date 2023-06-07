@@ -400,3 +400,6 @@
 - species: delphox
   moves:
   - BLAST_BURN          # Community day 5/21/2023
+- species: haxorus
+  moves:
+  - BREAKING_SWiPE      # Community day 6/10/2023
