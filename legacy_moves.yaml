@@ -403,3 +403,6 @@
 - species: haxorus
   moves:
   - BREAKING_SWiPE      # Community day 6/10/2023
+- species: heatran
+  moves:
+  - MAGMA_STORM         # Raids 6/2023
