@@ -406,3 +406,9 @@
 - species: heatran
   moves:
   - MAGMA_STORM         # Raids 6/2023
+- species: poliwrath
+  moves:
+  - COUNTER_FAST        # Community day 7/30/2023
+- species: politoed
+  moves:
+  - ICE_BEAM            # Community day 7/30/2023
