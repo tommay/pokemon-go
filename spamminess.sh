@@ -15,6 +15,7 @@
 #league=--little
 league=-g
 #league=-u
+#league=-m
 
 # Uncomment for classic (no XL allowed).
 #league="$league -c"
