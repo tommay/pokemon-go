@@ -412,3 +412,6 @@
 - species: politoed
   moves:
   - ICE_BEAM            # Community day 7/30/2023
+- species: greninja
+  moves:
+  - HYDRO_CANNON        # Community day 8/13/2023
