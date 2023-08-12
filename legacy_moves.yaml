@@ -204,7 +204,7 @@
   - thunderbolt        # Community day 11/21/2020
 - species: machamp
   moves:
-  - payback            # Community day 1/2021
+  - payback            # Community day 1/2021, GBL championship 8/2023
 - species: genesect_burn
   moves:
   - techno_blast_burn  # Raids, gbl reward 1/2021
@@ -280,8 +280,8 @@
   - PSYCHIC_FANGS       # Community day 11/2021.
 - species: walrein
   moves:
-  - POWDER_SNOW_FAST    # Community day 1/2022.
-  - ICICLE_SPEAR        # Community day 1/2022.
+  - POWDER_SNOW_FAST    # Community day 1/2022, GBL championship 8/2023
+  - ICICLE_SPEAR        # Community day 1/2022, GBL championship 8/2023
 - species: genesect_shock
   moves:
   - techno_blast_shock  # Raids, gbl reward 1/2022
@@ -302,11 +302,11 @@
   - NIGHT_SLASH         # Community day 3/13/2022
 - species: sandslash_alola
   moves:
-  - SHADOW_CLAW_FAST    # Community day 3/13/2022
+  - SHADOW_CLAW_FAST    # Community day 3/13/2022, GBL championship 8/2023
 - species: dewgong
   moves:
-  - ICE_SHARD_FAST      # evolve window 3/5/2022
-  - ICY_WIND            # evolve window 3/5/2022
+  - ICE_SHARD_FAST      # evolve window 3/5/2022, GBL championship 8/2023
+  - ICY_WIND            # evolve window 3/5/2022, GBL championship 8/2023
 - species: exeggutor_alola
   moves:
   - DRACO_METEOR        # Spring into spring 4/16/2022
@@ -336,7 +336,7 @@
   - techno_blast_chill  # Raids, gbl reward 8/2022
 - species: obstagoon
   moves:
-  - OBSTRUCT            # Community day 8/13/2022
+  - OBSTRUCT            # Community day 8/13/2022, GBL championship 8/2023
 - species: genesect
   moves:
   - techno_blast_normal # Randomly added, 8/2022
