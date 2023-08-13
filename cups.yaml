@@ -18,6 +18,19 @@
   - shuckle
   - smeargle
   - salandit
+- name: little-jungle
+  allowed:
+  - normal
+  - grass
+  - electric
+  - poison
+  - ground
+  - flying
+  - bug
+  - dark
+  banned:
+  - shuckle
+  - smeargle
 - name: psychic
   allowed:
   - psychic
