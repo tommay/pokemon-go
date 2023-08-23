@@ -79,6 +79,7 @@ import           Data.Yaml ((.:), (.:?), (.!=))
 import qualified Data.Store as Store
 import           GHC.Generics (Generic)
 
+import           Control.Applicative ((<|>))
 import           Control.Applicative.HT (lift2)
 import           Control.Monad (join, liftM, liftM2)
 import           Control.Monad.Extra (anyM)
@@ -531,8 +532,24 @@ makeMaybeMove types pvpFastMoves pvpChargedMoves itemTemplate = do
         <*> pure pvpDurationTurns
         <*> pure False)
 
+-- GAME_MASTER.yaml was updated so that somtimes uniqueId is a String
+-- and sometimes a number.  Here, I atttempt to roll with it.
+-- XXX I'm not sure this is the most aesthetic way.
+
+newtype StringOrNumber = S String
+
+asString :: StringOrNumber -> String
+asString (S s) = s
+
+instance Yaml.FromJSON StringOrNumber where
+  parseJSON v =
+    let fromNumber = Yaml.withScientific "fromNumber" $ pure . S . show
+        fromText = Yaml.withText "fromText" $ pure . S . convertText
+    in fromNumber v <|> fromText v
+
 isFastMove :: ItemTemplate -> Bool
-isFastMove itemTemplate = case getObjectValue itemTemplate "uniqueId" of
+isFastMove itemTemplate =
+  case asString <$> getObjectValue itemTemplate "uniqueId" of
     Left _ -> error $ "Move doesn't have a uniqueId: " ++ show itemTemplate
     Right uniqueId -> List.isSuffixOf "_FAST" uniqueId
 
@@ -553,7 +570,8 @@ getPvpMoves :: Epic.MonadCatch m =>
   (ItemTemplate -> Bool) -> (ItemTemplate -> m a) -> [ItemTemplate]
   -> m (StringMap a)
 getPvpMoves pred makePvpMove itemTemplates =
-  makeSomeObjects pred "combatMove" (getNameFromKey "uniqueId")
+  makeSomeObjects pred "combatMove"
+     (liftM asString . getNameFromKey "uniqueId")
     makePvpMove itemTemplates
 
 makePvpFastMove :: Epic.MonadCatch m =>
@@ -563,9 +581,9 @@ makePvpFastMove types itemTemplate =
       getTemplateValueWithDefault dflt text =
         getObjectValueWithDefault dflt itemTemplate text
   in PvpFastMove.new
-    <$> getTemplateValue "uniqueId"
+    <$> (asString <$> getTemplateValue "uniqueId")
     <*> do
-      typeName <- getTemplateValue "type"
+      typeName <- asString <$> getTemplateValue "type"
       get types typeName
     <*> getTemplateValueWithDefault 0.0 "power"
     <*> getTemplateValueWithDefault 0 "durationTurns"
@@ -579,9 +597,9 @@ makePvpChargedMove types itemTemplate =
       getTemplateValueWithDefault dflt text =
         getObjectValueWithDefault dflt itemTemplate text
   in PvpChargedMove.new
-    <$> getTemplateValue "uniqueId"
+    <$> (asString <$> getTemplateValue "uniqueId")
     <*> do
-      typeName <- getTemplateValue "type"
+      typeName <- asString <$> getTemplateValue "type"
       get types typeName
     <*> getTemplateValueWithDefault 0.0 "power"
     <*> getTemplateValueWithDefault 0 "energyDelta"
@@ -818,7 +836,8 @@ makeWeatherAffinity types weatherAffinity = do
   ptypes <- getObjectValue weatherAffinity "pokemonType"
   mapM (get types) ptypes
 
-getNameFromKey :: Epic.MonadCatch m => String -> ItemTemplate -> m String
+getNameFromKey :: (Epic.MonadCatch m, Yaml.FromJSON a) =>
+  String -> ItemTemplate -> m a
 getNameFromKey nameKey itemTemplate =
   getObjectValue itemTemplate nameKey
 
