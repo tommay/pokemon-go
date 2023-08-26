@@ -488,7 +488,8 @@ getMoves :: Epic.MonadCatch m =>
   (ItemTemplate -> m (Maybe Move)) -> [ItemTemplate] ->
   m (StringMap Move)
 getMoves makeMaybeMove itemTemplates = do
-  maybeMoveMap <- makeObjects "moveSettings" (getNameFromKey "movementId")
+  maybeMoveMap <- makeObjects "moveSettings"
+      (liftM asString . getNameFromKey "movementId")
     makeMaybeMove itemTemplates
   -- Use (mapMaybe id) to discard any Nothing values, and turn Just Move
   -- into Move values.
@@ -499,7 +500,7 @@ makeMaybeMove :: Epic.MonadCatch m =>
   StringMap PvpChargedMove -> ItemTemplate -> m (Maybe Move)
 makeMaybeMove types pvpFastMoves pvpChargedMoves itemTemplate = do
   let getTemplateValue text = getObjectValue itemTemplate text
-  name <- getTemplateValue "movementId"
+  name <- asString <$> getTemplateValue "movementId"
   let maybeMoveStats = if List.isSuffixOf "_FAST" name
         then case HashMap.lookup name pvpFastMoves of
           Nothing -> Nothing
