@@ -39,6 +39,7 @@ import qualified Text.Regex as Regex
 
 data Move = Move {
   movementId :: String,
+  vfxName  :: String,
   moveType :: Type,
   power    :: Float,
   duration :: Float,

@@ -501,6 +501,7 @@ makeMaybeMove :: Epic.MonadCatch m =>
 makeMaybeMove types pvpFastMoves pvpChargedMoves itemTemplate = do
   let getTemplateValue text = getObjectValue itemTemplate text
   movementId <- asString <$> getTemplateValue "movementId"
+  vfxName <- getTemplateValue "vfxName"
   let maybeMoveStats = if List.isSuffixOf "_FAST" movementId
         then case HashMap.lookup movementId pvpFastMoves of
           Nothing -> Nothing
@@ -521,6 +522,7 @@ makeMaybeMove types pvpFastMoves pvpChargedMoves itemTemplate = do
     Just (pvpPower, pvpEnergyDelta, pvpDurationTurns) -> do
       Just <$> (Move.new
         <$> pure movementId
+        <*> pure vfxName
         <*> do
           typeName <- getTemplateValue "pokemonType"
           get types typeName
