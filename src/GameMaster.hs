@@ -713,7 +713,8 @@ makePokemonBase types moves forms legacyMap pokemonSettings =
     -- appended to the lists of elite moves in GAME_MASTER.yaml.
     --
     let getEliteMoves key legacyMoveNames = do
-          moveNames <- getValueWithDefault [] key
+--        moveNames <- (liftM $ fmap asString) $ getValueWithDefault [] key
+          moveNames <- (map asString) <$> getValueWithDefault [] key
           mapM (liftM Move.setLegacy . get moves) $
             moveNames ++ legacyMoveNames
     eliteQuickMoves <- getEliteMoves "eliteQuickMove" legacyFastMoveNames
