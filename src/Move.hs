@@ -81,7 +81,7 @@ durationMs this =
 
 name :: Move -> String
 name this =
-  let noFast = Regex.subRegex (Regex.mkRegex "_FAST$") (movementId this) ""
+  let noFast = Regex.subRegex (Regex.mkRegex "_fast$") (vfxName this) ""
       alphaOnly = Regex.subRegex (Regex.mkRegex "[^a-zA-Z]") noFast " "
       withType = if Move.isHiddenPower this
         then alphaOnly ++ ", " ++ (Type.name $ Move.moveType this)
