@@ -500,14 +500,14 @@ makeMaybeMove :: Epic.MonadCatch m =>
   StringMap PvpChargedMove -> ItemTemplate -> m (Maybe Move)
 makeMaybeMove types pvpFastMoves pvpChargedMoves itemTemplate = do
   let getTemplateValue text = getObjectValue itemTemplate text
-  name <- asString <$> getTemplateValue "movementId"
-  let maybeMoveStats = if List.isSuffixOf "_FAST" name
-        then case HashMap.lookup name pvpFastMoves of
+  movementId <- asString <$> getTemplateValue "movementId"
+  let maybeMoveStats = if List.isSuffixOf "_FAST" movementId
+        then case HashMap.lookup movementId pvpFastMoves of
           Nothing -> Nothing
           Just pvpFastMove -> Just (PvpFastMove.power pvpFastMove,
             PvpFastMove.energyDelta pvpFastMove,
             PvpFastMove.durationTurns pvpFastMove)
-        else case HashMap.lookup name pvpChargedMoves of
+        else case HashMap.lookup movementId pvpChargedMoves of
           Nothing -> Nothing
           -- Charged moves used to get a durationTurns of 'error "Charged
           -- moves have no durationTurns"' which was clever but broke
@@ -520,7 +520,7 @@ makeMaybeMove types pvpFastMoves pvpChargedMoves itemTemplate = do
     Nothing -> return Nothing
     Just (pvpPower, pvpEnergyDelta, pvpDurationTurns) -> do
       Just <$> (Move.new
-        <$> pure name
+        <$> pure movementId
         <*> do
           typeName <- getTemplateValue "pokemonType"
           get types typeName
