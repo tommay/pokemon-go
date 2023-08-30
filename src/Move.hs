@@ -65,7 +65,7 @@ isCharge this =
 
 isQuick :: Move -> Bool
 isQuick this =
-  List.isSuffixOf "_FAST" $ movementId this
+  List.isSuffixOf "_fast" $ vfxName this
 
 stabFor :: Move -> [Type] -> Float
 stabFor this attackerTypes =

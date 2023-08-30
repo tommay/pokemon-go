@@ -502,7 +502,7 @@ makeMaybeMove types pvpFastMoves pvpChargedMoves itemTemplate = do
   let getTemplateValue text = getObjectValue itemTemplate text
   movementId <- asString <$> getTemplateValue "movementId"
   vfxName <- getTemplateValue "vfxName"
-  let maybeMoveStats = if List.isSuffixOf "_FAST" movementId
+  let maybeMoveStats = if List.isSuffixOf "_fast" vfxName
         then case HashMap.lookup movementId pvpFastMoves of
           Nothing -> Nothing
           Just pvpFastMove -> Just (PvpFastMove.power pvpFastMove,
@@ -552,9 +552,9 @@ instance Yaml.FromJSON StringOrNumber where
 
 isFastMove :: ItemTemplate -> Bool
 isFastMove itemTemplate =
-  case asString <$> getObjectValue itemTemplate "uniqueId" of
-    Left _ -> error $ "Move doesn't have a uniqueId: " ++ show itemTemplate
-    Right uniqueId -> List.isSuffixOf "_FAST" uniqueId
+  case getObjectValue itemTemplate "vfxName" of
+    Left _ -> error $ "Move doesn't have a vfxName: " ++ show itemTemplate
+    Right vfxName -> List.isSuffixOf "_fast" vfxName
 
 isChargedMove :: ItemTemplate -> Bool
 isChargedMove = not . isFastMove
