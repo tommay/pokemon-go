@@ -731,7 +731,7 @@ makePokemonBase types moves forms legacyMap pokemonSettings =
     --
     let getMoves key = if species /= "smeargle"
           then do
-            moveNames <- getValue key
+            moveNames <- (map asString) <$> getValue key
             return $ Maybe.catMaybes $
               map (flip HashMap.lookup $ moves) moveNames
           else return []
