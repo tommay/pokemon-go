@@ -121,9 +121,9 @@
   - electric
   banned:
   - stunfisk
+  - heliolisk
   - charjabug
   - vikavolt
-  - heliolisk
 - name: love
   pokemon: !include love.yaml
 - name: fantasy
@@ -184,6 +184,17 @@
   - grass
   - electric
   - bug
+- name: little-element-remix
+  little: true
+  allowed:
+  - fire
+  - water
+  - grass
+  banned:
+  - chinchou
+  - cottonee
+  - ducklett
+  - salandit
 - name: single-type
   single-type: true
   banned:
