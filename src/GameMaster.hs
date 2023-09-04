@@ -129,6 +129,21 @@ type ItemTemplate = Yaml.Object
 
 new = GameMaster
 
+-- GAME_MASTER.yaml was updated so that sometimes moves' uniqueId is a
+-- String and sometimes a number.  Here, I atttempt to roll with it.
+-- XXX I'm not sure this is the most aesthetic way.  Maybe just having
+-- asString convert a Yaml.Value to a String would be better.  I tried
+-- identifying moves with a Yaml.Value but it was a pain trrying to
+-- make it an instance of Store.Store.
+
+newtype StringOrNumber = S { asString :: String }
+
+instance Yaml.FromJSON StringOrNumber where
+  parseJSON v =
+    let fromNumber = Yaml.withScientific "fromNumber" $ pure . S . show
+        fromText = Yaml.withText "fromText" $ pure . S . convertText
+    in fromNumber v <|> fromText v
+
 load :: Epic.MonadCatch m => IO (m GameMaster)
 load = do
   let filename = "GAME_MASTER.yaml"
@@ -534,21 +549,6 @@ makeMaybeMove types pvpFastMoves pvpChargedMoves itemTemplate = do
         <*> pure pvpEnergyDelta
         <*> pure pvpDurationTurns
         <*> pure False)
-
--- GAME_MASTER.yaml was updated so that somtimes uniqueId is a String
--- and sometimes a number.  Here, I atttempt to roll with it.
--- XXX I'm not sure this is the most aesthetic way.
-
-newtype StringOrNumber = S String
-
-asString :: StringOrNumber -> String
-asString (S s) = s
-
-instance Yaml.FromJSON StringOrNumber where
-  parseJSON v =
-    let fromNumber = Yaml.withScientific "fromNumber" $ pure . S . show
-        fromText = Yaml.withText "fromText" $ pure . S . convertText
-    in fromNumber v <|> fromText v
 
 isFastMove :: ItemTemplate -> Bool
 isFastMove itemTemplate =
