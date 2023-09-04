@@ -134,6 +134,9 @@ makeBattlerVariants gameMaster battler = do
 -- We have to check for a move matching abbrev exactly before checking
 -- with matchesAbbrevInsensitive, otherwise the abbrev "charm" will be
 -- considered an abbreviation for both "charm" and "charge beam".
+-- This is no longer true since abbreviation matching is done differently
+-- but it still seems like a good idea if a move name ever becomes a prefix
+-- of another move name.
 --
 getMatchingMoves :: String -> [Move] -> [Move]
 getMatchingMoves abbrev moves =
