@@ -142,7 +142,8 @@ instance Yaml.FromJSON StringOrNumber where
   parseJSON v =
     let fromNumber = Yaml.withScientific "fromNumber" $ pure . S . show
         fromText = Yaml.withText "fromText" $ pure . S . convertText
-    in fromNumber v <|> fromText v
+    in fromNumber v <|> fromText v <|>
+         fail ("expected String or Number, got " ++ show v)
 
 load :: Epic.MonadCatch m => IO (m GameMaster)
 load = do
