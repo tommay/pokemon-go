@@ -415,3 +415,12 @@
 - species: greninja
   moves:
   - HYDRO_CANNON        # Community day 8/13/2023
+- species: vikavolt
+  moves:
+  - VOLT_SWITCH_FAST    # Community day 9/23/2023
+- species: charjabug
+  moves:
+  - VOLT_SWITCH_FAST    # Community day 9/23/2023
+- species: conkeldurr
+  moves:
+  - BRUTAL_SWING        # Community day 10/15/2023
