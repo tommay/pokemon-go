@@ -424,3 +424,9 @@
 - species: conkeldurr
   moves:
   - BRUTAL_SWING        # Community day 10/15/2023
+- species: quagsire
+  moves:
+  - AQUA_TAIL           # Community day 11/5/2023
+- species: clodsire
+  moves:
+  - MEGAHORN            # Community day 11/5/2023
