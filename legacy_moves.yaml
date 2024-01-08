@@ -430,3 +430,6 @@
 - species: clodsire
   moves:
   - MEGAHORN            # Community day 11/5/2023
+- species: decidueye
+  moves:
+  - FRENZY_PLANT        # Community day 1/6/2024
