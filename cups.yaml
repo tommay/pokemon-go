@@ -131,9 +131,6 @@
   - steel
   - fairy
   - dragon
-  banned:
-  - stunfisk_galarian
-  - cobalion
 - name: color
   allowed:
   - fire
