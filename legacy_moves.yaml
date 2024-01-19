@@ -433,3 +433,7 @@
 - species: decidueye
   moves:
   - FRENZY_PLANT        # Community day 1/6/2024
+  - SPIRIT_SHACKLE
+- species: blissey
+  moves:
+  - WILD_CHARGE         # Community day 2/4/2024
