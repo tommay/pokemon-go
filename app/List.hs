@@ -45,7 +45,8 @@ data Options = Options {
   bannedPokemon :: [String],
   premier :: Bool,
   maybeFastType :: Maybe String,
-  maybeChargedType :: Maybe String
+  maybeChargedType :: Maybe String,
+  needsShadowAvailable :: Bool
 }
 
 getOptions :: IO Options
@@ -55,7 +56,8 @@ getOptions =
         optMinCp <*>
         optAllowedTypes <*> optExcludedTypes <*>
         optAllowedPokemon <*> optBannedPokemon <*>
-        optPremier <*> optMaybeFastType <*> optMaybeChargedType
+        optPremier <*> optMaybeFastType <*> optMaybeChargedType <*>
+        optNeedsShadowavailable
       optMaybeCupName = (O.optional . O.strOption)
         (  O.long "cup"
         <> O.short 'c'
@@ -121,6 +123,9 @@ getOptions =
         (  O.long "charged"
         <> O.metavar "TYPE|NAME"
         <> O.help "Include only pokemon with charged moves of TYPE or NAME.")
+      optNeedsShadowavailable = O.switch
+        (  O.long "shadow"
+        <> O.help "Show pokemon that have shadow form available")
       options = O.info (opts <**> O.helper)
         (  O.fullDesc
         <> O.progDesc "List some or all pokemon.")
@@ -186,6 +191,10 @@ main =
               concatMap (sequence
                 [removeAsterisk . Move.name, Type.name . Move.moveType]) .
               getMoves
+          hasShadowForm shadowRequired =
+            if shadowRequired
+              then PokemonBase.isShadowAvailable
+              else const True
           (mega, normal) = List.partition PokemonBase.isMega $
             GameMaster.allPokemonBases gameMaster
           pokemonToList pokemonBases =
@@ -203,6 +212,7 @@ main =
               maybeFastType options) $
             filter (hasMoveType PokemonBase.chargeMoves $
               maybeChargedType options) $
+            filter (hasShadowForm $ needsShadowAvailable options)
             pokemonBases
       mapM_ putStrLn $ pokemonToList $ normal ++ mega
     )
