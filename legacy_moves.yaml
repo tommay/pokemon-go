@@ -449,3 +449,6 @@
 - species: tapu_koko
   moves:
   - NATURES_MADNESS     # Raids 2-3/2024
+- species: incineroar
+  moves:
+  - BLAST_BURN          # Community day 2/4/2024
