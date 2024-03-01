@@ -442,4 +442,10 @@
   - SPACIAL_REND
 - species: dialga_origin
   moves:
-  - ROAR_OF_TIME
+  - ROAR_OF_TIME        # Raids 2/2024
+- species: dialga_origin
+  moves:
+  - ROAR_OF_TIME        # Raids 2/2024
+- species: tapu_koko
+  moves:
+  - NATURES_MADNESS     # Raids 2-3/2024
