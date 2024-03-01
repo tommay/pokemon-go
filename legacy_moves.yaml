@@ -437,3 +437,9 @@
 - species: blissey
   moves:
   - WILD_CHARGE         # Community day 2/4/2024
+- species: palkia_origin
+  moves:
+  - SPACIAL_REND
+- species: dialga_origin
+  moves:
+  - ROAR_OF_TIME
