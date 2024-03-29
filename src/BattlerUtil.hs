@@ -152,7 +152,9 @@ getMatchingMove abbrev moves moveType species =
       makeMovesString moves = List.intercalate "\n" $
         map (("  " ++) . Move.name) moves
       allMoves = "Available moves:\n" ++ makeMovesString normalMoves ++
-        "\nLegacy moves:\n" ++ makeMovesString legacyMoves
+        (case legacyMoves of
+           [] -> ""
+           _ -> "\nLegacy moves:\n" ++ makeMovesString legacyMoves)
   in case getMatchingMoves abbrev moves of
        [move] ->
          if not $ Move.isLegacy move
