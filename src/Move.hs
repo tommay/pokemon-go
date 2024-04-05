@@ -39,7 +39,6 @@ import qualified Text.Regex as Regex
 
 data Move = Move {
   movementId :: String,
-  vfxName  :: String,
   moveType :: Type,
   power    :: Float,
   duration :: Float,
@@ -65,7 +64,7 @@ isCharge this =
 
 isQuick :: Move -> Bool
 isQuick this =
-  List.isSuffixOf "_fast" $ vfxName this
+  pvpEnergyDelta this >= 0
 
 stabFor :: Move -> [Type] -> Float
 stabFor this attackerTypes =
@@ -81,7 +80,7 @@ durationMs this =
 
 name :: Move -> String
 name this =
-  let noFast = Regex.subRegex (Regex.mkRegex "_fast$") (vfxName this) ""
+  let noFast = Regex.subRegex (Regex.mkRegex "_FAST$") (movementId this) ""
       alphaOnly = Regex.subRegex (Regex.mkRegex "[^a-zA-Z]") noFast " "
       withType = if Move.isHiddenPower this
         then alphaOnly ++ ", " ++ (Type.name $ Move.moveType this)

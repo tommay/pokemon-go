@@ -517,8 +517,7 @@ makeMaybeMove :: Epic.MonadCatch m =>
 makeMaybeMove types pvpFastMoves pvpChargedMoves itemTemplate = do
   let getTemplateValue text = getObjectValue itemTemplate text
   movementId <- asString <$> getTemplateValue "movementId"
-  vfxName <- getTemplateValue "vfxName"
-  let maybeMoveStats = if List.isSuffixOf "_fast" vfxName
+  let maybeMoveStats = if isFastMove itemTemplate
         then case HashMap.lookup movementId pvpFastMoves of
           Nothing -> Nothing
           Just pvpFastMove -> Just (PvpFastMove.power pvpFastMove,
@@ -538,7 +537,6 @@ makeMaybeMove types pvpFastMoves pvpChargedMoves itemTemplate = do
     Just (pvpPower, pvpEnergyDelta, pvpDurationTurns) -> do
       Just <$> (Move.new
         <$> pure movementId
-        <*> pure vfxName
         <*> do
           typeName <- getTemplateValue "pokemonType"
           get types typeName
@@ -551,11 +549,13 @@ makeMaybeMove types pvpFastMoves pvpChargedMoves itemTemplate = do
         <*> pure pvpDurationTurns
         <*> pure False)
 
+-- XXX There must be a better thing than using error here.
+--
 isFastMove :: ItemTemplate -> Bool
 isFastMove itemTemplate =
-  case getObjectValue itemTemplate "vfxName" of
-    Left _ -> error $ "Move doesn't have a vfxName: " ++ show itemTemplate
-    Right vfxName -> List.isSuffixOf "_fast" vfxName
+  case getObjectValueWithDefault (0 :: Integer) itemTemplate "energyDelta" of
+    Left _ -> error $ "Can't get energyDelta for move: " ++ show itemTemplate
+    Right energyDelta -> energyDelta >= 0
 
 isChargedMove :: ItemTemplate -> Bool
 isChargedMove = not . isFastMove
