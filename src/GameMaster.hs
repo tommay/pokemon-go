@@ -517,14 +517,11 @@ makeMaybeMove :: Epic.MonadCatch m =>
 makeMaybeMove types pvpFastMoves pvpChargedMoves itemTemplate = do
   let getTemplateValue text = getObjectValue itemTemplate text
   movementId <- asString <$> getTemplateValue "movementId"
-  let maybeMoveStats = if isFastMove itemTemplate
-        then case HashMap.lookup movementId pvpFastMoves of
-          Nothing -> Nothing
-          Just pvpFastMove -> Just (PvpFastMove.power pvpFastMove,
-            PvpFastMove.energyDelta pvpFastMove,
-            PvpFastMove.durationTurns pvpFastMove)
-        else case HashMap.lookup movementId pvpChargedMoves of
-          Nothing -> Nothing
+  let maybeMoveStats = case HashMap.lookup movementId pvpFastMoves of
+        Just pvpFastMove -> Just (PvpFastMove.power pvpFastMove,
+          PvpFastMove.energyDelta pvpFastMove,
+          PvpFastMove.durationTurns pvpFastMove)
+        Nothing -> case HashMap.lookup movementId pvpChargedMoves of
           -- Charged moves used to get a durationTurns of 'error "Charged
           -- moves have no durationTurns"' which was clever but broke
           -- the GAME_MASTER cache because it had to be evaluated to write
@@ -532,6 +529,7 @@ makeMaybeMove types pvpFastMoves pvpChargedMoves itemTemplate = do
           Just pvpChargedMove -> Just (PvpChargedMove.power pvpChargedMove,
             PvpChargedMove.energyDelta pvpChargedMove,
             0)
+          Nothing -> Nothing
   case maybeMoveStats of
     Nothing -> return Nothing
     Just (pvpPower, pvpEnergyDelta, pvpDurationTurns) -> do
