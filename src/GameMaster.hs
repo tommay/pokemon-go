@@ -81,7 +81,7 @@ import           GHC.Generics (Generic)
 
 import           Control.Applicative ((<|>))
 import           Control.Applicative.HT (lift2)
-import           Control.Monad (join, liftM, liftM2)
+import           Control.Monad (join, liftM, liftM2, filterM)
 import           Control.Monad.Extra (anyM)
 import qualified Data.Either as Either
 import           Data.Text.Conversions (convertText)
@@ -547,16 +547,17 @@ makeMaybeMove types pvpFastMoves pvpChargedMoves itemTemplate = do
         <*> pure pvpDurationTurns
         <*> pure False)
 
--- XXX There must be a better thing than using error here.
+-- TRANSFORM_FAST is the only move without an energyDelta, so default it to 0
+-- and consider anything >= 0 to be a fast move.
 --
-isFastMove :: ItemTemplate -> Bool
-isFastMove itemTemplate =
-  case getObjectValueWithDefault (0 :: Integer) itemTemplate "energyDelta" of
-    Left _ -> error $ "Can't get energyDelta for move: " ++ show itemTemplate
-    Right energyDelta -> energyDelta >= 0
+isFastMove :: Epic.MonadCatch m => ItemTemplate -> m Bool
+isFastMove itemTemplate = do
+  energyDelta <-
+     getObjectValueWithDefault (0 :: Integer) itemTemplate "energyDelta"
+  return $ energyDelta >= 0
 
-isChargedMove :: ItemTemplate -> Bool
-isChargedMove = not . isFastMove
+isChargedMove :: Epic.MonadCatch m => ItemTemplate -> m Bool
+isChargedMove = liftM not . isFastMove
 
 getPvpFastMoves :: Epic.MonadCatch m =>
   StringMap Type -> [ItemTemplate] -> m (StringMap PvpFastMove)
@@ -569,7 +570,7 @@ getPvpChargedMoves types itemTemplates =
   getPvpMoves isChargedMove (makePvpChargedMove types) itemTemplates
 
 getPvpMoves :: Epic.MonadCatch m =>
-  (ItemTemplate -> Bool) -> (ItemTemplate -> m a) -> [ItemTemplate]
+  (ItemTemplate -> m Bool) -> (ItemTemplate -> m a) -> [ItemTemplate]
   -> m (StringMap a)
 getPvpMoves pred makePvpMove itemTemplates =
   makeSomeObjects pred "combatMove"
@@ -848,22 +849,22 @@ makeObjects :: Epic.MonadCatch m =>
   String -> (ItemTemplate -> m String) -> (ItemTemplate -> m a)
   -> [ItemTemplate]
   -> m (StringMap a)
-makeObjects = makeSomeObjects $ const True
+makeObjects = makeSomeObjects $ const $ pure True
 
 makeSomeObjects :: Epic.MonadCatch m =>
-  (ItemTemplate -> Bool)
+  (ItemTemplate -> m Bool)
   -> String -> (ItemTemplate -> m String) -> (ItemTemplate -> m a)
   -> [ItemTemplate]
   -> m (StringMap a)
-makeSomeObjects pred filterKey getName makeObject itemTemplates =
+makeSomeObjects pred filterKey getName makeObject itemTemplates = do
+  filtered <- filterM pred $ getAll itemTemplates filterKey
   foldr (\ itemTemplate maybeHash -> do
       hash <- maybeHash
       name <- getName itemTemplate
       obj <- makeObject itemTemplate
       pure $ HashMap.insert name obj hash)
     (pure HashMap.empty)
-    $ filter pred
-    $ getAll itemTemplates filterKey
+    $ filtered
 
 getAll :: [ItemTemplate] -> String -> [ItemTemplate]
 getAll itemTemplates filterKey =
