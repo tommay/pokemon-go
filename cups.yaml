@@ -91,26 +91,26 @@
   - psychic
 - name: great-league-remix
   banned:
-  - venusaur
-  - ninetales_alola
-  - noctowl
+  - sandslash_alola
+  - wigglytuff
+  - lickitung
   - lanturn
   - azumarill
   - umbreon
   - skarmory
-  - swampert
-  - pelipper
-  - sableye
+  - vigoroth
   - medicham
+  - whiscash
   - altaria
-  - walrein
   - registeel
   - deoxys_defense
   - bastiodon
-  - froslass
   - stunfisk_galarian
+  - talonflame
   - trevenant
-  - obstagoon
+  - charjabug
+  - skeledirge
+  - clodsire
 - name: fighting-remix
   allowed:
   - fighting
@@ -166,6 +166,7 @@
   - grass
   - fairy
   banned:
+  - mantine
   - toxapex
 - name: sunshine
   allowed:
