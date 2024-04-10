@@ -451,4 +451,7 @@
   - NATURES_MADNESS     # Raids 2-3/2024
 - species: incineroar
   moves:
-  - BLAST_BURN          # Community day 2/4/2024
+  - BLAST_BURN          # Community day 3/16/2024
+- species: victreebel
+  moves:
+  - MAGICAL_LEAF_FAST   # Community day 4/20/2024 lol
