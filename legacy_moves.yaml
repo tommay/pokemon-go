@@ -455,3 +455,6 @@
 - species: victreebel
   moves:
   - MAGICAL_LEAF_FAST   # Community day 4/20/2024 lol
+- species: tapu_bulu
+  moves:
+  - NATURES_MADNESS     # Raids 4/2024
