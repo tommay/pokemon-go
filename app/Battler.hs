@@ -28,10 +28,6 @@ import qualified Logger
 import           Logger (Logger)
 import qualified Move
 import           Move (Move)
-import qualified Mythical
-import qualified MyPokemon
-import           MyPokemon (MyPokemon)
-import qualified Mythical
 import qualified Pokemon
 import           Pokemon (Pokemon)
 import qualified PokemonBase
