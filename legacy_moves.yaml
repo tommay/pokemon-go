@@ -458,3 +458,6 @@
 - species: tapu_bulu
   moves:
   - NATURES_MADNESS     # Raids 4/2024
+- species: tapu_fini
+  moves:
+  - NATURES_MADNESS     # Raids 5/2024
