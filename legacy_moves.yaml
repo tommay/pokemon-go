@@ -468,3 +468,6 @@
 - species: necrozma_dusk_mane
   moves:
   - SUNSTEEL_STRIKE     # GoFest 2024
+- species: tsareena
+  moves:
+  - HIGH_JUMP_KICK      # Community day 5/19/2004
