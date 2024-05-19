@@ -461,3 +461,10 @@
 - species: tapu_fini
   moves:
   - NATURES_MADNESS     # Raids 5/2024
+# Not sure the necrozma moves will be legacy or not.
+- species: necrozma_dawn_wings
+  moves:
+  - MOONGEIST_BEAM      # GoFest 2024
+- species: necrozma_dusk_mane
+  moves:
+  - SUNSTEEL_STRIKE     # GoFest 2024
