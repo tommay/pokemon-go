@@ -470,4 +470,7 @@
   - SUNSTEEL_STRIKE     # GoFest 2024
 - species: tsareena
   moves:
-  - HIGH_JUMP_KICK      # Community day 5/19/2004
+  - HIGH_JUMP_KICK      # Community day 5/19/2024
+- species: goodra
+  moves:
+  - THUNDER_PUNCH       # Community day 6/9/2024
