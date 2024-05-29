@@ -93,24 +93,24 @@
   banned:
   - sandslash_alola
   - wigglytuff
+  - dewgong
   - lickitung
+  - feraligatr
   - lanturn
   - azumarill
-  - umbreon
   - skarmory
   - vigoroth
   - medicham
-  - whiscash
   - altaria
-  - registeel
-  - deoxys_defense
+  - whiscash
   - bastiodon
+  - cresselia
   - stunfisk_galarian
   - talonflame
   - trevenant
   - charjabug
   - skeledirge
-  - clodsire
+  - annihilape
 - name: fighting-remix
   allowed:
   - fighting
