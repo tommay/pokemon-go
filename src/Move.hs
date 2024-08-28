@@ -80,7 +80,10 @@ durationMs this =
 
 name :: Move -> String
 name this =
-  let noFast = Regex.subRegex (Regex.mkRegex "_FAST$") (movementId this) ""
+  let -- FORCE_PALM_FAST is V0462_MOVE_FORCE_PALM_FAST
+      -- so remove the initial junk.
+      noMove = Regex.subRegex (Regex.mkRegex "^.*_MOVE_") (movementId this) ""
+      noFast = Regex.subRegex (Regex.mkRegex "_FAST$") noMove ""
       alphaOnly = Regex.subRegex (Regex.mkRegex "[^a-zA-Z]") noFast " "
       withType = if Move.isHiddenPower this
         then alphaOnly ++ ", " ++ (Type.name $ Move.moveType this)
