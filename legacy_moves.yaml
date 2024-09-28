@@ -474,3 +474,21 @@
 - species: goodra
   moves:
   - THUNDER_PUNCH       # Community day 6/9/2024
+- species: EELEKTROSS
+  moves:
+  - VOLT_SWITCH_FAST    # Community day 7/21/2024
+- species: lucario
+  moves:
+  - FORCE_PALM_FAST     # Mega raid day 7/27/2024
+- species: primarina
+  moves:
+  - HYDRO_CANNON        # Community day 8/31/2024
+- species: rapidash
+  moves:
+  - WILD_CHARGE         # Community day 9/14/2024
+- species: rapidash_galarian
+  moves:
+  - WILD_CHARGE         # Community day 9/14/2024
+- species: leavanny
+  moves:
+  - SHADOW_CLAW_FAST    # Community day 10/5/2024
