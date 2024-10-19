@@ -910,7 +910,9 @@ hasFormIfRequired forms itemTemplate =
 --
 getObjectValue :: (Epic.MonadCatch m, Yaml.FromJSON a) => Yaml.Object -> String -> m a
 getObjectValue yamlObject key =
-  Epic.toEpic $ Yaml.parseEither (.: convertText key) yamlObject
+  Epic.toEpic $ case Yaml.parseEither (.: convertText key) yamlObject of
+    Right val -> Right val
+    Left error -> Left $ show yamlObject ++ ": " ++ error
 
 getObjectValueWithDefault :: (Epic.MonadCatch m, Yaml.FromJSON a) => a -> Yaml.Object -> String -> m a
 getObjectValueWithDefault dflt yamlObject key =
