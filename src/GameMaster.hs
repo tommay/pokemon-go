@@ -516,6 +516,8 @@ makeMaybeMove :: Epic.MonadCatch m =>
   StringMap PvpChargedMove -> ItemTemplate -> m (Maybe Move)
 makeMaybeMove types pvpFastMoves pvpChargedMoves itemTemplate = do
   let getTemplateValue text = getObjectValue itemTemplate text
+      getTemplateValueWithDefault text dflt =
+        getObjectValueWithDefault dflt itemTemplate text
   movementId <- asString <$> getTemplateValue "movementId"
   let maybeMoveStats = case HashMap.lookup movementId pvpFastMoves of
         Just pvpFastMove -> Just (PvpFastMove.power pvpFastMove,
@@ -540,7 +542,9 @@ makeMaybeMove types pvpFastMoves pvpChargedMoves itemTemplate = do
           get types typeName
         <*> getObjectValueWithDefault 0 itemTemplate "power"
         <*> ((/1000) <$> getTemplateValue "durationMs")
-        <*> getTemplateValue "damageWindowStartMs"
+        -- The move "return" (at least) no longer has damageWindowStartMs,
+        -- so assume 0, at least for now.
+        <*> getTemplateValueWithDefault "damageWindowStartMs" 0
         <*> getObjectValueWithDefault 0 itemTemplate "energyDelta"
         <*> pure pvpPower
         <*> pure pvpEnergyDelta
