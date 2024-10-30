@@ -94,23 +94,24 @@
   - sandslash_alola
   - wigglytuff
   - dewgong
-  - lickitung
+  - marowak
   - feraligatr
-  - lanturn
   - azumarill
-  - skarmory
-  - vigoroth
-  - medicham
-  - altaria
-  - whiscash
-  - bastiodon
-  - cresselia
-  - stunfisk_galarian
+  - jumpluff
+  - quagsire
+  - dunsparce
+  - gastrodon_east_sea
+  - gastrodon_west_sea
+  - drapion
+  - serperior
+  - ferrothorn
+  - mandibuzz
+  - greninja
+  - diggersby
   - talonflame
-  - trevenant
-  - charjabug
-  - skeledirge
-  - annihilape
+  - malamar
+  - toxapex
+  - clodsire
 - name: fighting-remix
   allowed:
   - fighting
