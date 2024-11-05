@@ -39,6 +39,7 @@ import qualified Text.Regex as Regex
 
 data Move = Move {
   movementId :: String,
+  vfxName  :: String,
   moveType :: Type,
   power    :: Float,
   duration :: Float,
@@ -83,7 +84,7 @@ name this =
   let -- FORCE_PALM_FAST is V0462_MOVE_FORCE_PALM_FAST
       -- so remove the initial junk.
       noMove = Regex.subRegex (Regex.mkRegex "^.*_MOVE_") (movementId this) ""
-      noFast = Regex.subRegex (Regex.mkRegex "_FAST$") noMove ""
+      noFast = Regex.subRegex (Regex.mkRegex "_fast$") noMove ""
       alphaOnly = Regex.subRegex (Regex.mkRegex "[^a-zA-Z]") noFast " "
       withType = if Move.isHiddenPower this
         then alphaOnly ++ ", " ++ (Type.name $ Move.moveType this)

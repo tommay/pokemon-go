@@ -519,6 +519,7 @@ makeMaybeMove types pvpFastMoves pvpChargedMoves itemTemplate = do
       getTemplateValueWithDefault text dflt =
         getObjectValueWithDefault dflt itemTemplate text
   movementId <- asString <$> getTemplateValue "movementId"
+  vfxName <- getTemplateValue "vfxName"
   let maybeMoveStats = case HashMap.lookup movementId pvpFastMoves of
         Just pvpFastMove -> Just (PvpFastMove.power pvpFastMove,
           PvpFastMove.energyDelta pvpFastMove,
@@ -537,6 +538,7 @@ makeMaybeMove types pvpFastMoves pvpChargedMoves itemTemplate = do
     Just (pvpPower, pvpEnergyDelta, pvpDurationTurns) -> do
       Just <$> (Move.new
         <$> pure movementId
+        <*> pure vfxName
         <*> do
           typeName <- getTemplateValue "pokemonType"
           get types typeName
