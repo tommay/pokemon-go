@@ -492,3 +492,9 @@
 - species: leavanny
   moves:
   - SHADOW_CLAW_FAST    # Community day 10/5/2024
+- species: primeape
+  moves:
+  - RAGE_FIST           # Community 11/10.2024
+- species: annihilape
+  moves:
+  - RAGE_FIST           # Community 11/10.2024
