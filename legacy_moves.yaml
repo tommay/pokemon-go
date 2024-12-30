@@ -494,7 +494,10 @@
   - SHADOW_CLAW_FAST    # Community day 10/5/2024
 - species: primeape
   moves:
-  - RAGE_FIST           # Community 11/10.2024
+  - RAGE_FIST           # Community 11/10/2024
 - species: annihilape
   moves:
-  - RAGE_FIST           # Community 11/10.2024
+  - RAGE_FIST           # Community 11/10/2024
+- species: meowscarada
+  moves:
+  - FRENZY_PLANT        # Community 1/5/2025
