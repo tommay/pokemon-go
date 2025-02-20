@@ -11,16 +11,31 @@
 #
 # This script currently takes about 6 minutes to run.
 
-# Select league here.
-#league=--little
 league=-g
-#league=-u
-#league=-m
 
-# Uncomment for classic (no XL allowed).
-#league="$league -c"
+while getopts "gluc:k" opt; do
+  case ${opt} in
+    g) 
+      league=-g
+      ;;
+    l) 
+      league=--little
+      ;;
+    u) 
+      league=-u
+      ;;
+    c)
+      cup="-c $OPTARG"
+      ;;
+    k)
+      classic=-c
+      ;;
+  esac
+done
 
-all_pokemon=$(./list "$@")
+league="$league $classic"
+
+all_pokemon=$(./list $cup)
 for p in $all_pokemon; do
   ./spam $p $league -s -r |
     awk -F: '{ print $2, $1 }' |
