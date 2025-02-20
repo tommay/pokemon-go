@@ -501,6 +501,15 @@
 - species: meowscarada
   moves:
   - FRENZY_PLANT        # Community 1/5/2025
-#- species: meowscarada
-#  moves:
-#  - FLOWER_TRICK
+- species: meowscarada
+  moves:
+  - FLOWER_TRICK
+- species: escavalier
+  moves:
+  - RAZOR_SHELL         # Community day 2/2025
+- species: accelgor
+  moves:
+  - ENERGY_BALL         # Community day 2/2025
+- species: skeledirge
+  moves:
+  - BLAST_BURN          # Community day 3/2025
