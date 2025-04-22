@@ -513,3 +513,9 @@
 - species: skeledirge
   moves:
   - BLAST_BURN          # Community day 3/2025
+- species: audino
+  moves:
+  - moonblast           # Audino mega raid day 4/5/2025
+- species: vanilluxe
+  moves:
+  - avalanche           # Community day 4/27/2025
