@@ -98,26 +98,26 @@
   - psychic
 - name: great-league-remix
   banned:
-  - sandslash_alola
+  - blastoise
   - wigglytuff
-  - dewgong
   - marowak
+  - weezing_galarian
+  - lapras
   - feraligatr
   - azumarill
   - jumpluff
-  - quagsire
-  - dunsparce
+  - sableye
+  - cradily
   - gastrodon_east_sea
   - gastrodon_west_sea
   - drapion
   - serperior
-  - ferrothorn
   - mandibuzz
-  - greninja
-  - diggersby
   - talonflame
   - malamar
-  - toxapex
+  - golisopod
+  - morpeko
+  - annihilape
   - clodsire
 - name: fighting-remix
   allowed:
