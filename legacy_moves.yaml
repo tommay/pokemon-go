@@ -519,3 +519,6 @@
 - species: vanilluxe
   moves:
   - avalanche           # Community day 4/27/2025
+- species: pawmot
+  moves:
+  - BRICK_BREAK         # Community day 5/11/2025
