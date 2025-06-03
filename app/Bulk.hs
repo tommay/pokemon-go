@@ -2,6 +2,7 @@ module Main where
 
 import qualified Options.Applicative as O
 import           Options.Applicative ((<|>), (<**>))
+--import           Data.List ((!?))
 import           Data.Semigroup ((<>))
 
 import qualified Calc
@@ -41,12 +42,15 @@ data Options = Options {
   maybeMaxXlCandy :: Maybe Int,
   useBestBuddyBoost :: Bool,
   species :: String,
-  maybeEvolution :: Maybe String,
+  maybeEvolutionSpeciesOrNumber :: Maybe SpeciesOrNumber,
   levelOrCp :: LevelOrCp,
   attack  :: Int,
   defense :: Int,
   stamina :: Int
 }
+
+data SpeciesOrNumber = Species String | Number Int
+  deriving (Show)
 
 data LevelOrCp = Level Float | Cp Int
   deriving (Show)
@@ -54,13 +58,23 @@ data LevelOrCp = Level Float | Cp Int
 data League = Little | Great | Ultra | Master | Peewee
   deriving (Eq, Show)
 
+-- XXX This is supposed to be in Data.List
+(!?) :: [a] -> Int -> Maybe a
+(!?) lst idx =
+  case lst of
+    [] -> Nothing
+    (a:as) ->
+      if idx == 0
+        then Just a
+        else as !? (idx - 1)
+
 getOptions :: IO Options
 getOptions =
   let opts = Options <$> optLeague
         <*> optOneLine <*> optSummary <*> optAllPowerups
         <*> optIsShadow <*> optIsPurified <*> optIsLucky <*> optIsTraded
         <*> optMaxCandy <*> optMaxXlCandy <*> optUseBestBuddyBoost
-        <*> optSpecies <*> optEvolution
+        <*> optSpecies <*> optMaybeEvolutionSpeciesOrNumber
         <*> optLevelOrCp <*> optAttack <*> optDefense <*> optStamina
       optLeague =
             O.flag' Little (
@@ -87,7 +101,7 @@ getOptions =
         <|> pure Great
       optOneLine = O.switch
         (  O.long "one"
-        <> O.short '1'
+        <> O.short 'z'
         <> O.help "Output only the final level")
       optSummary = O.switch
         (  O.long "summary"
@@ -128,11 +142,6 @@ getOptions =
         <> O.short 'b'
         <> O.help "Use best buddy boost")
       optSpecies = O.argument O.str (O.metavar "SPECIES")
-      optEvolution = O.optional $ O.strOption
-        (  O.long "evolution"
-        <> O.short 'e'
-        <> O.metavar "EVOLUTION"
-        <> O.help "Evolution for PVP")
       -- XXX There are two things about this that I don't quite understand:
       -- 1) Why is "Level <$>" the right thing to use here?
       --   A: O.option returns Parser a.  <$>/fmap will "reach into" the Parser
@@ -141,6 +150,23 @@ getOptions =
       -- is given?  That's not surprising; if "-l LEVEL" is given before
       -- CP could be then CP is skipped and we move right on to ATTACK,
       -- but how does the argument parsing actually work?
+      optMaybeEvolutionSpeciesOrNumber = O.optional $
+        let optEvolutionSpecies = Species <$> O.strOption
+              (  O.long "evolution"
+              <> O.short 'e'
+              <> O.metavar "EVOLUTION"
+              <> O.help "Evolution for PVP")
+            optEvolutionNumber = Number <$> (
+                    O.flag' 1 (
+                    O.short '1' <>
+                    O.help "first evolution")
+              <|> O.flag' 2 (
+                    O.short '2' <>
+                    O.help "second evolution")
+              <|> O.flag' 3 (
+                    O.short '3' <>
+                    O.help "third evolution"))
+        in optEvolutionSpecies <|> optEvolutionNumber
       optLevelOrCp =
         let optLevel = Level <$> (O.option O.auto
               (  O.long "level"
@@ -219,18 +245,44 @@ main =
                    else id) $
                  PokemonBase.thirdMoveCost base
 
-      -- If an evolution target was given then evolve to it, else for
-      -- Little league assume the pokemon will not be evoled, else use
-      -- Nothing to evolve fully.
+      -- If no evolution target is given then for --little don't evolve else
+      -- evolve fully.  Otherwise evolve to the given evolution or to the
+      -- first, second, or third evolution.
 
-      let maybeTarget = case maybeEvolution options of
-            Just target -> Just target
-            Nothing -> if league options == Little
-              then Just species
-              else Nothing
+      maybeTargetSpecies <- do
+        case maybeEvolutionSpeciesOrNumber options of
+          Nothing ->
+            if league options == Little
+              then pure $ Just species
+              else pure Nothing
+          Just (Species species) -> pure $ Just species
+          Just (Number number) -> do
+            evolutionChains <-
+              PokeUtil.evolutionChains gameMaster False (species, 0)
+            -- Suppose we have the evolutionChains for poliwag.  There are
+            -- two: [poliwag, poliwhirl, poliwrath] and [poliwag, poliwhirl,
+            -- politoed].  We want to be able to slice this into all the first
+            -- evolutions, the second evolutions, and third evolutions:
+            -- [poliwag, poliwag], [poliwhirl, poliwhirl], and [poliwrath,
+            -- politoed].  That's what transpose does.  Then we use nub to get
+            -- the unique evolutions for each stage.
+            let evolutionStages = List.transpose evolutionChains
+            case evolutionStages !? (number - 1) of
+              Nothing -> Epic.fail $
+                Printf.printf "%s does not have %d evolutions" species number
+              Just evolutionsAtStage ->
+                let evolutions = List.nub $ map fst evolutionsAtStage
+                in case evolutions of
+                  [] -> Epic.fail $
+                    Printf.printf "%s has no evolutions?" species
+                  [evolvedSpecies] -> pure $ Just evolvedSpecies
+                  _ -> Epic.fail $
+                    Printf.printf "%s has multiple evolutions: %s" species
+                      (Util.toLower $ Util.commaSeparated "and" evolutions)
+
       (speciesEvolved, evolveCandy) <-
         PokeUtil.evolveSpeciesFullyWithCandy
-          gameMaster (isTraded options) maybeTarget species
+          gameMaster (isTraded options) maybeTargetSpecies species
 
       -- XXX this could formerly be shadow or purified.
       baseEvolved <- GameMaster.getPokemonBase gameMaster speciesEvolved
