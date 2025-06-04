@@ -50,6 +50,20 @@ library
                      , utility-ht
   default-language:    Haskell2010
 
+executable rate-exe
+  hs-source-dirs:      app
+  main-is:             Rate.hs
+  ghc-options:         -O2 -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base
+                     , pokemon
+                     , optparse-applicative
+                     , text
+                     , attoparsec
+                     , data-ordlist
+                     , filepath
+                     , regex-compat
+  default-language:    Haskell2010
+
 executable effectivenessagainst-exe
   hs-source-dirs:      app
   main-is:             EffectivenessAgainst.hs
