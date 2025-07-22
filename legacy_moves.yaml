@@ -522,3 +522,12 @@
 - species: pawmot
   moves:
   - BRICK_BREAK         # Community day 5/11/2025
+- species: hakamo_o
+  moves:
+  - CLANGING_SCALES     # Community day 6/21/2025
+- species: quaquaval
+  moves:
+  - HYDRO_CANNON        # Community day 7/20/2025
+- species: corviknight
+  moves:
+  - AIR_CUTTER          # Community day 8/30/2025
