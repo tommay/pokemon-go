@@ -618,7 +618,7 @@ makePvpChargedMove types itemTemplate =
 --
 getForms :: Epic.MonadCatch m => [ItemTemplate] -> m (StringMap [String])
 getForms itemTemplates =
-  makeObjects "formSettings" (getNameFromKey "pokemon")
+  makeObjects "formSettings" (liftM asString . getNameFromKey "pokemon")
     getFormNames itemTemplates
 
 getFormNames :: Epic.MonadCatch m => ItemTemplate -> m [String]
@@ -694,7 +694,7 @@ makePokemonBase types moves forms legacyMap pokemonSettings =
           mapM (\ branch -> do
             evolution <- case getObjectValue branch "form" of
               Right form -> return form
-              Left _ -> getObjectValue branch "evolution"
+              Left _ -> asString <$> getObjectValue branch "evolution"
             candyCost <- case getObjectValue branch "candyCost" of
               Right candyCost -> return candyCost
               -- Gimmighoul doesn't evolve with candy so consider that to
