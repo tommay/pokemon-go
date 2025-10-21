@@ -16,7 +16,7 @@ ultra=t
 master=t
 little=
 
-while getopts ":e:c:x:lgum" opt; do
+while getopts ":e:C:c:x:lgum" opt; do
   case ${opt} in
     e) 
       evolved_species="$OPTARG"
@@ -27,6 +27,9 @@ while getopts ":e:c:x:lgum" opt; do
       ;;
     x)
       max_xl_candy="-x $OPTARG"
+      ;;
+    C) 
+      combat="-C $OPTARG"
       ;;
     g)
       great=t; ultra=; master=; little=
@@ -41,7 +44,7 @@ while getopts ":e:c:x:lgum" opt; do
       great=; ultra=; master=; little=t
       ;;
     \?)
-      echo "Usage: $0 [-e evolved_species] [-c max_candy] [-x max_xl_candy] [-g] [-u] [-m]"
+      echo "Usage: $0 [-e evolved_species] [-C combat_species] [-c max_candy] [-x max_xl_candy] [-g] [-u] [-m]"
       exit 2
       ;;
   esac
@@ -74,7 +77,7 @@ rate() {
         stats="$species $stats"
       fi
       echo $stats >&2
-      ./bulk -s $max_candy $max_xl_candy $evolved $league $stats
+      ./bulk -s $max_candy $max_xl_candy $evolved $combat $league $stats
     fi
   done | egrep -v "too high"
 }

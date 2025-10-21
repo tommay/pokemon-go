@@ -44,6 +44,7 @@ data Options = Options {
   species :: String,
   maybeEvolutionSpeciesOrNumber :: Maybe SpeciesOrNumber,
   levelOrCp :: LevelOrCp,
+  maybeCombatSpecies :: Maybe String,
   attack  :: Int,
   defense :: Int,
   stamina :: Int
@@ -75,7 +76,8 @@ getOptions =
         <*> optIsShadow <*> optIsPurified <*> optIsLucky <*> optIsTraded
         <*> optMaxCandy <*> optMaxXlCandy <*> optUseBestBuddyBoost
         <*> optSpecies <*> optMaybeEvolutionSpeciesOrNumber
-        <*> optLevelOrCp <*> optAttack <*> optDefense <*> optStamina
+        <*> optLevelOrCp <*> optMaybeCombatSpecies
+        <*> optAttack <*> optDefense <*> optStamina
       optLeague =
             O.flag' Little (
               -- There is no short option because the obvious "-l" conflicts
@@ -175,6 +177,11 @@ getOptions =
               <> O.help "Pokemon level"))
             optCp = Cp <$> (O.argument O.auto (O.metavar "CP"))
         in optLevel <|> optCp
+      optMaybeCombatSpecies = O.optional $ O.strOption
+        (  O.long "combat"
+        <> O.short 'C'
+        <> O.metavar "COMBAT-SPECIES"
+        <> O.help "Species to combat as")
       optAttack = O.argument O.auto (O.metavar "ATTTACK")
       optDefense = O.argument O.auto (O.metavar "DEFENSE")
       optStamina = O.argument O.auto (O.metavar "STAMINA")
@@ -286,6 +293,14 @@ main =
 
       -- XXX this could formerly be shadow or purified.
       baseEvolved <- GameMaster.getPokemonBase gameMaster speciesEvolved
+
+      -- The result of the mapM is a m (Maybe pokemonBase).  Use "<-"
+      -- to "get it out" of the monad.
+
+      baseForCombat <- Maybe.fromMaybe baseEvolved <$>
+        (mapM (GameMaster.getPokemonBase gameMaster) $
+          Main.maybeCombatSpecies options)
+
       if not $ summary options
         then do
           if needsPurification
@@ -320,13 +335,13 @@ main =
           getRank' = getRank gameMaster (pred . calcCpForIVs baseEvolved)
             powerUpIVs
           (statProductRank, statProductPercentile) = getRank'
-            (getStatProduct gameMaster baseEvolved)
+            (getStatProduct gameMaster baseForCombat)
           (attackRank, attackPercentile) = getRank'
-            (getAttack gameMaster baseEvolved)
+            (getAttack gameMaster baseForCombat)
           makeOutputString (level, cost) =
             let ivs = makePureIVs level
                 (attackForLevel, defenseForLevel, totalForLevel) =
-                  total gameMaster baseEvolved ivs
+                  total gameMaster baseForCombat ivs
             in Printf.printf "%6d/%-7s: %-4s %.2f  %.2f %.2f"
                  (basePvpStardust + Cost.dust cost)
                  (candyToString (basePvpCandy + Cost.candy cost)
@@ -408,15 +423,18 @@ getRank gameMaster areIVsOkForLeague ivs getMetricForIVs =
         let ivs = [0..15],
         attack <- ivs, defense <- ivs, stamina <- ivs]
       powerupIVs = map (getPowerupIVs gameMaster areIVsOkForLeague) allIVs
-      allMetrics = map getMetricForIVs powerupIVs
-      metric = getMetricForIVs ivs
-      numberBetter = length $ filter (> metric) allMetrics
+      metricsForAllIVs = map getMetricForIVs powerupIVs
+      metricForIVs = getMetricForIVs ivs
+      numberBetter = length $ filter (> metricForIVs) metricsForAllIVs
       rank = numberBetter + 1
-      numberWorse = length $ filter (< metric) allMetrics
+      numberWorse = length $ filter (< metricForIVs) metricsForAllIVs
       percentile =  fromIntegral numberWorse / fromIntegral (length allIVs)
         * 100
   in (rank, percentile)
 
+-- Given a league predicate and atttack/defense/stamina, determine the
+-- powerup level and create an IVs for it.
+--
 getPowerupIVs :: GameMaster -> (IVs -> Bool) -> (Int, Int, Int) -> IVs
 getPowerupIVs gameMaster areIVsOkForLeague (attack, defense, stamina) =
   let allLevels = GameMaster.powerUpLevels gameMaster
