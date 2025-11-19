@@ -228,6 +228,27 @@
   - water
   - rock
   - steel
+- name: championship
+  allowed:
+  - ice
+  - flying
+  - psychic
+  - ghost
+  - dragon
+  excluded:
+  - dark
+  - rock
+  banned:
+  - sandshrew_alola  
+  - sandslash_alola  
+  - ninetales_alola
+  - lapras
+  - corsola_galarian
+  - kingdra
+  - jellicent
+  - honedge
+  - doublade
+  - corviknight
 - name: hisui
   pokemon: !include hisui.yaml
 - name: galar
