@@ -531,3 +531,13 @@
 - species: corviknight
   moves:
   - AIR_CUTTER          # Community day 8/30/2025
+- species: florges
+  moves:
+  - CHILLING_WATER      # Community day 9/14/2025
+- species: reuniclus
+  moves:
+  - CHARM_FAST          # Community day 10/12/2025
+#- species: toucannon
+#  moves:
+#  - BEAK_BLAST          # Community day 11/20/2025
+
