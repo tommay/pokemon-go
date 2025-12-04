@@ -540,4 +540,6 @@
 #- species: toucannon
 #  moves:
 #  - BEAK_BLAST          # Community day 11/20/2025
-
+- species: regidrago
+  moves:
+  - VICE_GRIP   # until GAME_MASTER is updated
