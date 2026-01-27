@@ -43,6 +43,7 @@ data Options = Options {
   excludedTypes :: [String],
   allowedPokemon :: [String],
   bannedPokemon :: [String],
+  includedPokemon :: [String],
   premier :: Bool,
   maybeFastType :: Maybe String,
   maybeChargedType :: Maybe String,
@@ -55,7 +56,7 @@ getOptions =
         optSingleType <*>
         optMinCp <*>
         optAllowedTypes <*> optExcludedTypes <*>
-        optAllowedPokemon <*> optBannedPokemon <*>
+        optAllowedPokemon <*> optBannedPokemon <*> optIncludedPokemon <*>
         optPremier <*> optMaybeFastType <*> optMaybeChargedType <*>
         optNeedsShadowavailable
       optMaybeCupName = (O.optional . O.strOption)
@@ -110,6 +111,11 @@ getOptions =
         <> O.short 'b'
         <> O.metavar "POKEMON"
         <> O.help "Banned pokemon to exclude.")
+      optIncludedPokemon = (O.many . O.strOption)
+        (  O.long "included"
+        <> O.short 'i'
+        <> O.metavar "POKEMON"
+        <> O.help "Additional pokemon to included.")
       optPremier = O.switch
         (  O.long "premier"
         <> O.short 'p'
@@ -153,6 +159,7 @@ main =
                 excludedTypes = Cup.excluded cup,
                 allowedPokemon = Cup.pokemon cup,
                 bannedPokemon = Cup.banned cup,
+                includedPokemon = Cup.included cup,
                 premier = Cup.premier cup
                 }
       let isLittle littleRequired = if littleRequired
@@ -214,7 +221,8 @@ main =
               maybeChargedType options) $
             filter (hasShadowForm $ needsShadowAvailable options)
             pokemonBases
-      mapM_ putStrLn $ pokemonToList $ normal ++ mega
+      mapM_ putStrLn $ (pokemonToList $ normal ++ mega) ++
+        includedPokemon options
     )
     $ Exit.die
 
