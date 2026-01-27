@@ -228,7 +228,7 @@
   - water
   - rock
   - steel
-- name: championship
+- name: 2025championship
   allowed:
   - ice
   - flying
@@ -249,6 +249,32 @@
   - honedge
   - doublade
   - corviknight
+- name: 2026championship
+  allowed:
+  - bug
+  - dark
+  - normal
+  - dragon
+  excluded:
+  - fighting
+  - flying
+  - steel
+  banned:
+  - wigglytuff
+  - chansey
+  - crustle
+  - diggersby
+  - ribombee
+  - araquanid
+  - turtonator
+  - morgrem
+  - morpeko
+  included:
+  - seaking
+  - politoed
+  - milotic
+  - froslass
+  premier: true
 - name: hisui
   pokemon: !include hisui.yaml
 - name: galar
