@@ -91,7 +91,7 @@ getOptions =
               O.help "master league")
         <|> O.option O.auto (
               O.long "mincp" <>
-              O.short 'c' <>
+              O.short 'C' <>
               O.metavar "N" <>
               O.help "Minimum cp")
         <|> pure 0
