@@ -53,6 +53,7 @@ import qualified Cost
 import           Cost (Cost)
 import qualified Epic
 import qualified Legacy
+import           Legacy (LegacyMoveList)
 import qualified Move
 import           Move (Move)
 import qualified PokemonBase
@@ -74,6 +75,7 @@ import           Weather (Weather (..))
 import           WeatherBonus (WeatherBonus)
 
 import qualified Data.ByteString as B
+import           Data.Foldable (foldrM)
 import qualified Data.Yaml as Yaml
 import           Data.Yaml ((.:), (.:?), (.!=))
 import qualified Data.Store as Store
@@ -191,9 +193,24 @@ loadFromYaml filename = do
   case either of
     Left yamlParseException -> Epic.fail $ show yamlParseException
     Right yamlObjects -> do
-      -- Have to load Legacy here while we're in the IO monad.
-      legacyMap <- join $ Legacy.load "legacy_moves.yaml"
-      return $ makeGameMaster yamlObjects legacyMap
+     gameMaster <- makeGameMaster yamlObjects
+     legacyMoveLists <- join $ Legacy.load "legacy_moves.yaml"
+     return $ foldrM addLegacyMoves gameMaster legacyMoveLists
+
+addLegacyMoves :: Epic.MonadCatch m =>
+  LegacyMoveList -> GameMaster -> m GameMaster
+addLegacyMoves legacyMoveList this = do
+    moves <- mapM (getMove this) $ Legacy.fastMoveNames legacyMoveList
+    let moves' = map Move.setElite moves
+    let species = Legacy.species legacyMoveList
+    return $ this {
+      pokemonBases = HashMap.adjust (addFastMoves moves') species $
+        pokemonBases this
+   }
+
+addFastMoves :: [Move] -> PokemonBase-> PokemonBase
+addFastMoves moves base =
+  List.foldl' PokemonBase.addFastMove base moves
 
 writeCache :: FilePath -> GameMaster -> IO ()
 writeCache filename gameMaster =
@@ -367,9 +384,8 @@ sanitize string =
   let nonWordChars = Regex.mkRegex "\\W"
   in Util.toUpper $ Regex.subRegex nonWordChars string "_"
 
-makeGameMaster :: Epic.MonadCatch m =>
-  [Yaml.Object] -> StringMap ([String], [String]) -> m GameMaster
-makeGameMaster yamlObjects legacyMap = do
+makeGameMaster :: Epic.MonadCatch m => [Yaml.Object] -> m GameMaster
+makeGameMaster yamlObjects = do
   itemTemplates <- getItemTemplates yamlObjects
   types <- getTypes itemTemplates
   pvpFastMoves <- getPvpFastMoves types itemTemplates
@@ -379,7 +395,7 @@ makeGameMaster yamlObjects legacyMap = do
   forms <- getForms itemTemplates
   pokemonBases <-
     makeObjects "pokemonSettings" (getSpeciesForPokemonBase forms)
-      (makePokemonBase types moves forms legacyMap)
+      (makePokemonBase types moves forms)
       -- Unown doesn't have a form, so it gets filtered here.  That's
       -- ok because Unown isn't a meta pokemon so it can be ignored.
       -- But it's kind of awkward when "./counter unown" fails with
@@ -657,9 +673,9 @@ getSpeciesForPokemonBase forms itemTemplate = do
       Left _ -> Epic.fail $ "No form specified for " ++ species      
 
 makePokemonBase :: Epic.MonadCatch m =>
-  StringMap Type -> StringMap Move -> StringMap [String] ->
-  StringMap ([String], [String]) -> ItemTemplate -> m PokemonBase
-makePokemonBase types moves forms legacyMap pokemonSettings =
+  StringMap Type -> StringMap Move -> StringMap [String] -> ItemTemplate ->
+  m PokemonBase
+makePokemonBase types moves forms pokemonSettings =
   Epic.catch (do
     let getValue key = getObjectValue pokemonSettings key
         getValueWithDefault dflt key =
@@ -710,23 +726,12 @@ makePokemonBase types moves forms legacyMap pokemonSettings =
         -- XXX This can swallow parse errors?
         Left _ -> return []
 
-    let (legacyFastMoveNames, legacyChargedMoveNames) =
-          -- XXX This should be HashMap.findWithDefault which doesn't
-          -- seem to exist.
-          case HashMap.lookup species legacyMap of
-            Just val -> val
-            Nothing -> ([], [])
-
-    -- legacyNames are the names from legacy_moves.yaml.  They get
-    -- appended to the lists of elite moves in GAME_MASTER.yaml.
-    --
-    let getEliteMoves key legacyMoveNames = do
+    let getEliteMoves key = do
 --        moveNames <- (liftM $ fmap asString) $ getValueWithDefault [] key
           moveNames <- (map asString) <$> getValueWithDefault [] key
-          mapM (liftM Move.setElite . get moves) $
-            moveNames ++ legacyMoveNames
-    eliteQuickMoves <- getEliteMoves "eliteQuickMove" legacyFastMoveNames
-    eliteChargeMoves <- getEliteMoves "eliteCinematicMove" legacyChargedMoveNames
+          mapM (liftM Move.setElite . get moves) $ moveNames
+    eliteQuickMoves <- getEliteMoves "eliteQuickMove"
+    eliteChargeMoves <- getEliteMoves "eliteCinematicMove"
 
     -- XXX Smeargle's doesn't have keys for "quickMoves" and
     -- "cinematicMoves".  Instead, those keys are in the template
