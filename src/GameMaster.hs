@@ -723,7 +723,7 @@ makePokemonBase types moves forms legacyMap pokemonSettings =
     let getEliteMoves key legacyMoveNames = do
 --        moveNames <- (liftM $ fmap asString) $ getValueWithDefault [] key
           moveNames <- (map asString) <$> getValueWithDefault [] key
-          mapM (liftM Move.setLegacy . get moves) $
+          mapM (liftM Move.setElite . get moves) $
             moveNames ++ legacyMoveNames
     eliteQuickMoves <- getEliteMoves "eliteQuickMove" legacyFastMoveNames
     eliteChargeMoves <- getEliteMoves "eliteCinematicMove" legacyChargedMoveNames

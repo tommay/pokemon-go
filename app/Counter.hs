@@ -406,7 +406,7 @@ expandMoves gameMaster pokemonList =
       setMovesAndName pokemon (quick, charge) =
         let marker = case () of
               _ | isExistingMoveset quick charge -> "*-" :: String
-              _ | Move.isLegacy quick || Move.isLegacy charge -> "$-"
+              _ | Move.isElite quick || Move.isElite charge -> "$-"
               _ -> "  "
             name = Printf.printf "%s%s [%s/%s]"
               marker

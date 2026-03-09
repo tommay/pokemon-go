@@ -148,19 +148,19 @@ getMatchingMoves abbrev moves =
 
 getMatchingMove :: Epic.MonadCatch m => String -> [Move] -> String -> String -> m Move
 getMatchingMove abbrev moves moveType species =
-  let (legacyMoves, normalMoves) = (List.partition Move.isLegacy) moves
+  let (eliteMoves, normalMoves) = (List.partition Move.isElite) moves
       makeMovesString moves = List.intercalate "\n" $
         map (("  " ++) . Move.name) moves
       allMoves = "Available moves:\n" ++ makeMovesString normalMoves ++
-        (case legacyMoves of
+        (case eliteMoves of
            [] -> ""
-           _ -> "\nLegacy moves:\n" ++ makeMovesString legacyMoves)
+           _ -> "\nElite moves:\n" ++ makeMovesString eliteMoves)
   in case getMatchingMoves abbrev moves of
        [move] ->
-         if not $ Move.isLegacy move
+         if not $ Move.isElite move
            then return move
            else Epic.fail $
-             Printf.printf "%s is a legacy move\n" (Move.name move) ++ allMoves
+             Printf.printf "%s is an elite move\n" (Move.name move) ++ allMoves
        matchingMoves ->
          let howMany =
                if null matchingMoves then "no" else "multiple" :: String
@@ -205,11 +205,11 @@ makeRaidBossForMoves gameMaster raidLevel base quickMoves chargeMoves =
           quickMove
           chargeMove
           Discounts.noDiscounts
-      notLegacy = not . Move.isLegacy   
+      notElite = not . Move.isElite
   in [makePokemon quickMove chargeMove |
        quickMove <- quickMoves, chargeMove <- chargeMoves,
-       -- Raid bosses do not use legacy moves.
-       notLegacy quickMove, notLegacy chargeMove]
+       -- Raid bosses do not use elite moves.
+       notElite quickMove, notElite chargeMove]
 
 setLevel :: Float -> Battler -> Battler
 setLevel level battler =

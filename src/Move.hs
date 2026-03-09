@@ -23,8 +23,8 @@ module Move (
   bars,
   isHiddenPower,
   setType,
-  setLegacy,
-  isLegacy,
+  setElite,
+  isElite,
 ) where
 
 import qualified Type
@@ -48,7 +48,7 @@ data Move = Move {
   pvpPower :: Float,
   pvpEnergyDelta :: Int,
   pvpDurationTurns :: Int,
-  isLegacy :: Bool
+  isElite :: Bool
 } deriving (Generic)
 
 instance Eq Move where
@@ -87,8 +87,8 @@ name this =
         then alphaOnly ++ ", " ++ (Type.name $ Move.moveType this)
         else alphaOnly
       lower = Util.toLower alphaOnly
-      withLegacy = lower ++ if isLegacy this then "*" else ""
-  in withLegacy
+      withElite = lower ++ if isElite this then "*" else ""
+  in withElite
 
 bars :: Move -> Int
 bars this =
@@ -112,6 +112,6 @@ setType :: Move -> Type -> Move
 setType this moveType =
   this { moveType = moveType }
 
-setLegacy :: Move -> Move
-setLegacy this =
-  this { isLegacy = True }
+setElite :: Move -> Move
+setElite this =
+  this { isElite = True }
