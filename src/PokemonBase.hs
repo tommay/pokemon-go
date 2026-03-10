@@ -22,8 +22,7 @@ module PokemonBase (
   pokemonClass,
   isMega,
   makeTempEvos,
-  isShadowAvailable,
-  addFastMove
+  isShadowAvailable
 ) where
 
 import           Type (Type)
@@ -92,15 +91,3 @@ makeTempEvoSpecies baseSpecies tempEvoId =
        Just [prefix, suffix] ->
          Util.toLower $ prefix ++ "_" ++ baseSpecies ++ suffix
        _ -> error $ "Unknown tempEvoId format: " ++ tempEvoId
-
-
-
--- This is used for adding legacy fast moves.
---
-addFastMove :: PokemonBase -> Move -> PokemonBase
-addFastMove this move =
-  if move `elem` quickMoves this
-    then this
-    else this {
-      quickMoves = quickMoves this ++ [move]
-    }
