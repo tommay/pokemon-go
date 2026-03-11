@@ -34,7 +34,7 @@ load filename = do
 --
 makeLegacyMap :: Epic.MonadCatch m =>
   [Yaml.Object] -> m (StringMap ([String], [String]))
-makeLegacyMap yamlObjects = do
+makeLegacyMap yamlObjects =
   HashMap.map (List.partition ("_FAST" `List.isSuffixOf`)) <$>
     foldrM (\ yamlObject stringMap -> do
         species <-
