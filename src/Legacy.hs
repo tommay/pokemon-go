@@ -12,6 +12,7 @@ import qualified Util
 import qualified Data.Yaml as Yaml
 import           Data.Yaml ((.:))
 
+import           Data.Foldable (foldrM)
 import qualified Data.HashMap.Strict as HashMap
 import qualified Data.List as List
 
@@ -35,13 +36,12 @@ makeLegacyMap :: Epic.MonadCatch m =>
   [Yaml.Object] -> m (StringMap ([String], [String]))
 makeLegacyMap yamlObjects = do
   HashMap.map (List.partition ("_FAST" `List.isSuffixOf`)) <$>
-    foldr (\ yamlObject mStringMap -> do
-        stringMap <- mStringMap
+    foldrM (\ yamlObject stringMap -> do
         species <-
           Epic.toEpic $ Yaml.parseEither (.: "species") yamlObject
         moves <-
           Epic.toEpic $ Yaml.parseEither (.: "moves") yamlObject
         moves <- return $ map Util.toUpper moves
         return $ HashMap.insertWith (++) species moves stringMap)
-      (pure HashMap.empty)
+      HashMap.empty
       yamlObjects
