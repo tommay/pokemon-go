@@ -44,7 +44,7 @@ import qualified Debug as D
 data Battler = Battler {
   species :: String,
   level :: Level,
-  maybeQuickName :: Maybe String,
+  maybeFastName :: Maybe String,
   maybeChargeName :: Maybe String
 } deriving (Show)
 
@@ -63,7 +63,7 @@ parseBattler string =
         level <- optional $ do
           Atto.char ':'
           attoParseIVs <|> attoParseRaidBoss
-        maybeQuickName <- optional $ do
+        maybeFastName <- optional $ do
           Atto.char ':'
           some $ Atto.notChar '/'
         maybeChargeName <- optional $ do
@@ -73,7 +73,7 @@ parseBattler string =
         return $ Battler {
           species = species,
           level = Maybe.fromMaybe (Normal IVs.defaultIVs) level,
-          maybeQuickName = maybeQuickName,
+          maybeFastName = maybeFastName,
           maybeChargeName = maybeChargeName
           }
       attoParseIVs = attoParseLevelAndIVs <|> attoParseLevel
@@ -115,8 +115,8 @@ makeBattlerVariants gameMaster battler = do
           Just abbrev -> do
             move <- getMatchingMove abbrev moves moveType species
             return [move]
-  quickMoves <- getMoves "quick" PokemonBase.quickMoves
-    BattlerUtil.maybeQuickName
+  fastMoves <- getMoves "fast" PokemonBase.fastMoves
+    BattlerUtil.maybeFastName
   chargeMoves <- getMoves "charge" PokemonBase.chargeMoves
     BattlerUtil.maybeChargeName
   return $ case BattlerUtil.level battler of
@@ -126,10 +126,10 @@ makeBattlerVariants gameMaster battler = do
         ivs
         (PokemonBase.species base)
         base
-        quickMoves
+        fastMoves
         chargeMoves
     RaidBoss raidLevel ->
-      makeRaidBossForMoves gameMaster raidLevel base quickMoves chargeMoves
+      makeRaidBossForMoves gameMaster raidLevel base fastMoves chargeMoves
 
 -- We have to check for a move matching abbrev exactly before checking
 -- with matchesAbbrevInsensitive, otherwise the abbrev "charm" will be
@@ -171,7 +171,7 @@ getMatchingMove abbrev moves moveType species =
 makeRaidBossForTier :: GameMaster -> Int -> PokemonBase -> [Pokemon]
 makeRaidBossForTier gameMaster raidLevel base =
   makeRaidBossForMoves gameMaster raidLevel base
-    (PokemonBase.quickMoves base) (PokemonBase.chargeMoves base)
+    (PokemonBase.fastMoves base) (PokemonBase.chargeMoves base)
 
 -- https://pokemongo.gamepress.gg/how-raid-boss-cp-calculated
 -- This is more to the point.  The CP calculations don't actually
@@ -181,7 +181,7 @@ makeRaidBossForTier gameMaster raidLevel base =
 -- slightly too high, at least for t3.
 
 makeRaidBossForMoves :: GameMaster -> Int -> PokemonBase -> [Move] -> [Move] -> [Pokemon]
-makeRaidBossForMoves gameMaster raidLevel base quickMoves chargeMoves =
+makeRaidBossForMoves gameMaster raidLevel base fastMoves chargeMoves =
   let hp = case raidLevel of
         1 -> 600
         2 -> 1800
@@ -191,7 +191,7 @@ makeRaidBossForMoves gameMaster raidLevel base quickMoves chargeMoves =
         6 -> 22500 -- "Tier 6" for mewtwo, darkrai, mega legendaries.
         _ -> error "Raid level must be 1, 2, 3, 4, 5, or 6"
       makeStat baseFunc = fromIntegral $ baseFunc base + 15
-      makePokemon quickMove chargeMove =
+      makePokemon fastMove chargeMove =
         Pokemon.new
           (PokemonBase.species base)
           base
@@ -202,14 +202,14 @@ makeRaidBossForMoves gameMaster raidLevel base quickMoves chargeMoves =
           -- the case for raid bosses, so here we halve the stamina to
           -- compensate for the doubling.
           (hp / 2)
-          quickMove
+          fastMove
           chargeMove
           Discounts.noDiscounts
       notElite = not . Move.isElite
-  in [makePokemon quickMove chargeMove |
-       quickMove <- quickMoves, chargeMove <- chargeMoves,
+  in [makePokemon fastMove chargeMove |
+       fastMove <- fastMoves, chargeMove <- chargeMoves,
        -- Raid bosses do not use elite moves.
-       notElite quickMove, notElite chargeMove]
+       notElite fastMove, notElite chargeMove]
 
 setLevel :: Float -> Battler -> Battler
 setLevel level battler =

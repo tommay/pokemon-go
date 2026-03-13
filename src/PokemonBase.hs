@@ -13,7 +13,7 @@ module PokemonBase (
   defense,
   stamina,
   evolutions,
-  quickMoves,
+  fastMoves,
   chargeMoves,
   hasEvolutions,
   baseCaptureRate,
@@ -47,7 +47,7 @@ data PokemonBase = PokemonBase {
   stamina      :: Int,
     -- (species, candy, noCandyCostViaTrade):
   evolutions   :: [(String, Int, Bool)],
-  quickMoves   :: [Move],
+  fastMoves    :: [Move],
   chargeMoves  :: [Move],
   parent       :: Maybe String,
   baseCaptureRate :: Float,

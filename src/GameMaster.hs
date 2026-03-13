@@ -25,7 +25,7 @@ module GameMaster (
   GameMaster,
   load,
   getPokemonBase,
-  getQuick,
+  getFast,
   getCharge,
   getCpMultiplier,
   allLevelAndCost,
@@ -226,7 +226,7 @@ allPokemonBases this =
          PokemonBase.attack base,
          PokemonBase.defense base,
          PokemonBase.stamina base,
-         PokemonBase.quickMoves base,
+         PokemonBase.fastMoves base,
          PokemonBase.chargeMoves base)
   in Data.List.Extra.nubOn battleStats $ List.sortOn PokemonBase.species $
        HashMap.elems $ pokemonBases this
@@ -253,12 +253,12 @@ getMove :: Epic.MonadCatch m => GameMaster -> String -> m Move
 getMove this moveName  =
   GameMaster.lookup "move" (moves this) moveName
 
-getQuick :: Epic.MonadCatch m => GameMaster -> String -> m Move
-getQuick this moveName = do
+getFast :: Epic.MonadCatch m => GameMaster -> String -> m Move
+getFast this moveName = do
   move <- getMove this (moveName ++ "_fast")
-  case Move.isQuick move of
+  case Move.isFast move of
     True -> return move
-    False -> Epic.fail $ moveName ++ " is not a quick move"
+    False -> Epic.fail $ moveName ++ " is not a fast move"
 
 getCharge :: Epic.MonadCatch m => GameMaster -> String -> m Move
 getCharge this moveName = do
@@ -725,7 +725,7 @@ makePokemonBase types moves forms legacyMap pokemonSettings =
           moveNames <- (map asString) <$> getValueWithDefault [] key
           mapM (liftM Move.setElite . get moves) $
             moveNames ++ legacyMoveNames
-    eliteQuickMoves <- getEliteMoves "eliteQuickMove" legacyFastMoveNames
+    eliteFastMoves <- getEliteMoves "eliteQuickMove" legacyFastMoveNames
     eliteChargeMoves <- getEliteMoves "eliteCinematicMove" legacyChargedMoveNames
 
     -- XXX Smeargle's doesn't have keys for "quickMoves" and
@@ -742,9 +742,9 @@ makePokemonBase types moves forms legacyMap pokemonSettings =
               map (flip HashMap.lookup $ moves) moveNames
           else return []
 
-    quickMoves <- do
+    fastMoves <- do
       moves <- getMoves "quickMoves"
-      return $ List.nub $ moves ++ eliteQuickMoves
+      return $ List.nub $ moves ++ eliteFastMoves
     chargeMoves <- do
       moves <- getMoves "cinematicMoves"
       return $ List.nub $ moves ++ eliteChargeMoves
@@ -784,7 +784,7 @@ makePokemonBase types moves forms legacyMap pokemonSettings =
     tempEvoOverrides <- getTempEvoOverrides types pokemonSettings
 
     return $ PokemonBase.new pokemonId species ptypes attack defense stamina
-       evolutions quickMoves chargeMoves parent baseCaptureRate
+       evolutions fastMoves chargeMoves parent baseCaptureRate
        thirdMoveCost purificationCost pokemonClass
        tempEvoOverrides False isShadowAvailable
     )

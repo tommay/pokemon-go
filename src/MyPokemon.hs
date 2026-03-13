@@ -9,7 +9,7 @@ module MyPokemon (
   cp,
   hp,
   stardust,
-  quickName,
+  fastName,
   chargeName,
   maybeChargeName2,
   chargeNames,
@@ -20,7 +20,7 @@ module MyPokemon (
   setStats,
   setLevel,
   setSpecies,
-  setQuickName,
+  setFastName,
   setChargeName,
 ) where
 
@@ -50,7 +50,7 @@ data MyPokemon = MyPokemon {
   cp          :: Int,
   hp          :: Int,
   stardust    :: Int,
-  quickName   :: String,
+  fastName    :: String,
   chargeName  :: String,
   maybeChargeName2 :: Maybe String,
   ivs         :: IVs,
@@ -68,7 +68,7 @@ instance Yaml.FromJSON MyPokemon where
           y .: "cp" <*>
           y .: "hp" <*>
           y .: "dust" <*>
-          y .: "quick" <*>
+          y .: "fast" <*>
           y .: "charge" <*>
           y .:? "charge2" <*>
           y .: "ivs" <*>
@@ -82,7 +82,7 @@ instance Builder.ToYaml MyPokemon where
       "cp" .== cp this,
       "hp" .== hp this,
       "dust" .== stardust this,
-      "quick" .== (Text.pack $ quickName this),
+      "fast" .== (Text.pack $ fastName this),
       "charge" .== (Text.pack $ chargeName this),
       "charge2" .=? (Text.pack <$> maybeChargeName2 this),
       "ivs" .== ivs this,
@@ -128,9 +128,9 @@ setSpecies :: MyPokemon -> String -> MyPokemon
 setSpecies this species =
   this { species = species }
 
-setQuickName :: String -> MyPokemon -> MyPokemon
-setQuickName quickName this =
-  this { quickName = quickName }
+setFastName :: String -> MyPokemon -> MyPokemon
+setFastName fastName this =
+  this { fastName = fastName }
 
 setChargeName :: String -> MyPokemon -> MyPokemon
 setChargeName chargeName this =

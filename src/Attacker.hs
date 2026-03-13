@@ -3,10 +3,10 @@ module Attacker (
   Attacker.init,
   pokemon,
   hp,
-  quickDamage,
+  fastDamage,
   chargeDamage,
   energy,
-  quickEnergy,
+  fastEnergy,
   damageEnergy,
   wastedEnergy,
   move,
@@ -37,10 +37,10 @@ import Debug as D
 data Attacker = Attacker {
   pokemon :: Pokemon,
   hp :: Int,
-  quickDamage :: Int,
+  fastDamage :: Int,
   chargeDamage :: Int,
   energy :: Int,
-  quickEnergy :: Int,
+  fastEnergy :: Int,
   damageEnergy :: Int,
   wastedEnergy :: Int,
   cooldown :: Int,        -- time until the next move.
@@ -51,19 +51,19 @@ data Attacker = Attacker {
 
 init :: Pokemon -> Attacker
 init pokemon =
-  let quick = Pokemon.quick pokemon
+  let fast = Pokemon.fast pokemon
   in Attacker {
        pokemon = pokemon,
        hp = Pokemon.hp pokemon,
-       quickDamage = 0,
+       fastDamage = 0,
        chargeDamage = 0,
        energy = 0,
-       quickEnergy = 0,
+       fastEnergy = 0,
        damageEnergy = 0,
        wastedEnergy = 0,
        cooldown = 700,
        moves = [],
-       move = quick,  -- Not used.
+       move = fast,  -- Not used.
        damageWindow = -1
        }
 
@@ -71,9 +71,9 @@ fainted :: Attacker -> Bool
 fainted this =
   Attacker.hp this <= 0
 
-quick :: Attacker -> Move
-quick this =
-  Pokemon.quick $ Attacker.pokemon this
+fast :: Attacker -> Move
+fast this =
+  Pokemon.fast $ Attacker.pokemon this
 
 charge :: Attacker -> Move
 charge this =
@@ -98,17 +98,17 @@ makeMove this =
 
 makeMove' :: Attacker -> Logger String Attacker
 makeMove' this = do
-  let quick = Attacker.quick this
+  let fast = Attacker.fast this
       charge = Attacker.charge this
   ~(move':moves') <- case Attacker.moves this of
     [] ->
       if Attacker.energy this >= negate (Move.energy charge)
 {-
-        -- Do an extra quick move to simulate delayed player reaction
+        -- Do an extra fast move to simulate delayed player reaction
         -- to the flashing charge bars.
         then do
           Logger.log $ "Attacker can use " ++ Move.name charge
-          return [quick, charge]
+          return [fast, charge]
 -}
         -- Now  that the battle gui has changed to enable the charge move
         -- button whenever it's ready and the player can keep tapping in the
@@ -117,11 +117,11 @@ makeMove' this = do
         then do
           Logger.log $ "Attacker can use " ++ Move.name charge
           return [charge]
-        else return [quick]
+        else return [fast]
     val -> return val
-  let -- If it's a quick move, its energy is available immediately.
+  let -- If it's a fast move, its energy is available immediately.
       -- Charge move energy is subtracted at damageWindowStart.
-      (okEnergy, wastedEnergy) = if Move.isQuick move'
+      (okEnergy, wastedEnergy) = if Move.isFast move'
         then calcAllowedEnergy (Move.energy move') this
         else (0, 0)
       cooldown' = Move.durationMs move'
@@ -130,7 +130,7 @@ makeMove' this = do
       damageWindow' = Move.damageWindow move'
       result = this {
         energy = Attacker.energy this + okEnergy,
-        quickEnergy = Attacker.quickEnergy this + okEnergy,
+        fastEnergy = Attacker.fastEnergy this + okEnergy,
         wastedEnergy = Attacker.wastedEnergy this + wastedEnergy,
         cooldown = cooldown',
         moves = moves',
@@ -141,12 +141,12 @@ makeMove' this = do
   return result
 
 takeDamage :: Int -> Bool -> Attacker -> Logger String Attacker
-takeDamage damage isQuick this =
+takeDamage damage isFast this =
   let (okEnergy, wastedEnergy) = calcAllowedEnergy ((damage + 1) `div` 2) this
   in return $ this {
        hp = Attacker.hp this - damage,
-       quickDamage = Attacker.quickDamage this + if isQuick then damage else 0,
-       chargeDamage = Attacker.chargeDamage this + if isQuick then 0 else damage,
+       fastDamage = Attacker.fastDamage this + if isFast then damage else 0,
+       chargeDamage = Attacker.chargeDamage this + if isFast then 0 else damage,
        energy = Attacker.energy this + okEnergy,
        damageEnergy = Attacker.damageEnergy this + okEnergy,
        wastedEnergy = Attacker.wastedEnergy this + wastedEnergy

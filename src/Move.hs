@@ -16,7 +16,7 @@ module Move (
   pvpEnergyDelta,
   pvpDurationTurns,
   isCharge,
-  isQuick,
+  isFast,
   stabFor,
   effectivenessAgainst,
   name,
@@ -61,10 +61,10 @@ new = Move
 
 isCharge :: Move -> Bool
 isCharge this =
-  not $ Move.isQuick this
+  not $ Move.isFast this
 
-isQuick :: Move -> Bool
-isQuick this =
+isFast :: Move -> Bool
+isFast this =
   pvpEnergyDelta this >= 0
 
 stabFor :: Move -> [Type] -> Float

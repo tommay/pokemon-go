@@ -153,7 +153,7 @@ main = Epic.catch (
               PokemonBase.isShadowAvailable base) ||
             useReturn options
           moveSets = [(fast, charged) |
-            fast <- PokemonBase.quickMoves base,
+            fast <- PokemonBase.fastMoves base,
             charged <- PokemonBase.chargeMoves base ++
               if addReturn then [moveReturn] else []]
           multiplier move =

@@ -394,27 +394,27 @@ expandMoves :: GameMaster -> [Pokemon] -> [Pokemon]
 expandMoves gameMaster pokemonList =
   let typicalPokemon = head pokemonList
       base = Pokemon.base typicalPokemon
-      allMovesets = [(quick, charge) |
-        quick <- PokemonBase.quickMoves base,
+      allMovesets = [(fast, charge) |
+        fast <- PokemonBase.fastMoves base,
         charge <- PokemonBase.chargeMoves base]
-      isExistingMoveset quick charge =
-        any (\p -> Pokemon.quick p == quick && Pokemon.charge p == charge)
+      isExistingMoveset fast charge =
+        any (\p -> Pokemon.fast p == fast && Pokemon.charge p == charge)
           pokemonList
       -- In the past we only showed the existing moves and any moves
       -- we can TM to.  But now elite TMs allow TMing to any move so
       -- show everything.  Flag moves that require an elite TM.
-      setMovesAndName pokemon (quick, charge) =
+      setMovesAndName pokemon (fast, charge) =
         let marker = case () of
-              _ | isExistingMoveset quick charge -> "*-" :: String
-              _ | Move.isElite quick || Move.isElite charge -> "$-"
+              _ | isExistingMoveset fast charge -> "*-" :: String
+              _ | Move.isElite fast || Move.isElite charge -> "$-"
               _ -> "  "
             name = Printf.printf "%s%s [%s/%s]"
               marker
               (Pokemon.pname pokemon)
-              (Move.name quick)
+              (Move.name fast)
               (Move.name charge)
         in Pokemon.setName name $
-             PokeUtil.setMoves gameMaster quick charge pokemon
+             PokeUtil.setMoves gameMaster fast charge pokemon
   in map (setMovesAndName typicalPokemon) allMovesets
 
 -- As a heads up that a pokemon has multiple charge moves so I should
@@ -444,7 +444,7 @@ nameNameAndSpeciesAndMoveset pokemon =
 
 movesetString :: Pokemon -> String
 movesetString pokemon =
-  (Move.name $ Pokemon.quick pokemon) ++ "/" ++
+  (Move.name $ Pokemon.fast pokemon) ++ "/" ++
     (Move.name $ Pokemon.charge pokemon)
 
 nameSpeciesAndLevel :: Pokemon -> String
@@ -459,7 +459,7 @@ nameSpeciesAndLevelAndMoveset :: Pokemon -> String
 nameSpeciesAndLevelAndMoveset pokemon =
   Printf.printf "%-15s %-13s/ %-15s"
     (nameSpeciesAndLevel pokemon)
-    (Move.name $ Pokemon.quick pokemon)
+    (Move.name $ Pokemon.fast pokemon)
     (Move.name $ Pokemon.charge pokemon)
 
 leMaybe :: Ord a => Maybe a -> a -> Bool

@@ -46,18 +46,18 @@ makePokemon gameMaster myPokemon = do
           else Epic.fail $ species ++ " can't do " ++ moveType ++ " move " ++
                  name
 
-  quick <- do
+  fast <- do
     let split = Regex.mkRegex "([^,]*)(, *(.*))?"
-        Just [quickName, _, extra] =
-          Regex.matchRegex split $ MyPokemon.quickName myPokemon
-    quick <- getMove "quick" PokemonBase.quickMoves
-      GameMaster.getQuick quickName
-    maybeSetHiddenPowerType gameMaster quick extra
+        Just [fastName, _, extra] =
+          Regex.matchRegex split $ MyPokemon.fastName myPokemon
+    fast <- getMove "fast" PokemonBase.fastMoves
+      GameMaster.getFast fastName
+    maybeSetHiddenPowerType gameMaster fast extra
 
   chargeMoves <- mapM (getMove "charge" PokemonBase.chargeMoves
     GameMaster.getCharge) $ MyPokemon.chargeNames myPokemon
 
-  return $ makeForWhatevers gameMaster ivs name base [quick] chargeMoves
+  return $ makeForWhatevers gameMaster ivs name base [fast] chargeMoves
 
 makeWithAllMovesetsFromBase :: GameMaster -> IVs -> PokemonBase -> [Pokemon]
 makeWithAllMovesetsFromBase gameMaster ivs base =
@@ -66,18 +66,18 @@ makeWithAllMovesetsFromBase gameMaster ivs base =
     ivs
     (PokemonBase.species base)
     base
-    (PokemonBase.quickMoves base)
+    (PokemonBase.fastMoves base)
     (PokemonBase.chargeMoves base)
 
 makeForWhatevers ::
  GameMaster -> IVs -> String -> PokemonBase -> [Move] -> [Move] -> [Pokemon]
-makeForWhatevers gameMaster ivs name base quickMoves chargeMoves =
-  [makeForWhatever gameMaster ivs name base quick charge |
-    charge <- chargeMoves, quick <- quickMoves]
+makeForWhatevers gameMaster ivs name base fastMoves chargeMoves =
+  [makeForWhatever gameMaster ivs name base fast charge |
+    charge <- chargeMoves, fast <- fastMoves]
 
 makeForWhatever ::
   GameMaster -> IVs -> String -> PokemonBase -> Move -> Move -> Pokemon
-makeForWhatever gameMaster ivs name base quick charge =
+makeForWhatever gameMaster ivs name base fast charge =
   let level = IVs.level ivs
       cpMultiplier = GameMaster.getCpMultiplier gameMaster level
       makeStat baseFunc ivFunc =
@@ -89,7 +89,7 @@ makeForWhatever gameMaster ivs name base quick charge =
        (makeStat PokemonBase.attack IVs.attack)
        (makeStat PokemonBase.defense IVs.defense)
        (makeStat PokemonBase.stamina IVs.stamina)
-       quick
+       fast
        charge
        Discounts.noDiscounts
 

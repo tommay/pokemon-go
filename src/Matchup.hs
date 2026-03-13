@@ -5,7 +5,7 @@ module Matchup (
   load,
   defender,
   attacker,
-  quick,
+  fast,
   charge,
   dps,
   minDamage,
@@ -20,7 +20,7 @@ import           Data.Yaml ((.:))
 data Matchup = Matchup {
   defender :: String,
   attacker :: String,
-  quick :: String,
+  fast :: String,
   charge :: String,
   dps :: Float,
   minDamage :: Int,
@@ -32,7 +32,7 @@ instance Yaml.FromJSON Matchup where
     Matchup <$>
     y .: "defender" <*>
     y .: "attacker" <*>
-    y .: "quick" <*>
+    y .: "fast" <*>
     y .: "charge" <*>
     y .: "dps" <*>
     y .: "minDamage" <*>

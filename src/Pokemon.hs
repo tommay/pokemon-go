@@ -10,7 +10,7 @@ module Pokemon (
   attack,
   defense,
   stamina,
-  quick,
+  fast,
   charge,
   hp,
   setName,
@@ -32,7 +32,7 @@ data Pokemon = Pokemon {
   attack      :: Float,
   defense     :: Float,
   stamina     :: Float,
-  quick       :: Move,
+  fast        :: Move,
   charge      :: Move,
   discounts   :: Discounts
 } deriving (Show)

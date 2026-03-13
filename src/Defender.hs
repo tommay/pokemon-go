@@ -3,10 +3,10 @@ module Defender (
   Defender.init,
   pokemon,
   hp,
-  quickDamage,
+  fastDamage,
   chargeDamage,
   energy,
-  quickEnergy,
+  fastEnergy,
   damageEnergy,
   wastedEnergy,
   move,
@@ -36,10 +36,10 @@ import qualified Debug as D
 data Defender = Defender {
   pokemon :: Pokemon,
   hp :: Int,
-  quickDamage :: Int,
+  fastDamage :: Int,
   chargeDamage :: Int,
   energy :: Int,
-  quickEnergy :: Int,
+  fastEnergy :: Int,
   damageEnergy :: Int,
   wastedEnergy :: Int,
   cooldown :: Int,        -- time until the next move.
@@ -51,31 +51,31 @@ data Defender = Defender {
 
 init :: Pokemon -> Defender
 init pokemon =
-  let quick = Pokemon.quick pokemon
+  let fast = Pokemon.fast pokemon
   in Defender {
        pokemon = pokemon,
        hp = Pokemon.hp pokemon * 2,
-       quickDamage = 0,
+       fastDamage = 0,
        chargeDamage = 0,
        energy = 0,
-       quickEnergy = 0,
+       fastEnergy = 0,
        damageEnergy = 0,
        wastedEnergy = 0,
        cooldown = 1600,
-       -- The first two moves are always quick and the interval is fixed.
+       -- The first two moves are always fast and the interval is fixed.
        -- https://thesilphroad.com/tips-and-news/defender-attacks-twice-immediately
        -- XXX What if the damage window for the first move is never reached?
        -- Is it also fixed?
-       moves = [(quick, 1000),
-                (quick, Move.durationMs quick + 2000)],
-       move = quick,  -- Not used.
+       moves = [(fast, 1000),
+                (fast, Move.durationMs fast + 2000)],
+       move = fast,  -- Not used.
        damageWindow = -1,
        rnd = cycle [True, False]
        }
 
-quick :: Defender -> Move
-quick this =
-  Pokemon.quick $ Defender.pokemon this
+fast :: Defender -> Move
+fast this =
+  Pokemon.fast $ Defender.pokemon this
 
 charge :: Defender -> Move
 charge this =
@@ -103,13 +103,13 @@ makeMove' raidGroup this = do
   let -- Get the next move and any move(s) after that.
       (move', cooldown'):moves' = Defender.moves this
   Logger.log $ "Defender uses " ++ Move.name move'
-  let -- If it's a quick move, its energy is available immediately
+  let -- If it's a fast move, its energy is available immediately
       -- for the decision about the next move.  Charge move energy
       -- is subtracted at damageWindowStart; this affects damage energy
       -- gain until it is subtracted  But we have to account for the
       -- charge energy that will be used to decide what move to make.
       (okEnergy, wastedEnergy, newEnergy, decisionEnergy) =
-        if Move.isQuick move' then
+        if Move.isFast move' then
           let (okEnergy, wastedEnergy) =
                 calcAllowedEnergy (Move.energy move') this
           in (okEnergy, wastedEnergy,
@@ -120,13 +120,13 @@ makeMove' raidGroup this = do
             Defender.energy this,
             -- Charge Move.energy is negative.
             Defender.energy this + Move.energy move')
-      quick = Defender.quick this
+      fast = Defender.fast this
       charge = Defender.charge this
   -- Be careful to advance the random number generator only if we actually
   -- need to use it, since we're relying on the True, False, ... sequence.
   (moves'', rnd') <- case moves' of
     [] -> do
-      -- Both quick moves and charge moves get an additional 1.5-2.5
+      -- Both fast moves and charge moves get an additional 1.5-2.5
       -- seconds added to their duration.  Just use the average, 2.
       -- https://www.reddit.com/r/TheSilphRoad/comments/52b453/testing_gym_combat_misconceptions_2/
       if raidGroup || decisionEnergy >= negate (Move.energy charge) then do
@@ -136,18 +136,18 @@ makeMove' raidGroup this = do
           Logger.log $ "Defender chooses " ++ Move.name charge ++ " for next move"
           return ([(charge, Move.durationMs charge + 2000)], rnd')
         else do
-          Logger.log $ "Defender chooses " ++ Move.name quick ++ " for next move"
-          return ([(quick, Move.durationMs quick + 2000)], rnd')
+          Logger.log $ "Defender chooses " ++ Move.name fast ++ " for next move"
+          return ([(fast, Move.durationMs fast + 2000)], rnd')
       else do
-        Logger.log $ "Defender must use " ++ Move.name quick ++ " for next move"
-        return ([(quick, Move.durationMs quick + 2000)], Defender.rnd this)
+        Logger.log $ "Defender must use " ++ Move.name fast ++ " for next move"
+        return ([(fast, Move.durationMs fast + 2000)], Defender.rnd this)
     val -> return (val, Defender.rnd this)
   -- Set countdown until damage is done to the opponent and it gets
   -- its energy boost and our charge move energy is subtracted.
   let damageWindow' = Move.damageWindow move'
   return $ this {
     energy = newEnergy,
-    quickEnergy = Defender.quickEnergy this + okEnergy,
+    fastEnergy = Defender.fastEnergy this + okEnergy,
     wastedEnergy = Defender.wastedEnergy this + wastedEnergy,
     cooldown = cooldown',
     moves = moves'',
@@ -157,12 +157,12 @@ makeMove' raidGroup this = do
     }
 
 takeDamage :: Int -> Bool -> Defender -> Logger String Defender
-takeDamage damage isQuick this =
+takeDamage damage isFast this =
   let (okEnergy, wastedEnergy) = calcAllowedEnergy ((damage + 1) `div` 2) this
   in return $ this {
        hp = Defender.hp this - damage,
-       quickDamage = Defender.quickDamage this + if isQuick then damage else 0,
-       chargeDamage = Defender.chargeDamage this + if isQuick then 0 else damage,
+       fastDamage = Defender.fastDamage this + if isFast then damage else 0,
+       chargeDamage = Defender.chargeDamage this + if isFast then 0 else damage,
        energy = Defender.energy this + okEnergy,
        damageEnergy = Defender.damageEnergy this + okEnergy,
        wastedEnergy = Defender.wastedEnergy this + wastedEnergy

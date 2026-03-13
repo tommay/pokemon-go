@@ -178,7 +178,7 @@ parseOutputSpec string =
 --
 defaultIvs = IVs.new 35 15 13 13
 
--- Attacker is name, quickName, chargeName, isMega.
+-- Attacker is name, fastName, chargeName, isMega.
 --
 data Attacker = Attacker String String String Bool
   deriving (Show, Eq, Generic, NFData)
@@ -401,6 +401,6 @@ makeAttacker :: Pokemon -> Attacker
 makeAttacker pokemon =
   Attacker
     (Pokemon.species pokemon)
-    (Move.name $ Pokemon.quick pokemon)
+    (Move.name $ Pokemon.fast pokemon)
     (Move.name $ Pokemon.charge pokemon)
     (PokemonBase.isMega $ Pokemon.base $ pokemon)

@@ -76,7 +76,7 @@ getWorseMatchups gameMaster matchups species old new =
 
 makeFilterKey :: Matchup -> [String]
 makeFilterKey =
-  sequence [Matchup.attacker, Matchup.quick]
+  sequence [Matchup.attacker, Matchup.fast]
 
 makeGroupKey :: Matchup -> [String]
 makeGroupKey =

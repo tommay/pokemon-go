@@ -139,11 +139,11 @@ optParseMoveset = O.eitherReader parseMoveset
 parseMoveset :: String -> Either String Moveset
 parseMoveset string =
   let attoParseMoveset = do
-        quickName <- some $ Atto.notChar '/'
+        fastName <- some $ Atto.notChar '/'
         Atto.char '/'
         chargeName <- some $ Atto.anyChar
         Atto.endOfInput
-        return (quickName, chargeName)
+        return (fastName, chargeName)
   in case Atto.parseOnly attoParseMoveset (Text.pack string) of
     Left _ -> Left $ "`" ++ string ++ "' should look like FAST/CHARGE"
     Right moveset -> Right moveset
@@ -240,14 +240,14 @@ makeMyPokemonFromPokemon pokemon =
     MyPokemon.name =
       Printf.printf "%s %s/%s %d"
       (Pokemon.pname pokemon)
-      (Move.name $ Pokemon.quick pokemon)
+      (Move.name $ Pokemon.fast pokemon)
       (Move.name $ Pokemon.charge pokemon)
       (Move.bars $ Pokemon.charge pokemon),
     MyPokemon.species = PokemonBase.species $ Pokemon.base pokemon,
     MyPokemon.cp = undefined,
     MyPokemon.hp = undefined,
     MyPokemon.stardust = undefined,
-    MyPokemon.quickName = Move.name $ Pokemon.quick pokemon,
+    MyPokemon.fastName = Move.name $ Pokemon.fast pokemon,
     MyPokemon.chargeName = Move.name $ Pokemon.charge pokemon,
     MyPokemon.maybeChargeName2 = Nothing,
     MyPokemon.ivs = Pokemon.ivs pokemon,
@@ -256,13 +256,13 @@ makeMyPokemonFromPokemon pokemon =
 
 setMoves :: Epic.MonadCatch m =>
   GameMaster -> String -> String -> MyPokemon -> m MyPokemon
-setMoves gameMaster quickName chargeName myPokemon = do
+setMoves gameMaster fastName chargeName myPokemon = do
   base <-
     GameMaster.getPokemonBase gameMaster $ MyPokemon.species myPokemon
-  quickName <- getMoveName "quick" PokemonBase.quickMoves quickName base
+  fastName <- getMoveName "fast" PokemonBase.fastMoves fastName base
   chargeName <- getMoveName "charge" PokemonBase.chargeMoves chargeName base
   return $
-    MyPokemon.setQuickName quickName $
+    MyPokemon.setFastName fastName $
     MyPokemon.setChargeName chargeName myPokemon
 
 getMoveName :: Epic.MonadCatch m => String -> (PokemonBase -> [Move]) -> String -> PokemonBase -> m String

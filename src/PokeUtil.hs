@@ -59,17 +59,17 @@ setLevel gameMaster level pokemon =
        ivs
        (Pokemon.pname pokemon)
        (Pokemon.base pokemon)
-       (Pokemon.quick pokemon)
+       (Pokemon.fast pokemon)
        (Pokemon.charge pokemon)
 
 setMoves :: GameMaster -> Move -> Move -> Pokemon -> Pokemon
-setMoves gameMaster quick charge pokemon =
+setMoves gameMaster fast charge pokemon =
   MakePokemon.makeForWhatever
     gameMaster
     (Pokemon.ivs pokemon)
     (Pokemon.pname pokemon)
     (Pokemon.base pokemon)
-    quick
+    fast
     charge
 
 levelToString :: Float -> String

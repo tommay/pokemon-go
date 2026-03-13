@@ -215,7 +215,7 @@ main =
             filter (isAllowed $ allowedPokemon options) $
             filter (not . (isBanned $ bannedPokemon options)) $
             filter (isPremier $ premier options) $
-            filter (hasMoveType PokemonBase.quickMoves $
+            filter (hasMoveType PokemonBase.fastMoves $
               maybeFastType options) $
             filter (hasMoveType PokemonBase.chargeMoves $
               maybeChargedType options) $

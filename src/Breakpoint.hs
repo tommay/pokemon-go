@@ -18,12 +18,12 @@ getBreakpoints :: GameMaster -> WeatherBonus -> Float ->
   Pokemon -> Pokemon -> [(Float, Int, Float)]
 getBreakpoints gameMaster weatherBonus friendBonus attacker defender =
   let levels = GameMaster.allLevels gameMaster
-      quick = Pokemon.quick attacker
+      fast = Pokemon.fast attacker
       levelAndDamageList = map (\ level ->
         let attacker' = PokeUtil.setLevel gameMaster level attacker
             damage = Battle.getDamage weatherBonus friendBonus
-              attacker' quick defender
-            dps = fromIntegral damage / Move.duration quick
+              attacker' fast defender
+            dps = fromIntegral damage / Move.duration fast
         in (level, damage, dps)) levels
       filtered = filter (\ (level, _, _) -> level >= Pokemon.level attacker)
         levelAndDamageList
