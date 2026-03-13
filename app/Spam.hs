@@ -132,7 +132,7 @@ main = Epic.catch (
     do
       gameMaster <- join $ GameMaster.load
       options <- getOptions gameMaster
-      moveReturn <- GameMaster.getCharge gameMaster "return"
+      moveReturn <- GameMaster.getCharged gameMaster "return"
       let (attacker, ivs) = Main.attacker options
       base <- GameMaster.getPokemonBase gameMaster $ attacker
       let statProduct = if useStatProduct options
@@ -154,7 +154,7 @@ main = Epic.catch (
             useReturn options
           moveSets = [(fast, charged) |
             fast <- PokemonBase.fastMoves base,
-            charged <- PokemonBase.chargeMoves base ++
+            charged <- PokemonBase.chargedMoves base ++
               if addReturn then [moveReturn] else []]
           multiplier move =
             Move.stabFor move types *

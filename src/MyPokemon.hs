@@ -10,9 +10,9 @@ module MyPokemon (
   hp,
   stardust,
   fastName,
-  chargeName,
-  maybeChargeName2,
-  chargeNames,
+  chargedName,
+  maybeChargedName2,
+  chargedNames,
   ivs,
   stats,
   level,
@@ -21,7 +21,7 @@ module MyPokemon (
   setLevel,
   setSpecies,
   setFastName,
-  setChargeName,
+  setChargedName,
 ) where
 
 import qualified Epic
@@ -51,8 +51,8 @@ data MyPokemon = MyPokemon {
   hp          :: Int,
   stardust    :: Int,
   fastName    :: String,
-  chargeName  :: String,
-  maybeChargeName2 :: Maybe String,
+  chargedName :: String,
+  maybeChargedName2 :: Maybe String,
   ivs         :: IVs,
   stats       :: Maybe Stats
 } deriving (Show)
@@ -69,8 +69,8 @@ instance Yaml.FromJSON MyPokemon where
           y .: "hp" <*>
           y .: "dust" <*>
           y .: "fast" <*>
-          y .: "charge" <*>
-          y .:? "charge2" <*>
+          y .: "charged" <*>
+          y .:? "charged2" <*>
           y .: "ivs" <*>
           y .:? "stats"
 
@@ -83,8 +83,8 @@ instance Builder.ToYaml MyPokemon where
       "hp" .== hp this,
       "dust" .== stardust this,
       "fast" .== (Text.pack $ fastName this),
-      "charge" .== (Text.pack $ chargeName this),
-      "charge2" .=? (Text.pack <$> maybeChargeName2 this),
+      "charged" .== (Text.pack $ chargedName this),
+      "charged2" .=? (Text.pack <$> maybeChargedName2 this),
       "ivs" .== ivs this,
       "stats" .=? stats this
     ]
@@ -101,9 +101,9 @@ load maybeFilepath = do
     Left yamlParseException ->
       Epic.fail $ Yaml.prettyPrintParseException yamlParseException
 
-chargeNames :: MyPokemon -> [String]
-chargeNames this =
-  Maybe.catMaybes [Just $ chargeName this, maybeChargeName2 this]
+chargedNames :: MyPokemon -> [String]
+chargedNames this =
+  Maybe.catMaybes [Just $ chargedName this, maybeChargedName2 this]
 
 level :: MyPokemon -> Float
 level = getIv IVs.level
@@ -132,6 +132,6 @@ setFastName :: String -> MyPokemon -> MyPokemon
 setFastName fastName this =
   this { fastName = fastName }
 
-setChargeName :: String -> MyPokemon -> MyPokemon
-setChargeName chargeName this =
-  this { chargeName = chargeName }
+setChargedName :: String -> MyPokemon -> MyPokemon
+setChargedName chargedName this =
+  this { chargedName = chargedName }

@@ -25,7 +25,7 @@ import qualified Text.Regex as Regex
 import qualified Debug as D
 
 -- Turn each MyPokemon into a list of Pokemon, one for each of the
--- MyPokemon's charge moves.
+-- MyPokemon's charged moves.
 --
 makePokemon :: Epic.MonadCatch m => GameMaster -> MyPokemon -> m [Pokemon]
 makePokemon gameMaster myPokemon = do
@@ -54,10 +54,10 @@ makePokemon gameMaster myPokemon = do
       GameMaster.getFast fastName
     maybeSetHiddenPowerType gameMaster fast extra
 
-  chargeMoves <- mapM (getMove "charge" PokemonBase.chargeMoves
-    GameMaster.getCharge) $ MyPokemon.chargeNames myPokemon
+  chargedMoves <- mapM (getMove "charged" PokemonBase.chargedMoves
+    GameMaster.getCharged) $ MyPokemon.chargedNames myPokemon
 
-  return $ makeForWhatevers gameMaster ivs name base [fast] chargeMoves
+  return $ makeForWhatevers gameMaster ivs name base [fast] chargedMoves
 
 makeWithAllMovesetsFromBase :: GameMaster -> IVs -> PokemonBase -> [Pokemon]
 makeWithAllMovesetsFromBase gameMaster ivs base =
@@ -67,17 +67,17 @@ makeWithAllMovesetsFromBase gameMaster ivs base =
     (PokemonBase.species base)
     base
     (PokemonBase.fastMoves base)
-    (PokemonBase.chargeMoves base)
+    (PokemonBase.chargedMoves base)
 
 makeForWhatevers ::
  GameMaster -> IVs -> String -> PokemonBase -> [Move] -> [Move] -> [Pokemon]
-makeForWhatevers gameMaster ivs name base fastMoves chargeMoves =
-  [makeForWhatever gameMaster ivs name base fast charge |
-    charge <- chargeMoves, fast <- fastMoves]
+makeForWhatevers gameMaster ivs name base fastMoves chargedMoves =
+  [makeForWhatever gameMaster ivs name base fast charged |
+    charged <- chargedMoves, fast <- fastMoves]
 
 makeForWhatever ::
   GameMaster -> IVs -> String -> PokemonBase -> Move -> Move -> Pokemon
-makeForWhatever gameMaster ivs name base fast charge =
+makeForWhatever gameMaster ivs name base fast charged =
   let level = IVs.level ivs
       cpMultiplier = GameMaster.getCpMultiplier gameMaster level
       makeStat baseFunc ivFunc =
@@ -90,7 +90,7 @@ makeForWhatever gameMaster ivs name base fast charge =
        (makeStat PokemonBase.defense IVs.defense)
        (makeStat PokemonBase.stamina IVs.stamina)
        fast
-       charge
+       charged
        Discounts.noDiscounts
 
 maybeSetHiddenPowerType :: (Epic.MonadCatch m) =>

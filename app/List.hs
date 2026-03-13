@@ -217,7 +217,7 @@ main =
             filter (isPremier $ premier options) $
             filter (hasMoveType PokemonBase.fastMoves $
               maybeFastType options) $
-            filter (hasMoveType PokemonBase.chargeMoves $
+            filter (hasMoveType PokemonBase.chargedMoves $
               maybeChargedType options) $
             filter (hasShadowForm $ needsShadowAvailable options)
             pokemonBases

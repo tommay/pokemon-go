@@ -54,8 +54,8 @@ main =
     $ Exit.die
 
 showWorse :: (String, String, Int, Int) -> String
-showWorse (defender, charge, oldDamage, newDamage) =
-  Printf.printf "%s %s: %d => %d" defender charge oldDamage newDamage
+showWorse (defender, charged, oldDamage, newDamage) =
+  Printf.printf "%s %s: %d => %d" defender charged oldDamage newDamage
 
 getWorseMatchups :: GameMaster -> [Matchup] -> String -> String -> String ->
   [(String, String, Int, Int)]
@@ -69,7 +69,7 @@ getWorseMatchups gameMaster matchups species old new =
          Just news -> 
            Maybe.mapMaybe (\ new ->
              if Matchup.minDamage new < Matchup.minDamage old
-               then Just (Matchup.defender old, Matchup.charge old,
+               then Just (Matchup.defender old, Matchup.charged old,
                  Matchup.minDamage old, Matchup.minDamage new)
                else Nothing) news)
        mOld
@@ -80,5 +80,5 @@ makeFilterKey =
 
 makeGroupKey :: Matchup -> [String]
 makeGroupKey =
-  sequence [Matchup.defender, Matchup.charge]
+  sequence [Matchup.defender, Matchup.charged]
 

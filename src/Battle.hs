@@ -206,6 +206,6 @@ getDamage weatherBonus friendBonus attacker move defender =
 
 getEnergy :: Move -> Maybe Int
 getEnergy move =
-  if Move.isCharge move
+  if Move.isCharged move
     then Just $ negate $ Move.energy move
     else Nothing

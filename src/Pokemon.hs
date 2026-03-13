@@ -11,7 +11,7 @@ module Pokemon (
   defense,
   stamina,
   fast,
-  charge,
+  charged,
   hp,
   setName,
 ) where
@@ -33,7 +33,7 @@ data Pokemon = Pokemon {
   defense     :: Float,
   stamina     :: Float,
   fast        :: Move,
-  charge      :: Move,
+  charged     :: Move,
   discounts   :: Discounts
 } deriving (Show)
 

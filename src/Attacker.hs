@@ -4,7 +4,7 @@ module Attacker (
   pokemon,
   hp,
   fastDamage,
-  chargeDamage,
+  chargedDamage,
   energy,
   fastEnergy,
   damageEnergy,
@@ -38,7 +38,7 @@ data Attacker = Attacker {
   pokemon :: Pokemon,
   hp :: Int,
   fastDamage :: Int,
-  chargeDamage :: Int,
+  chargedDamage :: Int,
   energy :: Int,
   fastEnergy :: Int,
   damageEnergy :: Int,
@@ -56,7 +56,7 @@ init pokemon =
        pokemon = pokemon,
        hp = Pokemon.hp pokemon,
        fastDamage = 0,
-       chargeDamage = 0,
+       chargedDamage = 0,
        energy = 0,
        fastEnergy = 0,
        damageEnergy = 0,
@@ -75,9 +75,9 @@ fast :: Attacker -> Move
 fast this =
   Pokemon.fast $ Attacker.pokemon this
 
-charge :: Attacker -> Move
-charge this =
-  Pokemon.charge $ Attacker.pokemon this
+charged :: Attacker -> Move
+charged this =
+  Pokemon.charged $ Attacker.pokemon this
 
 tick :: Int -> Attacker -> Attacker
 tick n this =
@@ -99,28 +99,28 @@ makeMove this =
 makeMove' :: Attacker -> Logger String Attacker
 makeMove' this = do
   let fast = Attacker.fast this
-      charge = Attacker.charge this
+      charged = Attacker.charged this
   ~(move':moves') <- case Attacker.moves this of
     [] ->
-      if Attacker.energy this >= negate (Move.energy charge)
+      if Attacker.energy this >= negate (Move.energy charged)
 {-
         -- Do an extra fast move to simulate delayed player reaction
         -- to the flashing charge bars.
         then do
-          Logger.log $ "Attacker can use " ++ Move.name charge
-          return [fast, charge]
+          Logger.log $ "Attacker can use " ++ Move.name charged
+          return [fast, charged]
 -}
-        -- Now  that the battle gui has changed to enable the charge move
+        -- Now  that the battle gui has changed to enable the charged move
         -- button whenever it's ready and the player can keep tapping in the
         -- same place, there is no reaction time to simulate and we can
-        -- fire fire off the charge move asap.
+        -- fire fire off the charged move asap.
         then do
-          Logger.log $ "Attacker can use " ++ Move.name charge
-          return [charge]
+          Logger.log $ "Attacker can use " ++ Move.name charged
+          return [charged]
         else return [fast]
     val -> return val
   let -- If it's a fast move, its energy is available immediately.
-      -- Charge move energy is subtracted at damageWindowStart.
+      -- Charged move energy is subtracted at damageWindowStart.
       (okEnergy, wastedEnergy) = if Move.isFast move'
         then calcAllowedEnergy (Move.energy move') this
         else (0, 0)
@@ -146,7 +146,7 @@ takeDamage damage isFast this =
   in return $ this {
        hp = Attacker.hp this - damage,
        fastDamage = Attacker.fastDamage this + if isFast then damage else 0,
-       chargeDamage = Attacker.chargeDamage this + if isFast then 0 else damage,
+       chargedDamage = Attacker.chargedDamage this + if isFast then 0 else damage,
        energy = Attacker.energy this + okEnergy,
        damageEnergy = Attacker.damageEnergy this + okEnergy,
        wastedEnergy = Attacker.wastedEnergy this + wastedEnergy

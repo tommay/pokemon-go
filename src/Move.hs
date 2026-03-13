@@ -15,7 +15,7 @@ module Move (
   pvpPower,
   pvpEnergyDelta,
   pvpDurationTurns,
-  isCharge,
+  isCharged,
   isFast,
   stabFor,
   effectivenessAgainst,
@@ -59,8 +59,8 @@ instance Show Move where
 
 new = Move
 
-isCharge :: Move -> Bool
-isCharge this =
+isCharged :: Move -> Bool
+isCharged this =
   not $ Move.isFast this
 
 isFast :: Move -> Bool
@@ -92,14 +92,14 @@ name this =
 
 bars :: Move -> Int
 bars this =
-  if Move.isCharge this
+  if Move.isCharged this
     then case Move.energy this of
       -33 -> 3
       -50 -> 2
       -100 -> 1
       _ ->  error $ "Unknown energy for " ++ Move.name this
     else  error $
-      "`" ++ Move.name this ++ "' is not a charge move and has no bars"
+      "`" ++ Move.name this ++ "' is not a charged move and has no bars"
 
 isHiddenPower :: Move -> Bool
 isHiddenPower this =

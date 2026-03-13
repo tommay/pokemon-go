@@ -199,7 +199,7 @@ getOptions =
       optRaidGroup = O.switch
         (  O.long "raidgroup"
         <> O.short 'R'
-        <> O.help "Defender is facing a raid group and always has energy for a charge move")
+        <> O.help "Defender is facing a raid group and always has energy for a charged move")
       optShowMoveset = O.switch
         (  O.short 'M'
         <> O.help "Show movesets for -a")
@@ -235,7 +235,7 @@ main =
                   return $ map (doTweakLevel $ tweakLevel options) myPokemon
                 -- makePokemon expands each MyPokemon from the file
                 -- into m [Pokemon] with one Pokemon for each of the
-                -- MyPokemon's charge moves.  So the mapM and
+                -- MyPokemon's charged moves.  So the mapM and
                 -- loadPokemon return type m [[Pokemon]].
                 mapM (MakePokemon.makePokemon gameMaster) myPokemon
           -- Load all the files and concat them into one [[Pokemon]].
@@ -385,7 +385,7 @@ tempEvolve gameMaster pokemon pokemonBase =
      }
 
 -- pokemonList represents a single pokemon with one element for each
--- charge move it has.  expandMoves creates an element for each
+-- charged move it has.  expandMoves creates an element for each
 -- possible moveset.  XXX It may be nicer to have MakePokemon take a
 -- flag that tells it to create all movesets, or to pass it the
 -- movesets to create, rather than hacking up the list it does create.
@@ -394,32 +394,32 @@ expandMoves :: GameMaster -> [Pokemon] -> [Pokemon]
 expandMoves gameMaster pokemonList =
   let typicalPokemon = head pokemonList
       base = Pokemon.base typicalPokemon
-      allMovesets = [(fast, charge) |
+      allMovesets = [(fast, charged) |
         fast <- PokemonBase.fastMoves base,
-        charge <- PokemonBase.chargeMoves base]
-      isExistingMoveset fast charge =
-        any (\p -> Pokemon.fast p == fast && Pokemon.charge p == charge)
+        charged <- PokemonBase.chargedMoves base]
+      isExistingMoveset fast charged =
+        any (\p -> Pokemon.fast p == fast && Pokemon.charged p == charged)
           pokemonList
       -- In the past we only showed the existing moves and any moves
       -- we can TM to.  But now elite TMs allow TMing to any move so
       -- show everything.  Flag moves that require an elite TM.
-      setMovesAndName pokemon (fast, charge) =
+      setMovesAndName pokemon (fast, charged) =
         let marker = case () of
-              _ | isExistingMoveset fast charge -> "*-" :: String
-              _ | Move.isElite fast || Move.isElite charge -> "$-"
+              _ | isExistingMoveset fast charged -> "*-" :: String
+              _ | Move.isElite fast || Move.isElite charged -> "$-"
               _ -> "  "
             name = Printf.printf "%s%s [%s/%s]"
               marker
               (Pokemon.pname pokemon)
               (Move.name fast)
-              (Move.name charge)
+              (Move.name charged)
         in Pokemon.setName name $
-             PokeUtil.setMoves gameMaster fast charge pokemon
+             PokeUtil.setMoves gameMaster fast charged pokemon
   in map (setMovesAndName typicalPokemon) allMovesets
 
--- As a heads up that a pokemon has multiple charge moves so I should
+-- As a heads up that a pokemon has multiple charged moves so I should
 -- be careful to use the correct one, flag pokemon with multiple moves
--- by adding "<" or ">" to indicate which charge move to use.
+-- by adding "<" or ">" to indicate which charged move to use.
 --
 flagNamesForMultipleMoves :: [Pokemon] -> [Pokemon]
 flagNamesForMultipleMoves pokemonList = case pokemonList of
@@ -445,7 +445,7 @@ nameNameAndSpeciesAndMoveset pokemon =
 movesetString :: Pokemon -> String
 movesetString pokemon =
   (Move.name $ Pokemon.fast pokemon) ++ "/" ++
-    (Move.name $ Pokemon.charge pokemon)
+    (Move.name $ Pokemon.charged pokemon)
 
 nameSpeciesAndLevel :: Pokemon -> String
 nameSpeciesAndLevel pokemon =
@@ -460,7 +460,7 @@ nameSpeciesAndLevelAndMoveset pokemon =
   Printf.printf "%-15s %-13s/ %-15s"
     (nameSpeciesAndLevel pokemon)
     (Move.name $ Pokemon.fast pokemon)
-    (Move.name $ Pokemon.charge pokemon)
+    (Move.name $ Pokemon.charged pokemon)
 
 leMaybe :: Ord a => Maybe a -> a -> Bool
 leMaybe =

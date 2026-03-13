@@ -4,7 +4,7 @@ module Defender (
   pokemon,
   hp,
   fastDamage,
-  chargeDamage,
+  chargedDamage,
   energy,
   fastEnergy,
   damageEnergy,
@@ -37,7 +37,7 @@ data Defender = Defender {
   pokemon :: Pokemon,
   hp :: Int,
   fastDamage :: Int,
-  chargeDamage :: Int,
+  chargedDamage :: Int,
   energy :: Int,
   fastEnergy :: Int,
   damageEnergy :: Int,
@@ -56,7 +56,7 @@ init pokemon =
        pokemon = pokemon,
        hp = Pokemon.hp pokemon * 2,
        fastDamage = 0,
-       chargeDamage = 0,
+       chargedDamage = 0,
        energy = 0,
        fastEnergy = 0,
        damageEnergy = 0,
@@ -77,9 +77,9 @@ fast :: Defender -> Move
 fast this =
   Pokemon.fast $ Defender.pokemon this
 
-charge :: Defender -> Move
-charge this =
-  Pokemon.charge $ Defender.pokemon this
+charged :: Defender -> Move
+charged this =
+  Pokemon.charged $ Defender.pokemon this
 
 tick :: Int -> Defender -> Defender
 tick n this =
@@ -104,10 +104,10 @@ makeMove' raidGroup this = do
       (move', cooldown'):moves' = Defender.moves this
   Logger.log $ "Defender uses " ++ Move.name move'
   let -- If it's a fast move, its energy is available immediately
-      -- for the decision about the next move.  Charge move energy
+      -- for the decision about the next move.  Charged move energy
       -- is subtracted at damageWindowStart; this affects damage energy
       -- gain until it is subtracted  But we have to account for the
-      -- charge energy that will be used to decide what move to make.
+      -- charged energy that will be used to decide what move to make.
       (okEnergy, wastedEnergy, newEnergy, decisionEnergy) =
         if Move.isFast move' then
           let (okEnergy, wastedEnergy) =
@@ -118,23 +118,23 @@ makeMove' raidGroup this = do
         else
           (0, 0,
             Defender.energy this,
-            -- Charge Move.energy is negative.
+            -- Charged Move.energy is negative.
             Defender.energy this + Move.energy move')
       fast = Defender.fast this
-      charge = Defender.charge this
+      charged = Defender.charged this
   -- Be careful to advance the random number generator only if we actually
   -- need to use it, since we're relying on the True, False, ... sequence.
   (moves'', rnd') <- case moves' of
     [] -> do
-      -- Both fast moves and charge moves get an additional 1.5-2.5
+      -- Both fast moves and charged moves get an additional 1.5-2.5
       -- seconds added to their duration.  Just use the average, 2.
       -- https://www.reddit.com/r/TheSilphRoad/comments/52b453/testing_gym_combat_misconceptions_2/
-      if raidGroup || decisionEnergy >= negate (Move.energy charge) then do
-        Logger.log $ "Defender can use " ++ Move.name charge
+      if raidGroup || decisionEnergy >= negate (Move.energy charged) then do
+        Logger.log $ "Defender can use " ++ Move.name charged
         let (random : rnd') = Defender.rnd this
         if random then do
-          Logger.log $ "Defender chooses " ++ Move.name charge ++ " for next move"
-          return ([(charge, Move.durationMs charge + 2000)], rnd')
+          Logger.log $ "Defender chooses " ++ Move.name charged ++ " for next move"
+          return ([(charged, Move.durationMs charged + 2000)], rnd')
         else do
           Logger.log $ "Defender chooses " ++ Move.name fast ++ " for next move"
           return ([(fast, Move.durationMs fast + 2000)], rnd')
@@ -143,7 +143,7 @@ makeMove' raidGroup this = do
         return ([(fast, Move.durationMs fast + 2000)], Defender.rnd this)
     val -> return (val, Defender.rnd this)
   -- Set countdown until damage is done to the opponent and it gets
-  -- its energy boost and our charge move energy is subtracted.
+  -- its energy boost and our charged move energy is subtracted.
   let damageWindow' = Move.damageWindow move'
   return $ this {
     energy = newEnergy,
@@ -162,7 +162,7 @@ takeDamage damage isFast this =
   in return $ this {
        hp = Defender.hp this - damage,
        fastDamage = Defender.fastDamage this + if isFast then damage else 0,
-       chargeDamage = Defender.chargeDamage this + if isFast then 0 else damage,
+       chargedDamage = Defender.chargedDamage this + if isFast then 0 else damage,
        energy = Defender.energy this + okEnergy,
        damageEnergy = Defender.damageEnergy this + okEnergy,
        wastedEnergy = Defender.wastedEnergy this + wastedEnergy
