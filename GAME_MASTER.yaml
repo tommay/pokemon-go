@@ -130,13 +130,12 @@
     iapItemDisplay:
       sku: pgorelease.april2_2026_deluxe_event_pass_track_unlock
       sortOrder: 1
-      hidden: true
       title: season_pass_premium_track_title_sustainabilityweek2026
       description: gotour_2025_deluxe_event_pass_track_unlock_description
       skuEnableTime: '2025-04-14T10:00:00'
-      skuDisableTime: '2025-04-22T20:00:00'
+      skuDisableTime: '2026-04-22T20:00:00'
       skuEnableTimeUtcMs: '1744624800000'
-      skuDisableTimeUtcMs: '1745352000000'
+      skuDisableTimeUtcMs: '1776888000000'
       imageUrl: https://pgorelease-assets.nianticstatic.com/GameDesignAssets%2Fpgo-paid-sustainability-week-2026-nologo.jpg
 - templateId: APRIL2_2026_DELUXE_EVENT_PASS_TRACK_UNLOCK_PLUS_POINTS
   data:
@@ -144,14 +143,41 @@
     iapItemDisplay:
       sku: pgorelease.april2_2026_deluxe_event_pass_track_unlock_plus_points
       sortOrder: 1
-      hidden: true
       title: season_pass_premium_track_plus_six_ranks_title_sustainabilityweek2026
       description: event_pass_plus_points_6_ranks_description
       skuEnableTime: '2025-04-14T10:00:00'
-      skuDisableTime: '2025-04-22T20:00:00'
+      skuDisableTime: '2026-04-22T20:00:00'
       skuEnableTimeUtcMs: '1744624800000'
-      skuDisableTimeUtcMs: '1745352000000'
+      skuDisableTimeUtcMs: '1776888000000'
       imageUrl: https://pgorelease-assets.nianticstatic.com/GameDesignAssets%2Fpgo-paid-sustainability-week-2026-nologo.jpg
+- templateId: APRIL3_2026_DELUXE_EVENT_PASS_TRACK_UNLOCK
+  data:
+    templateId: APRIL3_2026_DELUXE_EVENT_PASS_TRACK_UNLOCK
+    iapItemDisplay:
+      sku: pgorelease.april3_2026_deluxe_event_pass_track_unlock
+      sortOrder: 1
+      hidden: true
+      title: season_pass_premium_track_title_steeled_resolve_2026
+      description: gotour_2025_deluxe_event_pass_track_unlock_description
+      skuEnableTime: '2025-04-28T10:00:00'
+      skuDisableTime: '2025-05-06T20:00:00'
+      skuEnableTimeUtcMs: '1745834400000'
+      skuDisableTimeUtcMs: '1746561600000'
+      imageUrl: https://pgorelease-assets.nianticstatic.com/GameDesignAssets%2FPGO-MCS_Memory_Lane_Meltan_Celebration_SRR_v1-1024x576.jpg
+- templateId: APRIL3_2026_DELUXE_EVENT_PASS_TRACK_UNLOCK_PLUS_POINTS
+  data:
+    templateId: APRIL3_2026_DELUXE_EVENT_PASS_TRACK_UNLOCK_PLUS_POINTS
+    iapItemDisplay:
+      sku: pgorelease.april3_2026_deluxe_event_pass_track_unlock_plus_points
+      sortOrder: 1
+      hidden: true
+      title: season_pass_premium_track_plus_six_ranks_title_steeled_resolve_2026
+      description: gotour_2025_deluxe_event_pass_track_unlock_plus_points_description
+      skuEnableTime: '2025-04-28T10:00:00'
+      skuDisableTime: '2025-05-06T20:00:00'
+      skuEnableTimeUtcMs: '1745834400000'
+      skuDisableTimeUtcMs: '1746561600000'
+      imageUrl: https://pgorelease-assets.nianticstatic.com/GameDesignAssets%2FPGO-MCS_Memory_Lane_Meltan_Celebration_SRR_v1-1024x576.jpg
 - templateId: AR_PHOTO_FEATURE_FLAGS
   data:
     templateId: AR_PHOTO_FEATURE_FLAGS
@@ -30532,11 +30558,33 @@
       eventBadge: true
       eventBadgeSettings:
         suppressClientVisuals: true
+- templateId: BADGE_EVENT_0196
+  data:
+    templateId: BADGE_EVENT_0196
+    badgeSettings:
+      badgeType: 5907
+      badgeRank: 2
+      targets:
+      - 100
+      eventBadge: true
+      eventBadgeSettings:
+        suppressClientVisuals: true
 - templateId: BADGE_EVENT_0200
   data:
     templateId: BADGE_EVENT_0200
     badgeSettings:
       badgeType: 5911
+      badgeRank: 2
+      targets:
+      - 100
+      eventBadge: true
+      eventBadgeSettings:
+        suppressClientVisuals: true
+- templateId: BADGE_EVENT_0280
+  data:
+    templateId: BADGE_EVENT_0280
+    badgeSettings:
+      badgeType: 5991
       badgeRank: 2
       targets:
       - 100
@@ -62391,6 +62439,13 @@
         - PRIORITY_EVENT_TYPE_DODGE
         - PRIORITY_EVENT_TYPE_SWAP_POKEMON
         - PRIORITY_EVENT_TYPE_CHARGE_ATTACK
+        bufferBlockingEventTypeList:
+        - PRIORITY_EVENT_TYPE_CHARGE_ATTACK
+        inputBlockExceptionList:
+        - currentAction: PRIORITY_EVENT_TYPE_CHARGE_ATTACK
+          allowedBufferedActions:
+          - PRIORITY_EVENT_TYPE_DODGE
+          - PRIORITY_EVENT_TYPE_SWAP_POKEMON
       breadInputBufferPriorityList:
         eventPriority:
         - DODGE
@@ -62399,12 +62454,22 @@
         - PRIORITY_EVENT_TYPE_DODGE
         - PRIORITY_EVENT_TYPE_SWAP_POKEMON
         - PRIORITY_EVENT_TYPE_CHARGE_ATTACK
+        bufferBlockingEventTypeList:
+        - PRIORITY_EVENT_TYPE_CHARGE_ATTACK
+        - PRIORITY_EVENT_TYPE_SWAP_POKEMON
+        inputBlockExceptionList:
+        - currentAction: PRIORITY_EVENT_TYPE_CHARGE_ATTACK
+          allowedBufferedActions:
+          - PRIORITY_EVENT_TYPE_DODGE
       combatInputBufferPriorityList:
         eventPriority:
         - SWAP_POKEMON
         priorityEventTypeList:
         - PRIORITY_EVENT_TYPE_SWAP_POKEMON
         - PRIORITY_EVENT_TYPE_CHARGE_ATTACK
+        bufferBlockingEventTypeList:
+        - PRIORITY_EVENT_TYPE_CHARGE_ATTACK
+        - PRIORITY_EVENT_TYPE_SWAP_POKEMON
 - templateId: DIPPLIN_EVOLUTION_QUEST
   data:
     templateId: DIPPLIN_EVOLUTION_QUEST
@@ -67007,6 +67072,20 @@
           pokemonDisplay:
             form: BINACLE_NORMAL
           isFeaturedPokemon: true
+- templateId: EVENT_PASS_APRIL3_EVENT_STORE_REDIRECT
+  data:
+    templateId: EVENT_PASS_APRIL3_EVENT_STORE_REDIRECT
+    iapItemDisplay:
+      sku: pgorelease.april3_2026_deluxe_event_pass_track_unlock
+      sortOrder: 1
+      hidden: true
+      title: season_pass_premium_track_title_steeled_resolve_2026
+      description: gotour_2025_deluxe_event_pass_track_unlock_description
+      skuEnableTime: '2025-04-28T10:00:00'
+      skuDisableTime: '2025-05-06T20:00:00'
+      skuEnableTimeUtcMs: '1745834400000'
+      skuDisableTimeUtcMs: '1746561600000'
+      imageUrl: https://pgorelease-assets.nianticstatic.com/GameDesignAssets%2FPGO-MCS_Memory_Lane_Meltan_Celebration_SRR_v1-1024x576.jpg
 - templateId: EVENT_PASS_BONUS_RANKS_FEATURE_GATE
   data:
     templateId: EVENT_PASS_BONUS_RANKS_FEATURE_GATE
@@ -67159,6 +67238,1383 @@
       skuEnableTimeUtcMs: '1738576800000'
       skuDisableTimeUtcMs: '1772704800000'
       imageUrl: https://pgorelease-assets.nianticstatic.com/GameDesignAssets%2FPGO-MCS_GO_Pass_February_TICKET_v1-1024x576-nologo.jpg
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT
+    eventPassSettings:
+      prefix: EVENT_PASS_SUSTAINABILITY2026_EVENT
+      pointsItemId: 2107
+      trackConditions:
+      - track: FREE
+        trackTitleKey: season_pass_base_track_title_sustainabilityweek2026
+      - track: PREMIUM
+        badge: 5900
+        trackTitleKey: season_pass_premium_track_title_sustainabilityweek2026
+      expirationTime: '2026-04-20T20:00:00'
+      maxTierLevel: 60
+      additionalBonusTiersLevel: 31
+      eventPassDisplaySettings:
+        bonusBoxes:
+        - text: quest_catch_pokemon_singular
+          iconType: SPAWN_UNKNOWN
+          quantity: 5
+        - text: quest_hatch_egg_singular
+          iconType: EGG
+          quantity: 40
+        - text: quest_win_raid_singular
+          iconType: RAID
+          quantity: 100
+        eventPassTrackUpgradeDescriptions:
+        - passTrackUpgradeHeaderDescription: season_pass_sustainabilityweek2026_track_upgrade_header_description
+          eventPassTrackToUpgradeTo: PREMIUM
+          trackUnlockSkuId: pgorelease.april2_2026_deluxe_event_pass_track_unlock
+          trackUnlockPlusPointsSkuId: pgorelease.april2_2026_deluxe_event_pass_track_unlock_plus_points
+          eventDurationKey: season_pass_sustainabilityweek2026_event_duration
+          upgradeDescriptionKey: season_pass_sustainabilityweek2026_upgrade_description
+          ranksToHighlightRewards:
+          - 1
+          - 3
+          - 15
+          detailsLinkKey: season_pass_details_link_sustainabilityweek2026
+          trackUnlockImageUrl: https://storage.googleapis.com/prod-public-images/ic_eventpass_deluxe.png
+          trackUnlockPlusPointsImageUrl: https://storage.googleapis.com/prod-public-images/ic_eventpass_deluxe_plus.png
+        eventPassTitleKey: season_pass_base_track_title_sustainabilityweek2026
+        headerIconUrl: https://pgorelease-assets.nianticstatic.com/GameDesignAssets%2FS22_MemoriesInMotion_Logo.png
+        premiumRewardBannerTop: event_pass_premium_reward_banner_top_text
+        premiumRewardBannerMiddle: sustainabilityweek2026_avatar_item
+        premiumRewardBannerBottom: event_pass_premium_reward_banner_bottom_text_rank_15_reward
+        premiumRewardBannerImageUrl: https://pgorelease-assets.nianticstatic.com/GameDesignAssets%2FS22_MemoriesInMotion_Logo.png
+        premiumRewardsDescription: season_pass_premium_rewards_desc_monthly_no_disclaimer
+        todayViewSection: SEASONAL_EVENT_PASS_SECTION
+        sectionDisplayPriority: 11
+      gracePeriodEndTime: '2026-04-22T20:00:00'
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_10_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_10_FREE
+    eventPassTierSettings:
+      rank: 10
+      track: FREE
+      minPointsRequired: 900
+      rewards:
+      - type: PLAYER_ATTRIBUTE
+        playerAttribute:
+          key: sustainabilityweek2026_season_pass_rank_01
+          durationMins: 131487
+      bonusSettings:
+        eventName: season_pass_milestone_bonus_title_01
+        bonusBoxes:
+        - text: pokestop_spin_xp_double
+          iconType: XP
+      activeBonusDisplaySettings:
+        bonusBoxes:
+        - text: pokestop_spin_xp_double
+          iconType: XP
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_10_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_10_PREMIUM
+    eventPassTierSettings:
+      rank: 10
+      track: PREMIUM
+      rewards:
+      - type: PLAYER_ATTRIBUTE
+        playerAttribute:
+          key: sustainabilityweek2026_season_pass_rank_01_paid
+          durationMins: 131487
+      bonusSettings:
+        eventName: season_pass_milestone_bonus_title_01
+        bonusBoxes:
+        - text: pokestop_spin_xp_triple
+          iconType: XP
+      activeBonusDisplaySettings:
+        bonusBoxes:
+        - text: pokestop_spin_xp_triple
+          iconType: XP
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_11_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_11_FREE
+    eventPassTierSettings:
+      rank: 11
+      track: FREE
+      minPointsRequired: 1000
+      rewards:
+      - type: ITEM
+        item:
+          item: ITEM_ULTRA_BALL
+          amount: 10
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_11_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_11_PREMIUM
+    eventPassTierSettings:
+      rank: 11
+      track: PREMIUM
+      rewards:
+      - type: ITEM
+        item:
+          item: ITEM_ULTRA_BALL
+          amount: 20
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_12_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_12_FREE
+    eventPassTierSettings:
+      rank: 12
+      track: FREE
+      minPointsRequired: 1100
+      rewards:
+      - type: CANDY
+        candy:
+          pokemonId: COMBEE
+          amount: 10
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_12_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_12_PREMIUM
+    eventPassTierSettings:
+      rank: 12
+      track: PREMIUM
+      rewards:
+      - type: XL_CANDY
+        xlCandy:
+          pokemonId: COMBEE
+          amount: 5
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_13_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_13_FREE
+    eventPassTierSettings:
+      rank: 13
+      track: FREE
+      minPointsRequired: 1200
+      rewards:
+      - type: POKEMON_ENCOUNTER
+        pokemonEncounter:
+          pokemonId: COMBEE
+          pokemonDisplay:
+            form: COMBEE_NORMAL
+          isFeaturedPokemon: true
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_13_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_13_PREMIUM
+    eventPassTierSettings:
+      rank: 13
+      track: PREMIUM
+      rewards:
+      - type: POKEMON_ENCOUNTER
+        pokemonEncounter:
+          pokemonId: COMBEE
+          pokemonDisplay:
+            form: COMBEE_NORMAL
+          isFeaturedPokemon: true
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_14_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_14_FREE
+    eventPassTierSettings:
+      rank: 14
+      track: FREE
+      minPointsRequired: 1300
+      rewards:
+      - type: ITEM
+        item:
+          item: ITEM_RAZZ_BERRY
+          amount: 5
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_14_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_14_PREMIUM
+    eventPassTierSettings:
+      rank: 14
+      track: PREMIUM
+      rewards:
+      - type: ITEM
+        item:
+          item: ITEM_XL_RARE_CANDY
+          amount: 1
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_15_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_15_FREE
+    eventPassTierSettings:
+      rank: 15
+      track: FREE
+      minPointsRequired: 1400
+      rewards:
+      - type: STARDUST
+        stardust: 2500
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_15_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_15_PREMIUM
+    eventPassTierSettings:
+      rank: 15
+      track: PREMIUM
+      rewards:
+      - type: AVATAR_CLOTHING
+        neutralAvatarItemTemplate:
+          neutralAvatarItemTemplateString1: N_AVATAR_n_pose_sustainability
+          neutralAvatarItemTemplateString2: N_DISPLAY_n_pose_sustainability
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_16_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_16_FREE
+    eventPassTierSettings:
+      rank: 16
+      track: FREE
+      minPointsRequired: 1500
+      rewards:
+      - type: POKEMON_ENCOUNTER
+        pokemonEncounter:
+          pokemonId: SHELLOS
+          pokemonDisplay:
+            form: SHELLOS_WEST_SEA
+          isFeaturedPokemon: true
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_16_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_16_PREMIUM
+    eventPassTierSettings:
+      rank: 16
+      track: PREMIUM
+      rewards:
+      - type: POKEMON_ENCOUNTER
+        pokemonEncounter:
+          pokemonId: SHELLOS
+          pokemonDisplay:
+            form: SHELLOS_WEST_SEA
+          isFeaturedPokemon: true
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_17_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_17_FREE
+    eventPassTierSettings:
+      rank: 17
+      track: FREE
+      minPointsRequired: 1600
+      rewards:
+      - type: POKEMON_ENCOUNTER
+        pokemonEncounter:
+          pokemonId: SHELLOS
+          pokemonDisplay:
+            form: SHELLOS_EAST_SEA
+          isFeaturedPokemon: true
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_17_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_17_PREMIUM
+    eventPassTierSettings:
+      rank: 17
+      track: PREMIUM
+      rewards:
+      - type: POKEMON_ENCOUNTER
+        pokemonEncounter:
+          pokemonId: SHELLOS
+          pokemonDisplay:
+            form: SHELLOS_EAST_SEA
+          isFeaturedPokemon: true
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_18_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_18_FREE
+    eventPassTierSettings:
+      rank: 18
+      track: FREE
+      minPointsRequired: 1700
+      rewards:
+      - type: CANDY
+        candy:
+          pokemonId: CORSOLA
+          amount: 10
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_18_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_18_PREMIUM
+    eventPassTierSettings:
+      rank: 18
+      track: PREMIUM
+      rewards:
+      - type: XL_CANDY
+        xlCandy:
+          pokemonId: CORSOLA
+          amount: 5
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_19_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_19_FREE
+    eventPassTierSettings:
+      rank: 19
+      track: FREE
+      minPointsRequired: 1800
+      rewards:
+      - type: POKEMON_ENCOUNTER
+        pokemonEncounter:
+          pokemonId: CORSOLA
+          pokemonDisplay:
+            form: CORSOLA_SPRING_2026
+          isFeaturedPokemon: true
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_19_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_19_PREMIUM
+    eventPassTierSettings:
+      rank: 19
+      track: PREMIUM
+      rewards:
+      - type: POKEMON_ENCOUNTER
+        pokemonEncounter:
+          pokemonId: CORSOLA
+          pokemonDisplay:
+            form: CORSOLA_SPRING_2026
+          isFeaturedPokemon: true
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_1_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_1_FREE
+    eventPassTierSettings:
+      rank: 1
+      track: FREE
+      rewards:
+      - type: EXPERIENCE
+        exp: 5000
+      - type: PLAYER_ATTRIBUTE
+        playerAttribute:
+          key: sustainability2026_season_pass_entitlement
+          durationMins: 131487
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_1_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_1_PREMIUM
+    eventPassTierSettings:
+      rank: 1
+      track: PREMIUM
+      rewards:
+      - type: ITEM
+        item:
+          item: ITEM_INCUBATOR_BASIC
+          amount: 1
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_20_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_20_FREE
+    eventPassTierSettings:
+      rank: 20
+      track: FREE
+      minPointsRequired: 1900
+      rewards:
+      - type: PLAYER_ATTRIBUTE
+        playerAttribute:
+          key: sustainabilityweek2026_season_pass_rank_02
+          durationMins: 131487
+      bonusSettings:
+        eventName: season_pass_milestone_bonus_title_02
+        bonusBoxes:
+        - text: incubator_distance_half
+          iconType: EGG_INCUBATOR
+      activeBonusDisplaySettings:
+        bonusBoxes:
+        - text: pokestop_spin_xp_double
+          iconType: XP
+        - text: incubator_distance_half
+          iconType: EGG_INCUBATOR
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_20_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_20_PREMIUM
+    eventPassTierSettings:
+      rank: 20
+      track: PREMIUM
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_21_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_21_FREE
+    eventPassTierSettings:
+      rank: 21
+      track: FREE
+      minPointsRequired: 2000
+      rewards:
+      - type: CANDY
+        candy:
+          pokemonId: CHERUBI
+          amount: 10
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_21_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_21_PREMIUM
+    eventPassTierSettings:
+      rank: 21
+      track: PREMIUM
+      rewards:
+      - type: XL_CANDY
+        xlCandy:
+          pokemonId: CHERUBI
+          amount: 5
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_22_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_22_FREE
+    eventPassTierSettings:
+      rank: 22
+      track: FREE
+      minPointsRequired: 2100
+      rewards:
+      - type: POKEMON_ENCOUNTER
+        pokemonEncounter:
+          pokemonId: CHERUBI
+          pokemonDisplay:
+            form: CHERUBI_NORMAL
+          isFeaturedPokemon: true
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_22_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_22_PREMIUM
+    eventPassTierSettings:
+      rank: 22
+      track: PREMIUM
+      rewards:
+      - type: POKEMON_ENCOUNTER
+        pokemonEncounter:
+          pokemonId: CHERUBI
+          pokemonDisplay:
+            form: CHERUBI_NORMAL
+          isFeaturedPokemon: true
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_23_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_23_FREE
+    eventPassTierSettings:
+      rank: 23
+      track: FREE
+      minPointsRequired: 2200
+      rewards:
+      - type: ITEM
+        item:
+          item: ITEM_PINAP_BERRY
+          amount: 5
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_23_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_23_PREMIUM
+    eventPassTierSettings:
+      rank: 23
+      track: PREMIUM
+      rewards:
+      - type: ITEM
+        item:
+          item: ITEM_XL_RARE_CANDY
+          amount: 1
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_24_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_24_FREE
+    eventPassTierSettings:
+      rank: 24
+      track: FREE
+      minPointsRequired: 2300
+      rewards:
+      - type: STARDUST
+        stardust: 2500
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_24_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_24_PREMIUM
+    eventPassTierSettings:
+      rank: 24
+      track: PREMIUM
+      rewards:
+      - type: ITEM
+        item:
+          item: ITEM_INCENSE_ORDINARY
+          amount: 1
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_25_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_25_FREE
+    eventPassTierSettings:
+      rank: 25
+      track: FREE
+      minPointsRequired: 2400
+      rewards:
+      - type: ITEM
+        item:
+          item: ITEM_GOLDEN_RAZZ_BERRY
+          amount: 2
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_25_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_25_PREMIUM
+    eventPassTierSettings:
+      rank: 25
+      track: PREMIUM
+      rewards:
+      - type: ITEM
+        item:
+          item: ITEM_GOLDEN_PINAP_BERRY
+          amount: 2
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_26_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_26_FREE
+    eventPassTierSettings:
+      rank: 26
+      track: FREE
+      minPointsRequired: 2500
+      rewards:
+      - type: ITEM
+        item:
+          item: ITEM_RARE_CANDY
+          amount: 2
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_26_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_26_PREMIUM
+    eventPassTierSettings:
+      rank: 26
+      track: PREMIUM
+      rewards:
+      - type: ITEM
+        item:
+          item: ITEM_XL_RARE_CANDY
+          amount: 1
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_27_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_27_FREE
+    eventPassTierSettings:
+      rank: 27
+      track: FREE
+      minPointsRequired: 2600
+      rewards:
+      - type: POKEMON_ENCOUNTER
+        pokemonEncounter:
+          pokemonId: TOGETIC
+          pokemonDisplay:
+            form: TOGETIC_NORMAL
+          isFeaturedPokemon: true
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_27_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_27_PREMIUM
+    eventPassTierSettings:
+      rank: 27
+      track: PREMIUM
+      rewards:
+      - type: POKEMON_ENCOUNTER
+        pokemonEncounter:
+          pokemonId: TOGETIC
+          pokemonDisplay:
+            form: TOGETIC_NORMAL
+          isFeaturedPokemon: true
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_28_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_28_FREE
+    eventPassTierSettings:
+      rank: 28
+      track: FREE
+      minPointsRequired: 2700
+      rewards:
+      - type: POKEMON_ENCOUNTER
+        pokemonEncounter:
+          pokemonId: TRUBBISH
+          pokemonDisplay:
+            form: TRUBBISH_NORMAL
+          isFeaturedPokemon: true
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_28_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_28_PREMIUM
+    eventPassTierSettings:
+      rank: 28
+      track: PREMIUM
+      rewards:
+      - type: POKEMON_ENCOUNTER
+        pokemonEncounter:
+          pokemonId: TRUBBISH
+          pokemonDisplay:
+            form: TRUBBISH_NORMAL
+          isFeaturedPokemon: true
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_29_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_29_FREE
+    eventPassTierSettings:
+      rank: 29
+      track: FREE
+      minPointsRequired: 2800
+      rewards:
+      - type: POKEMON_ENCOUNTER
+        pokemonEncounter:
+          pokemonId: LAPRAS
+          pokemonDisplay:
+            form: LAPRAS_NORMAL
+          isFeaturedPokemon: true
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_29_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_29_PREMIUM
+    eventPassTierSettings:
+      rank: 29
+      track: PREMIUM
+      rewards:
+      - type: POKEMON_ENCOUNTER
+        pokemonEncounter:
+          pokemonId: LAPRAS
+          pokemonDisplay:
+            form: LAPRAS_NORMAL
+          isFeaturedPokemon: true
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_2_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_2_FREE
+    eventPassTierSettings:
+      rank: 2
+      track: FREE
+      minPointsRequired: 100
+      rewards:
+      - type: ITEM
+        item:
+          item: ITEM_POKE_BALL
+          amount: 10
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_2_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_2_PREMIUM
+    eventPassTierSettings:
+      rank: 2
+      track: PREMIUM
+      rewards:
+      - type: ITEM
+        item:
+          item: ITEM_POKE_BALL
+          amount: 30
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_30_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_30_FREE
+    eventPassTierSettings:
+      rank: 30
+      track: FREE
+      minPointsRequired: 2900
+      rewards:
+      - type: POKEMON_ENCOUNTER
+        pokemonEncounter:
+          pokemonId: CORSOLA
+          pokemonDisplay:
+            form: CORSOLA_SPRING_2026
+          isFeaturedPokemon: true
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_30_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_30_PREMIUM
+    eventPassTierSettings:
+      rank: 30
+      track: PREMIUM
+      rewards:
+      - type: POKEMON_ENCOUNTER
+        pokemonEncounter:
+          pokemonId: CORSOLA
+          pokemonDisplay:
+            form: CORSOLA_SPRING_2026
+          isFeaturedPokemon: true
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_31_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_31_FREE
+    eventPassTierSettings:
+      rank: 31
+      track: FREE
+      minPointsRequired: 3000
+      rewards:
+      - type: STARDUST
+        stardust: 50
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_31_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_31_PREMIUM
+    eventPassTierSettings:
+      rank: 31
+      track: PREMIUM
+      rewards:
+      - type: STARDUST
+        stardust: 100
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_32_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_32_FREE
+    eventPassTierSettings:
+      rank: 32
+      track: FREE
+      minPointsRequired: 3100
+      rewards:
+      - type: STARDUST
+        stardust: 50
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_32_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_32_PREMIUM
+    eventPassTierSettings:
+      rank: 32
+      track: PREMIUM
+      rewards:
+      - type: STARDUST
+        stardust: 100
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_33_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_33_FREE
+    eventPassTierSettings:
+      rank: 33
+      track: FREE
+      minPointsRequired: 3200
+      rewards:
+      - type: STARDUST
+        stardust: 50
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_33_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_33_PREMIUM
+    eventPassTierSettings:
+      rank: 33
+      track: PREMIUM
+      rewards:
+      - type: STARDUST
+        stardust: 100
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_34_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_34_FREE
+    eventPassTierSettings:
+      rank: 34
+      track: FREE
+      minPointsRequired: 3300
+      rewards:
+      - type: STARDUST
+        stardust: 50
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_34_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_34_PREMIUM
+    eventPassTierSettings:
+      rank: 34
+      track: PREMIUM
+      rewards:
+      - type: STARDUST
+        stardust: 100
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_35_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_35_FREE
+    eventPassTierSettings:
+      rank: 35
+      track: FREE
+      minPointsRequired: 3400
+      rewards:
+      - type: STARDUST
+        stardust: 50
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_35_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_35_PREMIUM
+    eventPassTierSettings:
+      rank: 35
+      track: PREMIUM
+      rewards:
+      - type: STARDUST
+        stardust: 100
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_36_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_36_FREE
+    eventPassTierSettings:
+      rank: 36
+      track: FREE
+      minPointsRequired: 3500
+      rewards:
+      - type: STARDUST
+        stardust: 50
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_36_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_36_PREMIUM
+    eventPassTierSettings:
+      rank: 36
+      track: PREMIUM
+      rewards:
+      - type: STARDUST
+        stardust: 100
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_37_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_37_FREE
+    eventPassTierSettings:
+      rank: 37
+      track: FREE
+      minPointsRequired: 3600
+      rewards:
+      - type: STARDUST
+        stardust: 50
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_37_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_37_PREMIUM
+    eventPassTierSettings:
+      rank: 37
+      track: PREMIUM
+      rewards:
+      - type: STARDUST
+        stardust: 100
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_38_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_38_FREE
+    eventPassTierSettings:
+      rank: 38
+      track: FREE
+      minPointsRequired: 3700
+      rewards:
+      - type: STARDUST
+        stardust: 50
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_38_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_38_PREMIUM
+    eventPassTierSettings:
+      rank: 38
+      track: PREMIUM
+      rewards:
+      - type: STARDUST
+        stardust: 100
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_39_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_39_FREE
+    eventPassTierSettings:
+      rank: 39
+      track: FREE
+      minPointsRequired: 3800
+      rewards:
+      - type: STARDUST
+        stardust: 50
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_39_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_39_PREMIUM
+    eventPassTierSettings:
+      rank: 39
+      track: PREMIUM
+      rewards:
+      - type: STARDUST
+        stardust: 100
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_3_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_3_FREE
+    eventPassTierSettings:
+      rank: 3
+      track: FREE
+      minPointsRequired: 200
+      rewards:
+      - type: STARDUST
+        stardust: 2500
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_3_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_3_PREMIUM
+    eventPassTierSettings:
+      rank: 3
+      track: PREMIUM
+      rewards:
+      - type: ITEM
+        item:
+          item: ITEM_INCENSE_ORDINARY
+          amount: 1
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_40_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_40_FREE
+    eventPassTierSettings:
+      rank: 40
+      track: FREE
+      minPointsRequired: 3900
+      rewards:
+      - type: STARDUST
+        stardust: 50
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_40_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_40_PREMIUM
+    eventPassTierSettings:
+      rank: 40
+      track: PREMIUM
+      rewards:
+      - type: STARDUST
+        stardust: 100
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_41_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_41_FREE
+    eventPassTierSettings:
+      rank: 41
+      track: FREE
+      minPointsRequired: 4000
+      rewards:
+      - type: STARDUST
+        stardust: 50
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_41_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_41_PREMIUM
+    eventPassTierSettings:
+      rank: 41
+      track: PREMIUM
+      rewards:
+      - type: STARDUST
+        stardust: 100
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_42_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_42_FREE
+    eventPassTierSettings:
+      rank: 42
+      track: FREE
+      minPointsRequired: 4100
+      rewards:
+      - type: STARDUST
+        stardust: 50
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_42_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_42_PREMIUM
+    eventPassTierSettings:
+      rank: 42
+      track: PREMIUM
+      rewards:
+      - type: STARDUST
+        stardust: 100
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_43_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_43_FREE
+    eventPassTierSettings:
+      rank: 43
+      track: FREE
+      minPointsRequired: 4200
+      rewards:
+      - type: STARDUST
+        stardust: 50
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_43_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_43_PREMIUM
+    eventPassTierSettings:
+      rank: 43
+      track: PREMIUM
+      rewards:
+      - type: STARDUST
+        stardust: 100
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_44_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_44_FREE
+    eventPassTierSettings:
+      rank: 44
+      track: FREE
+      minPointsRequired: 4300
+      rewards:
+      - type: STARDUST
+        stardust: 50
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_44_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_44_PREMIUM
+    eventPassTierSettings:
+      rank: 44
+      track: PREMIUM
+      rewards:
+      - type: STARDUST
+        stardust: 100
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_45_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_45_FREE
+    eventPassTierSettings:
+      rank: 45
+      track: FREE
+      minPointsRequired: 4400
+      rewards:
+      - type: STARDUST
+        stardust: 50
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_45_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_45_PREMIUM
+    eventPassTierSettings:
+      rank: 45
+      track: PREMIUM
+      rewards:
+      - type: STARDUST
+        stardust: 100
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_46_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_46_FREE
+    eventPassTierSettings:
+      rank: 46
+      track: FREE
+      minPointsRequired: 4500
+      rewards:
+      - type: STARDUST
+        stardust: 50
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_46_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_46_PREMIUM
+    eventPassTierSettings:
+      rank: 46
+      track: PREMIUM
+      rewards:
+      - type: STARDUST
+        stardust: 100
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_47_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_47_FREE
+    eventPassTierSettings:
+      rank: 47
+      track: FREE
+      minPointsRequired: 4600
+      rewards:
+      - type: STARDUST
+        stardust: 50
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_47_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_47_PREMIUM
+    eventPassTierSettings:
+      rank: 47
+      track: PREMIUM
+      rewards:
+      - type: STARDUST
+        stardust: 100
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_48_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_48_FREE
+    eventPassTierSettings:
+      rank: 48
+      track: FREE
+      minPointsRequired: 4700
+      rewards:
+      - type: STARDUST
+        stardust: 50
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_48_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_48_PREMIUM
+    eventPassTierSettings:
+      rank: 48
+      track: PREMIUM
+      rewards:
+      - type: STARDUST
+        stardust: 100
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_49_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_49_FREE
+    eventPassTierSettings:
+      rank: 49
+      track: FREE
+      minPointsRequired: 4800
+      rewards:
+      - type: STARDUST
+        stardust: 50
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_49_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_49_PREMIUM
+    eventPassTierSettings:
+      rank: 49
+      track: PREMIUM
+      rewards:
+      - type: STARDUST
+        stardust: 100
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_4_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_4_FREE
+    eventPassTierSettings:
+      rank: 4
+      track: FREE
+      minPointsRequired: 300
+      rewards:
+      - type: CANDY
+        candy:
+          pokemonId: CASTFORM
+          amount: 10
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_4_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_4_PREMIUM
+    eventPassTierSettings:
+      rank: 4
+      track: PREMIUM
+      rewards:
+      - type: XL_CANDY
+        xlCandy:
+          pokemonId: CASTFORM
+          amount: 5
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_50_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_50_FREE
+    eventPassTierSettings:
+      rank: 50
+      track: FREE
+      minPointsRequired: 4900
+      rewards:
+      - type: STARDUST
+        stardust: 50
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_50_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_50_PREMIUM
+    eventPassTierSettings:
+      rank: 50
+      track: PREMIUM
+      rewards:
+      - type: STARDUST
+        stardust: 100
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_51_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_51_FREE
+    eventPassTierSettings:
+      rank: 51
+      track: FREE
+      minPointsRequired: 5000
+      rewards:
+      - type: STARDUST
+        stardust: 50
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_51_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_51_PREMIUM
+    eventPassTierSettings:
+      rank: 51
+      track: PREMIUM
+      rewards:
+      - type: STARDUST
+        stardust: 100
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_52_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_52_FREE
+    eventPassTierSettings:
+      rank: 52
+      track: FREE
+      minPointsRequired: 5100
+      rewards:
+      - type: STARDUST
+        stardust: 50
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_52_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_52_PREMIUM
+    eventPassTierSettings:
+      rank: 52
+      track: PREMIUM
+      rewards:
+      - type: STARDUST
+        stardust: 100
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_53_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_53_FREE
+    eventPassTierSettings:
+      rank: 53
+      track: FREE
+      minPointsRequired: 5200
+      rewards:
+      - type: STARDUST
+        stardust: 50
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_53_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_53_PREMIUM
+    eventPassTierSettings:
+      rank: 53
+      track: PREMIUM
+      rewards:
+      - type: STARDUST
+        stardust: 100
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_54_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_54_FREE
+    eventPassTierSettings:
+      rank: 54
+      track: FREE
+      minPointsRequired: 5300
+      rewards:
+      - type: STARDUST
+        stardust: 50
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_54_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_54_PREMIUM
+    eventPassTierSettings:
+      rank: 54
+      track: PREMIUM
+      rewards:
+      - type: STARDUST
+        stardust: 100
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_55_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_55_FREE
+    eventPassTierSettings:
+      rank: 55
+      track: FREE
+      minPointsRequired: 5400
+      rewards:
+      - type: STARDUST
+        stardust: 50
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_55_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_55_PREMIUM
+    eventPassTierSettings:
+      rank: 55
+      track: PREMIUM
+      rewards:
+      - type: STARDUST
+        stardust: 100
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_56_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_56_FREE
+    eventPassTierSettings:
+      rank: 56
+      track: FREE
+      minPointsRequired: 5500
+      rewards:
+      - type: STARDUST
+        stardust: 50
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_56_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_56_PREMIUM
+    eventPassTierSettings:
+      rank: 56
+      track: PREMIUM
+      rewards:
+      - type: STARDUST
+        stardust: 100
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_57_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_57_FREE
+    eventPassTierSettings:
+      rank: 57
+      track: FREE
+      minPointsRequired: 5600
+      rewards:
+      - type: STARDUST
+        stardust: 50
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_57_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_57_PREMIUM
+    eventPassTierSettings:
+      rank: 57
+      track: PREMIUM
+      rewards:
+      - type: STARDUST
+        stardust: 100
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_58_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_58_FREE
+    eventPassTierSettings:
+      rank: 58
+      track: FREE
+      minPointsRequired: 5700
+      rewards:
+      - type: STARDUST
+        stardust: 50
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_58_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_58_PREMIUM
+    eventPassTierSettings:
+      rank: 58
+      track: PREMIUM
+      rewards:
+      - type: STARDUST
+        stardust: 100
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_59_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_59_FREE
+    eventPassTierSettings:
+      rank: 59
+      track: FREE
+      minPointsRequired: 5800
+      rewards:
+      - type: STARDUST
+        stardust: 50
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_59_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_59_PREMIUM
+    eventPassTierSettings:
+      rank: 59
+      track: PREMIUM
+      rewards:
+      - type: STARDUST
+        stardust: 100
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_5_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_5_FREE
+    eventPassTierSettings:
+      rank: 5
+      track: FREE
+      minPointsRequired: 400
+      rewards:
+      - type: POKEMON_ENCOUNTER
+        pokemonEncounter:
+          pokemonId: CASTFORM
+          pokemonDisplay:
+            form: CASTFORM_NORMAL
+          isFeaturedPokemon: true
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_5_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_5_PREMIUM
+    eventPassTierSettings:
+      rank: 5
+      track: PREMIUM
+      rewards:
+      - type: POKEMON_ENCOUNTER
+        pokemonEncounter:
+          pokemonId: CASTFORM
+          pokemonDisplay:
+            form: CASTFORM_NORMAL
+          isFeaturedPokemon: true
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_60_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_60_FREE
+    eventPassTierSettings:
+      rank: 60
+      track: FREE
+      minPointsRequired: 5900
+      rewards:
+      - type: POKEMON_ENCOUNTER
+        pokemonEncounter:
+          pokemonId: CORSOLA
+          pokemonDisplay:
+            form: CORSOLA_SPRING_2026
+          isFeaturedPokemon: true
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_60_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_60_PREMIUM
+    eventPassTierSettings:
+      rank: 60
+      track: PREMIUM
+      rewards:
+      - type: POKEMON_ENCOUNTER
+        pokemonEncounter:
+          pokemonId: CORSOLA
+          pokemonDisplay:
+            form: CORSOLA_SPRING_2026
+          isFeaturedPokemon: true
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_6_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_6_FREE
+    eventPassTierSettings:
+      rank: 6
+      track: FREE
+      minPointsRequired: 500
+      rewards:
+      - type: ITEM
+        item:
+          item: ITEM_GREAT_BALL
+          amount: 10
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_6_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_6_PREMIUM
+    eventPassTierSettings:
+      rank: 6
+      track: PREMIUM
+      rewards:
+      - type: ITEM
+        item:
+          item: ITEM_GREAT_BALL
+          amount: 20
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_7_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_7_FREE
+    eventPassTierSettings:
+      rank: 7
+      track: FREE
+      minPointsRequired: 600
+      rewards:
+      - type: EXPERIENCE
+        exp: 5000
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_7_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_7_PREMIUM
+    eventPassTierSettings:
+      rank: 7
+      track: PREMIUM
+      rewards:
+      - type: EXPERIENCE
+        exp: 7500
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_8_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_8_FREE
+    eventPassTierSettings:
+      rank: 8
+      track: FREE
+      minPointsRequired: 700
+      rewards:
+      - type: CANDY
+        candy:
+          pokemonId: FOONGUS
+          amount: 10
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_8_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_8_PREMIUM
+    eventPassTierSettings:
+      rank: 8
+      track: PREMIUM
+      rewards:
+      - type: XL_CANDY
+        xlCandy:
+          pokemonId: FOONGUS
+          amount: 5
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_9_FREE
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_9_FREE
+    eventPassTierSettings:
+      rank: 9
+      track: FREE
+      minPointsRequired: 800
+      rewards:
+      - type: POKEMON_ENCOUNTER
+        pokemonEncounter:
+          pokemonId: FOONGUS
+          pokemonDisplay:
+            form: FOONGUS_NORMAL
+          isFeaturedPokemon: true
+- templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_9_PREMIUM
+  data:
+    templateId: EVENT_PASS_SUSTAINABILITY2026_EVENT_9_PREMIUM
+    eventPassTierSettings:
+      rank: 9
+      track: PREMIUM
+      rewards:
+      - type: POKEMON_ENCOUNTER
+        pokemonEncounter:
+          pokemonId: FOONGUS
+          pokemonDisplay:
+            form: FOONGUS_NORMAL
+          isFeaturedPokemon: true
 - templateId: EVENT_PASS_WINTERHOLIDAYS2025_SEASON_STORE_REDIRECT
   data:
     templateId: EVENT_PASS_WINTERHOLIDAYS2025_SEASON_STORE_REDIRECT
@@ -113039,7 +114495,7 @@
     iapCategoryDisplay:
       category: IAP_CATEGORY_AVATAR
       sortOrder: 5
-      imageUrl: https://pgorelease-assets.nianticstatic.com/GameDesignAssets%2Fpgo_avatar_mimikyu_on.jpg
+      imageUrl: https://pgorelease-assets.nianticstatic.com/GameDesignAssets%2FPGOAvatar_HammerPose_1024%20x%20512%20no%20logo.jpg
       description: avatar_shop_description_new
 - templateId: IAP_CATEGORY_BUNDLE
   data:
@@ -113581,6 +115037,11 @@
         event: 48
       - stepNumber: 52
         event: 50
+- templateId: IS_SKU_AVAILABLE_NO_APP_ID_CODE_GATE
+  data:
+    templateId: IS_SKU_AVAILABLE_NO_APP_ID_CODE_GATE
+    codeGate:
+      isEnabled: true
 - templateId: ITEM_BATTLE_PASS_TICKET
   data:
     templateId: ITEM_BATTLE_PASS_TICKET
@@ -113807,7 +115268,7 @@
       ignoreInventorySpace: true
       itemCap: 999999
       eventPassPoint:
-        eventPassId: EVENT_PASS_30ANNIV2026_EVENT
+        eventPassId: EVENT_PASS_STEELEDRESOLVE2026_EVENT
       timePeriodCounters:
         playerActivity:
           limit: 300
@@ -113855,7 +115316,7 @@
         eventPassId: EVENT_PASS_SUSTAINABILITY2026_EVENT
       timePeriodCounters:
         playerActivity:
-          limit: 300
+          limit: 500
 - templateId: ITEM_EVENT_PASS_POINT_MONTHLY_01
   data:
     templateId: ITEM_EVENT_PASS_POINT_MONTHLY_01
@@ -114545,8 +116006,8 @@
     templateId: ITEM_EXPIRATION_ITEM_EVENT_PASS_POINT_LIVE_OPS_04
     itemExpirationSettings:
       item: ITEM_EVENT_PASS_POINT_LIVE_OPS_04
-      expiratiionTime: '2026-03-17T10:00:00'
-      emergencyExpirationTime: '2026-03-17T20:00:00'
+      expiratiionTime: '2026-05-08T20:00:00'
+      emergencyExpirationTime: '2026-05-09T10:00:00'
 - templateId: ITEM_EXPIRATION_ITEM_EVENT_PASS_POINT_LIVE_OPS_05
   data:
     templateId: ITEM_EXPIRATION_ITEM_EVENT_PASS_POINT_LIVE_OPS_05
@@ -114587,7 +116048,7 @@
     templateId: ITEM_EXPIRATION_ITEM_INCUBATOR_TIMED
     itemExpirationSettings:
       item: ITEM_INCUBATOR_TIMED
-      expiratiionTime: '2026-04-14T10:00:00'
+      expiratiionTime: '2026-01-13T10:00:00'
 - templateId: ITEM_EXPIRATION_ITEM_LUCKY_FRIEND_APPLICATOR
   data:
     templateId: ITEM_EXPIRATION_ITEM_LUCKY_FRIEND_APPLICATOR
@@ -115833,7 +117294,7 @@
   data:
     templateId: LC_2024_JAKARTA_AIRADVENTURES_001
     locationCardSettings:
-      locationCard: 23
+      locationCard: LC_2024_JAKARTA_AIRADVENTURES_001
       imageUrl: lc_AirAdv2024_jakarta
 - templateId: LC_2024_LOSANGELES_GOTOUR_001
   data:
@@ -115852,7 +117313,7 @@
   data:
     templateId: LC_2024_MILAN_CITYSAFARI_001
     locationCardSettings:
-      locationCard: 72
+      locationCard: LC_2024_MILAN_CITYSAFARI_001
       imageUrl: lc_CitySafari2024_milan
 - templateId: LC_2024_MLB_001
   data:
@@ -115942,7 +117403,7 @@
   data:
     templateId: LC_2024_MUMBAI_CITYSAFARI_001
     locationCardSettings:
-      locationCard: 73
+      locationCard: LC_2024_MUMBAI_CITYSAFARI_001
       imageUrl: lc_CitySafari2024_mumbai
 - templateId: LC_2024_NYC_GOFEST_001
   data:
@@ -115955,7 +117416,7 @@
   data:
     templateId: LC_2024_SANTIAGO_CITYSAFARI_001
     locationCardSettings:
-      locationCard: 74
+      locationCard: LC_2024_SANTIAGO_CITYSAFARI_001
       imageUrl: lc_CitySafari2024_santiago
 - templateId: LC_2024_SAOPAULO_CITYSAFARI_001
   data:
@@ -115974,7 +117435,7 @@
   data:
     templateId: LC_2024_SINGAPORE_CITYSAFARI_001
     locationCardSettings:
-      locationCard: 75
+      locationCard: LC_2024_SINGAPORE_CITYSAFARI_001
       imageUrl: lc_CitySafari2024_singapore
 - templateId: LC_2024_SURABAYA_AIRADVENTURES_001
   data:
@@ -115998,80 +117459,80 @@
   data:
     templateId: LC_2025_AMSTERDAM_CITYSAFARI_001
     locationCardSettings:
-      locationCard: 146
+      locationCard: LC_2025_AMSTERDAM_CITYSAFARI_001
       imageUrl: lc_citysafari2025_amsterdam
 - templateId: LC_2025_ANAHEIM_WORLD_CHAMPIONSHIPS_001
   data:
     templateId: LC_2025_ANAHEIM_WORLD_CHAMPIONSHIPS_001
     locationCardSettings:
-      locationCard: 143
+      locationCard: LC_2025_ANAHEIM_WORLD_CHAMPIONSHIPS_001
       imageUrl: lc_Wcs2025_anaheim
 - templateId: LC_2025_BANGKOK_CITYSAFARI_001
   data:
     templateId: LC_2025_BANGKOK_CITYSAFARI_001
     locationCardSettings:
-      locationCard: 147
+      locationCard: LC_2025_BANGKOK_CITYSAFARI_001
       imageUrl: lc_citysafari2025_bangkok
 - templateId: LC_2025_BERLIN_ROADTRIP_001
   data:
     templateId: LC_2025_BERLIN_ROADTRIP_001
     locationCardSettings:
-      locationCard: 105
+      locationCard: LC_2025_BERLIN_ROADTRIP_001
       imageUrl: lc_roadtrip2025_berlin
 - templateId: LC_2025_CANCUN_CITYSAFARI_001
   data:
     templateId: LC_2025_CANCUN_CITYSAFARI_001
     locationCardSettings:
-      locationCard: 148
+      locationCard: LC_2025_CANCUN_CITYSAFARI_001
       imageUrl: lc_citysafari2025_cancun
 - templateId: LC_2025_CHERRY_BLOSSOM_FESTIVAL
   data:
     templateId: LC_2025_CHERRY_BLOSSOM_FESTIVAL
     locationCardSettings:
-      locationCard: 98
+      locationCard: LC_2025_CHERRY_BLOSSOM_FESTIVAL
       imageUrl: lc_CherryBlossomFest2025_yeouido
 - templateId: LC_2025_COLOGNE_ROADTRIP_001
   data:
     templateId: LC_2025_COLOGNE_ROADTRIP_001
     locationCardSettings:
-      locationCard: 107
+      locationCard: LC_2025_COLOGNE_ROADTRIP_001
       imageUrl: lc_roadtrip2025_cologne
 - templateId: LC_2025_GOWA_NAGASAKI
   data:
     templateId: LC_2025_GOWA_NAGASAKI
     locationCardSettings:
-      locationCard: 157
+      locationCard: LC_2025_GOWA_NAGASAKI
       imageUrl: lc_nagasaki2025
 - templateId: LC_2025_HAGUE_ROADTRIP_001
   data:
     templateId: LC_2025_HAGUE_ROADTRIP_001
     locationCardSettings:
-      locationCard: 106
+      locationCard: LC_2025_HAGUE_ROADTRIP_001
       imageUrl: lc_roadtrip2025_hague
 - templateId: LC_2025_JANGHEUNG_SUMMER_FESTIVAL
   data:
     templateId: LC_2025_JANGHEUNG_SUMMER_FESTIVAL
     locationCardSettings:
-      locationCard: 145
+      locationCard: LC_2025_JANGHEUNG_SUMMER_FESTIVAL
       imageUrl: lc_Jangheung_Water_Festival_2025
 - templateId: LC_2025_JERSEYCITY_GOFEST_001
   data:
     templateId: LC_2025_JERSEYCITY_GOFEST_001
     locationCardSettings:
-      locationCard: 79
+      locationCard: LC_2025_JERSEYCITY_GOFEST_001
       imageUrl: lc_GoFest2025_jerseycity
       cardType: LOCATION_CARD
 - templateId: LC_2025_KR_PYEONGCHANG_WINTER_FESTIVAL
   data:
     templateId: LC_2025_KR_PYEONGCHANG_WINTER_FESTIVAL
     locationCardSettings:
-      locationCard: 212
+      locationCard: LC_2025_KR_PYEONGCHANG_WINTER_FESTIVAL
       imageUrl: lc_2025_kr_pyeongchangWinterFestival
 - templateId: LC_2025_LONDON_ROADTRIP_001
   data:
     templateId: LC_2025_LONDON_ROADTRIP_001
     locationCardSettings:
-      locationCard: 102
+      locationCard: LC_2025_LONDON_ROADTRIP_001
       imageUrl: lc_roadtrip2025_london
 - templateId: LC_2025_LOSANGELES_GOTOUR_001
   data:
@@ -116084,7 +117545,7 @@
   data:
     templateId: LC_2025_MANCHESTER_ROADTRIP_001
     locationCardSettings:
-      locationCard: 101
+      locationCard: LC_2025_MANCHESTER_ROADTRIP_001
       imageUrl: lc_roadtrip2025_manchester
 - templateId: LC_2025_NEWTAIPEICITY_GOTOUR_001
   data:
@@ -116097,467 +117558,467 @@
   data:
     templateId: LC_2025_NFL_001
     locationCardSettings:
-      locationCard: 225
+      locationCard: LC_2025_NFL_001
       imageUrl: lc_NFL_cardinals
 - templateId: LC_2025_OSAKA_EVENT_001
   data:
     templateId: LC_2025_OSAKA_EVENT_001
     locationCardSettings:
-      locationCard: 77
+      locationCard: LC_2025_OSAKA_EVENT_001
       imageUrl: lc_OsakaEvent2025_01
 - templateId: LC_2025_OSAKA_EVENT_002
   data:
     templateId: LC_2025_OSAKA_EVENT_002
     locationCardSettings:
-      locationCard: 93
+      locationCard: LC_2025_OSAKA_EVENT_002
       imageUrl: lc_OsakaEvent2025_02
 - templateId: LC_2025_OSAKA_EVENT_003
   data:
     templateId: LC_2025_OSAKA_EVENT_003
     locationCardSettings:
-      locationCard: 94
+      locationCard: LC_2025_OSAKA_EVENT_003
       imageUrl: lc_OsakaEvent2025_03
 - templateId: LC_2025_OSAKA_GOFEST_001
   data:
     templateId: LC_2025_OSAKA_GOFEST_001
     locationCardSettings:
-      locationCard: 78
+      locationCard: LC_2025_OSAKA_GOFEST_001
       imageUrl: lc_GoFest2025_osaka
       cardType: LOCATION_CARD
 - templateId: LC_2025_PARIS_001
   data:
     templateId: LC_2025_PARIS_001
     locationCardSettings:
-      locationCard: 151
+      locationCard: LC_2025_PARIS_001
       imageUrl: lc_Paris2025_01
 - templateId: LC_2025_PARIS_002
   data:
     templateId: LC_2025_PARIS_002
     locationCardSettings:
-      locationCard: 152
+      locationCard: LC_2025_PARIS_002
       imageUrl: lc_Paris2025_02
 - templateId: LC_2025_PARIS_GOFEST_001
   data:
     templateId: LC_2025_PARIS_GOFEST_001
     locationCardSettings:
-      locationCard: 80
+      locationCard: LC_2025_PARIS_GOFEST_001
       imageUrl: lc_GoFest2025_paris
       cardType: LOCATION_CARD
 - templateId: LC_2025_PARIS_ROADTRIP_001
   data:
     templateId: LC_2025_PARIS_ROADTRIP_001
     locationCardSettings:
-      locationCard: 103
+      locationCard: LC_2025_PARIS_ROADTRIP_001
       imageUrl: lc_roadtrip2025_paris
 - templateId: LC_2025_TAIPEICITY_AMUSEMENT_PARK
   data:
     templateId: LC_2025_TAIPEICITY_AMUSEMENT_PARK
     locationCardSettings:
-      locationCard: 153
+      locationCard: LC_2025_TAIPEICITY_AMUSEMENT_PARK
       imageUrl: lc_taipeiAmusementPark_2025
 - templateId: LC_2025_VALENCIA_CITYSAFARI_001
   data:
     templateId: LC_2025_VALENCIA_CITYSAFARI_001
     locationCardSettings:
-      locationCard: 149
+      locationCard: LC_2025_VALENCIA_CITYSAFARI_001
       imageUrl: lc_citysafari2025_valencia
 - templateId: LC_2025_VALENCIA_ROADTRIP_001
   data:
     templateId: LC_2025_VALENCIA_ROADTRIP_001
     locationCardSettings:
-      locationCard: 104
+      locationCard: LC_2025_VALENCIA_ROADTRIP_001
       imageUrl: lc_roadtrip2025_valencia
 - templateId: LC_2025_VANCOUVER_CITYSAFARI_001
   data:
     templateId: LC_2025_VANCOUVER_CITYSAFARI_001
     locationCardSettings:
-      locationCard: 150
+      locationCard: LC_2025_VANCOUVER_CITYSAFARI_001
       imageUrl: lc_citysafari2025_vancouver
 - templateId: LC_2026_COLOGNE_CARNIVAL_001
   data:
     templateId: LC_2026_COLOGNE_CARNIVAL_001
     locationCardSettings:
-      locationCard: 244
+      locationCard: LC_2026_COLOGNE_CARNIVAL_001
       imageUrl: lc_carnivalFlamigo_cologne_2026
 - templateId: LC_2026_LOSANGELES_GOTOUR_001
   data:
     templateId: LC_2026_LOSANGELES_GOTOUR_001
     locationCardSettings:
-      locationCard: 214
+      locationCard: LC_2026_LOSANGELES_GOTOUR_001
       imageUrl: lc_GoTour2026_losAngeles
       cardType: LOCATION_CARD
 - templateId: LC_2026_NPB_001
   data:
     templateId: LC_2026_NPB_001
     locationCardSettings:
-      locationCard: 252
+      locationCard: LC_2026_NPB_001
       imageUrl: lc_2026_ppk_001
 - templateId: LC_2026_NPB_002
   data:
     templateId: LC_2026_NPB_002
     locationCardSettings:
-      locationCard: 253
+      locationCard: LC_2026_NPB_002
       imageUrl: lc_2026_NPB_yomiuriGiants
 - templateId: LC_2026_NPB_003
   data:
     templateId: LC_2026_NPB_003
     locationCardSettings:
-      locationCard: 254
+      locationCard: LC_2026_NPB_003
       imageUrl: lc_2026_ppk_001
 - templateId: LC_2026_NPB_004
   data:
     templateId: LC_2026_NPB_004
     locationCardSettings:
-      locationCard: 255
+      locationCard: LC_2026_NPB_004
       imageUrl: lc_2026_NPB_koshienHanshinTigers
 - templateId: LC_2026_NPB_005
   data:
     templateId: LC_2026_NPB_005
     locationCardSettings:
-      locationCard: 256
+      locationCard: LC_2026_NPB_005
       imageUrl: lc_2026_NPB_rakutenEagles
 - templateId: LC_2026_NPB_006
   data:
     templateId: LC_2026_NPB_006
     locationCardSettings:
-      locationCard: 257
-      imageUrl: lc_2026_ppk_001
+      locationCard: LC_2026_NPB_006
+      imageUrl: lc_2026_NPB_hiroshimaCarp
 - templateId: LC_2026_NPB_007
   data:
     templateId: LC_2026_NPB_007
     locationCardSettings:
-      locationCard: 258
+      locationCard: LC_2026_NPB_007
       imageUrl: lc_2026_ppk_001
 - templateId: LC_2026_NPB_008
   data:
     templateId: LC_2026_NPB_008
     locationCardSettings:
-      locationCard: 259
-      imageUrl: lc_2026_ppk_001
+      locationCard: LC_2026_NPB_008
+      imageUrl: lc_2026_NPB_softbankHawks
 - templateId: LC_2026_NPB_009
   data:
     templateId: LC_2026_NPB_009
     locationCardSettings:
-      locationCard: 260
-      imageUrl: lc_2026_ppk_001
+      locationCard: LC_2026_NPB_009
+      imageUrl: lc_2026_NPB_kyocera
 - templateId: LC_2026_NPB_010
   data:
     templateId: LC_2026_NPB_010
     locationCardSettings:
-      locationCard: 261
-      imageUrl: lc_2026_ppk_001
+      locationCard: LC_2026_NPB_010
+      imageUrl: lc_2026_NPB_belluna
 - templateId: LC_2026_NPB_011
   data:
     templateId: LC_2026_NPB_011
     locationCardSettings:
-      locationCard: 262
-      imageUrl: lc_2026_ppk_001
+      locationCard: LC_2026_NPB_011
+      imageUrl: lc_2026_NPB_zozoMarine
 - templateId: LC_2026_NPB_012
   data:
     templateId: LC_2026_NPB_012
     locationCardSettings:
-      locationCard: 263
+      locationCard: LC_2026_NPB_012
       imageUrl: lc_2026_ppk_001
 - templateId: LC_2026_NPB_013
   data:
     templateId: LC_2026_NPB_013
     locationCardSettings:
-      locationCard: 264
+      locationCard: LC_2026_NPB_013
       imageUrl: lc_2026_ppk_001
 - templateId: LC_2026_PPK_001
   data:
     templateId: LC_2026_PPK_001
     locationCardSettings:
-      locationCard: 241
+      locationCard: LC_2026_PPK_001
       imageUrl: lc_2026_ppk_001
 - templateId: LC_2026_RIODEJANEIRO_CARNIVAL_001
   data:
     templateId: LC_2026_RIODEJANEIRO_CARNIVAL_001
     locationCardSettings:
-      locationCard: 243
+      locationCard: LC_2026_RIODEJANEIRO_CARNIVAL_001
       imageUrl: lc_carnivalFlamigo_rio_2026
 - templateId: LC_2026_TAINAN_GOTOUR_001
   data:
     templateId: LC_2026_TAINAN_GOTOUR_001
     locationCardSettings:
-      locationCard: 215
+      locationCard: LC_2026_TAINAN_GOTOUR_001
       imageUrl: lc_GoTour2026_tainan
       cardType: LOCATION_CARD
 - templateId: LC_CITYSAFARI2025_BUENOSAIRES
   data:
     templateId: LC_CITYSAFARI2025_BUENOSAIRES
     locationCardSettings:
-      locationCard: 160
+      locationCard: LC_CITYSAFARI2025_BUENOSAIRES
       imageUrl: lc_CitySafari2025_buenosAires
 - templateId: LC_CITYSAFARI2025_MIAMI
   data:
     templateId: LC_CITYSAFARI2025_MIAMI
     locationCardSettings:
-      locationCard: 161
+      locationCard: LC_CITYSAFARI2025_MIAMI
       imageUrl: lc_CitySafari2025_miami
 - templateId: LC_CITYSAFARI2025_SYDNEY
   data:
     templateId: LC_CITYSAFARI2025_SYDNEY
     locationCardSettings:
-      locationCard: 162
+      locationCard: LC_CITYSAFARI2025_SYDNEY
       imageUrl: lc_CitySafari2025_sydney
 - templateId: LC_ID_CAR_FREE_DAY
   data:
     templateId: LC_ID_CAR_FREE_DAY
     locationCardSettings:
-      locationCard: 240
+      locationCard: LC_ID_CAR_FREE_DAY
       imageUrl: lc_ID_CarFreeDay
 - templateId: LC_JEJU_STAMP_RALLY
   data:
     templateId: LC_JEJU_STAMP_RALLY
     locationCardSettings:
-      locationCard: 158
+      locationCard: LC_JEJU_STAMP_RALLY
       imageUrl: lc_stampRally2025_Jeju
 - templateId: LC_POKELID_AICHI
   data:
     templateId: LC_POKELID_AICHI
     locationCardSettings:
-      locationCard: 182
+      locationCard: LC_POKELID_AICHI
       imageUrl: lc_pokelid_aichi
 - templateId: LC_POKELID_AKITA
   data:
     templateId: LC_POKELID_AKITA
     locationCardSettings:
-      locationCard: 167
+      locationCard: LC_POKELID_AKITA
       imageUrl: lc_pokelid_akita
 - templateId: LC_POKELID_AOMORI
   data:
     templateId: LC_POKELID_AOMORI
     locationCardSettings:
-      locationCard: 164
+      locationCard: LC_POKELID_AOMORI
       imageUrl: lc_pokelid_aomori
 - templateId: LC_POKELID_CHIBA
   data:
     templateId: LC_POKELID_CHIBA
     locationCardSettings:
-      locationCard: 172
+      locationCard: LC_POKELID_CHIBA
       imageUrl: lc_pokelid_chiba
 - templateId: LC_POKELID_EHIME
   data:
     templateId: LC_POKELID_EHIME
     locationCardSettings:
-      locationCard: 196
+      locationCard: LC_POKELID_EHIME
       imageUrl: lc_pokelid_ehime
 - templateId: LC_POKELID_FUKUI
   data:
     templateId: LC_POKELID_FUKUI
     locationCardSettings:
-      locationCard: 179
+      locationCard: LC_POKELID_FUKUI
       imageUrl: lc_pokelid_fukui
 - templateId: LC_POKELID_FUKUOKA
   data:
     templateId: LC_POKELID_FUKUOKA
     locationCardSettings:
-      locationCard: 198
+      locationCard: LC_POKELID_FUKUOKA
       imageUrl: lc_pokelid_fukuoka
 - templateId: LC_POKELID_FUKUSHIMA
   data:
     templateId: LC_POKELID_FUKUSHIMA
     locationCardSettings:
-      locationCard: 168
+      locationCard: LC_POKELID_FUKUSHIMA
       imageUrl: lc_pokelid_fukushima
 - templateId: LC_POKELID_GIFU
   data:
     templateId: LC_POKELID_GIFU
     locationCardSettings:
-      locationCard: 180
+      locationCard: LC_POKELID_GIFU
       imageUrl: lc_pokelid_gifu
 - templateId: LC_POKELID_HOKKAIDO
   data:
     templateId: LC_POKELID_HOKKAIDO
     locationCardSettings:
-      locationCard: 163
+      locationCard: LC_POKELID_HOKKAIDO
       imageUrl: lc_pokelid_hokkaido
 - templateId: LC_POKELID_HYOGO
   data:
     templateId: LC_POKELID_HYOGO
     locationCardSettings:
-      locationCard: 187
+      locationCard: LC_POKELID_HYOGO
       imageUrl: lc_pokelid_hyogo
 - templateId: LC_POKELID_IBARAKI
   data:
     templateId: LC_POKELID_IBARAKI
     locationCardSettings:
-      locationCard: 175
+      locationCard: LC_POKELID_IBARAKI
       imageUrl: lc_pokelid_ibaraki
 - templateId: LC_POKELID_ISHIKAWA
   data:
     templateId: LC_POKELID_ISHIKAWA
     locationCardSettings:
-      locationCard: 178
+      locationCard: LC_POKELID_ISHIKAWA
       imageUrl: lc_pokelid_ishikawa
 - templateId: LC_POKELID_IWATE
   data:
     templateId: LC_POKELID_IWATE
     locationCardSettings:
-      locationCard: 165
+      locationCard: LC_POKELID_IWATE
       imageUrl: lc_pokelid_iwate
 - templateId: LC_POKELID_KAGAWA
   data:
     templateId: LC_POKELID_KAGAWA
     locationCardSettings:
-      locationCard: 195
+      locationCard: LC_POKELID_KAGAWA
       imageUrl: lc_pokelid_kagawa
 - templateId: LC_POKELID_KAGOSHIMA
   data:
     templateId: LC_POKELID_KAGOSHIMA
     locationCardSettings:
-      locationCard: 202
+      locationCard: LC_POKELID_KAGOSHIMA
       imageUrl: lc_pokelid_kagoshima
 - templateId: LC_POKELID_KANAGAWA
   data:
     templateId: LC_POKELID_KANAGAWA
     locationCardSettings:
-      locationCard: 174
+      locationCard: LC_POKELID_KANAGAWA
       imageUrl: lc_pokelid_kanagawa
 - templateId: LC_POKELID_KOCHI
   data:
     templateId: LC_POKELID_KOCHI
     locationCardSettings:
-      locationCard: 197
+      locationCard: LC_POKELID_KOCHI
       imageUrl: lc_pokelid_kochi
 - templateId: LC_POKELID_KYOTO
   data:
     templateId: LC_POKELID_KYOTO
     locationCardSettings:
-      locationCard: 185
+      locationCard: LC_POKELID_KYOTO
       imageUrl: lc_pokelid_kyoto
 - templateId: LC_POKELID_MIE
   data:
     templateId: LC_POKELID_MIE
     locationCardSettings:
-      locationCard: 183
+      locationCard: LC_POKELID_MIE
       imageUrl: lc_pokelid_mie
 - templateId: LC_POKELID_MIYAGI
   data:
     templateId: LC_POKELID_MIYAGI
     locationCardSettings:
-      locationCard: 166
+      locationCard: LC_POKELID_MIYAGI
       imageUrl: lc_pokelid_miyagi
 - templateId: LC_POKELID_MIYAZAKI
   data:
     templateId: LC_POKELID_MIYAZAKI
     locationCardSettings:
-      locationCard: 201
+      locationCard: LC_POKELID_MIYAZAKI
       imageUrl: lc_pokelid_miyazaki
 - templateId: LC_POKELID_NAGASAKI
   data:
     templateId: LC_POKELID_NAGASAKI
     locationCardSettings:
-      locationCard: 200
+      locationCard: LC_POKELID_NAGASAKI
       imageUrl: lc_pokelid_nagasaki
 - templateId: LC_POKELID_NARA
   data:
     templateId: LC_POKELID_NARA
     locationCardSettings:
-      locationCard: 188
+      locationCard: LC_POKELID_NARA
       imageUrl: lc_pokelid_nara
 - templateId: LC_POKELID_NIIGATA
   data:
     templateId: LC_POKELID_NIIGATA
     locationCardSettings:
-      locationCard: 176
+      locationCard: LC_POKELID_NIIGATA
       imageUrl: lc_pokelid_niigata
 - templateId: LC_POKELID_OKAYAMA
   data:
     templateId: LC_POKELID_OKAYAMA
     locationCardSettings:
-      locationCard: 192
+      locationCard: LC_POKELID_OKAYAMA
       imageUrl: lc_pokelid_okayama
 - templateId: LC_POKELID_OKINAWA
   data:
     templateId: LC_POKELID_OKINAWA
     locationCardSettings:
-      locationCard: 203
+      locationCard: LC_POKELID_OKINAWA
       imageUrl: lc_pokelid_okinawa
 - templateId: LC_POKELID_OSAKA
   data:
     templateId: LC_POKELID_OSAKA
     locationCardSettings:
-      locationCard: 186
+      locationCard: LC_POKELID_OSAKA
       imageUrl: lc_pokelid_osaka
 - templateId: LC_POKELID_SAGA
   data:
     templateId: LC_POKELID_SAGA
     locationCardSettings:
-      locationCard: 199
+      locationCard: LC_POKELID_SAGA
       imageUrl: lc_pokelid_saga
 - templateId: LC_POKELID_SAITAMA
   data:
     templateId: LC_POKELID_SAITAMA
     locationCardSettings:
-      locationCard: 171
+      locationCard: LC_POKELID_SAITAMA
       imageUrl: lc_pokelid_saitama
 - templateId: LC_POKELID_SHIGA
   data:
     templateId: LC_POKELID_SHIGA
     locationCardSettings:
-      locationCard: 184
+      locationCard: LC_POKELID_SHIGA
       imageUrl: lc_pokelid_shiga
 - templateId: LC_POKELID_SHIMANE
   data:
     templateId: LC_POKELID_SHIMANE
     locationCardSettings:
-      locationCard: 191
+      locationCard: LC_POKELID_SHIMANE
       imageUrl: lc_pokelid_shimane
 - templateId: LC_POKELID_SHIZUOKA
   data:
     templateId: LC_POKELID_SHIZUOKA
     locationCardSettings:
-      locationCard: 181
+      locationCard: LC_POKELID_SHIZUOKA
       imageUrl: lc_pokelid_shizuoka
 - templateId: LC_POKELID_TOCHIGI
   data:
     templateId: LC_POKELID_TOCHIGI
     locationCardSettings:
-      locationCard: 170
+      locationCard: LC_POKELID_TOCHIGI
       imageUrl: lc_pokelid_tochigi
 - templateId: LC_POKELID_TOKUSHIMA
   data:
     templateId: LC_POKELID_TOKUSHIMA
     locationCardSettings:
-      locationCard: 194
+      locationCard: LC_POKELID_TOKUSHIMA
       imageUrl: lc_pokelid_tokushima
 - templateId: LC_POKELID_TOKYO
   data:
     templateId: LC_POKELID_TOKYO
     locationCardSettings:
-      locationCard: 173
+      locationCard: LC_POKELID_TOKYO
       imageUrl: lc_pokelid_tokyo
 - templateId: LC_POKELID_TOTTORI
   data:
     templateId: LC_POKELID_TOTTORI
     locationCardSettings:
-      locationCard: 190
+      locationCard: LC_POKELID_TOTTORI
       imageUrl: lc_pokelid_tottori
 - templateId: LC_POKELID_TOYAMA
   data:
     templateId: LC_POKELID_TOYAMA
     locationCardSettings:
-      locationCard: 177
+      locationCard: LC_POKELID_TOYAMA
       imageUrl: lc_pokelid_toyama
 - templateId: LC_POKELID_WAKAYAMA
   data:
     templateId: LC_POKELID_WAKAYAMA
     locationCardSettings:
-      locationCard: 189
+      locationCard: LC_POKELID_WAKAYAMA
       imageUrl: lc_pokelid_wakayama
 - templateId: LC_POKELID_YAMAGATA
   data:
     templateId: LC_POKELID_YAMAGATA
     locationCardSettings:
-      locationCard: 169
+      locationCard: LC_POKELID_YAMAGATA
       imageUrl: lc_pokelid_yamagata
 - templateId: LC_POKELID_YAMAGUCHI
   data:
     templateId: LC_POKELID_YAMAGUCHI
     locationCardSettings:
-      locationCard: 193
+      locationCard: LC_POKELID_YAMAGUCHI
       imageUrl: lc_pokelid_yamaguchi
 - templateId: LC_SPECIALBACKGROUND_2024_DECEMBERCDRECAP
   data:
@@ -116593,7 +118054,7 @@
   data:
     templateId: LC_SPECIALBACKGROUND_2025_9THANNIVERSARY
     locationCardSettings:
-      locationCard: 109
+      locationCard: LC_SPECIALBACKGROUND_2025_9THANNIVERSARY
       imageUrl: sb_9thAnniversary
       cardType: SPECIAL_BACKGROUND
       vfxAddress: bgfx_9thAnni
@@ -116609,7 +118070,7 @@
   data:
     templateId: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_DD_001
     locationCardSettings:
-      locationCard: 89
+      locationCard: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_DD_001
       imageUrl: sb_GoFest2025_Eternatus
       cardType: SPECIAL_BACKGROUND
       vfxAddress: bgfx_goFest_2025_eternatus
@@ -116617,7 +118078,7 @@
   data:
     templateId: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_REGI_001
     locationCardSettings:
-      locationCard: 81
+      locationCard: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_REGI_001
       imageUrl: sb_GoFest2025
       cardType: SPECIAL_BACKGROUND
       vfxAddress: bgfx_goFest_2025_rock_001
@@ -116625,7 +118086,7 @@
   data:
     templateId: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_REGI_002
     locationCardSettings:
-      locationCard: 82
+      locationCard: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_REGI_002
       imageUrl: sb_GoFest2025
       cardType: SPECIAL_BACKGROUND
       vfxAddress: bgfx_goFest_2025_rock_002
@@ -116633,7 +118094,7 @@
   data:
     templateId: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_REGI_003
     locationCardSettings:
-      locationCard: 83
+      locationCard: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_REGI_003
       imageUrl: sb_GoFest2025
       cardType: SPECIAL_BACKGROUND
       vfxAddress: bgfx_goFest_2025_rock_003
@@ -116641,7 +118102,7 @@
   data:
     templateId: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_REGI_004
     locationCardSettings:
-      locationCard: 84
+      locationCard: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_REGI_004
       imageUrl: sb_GoFest2025
       cardType: SPECIAL_BACKGROUND
       vfxAddress: bgfx_goFest_2025_rock_004
@@ -116649,7 +118110,7 @@
   data:
     templateId: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_REGI_005
     locationCardSettings:
-      locationCard: 85
+      locationCard: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_REGI_005
       imageUrl: sb_GoFest2025
       cardType: SPECIAL_BACKGROUND
       vfxAddress: bgfx_goFest_2025_rock_005
@@ -116657,7 +118118,7 @@
   data:
     templateId: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_REGI_006
     locationCardSettings:
-      locationCard: 86
+      locationCard: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_REGI_006
       imageUrl: sb_GoFest2025
       cardType: SPECIAL_BACKGROUND
       vfxAddress: bgfx_goFest_2025_rock_006
@@ -116665,7 +118126,7 @@
   data:
     templateId: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_SHIELD_001
     locationCardSettings:
-      locationCard: 88
+      locationCard: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_SHIELD_001
       imageUrl: sb_GoTour2025_black
       cardType: SPECIAL_BACKGROUND
       vfxAddress: bgfx_goFest_2025_shield
@@ -116673,7 +118134,7 @@
   data:
     templateId: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_SHIELD_CROWNED_001
     locationCardSettings:
-      locationCard: 91
+      locationCard: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_SHIELD_CROWNED_001
       imageUrl: sb_GoTour2025_black
       cardType: SPECIAL_BACKGROUND
       vfxAddress: bgfx_goFest_2025_shield_c
@@ -116681,7 +118142,7 @@
   data:
     templateId: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_SWORD_001
     locationCardSettings:
-      locationCard: 87
+      locationCard: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_SWORD_001
       imageUrl: sb_GoTour2025_black
       cardType: SPECIAL_BACKGROUND
       vfxAddress: bgfx_goFest_2025_sword
@@ -116689,7 +118150,7 @@
   data:
     templateId: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_SWORD_CROWNED_001
     locationCardSettings:
-      locationCard: 90
+      locationCard: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_SWORD_CROWNED_001
       imageUrl: sb_GoTour2025_black
       cardType: SPECIAL_BACKGROUND
       vfxAddress: bgfx_goFest_2025_sword_c
@@ -116721,7 +118182,7 @@
   data:
     templateId: LC_SPECIALBACKGROUND_2025_GOWA_GLOBAL
     locationCardSettings:
-      locationCard: 156
+      locationCard: LC_SPECIALBACKGROUND_2025_GOWA_GLOBAL
       imageUrl: sb_gowa2025_global
       cardType: SPECIAL_BACKGROUND
       vfxAddress: bgfx_gowa
@@ -116729,7 +118190,7 @@
   data:
     templateId: LC_SPECIALBACKGROUND_2025_S18
     locationCardSettings:
-      locationCard: 76
+      locationCard: LC_SPECIALBACKGROUND_2025_S18
       imageUrl: sb_Season18_MightAndMastery
       cardType: SPECIAL_BACKGROUND
       vfxAddress: bgfx_MightAndMastery
@@ -116744,7 +118205,7 @@
   data:
     templateId: LC_SPECIALBACKGROUND_2025_SEASON19
     locationCardSettings:
-      locationCard: 108
+      locationCard: LC_SPECIALBACKGROUND_2025_SEASON19
       imageUrl: sb_Season19_DelightfulDays
       cardType: SPECIAL_BACKGROUND
       vfxAddress: bgfx_DelightfulDays
@@ -116752,7 +118213,7 @@
   data:
     templateId: LC_SPECIALBACKGROUND_2025_SEASON20
     locationCardSettings:
-      locationCard: 111
+      locationCard: LC_SPECIALBACKGROUND_2025_SEASON20
       imageUrl: sb_Season20_TalesOfTransformation
       cardType: SPECIAL_BACKGROUND
       vfxAddress: bgfx_TalesOfTransformation
@@ -116760,7 +118221,7 @@
   data:
     templateId: LC_SPECIALBACKGROUND_2026_COMMUNITYDAY
     locationCardSettings:
-      locationCard: 213
+      locationCard: LC_SPECIALBACKGROUND_2026_COMMUNITYDAY
       imageUrl: sb_Community_2026
       cardType: SPECIAL_BACKGROUND
       vfxAddress: bgfx_CommunityDay_2026
@@ -116768,7 +118229,7 @@
   data:
     templateId: LC_SPECIALBACKGROUND_2026_GLOBAL_DIAMOND_001
     locationCardSettings:
-      locationCard: 220
+      locationCard: LC_SPECIALBACKGROUND_2026_GLOBAL_DIAMOND_001
       imageUrl: sb_GoTour2026_diamond
       cardType: SPECIAL_BACKGROUND
       vfxAddress: bgfx_Diamond
@@ -116776,7 +118237,7 @@
   data:
     templateId: LC_SPECIALBACKGROUND_2026_GLOBAL_GOLD_001
     locationCardSettings:
-      locationCard: 216
+      locationCard: LC_SPECIALBACKGROUND_2026_GLOBAL_GOLD_001
       imageUrl: sb_GoTour2026_gold
       cardType: SPECIAL_BACKGROUND
       vfxAddress: bgfx_Gold
@@ -116784,7 +118245,7 @@
   data:
     templateId: LC_SPECIALBACKGROUND_2026_GLOBAL_MEGA_001
     locationCardSettings:
-      locationCard: 224
+      locationCard: LC_SPECIALBACKGROUND_2026_GLOBAL_MEGA_001
       imageUrl: sb_GoTour2026_mega
       cardType: SPECIAL_BACKGROUND
       vfxAddress: bgfx_Mega
@@ -116792,7 +118253,7 @@
   data:
     templateId: LC_SPECIALBACKGROUND_2026_GLOBAL_PEARL_001
     locationCardSettings:
-      locationCard: 221
+      locationCard: LC_SPECIALBACKGROUND_2026_GLOBAL_PEARL_001
       imageUrl: sb_GoTour2026_pearl
       cardType: SPECIAL_BACKGROUND
       vfxAddress: bgfx_Pearl
@@ -116800,7 +118261,7 @@
   data:
     templateId: LC_SPECIALBACKGROUND_2026_GLOBAL_RUBY_001
     locationCardSettings:
-      locationCard: 218
+      locationCard: LC_SPECIALBACKGROUND_2026_GLOBAL_RUBY_001
       imageUrl: sb_GoTour2026_ruby
       cardType: SPECIAL_BACKGROUND
       vfxAddress: bgfx_Ruby
@@ -116808,7 +118269,7 @@
   data:
     templateId: LC_SPECIALBACKGROUND_2026_GLOBAL_SAPPHIRE_001
     locationCardSettings:
-      locationCard: 219
+      locationCard: LC_SPECIALBACKGROUND_2026_GLOBAL_SAPPHIRE_001
       imageUrl: sb_GoTour2026_sapphire
       cardType: SPECIAL_BACKGROUND
       vfxAddress: bgfx_Sapphire
@@ -116816,7 +118277,7 @@
   data:
     templateId: LC_SPECIALBACKGROUND_2026_GLOBAL_SILVER_001
     locationCardSettings:
-      locationCard: 217
+      locationCard: LC_SPECIALBACKGROUND_2026_GLOBAL_SILVER_001
       imageUrl: sb_GoTour2026_silver
       cardType: SPECIAL_BACKGROUND
       vfxAddress: bgfx_Silver
@@ -116824,7 +118285,7 @@
   data:
     templateId: LC_SPECIALBACKGROUND_2026_GLOBAL_X_001
     locationCardSettings:
-      locationCard: 222
+      locationCard: LC_SPECIALBACKGROUND_2026_GLOBAL_X_001
       imageUrl: sb_GoTour2026_x
       cardType: SPECIAL_BACKGROUND
       vfxAddress: bgfx_X
@@ -116832,7 +118293,7 @@
   data:
     templateId: LC_SPECIALBACKGROUND_2026_GLOBAL_Y_001
     locationCardSettings:
-      locationCard: 223
+      locationCard: LC_SPECIALBACKGROUND_2026_GLOBAL_Y_001
       imageUrl: sb_GoTour2026_y
       cardType: SPECIAL_BACKGROUND
       vfxAddress: bgfx_Y
@@ -116840,14 +118301,14 @@
   data:
     templateId: LC_SPECIALBACKGROUND_CON2025
     locationCardSettings:
-      locationCard: 144
+      locationCard: LC_SPECIALBACKGROUND_CON2025
       imageUrl: sb_Concierge2025
       cardType: SPECIAL_BACKGROUND
 - templateId: LC_SPECIALBACKGROUND_EXTRA_2025_01
   data:
     templateId: LC_SPECIALBACKGROUND_EXTRA_2025_01
     locationCardSettings:
-      locationCard: 133
+      locationCard: LC_SPECIALBACKGROUND_EXTRA_2025_01
       imageUrl: sb_FestivalofColors_2026
       cardType: SPECIAL_BACKGROUND
       vfxAddress: bgfx_holi_2026
@@ -116855,26 +118316,26 @@
   data:
     templateId: LC_SPECIALBACKGROUND_EXTRA_2025_02
     locationCardSettings:
-      locationCard: 134
+      locationCard: LC_SPECIALBACKGROUND_EXTRA_2025_02
       imageUrl: lc_taipeiFlowerFestival_2026
 - templateId: LC_SPECIALBACKGROUND_KR2025_LOTTE_01
   data:
     templateId: LC_SPECIALBACKGROUND_KR2025_LOTTE_01
     locationCardSettings:
-      locationCard: 100
+      locationCard: LC_SPECIALBACKGROUND_KR2025_LOTTE_01
       imageUrl: lc_LotteGiants
 - templateId: LC_SPECIALBACKGROUND_OBSERVATORY_EXHIBITION_TOUR
   data:
     templateId: LC_SPECIALBACKGROUND_OBSERVATORY_EXHIBITION_TOUR
     locationCardSettings:
-      locationCard: 211
+      locationCard: LC_SPECIALBACKGROUND_OBSERVATORY_EXHIBITION_TOUR
       imageUrl: sb_ObservatoryExhibitionTour
       cardType: SPECIAL_BACKGROUND
 - templateId: LC_SPECIALBACKGROUND_POK2026
   data:
     templateId: LC_SPECIALBACKGROUND_POK2026
     locationCardSettings:
-      locationCard: 242
+      locationCard: LC_SPECIALBACKGROUND_POK2026
       imageUrl: lc_pokopia2026
       cardType: SPECIAL_BACKGROUND
 - templateId: LC_SPECIALBACKGROUND_TEAM_BLUE
@@ -123326,6 +124787,12 @@
     avatarItemDisplay:
       iconAddress: n_hat_mlb-orioles_0_icon
       displayStringId: avatar_hat_mlborioles
+- templateId: N_DISPLAY_n_hat_mlb-padres_0
+  data:
+    templateId: N_DISPLAY_n_hat_mlb-padres_0
+    avatarItemDisplay:
+      iconAddress: n_hat_mlb-padres_0_icon
+      displayStringId: avatar_hat_mlbpadres
 - templateId: N_DISPLAY_n_hat_mlb-rangers_0
   data:
     templateId: N_DISPLAY_n_hat_mlb-rangers_0
@@ -132925,8 +134392,6 @@
         battleMusicKey: RocketLeaderCombatMusic
       - raidLevel: RAID_LEVEL_5_SHADOW
         battleMusicKey: RocketBossCombatMusic
-      - raidLevel: RAID_LEVEL_MEGA_5
-        battleMusicKey: GoTour2023Music02
       raidFeatureFlags:
         useCachedRaidBossPokemon: true
       bootRaidEnabled: true
@@ -132984,6 +134449,8 @@
         - DIALGA_NORMAL
         - DIALGA_ORIGIN
         battleMusicKey: GoTour2024Music01
+      - pokemon: RAYQUAZA
+        battleMusicKey: GoTour2023Music02
       fetchProfileFromSocialEnabled: true
       suggestedPlayerCountToastSettings:
       - raidLevel: 16
@@ -155543,6 +157010,11 @@
       - "#FF9D00"
       giftingMinFriendshipLevel: 2
       minPlayerLevel: 5
+- templateId: STAMP_COLLECTION_SNAPSHOT_ENABLED_CODE_GATE
+  data:
+    templateId: STAMP_COLLECTION_SNAPSHOT_ENABLED_CODE_GATE
+    codeGate:
+      isEnabled: true
 - templateId: STATIONED_POKEMON_POWER_BOOST_TABLE_SETTINGS
   data:
     templateId: STATIONED_POKEMON_POWER_BOOST_TABLE_SETTINGS
@@ -167818,6 +169290,11 @@
 - templateId: USE_EXTENDED_SETTINGS_FOR_MAX_SCALE_CODE_GATE
   data:
     templateId: USE_EXTENDED_SETTINGS_FOR_MAX_SCALE_CODE_GATE
+    codeGate:
+      isEnabled: true
+- templateId: USE_GMT_SKU_DATA_CODE_GATE
+  data:
+    templateId: USE_GMT_SKU_DATA_CODE_GATE
     codeGate:
       isEnabled: true
 - templateId: V0001_FAMILY_BULBASAUR
@@ -311767,6 +313244,9 @@
         minPokemonActionFrequencyS: 0.2
         maxPokemonActionFrequencyS: 1.6
         bonusXlCandyCaptureReward: 3
+        shadowBaseCaptureRate: 0.2
+        shadowAttackProbability: 0.7
+        shadowDodgeProbability: 0.2
       stats:
         baseStamina: 205
         baseAttack: 261
@@ -311813,6 +313293,11 @@
         candyToUnlock: 100
       isTransferable: true
       isTradable: true
+      shadow:
+        purificationStardustNeeded: 20000
+        purificationCandyNeeded: 20
+        purifiedChargeMove: RETURN
+        shadowChargeMove: FRUSTRATION
       buddyGroupNumber: 7
       ibfc: {}
       breadTierGroup: GROUP_4
@@ -311846,6 +313331,9 @@
         minPokemonActionFrequencyS: 0.2
         maxPokemonActionFrequencyS: 1.6
         bonusXlCandyCaptureReward: 3
+        shadowBaseCaptureRate: 0.2
+        shadowAttackProbability: 0.7
+        shadowDodgeProbability: 0.2
       stats:
         baseStamina: 205
         baseAttack: 261
@@ -311893,6 +313381,11 @@
         candyToUnlock: 100
       isTransferable: true
       isTradable: true
+      shadow:
+        purificationStardustNeeded: 20000
+        purificationCandyNeeded: 20
+        purifiedChargeMove: RETURN
+        shadowChargeMove: FRUSTRATION
       buddyGroupNumber: 7
       useIrisFlyingPlacement: true
       ibfc: {}
@@ -311927,6 +313420,9 @@
         minPokemonActionFrequencyS: 0.2
         maxPokemonActionFrequencyS: 1.6
         bonusXlCandyCaptureReward: 3
+        shadowBaseCaptureRate: 0.2
+        shadowAttackProbability: 0.7
+        shadowDodgeProbability: 0.2
       stats:
         baseStamina: 205
         baseAttack: 289
@@ -311974,6 +313470,11 @@
         candyToUnlock: 100
       isTransferable: true
       isTradable: true
+      shadow:
+        purificationStardustNeeded: 20000
+        purificationCandyNeeded: 20
+        purifiedChargeMove: RETURN
+        shadowChargeMove: FRUSTRATION
       buddyGroupNumber: 7
       eliteCinematicMove:
       - SANDSEAR_STORM
@@ -325994,6 +327495,9 @@
         cameraDistance: 2.5
         minPokemonActionFrequencyS: 0.2
         maxPokemonActionFrequencyS: 1.6
+        shadowBaseCaptureRate: 0.3
+        shadowAttackProbability: 0.7
+        shadowDodgeProbability: 0.2
       stats:
         baseStamina: 127
         baseAttack: 115
@@ -326024,6 +327528,7 @@
       - evolution: HELIOLISK
         evolutionItemRequirement: ITEM_SUN_STONE
         candyCost: 50
+        candyCostPurified: 45
       modelScaleV2: 1.0
       thirdMove:
         stardustToUnlock: 50000
@@ -326031,6 +327536,11 @@
       isTransferable: true
       isDeployable: true
       isTradable: true
+      shadow:
+        purificationStardustNeeded: 3000
+        purificationCandyNeeded: 3
+        purifiedChargeMove: RETURN
+        shadowChargeMove: FRUSTRATION
       ibfc: {}
       breadTierGroup: GROUP_2
 - templateId: V0694_POKEMON_HELIOPTILE_NORMAL
@@ -326057,6 +327567,9 @@
         cameraDistance: 2.5
         minPokemonActionFrequencyS: 0.2
         maxPokemonActionFrequencyS: 1.6
+        shadowBaseCaptureRate: 0.3
+        shadowAttackProbability: 0.7
+        shadowDodgeProbability: 0.2
       stats:
         baseStamina: 127
         baseAttack: 115
@@ -326088,6 +327601,7 @@
         evolutionItemRequirement: ITEM_SUN_STONE
         candyCost: 50
         form: HELIOLISK_NORMAL
+        candyCostPurified: 45
       modelScaleV2: 1.0
       form: HELIOPTILE_NORMAL
       thirdMove:
@@ -326096,6 +327610,11 @@
       isTransferable: true
       isDeployable: true
       isTradable: true
+      shadow:
+        purificationStardustNeeded: 3000
+        purificationCandyNeeded: 3
+        purifiedChargeMove: RETURN
+        shadowChargeMove: FRUSTRATION
       ibfc: {}
       breadTierGroup: GROUP_2
 - templateId: V0695_POKEMON_HELIOLISK
@@ -326125,6 +327644,9 @@
         minPokemonActionFrequencyS: 0.2
         maxPokemonActionFrequencyS: 1.6
         bonusXlCandyCaptureReward: 1
+        shadowBaseCaptureRate: 0.125
+        shadowAttackProbability: 0.7
+        shadowDodgeProbability: 0.2
       stats:
         baseStamina: 158
         baseAttack: 219
@@ -326170,6 +327692,11 @@
       isTransferable: true
       isDeployable: true
       isTradable: true
+      shadow:
+        purificationStardustNeeded: 3000
+        purificationCandyNeeded: 3
+        purifiedChargeMove: RETURN
+        shadowChargeMove: FRUSTRATION
       ibfc: {}
       breadTierGroup: GROUP_2
 - templateId: V0695_POKEMON_HELIOLISK_NORMAL
@@ -326199,6 +327726,9 @@
         minPokemonActionFrequencyS: 0.2
         maxPokemonActionFrequencyS: 1.6
         bonusXlCandyCaptureReward: 1
+        shadowBaseCaptureRate: 0.125
+        shadowAttackProbability: 0.7
+        shadowDodgeProbability: 0.2
       stats:
         baseStamina: 158
         baseAttack: 219
@@ -326245,6 +327775,11 @@
       isTransferable: true
       isDeployable: true
       isTradable: true
+      shadow:
+        purificationStardustNeeded: 3000
+        purificationCandyNeeded: 3
+        purifiedChargeMove: RETURN
+        shadowChargeMove: FRUSTRATION
       ibfc: {}
       breadTierGroup: GROUP_2
 - templateId: V0696_FAMILY_TYRUNT
@@ -336662,6 +338197,9 @@
         cameraDistance: 2.0
         minPokemonActionFrequencyS: 0.2
         maxPokemonActionFrequencyS: 1.6
+        shadowBaseCaptureRate: 0.3
+        shadowAttackProbability: 0.7
+        shadowDodgeProbability: 0.2
       stats:
         baseStamina: 116
         baseAttack: 72
@@ -336683,6 +338221,7 @@
       evolutionBranch:
       - evolution: ARAQUANID
         candyCost: 50
+        candyCostPurified: 45
       modelScaleV2: 1.2
       buddyOffsetMale:
       - 0.0
@@ -336703,6 +338242,11 @@
       isTransferable: true
       isDeployable: true
       isTradable: true
+      shadow:
+        purificationStardustNeeded: 3000
+        purificationCandyNeeded: 3
+        purifiedChargeMove: RETURN
+        shadowChargeMove: FRUSTRATION
       buddyGroupNumber: 1
       raidBossDistanceOffset: 3.0
       ibfc: {}
@@ -336730,6 +338274,9 @@
         cameraDistance: 2.0
         minPokemonActionFrequencyS: 0.2
         maxPokemonActionFrequencyS: 1.6
+        shadowBaseCaptureRate: 0.3
+        shadowAttackProbability: 0.7
+        shadowDodgeProbability: 0.2
       stats:
         baseStamina: 116
         baseAttack: 72
@@ -336752,6 +338299,7 @@
       - evolution: ARAQUANID
         candyCost: 50
         form: ARAQUANID_NORMAL
+        candyCostPurified: 45
       modelScaleV2: 1.2
       form: DEWPIDER_NORMAL
       buddyOffsetMale:
@@ -336773,6 +338321,11 @@
       isTransferable: true
       isDeployable: true
       isTradable: true
+      shadow:
+        purificationStardustNeeded: 3000
+        purificationCandyNeeded: 3
+        purifiedChargeMove: RETURN
+        shadowChargeMove: FRUSTRATION
       buddyGroupNumber: 1
       raidBossDistanceOffset: 3.0
       ibfc: {}
@@ -336803,6 +338356,9 @@
         minPokemonActionFrequencyS: 0.2
         maxPokemonActionFrequencyS: 1.6
         bonusXlCandyCaptureReward: 1
+        shadowBaseCaptureRate: 0.125
+        shadowAttackProbability: 0.7
+        shadowDodgeProbability: 0.2
       stats:
         baseStamina: 169
         baseAttack: 126
@@ -336844,6 +338400,11 @@
       isTransferable: true
       isDeployable: true
       isTradable: true
+      shadow:
+        purificationStardustNeeded: 3000
+        purificationCandyNeeded: 3
+        purifiedChargeMove: RETURN
+        shadowChargeMove: FRUSTRATION
       buddyGroupNumber: 3
       raidBossDistanceOffset: 8.0
       ibfc: {}
@@ -336874,6 +338435,9 @@
         minPokemonActionFrequencyS: 0.2
         maxPokemonActionFrequencyS: 1.6
         bonusXlCandyCaptureReward: 1
+        shadowBaseCaptureRate: 0.125
+        shadowAttackProbability: 0.7
+        shadowDodgeProbability: 0.2
       stats:
         baseStamina: 169
         baseAttack: 126
@@ -336916,6 +338480,11 @@
       isTransferable: true
       isDeployable: true
       isTradable: true
+      shadow:
+        purificationStardustNeeded: 3000
+        purificationCandyNeeded: 3
+        purifiedChargeMove: RETURN
+        shadowChargeMove: FRUSTRATION
       buddyGroupNumber: 3
       raidBossDistanceOffset: 8.0
       ibfc: {}
@@ -337279,6 +338848,9 @@
         cameraDistance: 2.0
         minPokemonActionFrequencyS: 0.2
         maxPokemonActionFrequencyS: 1.6
+        shadowBaseCaptureRate: 0.3
+        shadowAttackProbability: 0.7
+        shadowDodgeProbability: 0.2
       stats:
         baseStamina: 120
         baseAttack: 108
@@ -337298,6 +338870,7 @@
       evolutionBranch:
       - evolution: SHIINOTIC
         candyCost: 50
+        candyCostPurified: 45
       modelScaleV2: 1.1
       buddyOffsetMale:
       - 0.0
@@ -337318,6 +338891,11 @@
       isTransferable: true
       isDeployable: true
       isTradable: true
+      shadow:
+        purificationStardustNeeded: 3000
+        purificationCandyNeeded: 3
+        purifiedChargeMove: RETURN
+        shadowChargeMove: FRUSTRATION
       buddyGroupNumber: 2
       ibfc: {}
       breadTierGroup: GROUP_2
@@ -337345,6 +338923,9 @@
         cameraDistance: 2.0
         minPokemonActionFrequencyS: 0.2
         maxPokemonActionFrequencyS: 1.6
+        shadowBaseCaptureRate: 0.3
+        shadowAttackProbability: 0.7
+        shadowDodgeProbability: 0.2
       stats:
         baseStamina: 120
         baseAttack: 108
@@ -337365,6 +338946,7 @@
       - evolution: SHIINOTIC
         candyCost: 50
         form: SHIINOTIC_NORMAL
+        candyCostPurified: 45
       modelScaleV2: 1.1
       form: MORELULL_NORMAL
       buddyOffsetMale:
@@ -337386,6 +338968,11 @@
       isTransferable: true
       isDeployable: true
       isTradable: true
+      shadow:
+        purificationStardustNeeded: 3000
+        purificationCandyNeeded: 3
+        purifiedChargeMove: RETURN
+        shadowChargeMove: FRUSTRATION
       buddyGroupNumber: 2
       ibfc: {}
       breadTierGroup: GROUP_2
@@ -337414,6 +339001,9 @@
         minPokemonActionFrequencyS: 0.2
         maxPokemonActionFrequencyS: 1.6
         bonusXlCandyCaptureReward: 1
+        shadowBaseCaptureRate: 0.125
+        shadowAttackProbability: 0.7
+        shadowDodgeProbability: 0.2
       stats:
         baseStamina: 155
         baseAttack: 154
@@ -337452,6 +339042,11 @@
       isTransferable: true
       isDeployable: true
       isTradable: true
+      shadow:
+        purificationStardustNeeded: 3000
+        purificationCandyNeeded: 3
+        purifiedChargeMove: RETURN
+        shadowChargeMove: FRUSTRATION
       buddyGroupNumber: 2
       raidBossDistanceOffset: 3.0
       ibfc: {}
@@ -337481,6 +339076,9 @@
         minPokemonActionFrequencyS: 0.2
         maxPokemonActionFrequencyS: 1.6
         bonusXlCandyCaptureReward: 1
+        shadowBaseCaptureRate: 0.125
+        shadowAttackProbability: 0.7
+        shadowDodgeProbability: 0.2
       stats:
         baseStamina: 155
         baseAttack: 154
@@ -337520,6 +339118,11 @@
       isTransferable: true
       isDeployable: true
       isTradable: true
+      shadow:
+        purificationStardustNeeded: 3000
+        purificationCandyNeeded: 3
+        purifiedChargeMove: RETURN
+        shadowChargeMove: FRUSTRATION
       buddyGroupNumber: 2
       raidBossDistanceOffset: 3.0
       ibfc: {}
@@ -337835,6 +339438,9 @@
         cameraDistance: 4.0
         minPokemonActionFrequencyS: 0.2
         maxPokemonActionFrequencyS: 1.6
+        shadowBaseCaptureRate: 0.7
+        shadowAttackProbability: 0.7
+        shadowDodgeProbability: 0.2
       stats:
         baseStamina: 172
         baseAttack: 136
@@ -337856,6 +339462,7 @@
       evolutionBranch:
       - evolution: BEWEAR
         candyCost: 400
+        candyCostPurified: 360
       modelScaleV2: 1.0
       buddyOffsetMale:
       - 0.0
@@ -337896,6 +339503,11 @@
       - 0.0
       - 0.0
       - 0.0
+      shadow:
+        purificationStardustNeeded: 1000
+        purificationCandyNeeded: 1
+        purifiedChargeMove: RETURN
+        shadowChargeMove: FRUSTRATION
       buddyGroupNumber: 2
       ibfc: {}
       breadTierGroup: GROUP_1
@@ -337921,6 +339533,9 @@
         cameraDistance: 4.0
         minPokemonActionFrequencyS: 0.2
         maxPokemonActionFrequencyS: 1.6
+        shadowBaseCaptureRate: 0.7
+        shadowAttackProbability: 0.7
+        shadowDodgeProbability: 0.2
       stats:
         baseStamina: 172
         baseAttack: 136
@@ -337943,6 +339558,7 @@
       - evolution: BEWEAR
         candyCost: 400
         form: BEWEAR_NORMAL
+        candyCostPurified: 360
       modelScaleV2: 1.0
       form: STUFFUL_NORMAL
       buddyOffsetMale:
@@ -337984,6 +339600,11 @@
       - 0.0
       - 0.0
       - 0.0
+      shadow:
+        purificationStardustNeeded: 1000
+        purificationCandyNeeded: 1
+        purifiedChargeMove: RETURN
+        shadowChargeMove: FRUSTRATION
       buddyGroupNumber: 2
       ibfc: {}
       breadTierGroup: GROUP_1
@@ -338013,6 +339634,9 @@
         minPokemonActionFrequencyS: 0.2
         maxPokemonActionFrequencyS: 1.6
         bonusXlCandyCaptureReward: 1
+        shadowBaseCaptureRate: 0.1
+        shadowAttackProbability: 0.7
+        shadowDodgeProbability: 0.2
       stats:
         baseStamina: 260
         baseAttack: 226
@@ -338074,6 +339698,11 @@
       - 0.0
       - 0.0
       - 0.0
+      shadow:
+        purificationStardustNeeded: 1000
+        purificationCandyNeeded: 1
+        purifiedChargeMove: RETURN
+        shadowChargeMove: FRUSTRATION
       buddyGroupNumber: 3
       eliteCinematicMove:
       - DRAIN_PUNCH
@@ -338105,6 +339734,9 @@
         minPokemonActionFrequencyS: 0.2
         maxPokemonActionFrequencyS: 1.6
         bonusXlCandyCaptureReward: 1
+        shadowBaseCaptureRate: 0.1
+        shadowAttackProbability: 0.7
+        shadowDodgeProbability: 0.2
       stats:
         baseStamina: 260
         baseAttack: 226
@@ -338167,6 +339799,11 @@
       - 0.0
       - 0.0
       - 0.0
+      shadow:
+        purificationStardustNeeded: 1000
+        purificationCandyNeeded: 1
+        purifiedChargeMove: RETURN
+        shadowChargeMove: FRUSTRATION
       buddyGroupNumber: 3
       eliteCinematicMove:
       - DRAIN_PUNCH
@@ -338198,6 +339835,9 @@
         minPokemonActionFrequencyS: 0.2
         maxPokemonActionFrequencyS: 1.6
         bonusXlCandyCaptureReward: 1
+        shadowBaseCaptureRate: 0.1
+        shadowAttackProbability: 0.7
+        shadowDodgeProbability: 0.2
       stats:
         baseStamina: 260
         baseAttack: 226
@@ -338260,6 +339900,11 @@
       - 0.0
       - 0.0
       - 0.0
+      shadow:
+        purificationStardustNeeded: 1000
+        purificationCandyNeeded: 1
+        purifiedChargeMove: RETURN
+        shadowChargeMove: FRUSTRATION
       buddyGroupNumber: 3
       eliteCinematicMove:
       - DRAIN_PUNCH
@@ -358105,8 +359750,8 @@
           - moveType: A
             moveLevel: LEVEL_1
         locationCardSettings:
-        - existingLocationCard: 87
-          replacementLocationCard: 90
+        - existingLocationCard: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_SWORD_001
+          replacementLocationCard: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_SWORD_CROWNED_001
       - availableForm:
         - ZACIAN_CROWNED_SWORD
         moveReassignment:
@@ -358130,8 +359775,8 @@
           - moveType: A
             moveLevel: LEVEL_1
         locationCardSettings:
-        - existingLocationCard: 87
-          replacementLocationCard: 90
+        - existingLocationCard: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_SWORD_001
+          replacementLocationCard: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_SWORD_CROWNED_001
       ibfc: {}
       breadTierGroup: GROUP_Z
 - templateId: V0888_POKEMON_ZACIAN_CROWNED_SWORD
@@ -358213,8 +359858,8 @@
         - targetForm: ZACIAN_HERO
           clearBreadMode: true
         locationCardSettings:
-        - existingLocationCard: 90
-          replacementLocationCard: 87
+        - existingLocationCard: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_SWORD_CROWNED_001
+          replacementLocationCard: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_SWORD_001
       ibfc: {}
       breadTierGroup: GROUP_Z
 - templateId: V0888_POKEMON_ZACIAN_HERO
@@ -358307,8 +359952,8 @@
           - moveType: A
             moveLevel: LEVEL_1
         locationCardSettings:
-        - existingLocationCard: 87
-          replacementLocationCard: 90
+        - existingLocationCard: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_SWORD_001
+          replacementLocationCard: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_SWORD_CROWNED_001
       - availableForm:
         - ZACIAN_CROWNED_SWORD
         moveReassignment:
@@ -358332,8 +359977,8 @@
           - moveType: A
             moveLevel: LEVEL_1
         locationCardSettings:
-        - existingLocationCard: 87
-          replacementLocationCard: 90
+        - existingLocationCard: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_SWORD_001
+          replacementLocationCard: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_SWORD_CROWNED_001
       ibfc: {}
       breadTierGroup: GROUP_Z
 - templateId: V0889_FAMILY_ZAMAZENTA
@@ -358432,8 +360077,8 @@
           - moveType: A
             moveLevel: LEVEL_1
         locationCardSettings:
-        - existingLocationCard: 88
-          replacementLocationCard: 91
+        - existingLocationCard: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_SHIELD_001
+          replacementLocationCard: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_SHIELD_CROWNED_001
       - availableForm:
         - ZAMAZENTA_CROWNED_SHIELD
         moveReassignment:
@@ -358457,8 +360102,8 @@
           - moveType: A
             moveLevel: LEVEL_1
         locationCardSettings:
-        - existingLocationCard: 88
-          replacementLocationCard: 91
+        - existingLocationCard: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_SHIELD_001
+          replacementLocationCard: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_SHIELD_CROWNED_001
       ibfc: {}
       breadTierGroup: GROUP_Z
 - templateId: V0889_POKEMON_ZAMAZENTA_CROWNED_SHIELD
@@ -358540,8 +360185,8 @@
         - targetForm: ZAMAZENTA_HERO
           clearBreadMode: true
         locationCardSettings:
-        - existingLocationCard: 91
-          replacementLocationCard: 88
+        - existingLocationCard: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_SHIELD_CROWNED_001
+          replacementLocationCard: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_SHIELD_001
       ibfc: {}
       breadTierGroup: GROUP_Z
 - templateId: V0889_POKEMON_ZAMAZENTA_HERO
@@ -358634,8 +360279,8 @@
           - moveType: A
             moveLevel: LEVEL_1
         locationCardSettings:
-        - existingLocationCard: 88
-          replacementLocationCard: 91
+        - existingLocationCard: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_SHIELD_001
+          replacementLocationCard: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_SHIELD_CROWNED_001
       - availableForm:
         - ZAMAZENTA_CROWNED_SHIELD
         moveReassignment:
@@ -358659,8 +360304,8 @@
           - moveType: A
             moveLevel: LEVEL_1
         locationCardSettings:
-        - existingLocationCard: 88
-          replacementLocationCard: 91
+        - existingLocationCard: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_SHIELD_001
+          replacementLocationCard: LC_SPECIALBACKGROUND_2025_GLOBAL_GOFEST_SHIELD_CROWNED_001
       ibfc: {}
       breadTierGroup: GROUP_Z
 - templateId: V0890_FAMILY_ETERNATUS
@@ -367911,6 +369556,8 @@
       isDeployable: true
       isTradable: true
       buddyGroupNumber: 1
+      eliteCinematicMove:
+      - GIGATON_HAMMER
       ibfc: {}
       breadTierGroup: GROUP_3
 - templateId: V0959_POKEMON_TINKATON_NORMAL
@@ -367972,6 +369619,8 @@
       isDeployable: true
       isTradable: true
       buddyGroupNumber: 1
+      eliteCinematicMove:
+      - GIGATON_HAMMER
       ibfc: {}
       breadTierGroup: GROUP_3
 - templateId: V0960_FAMILY_WIGLETT
@@ -368941,12 +370590,18 @@
     pokemonSettings:
       pokemonId: ORTHWORM
       type: POKEMON_TYPE_STEEL
-      camera: {}
+      camera:
+        cylinderRadiusM: 1.28
+        cylinderHeightM: 1.09
       encounter:
+        collisionRadiusM: 0.24
+        collisionHeightM: 0.26
+        collisionHeadRadiusM: 0.28
         jumpTimeS: 1.0
         attackProbability: 0.1
         dodgeProbability: 0.15
         dodgeDurationS: 1.0
+        cameraDistance: 4.6
         minPokemonActionFrequencyS: 0.2
         maxPokemonActionFrequencyS: 1.6
       stats:
@@ -368966,12 +370621,51 @@
       weightStdDev: 38.75
       familyId: FAMILY_ORTHWORM
       kmBuddyDistance: 5.0
+      modelHeight: 2.31
+      modelScaleV2: 1.28
+      buddyOffsetMale:
+      - 0.0
+      - 0.0
+      - 0.0
+      buddyOffsetFemale:
+      - 0.0
+      - 0.0
+      - 0.0
+      buddyScale: 15.0
+      buddyPortraitOffset:
+      - -50.0
+      - 100.0
+      - -560.0
       thirdMove:
         stardustToUnlock: 75000
         candyToUnlock: 75
       isTransferable: true
       isDeployable: true
+      combatShoulderCameraAngle:
+      - 0.0
+      - 0.0
+      - 0.0
       isTradable: true
+      combatDefaultCameraAngle:
+      - 0.0
+      - 0.0
+      - 0.0
+      combatOpponentFocusCameraAngle:
+      - 0.0
+      - 0.0
+      - 0.0
+      combatPlayerFocusCameraAngle:
+      - 0.0
+      - 0.0
+      - 0.0
+      combatPlayerPokemonPositionOffset:
+      - 0.0
+      - 0.0
+      - 0.0
+      buddyPortraitRotation:
+      - 0.0
+      - 0.0
+      - 0.0
       ibfc: {}
       breadTierGroup: GROUP_3
 - templateId: V0968_POKEMON_ORTHWORM_NORMAL
@@ -368980,12 +370674,18 @@
     pokemonSettings:
       pokemonId: ORTHWORM
       type: POKEMON_TYPE_STEEL
-      camera: {}
+      camera:
+        cylinderRadiusM: 1.28
+        cylinderHeightM: 1.09
       encounter:
+        collisionRadiusM: 0.24
+        collisionHeightM: 0.26
+        collisionHeadRadiusM: 0.28
         jumpTimeS: 1.0
         attackProbability: 0.1
         dodgeProbability: 0.15
         dodgeDurationS: 1.0
+        cameraDistance: 4.6
         minPokemonActionFrequencyS: 0.2
         maxPokemonActionFrequencyS: 1.6
       stats:
@@ -369005,13 +370705,52 @@
       weightStdDev: 38.75
       familyId: FAMILY_ORTHWORM
       kmBuddyDistance: 5.0
+      modelHeight: 2.31
+      modelScaleV2: 1.28
       form: ORTHWORM_NORMAL
+      buddyOffsetMale:
+      - 0.0
+      - 0.0
+      - 0.0
+      buddyOffsetFemale:
+      - 0.0
+      - 0.0
+      - 0.0
+      buddyScale: 15.0
+      buddyPortraitOffset:
+      - -50.0
+      - 100.0
+      - -560.0
       thirdMove:
         stardustToUnlock: 75000
         candyToUnlock: 75
       isTransferable: true
       isDeployable: true
+      combatShoulderCameraAngle:
+      - 0.0
+      - 0.0
+      - 0.0
       isTradable: true
+      combatDefaultCameraAngle:
+      - 0.0
+      - 0.0
+      - 0.0
+      combatOpponentFocusCameraAngle:
+      - 0.0
+      - 0.0
+      - 0.0
+      combatPlayerFocusCameraAngle:
+      - 0.0
+      - 0.0
+      - 0.0
+      combatPlayerPokemonPositionOffset:
+      - 0.0
+      - 0.0
+      - 0.0
+      buddyPortraitRotation:
+      - 0.0
+      - 0.0
+      - 0.0
       ibfc: {}
       breadTierGroup: GROUP_3
 - templateId: V0969_FAMILY_GLIMMET
@@ -369562,6 +371301,7 @@
       - 0.0
       ibfc: {}
       breadTierGroup: GROUP_3
+      disableTransferToPokemonHomeIfShiny: true
 - templateId: V0973_POKEMON_FLAMIGO_NORMAL
   data:
     templateId: V0973_POKEMON_FLAMIGO_NORMAL
@@ -369619,6 +371359,7 @@
       - 0.0
       ibfc: {}
       breadTierGroup: GROUP_3
+      disableTransferToPokemonHomeIfShiny: true
 - templateId: V0974_FAMILY_CETODDLE
   data:
     templateId: V0974_FAMILY_CETODDLE
@@ -376165,8 +377906,8 @@
     templateId: VS_SEEKER_CLIENT_SETTINGS
     vsSeekerClientSettings:
       allowedVsSeekerLeagueTemplateId:
-      - COMBAT_LEAGUE_VS_SEEKER_ULTRA
-      - COMBAT_LEAGUE_VS_SEEKER_GREAT_FANTASY
+      - COMBAT_LEAGUE_VS_SEEKER_MASTER
+      - COMBAT_LEAGUE_VS_SEEKER_SPRING_GREAT
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_10_FREE
   data:
     templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_10_FREE
@@ -376175,19 +377916,19 @@
       reward:
       - item:
           stardust: true
-          count: 750
+          count: 3000
       - item:
           stardust: true
-          count: 750
+          count: 3000
       - item:
           stardust: true
-          count: 750
+          count: 3000
       - item:
           stardust: true
-          count: 750
+          count: 3000
       - item:
           stardust: true
-          count: 750
+          count: 3000
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_10_PREMIUM
   data:
     templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_10_PREMIUM
@@ -376196,19 +377937,19 @@
       reward:
       - item:
           stardust: true
-          count: 1500
+          count: 6000
       - item:
           stardust: true
-          count: 1500
+          count: 6000
       - item:
           stardust: true
-          count: 1500
+          count: 6000
       - item:
           stardust: true
-          count: 1500
+          count: 6000
       - item:
           stardust: true
-          count: 1500
+          count: 6000
       rewardTrack: PREMIUM
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_11_FREE
   data:
@@ -376218,7 +377959,7 @@
       reward:
       - item:
           stardust: true
-          count: 530
+          count: 2120
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376226,7 +377967,7 @@
           count: 3
       - item:
           stardust: true
-          count: 1060
+          count: 4240
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_11_PREMIUM
   data:
     templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_11_PREMIUM
@@ -376235,7 +377976,7 @@
       reward:
       - item:
           stardust: true
-          count: 1060
+          count: 4240
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376243,7 +377984,7 @@
           count: 3
       - item:
           stardust: true
-          count: 2120
+          count: 8480
       rewardTrack: PREMIUM
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_12_FREE
   data:
@@ -376253,7 +377994,7 @@
       reward:
       - item:
           stardust: true
-          count: 530
+          count: 2120
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376261,7 +378002,7 @@
           count: 3
       - item:
           stardust: true
-          count: 1060
+          count: 4240
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_12_PREMIUM
   data:
     templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_12_PREMIUM
@@ -376270,7 +378011,7 @@
       reward:
       - item:
           stardust: true
-          count: 1060
+          count: 4240
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376278,7 +378019,7 @@
           count: 3
       - item:
           stardust: true
-          count: 2120
+          count: 8480
       rewardTrack: PREMIUM
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_13_FREE
   data:
@@ -376288,7 +378029,7 @@
       reward:
       - item:
           stardust: true
-          count: 570
+          count: 2280
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376296,7 +378037,7 @@
           count: 3
       - item:
           stardust: true
-          count: 1140
+          count: 4560
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_13_PREMIUM
   data:
     templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_13_PREMIUM
@@ -376305,7 +378046,7 @@
       reward:
       - item:
           stardust: true
-          count: 1140
+          count: 4560
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376313,7 +378054,7 @@
           count: 3
       - item:
           stardust: true
-          count: 2280
+          count: 9120
       rewardTrack: PREMIUM
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_14_FREE
   data:
@@ -376323,7 +378064,7 @@
       reward:
       - item:
           stardust: true
-          count: 600
+          count: 2400
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376331,7 +378072,7 @@
           count: 3
       - item:
           stardust: true
-          count: 1200
+          count: 4800
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_14_PREMIUM
   data:
     templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_14_PREMIUM
@@ -376340,7 +378081,7 @@
       reward:
       - item:
           stardust: true
-          count: 1200
+          count: 4800
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376348,7 +378089,7 @@
           count: 3
       - item:
           stardust: true
-          count: 2400
+          count: 9600
       rewardTrack: PREMIUM
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_15_FREE
   data:
@@ -376401,7 +378142,7 @@
       reward:
       - item:
           stardust: true
-          count: 700
+          count: 2800
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376409,7 +378150,7 @@
           count: 3
       - item:
           stardust: true
-          count: 1400
+          count: 5600
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_16_PREMIUM
   data:
     templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_16_PREMIUM
@@ -376418,7 +378159,7 @@
       reward:
       - item:
           stardust: true
-          count: 1400
+          count: 5600
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376426,7 +378167,7 @@
           count: 3
       - item:
           stardust: true
-          count: 2800
+          count: 11200
       rewardTrack: PREMIUM
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_17_FREE
   data:
@@ -376436,7 +378177,7 @@
       reward:
       - item:
           stardust: true
-          count: 730
+          count: 2920
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376444,7 +378185,7 @@
           count: 3
       - item:
           stardust: true
-          count: 1460
+          count: 5840
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_17_PREMIUM
   data:
     templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_17_PREMIUM
@@ -376453,7 +378194,7 @@
       reward:
       - item:
           stardust: true
-          count: 1460
+          count: 5840
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376461,7 +378202,7 @@
           count: 3
       - item:
           stardust: true
-          count: 2920
+          count: 11680
       rewardTrack: PREMIUM
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_18_FREE
   data:
@@ -376471,7 +378212,7 @@
       reward:
       - item:
           stardust: true
-          count: 770
+          count: 3080
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376479,7 +378220,7 @@
           count: 3
       - item:
           stardust: true
-          count: 1540
+          count: 6160
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_18_PREMIUM
   data:
     templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_18_PREMIUM
@@ -376488,7 +378229,7 @@
       reward:
       - item:
           stardust: true
-          count: 1540
+          count: 6160
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376496,7 +378237,7 @@
           count: 3
       - item:
           stardust: true
-          count: 3080
+          count: 12320
       rewardTrack: PREMIUM
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_19_FREE
   data:
@@ -376529,7 +378270,7 @@
       reward:
       - item:
           stardust: true
-          count: 300
+          count: 1200
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376537,7 +378278,7 @@
           count: 3
       - item:
           stardust: true
-          count: 600
+          count: 2400
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_1_PREMIUM
   data:
     templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_1_PREMIUM
@@ -376546,7 +378287,7 @@
       reward:
       - item:
           stardust: true
-          count: 600
+          count: 2400
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376554,7 +378295,7 @@
           count: 3
       - item:
           stardust: true
-          count: 1200
+          count: 4800
       rewardTrack: PREMIUM
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_20_FREE
   data:
@@ -376564,7 +378305,7 @@
       reward:
       - item:
           stardust: true
-          count: 870
+          count: 3480
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376572,7 +378313,7 @@
           count: 3
       - item:
           stardust: true
-          count: 1740
+          count: 6960
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_20_PREMIUM
   data:
     templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_20_PREMIUM
@@ -376581,7 +378322,7 @@
       reward:
       - item:
           stardust: true
-          count: 1740
+          count: 6960
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376589,7 +378330,7 @@
           count: 3
       - item:
           stardust: true
-          count: 3480
+          count: 13920
       rewardTrack: PREMIUM
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_21_FREE
   data:
@@ -376599,7 +378340,7 @@
       reward:
       - item:
           stardust: true
-          count: 900
+          count: 3600
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376607,7 +378348,7 @@
           count: 3
       - item:
           stardust: true
-          count: 1800
+          count: 7200
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_21_PREMIUM
   data:
     templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_21_PREMIUM
@@ -376616,7 +378357,7 @@
       reward:
       - item:
           stardust: true
-          count: 1800
+          count: 7200
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376624,7 +378365,7 @@
           count: 3
       - item:
           stardust: true
-          count: 3600
+          count: 14400
       rewardTrack: PREMIUM
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_22_FREE
   data:
@@ -376634,7 +378375,7 @@
       reward:
       - item:
           stardust: true
-          count: 900
+          count: 3600
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376642,7 +378383,7 @@
           count: 3
       - item:
           stardust: true
-          count: 1800
+          count: 7200
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_22_PREMIUM
   data:
     templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_22_PREMIUM
@@ -376651,7 +378392,7 @@
       reward:
       - item:
           stardust: true
-          count: 1800
+          count: 7200
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376659,7 +378400,7 @@
           count: 3
       - item:
           stardust: true
-          count: 3600
+          count: 14400
       rewardTrack: PREMIUM
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_23_FREE
   data:
@@ -376669,7 +378410,7 @@
       reward:
       - item:
           stardust: true
-          count: 900
+          count: 3600
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376677,7 +378418,7 @@
           count: 3
       - item:
           stardust: true
-          count: 1800
+          count: 7200
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_23_PREMIUM
   data:
     templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_23_PREMIUM
@@ -376686,7 +378427,7 @@
       reward:
       - item:
           stardust: true
-          count: 1800
+          count: 7200
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376694,7 +378435,7 @@
           count: 3
       - item:
           stardust: true
-          count: 3600
+          count: 14400
       rewardTrack: PREMIUM
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_24_FREE
   data:
@@ -376704,7 +378445,7 @@
       reward:
       - item:
           stardust: true
-          count: 900
+          count: 3600
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376712,7 +378453,7 @@
           count: 3
       - item:
           stardust: true
-          count: 1800
+          count: 7200
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_24_PREMIUM
   data:
     templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_24_PREMIUM
@@ -376721,7 +378462,7 @@
       reward:
       - item:
           stardust: true
-          count: 1800
+          count: 7200
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376729,7 +378470,7 @@
           count: 3
       - item:
           stardust: true
-          count: 3600
+          count: 14400
       rewardTrack: PREMIUM
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_2_FREE
   data:
@@ -376739,7 +378480,7 @@
       reward:
       - item:
           stardust: true
-          count: 330
+          count: 1320
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376747,7 +378488,7 @@
           count: 3
       - item:
           stardust: true
-          count: 660
+          count: 2640
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_2_PREMIUM
   data:
     templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_2_PREMIUM
@@ -376756,7 +378497,7 @@
       reward:
       - item:
           stardust: true
-          count: 660
+          count: 2640
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376764,7 +378505,7 @@
           count: 3
       - item:
           stardust: true
-          count: 1320
+          count: 5280
       rewardTrack: PREMIUM
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_3_FREE
   data:
@@ -376774,7 +378515,7 @@
       reward:
       - item:
           stardust: true
-          count: 330
+          count: 1320
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376782,7 +378523,7 @@
           count: 3
       - item:
           stardust: true
-          count: 660
+          count: 2640
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_3_PREMIUM
   data:
     templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_3_PREMIUM
@@ -376791,7 +378532,7 @@
       reward:
       - item:
           stardust: true
-          count: 660
+          count: 2640
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376799,7 +378540,7 @@
           count: 3
       - item:
           stardust: true
-          count: 1320
+          count: 5280
       rewardTrack: PREMIUM
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_4_FREE
   data:
@@ -376809,7 +378550,7 @@
       reward:
       - item:
           stardust: true
-          count: 370
+          count: 1480
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376817,7 +378558,7 @@
           count: 3
       - item:
           stardust: true
-          count: 740
+          count: 2960
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_4_PREMIUM
   data:
     templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_4_PREMIUM
@@ -376826,7 +378567,7 @@
       reward:
       - item:
           stardust: true
-          count: 740
+          count: 2960
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376834,7 +378575,7 @@
           count: 3
       - item:
           stardust: true
-          count: 1480
+          count: 5920
       rewardTrack: PREMIUM
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_5_FREE
   data:
@@ -376867,7 +378608,7 @@
       reward:
       - item:
           stardust: true
-          count: 400
+          count: 1600
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376875,7 +378616,7 @@
           count: 3
       - item:
           stardust: true
-          count: 800
+          count: 3200
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_6_PREMIUM
   data:
     templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_6_PREMIUM
@@ -376884,7 +378625,7 @@
       reward:
       - item:
           stardust: true
-          count: 800
+          count: 3200
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376892,7 +378633,7 @@
           count: 3
       - item:
           stardust: true
-          count: 1600
+          count: 6400
       rewardTrack: PREMIUM
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_7_FREE
   data:
@@ -376902,7 +378643,7 @@
       reward:
       - item:
           stardust: true
-          count: 430
+          count: 1720
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376910,7 +378651,7 @@
           count: 3
       - item:
           stardust: true
-          count: 860
+          count: 3440
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_7_PREMIUM
   data:
     templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_7_PREMIUM
@@ -376919,7 +378660,7 @@
       reward:
       - item:
           stardust: true
-          count: 860
+          count: 3440
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376927,7 +378668,7 @@
           count: 3
       - item:
           stardust: true
-          count: 1720
+          count: 6880
       rewardTrack: PREMIUM
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_8_FREE
   data:
@@ -376937,7 +378678,7 @@
       reward:
       - item:
           stardust: true
-          count: 430
+          count: 1720
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376945,7 +378686,7 @@
           count: 3
       - item:
           stardust: true
-          count: 860
+          count: 3440
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_8_PREMIUM
   data:
     templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_8_PREMIUM
@@ -376954,7 +378695,7 @@
       reward:
       - item:
           stardust: true
-          count: 860
+          count: 3440
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376962,7 +378703,7 @@
           count: 3
       - item:
           stardust: true
-          count: 1720
+          count: 6880
       rewardTrack: PREMIUM
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_9_FREE
   data:
@@ -376972,7 +378713,7 @@
       reward:
       - item:
           stardust: true
-          count: 470
+          count: 1880
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376980,7 +378721,7 @@
           count: 3
       - item:
           stardust: true
-          count: 940
+          count: 3760
 - templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_9_PREMIUM
   data:
     templateId: VS_SEEKER_LOOT_PER_WIN_SETTINGS_RANK_9_PREMIUM
@@ -376989,7 +378730,7 @@
       reward:
       - item:
           stardust: true
-          count: 940
+          count: 3760
       - itemRankingLootTableCount: 1
       - pokemonReward: true
       - item:
@@ -376997,7 +378738,7 @@
           count: 3
       - item:
           stardust: true
-          count: 1880
+          count: 7520
       rewardTrack: PREMIUM
 - templateId: VS_SEEKER_POKEMON_REWARDS_FREE
   data:
@@ -377415,9 +379156,9 @@
             min: 10
             max: 15
       - pokemon:
-          pokemonId: KYOGRE
+          pokemonId: GROUDON
           pokemonDisplay:
-            form: KYOGRE_NORMAL
+            form: GROUDON_NORMAL
         unlockedAtRank: 20
         attackIvOverride:
           range:
@@ -377847,9 +379588,9 @@
             min: 10
             max: 15
       - pokemon:
-          pokemonId: KYOGRE
+          pokemonId: GROUDON
           pokemonDisplay:
-            form: KYOGRE_NORMAL
+            form: GROUDON_NORMAL
         unlockedAtRank: 20
         attackIvOverride:
           range:
@@ -379554,9 +381295,15 @@
       sku: bundle.hatchbox2024.1
       category: IAP_CATEGORY_BUNDLE
       sortOrder: 1
-      hidden: true
       spriteId: bundle.general.adventure.1
       title: bundle.xmas.large.1_title
+      skuEnableTime: '2022-10-13T12:00:00'
+      skuDisableTime: '2026-04-20T20:00:00'
+      skuEnableTimeUtcMs: '1665662400000'
+      skuDisableTimeUtcMs: '1776715200000'
+      showDiscountTag: true
+      showStrikethroughPrice: true
+      totalValue: 1910
 - templateId: bundle.hawlucha2025.1
   data:
     templateId: bundle.hawlucha2025.1
@@ -380930,7 +382677,6 @@
       sku: general1.ticket.4
       category: IAP_CATEGORY_GLOBAL_EVENT_TICKET
       sortOrder: 1
-      hidden: true
       spriteId: general1.ticket.4
       title: general1.ticket.4_Riolu0426_title
       skuEnableTime: '2023-01-01T11:00:01'
@@ -380947,7 +382693,6 @@
       sku: general1.ticket.4.giftable
       category: IAP_CATEGORY_GLOBAL_EVENT_TICKET
       sortOrder: 1
-      hidden: true
       spriteId: general1.ticket.4
       title: general1.ticket.4_Riolu0426_title
       skuEnableTime: '2023-01-01T11:00:01'
@@ -381106,6 +382851,7 @@
       sku: general2.ticket.3
       category: IAP_CATEGORY_GLOBAL_EVENT_TICKET
       sortOrder: 2
+      hidden: true
       spriteId: general1.ticket.2
       title: general1.ticket_CD_Tinkatink26_title
       skuEnableTime: '2019-03-14T08:00:00'
@@ -381122,6 +382868,7 @@
       sku: general2.ticket.3.giftable
       category: IAP_CATEGORY_GLOBAL_EVENT_TICKET
       sortOrder: 2
+      hidden: true
       spriteId: general1.ticket.2
       title: general1.ticket_CD_Tinkatink26_title
       skuEnableTime: '2019-03-14T08:00:00'
@@ -381535,14 +383282,40 @@
     templateId: pgorelease.april2_2026_deluxe_event_pass_track_redirect
     iapItemDisplay:
       sku: pgorelease.april2_2026_deluxe_event_pass_track_redirect
+      category: IAP_CATEGORY_GLOBAL_EVENT_TICKET
       sortOrder: 1
-      hidden: true
       title: season_pass_premium_track_title_sustainabilityweek2026
       description: gotour_2025_deluxe_event_pass_track_unlock_description
       skuEnableTime: '2025-04-14T10:00:00'
-      skuDisableTime: '2025-04-22T20:00:00'
+      skuDisableTime: '2026-04-22T20:00:00'
       skuEnableTimeUtcMs: '1744624800000'
-      skuDisableTimeUtcMs: '1745352000000'
+      skuDisableTimeUtcMs: '1776888000000'
+      imageUrl: https://pgorelease-assets.nianticstatic.com/GameDesignAssets%2Fpgo-paid-sustainability-week-2026-nologo.jpg
+- templateId: pgorelease.april2_2026_deluxe_event_pass_track_unlock
+  data:
+    templateId: pgorelease.april2_2026_deluxe_event_pass_track_unlock
+    iapItemDisplay:
+      sku: pgorelease.april2_2026_deluxe_event_pass_track_unlock
+      sortOrder: 1
+      title: season_pass_premium_track_title_sustainabilityweek2026
+      description: gotour_2025_deluxe_event_pass_track_unlock_description
+      skuEnableTime: '2025-04-14T10:00:00'
+      skuDisableTime: '2026-04-22T20:00:00'
+      skuEnableTimeUtcMs: '1744624800000'
+      skuDisableTimeUtcMs: '1776888000000'
+      imageUrl: https://pgorelease-assets.nianticstatic.com/GameDesignAssets%2Fpgo-paid-sustainability-week-2026-nologo.jpg
+- templateId: pgorelease.april2_2026_deluxe_event_pass_track_unlock_plus_points
+  data:
+    templateId: pgorelease.april2_2026_deluxe_event_pass_track_unlock_plus_points
+    iapItemDisplay:
+      sku: pgorelease.april2_2026_deluxe_event_pass_track_unlock_plus_points
+      sortOrder: 1
+      title: season_pass_premium_track_plus_six_ranks_title_sustainabilityweek2026
+      description: event_pass_plus_points_6_ranks_description
+      skuEnableTime: '2025-04-14T10:00:00'
+      skuDisableTime: '2026-04-22T20:00:00'
+      skuEnableTimeUtcMs: '1744624800000'
+      skuDisableTimeUtcMs: '1776888000000'
       imageUrl: https://pgorelease-assets.nianticstatic.com/GameDesignAssets%2Fpgo-paid-sustainability-week-2026-nologo.jpg
 - templateId: pgorelease.bundle.1
   data:
@@ -382317,7 +384090,6 @@
       sku: pgorelease.general1.ticket.4
       category: IAP_CATEGORY_GLOBAL_EVENT_TICKET
       sortOrder: 1
-      hidden: true
       spriteId: general1.ticket.4
       title: general1.ticket.4_Riolu0426_title
       skuEnableTime: '2023-01-01T11:00:03'
@@ -382334,7 +384106,6 @@
       sku: pgorelease.general1.ticket.4.giftable
       category: IAP_CATEGORY_GLOBAL_EVENT_TICKET
       sortOrder: 1
-      hidden: true
       spriteId: general1.ticket.4
       title: general1.ticket.4_Riolu0426_title
       skuEnableTime: '2023-01-01T11:00:03'
@@ -382478,6 +384249,7 @@
       sku: pgorelease.general2.ticket.3
       category: IAP_CATEGORY_GLOBAL_EVENT_TICKET
       sortOrder: 2
+      hidden: true
       spriteId: general1.ticket.2
       title: general1.ticket_CD_Tinkatink26_title
       skuEnableTime: '2019-03-14T08:00:00'
@@ -382494,6 +384266,7 @@
       sku: pgorelease.general2.ticket.3.giftable
       category: IAP_CATEGORY_GLOBAL_EVENT_TICKET
       sortOrder: 2
+      hidden: true
       spriteId: general1.ticket.2
       title: general1.ticket_CD_Tinkatink26_title
       skuEnableTime: '2019-03-14T08:00:00'
