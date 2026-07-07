@@ -134024,7 +134024,7 @@
 - templateId: POKEMON_UPGRADE_OVERRIDE_SETTINGS_V0890_POKEMON_ETERNATUS
   data:
     templateId: POKEMON_UPGRADE_OVERRIDE_SETTINGS_V0890_POKEMON_ETERNATUS
-    pokemonUpgrades:
+    xxxpokemonUpgrades:
       upgradesPerLevel: 2
       allowedLevelsAbovePlayer: 10
       candyCost:
