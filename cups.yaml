@@ -68,8 +68,8 @@
   evolve: true
 - name: halloween
   allowed:
-  - poison
   - bug
+  - poison
   - ghost
   - dark
   - fairy
@@ -80,6 +80,8 @@
   - dark
   banned:
   - gardevoir
+  - zorua
+  - zoroark
 - name: element-remix
   allowed:
   - fire
@@ -274,6 +276,28 @@
   - politoed
   - milotic
   - froslass
+  premier: true
+- name: 2026laic
+a  excluded:
+  - fire
+  - dark
+  - steel
+  - fairy
+  banned:
+  - chansey
+  - snorlaz
+  - furret
+  - wobbuffet
+  - corsola_galarian
+  - kingdra
+  - medicham
+  - altaria
+  - dusclops
+  - jellicent
+  - araquanid
+  - oranguru
+  - annihilape
+  - clodsire
   premier: true
 - name: hisui
   pokemon: !include hisui.yaml
